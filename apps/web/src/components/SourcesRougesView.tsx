@@ -6,16 +6,16 @@ import {
   SOURCE_STATUS_LABEL,
   formatDate,
   formatRelative,
+  isSourceRouge,
+  lastProductionAt,
 } from "./SourcesView";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import RelancerButton, { type RelanceOutcome } from "./RelancerButton";
 import "./sources-rouges.css";
 
-type SourceSante = HealthDetail["sources"]["bySource"][number];
-
 export type SourcesRougesViewProps = {
   detail: HealthDetail | null;
-  /** Registre `GET /api/sources` : apporte l'état de collecte (ok / erreur / attente). */
+  /** Registre `GET /api/sources` : c'est lui qui porte la fraîcheur de chaque flux. */
   sources?: Source[];
   loading?: boolean;
   error?: string | null;
@@ -25,28 +25,21 @@ export type SourcesRougesViewProps = {
   onRetry?: () => void;
 };
 
-function timestamp(value: string | null): number | null {
-  if (!value) return null;
-  const parsed = Date.parse(value);
-  return Number.isNaN(parsed) ? null : parsed;
-}
-
 /**
- * Les sources rouges sont celles que `GET /api/health/detail` classe `red` :
- * plus de 7 jours sans fait, ou jamais de fait. On ne recalcule pas la couleur
- * côté navigateur, et on ne confond pas une source désactivée avec une source
- * muette : les deux figurent dans le compte de 214, mais leur état diffère.
+ * Les sources rouges sont celles qui n'ont rien produit depuis plus de 7 jours,
+ * ou jamais rien produit. Le critère et la date de production viennent de la
+ * vue Sources, pour que les deux écrans ne puissent pas diverger.
  */
-function sourcesRouges(detail: HealthDetail): SourceSante[] {
-  return detail.sources.bySource
-    .filter((s) => s.tone === "red")
+function sourcesRouges(sources: Source[], now: number): Source[] {
+  return sources
+    .filter((s) => isSourceRouge(s, now))
     .sort((a, b) => {
-      const aAt = timestamp(a.lastEventAt);
-      const bAt = timestamp(b.lastEventAt);
+      const aAt = Date.parse(lastProductionAt(a) ?? "");
+      const bAt = Date.parse(lastProductionAt(b) ?? "");
       // Jamais produit d'abord, puis du fait le plus ancien au plus récent.
-      if (aAt === null && bAt === null) return a.name.localeCompare(b.name, "fr");
-      if (aAt === null) return -1;
-      if (bAt === null) return 1;
+      if (Number.isNaN(aAt) && Number.isNaN(bAt)) return a.name.localeCompare(b.name, "fr");
+      if (Number.isNaN(aAt)) return -1;
+      if (Number.isNaN(bAt)) return 1;
       return aAt - bAt || a.name.localeCompare(b.name, "fr");
     });
 }
@@ -59,8 +52,7 @@ export default function SourcesRougesView({
   onRelance,
   onRetry,
 }: SourcesRougesViewProps) {
-  const parId = useMemo(() => new Map(sources.map((s) => [s.id, s])), [sources]);
-  const rouges = useMemo(() => (detail ? sourcesRouges(detail) : []), [detail]);
+  const rouges = useMemo(() => sourcesRouges(sources, Date.now()), [sources]);
 
   if (loading && detail === null) {
     return <section className="sources-rouges"><LoadingSkeleton label="lecture des sources rouges…" /></section>;
@@ -95,17 +87,14 @@ export default function SourcesRougesView({
               <th scope="col">source</th>
               <th scope="col">famille</th>
               <th scope="col">état</th>
-              <th scope="col">dernière collecte</th>
+              <th scope="col">dernier passage</th>
               <th scope="col">dernier événement</th>
               <th scope="col">action</th>
             </tr>
           </thead>
           <tbody>
             {rouges.map((s) => {
-              const registre = parId.get(s.id);
-              const etatCollecte = registre
-                ? SOURCE_STATUS_LABEL[sourceStatus(registre)]
-                : s.enabled ? "habilitée" : "désactivée";
+              const etatCollecte = SOURCE_STATUS_LABEL[sourceStatus(s)];
               return (
                 <tr key={s.id}>
                   <td>{s.name}</td>
@@ -115,11 +104,11 @@ export default function SourcesRougesView({
                       {etatCollecte}{!s.enabled ? " · désactivée" : ""}
                     </span>
                   </td>
-                  <td className="mono" title={formatDate(s.lastCollectedAt)}>
-                    {formatRelative(s.lastCollectedAt)}
+                  <td className="mono" title={formatDate(s.dernierRun ?? null)}>
+                    {formatRelative(s.dernierRun ?? null)}
                   </td>
-                  <td className="mono" title={formatDate(s.lastEventAt)}>
-                    {formatRelative(s.lastEventAt)}
+                  <td className="mono" title={formatDate(s.lastEventAt ?? null)}>
+                    {formatRelative(s.lastEventAt ?? null)}
                   </td>
                   <td>
                     <RelancerButton

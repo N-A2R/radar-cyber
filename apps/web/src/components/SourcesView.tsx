@@ -16,6 +16,7 @@ export const FAMILY_LABEL: Record<string, string> = {
   typosquat: "typosquatting",
   reputation: "réputation",
   cti: "CTI",
+  presse_locale: "presse locale",
 };
 
 const STATUS_LABEL: Record<SourceStatus, string> = {

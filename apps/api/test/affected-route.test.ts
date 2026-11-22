@@ -45,7 +45,7 @@ before(async () => {
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at,
                         source_id, source_url, evidence, org_id, regional, regional_motif)
-     VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,$5,$6,$7::jsonb,$8,true,'rattachement')`,
+     VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,$5,COALESCE($6, 'https://example.invalid/event'),$7::jsonb || '{"run_id":"1"}'::jsonb,$8,true,'rattachement')`,
     [
       `${TAG}:claim`,
       SECRET,

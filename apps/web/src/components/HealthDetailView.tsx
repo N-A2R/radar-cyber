@@ -169,48 +169,6 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
         </table>
       </div>
 
-      <h3>dernière collecte par source</h3>
-      <p className="health-detail__legend">
-        vert : production sous 24 h · orange : 1 à 7 j · rouge : au-delà ou jamais produit
-      </p>
-      <div className="health-detail__scroll">
-        <table className="data">
-          <thead>
-            <tr>
-              <th scope="col">source</th>
-              <th scope="col">famille</th>
-              <th scope="col">dernière collecte</th>
-              <th scope="col">dernier fait</th>
-              <th scope="col">fraîcheur</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sources.bySource.map((s) => (
-              <tr key={s.id}>
-                <td>
-                  {s.name}
-                  {!s.enabled ? " · désactivée" : ""}
-                </td>
-                <td>{FAMILY_LABEL[s.family] ?? s.family}</td>
-                <td className="mono" title={formatDate(s.lastCollectedAt)}>{formatRelative(s.lastCollectedAt)}</td>
-                <td className="mono" title={formatDate(s.lastEventAt)}>{ageLabel(s.ageHours)}</td>
-                <td>
-                  <span className="health-detail__tone" data-tone={s.tone}>
-                    {s.ageHours === null ? "jamais produit" : TONE_LABEL[s.tone]}
-                  </span>
-                </td>
-              </tr>
-            ))}
-            {sources.bySource.length === 0 && (
-              <tr><td colSpan={5}>
-                {onRetry
-                  ? <EmptyState message="aucune source déclarée" actionLabel="Recharger l'état" onAction={onRetry} />
-                  : "aucune source déclarée"}
-              </td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
     </section>
   );
 }

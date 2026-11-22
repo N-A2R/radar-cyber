@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { isoWeek } from "./window.js";
 import { ingestQuery, query } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { canonicalUrl } from "./dedupe.js";
 import { consigner } from "../journal/index.js";
 import { OFFICIAL_SOURCES, type OfficialStatement } from "./model.js";
@@ -38,53 +39,84 @@ export type StoreReport = { inserted: number; duplicates: number };
 export async function storeStatements(items: OfficialStatement[]): Promise<StoreReport> {
   let inserted = 0;
   let duplicates = 0;
-  for (const item of items) {
-    const dedupKey = `official-statement:${createHash("sha256").update(canonicalUrl(item.url)).digest("hex")}`;
-    const result = await ingestQuery(
-      `INSERT INTO event
-         (dedup_key, family, assertion_type, title, observed_at, collected_at, severity,
-          source_id, source_url, evidence, geo_type, regional, regional_motif,
-          valid_at, at, date_source, date_confidence, tlp)
-       VALUES ($1,$2,'ambient_signal',$3,$4,now(),3,$5,$6,$7,'unknown',true,'nouvelle-aquitaine',$4,$4,'published','high','CLEAR')
-       ON CONFLICT (dedup_key) DO NOTHING`,
-      [
-        dedupKey,
-        STATEMENT_FAMILY,
-        item.title,
-        item.publishedAt,
-        item.sourceId,
-        item.url,
-        JSON.stringify({
-          kind: "official_statement",
-          department: item.department,
-          departmentLabel: item.departmentLabel,
-          officialDomain: item.officialDomain,
-          collector: "na-official-statements",
-        }),
-      ],
-    );
-    if (result.rowCount === 1) {
-      inserted += 1;
-      // The admission fact is written with the event, not by a later backfill:
-      // who saw this statement, where, and when are known at insertion time.
-      // The title is deliberately omitted from the journal payload.
-      await consigner({
-        kind: "event.admitted",
-        subject: dedupKey,
-        summary: `${item.sourceId}: official statement admitted`,
-        actor: "collecteur:na-official-statements",
-        payload: {
-          sourceId: item.sourceId,
-          sourceUrl: item.url,
-          department: item.department,
-          collector: "na-official-statements",
-          family: STATEMENT_FAMILY,
-          assertionType: "ambient_signal",
-        },
-        validAt: item.publishedAt,
-      });
-    } else duplicates += 1;
+  // Un run par source citée : il est ouvert avant le premier événement et clos
+  // avec les compteurs réels, pour que chaque ligne cite son collecteur
+  // (migration 206). Les items d'un même éditeur partagent le run.
+  const runs = new Map<string, { id: number; itemsIn: number; itemsNew: number }>();
+  const runFor = async (sourceId: string) => {
+    let run = runs.get(sourceId);
+    if (!run) {
+      run = { id: await openRun(sourceId), itemsIn: 0, itemsNew: 0 };
+      runs.set(sourceId, run);
+    }
+    return run;
+  };
+  const closeAll = async (status: "ok" | "error", error?: string) => {
+    for (const run of runs.values()) {
+      await closeRun(run.id, {
+        status,
+        itemsIn: run.itemsIn,
+        itemsNew: run.itemsNew,
+        ...(error ? { error } : {}),
+      }).catch(() => {});
+    }
+  };
+  try {
+    for (const item of items) {
+      const run = await runFor(item.sourceId);
+      run.itemsIn += 1;
+      const dedupKey = `official-statement:${createHash("sha256").update(canonicalUrl(item.url)).digest("hex")}`;
+      const result = await ingestQuery(
+        `INSERT INTO event
+           (dedup_key, family, assertion_type, title, observed_at, collected_at, severity,
+            source_id, source_url, evidence, geo_type, regional, regional_motif,
+            valid_at, at, date_source, date_confidence, tlp)
+         VALUES ($1,$2,'ambient_signal',$3,$4,now(),3,$5,$6,$7,'unknown',true,'nouvelle-aquitaine',$4,$4,'published','high','CLEAR')
+         ON CONFLICT (dedup_key) DO NOTHING`,
+        [
+          dedupKey,
+          STATEMENT_FAMILY,
+          item.title,
+          item.publishedAt,
+          item.sourceId,
+          item.url,
+          JSON.stringify(withRunId({
+            kind: "official_statement",
+            department: item.department,
+            departmentLabel: item.departmentLabel,
+            officialDomain: item.officialDomain,
+            collector: "na-official-statements",
+          }, run.id)),
+        ],
+      );
+      if (result.rowCount === 1) {
+        inserted += 1;
+        run.itemsNew += 1;
+        // The admission fact is written with the event, not by a later backfill:
+        // who saw this statement, where, and when are known at insertion time.
+        // The title is deliberately omitted from the journal payload.
+        await consigner({
+          kind: "event.admitted",
+          subject: dedupKey,
+          summary: `${item.sourceId}: official statement admitted`,
+          actor: "collecteur:na-official-statements",
+          payload: {
+            sourceId: item.sourceId,
+            sourceUrl: item.url,
+            department: item.department,
+            collector: "na-official-statements",
+            family: STATEMENT_FAMILY,
+            assertionType: "ambient_signal",
+          },
+          validAt: item.publishedAt,
+        });
+      } else duplicates += 1;
+    }
+  } catch (error) {
+    await closeAll("error", String((error as Error)?.message ?? error));
+    throw error;
   }
+  await closeAll("ok");
   return { inserted, duplicates };
 }
 

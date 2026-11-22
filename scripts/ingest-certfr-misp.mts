@@ -16,6 +16,7 @@
  */
 import type { CollectContext } from "@radar/shared";
 import { closePools, ingestQuery, query } from "../apps/api/src/db.js";
+import { closeRun, openRun, withRunId } from "../apps/api/src/collecte/runs.js";
 import { admitEvent } from "../apps/api/src/contract/admit.js";
 import {
 	collector, CERTFR_MISP_SOURCE_ID, CERTFR_MISP_MANIFEST_URL,
@@ -42,6 +43,9 @@ async function main(): Promise<void> {
 	const { events, cursor } = await collector.run(ctx);
 	let inscrits = 0;
 	let refuses = 0;
+	// Le run est ouvert avant le premier événement : chaque ligne le cite dans
+	// `evidence.run_id` (migration 206).
+	const runId = await openRun(CERTFR_MISP_SOURCE_ID, "live");
 	for (const candidat of events) {
 		const admission = admitEvent(candidat as unknown as Record<string, unknown>);
 		if (!admission.ok) {
@@ -62,16 +66,13 @@ async function main(): Promise<void> {
 			   tlp = EXCLUDED.tlp, tlp_source = EXCLUDED.tlp_source`,
 			[evenement.dedupKey, evenement.family, evenement.assertionType, evenement.title,
 			 evenement.summary ?? null, evenement.observedAt ?? null, evenement.severity,
-			 evenement.confidence ?? null, evenement.sourceId, evenement.sourceUrl ?? null,
-			 JSON.stringify(evenement.evidence), evenement.geoType, mispDate],
+			 evenement.confidence ?? null, evenement.sourceId,
+			 evenement.sourceUrl ?? `urn:source:${evenement.sourceId}`,
+			 JSON.stringify(withRunId(evenement.evidence, runId)), evenement.geoType, mispDate],
 		);
 		inscrits += rowCount ?? 0;
 	}
-	await ingestQuery(
-		`INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new)
-		 VALUES ($1, now(), 'ok', $2, $3)`,
-		[CERTFR_MISP_SOURCE_ID, Number(cursor?.admitted ?? events.length), inscrits],
-	);
+	await closeRun(runId, { itemsIn: events.length, itemsNew: inscrits });
 
 	const jours = Number(process.env.MISP_DAYS ?? "7");
 	const correlation = await correlaterIndicateursCertfrMisp({

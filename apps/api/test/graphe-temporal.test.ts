@@ -44,8 +44,8 @@ before(async () => {
   ] as const) {
     const inserted = await query<{ id: number }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, valid_at,
-                          source_id, org_id, evidence)
-       VALUES ($1,$2,'observation',$3,$4,$4,$5,$6,$7) RETURNING id`,
+                          source_id, org_id, evidence, source_url)
+       VALUES ($1,$2,'observation',$3,$4,$4,$5,$6,$7::jsonb || '{"run_id":"1"}'::jsonb,'https://example.invalid/event') RETURNING id`,
       [`${TAG}-${key}`, family, `Fait ${key} ${TAG}`, when, TAG, orgId,
         JSON.stringify({ group })],
     );

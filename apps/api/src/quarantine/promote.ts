@@ -23,6 +23,7 @@ import { admitEvent } from "../contract/admit.js";
 import { languageVerdict } from "../collectors/filter.js";
 import { scoreEventPertinence } from "../collectors/pertinence.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
+import { withRunId } from "../collecte/runs.js";
 import { consigner, consignerAvec } from "../journal/index.js";
 import { ecarteeParRegles, REGLE_SIGLE, type TraceRegle } from "../match/regles-precision.js";
 import {
@@ -747,6 +748,17 @@ async function insertClaimEventRow(
   if (!langue.keep) {
     throw new Error(`promotion refusée : langue ${langue.language} absente de RADAR_LANGUAGES`);
   }
+  // Une promotion est un acte d'analyste : elle ouvre son propre run, cité par
+  // l'événement. Le run vit dans le même exécuteur que l'insertion, donc dans
+  // la même transaction quand il y en a une (migration 206).
+  const runRows = await run<{ id: string }>(
+    "INSERT INTO collector_run (source_id, status, kind) VALUES ($1, 'running', 'analyst') RETURNING id",
+    [sourceId],
+  );
+  const runId = Number(runRows.rows[0]?.id);
+  if (!Number.isInteger(runId) || runId <= 0) {
+    throw new Error(`promotion : run analyste non créé pour la source ${sourceId}`);
+  }
   const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, orgId);
   const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, severity, confidence,
        source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif, pertinence_score, pertinence_rule)
@@ -763,8 +775,8 @@ async function insertClaimEventRow(
     event.severity,
     event.confidence ?? "C3",
     event.sourceId,
-    event.sourceUrl ?? null,
-    JSON.stringify(event.evidence ?? {}),
+    event.sourceUrl ?? `urn:source:${sourceId}`,
+    JSON.stringify(withRunId(event.evidence ?? {}, runId)),
     event.geoType,
     orgId,
     row.tlp,
@@ -775,7 +787,20 @@ async function insertClaimEventRow(
     pertinence.score,
     pertinence.rule,
   ];
-  const r = await run<{ id: number; inserted: boolean }>(sql, values);
+  let r: { rows: Array<{ id: number; inserted: boolean }> };
+  try {
+    r = await run<{ id: number; inserted: boolean }>(sql, values);
+  } catch (error) {
+    await run(
+      "UPDATE collector_run SET finished_at=now(), status='error', error=$2 WHERE id=$1",
+      [runId, String((error as Error)?.message ?? error).slice(0, 500)],
+    ).catch(() => {});
+    throw error;
+  }
+  await run(
+    "UPDATE collector_run SET finished_at=now(), status='ok', items_in=1, items_new=$2, items_rejected=$3 WHERE id=$1",
+    [runId, r.rows[0].inserted ? 1 : 0, JSON.stringify({ promotion: 1 })],
+  ).catch(() => {});
   await consignerAvec((sql, params) => run(sql, params as unknown[]), {
     kind: orgId !== null ? "event.rattachement" : "match.decided",
     subject: dedupKey,

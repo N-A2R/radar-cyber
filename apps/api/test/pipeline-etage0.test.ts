@@ -40,8 +40,8 @@ async function makeOrg(): Promise<number> {
 
 async function makeEvent(opts: { orgId?: number | null; family?: string; title?: string } = {}): Promise<number> {
 	const r = await query<{ id: number }>(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence, source_id, geo_type, org_id)
-		 VALUES ($1, $2, 'confirmed_incident', $3, 4, 'A1', $4, 'entity_location', $5) RETURNING id`,
+		`INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence, source_id, geo_type, org_id, source_url, evidence)
+		 VALUES ($1, $2, 'confirmed_incident', $3, 4, 'A1', $4, 'entity_location', $5, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb) RETURNING id`,
 		[next(), opts.family ?? "ransomware", opts.title ?? `Incident ${TAG}`, await sourceId(), opts.orgId ?? null],
 	);
 	// event.id est un bigint : le driver le rend en chaîne, on normalise.

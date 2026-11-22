@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS event (
   source_url     text,
   evidence       jsonb NOT NULL DEFAULT '{}'::jsonb,
   geo_type       text NOT NULL DEFAULT 'unknown', -- entity_location | hosting_estimate | claimed_origin | unknown
+  dept           text,                         -- code INSEE du département éditeur (presse_locale)
   lat            double precision,
   lon            double precision,
   org_id         integer REFERENCES org(id) ON DELETE SET NULL,
@@ -73,6 +74,7 @@ CREATE TABLE IF NOT EXISTS event (
 CREATE INDEX IF NOT EXISTS event_observed_idx ON event (observed_at DESC);
 CREATE INDEX IF NOT EXISTS event_org_idx ON event (org_id, observed_at DESC);
 CREATE INDEX IF NOT EXISTS event_family_idx ON event (family, observed_at DESC);
+CREATE INDEX IF NOT EXISTS event_presse_locale_dept_idx ON event (dept, observed_at DESC) WHERE family = 'presse_locale' AND dept IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS relation (
   id            bigserial PRIMARY KEY,

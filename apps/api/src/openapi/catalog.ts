@@ -104,6 +104,7 @@ export const ReviewBody = z.object({
 export const OPERATIONS: Operation[] = [
   { method: "get", path: "/health", operationId: "getHealth", summary: "Santé de l'API et nombre de sources", tag: "Système", response: "Health", security: "public" },
   { method: "get", path: "/health/detail", operationId: "getHealthDetail", summary: "État détaillé des collecteurs et des sources", tag: "Système", response: "HealthDetail", security: "public" },
+  { method: "get", path: "/health/sources", operationId: "getHealthSources", summary: "Page du tableau des sources (écran Santé)", tag: "Système", response: "HealthSources", security: "public" },
   { method: "get", path: "/health/causes", operationId: "getHealthCauses", summary: "Causes des sources en échec", tag: "Système", response: "Stats", security: "public" },
 
   { method: "get", path: "/events", operationId: "getEvents", summary: "Événements filtrés et paginés", tag: "Événements", response: "EventRows", security: "public-or-session", query: EventsQuery },
