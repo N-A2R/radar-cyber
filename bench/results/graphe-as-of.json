@@ -1,0 +1,27 @@
+{
+  "command": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar pnpm mesure:graphe-as-of",
+  "measuredAt": "2026-11-22T03:03:34.789Z",
+  "objective": {
+    "description": "3-year temporal graph query",
+    "budgetMs": 100
+  },
+  "window": {
+    "from": "2023-11-22T00:00:00.000Z",
+    "to": "2026-11-22T00:00:00.000Z",
+    "years": 3
+  },
+  "baseline": {
+    "orgs": 1673151,
+    "sources": 312,
+    "events": 26259,
+    "relations": 81171
+  },
+  "samples": 37,
+  "latencyMs": {
+    "p50": 38.67,
+    "p95": 60.18,
+    "max": 67.31
+  },
+  "objectiveMet": true,
+  "index": "graph_relation_period_idx"
+}
