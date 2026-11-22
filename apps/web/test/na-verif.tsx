@@ -75,6 +75,12 @@ const baseProps = {
 		JSON.stringify(overview.total.deptsSansEvenement),
 	);
 	check("Gironde affiche ses événements", html.includes("4 événements"), "");
+	// La couleur n'est plus un bleu muet : une légende chiffrée la décode.
+	check("légende chiffrée sous la carte", html.includes("na-legende") && html.includes("échelle racine carrée"), "");
+	check("légende : zéro nommé, niveaux chiffrés", html.includes("0 événement") && /na-niveau-[1-5]/.test(html), "");
+	const boutonsCarte = (html.match(/role="button" tabindex="0"/g) ?? []).length;
+	check("douze départements sélectionnables au clavier", boutonsCarte === 12, `${boutonsCarte} boutons`);
+	check("chaque département porte un nom accessible", (html.match(/aria-label="[^"]* événe/g) ?? []).length >= 12, "");
 }
 
 // 2. Filtre département appliqué (Landes, à zéro).
@@ -87,7 +93,11 @@ const baseProps = {
 		"",
 	);
 	check("le référentiel reste visible dans l'état vide", html.includes("référentiel"), "");
-	check("liste régionale retirée quand un dept est filtré", !html.includes('class="na-ligne" data-dept'), "");
+	check(
+		"ligne du département filtré marquée dans la liste",
+		html.includes('class="na-ligne na-ligne-actif" data-dept="40"') && html.includes('aria-current="true"'),
+		"",
+	);
 }
 
 // 3. Filtre département avec organisations touchées (Gironde).
