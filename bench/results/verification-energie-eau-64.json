@@ -1,0 +1,539 @@
+{
+  "secteur": "energie-eau",
+  "departement": "64",
+  "date": "2026-11-22",
+  "sources": 22,
+  "urls_verifiees": 66,
+  "urls_http_200": 66,
+  "urls_uniques": 64,
+  "urls": [
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/pau_64483/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 265
+    },
+    {
+      "url": "https://eau-grandsudouest.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 3135
+    },
+    {
+      "url": "https://eau-grandsudouest.fr/actualites",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1608
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 444
+    },
+    {
+      "url": "https://le64.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 197
+    },
+    {
+      "url": "https://le64.fr/liste-publications/eau-environnement",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 329
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%C3%89nergie%20d%27ici%20Arudy&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 9,
+      "ms": 87
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=B%C3%A9arn%20Nouvelles%20%C3%89nergies&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 18,
+      "ms": 74
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CMA%2064%20energie%20batiment&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 1,
+      "ms": 55
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Communaut%C3%A9%20Pays%20Basque%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 40,
+      "ms": 101
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=EDF%20Pyr%C3%A9n%C3%A9es-Atlantiques%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 16,
+      "ms": 88
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Enedis%20Pyr%C3%A9n%C3%A9es-Atlantiques&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 34,
+      "ms": 104
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=France%203%20Pyr%C3%A9n%C3%A9es-Atlantiques%20eau%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 78,
+      "ms": 161
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Pau%20Agglom%C3%A9ration%20eau%20%C3%A9nergie&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 10,
+      "ms": 83
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Pyren%27eau%20eau%20potable%20Pyr%C3%A9n%C3%A9es-Atlantiques&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 22,
+      "ms": 117
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SIGOM%20Gaves%20Oloron&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 10,
+      "ms": 93
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=actu.fr%20Pau%20eau%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 35,
+      "ms": 131
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=d%C3%A9partement%2064%20eau%20%C3%A9nergie&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 22,
+      "ms": 116
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=eau%20Adour%20Garonne%20Pyr%C3%A9n%C3%A9es-Atlantiques&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 10,
+      "ms": 71
+    },
+    {
+      "url": "https://pa.chambres-agriculture.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 452
+    },
+    {
+      "url": "https://pa.chambres-agriculture.fr/actualites-1",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 622
+    },
+    {
+      "url": "https://pa.chambres-agriculture.fr/actus-CA64.rss",
+      "code": 200,
+      "ct": "text/xml",
+      "items": 10,
+      "ms": 346
+    },
+    {
+      "url": "https://pau.cci.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 2388
+    },
+    {
+      "url": "https://pau.cci.fr/?post_type=post",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 3009
+    },
+    {
+      "url": "https://pau.cci.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml",
+      "items": 10,
+      "ms": 1943
+    },
+    {
+      "url": "https://pyreneau.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1291
+    },
+    {
+      "url": "https://pyreneau.fr/category/informations-speciales/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1161
+    },
+    {
+      "url": "https://smeatc.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1209
+    },
+    {
+      "url": "https://smeatc.fr/category/actualites/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1286
+    },
+    {
+      "url": "https://smeatc.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml",
+      "items": 10,
+      "ms": 993
+    },
+    {
+      "url": "https://www.aster-bearn.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1056
+    },
+    {
+      "url": "https://www.aster-bearn.fr/feed/",
+      "code": 200,
+      "ct": "text/xml",
+      "items": 1,
+      "ms": 1016
+    },
+    {
+      "url": "https://www.aster-bearn.fr/nos-actualites/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1035
+    },
+    {
+      "url": "https://www.bearn-nouvelles-energies.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1374
+    },
+    {
+      "url": "https://www.bearn-nouvelles-energies.fr/nos-realisations/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 673
+    },
+    {
+      "url": "https://www.cma64.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 19435
+    },
+    {
+      "url": "https://www.cma64.fr/a-cote-de-chez-vous/actualites",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1177
+    },
+    {
+      "url": "https://www.communaute-paysbasque.fr/actualites/toutes-les-actualites",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 244
+    },
+    {
+      "url": "https://www.communaute-paysbasque.fr/eau-environnement-energies",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1342
+    },
+    {
+      "url": "https://www.edf.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 272
+    },
+    {
+      "url": "https://www.edf.fr/groupe-edf/espaces-dedies/journalistes/actualites",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 275
+    },
+    {
+      "url": "https://www.enedis.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 180
+    },
+    {
+      "url": "https://www.enedis.fr/presse",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1230
+    },
+    {
+      "url": "https://www.energiedici.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 102
+    },
+    {
+      "url": "https://www.energiedici.fr/espace-presse.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 414
+    },
+    {
+      "url": "https://www.enr64.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 508
+    },
+    {
+      "url": "https://www.enr64.fr/categorie/actualites/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 458
+    },
+    {
+      "url": "https://www.enr64.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml",
+      "items": 1,
+      "ms": 406
+    },
+    {
+      "url": "https://www.franceenergieeolienne.fr/",
+      "code": 0,
+      "ct": "",
+      "items": 0,
+      "ms": 2,
+      "err": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "url": "https://www.franceenergieeolienne.fr/actualites/",
+      "code": 0,
+      "ct": "",
+      "items": 0,
+      "ms": 2,
+      "err": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "url": "https://www.franceenergieeolienne.fr/feed/",
+      "code": 0,
+      "ct": "",
+      "items": 0,
+      "ms": 1,
+      "err": "<urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "url": "https://www.ici.fr/radio/bearn",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 271
+    },
+    {
+      "url": "https://www.ici.fr/radio/bearn/actu",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 418
+    },
+    {
+      "url": "https://www.ici.fr/radio/pays-basque",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1218
+    },
+    {
+      "url": "https://www.ici.fr/radio/pays-basque/actu",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 553
+    },
+    {
+      "url": "https://www.ici.fr/rss/bearn/rubrique/infos.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 20,
+      "ms": 336
+    },
+    {
+      "url": "https://www.ici.fr/rss/pays-basque/rubrique/infos.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 20,
+      "ms": 1163
+    },
+    {
+      "url": "https://www.lasemainedespyrenees.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 107
+    },
+    {
+      "url": "https://www.lasemainedespyrenees.fr/category/a-la-une/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 399
+    },
+    {
+      "url": "https://www.lasemainedespyrenees.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml",
+      "items": 10,
+      "ms": 240
+    },
+    {
+      "url": "https://www.pau.fr/",
+      "code": 404,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 88
+    },
+    {
+      "url": "https://www.pau.fr/actualites-infos-pratiques-evenements-suivez-pau-au-quotidien",
+      "code": 404,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 64
+    },
+    {
+      "url": "https://www.pyrenees-solar.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 219
+    },
+    {
+      "url": "https://www.pyrenees-solar.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml",
+      "items": 8,
+      "ms": 1718
+    },
+    {
+      "url": "https://www.pyrenees-solar.fr/nos-agences/agence-pau/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 142
+    },
+    {
+      "url": "https://www.sigom.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1646
+    },
+    {
+      "url": "https://www.sigom.fr/accueil/actualites/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1606
+    },
+    {
+      "url": "https://www.sudouest.fr/",
+      "code": 302,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1577
+    },
+    {
+      "url": "https://www.sudouest.fr/environnement/",
+      "code": 302,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1376
+    },
+    {
+      "url": "https://www.sudouest.fr/environnement/rss.xml",
+      "code": 302,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 235
+    },
+    {
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/pau/",
+      "code": 302,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 1558
+    },
+    {
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/pau/rss.xml",
+      "code": 302,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 277
+    },
+    {
+      "url": "https://www.te64.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 768
+    },
+    {
+      "url": "https://www.te64.fr/actualites/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 670
+    },
+    {
+      "url": "https://www.te64.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml",
+      "items": 24,
+      "ms": 981
+    }
+  ]
+}

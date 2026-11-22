@@ -36,6 +36,9 @@ import {
 	nomDeLieu,
 } from "./generique.js";
 import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex, construireIndexTrie } from "./index-compact.js";
+import {
+	estUneFaute, hasBrandCue, isBenignOnly, isSubjectMention, nearTokens, positionOfAlias, TERRITORIAL_ROLES,
+} from "./context-resolution.js";
 
 export type GazetteerOrg = {
 	id: number;
@@ -96,6 +99,10 @@ export type Gazetteer = {
 	 * coopérative parmi quarante-huit.
 	 */
 	curatedOrgsByAliasKey: Map<string, Set<number>>;
+	/** Territorial roles ("department of …"): decide only when the institution is the subject. */
+	territorialRoleKeys: Set<string>;
+	/** Unique one-word brands: usable only with an explicit organization cue. */
+	brandsByKey: Map<string, GazetteerOrg[]>;
 };
 
 export type MatchReason =
@@ -107,7 +114,8 @@ export type MatchReason =
 	| "lieu-contredit"
 	| "ambigu"
 	| "ambiant"
-	| "aucun";
+	| "aucun"
+	| "fuzzy";
 
 export type GazetteerMatch = {
 	org: GazetteerOrg | null;
@@ -254,6 +262,8 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	const lieuKeys = new Set<string>();
 	const lieuTokens = new Set<string>();
 	const roleTokens = new Set<string>();
+	const territorialRoleKeys = new Set<string>();
+	const brandsParCle = new Map<string, GazetteerOrg[]>();
 
 	// Pré-passe : deux jugements se prennent sur l'ensemble des lignes, pas
 	// ligne par ligne — combien d'organisations portent cette clé d'alias, et
@@ -314,7 +324,17 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// muette sur cinq incidents où l'organisation est pourtant en base.
 		// « Intermarché » (182 porteurs) et « Orange » (54) restent dehors :
 		// leur ambiguïté est réelle, pas un défaut de la garde.
-		if (!role && lieu.split(" ").length < 2) {
+		// A unique one-word brand is indexed separately: it may only decide
+		// when the text explicitly calls it a company or an institution.
+		if (
+			jetons.length === 1 && !clesAmbigues.has(cle) && !clesTerritoire.has(cle)
+			&& !CLES_DEPARTEMENTS.has(cle) && GENERIQUES.has(jetons[0] as string) !== true
+			&& row.source !== "sirene-nom"
+		) {
+			const org = orgs.get(row.org_id);
+			if (org) brandsParCle.set(cle, [org]);
+		}
+		if (!role && !commenceParUnRole(jetons) && lieu.split(" ").length < 2) {
 			const unique = !clesAmbigues.has(cle);
 			// Seule une source qui *nomme* l'organisation peut trancher sur un mot
 			// seul : alias posés à la main (`usage`) ou annuaire officiel des
@@ -351,10 +371,12 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// « mairie de »), son nom est celui d'un lieu — il reste consultable,
 		// mais il ne tranche aucun rattachement.
 		const territoire = TERRITOIRES.has(row.sector ?? "");
+		const roleTerritorial = TERRITORIAL_ROLES[jetons[0] as string] === true;
 		// Le rôle se lit sur le nom **légal** de l'organisation, pas sur l'alias.
 		// « Département de la Gironde » est un territoire dont le nom porte un
 		// rôle ; une entreprise dont l'alias est « Société X » n'en est pas un.
-		const roleLieu = role && TERRITOIRES.has(row.sector ?? "");
+		const roleLieu = (role || roleTerritorial) && TERRITOIRES.has(row.sector ?? "");
+		if (roleTerritorial) territorialRoleKeys.add(cle);
 		if (territoire && !roleLieu) {
 			lieuKeys.add(cle);
 			lieuTokens.add(jetons[0] as string);
@@ -395,6 +417,8 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		byAliasKey: new CarteIndexee(indexAlias, (ids) => Array.from(ids, (id) => orgs.get(id) as GazetteerOrg)),
 		aliasKeysByFirstToken: new CartePremiersJetons(indexAlias.cles),
 		roleKeys,
+		territorialRoleKeys,
+		brandsByKey: brandsParCle,
 		lieuKeys,
 		lieuTokens,
 		roleTokens,
@@ -406,7 +430,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 }
 
 /** Tous les alias qui apparaissent dans `jetons`, en gardant le plus long par position. */
-type Frappe = { cle: string; orgs: GazetteerOrg[]; taille: number };
+type Frappe = { cle: string; orgs: GazetteerOrg[]; taille: number; approche?: boolean };
 
 /**
  * Particules qui ne portent aucun sens et ne servent qu'à joindre.
@@ -457,6 +481,54 @@ function aliasFrappes(gaz: Gazetteer, jetons: readonly string[]): Frappe[] {
 			if (!orgs) continue;
 			frappes.push({ cle: c.cle, orgs, taille: c.taille });
 			break;
+		}
+	}
+	return frappes;
+}
+
+/**
+ * Bounded typo recovery. Only alias keys whose first token is already present
+ * (or one bounded near miss away) are examined: no scan of the alias index.
+ * A near alias decides only when it names one organization unambiguously.
+ * Up to two tokens may drift by one edit each: long official names and a
+ * second slip in the same mention were still left unattributed.
+ */
+function aliasFrappesApprochees(gaz: Gazetteer, jetons: readonly string[]): Frappe[] {
+	const frappes: Frappe[] = [];
+	const vues = new Set<string>();
+	const max = gaz.maxTokens;
+	for (let debut = 0; debut < jetons.length; debut++) {
+		const token = jetons[debut] as string;
+		const premiers = [token, ...nearTokens(token)];
+		for (const premier of premiers) {
+			const marque = gaz.brandsByKey.get(premier);
+			if (premier !== token && marque && !vues.has(premier)) {
+				vues.add(premier);
+				frappes.push({ cle: premier, orgs: marque, taille: 1, approche: true });
+			}
+			const cles = gaz.aliasKeysByFirstToken.get(premier);
+			if (!cles) continue;
+			for (const cle of cles) {
+				const alias = cle.split(" ");
+				if (alias.length > max || debut + alias.length > jetons.length) continue;
+				let ecarts = 0;
+				let ok = true;
+				for (let i = 0; i < alias.length; i++) {
+					const observe = jetons[debut + i] as string;
+					if (observe === alias[i]) continue;
+					if (ecarts < 2 && estUneFaute(observe, alias[i] as string)) {
+						ecarts++;
+						continue;
+					}
+					ok = false;
+					break;
+				}
+				if (!ok || ecarts === 0 || vues.has(cle)) continue;
+				const orgs = gaz.byAliasKey.get(cle);
+				if (!orgs || orgs.length !== 1 || gaz.lieuKeys.has(cle)) continue;
+				vues.add(cle);
+				frappes.push({ cle, orgs, taille: alias.length, approche: true });
+			}
 		}
 	}
 	return frappes;
@@ -543,16 +615,34 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 	if (jetons.length === 0) {
 		return { org: null, reason: "aucun", alias: null, confidence: 0, tied: [] };
 	}
+	// A sponsored salon or a power cut is not an attribution to a victim.
+	if (isBenignOnly(jetons)) {
+		return { org: null, reason: "ambiant", alias: null, confidence: 0, tied: [] };
+	}
 
-	const frappes = aliasFrappes(gaz, jetons);
+	let frappes = aliasFrappes(gaz, jetons);
+	if (frappes.length === 0) frappes = aliasFrappesApprochees(gaz, jetons);
+	if (hasBrandCue(jetons)) {
+		for (const jeton of jetons) {
+			const orgs = gaz.brandsByKey.get(jeton);
+			if (!orgs || frappes.some((f) => f.cle === jeton)) continue;
+			frappes.push({ cle: jeton, orgs, taille: 1 });
+		}
+	}
 	if (frappes.length === 0) {
 		return { org: null, reason: "aucun", alias: null, confidence: 0, tied: [] };
 	}
 
 	// Un alias portant un rôle (« ville de Tarnos ») l'emporte sur un nom propre
 	// seul : c'est le texte lui-même qui dit qu'il s'agit de la collectivité.
-	const avecRole = frappes.filter((f) => gaz.roleKeys.has(f.cle));
-	const retenues = avecRole.length > 0 ? avecRole : frappes;
+	const autorisees = frappes.filter(
+		(f) => !gaz.territorialRoleKeys.has(f.cle) || isSubjectMention(jetons, f.cle.split(" ")),
+	);
+	if (autorisees.length === 0) {
+		return { org: null, reason: "aucun", alias: null, confidence: 0, tied: [] };
+	}
+	const avecRole = autorisees.filter((f) => gaz.roleKeys.has(f.cle));
+	const retenues = avecRole.length > 0 ? avecRole : autorisees;
 
 	// Une même organisation peut être atteinte par plusieurs alias ; on ne garde
 	// que la meilleure frappe par organisation (l'alias le plus long).
@@ -581,13 +671,12 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 		const org = gaz.orgsById.get(orgId) ?? null;
 		const frappe = parOrg.get(orgId) as Frappe;
 		const role = gaz.roleKeys.has(frappe.cle);
+		const approche = frappe.approche === true;
 		return {
 			org,
-			reason: role ? "alias-role" : "alias-distinctif",
+			reason: role ? "alias-role" : approche ? "fuzzy" : "alias-distinctif",
 			alias: frappe.cle,
-			// Un alias distinctif de deux jetons est déjà une preuve : les noms de
-			// lieu nus sont écartés de l'index, donc il s'agit d'un nom propre.
-			confidence: role ? 0.95 : frappe.taille >= 2 ? 0.9 : 0.75,
+			confidence: role ? 0.95 : approche ? 0.6 : frappe.taille >= 2 ? 0.9 : 0.75,
 			tied: [],
 		};
 	}
@@ -646,9 +735,25 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 		const seul = meilleurs[0] as (typeof meilleurs)[number];
 		return {
 			org: seul.org,
-			reason: departage.length > 0 ? motif : "alias-distinctif",
+			reason: departage.length > 0 ? motif : seul.frappe.approche ? "fuzzy" : "alias-distinctif",
 			alias: seul.frappe.cle,
-			confidence: departage.length > 0 ? 0.85 : 0.8,
+			confidence: departage.length > 0 ? 0.85 : seul.frappe.approche ? 0.6 : 0.8,
+			tied: [],
+		};
+	}
+
+	// Two different aliases in the same sentence are two named organizations:
+	// the first one named is the sentence's subject. An ambiguous alias shared
+	// by several organizations is different — there is no first mention there.
+	if (meilleurs.length > 1 && new Set(meilleurs.map((c) => c.frappe.cle)).size === meilleurs.length) {
+		const premier = meilleurs.reduce((a, b) =>
+			positionOfAlias(jetons, b.frappe.cle.split(" ")) < positionOfAlias(jetons, a.frappe.cle.split(" ")) ? b : a,
+		);
+		return {
+			org: premier.org,
+			reason: "alias-distinctif",
+			alias: premier.frappe.cle,
+			confidence: 0.8,
 			tied: [],
 		};
 	}

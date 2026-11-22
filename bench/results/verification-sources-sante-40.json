@@ -1,0 +1,742 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-40.jsonl",
+  "secteur": "santé",
+  "departement": "40",
+  "methode": "GET réel avec redirections suivies et cookies conservés (scripts/verifier-sources.mts), User-Agent navigateur, délai 25 s ; code HTTP, type de contenu et items RSS enregistrés",
+  "sources": 29,
+  "urls_verifiees": 81,
+  "urls_200": 81,
+  "detail": [
+    {
+      "nom": "CHI Mont de Marsan – Pays des Sources",
+      "urls": [
+        {
+          "url": "https://www.ch-mt-marsan.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ch-mt-marsan.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.sudouest.fr/landes/dax/cyberattaque-a-l-hopital-de-dax-une-situation-grave-et-complexe-1262809.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Centre hospitalier de Dax – Côte d’Argent",
+      "urls": [
+        {
+          "url": "https://www.ch-dax.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ch-dax.fr/le-fil-info",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/dax_40088/dax-l-hopital-victime-d-une-cyberattaque-on-est-revenu-au-papier-et-au-stylo-lache-un-soignant_39350674.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Centre hospitalier de Saint-Sever",
+      "urls": [
+        {
+          "url": "https://ch-saint-sever.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/dax/cyberattaque-de-l-hopital-de-dax-une-rancon-demandee-pour-decrypter-les-donnees-1950808.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "ARS Nouvelle-Aquitaine — délégation des Landes",
+      "urls": [
+        {
+          "url": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 16
+        },
+        {
+          "url": "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "CPAM des Landes — Assurance Maladie",
+      "urls": [
+        {
+          "url": "https://www.ameli.fr/landes/assure/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ameli.fr/landes/assure/liste-actualites-locales",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Le Bimsa — magazine de la MSA Sud Aquitaine (Landes)",
+      "urls": [
+        {
+          "url": "https://lebimsa.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://lebimsa.fr/vie-pratique/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://lebimsa.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Santé publique France — Nouvelle-Aquitaine",
+      "urls": [
+        {
+          "url": "https://www.santepubliquefrance.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.santepubliquefrance.fr/regions-et-territoires/nouvelle-aquitaine",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.la-croix.com/sante/une-cyberattaque-a-touche-des-chambres-froides-de-l-etablissement-francais-du-sang-20261104",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "PST Landes 40 — Prévention et Santé au Travail",
+      "urls": [
+        {
+          "url": "https://www.pstlandes.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.pstlandes.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.pstlandes.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://avecsantena.fr/cyberattaque-du-logiciel-weda-que-sest-il-passe-et-comment-reagir-pour-une-msp/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Conseil national de l’Ordre des médecins",
+      "urls": [
+        {
+          "url": "https://www.conseil-national.medecin.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.conseil-national.medecin.fr/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Ordre des sages-femmes — conseil départemental 40",
+      "urls": [
+        {
+          "url": "https://www.ordre-sages-femmes.fr/conseil-departemental-40/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/grand-est/marne/reims/cyberattaque-des-donnees-personnelles-de-patients-derobees-au-chu-de-reims-apres-le-piratage-d-un-logiciel-medical-3449217.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Ordre national des infirmiers — publications locales",
+      "urls": [
+        {
+          "url": "https://www.ordre-infirmiers.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ordre-infirmiers.fr/publications-locales",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Ordre national des pharmaciens",
+      "urls": [
+        {
+          "url": "https://www.ordre.pharmacien.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ordre.pharmacien.fr/les-communications/focus-sur/les-actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.la-croix.com/sante/une-cyberattaque-a-touche-des-chambres-froides-de-l-etablissement-francais-du-sang-20261104",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "URPS pharmaciens Nouvelle-Aquitaine",
+      "urls": [
+        {
+          "url": "https://www.urps-pharmaciens-na.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.urps-pharmaciens-na.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "AVECSanté Nouvelle-Aquitaine",
+      "urls": [
+        {
+          "url": "https://avecsantena.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://avecsantena.fr/nos-actus/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://avecsantena.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10
+        },
+        {
+          "url": "https://avecsantena.fr/cyberattaque-du-logiciel-weda-que-sest-il-passe-et-comment-reagir-pour-une-msp/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Mutualité française Nouvelle-Aquitaine",
+      "urls": [
+        {
+          "url": "https://nouvelle-aquitaine.mutualite.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://www.la-croix.com/sante/une-cyberattaque-a-touche-des-chambres-froides-de-l-etablissement-francais-du-sang-20261104",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "FHF Nouvelle-Aquitaine — Fédération hospitalière de France",
+      "urls": [
+        {
+          "url": "https://fhf-na.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://fhf-na.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://fhf-na.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://www.sudouest.fr/premium/dans-vos-departements/cyberattaque-les-solutions-utilisees-par-le-chu-de-bordeaux-pour-resister-au-virus-wannacry-3458322.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "FHP Nouvelle-Aquitaine — Fédération des hôpitaux privés",
+      "urls": [
+        {
+          "url": "https://fhp.fr/la-federation/les-fhp-regions/nouvelle-aquitaine/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://fhp.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://fhp.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://www.lefigaro.fr/secteur/high-tech/cyberattaque-une-clinique-privee-sanctionnee-d-une-amende-de-500-000-euros-apres-un-vol-de-donnees-20260903",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "CCI des Landes",
+      "urls": [
+        {
+          "url": "https://www.landes.cci.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.landes.cci.fr/presse/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/dax/cyberattaque-de-l-hopital-de-dax-une-rancon-demandee-pour-decrypter-les-donnees-1950808.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Ville de Mont-de-Marsan — actualités",
+      "urls": [
+        {
+          "url": "https://www.montdemarsan.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.montdemarsan.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.sudouest.fr/landes/dax/cyberattaque-a-l-hopital-de-dax-une-situation-grave-et-complexe-1262809.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Ville de Dax — actualités",
+      "urls": [
+        {
+          "url": "https://www.dax.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.dax.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.dax.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://www.ici.fr/infos/faits-divers-justice/l-hopital-de-dax-au-ralenti-apres-une-importante-attaque-informatique-1612891841",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Annuaire des maisons de santé des Landes",
+      "urls": [
+        {
+          "url": "https://www.sante-landes.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Sud Ouest — édition Landes",
+      "urls": [
+        {
+          "url": "https://www.sudouest.fr/landes/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.sudouest.fr/sante/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.sudouest.fr/landes/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        },
+        {
+          "url": "https://www.sudouest.fr/landes/dax/cyberattaque-a-l-hopital-de-dax-une-situation-grave-et-complexe-1262809.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "actu.fr — Actu Landes (40)",
+      "urls": [
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/landes_40",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://actu.fr/landes/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/dax_40088/dax-l-hopital-victime-d-une-cyberattaque-on-est-revenu-au-papier-et-au-stylo-lache-un-soignant_39350674.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "ICI Landes / ICI Gascogne (ex-France Bleu)",
+      "urls": [
+        {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/landes-40",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ici.fr/infos/sante-sciences",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        },
+        {
+          "url": "https://www.ici.fr/infos/faits-divers-justice/l-hopital-de-dax-au-ralenti-apres-une-importante-attaque-informatique-1612891841",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Landes",
+      "urls": [
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/societe/sante",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 30
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/dax/cyberattaque-de-l-hopital-de-dax-une-rancon-demandee-pour-decrypter-les-donnees-1950808.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Le Parisien — édition Landes (40)",
+      "urls": [
+        {
+          "url": "https://www.leparisien.fr/landes-40/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://feeds.leparisien.fr/leparisien/rss/landes-40",
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items_rss": 100
+        },
+        {
+          "url": "https://www.sudouest.fr/landes/dax/cyberattaque-a-l-hopital-de-dax-une-situation-grave-et-complexe-1262809.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "FGL — Fréquence Grands Lacs (Nord Landes)",
+      "urls": [
+        {
+          "url": "https://www.frequencegrandslacs.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        {
+          "url": "https://frequencegrandslacs.fr/actu.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/dax/cyberattaque-de-l-hopital-de-dax-une-rancon-demandee-pour-decrypter-les-donnees-1950808.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Wave Radio 89.8 (Hossegor, Landes)",
+      "urls": [
+        {
+          "url": "https://waveradio.fm/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://waveradio.fm/news/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://waveradio.fm/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/dax/cyberattaque-de-l-hopital-de-dax-une-rancon-demandee-pour-decrypter-les-donnees-1950808.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "TV Landes / landes-info.fr",
+      "urls": [
+        {
+          "url": "https://www.landes-info.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.landes-info.fr/feed/",
+          "code": 200,
+          "type": "text/xml;charset=UTF-8",
+          "items_rss": 10
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/dax/cyberattaque-de-l-hopital-de-dax-une-rancon-demandee-pour-decrypter-les-donnees-1950808.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      ]
+    }
+  ],
+  "candidats_ecartes": [
+    "https://www.ch-montdemarsan.fr/ et variantes (chmdm.fr, hopital-montdemarsan.fr) : DNS sans réponse ; le site actif est https://www.ch-mt-marsan.fr/ (HTTP 200).",
+    "https://www.ch-saint-sever.fr/ : erreur TLS 526 ; le domaine nu https://ch-saint-sever.fr/ répond en HTTP 200.",
+    "https://www.landes.fr/actualites (Conseil départemental des Landes) : HTTP 403 (bouclier anti-bot) — non retenu.",
+    "https://actu.fr/nouvelle-aquitaine/landes_40/rss.xml : HTTP 200 mais corps sans item RSS exploitable — flux non retenu, page départementale conservée.",
+    "https://www.sudouest.fr/landes/sante/ : HTTP 404 ; la rubrique santé nationale https://www.sudouest.fr/sante/ (200) est retenue.",
+    "https://landes.cci.fr/feed/ : HTTP 500 ; le fil presse https://www.landes.cci.fr/presse/ (200) est retenu.",
+    "https://www.cpam-landes.fr/, https://www.msa-landes.fr/, https://www.urml-na.fr/, https://www.medecins-landes.fr/ : domaines sans réponse DNS."
+  ]
+}
