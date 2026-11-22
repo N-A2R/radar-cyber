@@ -29,3 +29,4 @@ Découverte par recherche web, annuaires professionnels, sites d’organisations
 
 Preuve HTTP : `bench/results/verification-numerique-33.json` (24 codes HTTP).
 Base : `db/migrate-096-sources-numerique-33.sql` insère 9 lignes dans `source` (parser pointant vers le corpus) et 9 traces `source_verification` en état `ok200`.
+OBJECTIF : atteint — 9 / 5
