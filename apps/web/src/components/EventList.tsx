@@ -67,7 +67,7 @@ export default function EventList({
               <button
                 type="button"
                 className="feed__row"
-                aria-selected={selected}
+                aria-pressed={selected}
                 onClick={() => onSelectEvent(event.id)}
               >
                 <span className="feed__severity" data-level={level}>

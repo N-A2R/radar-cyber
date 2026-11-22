@@ -6,7 +6,7 @@
  * English; data values (family names, labels) are displayed as recorded.
  */
 import ForceGraph2D, { type ForceGraphMethods, type LinkObject, type NodeObject } from 'react-force-graph-2d';
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import GraphMatrix from '../components/GraphMatrix';
 import { LoadingSkeleton } from '../components/Skeleton';
 import {
@@ -497,6 +497,16 @@ export default function GraphView(props: GraphViewProps) {
     [visible.nodes],
   );
 
+  function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    const next = event.key === 'Home' || event.key === 'ArrowLeft' ? 'network'
+      : event.key === 'End' || event.key === 'ArrowRight' ? 'matrix'
+      : null;
+    if (next === null) return;
+    event.preventDefault();
+    setMode(next);
+    document.getElementById(next === 'network' ? 'gv-network-tab' : 'gv-matrix-tab')?.focus();
+  }
+
   return (
     <div className="gv-root" style={{ backgroundColor: bg, fontFamily: 'var(--font-body)' }}>
       {props.loading && data.nodes.length === 0 ? (
@@ -504,16 +514,18 @@ export default function GraphView(props: GraphViewProps) {
       ) : null}
       <div className="gv-mode-bar" role="tablist" aria-label="Graph display">
         <button
-          type="button" role="tab" aria-selected={mode === 'network'} aria-current={mode === 'network' ? 'true' : undefined}
+          type="button" role="tab" id="gv-network-tab" aria-controls="gv-panel" aria-selected={mode === 'network'} tabIndex={mode === 'network' ? 0 : -1}
           className={mode === 'network' ? 'is-active' : undefined}
           onClick={() => setMode('network')}
+          onKeyDown={onTabKeyDown}
         >
           Network
         </button>
         <button
-          type="button" role="tab" aria-selected={mode === 'matrix'} aria-current={mode === 'matrix' ? 'true' : undefined}
+          type="button" role="tab" id="gv-matrix-tab" aria-controls="gv-panel" aria-selected={mode === 'matrix'} tabIndex={mode === 'matrix' ? 0 : -1}
           className={mode === 'matrix' ? 'is-active' : undefined}
           onClick={() => setMode('matrix')}
+          onKeyDown={onTabKeyDown}
         >
           Matrix
         </button>
@@ -606,7 +618,7 @@ export default function GraphView(props: GraphViewProps) {
       </div>
 
       {enriched.nodes.length <= 5 ? (
-        <div className="gv-empty">
+        <div className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby="gv-network-tab">
           <p className="gv-empty-title">The graph only draws recorded links</p>
           <p className="gv-empty-text">
             {enriched.nodes.length === 0
@@ -619,18 +631,18 @@ export default function GraphView(props: GraphViewProps) {
           </p>
         </div>
       ) : visible.nodes.length === 0 ? (
-        <div className="gv-empty">
+        <div className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby={mode === 'matrix' ? 'gv-matrix-tab' : 'gv-network-tab'}>
           <p className="gv-empty-title">No node matches these filters</p>
           <p className="gv-empty-text">Try another family, period or search term.</p>
           <button type="button" onClick={resetFilters} className="gv-reset">Reset filters</button>
         </div>
       ) : mode === 'matrix' ? (
-        <div className="gv-matrix">
+        <div className="gv-matrix" id="gv-panel" role="tabpanel" aria-labelledby="gv-matrix-tab">
           <GraphMatrix nodes={matrixNodes} links={visible.links} />
         </div>
       ) : (
         <>
-          <div ref={containerRef} className="gv-canvas">
+          <div ref={containerRef} className="gv-canvas" id="gv-panel" role="tabpanel" aria-labelledby="gv-network-tab">
             {size.width > 0 && (
               <ForceGraph2D<GraphNode, GraphLink>
                 ref={fgRef}

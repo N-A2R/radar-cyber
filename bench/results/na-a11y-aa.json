@@ -1,0 +1,68 @@
+{
+  "command": "cd apps/web && ./node_modules/.bin/vitest run test/a11y-audit.test.tsx test/a11y-shell-status.test.tsx --reporter=dot",
+  "screens": 11,
+  "axeTags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa"
+  ],
+  "violations": 0,
+  "screensDetail": [
+    {
+      "label": "Today",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Coverage",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Review",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Journal",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Corpus",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Sources",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Map",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Graph",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Health",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Alerts",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Nouvelle-Aquitaine",
+      "violations": 0,
+      "rules": []
+    }
+  ]
+}
