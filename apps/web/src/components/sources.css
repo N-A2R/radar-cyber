@@ -1,6 +1,11 @@
 /* Vue sources — table dense, hairlines, sans cadre. */
 
 .sources-view {
+  /* Les colonnes se replient d'après la largeur réelle de la vue, pas celle du
+     viewport : avec le fil ouvert (352 px), le stage perd 352 px sans que la
+     fenêtre change. */
+  container-type: inline-size;
+  container-name: sources;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -31,6 +36,11 @@
 }
 
 .sources-view__toolbar {
+  /* Sœur du conteneur défilant, mais peinte au-dessus : fond opaque et
+     z-index pour qu'un en-tête collant ne vienne jamais se lire dessous. */
+  position: relative;
+  z-index: 2;
+  background: var(--color-plate);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -157,13 +167,18 @@
 
 .sources-table {
   width: 100%;
-  /* Neuf colonnes ne tiennent pas dans un panneau de 700 px : le tableau garde
-     une largeur minimale et le conteneur défile horizontalement, plutôt que de
-     rogner la dernière colonne en silence. */
-  min-width: 900px;
+  /* Plus de largeur minimale : à 1280 px fil ouvert, un défilement horizontal
+     coupait « motif de rejet », « unicité » et « action ». Les colonnes
+     secondaires s'effacent désormais (voir les @container plus bas) au lieu de
+     déborder. */
+  min-width: 0;
   border-collapse: collapse;
   font-size: 12px;
-  table-layout: fixed;
+  /* `fixed` arrondissait chaque pourcentage de colonne au pixel supérieur :
+     la somme dépassait le tableau de 2 px à certaines largeurs et rallumait
+     la barre horizontale. En `auto`, le navigateur répartit le reste sans
+     déborder, tout en respectant les largeurs du `<colgroup>`. */
+  table-layout: auto;
 }
 
 .sources-table thead th {
@@ -188,7 +203,11 @@
   color: inherit;
   background: none;
   border: 0;
-  padding: 8px 10px;
+  /* La gouttière de droite réserve la place de la flèche de tri : sans elle,
+     la flèche d'un en-tête étroit dépassait la dernière colonne et créait
+     3 px de défilement horizontal. */
+  position: relative;
+  padding: 8px 18px 8px 10px;
   cursor: pointer;
   transition: color 90ms ease;
 }
@@ -207,9 +226,11 @@
 }
 
 .sources-table__arrow {
+  position: absolute;
+  right: 5px;
+  top: 8px;
   font-family: var(--font-mono);
   color: var(--color-accent);
-  margin-left: 4px;
 }
 
 .sources-table tbody tr {
@@ -237,6 +258,11 @@
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--color-muted);
+  /* « rançongiciel » se coupait en deux et déformait la rangée ; la valeur
+     entière reste lisible dans l'infobulle. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sources-table__num {
@@ -390,17 +416,74 @@
   color: var(--color-faint);
 }
 
-/* Largeurs par colonne : le nom respire, les nombres ne se cassent pas. */
-.sources-table__col--name { width: 20%; }
-.sources-table__col--family { width: 8%; }
-.sources-table__col--status { width: 9%; }
-.sources-table__col--lastProduction { width: 11%; }
-.sources-table__col--lastErrorAt { width: 10%; }
+/* Stratégie de colonnes — trois niveaux, dans l'ordre de priorité :
+   1. toujours visible : source, famille, dernière production, dernier échec,
+      lues 30 j, évén. 30 j ;
+   2. état et rendement : masqués quand le stage tombe sous 880 px ;
+   3. motif de rejet, unicité, action : masqués dès que le fil est ouvert
+      (stage < 1 100 px).
+   Les largeurs ci-dessous valent pour le niveau complet ; la dernière colonne
+   visible de chaque palier reste en `auto` : elle absorbe les arrondis de
+   pourcentage, qui sinon ajoutaient 2 px au scrollWidth du tableau. */
+.sources-table__col--name { width: 18%; }
+.sources-table__col--family { width: 9%; }
+.sources-table__col--status { width: 8%; }
+.sources-table__col--lastProduction { width: 13%; }
+.sources-table__col--lastErrorAt { width: 9%; }
 .sources-table__col--entrees { width: 7%; }
 .sources-table__col--evenements30j { width: 7%; }
 .sources-table__col--rendement { width: 7%; }
-.sources-table__col--motif { width: 10%; }
-.sources-table__col--action { width: 11%; }
+.sources-table__col--unicite { width: 6%; }
+.sources-table__col--motif { width: 8%; }
+.sources-table__col--action { width: auto; }
+
+/* Niveau 3 masqué : 8 colonnes, 100 %. */
+@container sources (max-width: 1099px) {
+  .sources-table__cell--motif,
+  .sources-table__cell--unicite,
+  .sources-table__cell--action,
+  .sources-table__col--motif,
+  .sources-table__col--unicite,
+  .sources-table__col--action {
+    display: none;
+  }
+
+  .sources-table__col--name { width: 25%; }
+  .sources-table__col--family { width: 12%; }
+  .sources-table__col--status { width: 9%; }
+  .sources-table__col--lastProduction { width: 17%; }
+  .sources-table__col--lastErrorAt { width: 11%; }
+  .sources-table__col--entrees { width: 9%; }
+  .sources-table__col--evenements30j { width: 9%; }
+  .sources-table__col--rendement { width: auto; }
+}
+
+/* Sous 760 px, même les six colonnes prioritaires sont serrées : le badge
+   repasse sur deux lignes plutôt que de déborder de sa colonne. */
+@container sources (max-width: 759px) {
+  /* Deux classes : la règle de base du badge est plus bas dans le fichier et
+     gagnerait à spécificité égale. */
+  .sources-table .sources-table__red-badge {
+    white-space: normal;
+  }
+}
+
+/* Niveau 2 masqué aussi : 6 colonnes prioritaires, 100 %. */
+@container sources (max-width: 879px) {
+  .sources-table__cell--status,
+  .sources-table__cell--rendement,
+  .sources-table__col--status,
+  .sources-table__col--rendement {
+    display: none;
+  }
+
+  .sources-table__col--name { width: 28%; }
+  .sources-table__col--family { width: 12%; }
+  .sources-table__col--lastProduction { width: 24%; }
+  .sources-table__col--lastErrorAt { width: 14%; }
+  .sources-table__col--entrees { width: 11%; }
+  .sources-table__col--evenements30j { width: auto; }
+}
 
 .sources-view__red-count {
   margin: 0;
@@ -413,10 +496,12 @@
 .sources-table__red-badge {
   display: block;
   margin-top: 3px;
-  font-size: var(--text-xs);
+  font-size: var(--text-micro);
   color: var(--sev-5);
-  white-space: normal;
-  overflow-wrap: anywhere;
+  /* « rouge · plus de 7 j » se cassait sur trois lignes et gonflait la rangée.
+     La version courte tient sur une ligne ; le détail complet reste dans le
+     `title` du badge. */
+  white-space: nowrap;
 }
 
 /* Une date relative et un nombre ne se coupent pas en deux. */
@@ -431,6 +516,12 @@
 .sources-table__num,
 .sources-table td:nth-child(n + 4) {
   white-space: nowrap;
+}
+
+.sources-table tbody th {
+  /* Un `<th>` est centré par défaut : chaque nom de source partait du milieu
+     de sa colonne. Le registre se lit à gauche, comme ses en-têtes. */
+  text-align: left;
 }
 
 .sources-table__name {
@@ -487,7 +578,7 @@
   }
   .sources-table tbody td:nth-child(2)::before { content: "famille"; }
   .sources-table tbody td:nth-child(3)::before { content: "état"; }
-  .sources-table tbody td:nth-child(4)::before { content: "dernier succès"; }
+  .sources-table tbody td:nth-child(4)::before { content: "dernière production"; }
   .sources-table tbody td:nth-child(5)::before { content: "dernier échec"; }
   .sources-table tbody td:nth-child(6)::before { content: "lues 30 j"; }
   .sources-table tbody td:nth-child(7)::before { content: "évén. 30 j"; }
