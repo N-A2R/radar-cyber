@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:9805077b-a8d8-4013-aad4-beb05a753e03>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 133
+WARC-Block-Digest: sha1:PCAQT2RNC7H4TJ6HKEKXCFRYUSKPTMQI
+X-Claim-Fingerprint: bc97062f7d163d27c3c898c8
+X-Victim-Key: 63e00f5b30f2f147b14e634a
+
+{
+        "post_title": "Guardian Alarm",
+        "group_name": "incransom",
+        "discovered": "2023-11-15 18:40:32.885120"
+    }
+

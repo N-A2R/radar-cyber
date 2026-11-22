@@ -40,7 +40,8 @@ dans un répertoire temporaire, puis l'arrête. Il ne touche jamais à la base
 1. Contrôle des fichiers versionnés : corpus, `HASH`, rapport publié, binaire `tsx`.
 2. Détection de PostgreSQL ; démarrage intégré si besoin.
 3. Création d'une base éphémère et application de
-   `bench/couverture/reproduction-fixture.sql` : 26 sources catalogue, 4
+   `bench/couverture/reproduction-fixture.sql` : 75 sources (26 catalogue, 43
+   Landes, 3 corpus Vienne, 1 communiqué officiel, 2 flux publics), 4
    organisations (un secteur attendu chacun), aucun événement dans la fenêtre,
    un événement sentinelle hors fenêtre pour fixer `dateCalcul`.
 4. `scripts/mesure-couverture-systeme.mts --check` : rejeu des 50 incidents et
