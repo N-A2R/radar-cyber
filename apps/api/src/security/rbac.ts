@@ -105,6 +105,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/orgs/liees/historique", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id/rectifications", niveau: "lecteur" },
+  { methode: "GET", route: "/api/orgs/:id/report.pdf", niveau: "lecteur", motif: "rapport PDF agrégé, sans donnée personnelle" },
 
   // --- Listes de veille -----------------------------------------------------
   // L'observatoire déclare ce qu'il surveille ; la lecture des listes est

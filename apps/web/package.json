@@ -7,6 +7,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "test:render": "vite build --ssr test/render.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/render.js",
+    "test:orgsheet": "vite build --ssr test/orgsheet-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/orgsheet-verif.js",
     "test:keys": "vite build --ssr test/review-keys-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-keys-verif.js",
     "test:dom": "vite build --ssr test/review-dom.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-dom.js",
     "test:revue": "vite build --ssr test/revue-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/revue-verif.js",

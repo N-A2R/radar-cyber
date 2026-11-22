@@ -75,6 +75,24 @@ export default function OrgSheet({
   return <OrgSheetContenu state={state} onClose={onClose} onRetry={() => setReloadSignal((n) => n + 1)} />;
 }
 
+
+async function downloadOrgReport(orgId: number): Promise<string | null> {
+  try {
+    const blob = await api.orgReportPdf(orgId);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `organisation-${orgId}-rapport.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    return null;
+  } catch (error) {
+    return error instanceof Error ? error.message : "Download failed";
+  }
+}
+
 /** Présentation pure : chaque état est vérifiable sans réseau ni effet React. */
 export function OrgSheetContenu({
   state,
@@ -86,15 +104,25 @@ export function OrgSheetContenu({
   onRetry?: () => void;
 }) {
   const title = state.status === "ready" ? state.data.org.name : "Organisation";
+  const [reportError, setReportError] = useState<string | null>(null);
+  const onDownload = (orgId: number): void => {
+    void downloadOrgReport(orgId).then(setReportError);
+  };
 
   return (
     <aside className="orgsheet" aria-label="Fiche organisation">
       <header className="orgsheet__header">
         <h2 className="orgsheet__title">{title}</h2>
+        {state.status === "ready" && (
+          <button type="button" className="orgsheet__report" onClick={() => onDownload(state.data.org.id)}>
+            Download 10-page report (PDF)
+          </button>
+        )}
         <button type="button" className="orgsheet__close" onClick={onClose} aria-label="Fermer la fiche">
           fermer
         </button>
       </header>
+      {reportError ? <p className="orgsheet__report-error" role="alert">{reportError}</p> : null}
 
       {state.status === "loading" && <LoadingSkeleton label="chargement de la fiche…" />}
       {state.status === "notfound" && (
