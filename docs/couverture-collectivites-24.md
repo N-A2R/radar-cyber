@@ -36,3 +36,4 @@ Résultat : **15 sources, 49 URL distinctes toutes en HTTP 200** (50 contrôles,
 - `https://www.actu.fr/nouvelle-aquitaine/dordogne_24/` : HTTP 403 au contrôle final — source non retenue.
 - `https://www.amf24.fr/`, `https://www.amf-dordogne.fr/`, `https://www.isle-crempse.fr/`, `https://www.smctom.fr/` : NXDOMAIN.
 - Exa MCP indisponible (402, crédits épuisés) : angulation web de substitution via Brave/Bing et lecture directe des pages, puis vérification HTTP de chaque URL retenue.
+OBJECTIF : atteint — 15 / 5
