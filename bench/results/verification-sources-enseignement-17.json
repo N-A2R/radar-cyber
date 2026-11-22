@@ -1,0 +1,328 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-enseignement-17.jsonl",
+  "secteur": "enseignement",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 25 s ; statut et type de contenu relevés pour chaque URL",
+  "sources": 16,
+  "urls_verifiees": 39,
+  "urls_200": 39,
+  "detail": [
+    {
+      "nom": "Université de La Rochelle",
+      "urls": {
+        "https://www.univ-larochelle.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.univ-larochelle.fr/",
+          "ms": 225
+        },
+        "https://www.univ-larochelle.fr/Actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.univ-larochelle.fr/Actualites/",
+          "ms": 239
+        },
+        "https://www.univ-larochelle.fr/actualites/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://www.univ-larochelle.fr/actualites/feed/",
+          "ms": 687
+        }
+      }
+    },
+    {
+      "nom": "L3i — Laboratoire d'Informatique et d'Intelligence de La Rochelle",
+      "urls": {
+        "https://l3i.univ-larochelle.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://l3i.univ-larochelle.fr/",
+          "ms": 363
+        },
+        "https://l3i.univ-larochelle.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://l3i.univ-larochelle.fr/actualites/",
+          "ms": 385
+        },
+        "https://l3i.univ-larochelle.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://l3i.univ-larochelle.fr/feed/",
+          "ms": 581
+        }
+      }
+    },
+    {
+      "nom": "EIGSI — École d'ingénieurs de La Rochelle",
+      "urls": {
+        "https://www.eigsi.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.eigsi.fr/",
+          "ms": 1810
+        },
+        "https://www.eigsi.fr/actualites-ecole-ingenieur/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.eigsi.fr/actualites-ecole-ingenieur/",
+          "ms": 1859
+        }
+      }
+    },
+    {
+      "nom": "Excelia — écoles supérieures de La Rochelle",
+      "urls": {
+        "https://www.excelia-group.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.excelia-group.fr/",
+          "ms": 1032
+        },
+        "https://www.excelia-group.fr/a-propos-dexcelia/news-room/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.excelia-group.fr/a-propos-dexcelia/news-room/actualites",
+          "ms": 391
+        },
+        "https://www.excelia-group.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_effective": "https://www.excelia-group.fr/rss.xml",
+          "ms": 307
+        }
+      }
+    },
+    {
+      "nom": "La Salle Saint-Louis — établissement catholique de La Rochelle",
+      "urls": {
+        "https://www.lasallesaintlouis.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lasallesaintlouis.fr/",
+          "ms": 306
+        },
+        "https://www.lasallesaintlouis.fr/copie-de-actualit%C3%A9s-%C3%A9cole": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lasallesaintlouis.fr/copie-de-actualit%C3%A9s-%C3%A9cole",
+          "ms": 459
+        },
+        "https://www.lasallesaintlouis.fr/blog-feed.xml": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_effective": "https://www.lasallesaintlouis.fr/blog-feed.xml",
+          "ms": 122
+        }
+      }
+    },
+    {
+      "nom": "Greta Poitou-Charentes — formation continue (site 17)",
+      "urls": {
+        "https://www.greta-poitou-charentes.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.greta-poitou-charentes.fr/",
+          "ms": 246
+        },
+        "https://www.greta-poitou-charentes.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.greta-poitou-charentes.fr/actualites/",
+          "ms": 549
+        },
+        "https://www.greta-poitou-charentes.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://www.greta-poitou-charentes.fr/feed/",
+          "ms": 163
+        }
+      }
+    },
+    {
+      "nom": "Lycée Antoine de Saint-Exupéry (La Rochelle)",
+      "urls": {
+        "https://www.lycee-saintexupery-larochelle.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lycee-saintexupery-larochelle.fr/",
+          "ms": 207
+        },
+        "https://www.lycee-saintexupery-larochelle.fr/blog": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lycee-saintexupery-larochelle.fr/blog",
+          "ms": 253
+        }
+      }
+    },
+    {
+      "nom": "Lycée Bernard Palissy (Saintes)",
+      "urls": {
+        "https://palissy.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://palissy.fr/",
+          "ms": 2652
+        },
+        "https://palissy.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://palissy.fr/actualites/",
+          "ms": 2063
+        },
+        "https://palissy.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://palissy.fr/feed/",
+          "ms": 901
+        }
+      }
+    },
+    {
+      "nom": "Lycée polyvalent du Pays d'Aunis (Surgères)",
+      "urls": {
+        "https://www.lyceedupaysdaunis.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lyceedupaysdaunis.com/",
+          "ms": 1033
+        },
+        "https://www.lyceedupaysdaunis.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lyceedupaysdaunis.com/actualites/",
+          "ms": 800
+        },
+        "https://www.lyceedupaysdaunis.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://www.lyceedupaysdaunis.com/feed/",
+          "ms": 679
+        }
+      }
+    },
+    {
+      "nom": "Lycée Jean Hyppolite (Jonzac)",
+      "urls": {
+        "https://lycee-jeanhyppolite.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_effective": "https://lycee-jeanhyppolite.fr/",
+          "ms": 1298
+        },
+        "https://lycee-jeanhyppolite.fr/?format=feed&type=rss": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_effective": "https://lycee-jeanhyppolite.fr/?format=feed&type=rss",
+          "ms": 865
+        }
+      }
+    },
+    {
+      "nom": "Lycée polyvalent Marcel Dassault (Rochefort)",
+      "urls": {
+        "https://www.lycee-marcel-dassault.fr/": {
+          "code": 200,
+          "type": "text/html",
+          "url_effective": "https://www.lycee-marcel-dassault.fr/",
+          "ms": 1200
+        },
+        "https://www.lycee-marcel-dassault.fr/actualite.html": {
+          "code": 200,
+          "type": "text/html",
+          "url_effective": "https://www.lycee-marcel-dassault.fr/actualite.html",
+          "ms": 147
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Charente-Maritime (étudiant)",
+      "urls": {
+        "https://www.sudouest.fr/charente-maritime/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.sudouest.fr/charente-maritime/",
+          "ms": 220
+        },
+        "https://www.sudouest.fr/etudiant/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.sudouest.fr/etudiant/",
+          "ms": 215
+        },
+        "https://www.sudouest.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_effective": "https://www.sudouest.fr/rss.xml",
+          "ms": 97
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Charente-Maritime",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/charente-maritime_17": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17",
+          "ms": 171
+        },
+        "https://actu.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_effective": "https://actu.fr/rss.xml",
+          "ms": 124
+        }
+      }
+    },
+    {
+      "nom": "ici La Rochelle — Radio France",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17",
+          "ms": 378
+        },
+        "https://www.ici.fr/rss/la-rochelle/a-la-une.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_effective": "https://www.ici.fr/rss/la-rochelle/a-la-une.xml",
+          "ms": 189
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Charente-Maritime",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime",
+          "ms": 380
+        },
+        "https://www.franceinfo.fr/titres.rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_effective": "https://www.franceinfo.fr/titres.rss",
+          "ms": 212
+        }
+      }
+    },
+    {
+      "nom": "Haute Saintonge",
+      "urls": {
+        "https://www.hautesaintonge.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.hautesaintonge.fr/",
+          "ms": 333
+        }
+      }
+    }
+  ],
+  "urls_non_200": []
+}
