@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:81e871b9-c137-476d-ac8a-7dea8a442345>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 480
+WARC-Block-Digest: sha1:736METG46LDUYOBAHDTBHRLDCPEQP7EO
+X-Claim-Fingerprint: d3e3c26a0b065c35ea0f4819
+X-Victim-Key: 3176f4399b4b36fb3080296c
+
+{"post_title": "Prelys Courtage", "discovered": "2026-07-28 02:21:23.100238", "description": "Client data breach at a major mortgage brokerage franchise.", "link": "http://om6q4a6cyipxvt7ioudxt24cw4oqu4yodmqzl25mqd2hgllymrgu4aqd.onion/r/BOGek03huSzlB0TMCY82I66nKD5dRABnYIv5H36irQvLQZUKM0W2IQJ4ou2wlY3mgLTSOyJCbAVk4dtnUT6skHlmZThTSTNE", "magnet": null, "screen": "screenshots/anubis/Prelys Courtage.png", "misp_uuid": "ea2e54fe-90cb-5fb2-a25d-827f93310898", "group_name": "anubis"}
+

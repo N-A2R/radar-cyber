@@ -16,6 +16,7 @@ import { buildOpenApi, documentedRouteCount } from "./spec.js";
 import { API_VERSION, CURRENT_PREFIX, withoutVersion } from "./version.js";
 
 import alertsRoute from "../routes/alerts.js";
+import custodyRoute from "../routes/custody.js";
 import authRoute from "../routes/auth.js";
 import couvertureRoute from "../routes/couverture.js";
 import directoryRoute from "../routes/directory.js";
@@ -50,8 +51,8 @@ const ROUTES = [
   naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
+  custodyRoute,
 ];
-
 const OPEN_READ_RPM = Number(process.env.RADAR_PUBLIC_READ_RPM ?? 120);
 const SESSION_READ_RPM = Number(process.env.RADAR_SESSION_READ_RPM ?? 600);
 
