@@ -43,6 +43,7 @@ import statsDepartementsRoute from "../routes/stats-departements.js";
 import statsRoute from "../routes/stats.js";
 import streamRoute from "../routes/stream.js";
 import todayRoute from "../routes/today.js";
+import exportMispRoute from "../routes/export-misp.js";
 
 /** Les routes historiques, exposées aussi sous `/api/v1`. */
 const ROUTES = [
@@ -51,7 +52,7 @@ const ROUTES = [
   naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
-  custodyRoute,
+  custodyRoute, exportMispRoute,
 ];
 const OPEN_READ_RPM = Number(process.env.RADAR_PUBLIC_READ_RPM ?? 120);
 const SESSION_READ_RPM = Number(process.env.RADAR_SESSION_READ_RPM ?? 600);

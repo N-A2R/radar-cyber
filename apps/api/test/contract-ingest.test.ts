@@ -65,6 +65,8 @@ after(async () => {
 	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIX}%`]);
 	await query("DELETE FROM app_session WHERE user_id = $1", [userId]);
 	await query("DELETE FROM app_user WHERE id = $1", [userId]);
+	// Les runs de la route /ingest citent la source : ils partent avant elle.
+	await query("DELETE FROM collector_run WHERE source_id = $1", [DEFAULT_SOURCE]);
 	if (createdSource) await query("DELETE FROM source WHERE id = $1", [DEFAULT_SOURCE]);
 	await closePools();
 });
@@ -171,7 +173,10 @@ test("les réparations passent et sont annoncées, sans rejet", async () => {
 	assert.equal(stored.rows[0].confidence, "B2");
 	assert.equal(stored.rows[0].title, `Titre espacé ${TAG}`);
 	assert.equal(stored.rows[0].observed_at, null);
-	assert.equal(stored.rows[0].source_url, null);
+	// L'URL illisible est réparée en l'écartant ; la provenance exigée par la
+	// migration 206 prend alors le relais (URN de la source, jamais une URL
+	// inventée).
+	assert.equal(stored.rows[0].source_url, `urn:source:${DEFAULT_SOURCE}`);
 });
 
 test("la provenance Hermes reste dans evidence", async () => {

@@ -26,6 +26,7 @@ export const FAMILY_LABELS: Record<string, string> = {
   cti: "Renseignement sur les menaces",
   presse: "Presse",
   presse_cyber: "Presse cyber",
+  presse_locale: "Presse locale",
   warninglist: "Listes d'alerte",
   leaks: "Fuites",
   paste: "Sites de paste",

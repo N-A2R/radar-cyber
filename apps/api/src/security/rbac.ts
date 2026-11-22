@@ -45,6 +45,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/events", niveau: "public" },
   { methode: "GET", route: "/api/history", niveau: "public" },
   { methode: "GET", route: "/api/health/detail", niveau: "public" },
+  { methode: "GET", route: "/api/health/sources", niveau: "public" },
   { methode: "GET", route: "/api/health/causes", niveau: "public" },
   { methode: "GET", route: "/api/today", niveau: "public" },
   { methode: "GET", route: "/api/today/departements", niveau: "public" },
@@ -83,6 +84,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/onion-index", niveau: "public" },
   { methode: "GET", route: "/api/custody", niveau: "public", motif: "chaîne de custody : métadonnées de source et journal, sans donnée personnelle" },
   { methode: "GET", route: "/api/affected", niveau: "public", motif: "assistant : faits structurés avec preuves, sans donnée personnelle" },
+  { methode: "GET", route: "/api/export/misp", niveau: "public", motif: "flux MISP des faits TLP:CLEAR/GREEN, sans donnée personnelle" },
   { methode: "GET", route: "/api/orgs", niveau: "public" },
 
   // --- Lectures authentifiées ----------------------------------------------

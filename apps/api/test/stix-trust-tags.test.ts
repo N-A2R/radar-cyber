@@ -28,9 +28,9 @@ async function evenement(
 	valeurs: { tlp?: string; confidence?: string; evidence?: Record<string, unknown> },
 ): Promise<StixEventRow> {
 	const resultat = await query<StixEventRow>(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, evidence, confidence, tlp)
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, evidence, confidence, tlp, source_url)
      VALUES ($1, 'vuln', 'technical_indicator', 'Fait structurel de test', 'ransomlook',
-             $2::jsonb, $3, $4)
+             $2::jsonb || '{"run_id":"1"}'::jsonb, $3, $4, 'https://example.invalid/event')
      RETURNING id, dedup_key, family, assertion_type, tlp, confidence, evidence, created_at`,
 		[
 			`${PREFIXE}-${suffixe}`,

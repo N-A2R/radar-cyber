@@ -66,18 +66,41 @@ export function cheminRelatif(jour: string): string {
 
 type Bornes = { debut: number; fin: number };
 
-async function lignesDuJour(jour: string, bornes?: Bornes): Promise<LigneJournal[]> {
+/**
+ * Bornes numériques d'un ensemble de lignes : 0/0 pour un jour vide (la
+ * branche `journal_debut_id = 0 AND journal_fin_id = 0` de la contrainte).
+ * On prend le min et le max *numériques* : la position dans la liste ne suffit
+ * pas, un tri lexicographique produit des bornes inversées dès qu'un jour
+ * chevauche un changement de largeur d'id (99999 → 100000).
+ */
+export function bornesDeLignes(lignes: readonly LigneJournal[]): Bornes {
+	if (lignes.length === 0) return { debut: 0, fin: 0 };
+	let debut = Number(lignes[0]!.id);
+	let fin = debut;
+	for (const ligne of lignes) {
+		const id = Number(ligne.id);
+		if (!Number.isSafeInteger(id) || id <= 0) throw new Error(`id de journal inattendu : ${String(ligne.id)}`);
+		if (id < debut) debut = id;
+		if (id > fin) fin = id;
+	}
+	return { debut, fin };
+}
+
+export async function lignesDuJour(jour: string, bornes?: Bornes): Promise<LigneJournal[]> {
 	// Un ancrage d'un jour vide porte les bornes 0/0 : la racine gravée est
 	// celle d'un arbre vide. Une ligne rétroactive inscrite plus tard avec ce
 	// `recorded_at` reste hors bornes et ne doit donc pas être relue ici.
 	if (bornes && bornes.fin === 0) return [];
 	const resultat = await query<LigneJournalDb>(
+		// `ORDER BY id` se résoudrait sur l'alias texte de la projection et
+		// trierait « 100000 » avant « 99999 » : la racine et les bornes
+		// dépendent donc d'un tri explicitement numérique.
 		`SELECT id::text AS id, kind, subject, summary, payload, actor, valid_at, recorded_at
 		   FROM journal
 		  WHERE (recorded_at AT TIME ZONE 'UTC')::date = $1::date
 		    AND ($2::bigint = 0 OR id >= $2::bigint)
 		    AND ($3::bigint = 0 OR id <= $3::bigint)
-		  ORDER BY id ASC`,
+		  ORDER BY journal.id ASC`,
 		[jour, bornes?.debut ?? 0, bornes?.fin ?? 0],
 	);
 	return resultat.rows.map((ligne) => ({
@@ -165,6 +188,16 @@ export async function ancrerJour(options: {
 	}
 
 	const lignes = await lignesDuJour(options.jour);
+	const bornes = bornesDeLignes(lignes);
+	// Garde-fou avant l'INSERT : la contrainte `journal_anchor_bornes_ordonnees`
+	// est la preuve d'intégrité, pas un filet à laisser rejeter une ligne. Un
+	// jour vide garde les bornes 0/0 (ancrage valide de l'arbre vide) ; toute
+	// autre combinaison inversée est un défaut de calcul et n'écrit rien.
+	if (bornes.fin !== 0 && bornes.debut > bornes.fin) {
+		throw new Error(
+			`bornes d'ancrage incohérentes pour ${options.jour} (${bornes.debut} > ${bornes.fin}) : ancrage non écrit`,
+		);
+	}
 	const racine = racineJournal(lignes);
 	const jeton = await (options.fournisseur ?? fournisseurRfc3161())(racine);
 	const ancrage: Ancrage = {
@@ -172,8 +205,8 @@ export async function ancrerJour(options: {
 		racine_sha256: racine,
 		token_rfc3161: jeton.jeton,
 		certificat_tsa: jeton.certificat,
-		journal_debut_id: String(lignes[0]?.id ?? 0),
-		journal_fin_id: String(lignes.at(-1)?.id ?? 0),
+		journal_debut_id: String(bornes.debut),
+		journal_fin_id: String(bornes.fin),
 		journal_lignes: String(lignes.length),
 		fichier: cheminRelatif(options.jour),
 		ancre_le: new Date(),

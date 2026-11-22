@@ -71,8 +71,8 @@ async function makeEvent(opts: {
 	title?: string;
 }): Promise<number> {
 	const r = await query<{ id: number }>(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, source_url, observed_at, collected_at, org_id)
-		 VALUES ($1, $2, 'narrative', $3, $4, $5, 'https://exemple.test/sonde', $6::timestamptz, now(), $7)
+		`INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, source_url, observed_at, collected_at, org_id, evidence)
+		 VALUES ($1, $2, 'narrative', $3, $4, $5, 'https://exemple.test/sonde', $6::timestamptz, now(), $7, '{"run_id":"1"}'::jsonb)
 		 RETURNING id`,
 		[next(), opts.family, opts.title ?? `Fait de test ${next()}`, opts.severity, await sourceId(), opts.observedAt, opts.orgId],
 	);

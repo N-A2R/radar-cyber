@@ -171,17 +171,17 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 	assert.ok(orgId, "organisation régionale créée");
 	const semantique = await query<{ id: string }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id,
-		                    evidence, regional, regional_motif, org_id)
+		                    evidence, regional, regional_motif, org_id, source_url)
 		 VALUES ($1, 'ransomware', 'third_party_claim', $2, '2026-11-22T00:00:00Z', 'ransomlook',
-		         '{"feed":"test"}'::jsonb, true, 'rattachement', $3)
+		         '{"feed":"test"}'::jsonb || '{"run_id":"1"}'::jsonb, true, 'rattachement', $3, 'https://example.invalid/event')
 		 RETURNING id::text AS id`,
 		[`regional-${TAG}-a`, `Revendication Sandworm ${TAG} en Gironde`, orgId],
 	);
 	const contexte = await query<{ id: string }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id,
-		                    evidence, regional, regional_motif, org_id)
+		                    evidence, regional, regional_motif, org_id, source_url)
 		 VALUES ($1, 'ransomware', 'third_party_claim', $2, '2026-11-21T00:00:00Z', 'ransomlook',
-		         '{"feed":"test"}'::jsonb, true, 'rattachement', $3)
+		         '{"feed":"test"}'::jsonb || '{"run_id":"1"}'::jsonb, true, 'rattachement', $3, 'https://example.invalid/event')
 		 RETURNING id::text AS id`,
 		[`regional-${TAG}-b`, `Revendication ransomware ${TAG} en Gironde`, orgId],
 	);

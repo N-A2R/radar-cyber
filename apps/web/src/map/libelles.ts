@@ -17,6 +17,7 @@ export const FAMILY_LABELS: Record<string, string> = {
   reputation: "réputation",
   cti: "CTI",
   presse: "presse",
+  presse_locale: "presse locale",
 };
 
 export const ORG_KIND_LABELS: Record<string, string> = {

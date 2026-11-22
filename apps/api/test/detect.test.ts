@@ -64,8 +64,8 @@ type NewEvent = {
 
 async function insertEvent(e: NewEvent): Promise<number> {
   const r = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, summary, severity, confidence, source_id, org_id, evidence)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, summary, severity, confidence, source_id, org_id, evidence, source_url)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb || '{"run_id":"1"}'::jsonb,'https://example.invalid/event') RETURNING id`,
     [
       next(),
       e.family,

@@ -175,7 +175,7 @@ export function themeFor(family: string): Theme | null {
 
 export function classifySource(sourceFamily: string, sourceId: string): SourceKind {
 	if (["cert", "cert_fr", "vuln", "warninglist"].includes(sourceFamily)) return "official";
-	if (["presse", "presse_cyber"].includes(sourceFamily) || sourceId.startsWith("presse-") || sourceId.startsWith("gn-")) return "press";
+	if (["presse", "presse_cyber", "presse_locale"].includes(sourceFamily) || sourceId.startsWith("presse-") || sourceId.startsWith("gn-")) return "press";
 	// Trackers and public channels are grey first-rank sources: allowed here.
 	return "grey";
 }

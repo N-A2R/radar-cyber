@@ -1,5 +1,5 @@
 /**
- * Index de la file de revue, chargés une fois par processus.
+ * Index de la file de revue, construits à la demande et partagés par processus.
  *
  * `reviewQueue` comparait chaque indice de sa fenêtre (2 000 faits) à
  * l'intégralité du référentiel. Sur la base d'exploitation — 1,67 M
@@ -8,16 +8,20 @@
  * index de plus d'un million d'entrées sur la boucle d'événements. La file ne
  * répondait plus (timeout à 30 s) et bloquait toutes les autres routes.
  *
- * Ce module charge les deux index une seule fois, au démarrage, page par page
- * (keyset sur la clé primaire) et en rendant la main toutes les 20 000 lignes :
- * le serveur reste réactif pendant le chargement. Les constructions d'index
- * sont chunkées de la même façon. Les requêtes ne lisent ensuite que le
- * snapshot en mémoire.
+ * Le snapshot coûte 1,5 à 2,8 Go de RSS : le charger au démarrage faisait
+ * attendre `listen` ~20 s et poussait la machine en swap pour une file que
+ * personne n'ouvre en permanence. Il n'est donc **plus préchauffé** : la
+ * première requête de revue déclenche sa construction en tâche de fond (page
+ * par page, keyset sur la clé primaire, une pause toutes les 20 000 lignes) et
+ * reçoit immédiatement un état « en préparation » ; les requêtes suivantes
+ * lisent le snapshot en mémoire. `/api/health` reste donc immédiat même
+ * pendant la construction.
  *
  * Fraîcheur : un snapshot est invalidé par `resetReviewIndexes`, appelé après
- * une écriture du référentiel (création d'organisation, rechargement). Le
- * prochain appel reconstruit alors le snapshot en tâche de fond ; en attendant,
- * il sert l'ancien — jamais un référentiel vide.
+ * une écriture du référentiel (création d'organisation, rechargement). La
+ * mémoire de l'ancien est libérée aussitôt et le prochain appel de revue
+ * reconstruit ; une construction lancée avant l'écriture est jetée et reprise
+ * sur les données à jour.
  */
 import { query } from "../db.js";
 import { buildAliasIndexChunked, type AliasIndex, type AliasRow } from "../match/core.js";
@@ -124,16 +128,17 @@ async function construire(): Promise<ReviewSnapshot> {
 
 let snapshot: ReviewSnapshot | null = null;
 let enCours: Promise<ReviewSnapshot> | null = null;
-/** Une écriture du référentiel demande un nouveau snapshot ; l'ancien reste servi. */
-let perime = false;
+/** Incrémenté à chaque écriture du référentiel : une construction antérieure est jetée. */
+let generation = 0;
+/** Dernier échec de construction, pour ne pas relancer une requête par appel. */
+let echecLe = 0;
+const ECHEC_REPOS_MS = 10_000;
 
-async function construireEtStocker(): Promise<ReviewSnapshot> {
-	const neuf = await construire();
-	snapshot = neuf;
-	perime = false;
-	memoMatch.clear();
-	// Préchauffe les rapprochements de la fenêtre courante : la première
-	// requête après démarrage ne doit pas payer les 2 000 indices.
+/**
+ * Préchauffe les rapprochements de la fenêtre courante : la première requête
+ * servie après la construction ne paie pas les 2 000 indices.
+ */
+async function prechaufferRapprochements(): Promise<void> {
 	const fenetre = Math.min(
 		10_000,
 		Math.max(1, Number(process.env.RADAR_REVIEW_WINDOW ?? 2000) || 2000),
@@ -146,51 +151,89 @@ async function construireEtStocker(): Promise<ReviewSnapshot> {
 		[fenetre],
 	);
 	for (const row of rows) hintMatch(String(row.org_hint ?? ""));
-	return neuf;
 }
 
 /**
- * Snapshot partagé. Le premier appel (hors préchauffage) attend sa
- * construction ; un snapshot périmé reste servi pendant que le nouveau se
- * construit en fond, pour qu'une écriture du référentiel ne suspende jamais la
- * file.
+ * Construit puis publie le snapshot. L'ancien est lâché avant la construction :
+ * le pic mémoire ne dépasse pas un index, et aucune requête ne lit un
+ * référentiel partiel. Une écriture survenue pendant la construction fait
+ * repartir le travail sur les données à jour.
+ */
+async function construireEtStocker(): Promise<ReviewSnapshot> {
+	for (;;) {
+		const gen = generation;
+		snapshot = null;
+		memoMatch.clear();
+		const neuf = await construire();
+		if (gen !== generation) continue;
+		snapshot = neuf;
+		await prechaufferRapprochements();
+		// Une écriture pendant le préchauffage rend le snapshot obsolète : on
+		// le jette plutôt que de servir un référentiel d'avant l'écriture.
+		if (gen !== generation) {
+			snapshot = null;
+			memoMatch.clear();
+			continue;
+		}
+		return neuf;
+	}
+}
+
+/** Lance (ou rejoint) la construction en tâche de fond, sans jamais attendre. */
+function demarrerConstruction(): Promise<ReviewSnapshot> {
+	if (!enCours) {
+		enCours = construireEtStocker()
+			.catch((error) => {
+				echecLe = Date.now();
+				throw error;
+			})
+			.finally(() => {
+				enCours = null;
+			});
+	}
+	return enCours;
+}
+
+/**
+ * Snapshot s'il est prêt, sinon `null` **immédiatement** après avoir déclenché
+ * sa construction en tâche de fond. C'est le point d'entrée des routes : une
+ * première requête de revue répond « en préparation » en quelques dizaines de
+ * millisecondes au lieu d'attendre ~20 s.
+ */
+export function snapshotRevueSiPret(): ReviewSnapshot | null {
+	if (!reviewIndexCacheActif()) return null;
+	if (snapshot) return snapshot;
+	if (Date.now() - echecLe >= ECHEC_REPOS_MS) {
+		void demarrerConstruction().catch(() => {
+			// Le prochain appel réessaiera après le repos.
+		});
+	}
+	return null;
+}
+
+/**
+ * Snapshot partagé, en attendant sa construction. Utilisé par les routes qui
+ * ne peuvent pas rendre un résultat partiel (`/quarantine`) et par le mode
+ * sans cache des tests.
  */
 export async function reviewSnapshot(): Promise<ReviewSnapshot> {
 	if (!reviewIndexCacheActif()) {
-		const neuf = await construire();
-		snapshot = neuf;
 		memoMatch.clear();
-		return neuf;
+		snapshot = await construire();
+		return snapshot;
 	}
-	if (snapshot && !perime) return snapshot;
-	if (!enCours) {
-		enCours = construireEtStocker().finally(() => {
-			enCours = null;
-		});
-	}
-	// Un rafraîchissement en cours : l'ancien snapshot reste la réponse.
-	return snapshot ?? enCours;
+	if (snapshot) return snapshot;
+	return demarrerConstruction();
 }
 
 /**
- * À appeler au démarrage, avant `listen` : le serveur ne sert aucune requête
- * tant que l'index n'est pas prêt, mais l'attente ne bloque jamais une requête
- * en cours.
- */
-export async function prechaufferIndexRevue(): Promise<void> {
-	if (!reviewIndexCacheActif()) return;
-	await reviewSnapshot();
-}
-
-/**
- * Invalide le snapshot après une écriture du référentiel. L'ancien reste servi
- * jusqu'à ce que le nouveau soit prêt : une reconstruction ne vide jamais la
- * file.
+ * Invalide le snapshot après une écriture du référentiel. La mémoire de
+ * l'ancien est libérée tout de suite : rien ne reste en RSS tant qu'aucune
+ * revue ne redemande l'index. Une construction en cours est jetée et reprise.
  */
 export function resetReviewIndexes(): void {
-	if (!reviewIndexCacheActif() || enCours) return;
-	perime = true;
-	void reviewSnapshot().catch(() => {
-		// Une reconstruction ratée laissera le prochain appel réessayer.
-	});
+	if (!reviewIndexCacheActif()) return;
+	generation += 1;
+	snapshot = null;
+	memoMatch.clear();
 }

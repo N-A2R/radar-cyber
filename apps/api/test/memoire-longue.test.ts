@@ -74,8 +74,8 @@ before(async () => {
 
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at,
-                        valid_at, at, severity, confidence, source_id, org_id, evidence)
-     VALUES ($1,'ransomware','confirmed_incident',$2,$3,$4,$5,$6,2,'C3',$7,$8,$9)`,
+                        valid_at, at, severity, confidence, source_id, org_id, evidence, source_url)
+     VALUES ($1,'ransomware','confirmed_incident',$2,$3,$4,$5,$6,2,'C3',$7,$8,$9::jsonb || '{"run_id":"1"}'::jsonb,'https://example.invalid/event')`,
     [CLE, `Incident ${ORG_NOM}`, `Résumé ${TAG}`, OBSERVE.toISOString(), OBSERVE.toISOString(),
       AT.toISOString(), SOURCE, orgId,
       JSON.stringify({ rattachement: { moteur: MOTEURS.rattachement, motif: "alias-distinctif", alias: ORG_NOM, confiance: 0.9 } })],

@@ -90,9 +90,10 @@ async function measure(): Promise<Measurement> {
       // No app-level consigner: this is what an external writer does.
       await query(
         `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
-                            source_id, source_url, regional, regional_motif)
+                            source_id, source_url, evidence, regional, regional_motif)
          VALUES ($1,'cti','ambient_signal',$2,$3,'ransomlook',
-                 'https://example.invalid/write-boundary-proof',true,'nouvelle-aquitaine')`,
+                 'https://example.invalid/write-boundary-proof',
+                 '{"run_id":"1"}'::jsonb, true,'nouvelle-aquitaine')`,
         [subject, title, OBSERVED],
       );
     }

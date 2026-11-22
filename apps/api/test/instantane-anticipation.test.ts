@@ -99,8 +99,8 @@ before(async () => {
 	for (const fait of faits) {
 		await query(
 			`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id,
-			                    observed_at, valid_at, collected_at)
-			 VALUES ($1, 'cti', $2, $3, $4, $5, $6, $7, $8)`,
+			                    observed_at, valid_at, collected_at, source_url, evidence)
+			 VALUES ($1, 'cti', $2, $3, $4, $5, $6, $7, $8, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)`,
 			[
 				`${TAG}:${fait.cle}`,
 				fait.assertion,

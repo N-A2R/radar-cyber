@@ -813,9 +813,29 @@ export async function importer(analyse: Analyse): Promise<Bilan> {
 		}
 
 		let incidentsInserees = 0;
+		// Un run par éditeur, ouvert avant le premier incident : chaque ligne le
+		// cite dans `evidence.run_id` (migration 206). Le tout vit dans la
+		// transaction, donc un échec retire aussi les runs.
+		const runs = new Map<string, { id: number; itemsIn: number; itemsNew: number }>();
+		const runFor = async (sourceId: string) => {
+			let run = runs.get(sourceId);
+			if (!run) {
+				const { rows } = await client.query<{ id: string }>(
+					"INSERT INTO collector_run (source_id, status, kind) VALUES ($1, 'running', 'import') RETURNING id",
+					[sourceId],
+				);
+				const id = Number(rows[0]?.id);
+				if (!Number.isInteger(id) || id <= 0) throw new Error(`run d'import non créé pour ${sourceId}`);
+				run = { id, itemsIn: 0, itemsNew: 0 };
+				runs.set(sourceId, run);
+			}
+			return run;
+		};
 		for (const entree of entreesIncidents) {
 			const d = entree.donnees as DonneesIncident;
 			const confiance = d.confiance === "etabli" ? "A1" : d.confiance === "declare" ? "C3" : "B2";
+			const run = await runFor(d.idEditeur);
+			run.itemsIn += 1;
 			const res = await client.query<{ inserted: boolean }>(
 				`INSERT INTO event (
 				   dedup_key, family, assertion_type, title, summary, langue,
@@ -840,8 +860,9 @@ export async function importer(analyse: Analyse): Promise<Bilan> {
 					d.collectedAt && dateValide(d.collectedAt) ? `${d.collectedAt}T00:00:00Z` : null,
 					confiance,
 					d.idEditeur,
-					d.url,
+					d.url || `urn:source:${d.idEditeur}`,
 					JSON.stringify({
+						run_id: String(run.id),
 						corpus: { fichier: entree.fichier, ligne: entree.ligne, id: entree.id },
 						organisation: d.organisation,
 						departement: d.departement,
@@ -854,7 +875,16 @@ export async function importer(analyse: Analyse): Promise<Bilan> {
 					}),
 				],
 			);
-			if (res.rows[0]?.inserted === true) incidentsInserees++;
+			if (res.rows[0]?.inserted === true) {
+				incidentsInserees++;
+				run.itemsNew += 1;
+			}
+		}
+		for (const run of runs.values()) {
+			await client.query(
+				"UPDATE collector_run SET finished_at=now(), status='ok', items_in=$2, items_new=$3 WHERE id=$1",
+				[run.id, run.itemsIn, run.itemsNew],
+			);
 		}
 		return {
 			sourcesInserees,
