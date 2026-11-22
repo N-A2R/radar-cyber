@@ -1,0 +1,1200 @@
+{
+  "date": "2026-11-22",
+  "scope": "nouvelle-aquitaine",
+  "organisations": "1673220",
+  "sources": 463,
+  "events": "27899",
+  "attachments": 299,
+  "naAttachments": 240,
+  "coherent": 45,
+  "incoherentDetected": 195,
+  "reasons": {
+    "no-shared-node": 10,
+    "publisher-domain-only": 175,
+    "distinctive-name": 39,
+    "shared-domain": 3,
+    "domain-mismatch": 10,
+    "shared-department": 3
+  },
+  "validation": {
+    "truePositives": 15,
+    "falsePositives": 0,
+    "keptTrue": 50,
+    "keptFalse": 30,
+    "checked": 95
+  },
+  "removed": 195,
+  "applied": true,
+  "findings": [
+    {
+      "eventId": 1,
+      "orgId": 2190093,
+      "reason": "no-shared-node",
+      "department": "33"
+    },
+    {
+      "eventId": 317,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 360,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 365,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 373,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 377,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 382,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 385,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 388,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 391,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23502,
+      "orgId": 2190093,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 23511,
+      "orgId": 2190093,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 23621,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23629,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23653,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23659,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23665,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23671,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23677,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23683,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23689,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23720,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23724,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23728,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23732,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23735,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23738,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23742,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23748,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23750,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23752,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23754,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23756,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23758,
+      "orgId": 482872,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 23760,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23764,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23766,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23768,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23770,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23772,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23774,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23776,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23778,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23781,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23783,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23786,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23789,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23792,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23795,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23797,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23799,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23809,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23811,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23813,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 23819,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 24118,
+      "orgId": 129865,
+      "reason": "no-shared-node",
+      "department": "33"
+    },
+    {
+      "eventId": 24227,
+      "orgId": 213857,
+      "reason": "no-shared-node",
+      "department": "33"
+    },
+    {
+      "eventId": 24781,
+      "orgId": 547031,
+      "reason": "no-shared-node",
+      "department": "64"
+    },
+    {
+      "eventId": 46140,
+      "orgId": 51430,
+      "reason": "no-shared-node",
+      "department": "24"
+    },
+    {
+      "eventId": 51151,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51191,
+      "orgId": 675837,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 51362,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51854,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51860,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51866,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51872,
+      "orgId": 482872,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 51945,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51952,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51960,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51966,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 51972,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 52347,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 112417,
+      "orgId": 166577,
+      "reason": "no-shared-node",
+      "department": "16"
+    },
+    {
+      "eventId": 128330,
+      "orgId": 131600,
+      "reason": "no-shared-node",
+      "department": "33"
+    },
+    {
+      "eventId": 128977,
+      "orgId": 378660,
+      "reason": "no-shared-node",
+      "department": "33"
+    },
+    {
+      "eventId": 129273,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129274,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129275,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129276,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129277,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129278,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129279,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129280,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129281,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129282,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129283,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129284,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129285,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129286,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129287,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129288,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129289,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129290,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129291,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129292,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129293,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129294,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129295,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129296,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129297,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129298,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129299,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129300,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129301,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129302,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129303,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129304,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129305,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129306,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129307,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129308,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129309,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129310,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129311,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129312,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129313,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129314,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129315,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129316,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129317,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129318,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129319,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129320,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129321,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129322,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129323,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129324,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129325,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129326,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129327,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129328,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129329,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129330,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129331,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129332,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129333,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129334,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129335,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129336,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129337,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129338,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129339,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129340,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129341,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129342,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129343,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129344,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129345,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129346,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129347,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129348,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129349,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129350,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129351,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129352,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129353,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129354,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129355,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129356,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129357,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129358,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129359,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129360,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129361,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129362,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129363,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129364,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129365,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129366,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129367,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129368,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129369,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129370,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129371,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129372,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129373,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129374,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129375,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129376,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129377,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129378,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129379,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129380,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129381,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129382,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129383,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129384,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 129912,
+      "orgId": 2032152,
+      "reason": "domain-mismatch",
+      "department": "64"
+    },
+    {
+      "eventId": 129927,
+      "orgId": 2190093,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 129933,
+      "orgId": 2190093,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 130009,
+      "orgId": 482872,
+      "reason": "domain-mismatch",
+      "department": "33"
+    },
+    {
+      "eventId": 130419,
+      "orgId": 482872,
+      "reason": "publisher-domain-only",
+      "department": "33"
+    },
+    {
+      "eventId": 131486,
+      "orgId": 166577,
+      "reason": "no-shared-node",
+      "department": "16"
+    },
+    {
+      "eventId": 139599,
+      "orgId": 51430,
+      "reason": "no-shared-node",
+      "department": "24"
+    },
+    {
+      "eventId": 139691,
+      "orgId": 213857,
+      "reason": "domain-mismatch",
+      "department": "33"
+    }
+  ]
+}
