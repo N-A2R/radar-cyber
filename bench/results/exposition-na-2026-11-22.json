@@ -1,0 +1,13 @@
+{
+  "scope": "nouvelle-aquitaine",
+  "organisationsWithService": 4732,
+  "organisationsInScope": 1671906,
+  "services": 5446,
+  "bySource": {
+    "http-200": 1256,
+    "osm-http-200": 2941,
+    "shodan-internetdb": 399,
+    "wikidata-http-200": 850
+  },
+  "measuredAt": "2026-11-22T01:02:36.896Z"
+}
