@@ -1,0 +1,233 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-64.jsonl",
+  "secteur": "commerce",
+  "departement": "64",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai 25 s, User-Agent navigateur ; code HTTP, type de contenu et nombre d items RSS enregistrés pour chaque site, page d actualités, flux et article cyber. Exa hors crédits (402) : candidats identifiés par lecture directe des sites officiels, annuaires et corpus du dépôt, tous contrôlés en HTTP direct.",
+  "sources": 8,
+  "urls_verifiees": 30,
+  "urls_200": 30,
+  "detail": [
+    {
+      "nom": "CCI Pau Béarn — actualités et entreprises",
+      "urls": {
+        "site": {
+          "url": "https://pau.cci.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://pau.cci.fr/blog/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://pau.cci.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items": 10
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — antenne des Pyrénées-Atlantiques",
+      "urls": {
+        "site": {
+          "url": "https://cma-nouvelleaquitaine.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?county=pyrenees-atlantiques",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Mon-Entreprise-Info — Pyrénées-Atlantiques",
+      "urls": {
+        "site": {
+          "url": "https://mon-entreprise-info.com/",
+          "code": 200,
+          "type": "text/html",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://mon-entreprise-info.com/actualites/pyrenees-atlantiques/",
+          "code": 200,
+          "type": "text/html",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://mon-entreprise-info.com/actualites/pyrenees-atlantiques/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items": 50
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Le Journal des Entreprises — Pyrénées-Atlantiques",
+      "urls": {
+        "site": {
+          "url": "https://www.lejournaldesentreprises.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/pyrenees-atlantiques",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items": 20
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI Pays Basque — actualités locales",
+      "urls": {
+        "site": {
+          "url": "https://www.ici.fr/radio/pays-basque",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.ici.fr/radio/pays-basque",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.ici.fr/rss/pays-basque/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.saintjeandeluz.fr/fr/incident-de-cybersecurite-chez-la-mutuelle-familiale/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI Béarn Bigorre — actualités locales",
+      "urls": {
+        "site": {
+          "url": "https://www.ici.fr/radio/bearn",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.ici.fr/radio/bearn",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.ici.fr/rss/bearn/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items": 20
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Societe.Tech — entreprises Pyrénées-Atlantiques",
+      "urls": {
+        "site": {
+          "url": "https://www.societe.tech/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-pyrenees-atlantiques/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://news.google.com/rss/search?q=Societe.Tech%20Pyr%C3%A9n%C3%A9es-Atlantiques&hl=fr&gl=FR&ceid=FR:fr",
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items": 79
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Pyrénées-Atlantiques",
+      "urls": {
+        "site": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    }
+  ]
+}
