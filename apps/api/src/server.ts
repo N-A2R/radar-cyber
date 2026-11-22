@@ -20,6 +20,7 @@ import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserS
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
 import { startLiveStream } from "./collecte/live.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
+import { ancrerJournalDuJour } from "./journal/anchor.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
@@ -443,6 +444,30 @@ void guarded("mesure organisations reliées", mesurerOrgsLiees);
 setInterval(() => {
   void guarded("mesure organisations reliées", mesurerOrgsLiees);
 }, MESURE_ORGS_LIEES_MS);
+
+/**
+ * Ancrage quotidien du journal de vérité : la veille est scellée une fois par
+ * jour (racine Merkle recomputable + jeton RFC 3161), même quand la collecte
+ * est coupée. Sans cet ancrage, corriger une projection effacerait la preuve
+ * de ce qu'on croyait la veille. Un rattrapage borné comble les jours laissés
+ * nus par un arrêt de l'API ; `RADAR_ANCRAGE_JOURNAL=0` coupe le déclenchement.
+ */
+const ANCRAGE_JOURNAL_MS = 24 * 3600 * 1000;
+async function ancrerJournal(): Promise<void> {
+	const resultat = await ancrerJournalDuJour({ rattrapage: 7 });
+	if (resultat.ancres.length > 0) {
+		log(`ancrage journal : ${resultat.ancres.map((a) => `${a.ancrage.jour} (${a.statut})`).join(", ")}`);
+	}
+	for (const echec of resultat.echecs) {
+		log(`ancrage journal ${echec.jour} : échec — ${echec.erreur}`);
+	}
+}
+if (process.env.RADAR_ANCRAGE_JOURNAL !== "0") {
+	void guarded("ancrage journal", ancrerJournal);
+	setInterval(() => {
+		void guarded("ancrage journal", ancrerJournal);
+	}, ANCRAGE_JOURNAL_MS);
+}
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {
