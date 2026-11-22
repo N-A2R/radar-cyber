@@ -6,27 +6,59 @@
  * `presse_locale`, la provenance départementale est le signal : le fait entre
  * en `ambient_signal`, porte son département, et n'est jamais compté comme un
  * incident (`confirmed_incident`/`third_party_claim`).
+ *
+ * Le test est autonome : lancé seul contre une base de développement, il crée
+ * sa propre base `radar_test_*` depuis `db/init.sql` + migrations, puis la
+ * détruit. Lancé par `test/run.ts`, il réutilise la base jetable déjà en place.
+ * Il ne dépend donc ni du schéma ni des données de l'instance courante.
  */
-import { test, after } from "node:test";
+import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createServer, type Server } from "node:http";
 import { FAMILIES } from "@radar/shared";
-import { query, closePools } from "../src/db.js";
-import { runGenericSources } from "../src/collectors/generic.js";
-import { classifyFamily, type Family } from "../src/collectors/classify.js";
-import { INCIDENT_ASSERTIONS } from "../src/routes/corpus-stats.js";
+import { createTestDatabase, dropTestDatabase, type TestDb } from "./helpers/testdb.js";
+// Imports de types uniquement : effacés à la compilation, ils ne chargent pas
+// `db.ts` avant que le test ait choisi sa base.
+import type * as DbModule from "../src/db.js";
+import type * as GenericModule from "../src/collectors/generic.js";
+import type * as ClassifyModule from "../src/collectors/classify.js";
+import type * as CorpusModule from "../src/routes/corpus-stats.js";
 
-after(async () => { await closePools().catch(() => {}); });
+let db: DbModule;
+let generic: GenericModule;
+let classify: ClassifyModule;
+let corpus: CorpusModule;
+let baseJetable: TestDb | null = null;
+
+before(async () => {
+	const url = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
+	const nom = new URL(url).pathname.replace(/^\//, "");
+	if (!/^radar_test_/.test(nom)) {
+		baseJetable = await createTestDatabase();
+		process.env.DATABASE_URL = baseJetable.url;
+	}
+	// Import dynamique obligatoire : `db.ts` lit DATABASE_URL au chargement, il
+	// faut donc créer la base jetable et changer l'environnement avant.
+	db = await import("../src/db.js");
+	generic = await import("../src/collectors/generic.js");
+	classify = await import("../src/collectors/classify.js");
+	corpus = await import("../src/routes/corpus-stats.js");
+});
+
+after(async () => {
+	await db?.closePools().catch(() => {});
+	if (baseJetable) await dropTestDatabase(baseJetable).catch(() => {});
+});
 
 test("le contrat partagé porte la famille presse_locale", () => {
 	assert.ok((FAMILIES as readonly string[]).includes("presse_locale"));
 });
 
 test("un titre local sans terme cyber garde sa famille au classement", () => {
-	const got = classifyFamily({
+	const got = classify.classifyFamily({
 		title: "Le marché de Noël ouvre ses portes ce samedi",
 		summary: "Programme des festivités et stationnement.",
-		sourceFamily: "presse_locale" as Family,
+		sourceFamily: "presse_locale",
 		sourceName: "Presse locale de test",
 	});
 	assert.equal(got, "presse_locale", "le titre ne doit pas être rétrogradé en presse");
@@ -53,15 +85,15 @@ test("le collecteur écrit presse_locale, son département, et une assertion non
 		const adresse = serveur.address();
 		assert.ok(adresse && typeof adresse !== "string", "le serveur de test doit écouter");
 
-		await query(
+		await db.query(
 			`INSERT INTO source (id, name, family, url, kind, format, relevance, department)
 			 VALUES ($1,$2,'presse_locale',$3,'narrative','rss','context','16')`,
 			[sourceId, `Presse locale de test ${sourceId}`, `http://127.0.0.1:${adresse.port}/flux.xml`],
 		);
 
-		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		await generic.runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
 
-		const { rows } = await query<{
+		const { rows } = await db.query<{
 			dedup_key: string;
 			family: string;
 			assertion_type: string;
@@ -101,19 +133,19 @@ test("le collecteur écrit presse_locale, son département, et une assertion non
 		// assertion confirmée ou revendiquée. Un signal ambiant n'en est pas un.
 		assert.equal(evenement.assertion_type, "ambient_signal");
 		assert.ok(
-			!(INCIDENT_ASSERTIONS as readonly string[]).includes(evenement.assertion_type),
+			!(corpus.INCIDENT_ASSERTIONS as readonly string[]).includes(evenement.assertion_type),
 			"presse_locale ne doit jamais entrer dans le compteur incidents",
 		);
 
-		await query("DELETE FROM journal WHERE subject=$1", [evenement.dedup_key]).catch(() => {});
+		await db.query("DELETE FROM journal WHERE subject=$1", [evenement.dedup_key]).catch(() => {});
 	} finally {
 		if (serveur) {
 			const ferme = Promise.withResolvers<void>();
 			serveur.close((err) => (err ? ferme.reject(err) : ferme.resolve()));
 			await ferme.promise;
 		}
-		await query("DELETE FROM event WHERE source_id=$1", [sourceId]).catch(() => {});
-		await query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]).catch(() => {});
-		await query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
+		await db.query("DELETE FROM event WHERE source_id=$1", [sourceId]).catch(() => {});
+		await db.query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]).catch(() => {});
+		await db.query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
 	}
 });
