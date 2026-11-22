@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:d546c8e6-fa1d-4175-a6ea-c09cdcfd39b3>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 565
+WARC-Block-Digest: sha1:WSENG6BMGECPEJDX6OA5ZEB2XBWRIHHR
+X-Claim-Fingerprint: b6b2a7ba1458c53635320e03
+X-Victim-Key: 7f404ab1c10306253afb459a
+
+{"post_title": "Telecommunications", "discovered": "2026-07-31 15:44:17.566115", "description": "Telecommunications\nWebsite:\nwww.telewave.com\nStolen data: 37 GB\nTelewave.io will exhibit at Booth #1146 at APCO 2026 \u2013 Association of Public Safety Communications Officials in San Antonio, Texas! They will have what to tell about.\nDownload here\nhttp://d77tnb4bkmj3e366msrzllnwsi2t5e54e4yqh7zm7y5hlfwugnwzswad.onion/telewave.com/", "link": null, "magnet": null, "screen": null, "misp_uuid": "364ca465-6099-5380-aed2-1e85259c0af1", "group_name": "booba team"}
+

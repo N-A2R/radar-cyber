@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-industrie-87.jsonl",
+  "secteur": "industrie",
+  "departement": "87",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 13,
+  "urls_verifiees": 30,
+  "urls_200": 30,
+  "anomalies": [],
+  "detail": {
+    "corpus:industrie-87-01-cpme-87": {
+      "urls": {
+        "https://www.cpme87.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.cpme87.fr/", "octets": 18103, "ms": 573},
+        "https://www.cpme87.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.cpme87.fr/actualites/", "octets": 34382, "ms": 1029}
+      }
+    },
+    "corpus:industrie-87-02-medef-limousin": {
+      "urls": {
+        "https://limousin.territoriaux.medef.com/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://limousin.territoriaux.medef.com/", "octets": 32945, "ms": 217},
+        "https://limousin.territoriaux.medef.com/fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://limousin.territoriaux.medef.com/fr/actualites", "octets": 23883, "ms": 261}
+      }
+    },
+    "corpus:industrie-87-03-pole-formation-uimm-limousin": {
+      "urls": {
+        "https://www.formations-industrieslimousin.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.formations-industrieslimousin.fr/", "octets": 178484, "ms": 1648},
+        "https://www.formations-industrieslimousin.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.formations-industrieslimousin.fr/actualites/", "octets": 155643, "ms": 1119},
+        "https://www.formations-industrieslimousin.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "url_finale": "https://www.formations-industrieslimousin.fr/feed/", "octets": 139376, "ms": 1221}
+      }
+    },
+    "corpus:industrie-87-04-uimm-nouvelle-aquitaine": {
+      "urls": {
+        "https://www.uimmnouvelleaquitaine.com/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.uimmnouvelleaquitaine.com/", "octets": 20970, "ms": 209},
+        "https://www.uimmnouvelleaquitaine.com/actualite/news.html": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.uimmnouvelleaquitaine.com/actualite/news.html", "octets": 35656, "ms": 220}
+      }
+    },
+    "corpus:industrie-87-05-cma-haute-vienne": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous", "octets": 129404, "ms": 1198},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/", "octets": 280274, "ms": 152}
+      }
+    },
+    "corpus:industrie-87-06-limoges-metropole-industrie": {
+      "urls": {
+        "https://www.limoges-metropole.fr/entreprises/filieres/autres-filieres/industrie": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.limoges-metropole.fr/entreprises/filieres/autres-filieres/industrie", "octets": 68746, "ms": 649},
+        "https://www.limoges-metropole.fr/informations-transversales/actualites": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites", "octets": 87917, "ms": 2697},
+        "https://www.limoges-metropole.fr/informations-transversales/actualites/rss": {"code": 200, "type": "text/xml;charset=utf-8", "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites/rss", "octets": 391415, "ms": 3748}
+      }
+    },
+    "corpus:industrie-87-07-le-populaire-du-centre": {
+      "urls": {
+        "https://www.lepopulaire.fr/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.lepopulaire.fr/", "octets": 738088, "ms": 210},
+        "https://www.lepopulaire.fr/haute-vienne/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.lepopulaire.fr/haute-vienne/", "octets": 268235, "ms": 129}
+      }
+    },
+    "corpus:industrie-87-08-france3-haute-vienne": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne", "octets": 659490, "ms": 166},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss": {"code": 200, "type": "text/xml; charset=UTF-8", "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss", "octets": 73246, "ms": 101}
+      }
+    },
+    "corpus:industrie-87-09-7-a-limoges": {
+      "urls": {
+        "https://www.7alimoges.tv/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.7alimoges.tv/", "octets": 70819, "ms": 98},
+        "https://www.7alimoges.tv/Actualite_r16.html": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.7alimoges.tv/Actualite_r16.html", "octets": 55000, "ms": 96},
+        "https://www.7alimoges.tv/xml/syndication.rss": {"code": 200, "type": "text/xml; charset=UTF-8", "url_finale": "https://www.7alimoges.tv/xml/syndication.rss", "octets": 58034, "ms": 102}
+      }
+    },
+    "corpus:industrie-87-10-societe-tech-haute-vienne": {
+      "urls": {
+        "https://www.societe.tech/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.societe.tech/", "octets": 634002, "ms": 254},
+        "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-haute-vienne/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-haute-vienne/", "octets": 211265, "ms": 157}
+      }
+    },
+    "corpus:industrie-87-11-journal-des-entreprises-na": {
+      "urls": {
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine", "octets": 508711, "ms": 450},
+        "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/haute-vienne": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/haute-vienne", "octets": 285933, "ms": 316},
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {"code": 200, "type": "text/xml; charset=UTF-8", "url_finale": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine", "octets": 16311, "ms": 96}
+      }
+    },
+    "corpus:industrie-87-12-entreprises-nouvelle-aquitaine": {
+      "urls": {
+        "https://entreprises.nouvelle-aquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://entreprises.nouvelle-aquitaine.fr/", "octets": 111969, "ms": 1281},
+        "https://entreprises.nouvelle-aquitaine.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://entreprises.nouvelle-aquitaine.fr/actualites", "octets": 106314, "ms": 1045}
+      }
+    },
+    "corpus:industrie-87-13-medef-nouvelle-aquitaine": {
+      "urls": {
+        "https://www.medef-nouvelle-aquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.medef-nouvelle-aquitaine.fr/", "octets": 34600, "ms": 183},
+        "https://www.medef-nouvelle-aquitaine.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.medef-nouvelle-aquitaine.fr/actualites", "octets": 42672, "ms": 245}
+      }
+    }
+  }
+}

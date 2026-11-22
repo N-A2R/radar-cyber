@@ -10,10 +10,11 @@
 import { query } from "../db.js";
 import {
   attachLeaksByDomain,
-  countLeaksByDomain,
+  summarizeLeaksByDomain,
   type DomainAttachment,
   type DomainOrganization,
   type LeakClaim,
+  type LeakSummary,
 } from "./by-domain.js";
 
 export const SQL = {
@@ -35,6 +36,7 @@ export type LeakMeasurement = {
   claimsRead: number;
   domainOrganizationsRead: number;
   matchedOrganizations: number;
+  summary: LeakSummary;
   baseline: { organizations: number; sources: number; events: number };
   attachments: DomainAttachment[];
   measuredAt: string;
@@ -48,14 +50,16 @@ export async function measureLeaksByDomain(): Promise<LeakMeasurement> {
   ]);
 
   const attachments = attachLeaksByDomain(claims.rows, orgs.rows);
+  const summary = summarizeLeaksByDomain(attachments, orgs.rows);
   const baseline = totals.rows[0] ?? { organizations: 0, sources: 0, events: 0 };
   return {
     scope: "nouvelle-aquitaine",
     basis: "domain",
-    count: countLeaksByDomain(claims.rows, orgs.rows),
+    count: attachments.length,
     claimsRead: claims.rows.length,
     domainOrganizationsRead: orgs.rows.length,
     matchedOrganizations: new Set(attachments.map((a) => a.orgId)).size,
+    summary,
     baseline: {
       organizations: Number(baseline.organizations),
       sources: Number(baseline.sources),
