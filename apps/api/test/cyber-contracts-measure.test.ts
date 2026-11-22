@@ -2,6 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import {
 	extractAmount,
 	extractAwardees,
@@ -90,7 +91,7 @@ test("measurement sums published amounts and lists awardees", () => {
 });
 
 test("versioned corpus contains only NA cyber notices", () => {
-	const corpus = JSON.parse(readFileSync("bench/corpus/cyber-contracts-na.json", "utf8")) as {
+	const corpus = JSON.parse(readFileSync(fileURLToPath(new URL("../../../bench/corpus/cyber-contracts-na.json", import.meta.url)), "utf8")) as {
 		notices: ContractNotice[];
 	};
 	assert.ok(corpus.notices.length > 0);
