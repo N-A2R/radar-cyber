@@ -1,0 +1,36 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "departments": [
+    "16",
+    "17",
+    "19",
+    "23",
+    "24",
+    "33",
+    "40",
+    "47",
+    "64",
+    "79",
+    "86",
+    "87"
+  ],
+  "organisations": {
+    "total": 1671907,
+    "withVersion": 1671907,
+    "withOpenVersion": 1671907,
+    "coveragePct": 100
+  },
+  "aliases": {
+    "total": 1678041,
+    "withVersion": 1678041,
+    "withOpenVersion": 1678041,
+    "coveragePct": 100
+  },
+  "historyVersions": {
+    "organisations": 1673151,
+    "aliases": 1678185
+  },
+  "versionsWithoutBothClocks": 0,
+  "guardedWritePaths": 2,
+  "complete": true
+}

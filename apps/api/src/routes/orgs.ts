@@ -94,11 +94,10 @@ function paginationOrgs(q: Record<string, string | undefined>) {
 }
 
 const ORGS_ASOF_CTE = `WITH valides AS (
-     SELECT id, name, slug, kind, sector, city, dept, website, domain, lat, lon
-     FROM org WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
-     UNION ALL
-     SELECT org_id AS id, name, slug, kind, sector, city, dept, website, domain, lat, lon
-     FROM org_history WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
+     SELECT DISTINCT ON (org_id) org_id AS id, name, slug, kind, sector, city, dept, website, domain, lat, lon
+     FROM org_history
+     WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
+     ORDER BY org_id, recorded_at DESC, id DESC
    )`;
 
 export default async function (app: FastifyInstance) {

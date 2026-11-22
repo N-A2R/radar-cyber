@@ -46,11 +46,12 @@ test("une organisation mutée garde son ancienne version pour le passé", async 
 		assert.ok(orgCourant);
 		assert.match(orgCourant!.name, /FUSIONNEE/);
 
-		// Vérifie que l'historique contient bien l'ancienne version close
-		const { rows: hist } = await query<{ valid_to: string | null }>(`SELECT valid_to::text AS valid_to FROM org_history WHERE org_id=$1`, [orgId]);
-		assert.equal(hist.length, 1);
-		assert.ok(hist[0]!.valid_to !== null, "l'ancienne version doit être close");
-		assert.match(hist[0]!.valid_to!, /2024-06-01/);
+		// La couverture complète place aussi la version courante dans org_history.
+		const { rows: hist } = await query<{ valid_to: string | null; superseded_at: string | null }>(`SELECT valid_to::text AS valid_to, superseded_at::text AS superseded_at FROM org_history WHERE org_id=$1 ORDER BY id`, [orgId]);
+		assert.equal(hist.length, 2);
+		assert.match(hist[0]!.valid_to!, /2024-06-01/, "l'ancienne version doit être close à la date d'effet");
+		assert.notEqual(hist[0]!.superseded_at, null, "l'ancienne assertion doit être dépassée");
+		assert.equal(hist[1]!.superseded_at, null, "la nouvelle assertion reste ouverte");
 
 		// Le journal doit avoir tracé la mutation
 		const { rows: j } = await query(`SELECT * FROM journal WHERE subject=$1 AND kind='org.changed'`, [`org:${orgId}`]);
@@ -92,9 +93,9 @@ test("muterOrganisation refuse une colonne hors whitelist avant toute écriture"
 			() => muterOrganisation({ orgId, changes: { "name = 'x', slug": "y" } as never, actor: "test:whitelist" }),
 			/colonne non modifiable/,
 		);
-		// Le rejet doit être antérieur à l'archivage : aucune version n'a été créée.
+		// Le rejet doit être antérieur à l'archivage : aucune assertion supplémentaire.
 		const { rows: hist } = await query<{ n: number }>(
-			"SELECT count(*)::int AS n FROM org_history WHERE org_id=$1",
+			"SELECT count(*)::int AS n FROM org_history WHERE org_id=$1 AND superseded_at IS NOT NULL",
 			[orgId],
 		);
 		assert.equal(hist[0]!.n, 0, "aucune version ne doit être archivée quand la clé est refusée");
