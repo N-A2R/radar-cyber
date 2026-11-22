@@ -43,3 +43,4 @@ Le champ `exemple_cyber` du corpus s'appuie sur des événements réels de Chare
 ## Méthode
 
 Recherche web (annuaires consulaires, sites officiels, fédérations d'élus et presse locale), identification des pages d'actualités et des flux, puis contrôle GET de chaque URL avec User-Agent navigateur et suivi des redirections (20 s de délai maximum). Seules les sources dont toutes les URLs ont répondu 200 ont été intégrées au corpus et à la base.
+OBJECTIF : atteint — 15 / 5
