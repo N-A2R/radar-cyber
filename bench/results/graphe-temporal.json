@@ -1,0 +1,27 @@
+{
+  "measuredAt": "2026-11-22T00:48:49.129Z",
+  "database": "postgres://radar:***@localhost:5433/radar",
+  "baseline": {
+    "orgs": "1673151",
+    "events": "26394",
+    "sources": "312"
+  },
+  "relations": {
+    "total": 81171,
+    "dated": 81171,
+    "withEndDate": 21,
+    "byType": {
+      "attributed_to": 21,
+      "claims": 415,
+      "contains": 26394,
+      "located_in": 44,
+      "mentions_product": 1316,
+      "produced_by": 619,
+      "published_on": 25917,
+      "reported_by": 26394,
+      "targeted_by": 51
+    }
+  },
+  "entities": 27557,
+  "organizationsOutsideNouvelleAquitaine": 0
+}

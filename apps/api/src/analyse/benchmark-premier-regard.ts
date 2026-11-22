@@ -129,11 +129,16 @@ export function codeDepartement(departement: string): string {
   return /^\d{2}$/.test(nom) ? nom : (DEPARTEMENTS[nom] ?? nom);
 }
 
-function jours(date: string | null | undefined): number | null {
-  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+/** Date ISO civile réelle : une date impossible n'est jamais une date datée. */
+export function estDateISO(date: unknown): date is string {
+  if (typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
   const ms = Date.parse(`${date}T00:00:00Z`);
-  if (!Number.isFinite(ms) || new Date(ms).toISOString().slice(0, 10) !== date) return null;
-  return ms / JOUR_MS;
+  return Number.isFinite(ms) && new Date(ms).toISOString().slice(0, 10) === date;
+}
+
+function jours(date: string | null | undefined): number | null {
+  if (!estDateISO(date)) return null;
+  return Date.parse(date) / JOUR_MS;
 }
 
 
