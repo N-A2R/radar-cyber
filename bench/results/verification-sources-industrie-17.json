@@ -1,0 +1,185 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-industrie-17.jsonl",
+  "secteur": "industrie",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 20 s ; statut, type MIME et temps relevés pour chaque URL",
+  "verifie_at": "2026-11-22T03:24:11Z",
+  "sources": 9,
+  "urls_verifiees": 21,
+  "urls_200": 21,
+  "detail": [
+    {
+      "nom": "CPME 17 — Confédération des petites et moyennes entreprises de la Charente-Maritime",
+      "urls": {
+        "https://cpme17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://cpme17.fr/",
+          "ms": 1515
+        },
+        "https://cpme17.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://cpme17.fr/actualites/",
+          "ms": 2275
+        },
+        "https://cpme17.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://cpme17.fr/feed/",
+          "ms": 750
+        }
+      }
+    },
+    {
+      "nom": "MEDEF Charente-Maritime",
+      "urls": {
+        "https://www.medef17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.medef17.fr/",
+          "ms": 259
+        },
+        "https://www.medef17.fr/fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.medef17.fr/actualites",
+          "ms": 219
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Charente-Maritime",
+      "urls": {
+        "https://www.sudouest.fr/charente-maritime/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.sudouest.fr/charente-maritime/",
+          "ms": 413
+        },
+        "https://www.sudouest.fr/charente-maritime/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_effective": "https://www.sudouest.fr/charente-maritime/rss.xml",
+          "ms": 141
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Charente-Maritime",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/charente-maritime_17": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17",
+          "ms": 165
+        },
+        "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_effective": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/rss.xml",
+          "ms": 108
+        }
+      }
+    },
+    {
+      "nom": "ici La Rochelle — Radio France",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17",
+          "ms": 272
+        },
+        "https://www.ici.fr/rss/la-rochelle/a-la-une.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_effective": "https://www.ici.fr/rss/la-rochelle/a-la-une.xml",
+          "ms": 209
+        }
+      }
+    },
+    {
+      "nom": "Le Journal des Entreprises — Nouvelle-Aquitaine",
+      "urls": {
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "ms": 404
+        },
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_effective": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "ms": 174
+        }
+      }
+    },
+    {
+      "nom": "Agglo La Rochelle — actualités et développement économique",
+      "urls": {
+        "https://www.agglo-larochelle.fr/": {
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "url_effective": "https://www.agglo-larochelle.fr/",
+          "ms": 2551
+        },
+        "https://www.agglo-larochelle.fr/actualites": {
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "url_effective": "https://www.agglo-larochelle.fr/actualites",
+          "ms": 2284
+        },
+        "https://www.agglo-larochelle.fr/les-flux-rss-de-l-agglo/-/data-agglo/all-9786027.rss": {
+          "code": 200,
+          "type": "application/rss+xml;charset=UTF-8",
+          "url_effective": "https://www.agglo-larochelle.fr/les-flux-rss-de-l-agglo/-/data-agglo/all-9786027.rss",
+          "ms": 954
+        }
+      }
+    },
+    {
+      "nom": "Technopole ATLAS — La Rochelle",
+      "urls": {
+        "https://technopole-atlas.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_effective": "https://technopole-atlas.fr/",
+          "ms": 230
+        },
+        "https://technopole-atlas.fr/l-actualite": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_effective": "https://technopole-atlas.fr/l-actualite",
+          "ms": 513
+        }
+      }
+    },
+    {
+      "nom": "Coopérative Carbone — La Rochelle",
+      "urls": {
+        "https://cooperativecarbone.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://cooperativecarbone.fr/",
+          "ms": 167
+        },
+        "https://cooperativecarbone.fr/actus/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_effective": "https://cooperativecarbone.fr/actus/",
+          "ms": 131
+        },
+        "https://cooperativecarbone.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_effective": "https://cooperativecarbone.fr/feed/",
+          "ms": 511
+        }
+      }
+    }
+  ]
+}
