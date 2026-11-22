@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T23:25:53.557Z",
+  "generatedAt": "2026-11-22T02:24:11.934Z",
   "method": {
     "scope": "Nouvelle-Aquitaine (regional flag; department attachments accepted when supplied)",
     "departments": [
@@ -28,7 +28,7 @@
   "dataset": {
     "organisations": 1678195,
     "organisationsExact": true,
-    "sources": 463,
+    "sources": 543,
     "events": 27899,
     "eventsLoaded": 27899
   },
@@ -39,10 +39,10 @@
     "ratePercent": 0
   },
   "result": {
-    "incidents": 36,
+    "incidents": 56,
     "corroborated": 2,
-    "singleSource": 34,
-    "ratePercent": 5.56
+    "singleSource": 54,
+    "ratePercent": 3.57
   },
   "corroboratedClusters": [
     {

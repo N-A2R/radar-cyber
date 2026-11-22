@@ -21,9 +21,9 @@ corroboré sur 1 739** (0 %, tous territoires).
   l'URL de la source. Deux flux du même éditeur (par exemple `ransomlook` et
   `leak:ransomlook:recent-api`) comptent pour une seule source ;
 - périmètre : Nouvelle-Aquitaine uniquement (`event.regional = true`, ou
-  rattachement à un département NA quand il est fourni). Un signal de presse
-  d'un second éditeur peut corroborer une revendication, mais il ne crée pas
-  d'incident à lui seul ;
+  rattachement à un département NA lu sur `org.dept` par le chargeur). Un signal
+  de presse d'un second éditeur peut corroborer une revendication, mais il ne
+  crée pas d'incident à lui seul ;
 - vie privée : le rapport ne contient aucun titre, résumé ou donnée personnelle
   de victime — seulement des empreintes SHA-256 tronquées, des identifiants
   d'événement et des noms d'éditeurs publics.
@@ -43,10 +43,10 @@ seule et s'achève en environ deux secondes.
 
 ## Résultat mesuré
 
-État réel lu en base : **1 678 195 organisations** (`org_alias`), **463
+État réel lu en base : **1 678 195 organisations** (`org_alias`), **543
 sources**, **27 899 événements**.
 
-**2 incidents corroborés sur 36 incidents de Nouvelle-Aquitaine, soit 5,56 %.**
+**2 incidents corroborés sur 56 incidents de Nouvelle-Aquitaine, soit 3,57 %.**
 
 Les deux paires proviennent de `ransomlook.io` et `ransomware.live` : deux
 revendications de rançongiciel déjà présentes dans la base, publiées à la même
@@ -54,8 +54,10 @@ heure par deux éditeurs distincts, et jusqu'ici comptées comme deux faits
 isolés. Les deux flux du même éditeur RansomLook ne sont pas comptés comme une
 corroboration.
 
-`server.ts` n'est pas modifié (0 ligne de diff). Les huit comportements sont
-fixés par `apps/api/test/incident-corroboration.test.ts` (8 tests verts).
+Tranche suivante : le chargeur lit désormais `org.dept` (chaîne vide normalize
+en `null`), ce qui porte le périmètre de 36 à 56 incidents NA sans inventer de
+source. `server.ts` n'est pas modifié (0 ligne de diff). Les comportements sont
+fixés par `apps/api/test/incident-corroboration.test.ts` (10 tests verts).
 
 Preuve : `bench/results/incident-corroboration-2026-11-22.json` — SHA-256
-`9e18978865170883…`.
+`46f60173ab78d074d787a75c5eae6912b946bf942fc09a270f1ade1667e62350`.

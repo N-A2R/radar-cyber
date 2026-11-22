@@ -49,6 +49,8 @@ export type CorroboratedCluster = {
   firstClaimAt: string;
   lastClaimAt: string;
   corroborated: boolean;
+  /** True when this cluster counts towards the Nouvelle-Aquitaine incident total. */
+  naIncident: boolean;
 };
 
 export type CorroborationReport = {
@@ -150,6 +152,7 @@ function buildCluster(key: string, items: readonly CorroborationEvent[]): Corrob
     firstClaimAt: new Date(Math.min(...times)).toISOString(),
     lastClaimAt: new Date(Math.max(...times)).toISOString(),
     corroborated: false,
+    naIncident: false,
   };
 }
 
@@ -194,6 +197,7 @@ export function corroborateNAIncidents(events: readonly CorroborationEvent[]): C
   );
   for (const cluster of naIncidents) {
     cluster.corroborated = cluster.publishers.length >= 2;
+    cluster.naIncident = true;
   }
   const corroborated = naIncidents.filter((cluster) => cluster.corroborated).length;
   return {
@@ -205,19 +209,21 @@ export function corroborateNAIncidents(events: readonly CorroborationEvent[]): C
   };
 }
 
-/** Loads real events and their publisher URL; scope comes from the regional flag. */
+/** Loads real events, their publisher URL and their organisation's department. */
 export async function loadCorroborationEvents(): Promise<CorroborationEvent[]> {
   const result = await query<CorroborationEvent>(`
     SELECT e.id::int AS "id", e.source_id AS "sourceId", s.url AS "sourceUrl",
            e.family, e.assertion_type AS "assertionType", e.org_id AS "orgId",
-           e.regional, e.observed_at AS "observedAt", e.evidence, e.title
+           e.regional, e.observed_at AS "observedAt", e.evidence, e.title,
+           o.dept AS "orgDept"
       FROM event e
       JOIN source s ON s.id = e.source_id
+      LEFT JOIN org o ON o.id = e.org_id
      ORDER BY e.id`);
   return result.rows.map((row) => ({
     ...row,
     orgId: row.orgId === null ? null : Number(row.orgId),
-    orgDept: null,
+    orgDept: row.orgDept === null || row.orgDept.trim() === "" ? null : row.orgDept,
     evidence: (row.evidence ?? null) as JsonRecord | null,
     regional: Boolean(row.regional),
   }));
