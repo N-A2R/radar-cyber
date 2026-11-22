@@ -85,3 +85,5 @@ writers applicatifs qui consignent déjà leur propre `event.admitted` produisen
 désormais deux faits d'admission pour le même sujet (le leur et celui du
 trigger) ; la règle de custody en accepte plusieurs, et le doublon reste lisible
 comme deux acteurs distincts attestant la même admission.
+
+OBJECTIF : atteint — 12 / 12
