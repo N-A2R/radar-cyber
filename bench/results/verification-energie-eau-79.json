@@ -1,0 +1,26 @@
+{
+  "verifie_le": "2026-11-22",
+  "secteur": "energie-eau",
+  "departement": "79",
+  "methode": "HTTP GET (User-Agent navigateur, timeout 20s, redirections suivies) sur url_site, url_actualites et url_flux de chaque ligne du corpus",
+  "corpus": "bench/corpus/sources-energie-eau-79.jsonl",
+  "sources": [
+    {"nom": "SIEDS — Syndicat d'Énergie des Deux-Sèvres", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Gérédis — gestionnaire du réseau électrique des Deux-Sèvres", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "SÉOLIS — énergie des Deux-Sèvres", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Eklor — photovoltaïque (Niort)", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "DREAL Nouvelle-Aquitaine (référent Deux-Sèvres eau/énergie)", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Agence de l'eau Loire-Bretagne", "url_site": 200, "url_actualites": 200, "url_flux": null},
+    {"nom": "Niort Agglo — eau et assainissement", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Département des Deux-Sèvres — énergie et eau", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Préfecture des Deux-Sèvres — services de l'État", "url_site": 200, "url_actualites": 200, "url_flux": null},
+    {"nom": "La Nouvelle République — Deux-Sèvres (environnement)", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "actu.fr — Actu Deux-Sèvres", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "ici Poitou — Deux-Sèvres (79)", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "France 3 Nouvelle-Aquitaine — Deux-Sèvres", "url_site": 200, "url_actualites": 200, "url_flux": null},
+    {"nom": "franceinfo — Nouvelle-Aquitaine / Deux-Sèvres", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Vivre à Niort — magazine municipal", "url_site": 200, "url_actualites": 200, "url_flux": 200},
+    {"nom": "Niort info", "url_site": 200, "url_actualites": 200, "url_flux": 200}
+  ],
+  "resume": {"sources": 16, "urls_uniques": 40, "urls_en_200": 40}
+}
