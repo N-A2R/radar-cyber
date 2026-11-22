@@ -1,0 +1,241 @@
+{
+  "generatedAt": "2026-11-22T03:51:29.829Z",
+  "method": {
+    "scope": "Nouvelle-Aquitaine (12 departments)",
+    "definition": "First-party crisis page or official statement published on or after the dated incident",
+    "acceptedSources": [
+      "official",
+      "grey first-party"
+    ],
+    "rejectedSources": [
+      "press",
+      "leak blogs",
+      "unknown publishers"
+    ],
+    "privacy": "organisation is a truncated SHA-256 hash; no title, summary or victim personal data exported",
+    "cost": "public and free sources only; offline deterministic corpus; no paid service",
+    "corpus": "bench/corpus/incidents-*.jsonl"
+  },
+  "baseline": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "corpus": {
+    "recordsScanned": 122,
+    "pressPages": 102,
+    "pressPagesAccepted": 0,
+    "outsideNa": 0,
+    "outsideNaAccepted": 0,
+    "negativeDelays": 0
+  },
+  "result": {
+    "detections": 17,
+    "datedDelays": 8,
+    "undatedDetections": 9,
+    "medianDelayDays": 5,
+    "minDelayDays": 0,
+    "maxDelayDays": 30
+  },
+  "objective": {
+    "met": true,
+    "checks": [
+      {
+        "label": "first-party crisis pages detected",
+        "expected": ">= 17",
+        "observed": "17",
+        "passed": true
+      },
+      {
+        "label": "incident-to-publication delays measured",
+        "expected": ">= 8",
+        "observed": "8",
+        "passed": true
+      },
+      {
+        "label": "press pages wrongly accepted",
+        "expected": "0",
+        "observed": "0",
+        "passed": true
+      },
+      {
+        "label": "out-of-region pages wrongly accepted",
+        "expected": "0",
+        "observed": "0",
+        "passed": true
+      }
+    ]
+  },
+  "communications": [
+    {
+      "id": "cor-005",
+      "department": "19",
+      "sourceKind": "official",
+      "host": "terresdecorreze.com",
+      "organisationHash": "70963c5f8f1b",
+      "incidentDate": null,
+      "publishedAt": "2025-06-05",
+      "delayDays": null
+    },
+    {
+      "id": "gir-couv-003",
+      "department": "33",
+      "sourceKind": "official",
+      "host": "denys-puech.mon-ent-occitanie.fr",
+      "organisationHash": "b2c5784b9f66",
+      "incidentDate": null,
+      "publishedAt": "2026-03-02",
+      "delayDays": null
+    },
+    {
+      "id": "gir-couv-006",
+      "department": "33",
+      "sourceKind": "official",
+      "host": "agro-bordeaux.fr",
+      "organisationHash": "1a862612d337",
+      "incidentDate": "2026-09-08",
+      "publishedAt": "2026-09-15",
+      "delayDays": 7
+    },
+    {
+      "id": "gir-couv-010",
+      "department": "33",
+      "sourceKind": "official",
+      "host": "chasseurs33.com",
+      "organisationHash": "d4f7a057b630",
+      "incidentDate": "2026-01-20",
+      "publishedAt": "2026-01-23",
+      "delayDays": 3
+    },
+    {
+      "id": "gir-couv-012",
+      "department": "33",
+      "sourceKind": "official",
+      "host": "dedalus.com",
+      "organisationHash": "420064da86a4",
+      "incidentDate": "2026-03-03",
+      "publishedAt": "2026-03-04",
+      "delayDays": 1
+    },
+    {
+      "id": "gir-couv-014",
+      "department": "33",
+      "sourceKind": "official",
+      "host": "nouvelle-aquitaine.ars.sante.fr",
+      "organisationHash": "fffeaad7fcde",
+      "incidentDate": null,
+      "publishedAt": "2026-07-08",
+      "delayDays": null
+    },
+    {
+      "id": "na-dordogne-005",
+      "department": "24",
+      "sourceKind": "official",
+      "host": "ccdordogne-bessede.fr",
+      "organisationHash": "ac3781a5624c",
+      "incidentDate": null,
+      "publishedAt": "2025-11-07",
+      "delayDays": null
+    },
+    {
+      "id": "na-dordogne-007",
+      "department": "24",
+      "sourceKind": "official",
+      "host": "chasseurs24.com",
+      "organisationHash": "961d588c47e7",
+      "incidentDate": null,
+      "publishedAt": "2026-01-26",
+      "delayDays": null
+    },
+    {
+      "id": "na-dordogne-009",
+      "department": "24",
+      "sourceKind": "official",
+      "host": "bussac-dordogne.fr",
+      "organisationHash": "0a82f80a6d7c",
+      "incidentDate": null,
+      "publishedAt": "2026-08-07",
+      "delayDays": null
+    },
+    {
+      "id": "na-dordogne-012",
+      "department": "24",
+      "sourceKind": "official",
+      "host": "novabio.fr",
+      "organisationHash": "8e4105ae2213",
+      "incidentDate": null,
+      "publishedAt": "2026-10-30",
+      "delayDays": null
+    },
+    {
+      "id": "na-ds-002",
+      "department": "79",
+      "sourceKind": "official",
+      "host": "chnds.fr",
+      "organisationHash": "d43cdaec8911",
+      "incidentDate": "2025-11-14",
+      "publishedAt": "2025-11-14",
+      "delayDays": 0
+    },
+    {
+      "id": "na-hv-006",
+      "department": "87",
+      "sourceKind": "official",
+      "host": "limoges.fr",
+      "organisationHash": "2d4aeb13a882",
+      "incidentDate": null,
+      "publishedAt": "2026-06-29",
+      "delayDays": null
+    },
+    {
+      "id": "na-hv-007",
+      "department": "87",
+      "sourceKind": "official",
+      "host": "cigusto.com",
+      "organisationHash": "e2aa6044a2cd",
+      "incidentDate": "2026-09-22",
+      "publishedAt": "2026-09-29",
+      "delayDays": 7
+    },
+    {
+      "id": "na-landes-001",
+      "department": "40",
+      "sourceKind": "official",
+      "host": "ville-tarnos.fr",
+      "organisationHash": "584fa05be2b1",
+      "incidentDate": "2026-08-28",
+      "publishedAt": "2026-08-28",
+      "delayDays": 0
+    },
+    {
+      "id": "na-vienne-005",
+      "department": "86",
+      "sourceKind": "grey",
+      "host": "unsa-education.com",
+      "organisationHash": "7fb6457ee1e1",
+      "incidentDate": "2026-08-01",
+      "publishedAt": "2026-08-31",
+      "delayDays": 30
+    },
+    {
+      "id": "pa-inc-005",
+      "department": "64",
+      "sourceKind": "official",
+      "host": "saintjeandeluz.fr",
+      "organisationHash": "aceeb8a11f1b",
+      "incidentDate": "2026-03-17",
+      "publishedAt": "2026-04-02",
+      "delayDays": 16
+    },
+    {
+      "id": "pa-inc-008",
+      "department": "64",
+      "sourceKind": "official",
+      "host": "cop-pau.fr",
+      "organisationHash": "e6a35362d74a",
+      "incidentDate": null,
+      "publishedAt": "2026-10-08",
+      "delayDays": null
+    }
+  ]
+}
