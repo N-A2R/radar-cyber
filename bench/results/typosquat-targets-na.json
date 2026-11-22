@@ -1,0 +1,8009 @@
+{
+  "date": "2026-11-22",
+  "source": "postgres://radar:radar@localhost:5433/radar",
+  "query": "WITH ranked AS (\n  SELECT d.domain,\n         min(d.label) AS label,\n         max(o.effectif_min) AS effectif,\n         (array_agg(o.id ORDER BY o.id))[1] AS org_id,\n         min(o.dept) AS dept,\n         row_number() OVER (\n           ORDER BY max(o.effectif_min) DESC NULLS LAST, d.domain ASC\n         ) AS rank\n  FROM dns_domaine d\n  JOIN org o ON o.id = ANY (d.org_ids)\n  WHERE o.dept IN ('16', '17', '18', '23', '24', '33', '40', '47', '64', '79', '86', '87')\n    AND o.valid_to IS NULL\n    AND d.domain ~ '^[a-z0-9][a-z0-9.-]*\\.[a-z]{2,}$'\n  GROUP BY d.domain\n)\nSELECT rank, org_id, label, domain, dept, effectif\nFROM ranked\nWHERE rank > $2 AND rank <= $2 + $1\nORDER BY rank",
+  "scope": "Nouvelle-Aquitaine (depts 16,17,18,23,24,33,40,47,64,79,86,87)",
+  "count": 1000,
+  "targets": [
+    {
+      "rank": 1,
+      "orgId": 368896,
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "domain": "maif.fr",
+      "dept": "79",
+      "effectif": 2000
+    },
+    {
+      "rank": 2,
+      "orgId": 21034,
+      "orgName": "MUTUELLE DE POITIERS ASSURANCES",
+      "domain": "assurance-mutuelle-poitiers.fr",
+      "dept": "86",
+      "effectif": 1000
+    },
+    {
+      "rank": 3,
+      "orgId": 206112,
+      "orgName": "CAISSE REGIONALE DE CREDIT AGRICOLE MUTUEL CHARENTE-PERIGORD",
+      "domain": "credit-agricole.fr",
+      "dept": "16",
+      "effectif": 1000
+    },
+    {
+      "rank": 4,
+      "orgId": 372692,
+      "orgName": "FONDATION JOHN BOST",
+      "domain": "johnbost.org",
+      "dept": "24",
+      "effectif": 1000
+    },
+    {
+      "rank": 5,
+      "orgId": 369724,
+      "orgName": "AIRBUS ATLANTIC",
+      "domain": "stelia-aerospace.com",
+      "dept": "17",
+      "effectif": 1000
+    },
+    {
+      "rank": 6,
+      "orgId": 21041,
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "domain": "stga.fr",
+      "dept": "16",
+      "effectif": 1000
+    },
+    {
+      "rank": 7,
+      "orgId": 95908,
+      "orgName": "MOTEURS LEROY SOMER",
+      "domain": "acim.nidec.com",
+      "dept": "16",
+      "effectif": 500
+    },
+    {
+      "rank": 8,
+      "orgId": 189766,
+      "orgName": "CDISCOUNT",
+      "domain": "cdiscount.com",
+      "dept": "33",
+      "effectif": 500
+    },
+    {
+      "rank": 9,
+      "orgId": 21060,
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "domain": "darva.com",
+      "dept": "79",
+      "effectif": 500
+    },
+    {
+      "rank": 10,
+      "orgId": 11857,
+      "orgName": "CENTRE HOSPITALIER DE MAULEON",
+      "domain": "hopital-mauleon.fr",
+      "dept": "64",
+      "effectif": 500
+    },
+    {
+      "rank": 11,
+      "orgId": 371520,
+      "orgName": "POUJOULAT",
+      "domain": "poujoulat.fr",
+      "dept": "79",
+      "effectif": 500
+    },
+    {
+      "rank": 12,
+      "orgId": 471201,
+      "orgName": "SMACL ASSURANCES SA",
+      "domain": "smacl.fr",
+      "dept": "79",
+      "effectif": 500
+    },
+    {
+      "rank": 13,
+      "orgId": 21075,
+      "orgName": "SOCRAM BANQUE (SOCRAM)",
+      "domain": "socram-banque.fr",
+      "dept": "79",
+      "effectif": 500
+    },
+    {
+      "rank": 14,
+      "orgId": 358546,
+      "orgName": "SPAC",
+      "domain": "spac.fr",
+      "dept": "33",
+      "effectif": 500
+    },
+    {
+      "rank": 15,
+      "orgId": 77475,
+      "orgName": "WIPRO LAUAK FRANCE",
+      "domain": "wiprolauak.com",
+      "dept": "64",
+      "effectif": 500
+    },
+    {
+      "rank": 16,
+      "orgId": 223089,
+      "orgName": "ASOBO STUDIO",
+      "domain": "asobostudio.com",
+      "dept": "33",
+      "effectif": 250
+    },
+    {
+      "rank": 17,
+      "orgId": 368622,
+      "orgName": "BERNARDAUD",
+      "domain": "bernardaud.com",
+      "dept": "87",
+      "effectif": 250
+    },
+    {
+      "rank": 18,
+      "orgId": 104972,
+      "orgName": "EXCELIA GROUP",
+      "domain": "excelia-group.fr",
+      "dept": "17",
+      "effectif": 250
+    },
+    {
+      "rank": 19,
+      "orgId": 204900,
+      "orgName": "FLOA",
+      "domain": "floa.com",
+      "dept": "33",
+      "effectif": 250
+    },
+    {
+      "rank": 20,
+      "orgId": 78177,
+      "orgName": "FOUNTAINE PAJOT",
+      "domain": "fountaine-pajot.com",
+      "dept": "17",
+      "effectif": 250
+    },
+    {
+      "rank": 21,
+      "orgId": 103244,
+      "orgName": "GIFI",
+      "domain": "gifi.fr",
+      "dept": "47",
+      "effectif": 250
+    },
+    {
+      "rank": 22,
+      "orgId": 368901,
+      "orgName": "OCEALIA",
+      "domain": "ocealia-groupe.fr",
+      "dept": "16",
+      "effectif": 250
+    },
+    {
+      "rank": 23,
+      "orgId": 125782,
+      "orgName": "ROXEL FRANCE",
+      "domain": "roxelgroup.com",
+      "dept": "33",
+      "effectif": 250
+    },
+    {
+      "rank": 24,
+      "orgId": 91529,
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "domain": "stcl.fr",
+      "dept": "87",
+      "effectif": 250
+    },
+    {
+      "rank": 25,
+      "orgId": 46466,
+      "orgName": "TEREGA",
+      "domain": "terega.fr",
+      "dept": "64",
+      "effectif": 250
+    },
+    {
+      "rank": 26,
+      "orgId": 265810,
+      "orgName": "AEROPORT DE BORDEAUX MERIGNAC",
+      "domain": "aeroport.fr",
+      "dept": "33",
+      "effectif": 200
+    },
+    {
+      "rank": 27,
+      "orgId": 373257,
+      "orgName": "GESTION DES ETABLISSEMENTS DE L ASSOMPTION ET SAINE CLOTILDE",
+      "domain": "assomption-bordeaux.com",
+      "dept": "33",
+      "effectif": 200
+    },
+    {
+      "rank": 28,
+      "orgId": 451238,
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "domain": "estia.fr",
+      "dept": "64",
+      "effectif": 200
+    },
+    {
+      "rank": 29,
+      "orgId": 245410,
+      "orgName": "ENSEMBLE SCOLAIRE STE MARIE GRAND LEBRUN",
+      "domain": "grandlebrun.com",
+      "dept": "33",
+      "effectif": 200
+    },
+    {
+      "rank": 30,
+      "orgId": 376188,
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "domain": "lpo.fr",
+      "dept": "17",
+      "effectif": 200
+    },
+    {
+      "rank": 31,
+      "orgId": 122560,
+      "orgName": "LUCIEN GEORGELIN",
+      "domain": "lucien-georgelin.com",
+      "dept": "47",
+      "effectif": 200
+    },
+    {
+      "rank": 32,
+      "orgId": 148380,
+      "orgName": "OGEC ENSEMBLE SCOLAIRE NIORTAIS",
+      "domain": "lycee-saintandre-niort.com",
+      "dept": "79",
+      "effectif": 200
+    },
+    {
+      "rank": 33,
+      "orgId": 373593,
+      "orgName": "ASSOC ST JOSEPH DE TIVOLI",
+      "domain": "tivoli-33.org",
+      "dept": "33",
+      "effectif": 200
+    },
+    {
+      "rank": 34,
+      "orgId": 360182,
+      "orgName": "TRANS-LANDES",
+      "domain": "trans-landes.fr",
+      "dept": "40",
+      "effectif": 200
+    },
+    {
+      "rank": 35,
+      "orgId": 143543,
+      "orgName": "VALOREM",
+      "domain": "valorem-energie.com",
+      "dept": "33",
+      "effectif": 200
+    },
+    {
+      "rank": 36,
+      "orgId": 147590,
+      "orgName": "ACTION PIN",
+      "domain": "action-pin.fr",
+      "dept": "40",
+      "effectif": 100
+    },
+    {
+      "rank": 37,
+      "orgId": 109376,
+      "orgName": "ADOPT PARFUMS",
+      "domain": "adopt.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 38,
+      "orgId": 187379,
+      "orgName": "AUBIN IMPRIMEUR",
+      "domain": "aubinimprimeur.fr",
+      "dept": "86",
+      "effectif": 100
+    },
+    {
+      "rank": 39,
+      "orgId": 21085,
+      "orgName": "BANQUE MICHEL INCHAUSPE (BAMI)",
+      "domain": "banquebami.fr",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 40,
+      "orgId": 21130,
+      "orgName": "LE BASQUE BONDISSANT",
+      "domain": "basque-bondissant.com",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 41,
+      "orgId": 368920,
+      "orgName": "OGEC INSTITUTION BEAUPEYRAT",
+      "domain": "beaupeyrat.fr",
+      "dept": "87",
+      "effectif": 100
+    },
+    {
+      "rank": 42,
+      "orgId": 79554,
+      "orgName": "NOVI",
+      "domain": "beautysuccess.fr",
+      "dept": "24",
+      "effectif": 100
+    },
+    {
+      "rank": 43,
+      "orgId": 46572,
+      "orgName": "ETABLISSEMENTS CANCE",
+      "domain": "cance.fr",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 44,
+      "orgId": 76935,
+      "orgName": "CEVA SANTE ANIMALE",
+      "domain": "ceva.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 45,
+      "orgId": 371096,
+      "orgName": "ASS ENSEIGNEMENT CATHOLIQUE DE BRESSUIRE",
+      "domain": "clgnotredame.fr",
+      "dept": "79",
+      "effectif": 100
+    },
+    {
+      "rank": 46,
+      "orgId": 368762,
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "domain": "cognac.fr",
+      "dept": "16",
+      "effectif": 100
+    },
+    {
+      "rank": 47,
+      "orgId": 164471,
+      "orgName": "OGEC AEP HAZPARNE",
+      "domain": "collegeursuya.fr",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 48,
+      "orgId": 92128,
+      "orgName": "J.M. WESTON",
+      "domain": "eu.jmweston.com",
+      "dept": "87",
+      "effectif": 100
+    },
+    {
+      "rank": 49,
+      "orgId": 129260,
+      "orgName": "EURALIS HOLDING",
+      "domain": "euralis.fr",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 50,
+      "orgId": 368871,
+      "orgName": "FAMILLE MICHAUD APICULTEURS",
+      "domain": "famillemichaud.com",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 51,
+      "orgId": 298752,
+      "orgName": "GAZ DE BORDEAUX",
+      "domain": "gazdebordeaux.fr",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 52,
+      "orgId": 157691,
+      "orgName": "MERLING PROFESSIONNEL",
+      "domain": "groupemerling.fr",
+      "dept": "17",
+      "effectif": 100
+    },
+    {
+      "rank": 53,
+      "orgId": 368840,
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "domain": "lafite.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 54,
+      "orgId": 373251,
+      "orgName": "OGEC MIRAIL",
+      "domain": "le-mirail.fr",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 55,
+      "orgId": 91739,
+      "orgName": "MEUBLES CELIO",
+      "domain": "meubles-celio.fr",
+      "dept": "79",
+      "effectif": 100
+    },
+    {
+      "rank": 56,
+      "orgId": 358902,
+      "orgName": "RIBOULEAU MONOSEM",
+      "domain": "monosem.com",
+      "dept": "79",
+      "effectif": 100
+    },
+    {
+      "rank": 57,
+      "orgId": 368942,
+      "orgName": "PICOTY",
+      "domain": "picoty.fr",
+      "dept": "23",
+      "effectif": 100
+    },
+    {
+      "rank": 58,
+      "orgId": 368822,
+      "orgName": "OGEC SAINT GENES",
+      "domain": "saint-genes.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 59,
+      "orgId": 375527,
+      "orgName": "OGEC ST BERNARD",
+      "domain": "saintbernard-bayonne.fr",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 60,
+      "orgId": 94226,
+      "orgName": "SAINT DOMINIQUE",
+      "domain": "saintdominique.fr",
+      "dept": "64",
+      "effectif": 100
+    },
+    {
+      "rank": 61,
+      "orgId": 373047,
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "domain": "stelme.fr",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 62,
+      "orgId": 76588,
+      "orgName": "OGEC ST JACQUES DE COMPOSTELLE",
+      "domain": "stjacquesdecompostelle.com",
+      "dept": "86",
+      "effectif": 100
+    },
+    {
+      "rank": 63,
+      "orgId": 21137,
+      "orgName": "MEMORIST (ARKHENUM)",
+      "domain": "thememorist.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 64,
+      "orgId": 275196,
+      "orgName": "UNION BORDEAUX BEGLES",
+      "domain": "ubbrugby.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 65,
+      "orgId": 373356,
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "domain": "unadev.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 66,
+      "orgId": 257693,
+      "orgName": "CASTEL FRERES",
+      "domain": "vins-castel.wine",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 67,
+      "orgId": 342577,
+      "orgName": "YNOV",
+      "domain": "ynov.com",
+      "dept": "33",
+      "effectif": 100
+    },
+    {
+      "rank": 68,
+      "orgId": 370694,
+      "orgName": "ADEI",
+      "domain": "adei17.com",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 69,
+      "orgId": 21188,
+      "orgName": "ALTIMA ASSURANCES",
+      "domain": "altima-assurances.fr",
+      "dept": "79",
+      "effectif": 50
+    },
+    {
+      "rank": 70,
+      "orgId": 373885,
+      "orgName": "AGE ASSOMPTION JEANNE D'ARC",
+      "domain": "assomption-jda-pessac.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 71,
+      "orgId": 359161,
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "domain": "ayor.fr",
+      "dept": "24",
+      "effectif": 50
+    },
+    {
+      "rank": 72,
+      "orgId": 218703,
+      "orgName": "BARDOS",
+      "domain": "bardos.fr",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 73,
+      "orgId": 373261,
+      "orgName": "OGEC LYCEE TECHNIQUE BEL ORME",
+      "domain": "belorme.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 74,
+      "orgId": 254688,
+      "orgName": "VANHOVE",
+      "domain": "bistro-regent.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 75,
+      "orgId": 467938,
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "domain": "bm-energies.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 76,
+      "orgId": 572384,
+      "orgName": "MAISON BOINAUD",
+      "domain": "boinaud.com",
+      "dept": "16",
+      "effectif": 50
+    },
+    {
+      "rank": 77,
+      "orgId": 373311,
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "domain": "bordeaux.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 78,
+      "orgId": 122471,
+      "orgName": "LES BOUCHAGES DELAGE",
+      "domain": "bouchagesdelage.com",
+      "dept": "16",
+      "effectif": 50
+    },
+    {
+      "rank": 79,
+      "orgId": 154119,
+      "orgName": "CAMIF",
+      "domain": "camif.fr",
+      "dept": "79",
+      "effectif": 50
+    },
+    {
+      "rank": 80,
+      "orgId": 148664,
+      "orgName": "CAP SCIENCES CCSTI BORDEAUX - NOUVELLE AQUITAINE",
+      "domain": "cap-sciences.net",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 81,
+      "orgId": 373992,
+      "orgName": "CHATEAU CHEVAL BLANC",
+      "domain": "chateau-cheval-blanc.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 82,
+      "orgId": 136834,
+      "orgName": "COVI",
+      "domain": "covi.com",
+      "dept": "79",
+      "effectif": 50
+    },
+    {
+      "rank": 83,
+      "orgId": 162009,
+      "orgName": "GROUPE CYBERTEK",
+      "domain": "cybertek.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 84,
+      "orgId": 371470,
+      "orgName": "OGEC DE L ECOLE ET DU COLLEGE DE MONCOUTANT",
+      "domain": "ecole-college-catholique-moncoutant.fr",
+      "dept": "79",
+      "effectif": 50
+    },
+    {
+      "rank": 85,
+      "orgId": 111670,
+      "orgName": "ECOLE D INGENIEURS",
+      "domain": "eigsi.fr",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 86,
+      "orgId": 311682,
+      "orgName": "ETABLISSEMENT PUBLIC FONCIER DE NOUVELLE-AQUITAINE",
+      "domain": "epfna.fr",
+      "dept": "86",
+      "effectif": 50
+    },
+    {
+      "rank": 87,
+      "orgId": 374047,
+      "orgName": "OGEC DE L'ENSEMBLE SCOLAIRE JEANNE D'ARC",
+      "domain": "etablissement-jeannedarc.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 88,
+      "orgId": 162406,
+      "orgName": "BERNAT ETXEPARE",
+      "domain": "etxeparelizeoa.eus",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 89,
+      "orgId": 497069,
+      "orgName": "EVIL EMPIRE",
+      "domain": "evilempirestudio.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 90,
+      "orgId": 559356,
+      "orgName": "THE EXPLORATION COMPANY",
+      "domain": "exploration.space",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 91,
+      "orgId": 373589,
+      "orgName": "DAMES DU CALVAIRE",
+      "domain": "federationjeannegarnier.org",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 92,
+      "orgId": 137687,
+      "orgName": "OGEC ETAB CATHO ENSEIGNEMENT LA ROCHELLE",
+      "domain": "fenelon-notredame.com",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 93,
+      "orgId": 551323,
+      "orgName": "GASCOGNE",
+      "domain": "groupe-gascogne.com",
+      "dept": "40",
+      "effectif": 50
+    },
+    {
+      "rank": 94,
+      "orgId": 139554,
+      "orgName": "CHATEAU GRUAUD LAROSE",
+      "domain": "gruaud-larose.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 95,
+      "orgId": 181963,
+      "orgName": "OGEC NOTRE DAME DES 3 RIVIERES",
+      "domain": "gs-cassaigne.fr",
+      "dept": "40",
+      "effectif": 50
+    },
+    {
+      "rank": 96,
+      "orgId": 505369,
+      "orgName": "HYBRID PROPULSION FOR SPACE",
+      "domain": "hypr-space.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 97,
+      "orgId": 80944,
+      "orgName": "I2S",
+      "domain": "i2s.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 98,
+      "orgId": 368886,
+      "orgName": "ITERG",
+      "domain": "iterg.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 99,
+      "orgId": 107822,
+      "orgName": "JDC",
+      "domain": "jdc.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 100,
+      "orgId": 113518,
+      "orgName": "LA COURSIVE",
+      "domain": "la-coursive.com",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 101,
+      "orgId": 78322,
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "domain": "lafite.vin.co",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 102,
+      "orgId": 96814,
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "domain": "lamandier.fr",
+      "dept": "16",
+      "effectif": 50
+    },
+    {
+      "rank": 103,
+      "orgId": 368909,
+      "orgName": "OGEC LA PROVIDENCE",
+      "domain": "laprovidence-poitiers.fr",
+      "dept": "86",
+      "effectif": 50
+    },
+    {
+      "rank": 104,
+      "orgId": 375525,
+      "orgName": "OGEC LARGENTE",
+      "domain": "largente.eu",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 105,
+      "orgId": 119488,
+      "orgName": "OGEC AGRICOLE PRIVE ST ANTOINE",
+      "domain": "lasallesaintantoine.fr",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 106,
+      "orgId": 370545,
+      "orgName": "Institution La Salle Saint-Louis",
+      "domain": "lasallesaintlouis.fr",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 107,
+      "orgId": 83351,
+      "orgName": "OGEC LYCEE DE LA SAUQUE - LES COQS ROUGES",
+      "domain": "lasauque.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 108,
+      "orgId": 169670,
+      "orgName": "ASS FAMILIALE GESTION LYCEE AGRIC PRIVEE",
+      "domain": "lecluzeau.com",
+      "dept": "24",
+      "effectif": 50
+    },
+    {
+      "rank": 109,
+      "orgId": 373263,
+      "orgName": "LEP LA RUCHE",
+      "domain": "lpplaruche.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 110,
+      "orgId": 376079,
+      "orgName": "INSTITUT JEAN ERRECART",
+      "domain": "lycee-errecart.com",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 111,
+      "orgId": 375276,
+      "orgName": "OGEC NOTRE DAME LA COMPASSION",
+      "domain": "lycee-lacompassion.fr",
+      "dept": "47",
+      "effectif": 50
+    },
+    {
+      "rank": 112,
+      "orgId": 77017,
+      "orgName": "ASS FAMILIALE DE GESTION DE L' OUSTAL",
+      "domain": "lycee-oustal.fr",
+      "dept": "47",
+      "effectif": 50
+    },
+    {
+      "rank": 113,
+      "orgId": 99277,
+      "orgName": "LPP PRIVE ST MICHEL",
+      "domain": "lycee-saint-michel33.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 114,
+      "orgId": 373781,
+      "orgName": "OGEC MONTESQUIEU",
+      "domain": "lyceemontesquieulibourne.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 115,
+      "orgId": 373266,
+      "orgName": "ASS GEST LYCEES TECHNIQ PRIV STEFAMILLE",
+      "domain": "lyceesaintefamille.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 116,
+      "orgId": 163940,
+      "orgName": "MISSION LOCALE BORDEAUX AVENIR JEUNES",
+      "domain": "missionlocalebordeaux.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 117,
+      "orgId": 374142,
+      "orgName": "AEP EC COLL PRIVES NOTRE-DAME-SEVIGNE",
+      "domain": "notredamesevigne.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 118,
+      "orgId": 92369,
+      "orgName": "OXBOW",
+      "domain": "oxbowshop.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 119,
+      "orgId": 369490,
+      "orgName": "POLARIS FORMATION",
+      "domain": "polaris-formation.fr",
+      "dept": "87",
+      "effectif": 50
+    },
+    {
+      "rank": 120,
+      "orgId": 111193,
+      "orgName": "REGIE DU PORT DE PLAISANCE",
+      "domain": "portlarochelle.com",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 121,
+      "orgId": 21200,
+      "orgName": "BANQUE POUYANNE",
+      "domain": "pouyanne.fr",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 122,
+      "orgId": 373710,
+      "orgName": "OGEC ASSOCIATION RAMBAUD",
+      "domain": "rambaud33.eu",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 123,
+      "orgId": 368644,
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "domain": "raynaud.fr",
+      "dept": "87",
+      "effectif": 50
+    },
+    {
+      "rank": 124,
+      "orgId": 293137,
+      "orgName": "SAINT AGNANT",
+      "domain": "saint-agnant.fr",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 125,
+      "orgId": 375931,
+      "orgName": "OGEC STE URSULE",
+      "domain": "sainte-ursule-pau.fr",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 126,
+      "orgId": 370010,
+      "orgName": "OGEC ST JOSEPH REGROUPEMENT",
+      "domain": "saintjoseph-cognac.fr",
+      "dept": "16",
+      "effectif": 50
+    },
+    {
+      "rank": 127,
+      "orgId": 314251,
+      "orgName": "SELENIUM MEDICAL",
+      "domain": "selenium-medical.com",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 128,
+      "orgId": 448089,
+      "orgName": "SHARK ROBOTICS",
+      "domain": "shark-robotics.com",
+      "dept": "17",
+      "effectif": 50
+    },
+    {
+      "rank": 129,
+      "orgId": 464180,
+      "orgName": "SOVAM",
+      "domain": "sovam.fr",
+      "dept": "79",
+      "effectif": 50
+    },
+    {
+      "rank": 130,
+      "orgId": 274983,
+      "orgName": "BLUE SPIRIT STUDIO",
+      "domain": "spirit-prod.com",
+      "dept": "16",
+      "effectif": 50
+    },
+    {
+      "rank": 131,
+      "orgId": 373277,
+      "orgName": "STADE BORDELAIS",
+      "domain": "stade-bordelais-football.com",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 132,
+      "orgId": 373960,
+      "orgName": "OGEC SAINT ANDRE SAINTE MARIE",
+      "domain": "stam-33.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 133,
+      "orgId": 87139,
+      "orgName": "OGEC SAINTE CLAIRE",
+      "domain": "steclaire.org",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 134,
+      "orgId": 381908,
+      "orgName": "OGEC STELLA MARIS",
+      "domain": "stellamarisanglet.fr",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 135,
+      "orgId": 132752,
+      "orgName": "OGEC-AEP COLLEGE ST JEAN",
+      "domain": "stjean-pauillac.fr",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 136,
+      "orgId": 236193,
+      "orgName": "OGEC L'ESTIBET",
+      "domain": "stjoseph-nay.com",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 137,
+      "orgId": 375191,
+      "orgName": "OGEC ST PIERRE",
+      "domain": "stpierre47.fr",
+      "dept": "47",
+      "effectif": 50
+    },
+    {
+      "rank": 138,
+      "orgId": 376032,
+      "orgName": "OGEC ST THOMAS D AQUIN",
+      "domain": "stthomasdaquin.fr",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 139,
+      "orgId": 131088,
+      "orgName": "SURFRIDER FOUNDATION EUROPE",
+      "domain": "surfrider.eu",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 140,
+      "orgId": 21252,
+      "orgName": "KEOLIS AGEN",
+      "domain": "tempobus.fr",
+      "dept": "47",
+      "effectif": 50
+    },
+    {
+      "rank": 141,
+      "orgId": 21328,
+      "orgName": "TRANSDEV SUD OUEST",
+      "domain": "transdev.com",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 142,
+      "orgId": 372378,
+      "orgName": "ASSOCIATION DE GESTION DE L'UNION-CHRETIENNE DE SAINT CHAUMOND",
+      "domain": "union-chretienne-poitiers.fr",
+      "dept": "86",
+      "effectif": 50
+    },
+    {
+      "rank": 143,
+      "orgId": 21352,
+      "orgName": "VEESION",
+      "domain": "veesion.io",
+      "dept": "33",
+      "effectif": 50
+    },
+    {
+      "rank": 144,
+      "orgId": 375532,
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "domain": "villapia.fr",
+      "dept": "64",
+      "effectif": 50
+    },
+    {
+      "rank": 145,
+      "orgId": 261889,
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "domain": "a-qui-s.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 146,
+      "orgId": 310777,
+      "orgName": "ACTIV'INSIDE",
+      "domain": "activinside.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 147,
+      "orgId": 541253,
+      "orgName": "AFRICA POWER SERVICES",
+      "domain": "africapowerservices.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 148,
+      "orgId": 373253,
+      "orgName": "OGEC ALBERT LE GRAND",
+      "domain": "albert-le-grand.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 149,
+      "orgId": 83987,
+      "orgName": "ALKI",
+      "domain": "alki.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 150,
+      "orgId": 102651,
+      "orgName": "AMBIANCE BOIS",
+      "domain": "ambiance-bois.com",
+      "dept": "23",
+      "effectif": 20
+    },
+    {
+      "rank": 151,
+      "orgId": 368802,
+      "orgName": "APAVE INTERNATIONAL",
+      "domain": "apave.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 152,
+      "orgId": 551277,
+      "orgName": "ARVERNE GROUP",
+      "domain": "arverne.earth",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 153,
+      "orgId": 359078,
+      "orgName": "AUTOCARS HIRUAK BAT",
+      "domain": "autocars-hiruak-bat.com",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 154,
+      "orgId": 91104,
+      "orgName": "AUTOMOBILES CHATENET",
+      "domain": "automobiles-chatenet.com",
+      "dept": "87",
+      "effectif": 20
+    },
+    {
+      "rank": 155,
+      "orgId": 459687,
+      "orgName": "ESTITXU ROBLES KOLEGIOA",
+      "domain": "baionakolegioa.eus",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 156,
+      "orgId": 142683,
+      "orgName": "BALINEAU",
+      "domain": "balineau.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 157,
+      "orgId": 359269,
+      "orgName": "BASCO",
+      "domain": "basco-restauration.com",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 158,
+      "orgId": 385556,
+      "orgName": "LA DEBAUCHE",
+      "domain": "brasserie-ladebauche.com",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 159,
+      "orgId": 375096,
+      "orgName": "LYCEE D'ENSEIGNEMENT AGRICOLE PRIVE L'ERMITAGE",
+      "domain": "campusermitage.fr",
+      "dept": "47",
+      "effectif": 20
+    },
+    {
+      "rank": 160,
+      "orgId": 102003,
+      "orgName": "CHATEAU LASCOMBES",
+      "domain": "chateau-lascombes.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 161,
+      "orgId": 373993,
+      "orgName": "CHATEAU PAVIE",
+      "domain": "chateaupavie.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 162,
+      "orgId": 374015,
+      "orgName": "OGEC ANGLADE LANGALERIE",
+      "domain": "college-anglade.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 163,
+      "orgId": 375393,
+      "orgName": "OGEC NOTRE DAME SAINT JEAN",
+      "domain": "college-saint-jean-tonneins.fr",
+      "dept": "47",
+      "effectif": 20
+    },
+    {
+      "rank": 164,
+      "orgId": 374336,
+      "orgName": "OGEC ECOLE PRIVEE ST JOSEPH",
+      "domain": "college-st-joseph-capbreton.fr",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 165,
+      "orgId": 82230,
+      "orgName": "OGEC ARRETXEA",
+      "domain": "collegearretxea.eus",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 166,
+      "orgId": 375236,
+      "orgName": "OGEC ST CHRISTOPHE",
+      "domain": "collegesainteclairenerac.fr",
+      "dept": "47",
+      "effectif": 20
+    },
+    {
+      "rank": 167,
+      "orgId": 371656,
+      "orgName": "ORGANISME GESTION ETS CATHOLIQUES D'ENS",
+      "domain": "collegesainteemiliederodat.fr",
+      "dept": "79",
+      "effectif": 20
+    },
+    {
+      "rank": 168,
+      "orgId": 370962,
+      "orgName": "OGEC DU COLLEGE PRIVE",
+      "domain": "collegestjoseph.fr",
+      "dept": "79",
+      "effectif": 20
+    },
+    {
+      "rank": 169,
+      "orgId": 325344,
+      "orgName": "COMPAGNIE & CO",
+      "domain": "compagnie-co.com",
+      "dept": "86",
+      "effectif": 20
+    },
+    {
+      "rank": 170,
+      "orgId": 151598,
+      "orgName": "COORDINATION RURALE - UNION NATIONALE",
+      "domain": "coordinationrurale.fr",
+      "dept": "47",
+      "effectif": 20
+    },
+    {
+      "rank": 171,
+      "orgId": 77104,
+      "orgName": "EURONAT",
+      "domain": "euronat.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 172,
+      "orgId": 126044,
+      "orgName": "EUROPLASMA",
+      "domain": "europlasma.com",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 173,
+      "orgId": 551276,
+      "orgName": "EXOSENS",
+      "domain": "exosens.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 174,
+      "orgId": 358796,
+      "orgName": "FAYAT",
+      "domain": "fayat.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 175,
+      "orgId": 536824,
+      "orgName": "FERMES EN VIE",
+      "domain": "feve.co",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 176,
+      "orgId": 88699,
+      "orgName": "FONDS REGIONAL D'ART CONTEMPORAIN NOUVELLE-AQUITAINE MECA",
+      "domain": "fracnouvelleaquitaine-meca.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 177,
+      "orgId": 371123,
+      "orgName": "ORGANISME DE GESTION ECOLES CATHO CERIZA",
+      "domain": "francois-d-assise.fr",
+      "dept": "79",
+      "effectif": 20
+    },
+    {
+      "rank": 178,
+      "orgId": 21402,
+      "orgName": "GEEV",
+      "domain": "geev.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 179,
+      "orgId": 77553,
+      "orgName": "OLANO SERVICES",
+      "domain": "groupe-olano.com",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 180,
+      "orgId": 142686,
+      "orgName": "IMMERSION",
+      "domain": "immersion.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 181,
+      "orgId": 96935,
+      "orgName": "KORUS IMPRIMERIE",
+      "domain": "imprimerieareaction.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 182,
+      "orgId": 21409,
+      "orgName": "INFLEXSYS",
+      "domain": "inflexsys.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 183,
+      "orgId": 369988,
+      "orgName": "INSTITUT SUPERIEUR DE FORMATION PAR ALTERNANCE - OF - CFA INSTITUT RICHEMONT",
+      "domain": "institut-richemont.fr",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 184,
+      "orgId": 370854,
+      "orgName": "OGEC JEANNE D ARC RECOUVRANCE",
+      "domain": "jdarc-recouvrance.fr",
+      "dept": "17",
+      "effectif": 20
+    },
+    {
+      "rank": 185,
+      "orgId": 373548,
+      "orgName": "OGEC J J LATASTE",
+      "domain": "jjlataste.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 186,
+      "orgId": 245297,
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "domain": "joueclub.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 187,
+      "orgId": 374004,
+      "orgName": "CHATEAU LAFON ROCHET",
+      "domain": "lafon-rochet.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 188,
+      "orgId": 181215,
+      "orgName": "PIARRES LARZABAL KOLEGIOA",
+      "domain": "larzabalkolegioa.net",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 189,
+      "orgId": 375755,
+      "orgName": "OGEC DE JURANCON",
+      "domain": "lasalle-jurancon.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 190,
+      "orgId": 372169,
+      "orgName": "AEP COLLEGE SAINT MARTIN",
+      "domain": "lasalle-saint-martin-couhe.fr",
+      "dept": "86",
+      "effectif": 20
+    },
+    {
+      "rank": 191,
+      "orgId": 488946,
+      "orgName": "LEARNYLIB",
+      "domain": "learnylib.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 192,
+      "orgId": 369315,
+      "orgName": "OGEC ECOLE DU SAUVEUR",
+      "domain": "lesauveur.org",
+      "dept": "87",
+      "effectif": 20
+    },
+    {
+      "rank": 193,
+      "orgId": 362068,
+      "orgName": "BORDEAUX CROISIERE",
+      "domain": "lesbateauxbordelais.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 194,
+      "orgId": 336055,
+      "orgName": "LISEA",
+      "domain": "lisea.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 195,
+      "orgId": 370301,
+      "orgName": "LYCEE ENSEIGNEMENT PROF PRIVE AGRICOLE",
+      "domain": "lycee-clairechampagne.org",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 196,
+      "orgId": 372167,
+      "orgName": "LYCEE TECHNIQUE PRIVE RURAL LA PERRIERE",
+      "domain": "lycee-la-perriere.fr",
+      "dept": "86",
+      "effectif": 20
+    },
+    {
+      "rank": 197,
+      "orgId": 375094,
+      "orgName": "OGEC ST CAPRAIS",
+      "domain": "lycee-saintcaprais.fr",
+      "dept": "47",
+      "effectif": 20
+    },
+    {
+      "rank": 198,
+      "orgId": 94196,
+      "orgName": "OGEC STE ELISABETH",
+      "domain": "lycee-sainte-elisabeth.com",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 199,
+      "orgId": 374956,
+      "orgName": "LYCEE PROFESSIONNEL RURAL",
+      "domain": "lyceedesaubrigues.fr",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 200,
+      "orgId": 375536,
+      "orgName": "OGEC-AEP LE GUICHOT",
+      "domain": "lyceeleguichot.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 201,
+      "orgId": 146884,
+      "orgName": "OGEC DU GROUPE SCOLAIRE MARIE EUSTELLE",
+      "domain": "marie-eustelle.fr",
+      "dept": "17",
+      "effectif": 20
+    },
+    {
+      "rank": 202,
+      "orgId": 370439,
+      "orgName": "OGEC",
+      "domain": "nd-nazareth-cozes.fr",
+      "dept": "17",
+      "effectif": 20
+    },
+    {
+      "rank": 203,
+      "orgId": 292846,
+      "orgName": "NEMEA APPART'ETUD",
+      "domain": "nemea-residence-etudiante.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 204,
+      "orgId": 373768,
+      "orgName": "OGEC NOTRE DAME",
+      "domain": "notredame-medoc.org",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 205,
+      "orgId": 373250,
+      "orgName": "OGEC NOTRE DAME",
+      "domain": "notredamebordeaux.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 206,
+      "orgId": 88312,
+      "orgName": "PAGE ET PLUME",
+      "domain": "pageetplume.fr",
+      "dept": "87",
+      "effectif": 20
+    },
+    {
+      "rank": 207,
+      "orgId": 163510,
+      "orgName": "PARC DU REYNOU",
+      "domain": "parczooreynou.com",
+      "dept": "87",
+      "effectif": 20
+    },
+    {
+      "rank": 208,
+      "orgId": 439744,
+      "orgName": "POLLEN ROBOTICS",
+      "domain": "pollen-robotics.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 209,
+      "orgId": 94777,
+      "orgName": "CHATEAU PONTET CANET",
+      "domain": "pontet-canet.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 210,
+      "orgId": 82385,
+      "orgName": "PULLMANS D AQUITAINE",
+      "domain": "pullmandaquitaine.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 211,
+      "orgId": 368760,
+      "orgName": "E. REMY MARTIN & CO",
+      "domain": "remymartin.com",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 212,
+      "orgId": 305728,
+      "orgName": "TRANSDEV DU MARSAN",
+      "domain": "reseautma.com",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 213,
+      "orgId": 85551,
+      "orgName": "OGEC COLLEGE SACRE COEUR",
+      "domain": "sacrecoeur-ruffec.fr",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 214,
+      "orgId": 375858,
+      "orgName": "OGEC ST JOSEPH",
+      "domain": "saint-joseph-oloron.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 215,
+      "orgId": 372967,
+      "orgName": "ASS. PIERRE POYET EC ST JOSEPH",
+      "domain": "saint-joseph-sarlat.org",
+      "dept": "24",
+      "effectif": 20
+    },
+    {
+      "rank": 216,
+      "orgId": 375015,
+      "orgName": "OGEC ECOLE PRIVEE ST JOSEPH",
+      "domain": "saint-joseph-tartas.com",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 217,
+      "orgId": 369813,
+      "orgName": "ASSOCIATION ST PAUL",
+      "domain": "saint-paul-angouleme.fr",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 218,
+      "orgId": 375533,
+      "orgName": "OGEC ST AMAND",
+      "domain": "saintamandbayonne.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 219,
+      "orgId": 94287,
+      "orgName": "OGEC ECOLE AGRICULTURE BAZADAI",
+      "domain": "saintclement.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 220,
+      "orgId": 369908,
+      "orgName": "INSTITUTION SAINTE MARIE",
+      "domain": "sainte-marie-barbezieux.fr",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 221,
+      "orgId": 375193,
+      "orgName": "OGEC STE MARIE",
+      "domain": "saintemarie-casteljaloux.fr",
+      "dept": "47",
+      "effectif": 20
+    },
+    {
+      "rank": 222,
+      "orgId": 373741,
+      "orgName": "OGEC SAINTE MARIE",
+      "domain": "saintemarielangon.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 223,
+      "orgId": 376055,
+      "orgName": "OGEC SAINTE MARIE JEAN DE MAYORGA",
+      "domain": "saintemariemayorga64220.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 224,
+      "orgId": 374438,
+      "orgName": "OGEC ECOLE PRIVEE JEANNE D ARC",
+      "domain": "saintjeanboscogabarret.fr",
+      "dept": "40",
+      "effectif": 20
+    },
+    {
+      "rank": 225,
+      "orgId": 373254,
+      "orgName": "OGEC ST LOUIS STE THERESE",
+      "domain": "saintlouissaintetherese.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 226,
+      "orgId": 375568,
+      "orgName": "SEASKA",
+      "domain": "seaska.eus",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 227,
+      "orgId": 115326,
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "domain": "socra.fr",
+      "dept": "24",
+      "effectif": 20
+    },
+    {
+      "rank": 228,
+      "orgId": 372001,
+      "orgName": "OGEC ST CHARLES DE THOUARS",
+      "domain": "st-charles-thouars.net",
+      "dept": "79",
+      "effectif": 20
+    },
+    {
+      "rank": 229,
+      "orgId": 83412,
+      "orgName": "OGEC",
+      "domain": "ste-marie-royan.fr",
+      "dept": "17",
+      "effectif": 20
+    },
+    {
+      "rank": 230,
+      "orgId": 82492,
+      "orgName": "OGEC DE CAMBO-LES-BAINS ECOLE SAINTE MARIE - COLLEGE SAINT MICHEL",
+      "domain": "stemarie-stmichel-cambo.fr",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 231,
+      "orgId": 369752,
+      "orgName": "OGEC SAINTE MARTHE - SAINT JEAN",
+      "domain": "stemarthe-stjean.fr",
+      "dept": "24",
+      "effectif": 20
+    },
+    {
+      "rank": 232,
+      "orgId": 372885,
+      "orgName": "OGEC ECOLE ST -JOSEPH",
+      "domain": "stjoseph-sab.fr",
+      "dept": "24",
+      "effectif": 20
+    },
+    {
+      "rank": 233,
+      "orgId": 94225,
+      "orgName": "ORGANISME DE GESTION DES ECOLES CATHOLIQUES DE PONTACQ",
+      "domain": "stjosephdepontacq.com",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 234,
+      "orgId": 375736,
+      "orgName": "OGEC GEROKO GROUPE SCOLAIRE SAINT VINCENT",
+      "domain": "stvincent.eus",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 235,
+      "orgId": 85082,
+      "orgName": "CHATEAU SUDUIRAUT",
+      "domain": "suduiraut.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 236,
+      "orgId": 407588,
+      "orgName": "FONDATION BORDEAUX UNIVERSITE",
+      "domain": "univ-bordeaux.fr",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 237,
+      "orgId": 92117,
+      "orgName": "XALBADOR",
+      "domain": "xalbador-kolegioa.eus",
+      "dept": "64",
+      "effectif": 20
+    },
+    {
+      "rank": 238,
+      "orgId": 295884,
+      "orgName": "YDCREATION",
+      "domain": "ydcreation.com",
+      "dept": "16",
+      "effectif": 20
+    },
+    {
+      "rank": 239,
+      "orgId": 423544,
+      "orgName": "Z NAUTIC",
+      "domain": "zodiac-nautic.com",
+      "dept": "33",
+      "effectif": 20
+    },
+    {
+      "rank": 240,
+      "orgId": 21459,
+      "orgName": "ADDEO",
+      "domain": "addeo.com",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 241,
+      "orgId": 214075,
+      "orgName": "AGNELLE",
+      "domain": "agnelle.com",
+      "dept": "87",
+      "effectif": 10
+    },
+    {
+      "rank": 242,
+      "orgId": 500946,
+      "orgName": "AIRZEN RADIO",
+      "domain": "airzen.fr",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 243,
+      "orgId": 404491,
+      "orgName": "ALTERNATIBA",
+      "domain": "alternatiba.eu",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 244,
+      "orgId": 203952,
+      "orgName": "EURL SULPIE",
+      "domain": "baby-foot.com",
+      "dept": "16",
+      "effectif": 10
+    },
+    {
+      "rank": 245,
+      "orgId": 162212,
+      "orgName": "PROVINCE FRANCE CONGREGATION PRETRES",
+      "domain": "betharram.net",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 246,
+      "orgId": 3157,
+      "orgName": "BIDART",
+      "domain": "bidart.fr",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 247,
+      "orgId": 519354,
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "domain": "castelnaud.com",
+      "dept": "24",
+      "effectif": 10
+    },
+    {
+      "rank": 248,
+      "orgId": 134836,
+      "orgName": "CABINET ROLLIN",
+      "domain": "century21-cabinet-rollin-bordeaux.com",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 249,
+      "orgId": 85292,
+      "orgName": "IMMOBILIER GLOCKNER SARL",
+      "domain": "century21-glockner-dax.com",
+      "dept": "40",
+      "effectif": 10
+    },
+    {
+      "rank": 250,
+      "orgId": 89385,
+      "orgName": "CHATEAU DE MONBAZILLAC",
+      "domain": "chateau-monbazillac.com",
+      "dept": "24",
+      "effectif": 10
+    },
+    {
+      "rank": 251,
+      "orgId": 373708,
+      "orgName": "CHATEAU SIRAN",
+      "domain": "chateausiran.com",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 252,
+      "orgId": 285991,
+      "orgName": "CM. GROUPE",
+      "domain": "cm-groupe.fr",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 253,
+      "orgId": 376078,
+      "orgName": "OGEC ETCHECOPAR",
+      "domain": "college-etchecopar.fr",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 254,
+      "orgId": 372177,
+      "orgName": "OGEC DE DANGE SAINT ROMAIN",
+      "domain": "collegesaintpierre.fr",
+      "dept": "86",
+      "effectif": 10
+    },
+    {
+      "rank": 255,
+      "orgId": 276552,
+      "orgName": "COMPAGNIE LEA NATURE",
+      "domain": "compagnie-leanature.com",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 256,
+      "orgId": 95472,
+      "orgName": "COUTELLERIE NONTRONNAISE",
+      "domain": "coutellerie-nontronnaise.com",
+      "dept": "24",
+      "effectif": 10
+    },
+    {
+      "rank": 257,
+      "orgId": 572329,
+      "orgName": "SOCIETE DELAMAIN ET COMPAGNIE",
+      "domain": "delamain-cognac.com",
+      "dept": "16",
+      "effectif": 10
+    },
+    {
+      "rank": 258,
+      "orgId": 371643,
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "domain": "dsne.org",
+      "dept": "79",
+      "effectif": 10
+    },
+    {
+      "rank": 259,
+      "orgId": 376104,
+      "orgName": "OGEC DE SALIES DE BEARN",
+      "domain": "enseignementprivesalies.fr",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 260,
+      "orgId": 370099,
+      "orgName": "OGEC ECOLES CATHOLIQUES DE JARNAC",
+      "domain": "ensemblesaintpierre.fr",
+      "dept": "16",
+      "effectif": 10
+    },
+    {
+      "rank": 261,
+      "orgId": 558096,
+      "orgName": "EPSICAP REIM",
+      "domain": "epsicap.fr",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 262,
+      "orgId": 98323,
+      "orgName": "FRANCOFOLIES",
+      "domain": "francofolies.fr",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 263,
+      "orgId": 220674,
+      "orgName": "GALLIA THEATRE",
+      "domain": "galliasaintes.com",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 264,
+      "orgId": 79202,
+      "orgName": "GOUFFRE DE PROUMEYSSAC",
+      "domain": "gouffre-proumeyssac.com",
+      "dept": "24",
+      "effectif": 10
+    },
+    {
+      "rank": 265,
+      "orgId": 172049,
+      "orgName": "GROUPE SUD OUEST SA",
+      "domain": "groupesudouest.com",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 266,
+      "orgId": 190091,
+      "orgName": "I C N",
+      "domain": "imprimerie-icn.fr",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 267,
+      "orgId": 82318,
+      "orgName": "ETABLISSEMENTS GUY JOUBERT",
+      "domain": "joubert-group.com",
+      "dept": "16",
+      "effectif": 10
+    },
+    {
+      "rank": 268,
+      "orgId": 21522,
+      "orgName": "KLARK",
+      "domain": "klark.ai",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 269,
+      "orgId": 312350,
+      "orgName": "LA PALMYRE GOLF CLUB",
+      "domain": "lapalmyregolfclub.com",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 270,
+      "orgId": 436697,
+      "orgName": "LE SOULOR",
+      "domain": "lesoulor1925.com",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 271,
+      "orgId": 318216,
+      "orgName": "ASSOCIATION LO CONGRES PERMANENT DE LA LENGA OCCITANA",
+      "domain": "locongres.org",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 272,
+      "orgId": 92220,
+      "orgName": "OGEC ST JOSEPH",
+      "domain": "lycee-prive-64.fr",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 273,
+      "orgId": 537974,
+      "orgName": "MIDIPILE",
+      "domain": "midipile.eu",
+      "dept": "16",
+      "effectif": 10
+    },
+    {
+      "rank": 274,
+      "orgId": 102426,
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "domain": "ne17.fr",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 275,
+      "orgId": 372865,
+      "orgName": "OGEC ENSEIGNEMENT SCOLAIRE NOTRE DAME",
+      "domain": "notredame-riberac.fr",
+      "dept": "24",
+      "effectif": 10
+    },
+    {
+      "rank": 276,
+      "orgId": 85002,
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "domain": "ocna.fr",
+      "dept": "86",
+      "effectif": 10
+    },
+    {
+      "rank": 277,
+      "orgId": 3727,
+      "orgName": "PARTHENAY",
+      "domain": "parthenay.fr",
+      "dept": "79",
+      "effectif": 10
+    },
+    {
+      "rank": 278,
+      "orgId": 373265,
+      "orgName": "SOCIETE PHILOMATHIQUE DE BORDEAUX",
+      "domain": "philomathiquebordeaux.com",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 279,
+      "orgId": 291086,
+      "orgName": "RESERVE ZOOLOGIQUE DE CALVIAC",
+      "domain": "reserve-calviac.org",
+      "dept": "24",
+      "effectif": 10
+    },
+    {
+      "rank": 280,
+      "orgId": 115227,
+      "orgName": "CHATEAU DE RESPIDE",
+      "domain": "respide.fr",
+      "dept": "33",
+      "effectif": 10
+    },
+    {
+      "rank": 281,
+      "orgId": 203973,
+      "orgName": "BELLE RIVE",
+      "domain": "saintviance.fr",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 282,
+      "orgId": 517441,
+      "orgName": "SAUJON",
+      "domain": "saujon.fr",
+      "dept": "86",
+      "effectif": 10
+    },
+    {
+      "rank": 283,
+      "orgId": 189663,
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "domain": "tsfi.org",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 284,
+      "orgId": 332300,
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "domain": "untoitpourlesabeilles.fr",
+      "dept": "17",
+      "effectif": 10
+    },
+    {
+      "rank": 285,
+      "orgId": 381290,
+      "orgName": "ZABAL MENUISERIES",
+      "domain": "zabal.fr",
+      "dept": "64",
+      "effectif": 10
+    },
+    {
+      "rank": 286,
+      "orgId": 309879,
+      "orgName": "ZOO DE LABENNE",
+      "domain": "zoo-labenne.com",
+      "dept": "40",
+      "effectif": 10
+    },
+    {
+      "rank": 287,
+      "orgId": 424627,
+      "orgName": "100 DETOURS",
+      "domain": "100detours.com",
+      "dept": "79",
+      "effectif": 6
+    },
+    {
+      "rank": 288,
+      "orgId": 338579,
+      "orgName": "ATLANDES",
+      "domain": "a63-atlandes.fr",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 289,
+      "orgId": 275610,
+      "orgName": "A ' LIENOR",
+      "domain": "a65-alienor.com",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 290,
+      "orgId": 370203,
+      "orgName": "OGEC, ECOLE - COLLEGE ANNE-MARIE MARTEL",
+      "domain": "am-martel.fr",
+      "dept": "16",
+      "effectif": 6
+    },
+    {
+      "rank": 291,
+      "orgId": 344256,
+      "orgName": "AQUILOGIA PATRIMOINE",
+      "domain": "aquilogia-patrimoine.fr",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 292,
+      "orgId": 153593,
+      "orgName": "CLOUTE ET FILS",
+      "domain": "aspi64.fr",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 293,
+      "orgId": 89145,
+      "orgName": "AZKAINGO IKASTOLA",
+      "domain": "azkaingoikastola.eus",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 294,
+      "orgId": 136321,
+      "orgName": "AGENCE DU PONT VIEUX",
+      "domain": "century21-lafargue-orthez.com",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 295,
+      "orgId": 149611,
+      "orgName": "CERE",
+      "domain": "cere40.fr",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 296,
+      "orgId": 79034,
+      "orgName": "CHATEAU DE TIREGAND",
+      "domain": "chateaudetiregand.com",
+      "dept": "24",
+      "effectif": 6
+    },
+    {
+      "rank": 297,
+      "orgId": 341492,
+      "orgName": "DPF VAD",
+      "domain": "chire.fr",
+      "dept": "86",
+      "effectif": 6
+    },
+    {
+      "rank": 298,
+      "orgId": 572312,
+      "orgName": "CROIZET",
+      "domain": "croizet.fr",
+      "dept": "16",
+      "effectif": 6
+    },
+    {
+      "rank": 299,
+      "orgId": 132585,
+      "orgName": "LA FANZINOTHEQUE",
+      "domain": "fanzino.org",
+      "dept": "86",
+      "effectif": 6
+    },
+    {
+      "rank": 300,
+      "orgId": 21648,
+      "orgName": "FLEXILIVRE",
+      "domain": "flexilivre.co.uk",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 301,
+      "orgId": 550934,
+      "orgName": "ASSOCIATION FRANCIS HALLE POUR LA FORET PRIMAIRE",
+      "domain": "foretprimaire-francishalle.org",
+      "dept": "87",
+      "effectif": 6
+    },
+    {
+      "rank": 302,
+      "orgId": 251687,
+      "orgName": "GRAPHIC AFFICHAGE",
+      "domain": "graphic.fr",
+      "dept": "79",
+      "effectif": 6
+    },
+    {
+      "rank": 303,
+      "orgId": 375721,
+      "orgName": "HASPARREN ATHLETIC CLUB",
+      "domain": "hasparren-rugby.eus",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 304,
+      "orgId": 505261,
+      "orgName": "INSPEERE",
+      "domain": "inspeere.com",
+      "dept": "86",
+      "effectif": 6
+    },
+    {
+      "rank": 305,
+      "orgId": 475506,
+      "orgName": "LA POULE NOIRE",
+      "domain": "lapoulenoire.fr",
+      "dept": "16",
+      "effectif": 6
+    },
+    {
+      "rank": 306,
+      "orgId": 296915,
+      "orgName": "LE GIROFARD",
+      "domain": "le-girofard.org",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 307,
+      "orgId": 116468,
+      "orgName": "ESPACE CULTUREL LE PALACE",
+      "domain": "lepalace-surgeres.fr",
+      "dept": "17",
+      "effectif": 6
+    },
+    {
+      "rank": 308,
+      "orgId": 346920,
+      "orgName": "LE TOURNE",
+      "domain": "letourne.fr",
+      "dept": "40",
+      "effectif": 6
+    },
+    {
+      "rank": 309,
+      "orgId": 524573,
+      "orgName": "LE TRAIN",
+      "domain": "letrainvoyage.fr",
+      "dept": "16",
+      "effectif": 6
+    },
+    {
+      "rank": 310,
+      "orgId": 502390,
+      "orgName": "LUDUM SAS",
+      "domain": "ludum.fr",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 311,
+      "orgId": 261967,
+      "orgName": "FUMEL",
+      "domain": "mairiedefumel.fr",
+      "dept": "47",
+      "effectif": 6
+    },
+    {
+      "rank": 312,
+      "orgId": 431134,
+      "orgName": "FRANCE DEPANNAGE PHOTOVOLTAIQUE",
+      "domain": "maproductionsolaire.com",
+      "dept": "17",
+      "effectif": 6
+    },
+    {
+      "rank": 313,
+      "orgId": 375875,
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "domain": "moncade.fr",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 314,
+      "orgId": 128295,
+      "orgName": "CHATEAU PICQUE CAILLOU",
+      "domain": "picque-caillou.com",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 315,
+      "orgId": 242709,
+      "orgName": "RESEAU SEMENCES PAYSANNES",
+      "domain": "semencespaysannes.org",
+      "dept": "47",
+      "effectif": 6
+    },
+    {
+      "rank": 316,
+      "orgId": 157587,
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "domain": "ugcb.net",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 317,
+      "orgId": 319655,
+      "orgName": "UHABIA IKASTOLA",
+      "domain": "uhabia-ikastola.eus",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 318,
+      "orgId": 170007,
+      "orgName": "VICIOUS CIRCLE",
+      "domain": "viciouscircle.fr",
+      "dept": "33",
+      "effectif": 6
+    },
+    {
+      "rank": 319,
+      "orgId": 21761,
+      "orgName": "VISIONSOFT",
+      "domain": "visionsoft.tech",
+      "dept": "64",
+      "effectif": 6
+    },
+    {
+      "rank": 320,
+      "orgId": 309487,
+      "orgName": "AFFICION",
+      "domain": "afficion.fr",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 321,
+      "orgId": 497716,
+      "orgName": "BIDACHE",
+      "domain": "bidache.fr",
+      "dept": "40",
+      "effectif": 3
+    },
+    {
+      "rank": 322,
+      "orgId": 133425,
+      "orgName": "AVENIR DE BIZANOS",
+      "domain": "bizanosrugby.fr",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 323,
+      "orgId": 364373,
+      "orgName": "BIZI !",
+      "domain": "bizimugi.eu",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 324,
+      "orgId": 436373,
+      "orgName": "BLISS EDITIONS",
+      "domain": "bliss-editions.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 325,
+      "orgId": 120242,
+      "orgName": "LE CASTOR ASTRAL EDITEUR",
+      "domain": "castorastral.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 326,
+      "orgId": 177675,
+      "orgName": "ASS DES CINEMAS DE PROXIMITE DE GIRONDE",
+      "domain": "cineproximite-gironde.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 327,
+      "orgId": 155249,
+      "orgName": "COM LIAIS ASS HIST ARCH ENTRE DEUX MERS",
+      "domain": "clempatrimoine.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 328,
+      "orgId": 373875,
+      "orgName": "COMMANDERIE DU BONTEMPS MEDOC ET GRAVES - SAUTERNES ET BARSAC",
+      "domain": "commanderiedubontemps.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 329,
+      "orgId": 503852,
+      "orgName": "CROISIERES BURDIGALA",
+      "domain": "croisieresburdigala.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 330,
+      "orgId": 589591,
+      "orgName": "DOMAINE AGROECOLOGIQUE DE BAROLLE",
+      "domain": "domainedebarolle.fr",
+      "dept": "47",
+      "effectif": 3
+    },
+    {
+      "rank": 331,
+      "orgId": 376023,
+      "orgName": "OGEC BAIGORRI",
+      "domain": "donostei.eus",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 332,
+      "orgId": 142137,
+      "orgName": "FEDERATION EUSKAL-HAZIAK",
+      "domain": "euskalhaziak.eus",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 333,
+      "orgId": 354680,
+      "orgName": "FEDRIGO PEINTURE",
+      "domain": "fedrigopeinture.fr",
+      "dept": "47",
+      "effectif": 3
+    },
+    {
+      "rank": 334,
+      "orgId": 183070,
+      "orgName": "FERONNERIE D'ART GATINAISE",
+      "domain": "ferronneriedartgatinaise.fr",
+      "dept": "79",
+      "effectif": 3
+    },
+    {
+      "rank": 335,
+      "orgId": 227242,
+      "orgName": "GOLF DE LA FORGE",
+      "domain": "golfdelaforge.fr",
+      "dept": "24",
+      "effectif": 3
+    },
+    {
+      "rank": 336,
+      "orgId": 346996,
+      "orgName": "ASHLER ET MANSON",
+      "domain": "groupe.ashler-manson.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 337,
+      "orgId": 451277,
+      "orgName": "HEADBANG CLUB",
+      "domain": "headbang.club",
+      "dept": "16",
+      "effectif": 3
+    },
+    {
+      "rank": 338,
+      "orgId": 497663,
+      "orgName": "INSTITUT DU NUMERIQUE RESPONSABLE",
+      "domain": "institutnr.org",
+      "dept": "17",
+      "effectif": 3
+    },
+    {
+      "rank": 339,
+      "orgId": 185267,
+      "orgName": "AGENCE LOC NOUV TECHN INFO COMMUNICATION",
+      "domain": "lanum-paysbasque.com",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 340,
+      "orgId": 265623,
+      "orgName": "GORRE",
+      "domain": "mairiedegorre.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 341,
+      "orgId": 464502,
+      "orgName": "GRACIET & CO",
+      "domain": "maison-graciet.fr",
+      "dept": "86",
+      "effectif": 3
+    },
+    {
+      "rank": 342,
+      "orgId": 396829,
+      "orgName": "MONSIEUR TOUSSAINT LOUVERTURE",
+      "domain": "monsieurtoussaintlouverture.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 343,
+      "orgId": 105620,
+      "orgName": "MUSIQUES METISSES",
+      "domain": "musiques-metisses.com",
+      "dept": "16",
+      "effectif": 3
+    },
+    {
+      "rank": 344,
+      "orgId": 104528,
+      "orgName": "PAYS DU PERIGORD NOIR",
+      "domain": "pays-perigord-noir.com",
+      "dept": "24",
+      "effectif": 3
+    },
+    {
+      "rank": 345,
+      "orgId": 264324,
+      "orgName": "POMPIERS DE L'URGENCE INTERNATIONALE",
+      "domain": "pompiers-urgence.org",
+      "dept": "87",
+      "effectif": 3
+    },
+    {
+      "rank": 346,
+      "orgId": 87717,
+      "orgName": "PUBLI AQUITAINE",
+      "domain": "publiaquitaine.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 347,
+      "orgId": 388211,
+      "orgName": "SAINT BRICE",
+      "domain": "saint-brice16.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 348,
+      "orgId": 372392,
+      "orgName": "SOC ANTIQUAIRES DE L OUEST",
+      "domain": "sao.asso.fr",
+      "dept": "86",
+      "effectif": 3
+    },
+    {
+      "rank": 349,
+      "orgId": 168102,
+      "orgName": "SEFISO ATLANTIQUE",
+      "domain": "sefiso-atlantique.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 350,
+      "orgId": 453521,
+      "orgName": "SUPERCOOP",
+      "domain": "supercoop.fr",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 351,
+      "orgId": 22014,
+      "orgName": "SUSTAAIN",
+      "domain": "sustaain.org",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 352,
+      "orgId": 488676,
+      "orgName": "TILH",
+      "domain": "tilh.fr",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 353,
+      "orgId": 630105,
+      "orgName": "VAL DE COGNAC",
+      "domain": "val-de-cognac.com",
+      "dept": "16",
+      "effectif": 3
+    },
+    {
+      "rank": 354,
+      "orgId": 500937,
+      "orgName": "VILLA VALMONT",
+      "domain": "villavalmont.com",
+      "dept": "33",
+      "effectif": 3
+    },
+    {
+      "rank": 355,
+      "orgId": 753,
+      "orgName": "SAINTES",
+      "domain": "ville-saintes.fr",
+      "dept": "17",
+      "effectif": 3
+    },
+    {
+      "rank": 356,
+      "orgId": 458833,
+      "orgName": "WECHAMP",
+      "domain": "wechamp-entreprise.co",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 357,
+      "orgId": 359350,
+      "orgName": "ASSOCIATION SPORTIVE YATCH BASQUE",
+      "domain": "ycbasque.org",
+      "dept": "64",
+      "effectif": 3
+    },
+    {
+      "rank": 358,
+      "orgId": 443328,
+      "orgName": "ALTITUD RH",
+      "domain": "altitud-rh.fr",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 359,
+      "orgId": 326193,
+      "orgName": "BLACK BOX",
+      "domain": "blackbonesboutique.com",
+      "dept": "16",
+      "effectif": 1
+    },
+    {
+      "rank": 360,
+      "orgId": 679160,
+      "orgName": "BOONTY",
+      "domain": "boonty.io",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 361,
+      "orgId": 293933,
+      "orgName": "B TO BAG",
+      "domain": "btobag.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 362,
+      "orgId": 124852,
+      "orgName": "GALO CANOE KAYAC",
+      "domain": "canoe-kayak-port-ste-foy.com",
+      "dept": "24",
+      "effectif": 1
+    },
+    {
+      "rank": 363,
+      "orgId": 669062,
+      "orgName": "BELHARRA XIBEROA",
+      "domain": "century21-belharra-mauleon.com",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 364,
+      "orgId": 402461,
+      "orgName": "SOCIETE CIVILE D EXPLOITATION AGRICOLE LES CONSEILLANS",
+      "domain": "chateaulasuite.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 365,
+      "orgId": 309184,
+      "orgName": "CHOKHOR LING",
+      "domain": "chokhorling.com",
+      "dept": "86",
+      "effectif": 1
+    },
+    {
+      "rank": 366,
+      "orgId": 22213,
+      "orgName": "CO-IDEA",
+      "domain": "co-idea.eu",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 367,
+      "orgId": 667990,
+      "orgName": "COURLAY",
+      "domain": "courlay.fr",
+      "dept": "17",
+      "effectif": 1
+    },
+    {
+      "rank": 368,
+      "orgId": 492477,
+      "orgName": "FONDS CRE'ATLANTIQUE",
+      "domain": "creatlantique.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 369,
+      "orgId": 562165,
+      "orgName": "DELIKAO",
+      "domain": "delikao.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 370,
+      "orgId": 346506,
+      "orgName": "ESCOLA DAU MONT GARGAN",
+      "domain": "ecoledumontgargan.com",
+      "dept": "87",
+      "effectif": 1
+    },
+    {
+      "rank": 371,
+      "orgId": 218393,
+      "orgName": "SARL EXTERIEURS",
+      "domain": "exterieurs.pro",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 372,
+      "orgId": 213205,
+      "orgName": "FERTI",
+      "domain": "ferti-games.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 373,
+      "orgId": 531266,
+      "orgName": "FLEETI",
+      "domain": "fleeti.co",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 374,
+      "orgId": 604869,
+      "orgName": "23 NOT' FOLLES",
+      "domain": "fol-23.fr",
+      "dept": "23",
+      "effectif": 1
+    },
+    {
+      "rank": 375,
+      "orgId": 370399,
+      "orgName": "FORT LOUVOIS",
+      "domain": "fort-louvois.com",
+      "dept": "17",
+      "effectif": 1
+    },
+    {
+      "rank": 376,
+      "orgId": 124348,
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "domain": "generationecologie.fr",
+      "dept": "79",
+      "effectif": 1
+    },
+    {
+      "rank": 377,
+      "orgId": 224426,
+      "orgName": "GOLF DE LA VALLADE",
+      "domain": "golfdelavallade.com",
+      "dept": "17",
+      "effectif": 1
+    },
+    {
+      "rank": 378,
+      "orgId": 325474,
+      "orgName": "GOLF CLUB HELIOS",
+      "domain": "golfsalies.com",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 379,
+      "orgId": 378082,
+      "orgName": "SARL GUEULETON",
+      "domain": "gueuleton.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 380,
+      "orgId": 273538,
+      "orgName": "ASS OGEC POITIERS NORD",
+      "domain": "isaac-etoile.fr",
+      "dept": "86",
+      "effectif": 1
+    },
+    {
+      "rank": 381,
+      "orgId": 661928,
+      "orgName": "JUSIX",
+      "domain": "jusix-47.fr",
+      "dept": "47",
+      "effectif": 1
+    },
+    {
+      "rank": 382,
+      "orgId": 367804,
+      "orgName": "KIS DENTAL",
+      "domain": "kisdental.fr",
+      "dept": "40",
+      "effectif": 1
+    },
+    {
+      "rank": 383,
+      "orgId": 325169,
+      "orgName": "LA FORET D'ART CONTEMPORAIN",
+      "domain": "laforetdartcontemporain.com",
+      "dept": "40",
+      "effectif": 1
+    },
+    {
+      "rank": 384,
+      "orgId": 668444,
+      "orgName": "MARTINOLI",
+      "domain": "lebyron.fr",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 385,
+      "orgId": 403879,
+      "orgName": "LE CONQUIL",
+      "domain": "leconquil.fr",
+      "dept": "24",
+      "effectif": 1
+    },
+    {
+      "rank": 386,
+      "orgId": 276000,
+      "orgName": "LE REVE DE L ABORIGENE",
+      "domain": "lerevedelaborigene.org",
+      "dept": "79",
+      "effectif": 1
+    },
+    {
+      "rank": 387,
+      "orgId": 22517,
+      "orgName": "LINESTIE",
+      "domain": "linestie.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 388,
+      "orgId": 329522,
+      "orgName": "GROUPE CEMASO",
+      "domain": "lpsfr.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 389,
+      "orgId": 573226,
+      "orgName": "LUSIGNAN",
+      "domain": "lusignan.fr",
+      "dept": "47",
+      "effectif": 1
+    },
+    {
+      "rank": 390,
+      "orgId": 548105,
+      "orgName": "VIGNES",
+      "domain": "mairie-vignes.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 391,
+      "orgId": 429908,
+      "orgName": "MALVAUX GROUP",
+      "domain": "malvaux.com",
+      "dept": "17",
+      "effectif": 1
+    },
+    {
+      "rank": 392,
+      "orgId": 541837,
+      "orgName": "MONARCH INTELLIGENCE",
+      "domain": "monarchintelligence.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 393,
+      "orgId": 370197,
+      "orgName": "MOULIN DU VERGER",
+      "domain": "moulinduverger.com",
+      "dept": "16",
+      "effectif": 1
+    },
+    {
+      "rank": 394,
+      "orgId": 22608,
+      "orgName": "NOVA-BOX",
+      "domain": "nova-box.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 395,
+      "orgId": 145219,
+      "orgName": "ORCHESTRE SYMPHONIQUE DE TALENCE",
+      "domain": "orchestre-symphonique-de-talence.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 396,
+      "orgId": 229594,
+      "orgName": "ORCHESTRE MONTOIS",
+      "domain": "orchestremontois.fr",
+      "dept": "40",
+      "effectif": 1
+    },
+    {
+      "rank": 397,
+      "orgId": 22660,
+      "orgName": "PROGEDYS",
+      "domain": "progedys.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 398,
+      "orgId": 45388,
+      "orgName": "ROUGIER SA",
+      "domain": "rougier.fr",
+      "dept": "79",
+      "effectif": 1
+    },
+    {
+      "rank": 399,
+      "orgId": 466359,
+      "orgName": "SCORE AQUITAINE CONSEIL ET FORMATION",
+      "domain": "scoreimmoacademie.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 400,
+      "orgId": 81253,
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "domain": "shap.fr",
+      "dept": "24",
+      "effectif": 1
+    },
+    {
+      "rank": 401,
+      "orgId": 524302,
+      "orgName": "AUTOMSOURCE",
+      "domain": "shop.automsource.com",
+      "dept": "64",
+      "effectif": 1
+    },
+    {
+      "rank": 402,
+      "orgId": 281052,
+      "orgName": "STADE PESSACAIS UNION CLUB",
+      "domain": "spuc-omnisports.com",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 403,
+      "orgId": 566300,
+      "orgName": "SURIN",
+      "domain": "surin86.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 404,
+      "orgId": 84429,
+      "orgName": "SARL LES TAILLEURS D'IMAGES",
+      "domain": "tailleurs-images.com",
+      "dept": "16",
+      "effectif": 1
+    },
+    {
+      "rank": 405,
+      "orgId": 269611,
+      "orgName": "TARTAS",
+      "domain": "tartas.fr",
+      "dept": "40",
+      "effectif": 1
+    },
+    {
+      "rank": 406,
+      "orgId": 361964,
+      "orgName": "VEYRAC",
+      "domain": "veyrac.fr",
+      "dept": "24",
+      "effectif": 1
+    },
+    {
+      "rank": 407,
+      "orgId": 532221,
+      "orgName": "VILLENAVE",
+      "domain": "villenave.fr",
+      "dept": "33",
+      "effectif": 1
+    },
+    {
+      "rank": 408,
+      "orgId": 110279,
+      "orgName": "CANOE KAYAK VIVONNE  LES PAGAYOUS",
+      "domain": "vivonne.canoe86.org",
+      "dept": "86",
+      "effectif": 1
+    },
+    {
+      "rank": 409,
+      "orgId": 206044,
+      "orgName": "LE 7EME CERCLE",
+      "domain": "7emecercle.com",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 410,
+      "orgId": 2177841,
+      "orgName": "ABOS",
+      "domain": "abos64.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 411,
+      "orgId": 199650,
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "domain": "abul.org",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 412,
+      "orgId": 78255,
+      "orgName": "ACADEMIE SCIENCES LETTRES ARTS D AGEN",
+      "domain": "academie47.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 413,
+      "orgId": 4384,
+      "orgName": "Communauté de communes Adour Madiran",
+      "domain": "adour-madiran.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 414,
+      "orgId": 23194,
+      "orgName": "AEON SYSTEMS (AEON)",
+      "domain": "aeon-systems.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 415,
+      "orgId": 433592,
+      "orgName": "ASSOCIATION FRANCAISE D'ETUDES EUROPENNES - AFEE",
+      "domain": "afee-cedece.eu",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 416,
+      "orgId": 376205,
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "domain": "afef.org",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 417,
+      "orgId": 2718,
+      "orgName": "AGEN",
+      "domain": "agen.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 418,
+      "orgId": 4385,
+      "orgName": "Communauté d'agglomération Agglomération d'Agen",
+      "domain": "agglo-agen.net",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 419,
+      "orgId": 4404,
+      "orgName": "Communauté d'agglomération Bassin d'Arcachon Sud (COBAS)",
+      "domain": "agglo-cobas.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 420,
+      "orgId": 4301,
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "domain": "agglo-grandgueret.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 421,
+      "orgId": 4387,
+      "orgName": "Communauté d'agglomération de La Rochelle",
+      "domain": "agglo-larochelle.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 422,
+      "orgId": 4329,
+      "orgName": "Communauté d'agglomération Rochefort Océan",
+      "domain": "agglo-rochefortocean.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 423,
+      "orgId": 4392,
+      "orgName": "Communauté d'agglomération Royan Atlantique",
+      "domain": "agglo-royan.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 424,
+      "orgId": 4305,
+      "orgName": "Communauté d'agglomération \"Saintes - Grandes Rives - L'Agglo\"",
+      "domain": "agglo-saintes.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 425,
+      "orgId": 4309,
+      "orgName": "Communauté d'agglomération du Bocage Bressuirais",
+      "domain": "agglo2b.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 426,
+      "orgId": 127328,
+      "orgName": "ASSOC DES AMIS D'AGRIPPA D'AUBIGNE",
+      "domain": "agrippadaubigne.org",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 427,
+      "orgId": 34380,
+      "orgName": "École nationale supérieure des sciences agronomiques de Bordeaux Aquitaine (Bordeaux Sciences Agro)",
+      "domain": "agro-bordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 428,
+      "orgId": 2391,
+      "orgName": "Commune de Aire-sur-l'Adour",
+      "domain": "aire-sur-adour.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 429,
+      "orgId": 320433,
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "domain": "ajpn.org",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 430,
+      "orgId": 4358,
+      "orgName": "Communauté de communes Albret Communauté",
+      "domain": "albretcommunaute.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 431,
+      "orgId": 285582,
+      "orgName": "ALEXIPHARMAQUE",
+      "domain": "alexipharmaque.eu",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 432,
+      "orgId": 1859,
+      "orgName": "Commune de Ambarès-et-Lagrave",
+      "domain": "ambaresetlagrave.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 433,
+      "orgId": 18416,
+      "orgName": "Lycée professionnel Ambroise Croizat",
+      "domain": "ambroise-croizat-tarnos.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 434,
+      "orgId": 289732,
+      "orgName": "SOCIETE DES AMIS DU MUSEE DES BEAUX-ARTS DE BORDEAUX",
+      "domain": "amis-musees-bordeaux.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 435,
+      "orgId": 132111,
+      "orgName": "SOCIETE DES AMIS DE BRANTOME",
+      "domain": "amisdebrantome.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 436,
+      "orgId": 247943,
+      "orgName": "LES AMIS DU VIEUX POITOU",
+      "domain": "amisvieuxpoitou.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 437,
+      "orgId": 2231555,
+      "orgName": "AMURE",
+      "domain": "amure79.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 438,
+      "orgId": 620466,
+      "orgName": "LAGUNDU",
+      "domain": "anaia.io",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 439,
+      "orgId": 1861,
+      "orgName": "Commune de Andernos-les-Bains",
+      "domain": "andernoslesbains.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 440,
+      "orgId": 684346,
+      "orgName": "ANDILLY",
+      "domain": "andillylesmarais.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 441,
+      "orgId": 2230406,
+      "orgName": "ATELIER ANDRE BRETON",
+      "domain": "andrebreton.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 442,
+      "orgId": 691,
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "domain": "angely.net",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 443,
+      "orgId": 3059,
+      "orgName": "ANGLET",
+      "domain": "anglet.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 444,
+      "orgId": 12,
+      "orgName": "Commune d'Angoulême",
+      "domain": "angouleme.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 445,
+      "orgId": 23889,
+      "orgName": "APPALGA",
+      "domain": "appalga.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 446,
+      "orgId": 2350308,
+      "orgName": "AGENCE REGIONALE DE LA BIODIVERSITE NOUVELLE AQUITAINE",
+      "domain": "aquitaine-arb.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 447,
+      "orgId": 198994,
+      "orgName": "AQUITAINE HISTORIQUE",
+      "domain": "aquitaine-historique.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 448,
+      "orgId": 680171,
+      "orgName": "SABRINA BAUDIN",
+      "domain": "aquitroc.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 449,
+      "orgId": 2419186,
+      "orgName": "ARANCOU",
+      "domain": "arancou.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 450,
+      "orgId": 2285934,
+      "orgName": "ARBUS",
+      "domain": "arbus.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 451,
+      "orgId": 554768,
+      "orgName": "AREN",
+      "domain": "aren.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 452,
+      "orgId": 644287,
+      "orgName": "ARJB STUDIO",
+      "domain": "arjbstudio.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 453,
+      "orgId": 253040,
+      "orgName": "CHATEAU DE RAVIGNAN",
+      "domain": "armagnac-ravignan.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 454,
+      "orgId": 1869,
+      "orgName": "Commune de Artigues-près-Bordeaux",
+      "domain": "artigues-pres-bordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 455,
+      "orgId": 313539,
+      "orgName": "ASCOMYCETE.ORG",
+      "domain": "ascomycete.org",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 456,
+      "orgId": 465669,
+      "orgName": "EN PARLER",
+      "domain": "associationenparler.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 457,
+      "orgId": 2003268,
+      "orgName": "L ATALANTE",
+      "domain": "atalante-cinema.org",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 458,
+      "orgId": 284445,
+      "orgName": "ATELIER NADAI",
+      "domain": "atelier-nadai.com",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 459,
+      "orgId": 242460,
+      "orgName": "ATELIER DE L'AGNEAU,ART CREAT LITTERAIRE",
+      "domain": "atelierdelagneau.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 460,
+      "orgId": 111722,
+      "orgName": "AUBERON",
+      "domain": "auberon.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 461,
+      "orgId": 564934,
+      "orgName": "AUBUSSON",
+      "domain": "aubusson.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 462,
+      "orgId": 2148970,
+      "orgName": "AULNAY",
+      "domain": "aulnay-de-saintonge.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 463,
+      "orgId": 4327,
+      "orgName": "Communauté de communes Aunis Sud",
+      "domain": "aunis-sud.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 464,
+      "orgId": 4323,
+      "orgName": "Communauté de communes Aunis Atlantique",
+      "domain": "aunisatlantique.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 465,
+      "orgId": 660386,
+      "orgName": "AUROS",
+      "domain": "auros.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 466,
+      "orgId": 385,
+      "orgName": "Commune de Aytré",
+      "domain": "aytre.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 467,
+      "orgId": 66331,
+      "orgName": "BAILLARDRAN",
+      "domain": "baillardran.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 468,
+      "orgId": 589564,
+      "orgName": "BARBASTE",
+      "domain": "barbaste.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 469,
+      "orgId": 681933,
+      "orgName": "BASCONS",
+      "domain": "bascons.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 470,
+      "orgId": 4393,
+      "orgName": "Communauté de communes du Bassin de Marennes",
+      "domain": "bassin-de-marennes.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 471,
+      "orgId": 196407,
+      "orgName": "BASSUSSARRY",
+      "domain": "bassussarry.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 472,
+      "orgId": 181748,
+      "orgName": "BAURECH",
+      "domain": "baurech.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 473,
+      "orgId": 3134,
+      "orgName": "BAYONNE",
+      "domain": "bayonne.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 474,
+      "orgId": 586496,
+      "orgName": "BCIT FORMATION",
+      "domain": "bcit.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 475,
+      "orgId": 2334046,
+      "orgName": "OGEC NOTRE DAME DE BETHARRAM",
+      "domain": "beau-rameau.org",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 476,
+      "orgId": 490736,
+      "orgName": "PARK AVENUE",
+      "domain": "beauchampedwardscpa.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 477,
+      "orgId": 2405738,
+      "orgName": "BEELY",
+      "domain": "beely.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 478,
+      "orgId": 1897,
+      "orgName": "Commune de Belin-Béliet",
+      "domain": "belin-beliet.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 479,
+      "orgId": 657535,
+      "orgName": "BELLEVIGNE",
+      "domain": "bellevigne16.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 480,
+      "orgId": 1386,
+      "orgName": "BERGERAC",
+      "domain": "bergerac.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 481,
+      "orgId": 149051,
+      "orgName": "BERGGER",
+      "domain": "bergger.com",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 482,
+      "orgId": 195568,
+      "orgName": "BEYLONGUE",
+      "domain": "beylongue.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 483,
+      "orgId": 3154,
+      "orgName": "BIARRITZ",
+      "domain": "biarritz.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 484,
+      "orgId": 57886,
+      "orgName": "BIARROTTE",
+      "domain": "biarrotte.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 485,
+      "orgId": 2366119,
+      "orgName": "BIAS",
+      "domain": "bias40.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 486,
+      "orgId": 3161,
+      "orgName": "Commune de Billère",
+      "domain": "billere.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 487,
+      "orgId": 2383928,
+      "orgName": "BIRIATOU",
+      "domain": "biriatou.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 488,
+      "orgId": 1913,
+      "orgName": "Commune de Blaye",
+      "domain": "blaye.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 489,
+      "orgId": 489057,
+      "orgName": "BONHOMME IMMOBILIER",
+      "domain": "bonhomme.immo",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 490,
+      "orgId": 4403,
+      "orgName": "Bordeaux Métropole",
+      "domain": "bordeaux-metropole.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 491,
+      "orgId": 1918,
+      "orgName": "Commune de Bordeaux",
+      "domain": "bordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 492,
+      "orgId": 373295,
+      "orgName": "BORDEAUX ATHLETIC CLUB",
+      "domain": "bordeauxac.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 493,
+      "orgId": 691408,
+      "orgName": "BORDES",
+      "domain": "bordes64.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 494,
+      "orgId": 3172,
+      "orgName": "BOUCAU",
+      "domain": "boucau.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 495,
+      "orgId": 1398,
+      "orgName": "Commune de Boulazac Isle Manoire",
+      "domain": "boulazacislemanoire.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 496,
+      "orgId": 414,
+      "orgName": "Commune de Bourcefranc-le-Chapus",
+      "domain": "bourcefranc-le-chapus.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 497,
+      "orgId": 356993,
+      "orgName": "BOURG",
+      "domain": "bourg-gironde.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 498,
+      "orgId": 1924,
+      "orgName": "LE BOUSCAT",
+      "domain": "bouscat.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 499,
+      "orgId": 591753,
+      "orgName": "BRANNENS",
+      "domain": "brannens33.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 500,
+      "orgId": 710280,
+      "orgName": "BRAX",
+      "domain": "brax47.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 501,
+      "orgId": 4447,
+      "orgName": "Communauté de communes Briance-Combade",
+      "domain": "briancecombade.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 502,
+      "orgId": 2206978,
+      "orgName": "BRION",
+      "domain": "brion86.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 503,
+      "orgId": 644470,
+      "orgName": "BROSSAC",
+      "domain": "brossac.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 504,
+      "orgId": 648892,
+      "orgName": "BRUCH",
+      "domain": "bruch.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 505,
+      "orgId": 2202038,
+      "orgName": "BUDOS",
+      "domain": "budos.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 506,
+      "orgId": 3871,
+      "orgName": "Commune de Buxerolles",
+      "domain": "buxerolles.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 507,
+      "orgId": 158865,
+      "orgName": "BUZY",
+      "domain": "buzy.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 508,
+      "orgId": 24784,
+      "orgName": "BY-HOSTER",
+      "domain": "by-hoster.net",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 509,
+      "orgId": 148707,
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "domain": "caea.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 510,
+      "orgId": 521362,
+      "orgName": "CAMBES",
+      "domain": "cambes33.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 511,
+      "orgId": 3192,
+      "orgName": "Commune de Cambo-les-Bains",
+      "domain": "cambolesbains.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 512,
+      "orgId": 16920,
+      "orgName": "Lycée Camille Jullian",
+      "domain": "camillejullian.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 513,
+      "orgId": 1945,
+      "orgName": "Commune de Canéjan",
+      "domain": "canejan.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 514,
+      "orgId": 2451,
+      "orgName": "Commune de Capbreton",
+      "domain": "capbreton.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 515,
+      "orgId": 1949,
+      "orgName": "CARBON BLANC",
+      "domain": "carbon-blanc.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 516,
+      "orgId": 312177,
+      "orgName": "CARCANS",
+      "domain": "carcans.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 517,
+      "orgId": 633206,
+      "orgName": "CARS",
+      "domain": "cars33.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 518,
+      "orgId": 2196197,
+      "orgName": "CASTANDET",
+      "domain": "castandet.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 519,
+      "orgId": 520567,
+      "orgName": "CASTET",
+      "domain": "castet.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 520,
+      "orgId": 512262,
+      "orgName": "CAVIGNAC",
+      "domain": "cavignac.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 521,
+      "orgId": 4321,
+      "orgName": "Communauté de communes Airvaudais-Val du Thouet",
+      "domain": "cc-avt.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 522,
+      "orgId": 4435,
+      "orgName": "Communauté de communes des Coteaux et Landes de Gascogne",
+      "domain": "cc-coteaux-landes-gascogne.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 523,
+      "orgId": 4408,
+      "orgName": "Communauté de communes du Créonnais",
+      "domain": "cc-creonnais.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 524,
+      "orgId": 4440,
+      "orgName": "Communauté de communes des Deux Rives",
+      "domain": "cc-deuxrives.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 525,
+      "orgId": 4405,
+      "orgName": "Communauté de communes de l'Estuaire",
+      "domain": "cc-estuaire.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 526,
+      "orgId": 4368,
+      "orgName": "Communauté de communes du Haut Poitou",
+      "domain": "cc-hautpoitou.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 527,
+      "orgId": 4330,
+      "orgName": "Communauté de communes Haut Val de Sèvre",
+      "domain": "cc-hautvaldesevre.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 528,
+      "orgId": 4307,
+      "orgName": "Communauté de communes de Lacq-Orthez",
+      "domain": "cc-lacqorthez.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 529,
+      "orgId": 4432,
+      "orgName": "Communauté de communes Coteaux et Vallées des Luys",
+      "domain": "cc-luys.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 530,
+      "orgId": 4430,
+      "orgName": "Communauté de communes Maremne Adour Côte Sud",
+      "domain": "cc-macs.org",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 531,
+      "orgId": 4418,
+      "orgName": "Communauté de communes Médoc Estuaire",
+      "domain": "cc-medoc-estuaire.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 532,
+      "orgId": 4421,
+      "orgName": "Communauté de communes de Mimizan",
+      "domain": "cc-mimizan.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 533,
+      "orgId": 4437,
+      "orgName": "Communauté de communes de la Vallée d'Ossau",
+      "domain": "cc-ossau.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 534,
+      "orgId": 4320,
+      "orgName": "Communauté de communes de Parthenay-Gâtine",
+      "domain": "cc-parthenay-gatine.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 535,
+      "orgId": 4397,
+      "orgName": "Communauté de communes du Pays Sostranien",
+      "domain": "cc-pays-sostranien.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 536,
+      "orgId": 4433,
+      "orgName": "Communauté de communes du Pays de Duras",
+      "domain": "cc-paysdeduras.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 537,
+      "orgId": 4428,
+      "orgName": "Communauté de communes du Pays Grenadois",
+      "domain": "cc-paysgrenadois.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 538,
+      "orgId": 4448,
+      "orgName": "Communauté de communes des Portes de Vassivière",
+      "domain": "cc-portesdevassiviere.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 539,
+      "orgId": 4401,
+      "orgName": "Communauté de communes du Pays de Saint Aulaye",
+      "domain": "cc-psa.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 540,
+      "orgId": 4296,
+      "orgName": "Communauté de communes Sarlat-Périgord Noir",
+      "domain": "cc-sarlatperigordnoir.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 541,
+      "orgId": 4422,
+      "orgName": "Communauté de communes du Seignanx",
+      "domain": "cc-seignanx.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 542,
+      "orgId": 4318,
+      "orgName": "Communauté de communes de la Vallée de l'Homme",
+      "domain": "cc-valleedelhomme.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 543,
+      "orgId": 4426,
+      "orgName": "Communauté de communes du Pays de Villeneuve en Armagnac Landais",
+      "domain": "cc-villeneuvedemarsan.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 544,
+      "orgId": 4295,
+      "orgName": "Communauté de communes de Blaye",
+      "domain": "ccb-blaye.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 545,
+      "orgId": 4306,
+      "orgName": "Communauté de communes des Bastides en Haut Agenais Périgord",
+      "domain": "ccbastides47.com",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 546,
+      "orgId": 4302,
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "domain": "ccbdp.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 547,
+      "orgId": 4351,
+      "orgName": "Communauté de communes du Béarn des Gaves",
+      "domain": "ccbearndesgaves.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 548,
+      "orgId": 4316,
+      "orgName": "Communauté de communes Vallée de la Dordogne et Forêt Bessède",
+      "domain": "ccdordogne-bessede.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 549,
+      "orgId": 4310,
+      "orgName": "Communauté de communes Isle Double Landais",
+      "domain": "ccidl.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 550,
+      "orgId": 4308,
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "domain": "ccivs.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 551,
+      "orgId": 4348,
+      "orgName": "Communauté de communes des Luys en Béarn",
+      "domain": "cclb64.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 552,
+      "orgId": 4449,
+      "orgName": "Communauté de communes de Noblat",
+      "domain": "ccnoblat.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 553,
+      "orgId": 4315,
+      "orgName": "Communauté de communes de Portes Sud Périgord",
+      "domain": "ccpsp24.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 554,
+      "orgId": 4331,
+      "orgName": "Communauté de communes Val de Charente",
+      "domain": "ccvaldecharente.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 555,
+      "orgId": 4362,
+      "orgName": "Communauté de communes Rurales de l'Entre-Deux-Mers",
+      "domain": "cdc-entre2mers.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 556,
+      "orgId": 4415,
+      "orgName": "Communauté de communes du Fronsadais",
+      "domain": "cdc-fronsadais.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 557,
+      "orgId": 4391,
+      "orgName": "Communauté de communes de Gémozac et de la Saintonge Viticole",
+      "domain": "cdc-gemozac.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 558,
+      "orgId": 4431,
+      "orgName": "Communauté de communes des Grands Lacs",
+      "domain": "cdc-grands-lacs.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 559,
+      "orgId": 4390,
+      "orgName": "Communauté de communes de l'Ile d'Oléron",
+      "domain": "cdc-oleron.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 560,
+      "orgId": 4417,
+      "orgName": "Communauté de communes des Portes de l'Entre-Deux-Mers",
+      "domain": "cdc-portesentredeuxmers.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 561,
+      "orgId": 4298,
+      "orgName": "Communauté de communes d'Aire-sur-l'Adour",
+      "domain": "cdcaire.org",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 562,
+      "orgId": 4335,
+      "orgName": "Communauté de communes du Bazadais",
+      "domain": "cdcdubazadais.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 563,
+      "orgId": 4414,
+      "orgName": "Communauté de communes Médullienne",
+      "domain": "cdcmedullienne.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 564,
+      "orgId": 4300,
+      "orgName": "Communauté de communes de Montaigne Montravel et Gurson",
+      "domain": "cdcmontaignemontravelgurson.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 565,
+      "orgId": 4334,
+      "orgName": "Communauté de communes du Sud Gironde",
+      "domain": "cdcsudgironde.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 566,
+      "orgId": 668387,
+      "orgName": "CDLA",
+      "domain": "cdla.info",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 567,
+      "orgId": 1970,
+      "orgName": "Commune de Cenon",
+      "domain": "cenon.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 568,
+      "orgId": 161492,
+      "orgName": "CENTRE CULTUREL DU PAYS D ORTHE",
+      "domain": "centre-culturel-paysdorthe-en-gascogne.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 569,
+      "orgId": 363669,
+      "orgName": "CHALAIS",
+      "domain": "chalais.net",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 570,
+      "orgId": 4364,
+      "orgName": "Communauté de communes Chalosse Tursan",
+      "domain": "chalossetursan.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 571,
+      "orgId": 688398,
+      "orgName": "CHANTELOUP",
+      "domain": "chanteloup.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 572,
+      "orgId": 4383,
+      "orgName": "Communauté de communes de Charente Limousine",
+      "domain": "charente-limousine.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 573,
+      "orgId": 2260307,
+      "orgName": "CHARRON",
+      "domain": "charron17.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 574,
+      "orgId": 694810,
+      "orgName": "CHARROUX",
+      "domain": "charroux86.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 575,
+      "orgId": 668127,
+      "orgName": "CHATEAU SAINT PIERRE",
+      "domain": "chateau-saint-pierre.com",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 576,
+      "orgId": 500873,
+      "orgName": "CHATEAU DE CRAZANNES",
+      "domain": "chateaucrazannes.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 577,
+      "orgId": 333505,
+      "orgName": "CHATEAU DE LA MERCERIE",
+      "domain": "chateaudelamercerie.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 578,
+      "orgId": 613781,
+      "orgName": "CHATEAU DE PURNON",
+      "domain": "chateaupurnon.com",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 579,
+      "orgId": 2045932,
+      "orgName": "CHATEAU SAINT MARTIAL",
+      "domain": "chateausaintmartial.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 580,
+      "orgId": 448,
+      "orgName": "Commune de Châtelaillon-Plage",
+      "domain": "chatelaillon-plage-tourisme.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 581,
+      "orgId": 3892,
+      "orgName": "Commune de Châtellerault",
+      "domain": "chatellerault.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 582,
+      "orgId": 3895,
+      "orgName": "Commune de Chauvigny",
+      "domain": "chauvigny.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 583,
+      "orgId": 267548,
+      "orgName": "CHAZELLES",
+      "domain": "chazelles.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 584,
+      "orgId": 602372,
+      "orgName": "ACADEMIE DU CHOCOLAT DE BAYONNE",
+      "domain": "chocolatdebayonne.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 585,
+      "orgId": 374710,
+      "orgName": "LOUS CIGALOUNS DE MOURSEUNS",
+      "domain": "cigalouns-morcenx.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 586,
+      "orgId": 15989,
+      "orgName": "collège Raymond Loewy de La Souterraine",
+      "domain": "cite-loewy.org",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 587,
+      "orgId": 16374,
+      "orgName": "Lycée Arnaut Daniel",
+      "domain": "citescolairearnautdaniel.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 588,
+      "orgId": 18655,
+      "orgName": "Collège de la Cité Scolaire",
+      "domain": "citescolairedemarmande.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 589,
+      "orgId": 18486,
+      "orgName": "Lycée Stendhal",
+      "domain": "citescolairestendhal.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 590,
+      "orgId": 14548,
+      "orgName": "Lycée professionnel Jean Rostand",
+      "domain": "citescolairevaloisrostand.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 591,
+      "orgId": 4371,
+      "orgName": "Communauté de communes du Civraisien en Poitou",
+      "domain": "civraisienpoitou.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 592,
+      "orgId": 131318,
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "domain": "ckct.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 593,
+      "orgId": 16347,
+      "orgName": "Lycée polyvalent Albert Claveille",
+      "domain": "claveille.org",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 594,
+      "orgId": 453567,
+      "orgName": "CLAVETTE",
+      "domain": "clavette.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 595,
+      "orgId": 647623,
+      "orgName": "CLAW'S UNITY",
+      "domain": "clawsunity.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 596,
+      "orgId": 20650,
+      "orgName": "Collège Jean Baptiste Camille Corot",
+      "domain": "clg-corot.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 597,
+      "orgId": 17923,
+      "orgName": "Collège Léo Drouyn",
+      "domain": "clgdrouyn.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 598,
+      "orgId": 17833,
+      "orgName": "Collège Robert Barrière",
+      "domain": "clgrobertbarriere.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 599,
+      "orgId": 4420,
+      "orgName": "Communauté d'agglomération du Bassin d'Arcachon Nord (COBAN)",
+      "domain": "coban-atlantique.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 600,
+      "orgId": 4382,
+      "orgName": "Communauté de communes Coeur de Charente",
+      "domain": "coeurdecharente.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 601,
+      "orgId": 4389,
+      "orgName": "Communauté de communes Coeur de Saintonge",
+      "domain": "coeurdesaintonge.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 602,
+      "orgId": 4365,
+      "orgName": "Communauté de communes Coeur Haute Lande",
+      "domain": "coeurhautelande.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 603,
+      "orgId": 14891,
+      "orgName": "Collège Albert Micheneau",
+      "domain": "college-albertmicheneau-villefagnan.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 604,
+      "orgId": 17085,
+      "orgName": "Collège Cantelande",
+      "domain": "college-cantelande-cestas.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 605,
+      "orgId": 16758,
+      "orgName": "Collège Cheverus",
+      "domain": "college-cheverus.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 606,
+      "orgId": 16779,
+      "orgName": "Collège Édouard Vaillant",
+      "domain": "college-edouardvaillant-bordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 607,
+      "orgId": 17575,
+      "orgName": "Collège Émile Durkheim",
+      "domain": "college-emile-durkheim.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 608,
+      "orgId": 17209,
+      "orgName": "Collège Fontaines de Monjous",
+      "domain": "college-fontaines-monjous-gradignan.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 609,
+      "orgId": 18818,
+      "orgName": "Collège Germillac",
+      "domain": "college-germillac.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 610,
+      "orgId": 19504,
+      "orgName": "Collège innovant Pierre Emmanuel",
+      "domain": "college-innovant64.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 611,
+      "orgId": 19248,
+      "orgName": "Collège Irandatz",
+      "domain": "college-irandatz.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 612,
+      "orgId": 18006,
+      "orgName": "Collège Jean Mermoz",
+      "domain": "college-jean-mermoz-biscarrosse.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 613,
+      "orgId": 18452,
+      "orgName": "collège Joseph Chaumié d'Agen",
+      "domain": "college-joseph-chaumie.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 614,
+      "orgId": 16470,
+      "orgName": "Collège La Boétie",
+      "domain": "college-la-boetie.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 615,
+      "orgId": 15153,
+      "orgName": "Collège La Fontaine",
+      "domain": "college-la-fontaine.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 616,
+      "orgId": 17282,
+      "orgName": "Collège de Lacanau",
+      "domain": "college-lacanau.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 617,
+      "orgId": 17374,
+      "orgName": "Collège Georges Lapierre",
+      "domain": "college-lapierre.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 618,
+      "orgId": 19602,
+      "orgName": "Lycée Maurice Ravel",
+      "domain": "college-lycee-ravel.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 619,
+      "orgId": 19503,
+      "orgName": "Collège Marguerite de Navarre",
+      "domain": "college-marguerite-navarre.org",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 620,
+      "orgId": 16764,
+      "orgName": "Collège Monséjour",
+      "domain": "college-monsejour.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 621,
+      "orgId": 17375,
+      "orgName": "Collège Montaigne",
+      "domain": "college-montaigne.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 622,
+      "orgId": 17275,
+      "orgName": "Collège Montesquieu",
+      "domain": "college-montesquieu.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 623,
+      "orgId": 20717,
+      "orgName": "Collège Pierre Robert",
+      "domain": "college-pierrerobert.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 624,
+      "orgId": 14743,
+      "orgName": "Collège Alfred Renoleau",
+      "domain": "college-renoleau.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 625,
+      "orgId": 15377,
+      "orgName": "Collège Georges Texier",
+      "domain": "college-texier.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 626,
+      "orgId": 14600,
+      "orgName": "Collège Théodore Rancy",
+      "domain": "college-theodore-rancy.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 627,
+      "orgId": 14805,
+      "orgName": "Collège Val de Charente",
+      "domain": "college-valdecharente.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 628,
+      "orgId": 16752,
+      "orgName": "Collège Alain Fournier",
+      "domain": "collegealainfournierbordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 629,
+      "orgId": 17208,
+      "orgName": "Collège Alfred Mauguin",
+      "domain": "collegealfredmauguin.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 630,
+      "orgId": 16657,
+      "orgName": "Collège Marcellin Berthelot",
+      "domain": "collegeberthelot-begles.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 631,
+      "orgId": 16756,
+      "orgName": "Collège Casimir Fidèle",
+      "domain": "collegecasimirfidele.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 632,
+      "orgId": 16757,
+      "orgName": "Collège Cassignol",
+      "domain": "collegecassignol.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 633,
+      "orgId": 19601,
+      "orgName": "Collège Chantaco",
+      "domain": "collegechantaco.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 634,
+      "orgId": 19501,
+      "orgName": "collège Clermont de Pau",
+      "domain": "collegeclermont.net",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 635,
+      "orgId": 18674,
+      "orgName": "Collège Daniel Castaing",
+      "domain": "collegedanielcastaing.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 636,
+      "orgId": 16539,
+      "orgName": "Collège des trois Vallées",
+      "domain": "collegedestroisvallees.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 637,
+      "orgId": 16696,
+      "orgName": "Collège Emmanuel Dupaty",
+      "domain": "collegedupaty.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 638,
+      "orgId": 19681,
+      "orgName": "Collège René Forgues",
+      "domain": "collegeforgues64.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 639,
+      "orgId": 16760,
+      "orgName": "Collège Francisco Goya",
+      "domain": "collegegoya.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 640,
+      "orgId": 17858,
+      "orgName": "Collège Henri Brisson",
+      "domain": "collegehenribrisson.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 641,
+      "orgId": 17316,
+      "orgName": "Collège Jean Cocteau",
+      "domain": "collegejeancocteau.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 642,
+      "orgId": 19590,
+      "orgName": "Collège Jean Pujo",
+      "domain": "collegejeanpujo.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 643,
+      "orgId": 17652,
+      "orgName": "Collège Léonard de Vinci",
+      "domain": "collegeleonarddevinci.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 644,
+      "orgId": 16763,
+      "orgName": "Collège Léonard Lenoir",
+      "domain": "collegeleonardlenoir.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 645,
+      "orgId": 17344,
+      "orgName": "Collège Les Dagueys",
+      "domain": "collegelesdagueys.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 646,
+      "orgId": 17437,
+      "orgName": "Collège Les Eyquems",
+      "domain": "collegeleseyquems.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 647,
+      "orgId": 16320,
+      "orgName": "Collège Michel de Montaigne",
+      "domain": "collegemontaigne.net",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 648,
+      "orgId": 17933,
+      "orgName": "Collège Niki de Saint Phalle",
+      "domain": "collegenikidesaintphalle33.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 649,
+      "orgId": 16721,
+      "orgName": "collège Sébastien Vauban de Blaye",
+      "domain": "collegevauban-blaye.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 650,
+      "orgId": 17859,
+      "orgName": "Collège Victor Louis",
+      "domain": "collegevictorlouis.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 651,
+      "orgId": 2336227,
+      "orgName": "COLOMBIERS",
+      "domain": "colombiers86.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 652,
+      "orgId": 2056366,
+      "orgName": "CHATEAU DE COMMARQUE",
+      "domain": "commarque.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 653,
+      "orgId": 4346,
+      "orgName": "Communauté d'agglomération du Pays Basque",
+      "domain": "communaute-paysbasque.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 654,
+      "orgId": 4356,
+      "orgName": "Communauté de communes du Confluent et des Coteaux de Prayssas",
+      "domain": "communauteduconfluent.com",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 655,
+      "orgId": 305876,
+      "orgName": "BEURLAY",
+      "domain": "commune-de-beurlay.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 656,
+      "orgId": 500134,
+      "orgName": "YVES",
+      "domain": "commune-yves.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 657,
+      "orgId": 344057,
+      "orgName": "ROQUEBRUNE",
+      "domain": "communederoquebrune.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 658,
+      "orgId": 4144,
+      "orgName": "Commune de Condat-sur-Vienne",
+      "domain": "condatsurvienne.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 659,
+      "orgId": 4361,
+      "orgName": "Communauté de communes Convergence Garonne",
+      "domain": "convergence-garonne.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 660,
+      "orgId": 34760,
+      "orgName": "COOP ATLANTIQUE (COOP)",
+      "domain": "coop-atlantique.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 661,
+      "orgId": 19437,
+      "orgName": "Collège des Cordeliers",
+      "domain": "cordeliers-oloron.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 662,
+      "orgId": 366485,
+      "orgName": "CORNIL",
+      "domain": "cornil19.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 663,
+      "orgId": 4412,
+      "orgName": "Communauté de communes les Coteaux Bordelais",
+      "domain": "coteaux-bordelais.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 664,
+      "orgId": 1470,
+      "orgName": "Commune de Coulounieix-Chamiers",
+      "domain": "coulounieix-chamiers.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 665,
+      "orgId": 1989,
+      "orgName": "Commune de Coutras",
+      "domain": "coutras.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 666,
+      "orgId": 2025884,
+      "orgName": "COUTURES",
+      "domain": "coutures-sur-drot.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 667,
+      "orgId": 4146,
+      "orgName": "Commune de Couzeix",
+      "domain": "couzeix.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 668,
+      "orgId": 4336,
+      "orgName": "Communauté de communes Creuse Grand Sud",
+      "domain": "creuse-grand-sud.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 669,
+      "orgId": 4353,
+      "orgName": "Communauté de communes Creuse Confluence",
+      "domain": "creuseconfluence.com",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 670,
+      "orgId": 4347,
+      "orgName": "Communauté de communes Creuse Sud Ouest",
+      "domain": "creusesudouest.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 671,
+      "orgId": 2172928,
+      "orgName": "CUSSAC",
+      "domain": "cussac87.com",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 672,
+      "orgId": 271750,
+      "orgName": "DADOCLEM",
+      "domain": "dadoclem.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 673,
+      "orgId": 25682,
+      "orgName": "DAREMEET",
+      "domain": "daremeet.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 674,
+      "orgId": 529483,
+      "orgName": "DEEPNIGHT GAMES",
+      "domain": "deepnight.net",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 675,
+      "orgId": 38015,
+      "orgName": "DELPEYRAT (DSAS)",
+      "domain": "delpeyrat.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 676,
+      "orgId": 4322,
+      "orgName": "Communauté de communes de Domme- Villefranche du Périgord",
+      "domain": "domme-villefranche-du-perigord.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 677,
+      "orgId": 494,
+      "orgName": "Commune de Dompierre-sur-Mer",
+      "domain": "dompierresurmer.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 678,
+      "orgId": 4326,
+      "orgName": "Communauté de communes Dronne et Belle",
+      "domain": "dronneetbelle.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 679,
+      "orgId": 39301,
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "domain": "durousseau.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 680,
+      "orgId": 624921,
+      "orgName": "ECOLE H.O.M.E.",
+      "domain": "ecole-home.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 681,
+      "orgId": 19081,
+      "orgName": "Lycée polyvalent Biarritz Atlantique",
+      "domain": "ecolehotelierebiarritz.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 682,
+      "orgId": 150451,
+      "orgName": "ECOMUSEE DE L ARMAGNAC",
+      "domain": "ecomusee-armagnac.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 683,
+      "orgId": 80010,
+      "orgName": "ROUGERIE EDITEUR",
+      "domain": "editionsrougerie.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 684,
+      "orgId": 432163,
+      "orgName": "EMIL FREY FRANCE ACADEMY",
+      "domain": "effy-proschool.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 685,
+      "orgId": 636321,
+      "orgName": "EGIDES EUROPE ALLIANCE INTERNATIONALE FRANCOPHONE POUR L'EGALITE ET LES DIVERSITES",
+      "domain": "egides.org",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 686,
+      "orgId": 16930,
+      "orgName": "Lycée polyvalent Gustave Eiffel",
+      "domain": "eiffel-bordeaux.org",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 687,
+      "orgId": 578072,
+      "orgName": "EKSPLODO",
+      "domain": "eksplodo.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 688,
+      "orgId": 4339,
+      "orgName": "Communauté de communes Élan Limousin Avenir Nature",
+      "domain": "elan87.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 689,
+      "orgId": 595611,
+      "orgName": "ELEMENT-TERRE SAIL",
+      "domain": "elementterresail.wixsite.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 690,
+      "orgId": 17689,
+      "orgName": "collège Élie Faure de Sainte-Foy-la-Grande",
+      "domain": "eliefaure-saintefoylagrande.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 691,
+      "orgId": 2365302,
+      "orgName": "ELWIN",
+      "domain": "elwin.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 692,
+      "orgId": 524914,
+      "orgName": "ESPACE 120",
+      "domain": "espace120.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 693,
+      "orgId": 2413214,
+      "orgName": "ESTIBEAUX",
+      "domain": "estibeaux.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 694,
+      "orgId": 16317,
+      "orgName": "Lycée Bertran de Born",
+      "domain": "etablissementbertrandeborn.net",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 695,
+      "orgId": 549234,
+      "orgName": "EXCIDEUIL",
+      "domain": "excideuil.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 696,
+      "orgId": 38949,
+      "orgName": "EYMET",
+      "domain": "eymet-dordogne.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 697,
+      "orgId": 2013,
+      "orgName": "EYSINES",
+      "domain": "eysines.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 698,
+      "orgId": 587468,
+      "orgName": "FALEYRAS",
+      "domain": "faleyras.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 699,
+      "orgId": 79076,
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "domain": "fanlac.com",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 700,
+      "orgId": 697038,
+      "orgName": "FELLETIN",
+      "domain": "felletin.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 701,
+      "orgId": 503961,
+      "orgName": "FLAYAT",
+      "domain": "flayat.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 702,
+      "orgId": 2018,
+      "orgName": "FLOIRAC",
+      "domain": "floirac.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 703,
+      "orgId": 114294,
+      "orgName": "FONDATION MAIF",
+      "domain": "fondation-maif.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 704,
+      "orgId": 234336,
+      "orgName": "FRANCEGENWEB",
+      "domain": "francegenweb.org",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 705,
+      "orgId": 291227,
+      "orgName": "FROMENTAL",
+      "domain": "fromental.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 706,
+      "orgId": 4357,
+      "orgName": "Communauté de communes Fumel Vallée du Lot",
+      "domain": "fumelvalleedulot.com",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 707,
+      "orgId": 2391528,
+      "orgName": "GABASTON",
+      "domain": "gabaston.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 708,
+      "orgId": 631390,
+      "orgName": "GARDONNE",
+      "domain": "gardonne.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 709,
+      "orgId": 4444,
+      "orgName": "Communauté de communes Gartempe - Saint Pardoux",
+      "domain": "gartempe-saint-pardoux.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 710,
+      "orgId": 636827,
+      "orgName": "GASTES",
+      "domain": "gastes.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 711,
+      "orgId": 2352057,
+      "orgName": "GAZELLE TECH",
+      "domain": "gazelle-tech.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 712,
+      "orgId": 616062,
+      "orgName": "GAZTE CO",
+      "domain": "gazteco.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 713,
+      "orgId": 16195,
+      "orgName": "Lycée Giraut de Borneil",
+      "domain": "gdeborneil.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 714,
+      "orgId": 2111076,
+      "orgName": "GENCAY",
+      "domain": "gencay.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 715,
+      "orgId": 169840,
+      "orgName": "GENERAC",
+      "domain": "generac33.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 716,
+      "orgId": 594972,
+      "orgName": "GENSAC",
+      "domain": "gensac.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 717,
+      "orgId": 2061792,
+      "orgName": "GOLF DE LA JONCHERE",
+      "domain": "golfdelajonchere.com",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 718,
+      "orgId": 136,
+      "orgName": "Commune de Gond-Pontouvre",
+      "domain": "gond-pontouvre.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 719,
+      "orgId": 244519,
+      "orgName": "GOUZON",
+      "domain": "gouzon23.com",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 720,
+      "orgId": 2043,
+      "orgName": "Commune de Gradignan",
+      "domain": "gradignan.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 721,
+      "orgId": 4441,
+      "orgName": "Communauté d'agglomération Grand Châtellerault",
+      "domain": "grand-chatellerault.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 722,
+      "orgId": 4376,
+      "orgName": "Communauté d'agglomération du Grand Cognac",
+      "domain": "grand-cognac.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 723,
+      "orgId": 4409,
+      "orgName": "Communauté de communes du Grand Cubzaguais",
+      "domain": "grand-cubzaguais.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 724,
+      "orgId": 4423,
+      "orgName": "Communauté d'agglomération du Grand Dax",
+      "domain": "grand-dax.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 725,
+      "orgId": 4303,
+      "orgName": "Communauté de communes du Grand Saint Emilionnais",
+      "domain": "grand-saint-emilionnais.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 726,
+      "orgId": 4294,
+      "orgName": "Communauté d'agglomération du Grand Villeneuvois",
+      "domain": "grand-villeneuvois.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 727,
+      "orgId": 4380,
+      "orgName": "Communauté d'agglomération du Grand Angoulême",
+      "domain": "grandangouleme.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 728,
+      "orgId": 4311,
+      "orgName": "Communauté d'agglomération Le Grand Périgueux",
+      "domain": "grandperigueux.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 729,
+      "orgId": 4369,
+      "orgName": "Communauté urbaine du Grand Poitiers",
+      "domain": "grandpoitiers.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 730,
+      "orgId": 3284,
+      "orgName": "Commune de Hasparren",
+      "domain": "hasparren.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 731,
+      "orgId": 4324,
+      "orgName": "Communauté de communes de la Haute Saintonge",
+      "domain": "haute-saintonge.org",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 732,
+      "orgId": 3288,
+      "orgName": "HENDAYE",
+      "domain": "hendaye.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 733,
+      "orgId": 587775,
+      "orgName": "HEUGAS",
+      "domain": "heugas.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 734,
+      "orgId": 286656,
+      "orgName": "HOURTIN",
+      "domain": "hourtin-medoc.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 735,
+      "orgId": 3297,
+      "orgName": "Commune de Idron",
+      "domain": "idron.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 736,
+      "orgId": 232568,
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "domain": "indp.net",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 737,
+      "orgId": 642014,
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "domain": "ipsad.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 738,
+      "orgId": 4359,
+      "orgName": "Communauté de communes Isle et Crempse en Périgord",
+      "domain": "isle-et-crempse-en-perigord.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 739,
+      "orgId": 293964,
+      "orgName": "SEMFOR",
+      "domain": "iwinemaker.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 740,
+      "orgId": 2058,
+      "orgName": "IZON",
+      "domain": "izon.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 741,
+      "orgId": 4406,
+      "orgName": "Communauté de communes Jalle-Eau-Bourde",
+      "domain": "jalleeaubourde.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 742,
+      "orgId": 3938,
+      "orgName": "Commune de Jaunay-Marigny",
+      "domain": "jaunay-marigny.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 743,
+      "orgId": 1773346,
+      "orgName": "DE MALET JEAN",
+      "domain": "jeandemalet.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 744,
+      "orgId": 20165,
+      "orgName": "Lycée professionnel Jean Moulin",
+      "domain": "jeanmoulinthouars.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 745,
+      "orgId": 82178,
+      "orgName": "UNIVERSITE FRANCOPHONE D'ETE",
+      "domain": "jonzac-web.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 746,
+      "orgId": 71359,
+      "orgName": "KRAKATOA",
+      "domain": "krakatoa.org",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 747,
+      "orgId": 4377,
+      "orgName": "Communauté d'agglomération Bergeracoise",
+      "domain": "la-cab.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 748,
+      "orgId": 482756,
+      "orgName": "LABARDE",
+      "domain": "labarde.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 749,
+      "orgId": 2069099,
+      "orgName": "LABEYRIE",
+      "domain": "labeyrie.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 750,
+      "orgId": 636408,
+      "orgName": "LA BOUCHE PARFAITE",
+      "domain": "laboucheparfaite.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 751,
+      "orgId": 290536,
+      "orgName": "LABRIT",
+      "domain": "labrit.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 752,
+      "orgId": 171110,
+      "orgName": "LABYRINTHE GEANT DE GUERET",
+      "domain": "labyrinthe-gueret.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 753,
+      "orgId": 4373,
+      "orgName": "Communauté d'agglomération du Libournais",
+      "domain": "lacali.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 754,
+      "orgId": 2065,
+      "orgName": "LACANAU",
+      "domain": "lacanau.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 755,
+      "orgId": 73081,
+      "orgName": "LA CHAMOISE",
+      "domain": "lachamoise.com",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 756,
+      "orgId": 2402653,
+      "orgName": "LA COUARDE",
+      "domain": "lacouarde79.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 757,
+      "orgId": 101,
+      "orgName": "Commune de La Couronne",
+      "domain": "lacouronne.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 758,
+      "orgId": 272448,
+      "orgName": "LA FORCE",
+      "domain": "laforce-dordogne.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 759,
+      "orgId": 2020164,
+      "orgName": "LAGOR",
+      "domain": "lagor.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 760,
+      "orgId": 548,
+      "orgName": "Commune de Lagord",
+      "domain": "lagord.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 761,
+      "orgId": 4304,
+      "orgName": "Communauté de communes des Landes d'Armagnac",
+      "domain": "landesdarmagnac.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 762,
+      "orgId": 2077,
+      "orgName": "LANGON",
+      "domain": "langon33.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 763,
+      "orgId": 692899,
+      "orgName": "LAPLUME",
+      "domain": "laplume.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 764,
+      "orgId": 517953,
+      "orgName": "LA RESERVE D'EMILIE",
+      "domain": "lareservedemilie.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 765,
+      "orgId": 570400,
+      "orgName": "LA ROCHE CHALAIS",
+      "domain": "larochechalais.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 766,
+      "orgId": 645,
+      "orgName": "Commune de La Rochelle",
+      "domain": "larochelle.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 767,
+      "orgId": 706249,
+      "orgName": "LAROQUE TIMBAUT",
+      "domain": "laroque-timbaut.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 768,
+      "orgId": 125994,
+      "orgName": "LARRESSORE",
+      "domain": "larressore.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 769,
+      "orgId": 2364,
+      "orgName": "LA TESTE DE BUCH",
+      "domain": "latestedebuch.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 770,
+      "orgId": 4407,
+      "orgName": "Communauté de communes Latitude Nord Gironde",
+      "domain": "latitude-nord-gironde.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 771,
+      "orgId": 16319,
+      "orgName": "Collège Laure Gatet",
+      "domain": "lauregatet.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 772,
+      "orgId": 16945,
+      "orgName": "Lycée professionnel Toulouse Lautrec",
+      "domain": "lautrecbordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 773,
+      "orgId": 4374,
+      "orgName": "Communauté de communes Lavalette Tude Dronne",
+      "domain": "lavalette-tude-dronne.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 774,
+      "orgId": 16924,
+      "orgName": "Lycée Jean Condorcet",
+      "domain": "lcondorcetbx.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 775,
+      "orgId": 557933,
+      "orgName": "LE VIGEN",
+      "domain": "le-vigen.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 776,
+      "orgId": 2295969,
+      "orgName": "LE BOURDET",
+      "domain": "lebourdet.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 777,
+      "orgId": 556864,
+      "orgName": "LE CHAY",
+      "domain": "lechay-17.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 778,
+      "orgId": 438441,
+      "orgName": "LE CLOS DES ARCHERS",
+      "domain": "leclosdesarchers.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 779,
+      "orgId": 2355975,
+      "orgName": "LE DILETTANTE",
+      "domain": "ledilettante.com",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 780,
+      "orgId": 2088,
+      "orgName": "Commune de Léognan",
+      "domain": "leognan.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 781,
+      "orgId": 4206,
+      "orgName": "Commune de Le Palais-sur-Vienne",
+      "domain": "lepalaissurvienne.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 782,
+      "orgId": 2168,
+      "orgName": "Commune de Le Pian-Médoc",
+      "domain": "lepianmedoc.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 783,
+      "orgId": 4386,
+      "orgName": "Communauté de communes du Rouillacais",
+      "domain": "lerouillacais.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 784,
+      "orgId": 2246993,
+      "orgName": "LES ESSARDS",
+      "domain": "les-essards.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 785,
+      "orgId": 197968,
+      "orgName": "ASS DES AMIS DU MUSEE MARITIME LA ROCHEL",
+      "domain": "lesamisdumuseemaritime.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 786,
+      "orgId": 183143,
+      "orgName": "LESCAR",
+      "domain": "lescar.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 787,
+      "orgId": 195567,
+      "orgName": "LESGOR",
+      "domain": "lesgor.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 788,
+      "orgId": 2090,
+      "orgName": "Commune de Lesparre-Médoc",
+      "domain": "lesparre-medoc.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 789,
+      "orgId": 2362,
+      "orgName": "Commune de Le Teich",
+      "domain": "leteich.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 790,
+      "orgId": 14542,
+      "orgName": "Lycée Guez de Balzac",
+      "domain": "lgtguezdebalzac.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 791,
+      "orgId": 2093,
+      "orgName": "Commune de Libourne",
+      "domain": "libourne.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 792,
+      "orgId": 190949,
+      "orgName": "LIBRAIRIE NIVET",
+      "domain": "librairie-nivet.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 793,
+      "orgId": 4446,
+      "orgName": "Communauté urbaine Limoges Métropole",
+      "domain": "limoges-metropole.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 794,
+      "orgId": 30188,
+      "orgName": "MELANIE KITENGE (LINE'UP)",
+      "domain": "line-up.tech",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 795,
+      "orgId": 214253,
+      "orgName": "SC PERRIN",
+      "domain": "lisez.com",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 796,
+      "orgId": 146,
+      "orgName": "Commune de L'Isle-d'Espagnac",
+      "domain": "lisledespagnac.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 797,
+      "orgId": 23769,
+      "orgName": "ANTHONY RAMOS (LOOWEB)",
+      "domain": "looweb.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 798,
+      "orgId": 4436,
+      "orgName": "Communauté de communes Lot et Tolzac",
+      "domain": "lotettolzac.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 799,
+      "orgId": 19038,
+      "orgName": "Lycée polyvalent Louis de Foix",
+      "domain": "louisdefoix.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 800,
+      "orgId": 345771,
+      "orgName": "LOU ROSSIGNO DO LIMOUZI",
+      "domain": "lourossignodolimouzi.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 801,
+      "orgId": 612075,
+      "orgName": "LOUS CRABOTS DE SEMISENS",
+      "domain": "louscrabots.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 802,
+      "orgId": 17018,
+      "orgName": "Lycée professionnel Flora Tristan",
+      "domain": "lp-flora-tristan.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 803,
+      "orgId": 20720,
+      "orgName": "Lycée professionnel George Sand",
+      "domain": "lp-georgesand87.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 804,
+      "orgId": 17367,
+      "orgName": "Lycée professionnel Henri Brulle",
+      "domain": "lp-henribrulle.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 805,
+      "orgId": 18595,
+      "orgName": "Lycée professionnel Jean Monnet",
+      "domain": "lp-jean-monnet.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 806,
+      "orgId": 18484,
+      "orgName": "Lycée professionnel Antoine Lomet",
+      "domain": "lp-lomet.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 807,
+      "orgId": 17304,
+      "orgName": "Lycée professionnel Sud Gironde",
+      "domain": "lp-sud-gironde.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 808,
+      "orgId": 16350,
+      "orgName": "lycée professionnel Pablo Picasso de Périgueux",
+      "domain": "lppicasso.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 809,
+      "orgId": 18031,
+      "orgName": "Lycée professionnel Louis Darmanté",
+      "domain": "lpr-darmante-capbreton.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 810,
+      "orgId": 16035,
+      "orgName": "Lycée professionnel Louis Gaston Roussillat",
+      "domain": "lproussillat.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 811,
+      "orgId": 20292,
+      "orgName": "Lycée professionnel les Terres Rouges",
+      "domain": "lpterresrouges.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 812,
+      "orgId": 2106,
+      "orgName": "Commune de Ludon-Médoc",
+      "domain": "ludonmedoc.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 813,
+      "orgId": 358950,
+      "orgName": "LUR BERRI HOLDING",
+      "domain": "lurberri.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 814,
+      "orgId": 210011,
+      "orgName": "LUSSAC",
+      "domain": "lussac-gironde.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 815,
+      "orgId": 164804,
+      "orgName": "LUXEY",
+      "domain": "luxey.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 816,
+      "orgId": 20520,
+      "orgName": "lycée Camille-Guérin",
+      "domain": "lyc-camilleguerin.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 817,
+      "orgId": 17771,
+      "orgName": "Lycée professionnel Jehan Dupérier",
+      "domain": "lyc-duperier.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 818,
+      "orgId": 17395,
+      "orgName": "Lycée Élie Faure",
+      "domain": "lyc-eliefaure.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 819,
+      "orgId": 19263,
+      "orgName": "Lycée professionnel Aïzpurdi",
+      "domain": "lycee-aizpurdi.com",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 820,
+      "orgId": 19560,
+      "orgName": "lycée professionnel Honoré Baradat de Pau",
+      "domain": "lycee-baradat.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 821,
+      "orgId": 15472,
+      "orgName": "Lycée Bellevue",
+      "domain": "lycee-bellevue-saintes.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 822,
+      "orgId": 18917,
+      "orgName": "Lycée polyvalent Cantau",
+      "domain": "lycee-cantau.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 823,
+      "orgId": 14618,
+      "orgName": "Lycée professionnel Pierre André Chabanne",
+      "domain": "lycee-chabanne16.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 824,
+      "orgId": 16598,
+      "orgName": "Lycée professionnel Condorcet",
+      "domain": "lycee-condorcet-arcachon.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 825,
+      "orgId": 15326,
+      "orgName": "Lycée Cordouan",
+      "domain": "lycee-cordouan.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 826,
+      "orgId": 17469,
+      "orgName": "Lycée Fernand Daguin",
+      "domain": "lycee-daguin.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 827,
+      "orgId": 19946,
+      "orgName": "Lycée Joseph Desfontaines",
+      "domain": "lycee-desfontaines.eu",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 828,
+      "orgId": 20529,
+      "orgName": "Lycée professionnel Le Dolmen",
+      "domain": "lycee-dolmen.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 829,
+      "orgId": 15305,
+      "orgName": "Lycée professionnel Pierre Doriole",
+      "domain": "lycee-doriole.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 830,
+      "orgId": 14566,
+      "orgName": "Lycée Élie Vinet",
+      "domain": "lycee-elie-vinet.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 831,
+      "orgId": 14671,
+      "orgName": "Lycée polyvalent Émile Roux",
+      "domain": "lycee-emileroux.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 832,
+      "orgId": 20033,
+      "orgName": "Lycée professionnel Gaston Barré",
+      "domain": "lycee-gaston-barre.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 833,
+      "orgId": 16650,
+      "orgName": "Lycée Gisèle Halimi",
+      "domain": "lycee-gisele-halimi.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 834,
+      "orgId": 19450,
+      "orgName": "Lycée professionnel Guynemer",
+      "domain": "lycee-guynemer.com",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 835,
+      "orgId": 20107,
+      "orgName": "Lycée polyvalent du Haut Val de Sèvre",
+      "domain": "lycee-hautvaldesevre.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 836,
+      "orgId": 15303,
+      "orgName": "Lycée polyvalent hôtelier du Parc de la Francophonie",
+      "domain": "lycee-hotelier.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 837,
+      "orgId": 17394,
+      "orgName": "Lycée professionnel Jacques Brel",
+      "domain": "lycee-jacques-brel-lormont.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 838,
+      "orgId": 18720,
+      "orgName": "Lycée professionnel Jacques de Romas",
+      "domain": "lycee-jacquesderomas.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 839,
+      "orgId": 15237,
+      "orgName": "Lycée professionnel Gilles Jamain",
+      "domain": "lycee-jamain.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 840,
+      "orgId": 18265,
+      "orgName": "lycée polyvalent Jean Taris de Peyrehorade",
+      "domain": "lycee-jean-taris-40.net",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 841,
+      "orgId": 15093,
+      "orgName": "Lycée polyvalent Jean Hyppolite",
+      "domain": "lycee-jeanhyppolite.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 842,
+      "orgId": 20027,
+      "orgName": "lycée Jean Macé de Niort",
+      "domain": "lycee-jeanmace.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 843,
+      "orgId": 17081,
+      "orgName": "Lycée professionnel La Morlette",
+      "domain": "lycee-lamorlette.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 844,
+      "orgId": 14811,
+      "orgName": "Lycée professionnel Louise Michel",
+      "domain": "lycee-louise-michel.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 845,
+      "orgId": 19080,
+      "orgName": "Lycée André Malraux",
+      "domain": "lycee-malraux-biarritz.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 846,
+      "orgId": 20523,
+      "orgName": "Lycée polyvalent Nelson Mandela",
+      "domain": "lycee-mandela-poitiers.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 847,
+      "orgId": 15236,
+      "orgName": "Lycée polyvalent Marcel Dassault",
+      "domain": "lycee-marcel-dassault.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 848,
+      "orgId": 20376,
+      "orgName": "Lycée professionnel Marc Godrie",
+      "domain": "lycee-marcgodrie.eu",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 849,
+      "orgId": 15301,
+      "orgName": "Lycée maritime et aquacole",
+      "domain": "lycee-maritime-larochelle.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 850,
+      "orgId": 20847,
+      "orgName": "Lycée polyvalent Maryse Bastié",
+      "domain": "lycee-maryse-bastie.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 851,
+      "orgId": 16926,
+      "orgName": "Lycée Montesquieu",
+      "domain": "lycee-montesquieu.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 852,
+      "orgId": 20028,
+      "orgName": "Lycée Paul Guérin",
+      "domain": "lycee-paul-guerin.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 853,
+      "orgId": 20530,
+      "orgName": "Lycée professionnel Réaumur",
+      "domain": "lycee-reaumur.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 854,
+      "orgId": 17881,
+      "orgName": "Lycée polyvalent Victor Louis",
+      "domain": "lycee-victor-louis.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 855,
+      "orgId": 20521,
+      "orgName": "Lycée Victor Hugo",
+      "domain": "lycee-victorhugo-poitiers.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 856,
+      "orgId": 15302,
+      "orgName": "Lycée polyvalent Léonce Vieljeux",
+      "domain": "lycee-vieljeux.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 857,
+      "orgId": 19452,
+      "orgName": "Lycée professionnel du 4 septembre 1870",
+      "domain": "lycee4septembre.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 858,
+      "orgId": 15385,
+      "orgName": "Lycée polyvalent Louis Audouin Dubreuil",
+      "domain": "lyceeaudouindubreuil.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 859,
+      "orgId": 16943,
+      "orgName": "Lycée professionnel Alphonse Beau de Rochas",
+      "domain": "lyceebeauderochas.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 860,
+      "orgId": 20264,
+      "orgName": "Lycée Édouard Branly",
+      "domain": "lyceebranly.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 861,
+      "orgId": 16927,
+      "orgName": "Lycée professionnel Nicolas Brémontier",
+      "domain": "lyceebremontier.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 862,
+      "orgId": 19293,
+      "orgName": "Lycée professionnel André Campa",
+      "domain": "lyceecampa.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 863,
+      "orgId": 19037,
+      "orgName": "Lycée René Cassin",
+      "domain": "lyceecassinbayonne.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 864,
+      "orgId": 14541,
+      "orgName": "Lycée Charles Augustin Coulomb",
+      "domain": "lyceecharlescoulomb.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 865,
+      "orgId": 17157,
+      "orgName": "Lycée professionnel Charles Péguy",
+      "domain": "lyceecharlespeguy.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 866,
+      "orgId": 15299,
+      "orgName": "lycée Dautet",
+      "domain": "lyceedautet.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 867,
+      "orgId": 18071,
+      "orgName": "Lycée polyvalent de Borda",
+      "domain": "lyceedeborda.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 868,
+      "orgId": 17882,
+      "orgName": "Lycée polyvalent de Gascogne",
+      "domain": "lyceedegascogne.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 869,
+      "orgId": 14658,
+      "orgName": "Lycée professionnel Louis Delage",
+      "domain": "lyceedelage.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 870,
+      "orgId": 19624,
+      "orgName": "Lycée polyvalent de Navarre",
+      "domain": "lyceedenavarre.org",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 871,
+      "orgId": 18211,
+      "orgName": "Lycée Charles Despiau",
+      "domain": "lyceedespiau.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 872,
+      "orgId": 19169,
+      "orgName": "Lycée du Pays de Soule",
+      "domain": "lyceedupaysdesoule.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 873,
+      "orgId": 18212,
+      "orgName": "Lycée Victor Duruy",
+      "domain": "lyceeduruy.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 874,
+      "orgId": 20062,
+      "orgName": "Lycée Ernest Pérochon",
+      "domain": "lyceeernestperochon.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 875,
+      "orgId": 20064,
+      "orgName": "Lycée professionnel les Grippeaux",
+      "domain": "lyceegrippeaux.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 876,
+      "orgId": 18337,
+      "orgName": "Lycée polyvalent Haroun Tazieff",
+      "domain": "lyceeharountazieff.com",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 877,
+      "orgId": 19341,
+      "orgName": "Lycée Jacques Monod",
+      "domain": "lyceejacquesmonod.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 878,
+      "orgId": 16729,
+      "orgName": "Lycée Jaufré Rudel",
+      "domain": "lyceejaufrerudel.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 879,
+      "orgId": 16345,
+      "orgName": "Lycée Jay de Beaufort",
+      "domain": "lyceejaydebeaufort.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 880,
+      "orgId": 14804,
+      "orgName": "lycée professionnel Jean Caillaud de Ruelle-sur-Touvre",
+      "domain": "lyceejeancaillaud.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 881,
+      "orgId": 16103,
+      "orgName": "Lycée professionnel Jean Capelle",
+      "domain": "lyceejeancapellebergerac.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 882,
+      "orgId": 15947,
+      "orgName": "Lycée polyvalent Jean Favard",
+      "domain": "lyceejeanfavard.fr",
+      "dept": "23",
+      "effectif": null
+    },
+    {
+      "rank": 883,
+      "orgId": 17621,
+      "orgName": "Lycée Jean Renou",
+      "domain": "lyceejeanrenou-lareole.net",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 884,
+      "orgId": 17880,
+      "orgName": "Lycée polyvalent Alfred Kastler",
+      "domain": "lyceekastler.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 885,
+      "orgId": 20524,
+      "orgName": "Lycée polyvalent agricole Kyoto",
+      "domain": "lyceekyoto.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 886,
+      "orgId": 16948,
+      "orgName": "Lycée professionnel les Chartrons",
+      "domain": "lyceeleschartrons.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 887,
+      "orgId": 20768,
+      "orgName": "cité scolaire Léonard-Limosin",
+      "domain": "lyceelimosin.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 888,
+      "orgId": 19554,
+      "orgName": "Lycée Louis Barthou",
+      "domain": "lyceelouisbarthou.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 889,
+      "orgId": 16922,
+      "orgName": "Lycée François Mauriac",
+      "domain": "lyceemauriac.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 890,
+      "orgId": 17364,
+      "orgName": "Lycée Max Linder",
+      "domain": "lyceemaxlinder.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 891,
+      "orgId": 16581,
+      "orgName": "Lycée Nord Bassin Simone Veil",
+      "domain": "lyceenordbassin.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 892,
+      "orgId": 17568,
+      "orgName": "Lycée Pape Clément",
+      "domain": "lyceepapeclement.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 893,
+      "orgId": 18566,
+      "orgName": "Lycée professionnel Porte du Lot",
+      "domain": "lyceeportedulotclairac.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 894,
+      "orgId": 17121,
+      "orgName": "Lycée polyvalent Robert Badinter",
+      "domain": "lyceerobertbadinter.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 895,
+      "orgId": 15306,
+      "orgName": "lycée professionnel de Rompsay de La Rochelle",
+      "domain": "lyceerompsay17.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 896,
+      "orgId": 16677,
+      "orgName": "Lycée polyvalent Václav Havel",
+      "domain": "lyceevaclavhavel.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 897,
+      "orgId": 16713,
+      "orgName": "Lycée polyvalent Léonard de Vinci",
+      "domain": "lyceevinciblanquefort.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 898,
+      "orgId": 18214,
+      "orgName": "Lycée professionnel Robert Wlérick",
+      "domain": "lyceewlerick.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 899,
+      "orgId": 16921,
+      "orgName": "Lycée François Magendie",
+      "domain": "magendie.net",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 900,
+      "orgId": 4099,
+      "orgName": "Commune de Aixe-sur-Vienne",
+      "domain": "mairie-aixesurvienne.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 901,
+      "orgId": 4100,
+      "orgName": "Commune de Ambazac",
+      "domain": "mairie-ambazac.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 902,
+      "orgId": 2106179,
+      "orgName": "ARCINS",
+      "domain": "mairie-arcins.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 903,
+      "orgId": 2009924,
+      "orgName": "BALLON",
+      "domain": "mairie-ballon.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 904,
+      "orgId": 1895,
+      "orgName": "Commune de Bègles",
+      "domain": "mairie-begles.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 905,
+      "orgId": 493694,
+      "orgName": "BEGUEY",
+      "domain": "mairie-beguey.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 906,
+      "orgId": 541447,
+      "orgName": "BEOST",
+      "domain": "mairie-beost.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 907,
+      "orgId": 75113,
+      "orgName": "BRACH",
+      "domain": "mairie-brach.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 908,
+      "orgId": 248577,
+      "orgName": "BRANNE",
+      "domain": "mairie-branne.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 909,
+      "orgId": 1930,
+      "orgName": "BRUGES",
+      "domain": "mairie-bruges.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 910,
+      "orgId": 1935,
+      "orgName": "CADAUJAC",
+      "domain": "mairie-cadaujac.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 911,
+      "orgId": 1973,
+      "orgName": "Commune de Cestas",
+      "domain": "mairie-cestas.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 912,
+      "orgId": 69,
+      "orgName": "Commune de Champniers",
+      "domain": "mairie-champniers.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 913,
+      "orgId": 55438,
+      "orgName": "CHAPTELAT",
+      "domain": "mairie-chaptelat.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 914,
+      "orgId": 73,
+      "orgName": "Commune de Charmé",
+      "domain": "mairie-charme.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 915,
+      "orgId": 74,
+      "orgName": "Commune de Charras",
+      "domain": "mairie-charras.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 916,
+      "orgId": 78,
+      "orgName": "Commune de Chassors",
+      "domain": "mairie-chassors.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 917,
+      "orgId": 3218,
+      "orgName": "Commune de Ciboure",
+      "domain": "mairie-ciboure.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 918,
+      "orgId": 94,
+      "orgName": "CONFOLENS",
+      "domain": "mairie-confolens.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 919,
+      "orgId": 65544,
+      "orgName": "ESPELETTE",
+      "domain": "mairie-espelette.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 920,
+      "orgId": 118,
+      "orgName": "Commune de Étriac",
+      "domain": "mairie-etriac.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 921,
+      "orgId": 2079,
+      "orgName": "Commune de Lanton",
+      "domain": "mairie-lanton.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 922,
+      "orgId": 2423045,
+      "orgName": "LATRESNE",
+      "domain": "mairie-latresne.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 923,
+      "orgId": 594299,
+      "orgName": "LEMBEYE",
+      "domain": "mairie-lembeye.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 924,
+      "orgId": 3374,
+      "orgName": "LONS",
+      "domain": "mairie-lons.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 925,
+      "orgId": 628466,
+      "orgName": "MAGESCQ",
+      "domain": "mairie-magescq.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 926,
+      "orgId": 2871,
+      "orgName": "Commune de Marmande",
+      "domain": "mairie-marmande.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 927,
+      "orgId": 3710,
+      "orgName": "Commune de Melle",
+      "domain": "mairie-melle.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 928,
+      "orgId": 511957,
+      "orgName": "MONT",
+      "domain": "mairie-mont.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 929,
+      "orgId": 3454,
+      "orgName": "ORTHEZ",
+      "domain": "mairie-orthez.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 930,
+      "orgId": 4207,
+      "orgName": "Commune de Panazol",
+      "domain": "mairie-panazol.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 931,
+      "orgId": 71532,
+      "orgName": "PISANY",
+      "domain": "mairie-pisany17.com",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 932,
+      "orgId": 200803,
+      "orgName": "RUFFEC",
+      "domain": "mairie-ruffec.fr",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 933,
+      "orgId": 1667,
+      "orgName": "Commune de Saint-Astier",
+      "domain": "mairie-saint-astier.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 934,
+      "orgId": 2193619,
+      "orgName": "SAINT ESTEPHE",
+      "domain": "mairie-saint-estephe.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 935,
+      "orgId": 2235,
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "domain": "mairie-saintdenisdepile.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 936,
+      "orgId": 251701,
+      "orgName": "SAINTE MARTHE",
+      "domain": "mairie-saintemarthe.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 937,
+      "orgId": 61653,
+      "orgName": "SAINT LEON",
+      "domain": "mairie-saintleon.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 938,
+      "orgId": 538541,
+      "orgName": "SERS",
+      "domain": "mairie-sers.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 939,
+      "orgId": 2693,
+      "orgName": "Commune de Soustons",
+      "domain": "mairie-soustons.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 940,
+      "orgId": 2238830,
+      "orgName": "TARGON",
+      "domain": "mairie-targon.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 941,
+      "orgId": 2292689,
+      "orgName": "TESSON",
+      "domain": "mairie-tesson.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 942,
+      "orgId": 3019,
+      "orgName": "TONNEINS",
+      "domain": "mairie-tonneins.fr",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 943,
+      "orgId": 167908,
+      "orgName": "VILLAC",
+      "domain": "mairie-villac.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 944,
+      "orgId": 2367124,
+      "orgName": "BERSON",
+      "domain": "mairieberson.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 945,
+      "orgId": 643111,
+      "orgName": "BIRAC",
+      "domain": "mairiebirac16.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 946,
+      "orgId": 124545,
+      "orgName": "DOUMY",
+      "domain": "mairiededoumy.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 947,
+      "orgId": 606090,
+      "orgName": "LES CHATELIERS",
+      "domain": "mairiedeschateliers.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 948,
+      "orgId": 2239889,
+      "orgName": "SEMENS",
+      "domain": "mairiedesemens.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 949,
+      "orgId": 594371,
+      "orgName": "SAINT GERVAIS",
+      "domain": "mairiesaintgervais33.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 950,
+      "orgId": 607163,
+      "orgName": "MANGOTION",
+      "domain": "mangotion.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 951,
+      "orgId": 567,
+      "orgName": "Commune de Marennes-Hiers-Brouage",
+      "domain": "marenneshiersbrouage.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 952,
+      "orgId": 184364,
+      "orgName": "ASSOCIATION MARGUERITE DURAS",
+      "domain": "margueriteduras.org",
+      "dept": "47",
+      "effectif": null
+    },
+    {
+      "rank": 953,
+      "orgId": 591578,
+      "orgName": "MARIGNY",
+      "domain": "marigny79.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 954,
+      "orgId": 18996,
+      "orgName": "Collège Marracq",
+      "domain": "marracq.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 955,
+      "orgId": 3632,
+      "orgName": "Commune de Mauléon",
+      "domain": "mauleon.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 956,
+      "orgId": 2300352,
+      "orgName": "MAZEROLLES",
+      "domain": "mazerolles16.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 957,
+      "orgId": 427521,
+      "orgName": "MEDIABASK",
+      "domain": "mediabask.eus",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 958,
+      "orgId": 4378,
+      "orgName": "Communauté de communes Médoc Atlantique",
+      "domain": "medoc-atlantique.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 959,
+      "orgId": 4370,
+      "orgName": "Communauté de communes Médoc Coeur de Presqu'île",
+      "domain": "medoc-cpi.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 960,
+      "orgId": 2125066,
+      "orgName": "MEILHAN",
+      "domain": "meilhan40.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 961,
+      "orgId": 398118,
+      "orgName": "MEILLON",
+      "domain": "meillon.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 962,
+      "orgId": 4367,
+      "orgName": "Communauté de communes Mellois en Poitou",
+      "domain": "melloisenpoitou.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 963,
+      "orgId": 400419,
+      "orgName": "MAISONS D'ECRIVAIN EN NOUVELLE-AQUITAINE",
+      "domain": "meplna.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 964,
+      "orgId": 2129,
+      "orgName": "Commune de Mérignac",
+      "domain": "merignac.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 965,
+      "orgId": 3979,
+      "orgName": "Commune de Migné-Auxances",
+      "domain": "migne-auxances.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 966,
+      "orgId": 653632,
+      "orgName": "MILLETROIS TATTOO",
+      "domain": "milletroistattoo.com",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 967,
+      "orgId": 2569,
+      "orgName": "MIMIZAN",
+      "domain": "mimizan.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 968,
+      "orgId": 394459,
+      "orgName": "MONCAUT",
+      "domain": "moncaut-albret.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 969,
+      "orgId": 3714,
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "domain": "moncoutantsursevre.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 970,
+      "orgId": 520606,
+      "orgName": "EDITIONS MON LIMOUSIN",
+      "domain": "monlimousin.fr",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 971,
+      "orgId": 16925,
+      "orgName": "Lycée Michel Montaigne",
+      "domain": "montaigne-bordeaux.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 972,
+      "orgId": 480671,
+      "orgName": "MONTAUT",
+      "domain": "montaut64.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 973,
+      "orgId": 2577,
+      "orgName": "Commune de Mont-de-Marsan",
+      "domain": "montdemarsan.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 974,
+      "orgId": 3986,
+      "orgName": "MONTMORILLON",
+      "domain": "montmorillon.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 975,
+      "orgId": 1602,
+      "orgName": "Commune de Montpon-Ménestérol",
+      "domain": "montpon-menesterol.fr",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 976,
+      "orgId": 2582,
+      "orgName": "Commune de Morcenx-la-Nouvelle",
+      "domain": "morcenxlanouvelle.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 977,
+      "orgId": 3431,
+      "orgName": "Commune de Mouguerre",
+      "domain": "mouguerre.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 978,
+      "orgId": 3434,
+      "orgName": "Commune de Mourenx",
+      "domain": "mourenx.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 979,
+      "orgId": 427918,
+      "orgName": "MUSEE REPLAY",
+      "domain": "museereplay.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 980,
+      "orgId": 586513,
+      "orgName": "MUSSOFI",
+      "domain": "mussofi.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 981,
+      "orgId": 262867,
+      "orgName": "MUTATIS MUTANDIS",
+      "domain": "mutatis.mutandis.bdx.free.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 982,
+      "orgId": 3993,
+      "orgName": "NAINTRE",
+      "domain": "naintre.fr",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 983,
+      "orgId": 2278298,
+      "orgName": "NARCASTET",
+      "domain": "narcastet.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 984,
+      "orgId": 482872,
+      "orgName": "OPEN SOURCE",
+      "domain": "ncsc.nl",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 985,
+      "orgId": 66018,
+      "orgName": "NERIGEAN",
+      "domain": "nerigean.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 986,
+      "orgId": 652399,
+      "orgName": "NEUVIC",
+      "domain": "neuvic-correze.net",
+      "dept": "24",
+      "effectif": null
+    },
+    {
+      "rank": 987,
+      "orgId": 3996,
+      "orgName": "Commune de Neuville-de-Poitou",
+      "domain": "neuville-de-poitou.com",
+      "dept": "86",
+      "effectif": null
+    },
+    {
+      "rank": 988,
+      "orgId": 610,
+      "orgName": "Commune de Nieul-sur-Mer",
+      "domain": "nieul-sur-mer.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 989,
+      "orgId": 4319,
+      "orgName": "Communauté d'agglomération du Niortais",
+      "domain": "niortagglo.fr",
+      "dept": "79",
+      "effectif": null
+    },
+    {
+      "rank": 990,
+      "orgId": 668071,
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "domain": "notaires.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 991,
+      "orgId": 3446,
+      "orgName": "Commune de Oloron-Sainte-Marie",
+      "domain": "oloron-ste-marie.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 992,
+      "orgId": 2594,
+      "orgName": "ONDRES",
+      "domain": "ondres.fr",
+      "dept": "40",
+      "effectif": null
+    },
+    {
+      "rank": 993,
+      "orgId": 31192,
+      "orgName": "ORKOM",
+      "domain": "orkom.fr",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 994,
+      "orgId": 2166289,
+      "orgName": "OUAT ENTERTAINEMENT",
+      "domain": "ouat-e.com",
+      "dept": "16",
+      "effectif": null
+    },
+    {
+      "rank": 995,
+      "orgId": 4340,
+      "orgName": "Communauté de communes Ouest Limousin",
+      "domain": "ouestlimousin.com",
+      "dept": "87",
+      "effectif": null
+    },
+    {
+      "rank": 996,
+      "orgId": 97420,
+      "orgName": "PALAIS CARDINAL",
+      "domain": "palais-cardinal.com",
+      "dept": "33",
+      "effectif": null
+    },
+    {
+      "rank": 997,
+      "orgId": 15476,
+      "orgName": "Lycée professionnel Bernard Palissy",
+      "domain": "palissy.fr",
+      "dept": "17",
+      "effectif": null
+    },
+    {
+      "rank": 998,
+      "orgId": 413979,
+      "orgName": "PARAULAS EN OC",
+      "domain": "paraulas.net",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 999,
+      "orgId": 560685,
+      "orgName": "PARDIES",
+      "domain": "pardies.fr",
+      "dept": "64",
+      "effectif": null
+    },
+    {
+      "rank": 1000,
+      "orgId": 2602,
+      "orgName": "Commune de Parentis-en-Born",
+      "domain": "parentis.fr",
+      "dept": "40",
+      "effectif": null
+    }
+  ]
+}

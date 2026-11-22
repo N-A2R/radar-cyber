@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-22",
+  "targets": 1000,
+  "batches": 6,
+  "variants": 10713,
+  "active": 1026,
+  "activeKinds": {
+    "omission": 218,
+    "tld": 629,
+    "transposition": 83,
+    "substitution": 89,
+    "tiret": 5,
+    "homoglyphe": 2
+  },
+  "detections": [],
+  "alarms": 853,
+  "falsePositives": 853,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 10713,
+    "certificate": 1026,
+    "page": 1026
+  },
+  "durationMs": 210023,
+  "files": [
+    "batch-0000.json",
+    "batch-0100.json",
+    "batch-0300.json",
+    "batch-0500.json",
+    "batch-0700.json",
+    "batch-0900.json"
+  ]
+}

@@ -34,6 +34,8 @@
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",
     "mesure:typosquat": "apps/api/node_modules/.bin/tsx scripts/phishing-typosquat.mts",
+    "typosquat:targets": "apps/api/node_modules/.bin/tsx scripts/typosquat-targets.mts",
+    "typosquat:top": "apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts",
     "enrichissement:rapport": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --rapport",
     "enrichissement:appliquer": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --appliquer",
     "domaines:reels": "apps/api/node_modules/.bin/tsx scripts/domaines-reels.mts",

@@ -1,0 +1,2017 @@
+{
+  "offset": 100,
+  "top": 1000,
+  "targets": 200,
+  "variants": 2109,
+  "active": 222,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "a-qui-s.com",
+      "base": "a-qui-s.fr",
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "a-qui-s.net",
+      "base": "a-qui-s.fr",
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "a-qui-s.org",
+      "base": "a-qui-s.fr",
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "abal.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Agence IA à Annecy pour les PME, Abal"
+    },
+    {
+      "domain": "acna.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "activinside.org",
+      "base": "activinside.com",
+      "orgName": "ACTIV'INSIDE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adde.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "addeo.net",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "addeo.org",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "addoe.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "afite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "africapowerservice.com",
+      "base": "africapowerservices.com",
+      "orgName": "AFRICA POWER SERVICES",
+      "kind": "omission",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afyat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agnell.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "LTC-AUSTIN"
+    },
+    {
+      "domain": "agnelli.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "airzen.com",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Airzen Travel eSIM | 200+ Countries, Japan Specialist"
+    },
+    {
+      "domain": "airzen.org",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alfite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alik.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alk.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alki.com",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alki.net",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alki.org",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alko.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alternatiba.com",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alternatiba.net",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "alternatiba &#8211; Gu gara Alternatiba &#8211; Ezkerra eraldatzearen erronka"
+    },
+    {
+      "domain": "alternatiba.org",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Alternatiba - Mouvement pour le climat et la justice sociale"
+    },
+    {
+      "domain": "amandier.fr",
+      "base": "lamandier.fr",
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Restaurant à Mougins · Cuisine provençale | L&#39;Amandier de Mougins"
+    },
+    {
+      "domain": "ambiance-bois.net",
+      "base": "ambiance-bois.com",
+      "orgName": "AMBIANCE BOIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "apav.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Home &#8211; APA HVAC Technologies"
+    },
+    {
+      "domain": "apave.net",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "apave.org",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "apavi.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arverne.com",
+      "base": "arverne.earth",
+      "orgName": "ARVERNE GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arverne.net",
+      "base": "arverne.earth",
+      "orgName": "ARVERNE GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ayat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "baby-foot.net",
+      "base": "baby-foot.com",
+      "orgName": "EURL SULPIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Baby-foot : Comparatif, guide d&#039;achat sur le foot de table"
+    },
+    {
+      "domain": "baby-foto.com",
+      "base": "baby-foot.com",
+      "orgName": "EURL SULPIE",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "balinea.com",
+      "base": "balineau.com",
+      "orgName": "BALINEAU",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "betharram.com",
+      "base": "betharram.net",
+      "orgName": "PROVINCE FRANCE CONGREGATION PRETRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Grottes de Bétharram - Hautes-Pyrénées - Pyrénées Atlantiques"
+    },
+    {
+      "domain": "bidar.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bidart.com",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "campusermitage.com",
+      "base": "campusermitage.fr",
+      "orgName": "LYCEE D'ENSEIGNEMENT AGRICOLE PRIVE L'ERMITAGE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "castelnau.com",
+      "base": "castelnaud.com",
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Home - Castelnau"
+    },
+    {
+      "domain": "castelnaud.net",
+      "base": "castelnaud.com",
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "castelnaud.org",
+      "base": "castelnaud.com",
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chier.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chir.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chire.com",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chiri.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "chiri.fr"
+    },
+    {
+      "domain": "clark.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cm-group.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cm-groupe.com",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "CM-Groupe, courtier en assurances multi-spécialiste à Pessac"
+    },
+    {
+      "domain": "cna.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Our Business – CNA Hardy"
+    },
+    {
+      "domain": "collegestjoseph.com",
+      "base": "collegestjoseph.fr",
+      "orgName": "OGEC DU COLLEGE PRIVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "collegestjoseph.com for sale — descriptive .com domain"
+    },
+    {
+      "domain": "collegestjoseph.net",
+      "base": "collegestjoseph.fr",
+      "orgName": "OGEC DU COLLEGE PRIVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": "C=US, O=Let's Encrypt, CN=YR1",
+      "pageTitle": null
+    },
+    {
+      "domain": "cona.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "croize.fr",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "croizet.com",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dadeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dcreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ddeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ddeo.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "dsen.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "dsen.org"
+    },
+    {
+      "domain": "dsn.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "DSN 2027 Berlin"
+    },
+    {
+      "domain": "dsne.com",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "DSNE"
+    },
+    {
+      "domain": "dsni.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "DSNI"
+    },
+    {
+      "domain": "dycreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "transposition",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "DY Creation · Design, Foto, Video, Web · Ottobrunn bei München"
+    },
+    {
+      "domain": "e17.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Magasin d&#x27;électronique"
+    },
+    {
+      "domain": "eddeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "elki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "en17.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "epave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "EPAVE.COM - For Sale"
+    },
+    {
+      "domain": "epsicap.com",
+      "base": "epsicap.fr",
+      "orgName": "EPSICAP REIM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Epsicap REIM | European Real Estate Investment &amp; SCPI Management"
+    },
+    {
+      "domain": "eurona.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": "C=US, O=Let's Encrypt, CN=YE1",
+      "pageTitle": null
+    },
+    {
+      "domain": "euronat.net",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "europlasma.net",
+      "base": "europlasma.com",
+      "orgName": "EUROPLASMA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eve.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Eve Financial | Multi-Lender Financing Platform"
+    },
+    {
+      "domain": "exosen.com",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "exosen.com for sale"
+    },
+    {
+      "domain": "exosens.net",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "exosens.org",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fanzino.com",
+      "base": "fanzino.org",
+      "orgName": "LA FANZINOTHEQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Fanzino"
+    },
+    {
+      "domain": "fayaf.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fayat.net",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "fayat.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant fayat Resources and Information."
+    },
+    {
+      "domain": "fev.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "feve.net",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "アトリエフェーヴは、中目黒にある美味しいものを作るのも食べるのも好きな人が集う少人数制のお菓子・パン教室です"
+    },
+    {
+      "domain": "feve.org",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Homepage - FEVE"
+    },
+    {
+      "domain": "flexilivre.com",
+      "base": "flexilivre.co.uk",
+      "orgName": "FLEXILIVRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "FlexiLivre | L&#039;album photo simple et rapide"
+    },
+    {
+      "domain": "francofolies.com",
+      "base": "francofolies.fr",
+      "orgName": "FRANCOFOLIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "francofolies.org",
+      "base": "francofolies.fr",
+      "orgName": "FRANCOFOLIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ganelle.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gee.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "geev.org",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "geve.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "geve.com for sale"
+    },
+    {
+      "domain": "iafite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "idart.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "idcreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "substitution",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": ".NET Webdesign &amp; Webshops op Maat | IDcreation"
+    },
+    {
+      "domain": "immersio.fr",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "immersion.com",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "immersion.net",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "immersion.org",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Domain Registered at Safenames"
+    },
+    {
+      "domain": "isea.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "joueclub.com",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "joueclub.net",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "joueclub.org",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "klarc.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "klark.com",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Klark Proposal Software"
+    },
+    {
+      "domain": "klark.net",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "klark.org",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "l-afite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafiet.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafit.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafite.com",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": "C=US, O=Let's Encrypt, CN=YE2",
+      "pageTitle": "Shores - Domaines Barons de Rothschild (Lafite)"
+    },
+    {
+      "domain": "lafite.net",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": "C=US, O=GoDaddy.com, CN=GoDaddy TLS Intermediate CA DV - R1v1",
+      "pageTitle": ""
+    },
+    {
+      "domain": "lafite.org",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafiti.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lamandier.com",
+      "base": "lamandier.fr",
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lamandier.net",
+      "base": "lamandier.fr",
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "location saisonnière à Lourmarin : L'amandier"
+    },
+    {
+      "domain": "largenet.eu",
+      "base": "largente.eu",
+      "orgName": "OGEC LARGENTE",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "IT Security Hamburg - LargeNet GmbH"
+    },
+    {
+      "domain": "largente.com",
+      "base": "largente.eu",
+      "orgName": "OGEC LARGENTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": "C=US, O=GoDaddy.com, CN=GoDaddy TLS Intermediate CA DV - R1v1",
+      "pageTitle": ""
+    },
+    {
+      "domain": "largente.org",
+      "base": "largente.eu",
+      "orgName": "OGEC LARGENTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": "C=US, O=Let's Encrypt, CN=YE2",
+      "pageTitle": null
+    },
+    {
+      "domain": "lark.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesauveur.com",
+      "base": "lesauveur.org",
+      "orgName": "OGEC ECOLE DU SAUVEUR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesbateauxbordelais.net",
+      "base": "lesbateauxbordelais.com",
+      "orgName": "BORDEAUX CROISIERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesbateauxbordelais.org",
+      "base": "lesbateauxbordelais.com",
+      "orgName": "BORDEAUX CROISIERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lisae.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "lisae.fr est en vente"
+    },
+    {
+      "domain": "lise.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Lise — lise.fr — Accueil"
+    },
+    {
+      "domain": "lisea.org",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "LISEA — Long Island STEM &amp; Entrepreneurship Academy"
+    },
+    {
+      "domain": "liseo.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "locongres.com",
+      "base": "locongres.org",
+      "orgName": "ASSOCIATION LO CONGRES PERMANENT DE LA LENGA OCCITANA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Arcuelh"
+    },
+    {
+      "domain": "locongres.net",
+      "base": "locongres.org",
+      "orgName": "ASSOCIATION LO CONGRES PERMANENT DE LA LENGA OCCITANA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpplaruche.com",
+      "base": "lpplaruche.fr",
+      "orgName": "LEP LA RUCHE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lycée des Métiers LA RUCHE : Commerce, Vente, Accueil relation clients et usager, gestion administaration, métiers de la sécurité, santé social - Lycée Privé Professionnel des métiers La Ruche"
+    },
+    {
+      "domain": "lycee-oustal.net",
+      "base": "lycee-oustal.fr",
+      "orgName": "ASS FAMILIALE DE GESTION DE L' OUSTAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-prive-64.com",
+      "base": "lycee-prive-64.fr",
+      "orgName": "OGEC ST JOSEPH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lycée privé Notre-Dame à Sauveterre — Page d&#039;accueil - Ensemble Scolaire Notre Dame"
+    },
+    {
+      "domain": "m-groupe.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mc-groupe.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "midipile.com",
+      "base": "midipile.eu",
+      "orgName": "MIDIPILE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "midipile.net",
+      "base": "midipile.eu",
+      "orgName": "MIDIPILE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "midipile.org",
+      "base": "midipile.eu",
+      "orgName": "MIDIPILE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Midi pile"
+    },
+    {
+      "domain": "ne1.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notredame-medoc.com",
+      "base": "notredame-medoc.org",
+      "orgName": "OGEC NOTRE DAME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notredame-medoc.net",
+      "base": "notredame-medoc.org",
+      "orgName": "OGEC NOTRE DAME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ocan.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "O&#039;CAN : Travaux subaquatiques et en milieux difficiles d&#039;accès - O&#039;CAN"
+    },
+    {
+      "domain": "ocn.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Concepteur, fabricant et réparateur d&#039;outils coupants sur mesure - OCN"
+    },
+    {
+      "domain": "ocna.com",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ocna.org",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "OCNA - Ontario Community Newspaper Association"
+    },
+    {
+      "domain": "ocra.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "oxbowshop.net",
+      "base": "oxbowshop.com",
+      "orgName": "OXBOW",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "paave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parthena.fr",
+      "base": "parthenay.fr",
+      "orgName": "PARTHENAY",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parthenay.com",
+      "base": "parthenay.fr",
+      "orgName": "PARTHENAY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "pave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "polaris-formation.com",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "polaris-formation.net",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "polaris-formation.org",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pollen-robotic.com",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": "pollen-robotic.com"
+    },
+    {
+      "domain": "pollen-robotics.net",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Pollen Robotics - Robots for AI builders"
+    },
+    {
+      "domain": "pollen-robotics.org",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pouyanne.net",
+      "base": "pouyanne.fr",
+      "orgName": "BANQUE POUYANNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Banque POUYANNE - Mon espace client"
+    },
+    {
+      "domain": "pouyanne.org",
+      "base": "pouyanne.fr",
+      "orgName": "BANQUE POUYANNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "qeev.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "rambaud33.com",
+      "base": "rambaud33.eu",
+      "orgName": "OGEC ASSOCIATION RAMBAUD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "raynaud.com",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "raynaud.net",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "raynaud.org",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remymartin.net",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remymartin.org",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "respid.fr",
+      "base": "respide.fr",
+      "orgName": "CHATEAU DE RESPIDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "respide.com",
+      "base": "respide.fr",
+      "orgName": "CHATEAU DE RESPIDE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "saintclement.net",
+      "base": "saintclement.com",
+      "orgName": "OGEC ECOLE AGRICULTURE BAZADAI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "saintclement.org",
+      "base": "saintclement.com",
+      "orgName": "OGEC ECOLE AGRICULTURE BAZADAI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sainte-marie-barbezieux.com",
+      "base": "sainte-marie-barbezieux.fr",
+      "orgName": "INSTITUTION SAINTE MARIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "saintemarie-casteljaloux.com",
+      "base": "saintemarie-casteljaloux.fr",
+      "orgName": "OGEC STE MARIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "saintjoseph-cognac.com",
+      "base": "saintjoseph-cognac.fr",
+      "orgName": "OGEC ST JOSEPH REGROUPEMENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "saujon.com",
+      "base": "saujon.fr",
+      "orgName": "SAUJON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sdne.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "seaska.com",
+      "base": "seaska.eus",
+      "orgName": "SEASKA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "sfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "STARFLEET &#8211; The International Star Trek Fan Association, Inc."
+    },
+    {
+      "domain": "sne.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "socar.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "socr.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Sud-Ouest Conseil Retraite"
+    },
+    {
+      "domain": "socra.com",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Socra | Your next hire is an AI teammate"
+    },
+    {
+      "domain": "socra.net",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home | Shimanto Bank PLC."
+    },
+    {
+      "domain": "socra.org",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "SOCRA | The Society of Clinical Research Associates"
+    },
+    {
+      "domain": "sova.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sovam.com",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sovan.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Sovan | Artiste plasticien"
+    },
+    {
+      "domain": "spirit-pro.com",
+      "base": "spirit-prod.com",
+      "orgName": "BLUE SPIRIT STUDIO",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "Spirit-Pro (Martenss)"
+    },
+    {
+      "domain": "steclaire.com",
+      "base": "steclaire.org",
+      "orgName": "OGEC SAINTE CLAIRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "stjean-pauillac.com",
+      "base": "stjean-pauillac.fr",
+      "orgName": "OGEC-AEP COLLEGE ST JEAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stvincent.com",
+      "base": "stvincent.eus",
+      "orgName": "OGEC GEROKO GROUPE SCOLAIRE SAINT VINCENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stvincent.org",
+      "base": "stvincent.eus",
+      "orgName": "OGEC GEROKO GROUPE SCOLAIRE SAINT VINCENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Healthcare | Ascension"
+    },
+    {
+      "domain": "surfrider.com",
+      "base": "surfrider.eu",
+      "orgName": "SURFRIDER FOUNDATION EUROPE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "surfrider.org",
+      "base": "surfrider.eu",
+      "orgName": "SURFRIDER FOUNDATION EUROPE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home"
+    },
+    {
+      "domain": "tayat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tempobus.com",
+      "base": "tempobus.fr",
+      "orgName": "KEOLIS AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "transde.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "transde.com — 5y · 1 refs | ExpiredDomains.com"
+    },
+    {
+      "domain": "transdev.net",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "transdev.org",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tsf.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Steppingstone"
+    },
+    {
+      "domain": "tsfi.com",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "The domain name TSFI.COM."
+    },
+    {
+      "domain": "tsfi.net",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Palm Springs, Live Sound, Event Lighting, Concert Audio, Event Production | The Show Factory"
+    },
+    {
+      "domain": "tsfo.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "untoitpourlesabeille.fr",
+      "base": "untoitpourlesabeilles.fr",
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "kind": "omission",
+      "similarity": 0.952,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "untoitpourlesabeilles.com",
+      "base": "untoitpourlesabeilles.fr",
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "untoitpourlesabeilles.net",
+      "base": "untoitpourlesabeilles.fr",
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "uronat.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "URONAT produits naturels - Site Officiel"
+    },
+    {
+      "domain": "veesion.com",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Veesion | Logiciel de Vidéosurveillance Intelligente"
+    },
+    {
+      "domain": "veesion.net",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "veesion.org",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "vidart.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "villapia.com",
+      "base": "villapia.fr",
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Villa Pia Lippiano"
+    },
+    {
+      "domain": "villapia.net",
+      "base": "villapia.fr",
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "villapia.org",
+      "base": "villapia.fr",
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Villa Pia"
+    },
+    {
+      "domain": "xn--afite-dof.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "homoglyphe",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zaba.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "zabal.com",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "zabal.com"
+    },
+    {
+      "domain": "zabal.net",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Zabal &#8211; Site auteur"
+    },
+    {
+      "domain": "zabal.org",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zodiac-nautic.net",
+      "base": "zodiac-nautic.com",
+      "orgName": "Z NAUTIC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zodiac-nautic.org",
+      "base": "zodiac-nautic.com",
+      "orgName": "Z NAUTIC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 182,
+  "falsePositives": 182,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2109,
+    "certificate": 222,
+    "page": 222
+  },
+  "durationMs": 34744
+}
