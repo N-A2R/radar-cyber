@@ -1,0 +1,114 @@
+{
+  "measuredAt": "2026-11-22T03:42:34.457Z",
+  "corpus": {
+    "capturedAt": "2026-11-22T03:31:16.084Z",
+    "messages": 139,
+    "errors": []
+  },
+  "realState": {
+    "capturedAt": "2026-11-22T00:00:00Z",
+    "database": "postgres://radar:radar@localhost:5432/radar",
+    "captureCommand": "sudo -n -u postgres psql -p 5432 -d radar -tAc \"SELECT (SELECT count(*) FROM org), (SELECT count(*) FROM source), (SELECT count(*) FROM event);\"",
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26214
+  },
+  "forumsFollowed": 8,
+  "relevantMessages": 24,
+  "francophoneMessages": 11,
+  "actorsIdentified": 9,
+  "mentions": 12,
+  "messagesWithActors": 8,
+  "byActor": [
+    {
+      "key": "zataz",
+      "label": "ZATAZ",
+      "kind": "community",
+      "messages": 3,
+      "sources": 1,
+      "firstSeen": "2024-11-20",
+      "lastSeen": "2026-10-11",
+      "activeDays": 691
+    },
+    {
+      "key": "gendarmerie-nationale",
+      "label": "Gendarmerie Nationale",
+      "kind": "public-body",
+      "messages": 2,
+      "sources": 2,
+      "firstSeen": "2023-02-19",
+      "lastSeen": "2024-11-20",
+      "activeDays": 641
+    },
+    {
+      "key": "education-nationale",
+      "label": "Éducation Nationale",
+      "kind": "public-body",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2014-07-12",
+      "lastSeen": "2014-07-12",
+      "activeDays": 1
+    },
+    {
+      "key": "noname",
+      "label": "NoName",
+      "kind": "threat-group",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2026-10-11",
+      "lastSeen": "2026-10-11",
+      "activeDays": 1
+    },
+    {
+      "key": "police-judiciaire",
+      "label": "Police Judiciaire",
+      "kind": "public-body",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2023-02-19",
+      "lastSeen": "2023-02-19",
+      "activeDays": 1
+    },
+    {
+      "key": "ransomhouse",
+      "label": "RansomHouse",
+      "kind": "threat-group",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2026-03-18",
+      "lastSeen": "2026-03-18",
+      "activeDays": 1
+    },
+    {
+      "key": "sante-publique-france",
+      "label": "Santé publique France",
+      "kind": "public-body",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2026-08-12",
+      "lastSeen": "2026-08-12",
+      "activeDays": 1
+    },
+    {
+      "key": "thedestroyer",
+      "label": "TheDestroyer",
+      "kind": "threat-group",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2014-07-12",
+      "lastSeen": "2014-07-12",
+      "activeDays": 1
+    },
+    {
+      "key": "vitalis",
+      "label": "Vitalis",
+      "kind": "company",
+      "messages": 1,
+      "sources": 1,
+      "firstSeen": "2025-03-23",
+      "lastSeen": "2025-03-23",
+      "activeDays": 1
+    }
+  ]
+}
