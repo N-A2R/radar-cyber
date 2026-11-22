@@ -56,3 +56,5 @@ Des incidents réels touchant le secteur santé (hôpital de Dax 2021, CHU de Bo
 - https://www.cpam-landes.fr/, https://www.msa-landes.fr/, https://www.urml-na.fr/, https://www.medecins-landes.fr/ : domaines sans réponse DNS.
 
 Limite de périmètre : les organisations régionales et nationales (ARS, FHF, Ordres, FHP, mutuelles, médias nationaux) sont retenues parce qu'elles couvrent explicitement les Landes ; les sources strictement départementales sont le CHI Mont de Marsan, le CH de Dax, le CH de Saint-Sever, la CPAM des Landes, le PST Landes 40, l'annuaire des maisons de santé des Landes, la CCI des Landes et les médias locaux.
+
+OBJECTIF : atteint — 29 / 5
