@@ -501,17 +501,26 @@ Variables d'environnement (voir `.env.example`) :
 | `RADAR_ALERT_TELEGRAM_CHAT_ID` | Identifiant du chat Telegram cible (requis avec le jeton) |
 | `RADAR_WEB_BASE_URL` | Base publique du front pour construire un lien d'alerte (optionnel) |
 | `RADAR_ALERT_DELIVERY_TICK_MS` | Cadence de la boucle, en ms (défaut : 120000) |
+| `RADAR_ALERT_EMAIL_HOST` | SMTP host (a local relay is enough; no paid provider) |
+| `RADAR_ALERT_EMAIL_PORT` | SMTP port (default 25; 465 with `RADAR_ALERT_EMAIL_SECURE=true`) |
+| `RADAR_ALERT_EMAIL_FROM` | Sender address (required with the email channel) |
+| `RADAR_ALERT_EMAIL_TO` | Recipient address (required with the email channel) |
+| `RADAR_ALERT_EMAIL_USER` / `RADAR_ALERT_EMAIL_PASSWORD` | Optional SMTP authentication |
 
-Au moins un canal doit être complet : webhook seul, ou couple jeton+chat
-Telegram, ou les deux. Sans canal complet, la boucle n'est pas enregistrée.
+At least one complete channel is required: webhook, Telegram token+chat, or
+email host+from+to. Without one, no delivery loop is registered.
+The public RSS feed is always available at `GET /api/alerts/rss.xml`.
 
 ### Comportement
 
-- Sélection : alertes avec `delivered_at IS NULL`, `attempts < 10` et
-  `next_attempt_at` échu ou nul, par ancienneté (lot de 50 max par passage).
+- Selection: pending alerts (`delivered_at IS NULL`, `attempts < 10`, retry due),
+  Nouvelle-Aquitaine departments only (or a regional event without an org),
+  review scopes and TLP:RED excluded (max 50 per pass).
 - Traçabilité (`db/migrate-024-alerte-diffusion.sql`) : `delivered_at`,
   `attempts`, `last_error`, `next_attempt_at`.
-- Message : titre (événement/alerte), organisation, source, date, lien.
+- Message: structured fields only (id, severity, organization, source, date, link);
+  alert/event titles, summaries and evidence are never published, and personal
+  identifiers are removed from organization and source labels.
 - Retry : back-off exponentiel (1, 2, 4… min, plafonné à 60 min) après échec
   réseau ; abandon après 10 tentatives (`last_error` conservé). Aucun échec
   réseau n'interrompt la collecte.

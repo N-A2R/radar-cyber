@@ -30,6 +30,7 @@ import searchRoute from "./search.js";
 import enrichRoute from "./enrich.js";
 import authRoute from "./auth.js";
 import alertsRoute from "./alerts.js";
+import alertsRssRoute from "./alerts-rss.js";
 import quarantineRoute from "./quarantine.js";
 import reviewRoute from "./review.js";
 import journalRoute from "./journal.js";
@@ -50,7 +51,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     collecteMetricsRoute, corpusStatsRoute, collectePlanRoute,
     todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute,
     directoryRoute, naRoute, graphRoute, graphTemporalRoute, streamRoute, sourcesRoute, statsRoute,
-    searchRoute, enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute,
+    searchRoute, enrichRoute, authRoute, alertsRoute, alertsRssRoute, quarantineRoute, reviewRoute,
     journalRoute, orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute,
     rectificationRoute, auditRoute,
     confidenceRoute,

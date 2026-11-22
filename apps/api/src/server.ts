@@ -22,7 +22,7 @@ import { startLiveStream } from "./collecte/live.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
-import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
+import { deliverPendingAlerts, isDeliveryConfigured, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
@@ -422,7 +422,7 @@ if (COLLECT) {
 
 	// Diffusion des alertes : uniquement si un canal est configuré.
 	const deliveryCfg = readDeliveryConfig();
-	if (deliveryCfg.webhookUrl || (deliveryCfg.telegramBotToken && deliveryCfg.telegramChatId)) {
+	if (isDeliveryConfigured(deliveryCfg)) {
 		const deliver = () => void guarded("diffusion alertes", () => deliverPendingAlerts(log).then(() => undefined));
 		deliver();
 		setInterval(deliver, ALERT_DELIVERY_MS);

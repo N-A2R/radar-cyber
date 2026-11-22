@@ -67,7 +67,7 @@ const alerte = z.strictObject({
   created_at: z.string(), updated_at: z.string(),
   acked_at: json, acked_by: json, scope: z.string(),
   delivered_at: json, attempts: z.number(), last_error: json,
-  next_attempt_at: json, webhook_delivered_at: json, telegram_delivered_at: json,
+  next_attempt_at: json, webhook_delivered_at: json, telegram_delivered_at: json, email_delivered_at: json,
   event_title: json, event_family: json, event_tlp: json, event_summary: json,
   event_confidence: json, event_assertion: json, indicator_type: json,
   indicator_value: json, org_name: json, org_dept: json, confidence: objet,
