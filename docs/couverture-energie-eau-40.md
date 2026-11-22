@@ -43,3 +43,4 @@ département.
 Exemple cyber réel relevé : fraude au compteur Linky et démarchages
 frauduleux, alerte Enedis du 18/09/2026
 (`https://news.google.com/rss/search?q=Enedis%20Landes%20arnaque&hl=fr&gl=FR&ceid=FR:fr`).
+OBJECTIF : atteint — 18 / 5
