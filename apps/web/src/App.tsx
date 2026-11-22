@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
+import MapLegend from "./components/MapLegend";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
 const SourcesView = lazy(() => import("./components/SourcesView"));
@@ -826,18 +827,21 @@ export default function App() {
             <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
           ) : null}
           {view === "map" ? (
-            <Map3D
-              orgs={orgs}
-              events={filtered}
-              families={family ? [family] : undefined}
-              flows={flows}
-              basemap={basemap}
-              onSelect={handleSelectOrg}
-              onSelectEvent={(id) => {
-                setSelectedEventId(id);
-                setSelectedOrgId(null);
-              }}
-            />
+            <div className="map-view">
+              <Map3D
+                orgs={orgs}
+                events={filtered}
+                families={family ? [family] : undefined}
+                flows={flows}
+                basemap={basemap}
+                onSelect={handleSelectOrg}
+                onSelectEvent={(id) => {
+                  setSelectedEventId(id);
+                  setSelectedOrgId(null);
+                }}
+              />
+              <MapLegend families={filtered.map((e) => e.family)} />
+            </div>
           ) : null}
 
           {view === "graph" ? (
