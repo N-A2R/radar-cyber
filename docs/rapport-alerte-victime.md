@@ -54,3 +54,5 @@ sudo -u radar env DATABASE_URL='postgresql:///radar?host=/var/run/postgresql' \
 ## Limites du chiffre
 
 La mesure évalue la latence de notre chaîne d'émission, pas le délai avec lequel un site tiers publie une revendication. Elle ne couvre que les revendications rattachées à une organisation de Nouvelle-Aquitaine. Le rejeu n'insère aucune donnée de victime : seuls des identifiants et des horodatages d'événements réels sont réutilisés, puis la transaction est annulée. `apps/api/src/server.ts` est inchangé (0 ligne de diff).
+
+OBJECTIF : atteint — 0 / 1 000 ms (p50 publication → alerte victime, 21 / 21 échantillons sous la cible ; rejeu vérifié le 22/11/2026 dans une transaction annulée : p50 0 ms sur les 16 revendications NA courantes)
