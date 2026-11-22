@@ -1,0 +1,473 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-79.jsonl",
+  "secteur": "bâtiment",
+  "departement": "79",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 22,
+  "urls_verifiees": 53,
+  "urls_200": 53,
+  "anomalies": [],
+  "detail": {
+    "corpus:batiment-79-01-capeb-deux-sevres-section-departementale-du-batiment": {
+      "urls": {
+        "https://www.capeb.fr/deux-sevres/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/deux-sevres/",
+          "octets": 56061,
+          "ms": 466
+        },
+        "https://www.capeb.fr/deux-sevres/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/deux-sevres/actualites",
+          "octets": 49162,
+          "ms": 395
+        },
+        "https://news.google.com/rss/search?q=CAPEB+Deux-S%C3%A8vres+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=CAPEB+Deux-S%C3%A8vres+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 40727,
+          "ms": 267
+        }
+      }
+    },
+    "corpus:batiment-79-02-cma-nouvelle-aquitaine-cma-des-deux-sevres-79": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-deux-sevres-niort": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-deux-sevres-niort",
+          "octets": 209079,
+          "ms": 117
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Deux-S%C3%A8vres": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Deux-S%C3%A8vres",
+          "octets": 280430,
+          "ms": 135
+        },
+        "https://news.google.com/rss/search?q=CMA+Deux-S%C3%A8vres+artisanat&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=CMA+Deux-S%C3%A8vres+artisanat&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 42534,
+          "ms": 552
+        }
+      }
+    },
+    "corpus:batiment-79-03-pro-rge-entreprises-rge-en-deux-sevres-79": {
+      "urls": {
+        "https://pro-rge.fr/entreprise/d/79/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprise/d/79/",
+          "octets": 263121,
+          "ms": 459
+        },
+        "https://pro-rge.fr/entreprises/deux-sevres-79/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprises/deux-sevres-79/",
+          "octets": 382127,
+          "ms": 562
+        },
+        "https://news.google.com/rss/search?q=RGE+Deux-S%C3%A8vres+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=RGE+Deux-S%C3%A8vres+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 9206,
+          "ms": 192
+        }
+      }
+    },
+    "corpus:batiment-79-04-qualibat-certification-et-annuaire-des-entreprises-du-batiment": {
+      "urls": {
+        "https://www.qualibat.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/",
+          "octets": 147636,
+          "ms": 228
+        },
+        "https://www.qualibat.com/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/actualites",
+          "octets": 99350,
+          "ms": 232
+        },
+        "https://news.google.com/rss/search?q=Qualibat+b%C3%A2timent+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Qualibat+b%C3%A2timent+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 6163,
+          "ms": 406
+        }
+      }
+    },
+    "corpus:batiment-79-05-artisanat-fr-magazine-d-actualites-de-l-artisanat-cma": {
+      "urls": {
+        "https://www.artisanat.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artisanat.fr/",
+          "octets": 118288,
+          "ms": 132
+        },
+        "https://www.artisanat.fr/magazine/actus": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artisanat.fr/magazine/actus",
+          "octets": 140397,
+          "ms": 122
+        },
+        "https://news.google.com/rss/search?q=artisanat+b%C3%A2timent+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=artisanat+b%C3%A2timent+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 41116,
+          "ms": 229
+        }
+      }
+    },
+    "corpus:batiment-79-06-caue-79-conseil-d-architecture-d-urbanisme-et-de-l-environnement": {
+      "urls": {
+        "https://www.caue79.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue79.fr/",
+          "octets": 69602,
+          "ms": 828
+        },
+        "https://www.caue79.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue79.fr/actualites/",
+          "octets": 60900,
+          "ms": 804
+        }
+      }
+    },
+    "corpus:batiment-79-07-siteartisan-annuaire-des-artisans-du-batiment": {
+      "urls": {
+        "https://www.siteartisan.fr/annuaire/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.siteartisan.fr/annuaire/",
+          "octets": 29208,
+          "ms": 114
+        },
+        "https://www.siteartisan.fr/blog/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.siteartisan.fr/blog/",
+          "octets": 60026,
+          "ms": 141
+        },
+        "https://www.siteartisan.fr/blog/feed.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.siteartisan.fr/blog/feed.xml",
+          "octets": 28752,
+          "ms": 121
+        }
+      }
+    },
+    "corpus:batiment-79-08-odeys-cluster-de-la-construction-et-de-l-amenagement-durables": {
+      "urls": {
+        "https://www.odeys.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/",
+          "octets": 77524,
+          "ms": 387
+        },
+        "https://www.odeys.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/actualites",
+          "octets": 49055,
+          "ms": 138
+        },
+        "https://www.odeys.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.odeys.fr/rss.xml",
+          "octets": 48903,
+          "ms": 243
+        }
+      }
+    },
+    "corpus:batiment-79-09-actu-fr-actu-deux-sevres": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+          "octets": 325447,
+          "ms": 163
+        },
+        "https://actu.fr/deux-sevres/dernieres-actus": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/deux-sevres/dernieres-actus",
+          "octets": 148946,
+          "ms": 115
+        },
+        "https://actu.fr/deux-sevres/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/deux-sevres/rss.xml",
+          "octets": 30130,
+          "ms": 116
+        }
+      }
+    },
+    "corpus:batiment-79-10-la-nouvelle-republique-edition-deux-sevres-79": {
+      "urls": {
+        "https://www.lanouvellerepublique.fr/deux-sevres": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "octets": 1625750,
+          "ms": 747
+        },
+        "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+          "octets": 34904,
+          "ms": 53
+        }
+      }
+    },
+    "corpus:batiment-79-11-placeco-actualites-economiques-des-deux-sevres": {
+      "urls": {
+        "https://www.placeco.fr/deux-sevres/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.placeco.fr/deux-sevres/",
+          "octets": 151507,
+          "ms": 729
+        },
+        "https://news.google.com/rss/search?q=Plac%C3%A9co+Deux-S%C3%A8vres+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Plac%C3%A9co+Deux-S%C3%A8vres+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 1187,
+          "ms": 203
+        }
+      }
+    },
+    "corpus:batiment-79-12-google-actualites-veille-batiment-deux-sevres-79": {
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://news.google.com/home?ucbcb=1&hl=en-US&gl=US&ceid=US:en",
+          "octets": 1705468,
+          "ms": 393
+        },
+        "https://news.google.com/rss/search?q=b%C3%A2timent+Deux-S%C3%A8vres+79&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=b%C3%A2timent+Deux-S%C3%A8vres+79&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 57335,
+          "ms": 298
+        }
+      }
+    },
+    "corpus:batiment-79-13-ville-de-niort-actualites-urbanisme-et-travaux": {
+      "urls": {
+        "https://www.niort.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vivre-a-niort.com/",
+          "octets": 194749,
+          "ms": 668
+        },
+        "https://www.niort.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vivre-a-niort.com/actualites/",
+          "octets": 140132,
+          "ms": 474
+        },
+        "https://news.google.com/rss/search?q=Niort+b%C3%A2timent+travaux&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Niort+b%C3%A2timent+travaux&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 34558,
+          "ms": 204
+        }
+      }
+    },
+    "corpus:batiment-79-14-ville-de-bressuire-actualites-urbanisme-et-travaux": {
+      "urls": {
+        "https://www.ville-bressuire.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ville-bressuire.fr/",
+          "octets": 965283,
+          "ms": 1265
+        },
+        "https://www.ville-bressuire.fr/systeme/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ville-bressuire.fr/systeme/actualites/",
+          "octets": 877207,
+          "ms": 1697
+        },
+        "https://news.google.com/rss/search?q=Bressuire+b%C3%A2timent+travaux&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Bressuire+b%C3%A2timent+travaux&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 27915,
+          "ms": 273
+        }
+      }
+    },
+    "corpus:batiment-79-15-ville-de-parthenay-actualites-urbanisme-et-travaux": {
+      "urls": {
+        "https://www.parthenay.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.parthenay.fr/",
+          "octets": 390558,
+          "ms": 1340
+        },
+        "https://www.parthenay.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.parthenay.fr/actualites",
+          "octets": 280551,
+          "ms": 774
+        },
+        "https://www.parthenay.fr/actualites/rss": {
+          "code": 200,
+          "type": "text/xml;charset=utf-8",
+          "url_finale": "https://www.parthenay.fr/actualites/rss",
+          "octets": 692172,
+          "ms": 10043
+        }
+      }
+    },
+    "corpus:batiment-79-16-artizo-annuaire-des-artisans-des-deux-sevres": {
+      "urls": {
+        "https://www.artizo.fr/catalogue/deux-sevres/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artizo.fr/catalogue/deux-sevres/",
+          "octets": 68344,
+          "ms": 154
+        }
+      }
+    },
+    "corpus:batiment-79-17-ffb-tp-79-la-fede-79-dans-ma-poche-federation-departementale-btp": {
+      "urls": {
+        "https://www.ffb79.fr/": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.ffb79.fr/",
+          "octets": 701,
+          "ms": 76
+        }
+      }
+    },
+    "corpus:batiment-79-18-ici-poitou-rubrique-btp-et-actualites-des-deux-sevres-79": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+          "octets": 280788,
+          "ms": 405
+        },
+        "https://www.ici.fr/theme/btp": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/theme/btp",
+          "octets": 260352,
+          "ms": 130
+        },
+        "https://www.ici.fr/rss/poitou/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+          "octets": 19233,
+          "ms": 85
+        }
+      }
+    },
+    "corpus:batiment-79-19-radio-gatine-actualites-des-deux-sevres": {
+      "urls": {
+        "https://radiogatine.fr/news": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://radiogatine.fr/news",
+          "octets": 161206,
+          "ms": 483
+        },
+        "https://radiogatine.fr/rss-feed-1": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://radiogatine.fr/rss-feed-1",
+          "octets": 65776,
+          "ms": 337
+        }
+      }
+    },
+    "corpus:batiment-79-20-niort-info-presse-locale-chantiers-et-habitat": {
+      "urls": {
+        "https://niortinfo.media/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/",
+          "octets": 467537,
+          "ms": 2794
+        },
+        "https://niortinfo.media/?s=chantier": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/?s=chantier",
+          "octets": 417689,
+          "ms": 3125
+        },
+        "https://niortinfo.media/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/feed/",
+          "octets": 23852,
+          "ms": 1361
+        }
+      }
+    },
+    "corpus:batiment-79-21-alouette-actualites-deux-sevres-construction-et-chantiers": {
+      "urls": {
+        "https://www.alouette.fr/infos": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.alouette.fr/infos",
+          "octets": 171903,
+          "ms": 270
+        }
+      }
+    },
+    "corpus:batiment-79-22-france-3-nouvelle-aquitaine-edition-deux-sevres": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres",
+          "octets": 604723,
+          "ms": 192
+        }
+      }
+    }
+  }
+}
