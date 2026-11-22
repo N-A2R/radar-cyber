@@ -1,0 +1,372 @@
+{
+  "genereLe": "2026-11-22T01:39:31.063Z",
+  "corpus": "bench/corpus/sources-sante.jsonl",
+  "protocole": "curl -L, user-agent navigateur, redirections suivies, HTTP 200 final pour site, actualités, flux et article",
+  "totaux": {
+    "lues": 35,
+    "retenues": 35,
+    "avecExempleCyber": 35,
+    "avecFlux": 13,
+    "doublons": 0,
+    "mortes": 0,
+    "rejets": 0,
+    "urlsVerifiees": 118
+  },
+  "sources": [
+    {
+      "nom": "ARS Nouvelle-Aquitaine",
+      "type": "ARS",
+      "url_site": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Incident de sécurité concernant la plateforme de recueil des autorisations parentales des campagnes de vaccination HPV et Méningocoque au collège (2026-08-12) — https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0"
+    },
+    {
+      "nom": "FHF Nouvelle-Aquitaine (Fédération Hospitalière de France)",
+      "type": "fédération hospitalière",
+      "url_site": "https://www.fhf.fr/en-regions/nouvelle-aquitaine",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Cybersécurité : le Conseil d’État conforte des financements adaptés aux spécificités des hôpitaux publics — https://www.fhf.fr/actualites/articles/cybersecurite-le-conseil-detat-conforte-des-financements-adaptes-aux-specificites-des-hopitaux"
+    },
+    {
+      "nom": "Centre hospitalier Nord Deux-Sèvres",
+      "type": "hôpital public",
+      "url_site": "https://www.chnds.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Information aux patients – Incident de sécurité informatique — https://www.chnds.fr/cpds-fla-th-py/5/13/106"
+    },
+    {
+      "nom": "Novabio — laboratoires de biologie médicale",
+      "type": "laboratoire de biologie médicale",
+      "url_site": "https://www.novabio.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Le laboratoire Novabio victime de deux cyberattaques : des données de santé en fuite — https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+    },
+    {
+      "nom": "Conseil national de l'Ordre des médecins",
+      "type": "ordre professionnel",
+      "url_site": "https://www.conseil-national.medecin.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Tentatives d'hameçonnage (2026-07-27) — https://www.conseil-national.medecin.fr/publications/actualites/tentatives-dhameconnage"
+    },
+    {
+      "nom": "Conseil national de l'Ordre des sages-femmes",
+      "type": "ordre professionnel",
+      "url_site": "https://www.ordre-sages-femmes.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Alerte – Campagne de mails frauduleux (phishing) ciblant les professionnels de santé libéraux (2026-07-24) — https://www.ordre-sages-femmes.fr/2026/alerte-campagne-de-mails-frauduleux-phishing-ciblant-les-professionnels-de-sante-liberaux/"
+    },
+    {
+      "nom": "Ordre national des chirurgiens-dentistes",
+      "type": "ordre professionnel",
+      "url_site": "https://www.ordre-chirurgiens-dentistes.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Cybersécurité : une check-list pour les libéraux (2022-04-19) — https://www.ordre-chirurgiens-dentistes.fr/actualites/cybersecurite-une-check-list-pour-les-liberaux/"
+    },
+    {
+      "nom": "Ordre national des infirmiers",
+      "type": "ordre professionnel",
+      "url_site": "https://www.ordre-infirmiers.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Appel à la vigilance – Usurpation de l’identité d'un élu de l'Ordre (2025-07-17) — https://www.ordre-infirmiers.fr/appel-a-la-vigilance-usurpation-de-l-identite-d-un-elu-de-l-ordre"
+    },
+    {
+      "nom": "Ordre national des masseurs-kinésithérapeutes",
+      "type": "ordre professionnel",
+      "url_site": "https://www.ordremk.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "FLASH ACTU – Alerte sollicitation potentiellement frauduleuse RGPD (2022-11-10) — https://www.ordremk.fr/publication/flash-actu-alerte-sollicitation-potentiellement-frauduleuse-rgpd/"
+    },
+    {
+      "nom": "Ordre national des pharmaciens",
+      "type": "ordre professionnel",
+      "url_site": "https://www.ordre.pharmacien.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Cyberattaques : deux opérateurs de tiers payant visés (2024-02-15) — https://www.ordre.pharmacien.fr/les-communications/focus-sur/les-actualites/cyberattaques-deux-operateurs-de-tiers-payant-vises"
+    },
+    {
+      "nom": "SPSTI 16 — médecine du travail de la Charente",
+      "type": "service de santé au travail",
+      "url_site": "https://www.spsti16.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "La médecine du travail de Charente victime d'une cyberattaque : des données personnelles de salariés piratées (2024-06-14) — https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php"
+    },
+    {
+      "nom": "Dedalus HealthCare France",
+      "type": "éditeur de logiciels de santé",
+      "url_site": "https://www.dedalus.com/fr/fr",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Communication concernant les données de santé publiées sur le darkweb issues de BIOSERVEUR — https://www.dedalus.com/fr/fr/media/news/communication-concernant-les-donnees-de-sante-publiees-sur-le-darkweb-issues-de-bioserveur/"
+    },
+    {
+      "nom": "Santé publique France – Nouvelle-Aquitaine",
+      "type": "santé publique",
+      "url_site": "https://www.santepubliquefrance.fr/regions/nouvelle-aquitaine",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Un prestataire de Santé publique France victime d'une cyberattaque, près de 80 000 données de contact concernées (2026-08-13) — https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/un-prestataire-de-sante-publique-france-victime-d-une-cyberattaque-pres-de-80-000-donnees-de-contact-concernees_8146196.html"
+    },
+    {
+      "nom": "CPAM de la Gironde (Assurance Maladie)",
+      "type": "CPAM / assurance maladie",
+      "url_site": "https://www.ameli.fr/gironde/assure",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Bilan 2025 de la lutte contre les fraudes à la Cpam de la Gironde (2026-04-30) — https://www.assurance-maladie.ameli.fr/presse/bilan-2025-de-la-lutte-contre-les-fraudes-la-cpam-de-la-gironde"
+    },
+    {
+      "nom": "Carsat Aquitaine (Assurance retraite)",
+      "type": "caisse de retraite (Carsat)",
+      "url_site": "https://www.carsat-aquitaine.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Courriels, SMS, sites et appels frauduleux : vigilance ! (2026-03-30) — https://www.carsat-aquitaine.fr/home/actif/actualites-actif/toutes%20les%20actualites/courriels-appels-frauduleux.details-actualite.html"
+    },
+    {
+      "nom": "Établissement français du sang – Nouvelle-Aquitaine (EFS)",
+      "type": "centre de transfusion sanguine (EFS)",
+      "url_site": "https://www.efs.sante.fr/lefs-en-nouvelle-aquitaine",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "L’EFS confirme l’incident de cybersécurité impactant un de ces prestataires d’équipement frigorifique (2026-11-03) — https://presse.efs.sante.fr/actualites/l-efs-confirme-l-incident-de-cybersecurite-impactant-un-de-ces-prestataires-d-equipement-frigorifique-2c07c-08a0a.html"
+    },
+    {
+      "nom": "SAMU 33 – Centre 15 (CHU de Bordeaux)",
+      "type": "SAMU / centre 15",
+      "url_site": "https://www.chu-bordeaux.fr/Les-services/Service-SAMU-SMUR/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "FIN DE L'INCIDENT : le numéro d'urgence 15 (SAMU 33 - centre 15) est à nouveau joignable ! (2025-09-09) — https://www.chu-bordeaux.fr/Espace-m%C3%A9dia/Actualit%C3%A9s/FIN-DE-L-INCIDENT-NUMERO-D-URGENCE-15-A-NOUVEAU-JOIGNABLE/"
+    },
+    {
+      "nom": "ESEA Nouvelle-Aquitaine (GRADeS e-santé)",
+      "type": "agence de santé numérique (GRADeS)",
+      "url_site": "https://www.esea-na.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Face aux risques cyber : tous vigilants ! (2026-01-09) — https://wwwsec.esea-na.fr/node/402.html"
+    },
+    {
+      "nom": "CHU de Bordeaux",
+      "type": "CHU",
+      "url_site": "https://www.chu-bordeaux.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Une vingtaine de cyber-attaques contre le CHU de Bordeaux chaque jour, plongée au coeur du service de cybersécurité (2021-02-17) — https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/une-vingtaine-de-cyber-attaques-contre-le-chu-de-bordeaux-chaque-jour-plongee-au-coeur-du-service-de-cybersecurite-1960204.html"
+    },
+    {
+      "nom": "CHU de Poitiers",
+      "type": "CHU",
+      "url_site": "https://www.chu-poitiers.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Au CHU de Poitiers, la cybersécurité est un réel enjeu : « Oui, les hackers toquent à la porte » (2025-08-20) — https://www.lanouvellerepublique.fr/poitiers/au-chu-de-poitiers-la-cybersecurite-est-un-reel-enjeu-oui-les-hackers-toquent-a-la-porte-1755707588"
+    },
+    {
+      "nom": "CHU de Limoges",
+      "type": "CHU",
+      "url_site": "https://www.chu-limoges.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Cybermois – Une vigilance partagée — https://www.chu-limoges.fr/app/uploads/1/2025/12/chorus_no_56_light.pdf"
+    },
+    {
+      "nom": "Centre hospitalier de La Rochelle",
+      "type": "CH",
+      "url_site": "https://www.ch-larochelle.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Charente-Maritime : les hôpitaux de La Rochelle et de Rochefort victimes d’une panne informatique (2022-10-16) — https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php"
+    },
+    {
+      "nom": "Centre hospitalier de Pau",
+      "type": "CH",
+      "url_site": "https://www.ch-pau.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Cybersécurité : vers une meilleure culture de la vigilance informatique — https://www.ch-pau.fr/wp-content/uploads/2022/11/Transversal20_web.pdf"
+    },
+    {
+      "nom": "Centre hospitalier d'Angoulême",
+      "type": "CH",
+      "url_site": "https://www.ch-angouleme.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Piratage informatique, descente de police, médiation: le climat est toujours délétère à Girac (2025-09-09) — https://www.charentelibre.fr/charente/piratage-informatique-agents-menottes-mediation-le-climat-est-toujours-deletere-a-girac-25790864.php"
+    },
+    {
+      "nom": "Centre hospitalier de Dax",
+      "type": "CH",
+      "url_site": "https://www.ch-dax.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Le Centre hospitalier de Dax affecté par un ransomware (2021-02-10) — https://www.lemondeinformatique.fr/cybersecurite-conformite/2021-02-10-le-centre-hospitalier-de-dax-affecte-par-un-ransomware"
+    },
+    {
+      "nom": "Vivalto Santé",
+      "type": "groupe hospitalier privé",
+      "url_site": "https://www.vivalto-sante.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Alerte fraude — https://www.vivalto-sante.fr/alerte-fraude"
+    },
+    {
+      "nom": "Elsan",
+      "type": "groupe hospitalier privé",
+      "url_site": "https://www.elsan.care/fr",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Le groupe Elsan victime d’une cyberattaque : à Bordeaux, une centaine de patients de la clinique Saint-Augustin alertés (2023-08-22) — https://www.sudouest.fr/gironde/bordeaux/le-groupe-elsan-victime-d-une-cyberattaque-a-bordeaux-une-centaine-de-patients-de-la-clinique-saint-augustin-alertes-16339124.php"
+    },
+    {
+      "nom": "Clinique Saint-Augustin (Bordeaux)",
+      "type": "clinique",
+      "url_site": "https://www.elsan.care/fr/clinique-saint-augustin",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Le groupe Elsan victime d’une cyberattaque : à Bordeaux, une centaine de patients de la clinique Saint-Augustin alertés (2023-08-22) — https://www.sudouest.fr/gironde/bordeaux/le-groupe-elsan-victime-d-une-cyberattaque-a-bordeaux-une-centaine-de-patients-de-la-clinique-saint-augustin-alertes-16339124.php"
+    },
+    {
+      "nom": "emeis (ex-Korian)",
+      "type": "groupe EHPAD",
+      "url_site": "https://www.emeis.com/fr",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Livre blanc : de l’attaque cyber à la résilience (2026-06-15) — https://www.emeis.com/fr/a-la-une/expertise/livre-blanc-lattaque-cyber-resilience"
+    },
+    {
+      "nom": "SYNERPA — Fédération des entreprises et établissements du grand âge",
+      "type": "fédération EHPAD",
+      "url_site": "https://synerpa.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": 200,
+      "code_article": 200,
+      "exemple_cyber": "Cybersécurité : publication d’un appel à projets national dédié exclusivement au secteur social et médico-social (2026-04-16) — https://synerpa.fr/cybersecurite-publication-dun-appel-a-projets-national-dedie-exclusivement-au-secteur-social-et-medico-social/"
+    },
+    {
+      "nom": "CPAM de la Charente-Maritime (Assurance Maladie)",
+      "type": "CPAM / assurance maladie",
+      "url_site": "https://www.ameli.fr/charente-maritime/assure",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Lutte contre la fraude : la CPAM 17 adapte ses moyens pour mieux lutter contre les nouvelles typologies de fraude (2026-05-19) — https://www.assurance-maladie.ameli.fr/presse/lutte-contre-la-fraude-la-cpam-17-adapte-ses-moyens-pour-mieux-lutter-contre-les-nouvelles-typologies-de-fraude"
+    },
+    {
+      "nom": "CPAM de la Vienne (Assurance Maladie)",
+      "type": "CPAM / assurance maladie",
+      "url_site": "https://www.ameli.fr/vienne/assure",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Conférence de presse sur les fraudes à la CPAM de la Vienne (2026-09-29) — https://www.assurance-maladie.ameli.fr/presse/conference-de-presse-sur-les-fraudes-la-cpam-de-la-vienne"
+    },
+    {
+      "nom": "Mutualité sociale agricole (MSA) Gironde",
+      "type": "caisse d'assurance maladie agricole (MSA)",
+      "url_site": "https://gironde.msa.fr/lfp/accueil",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "Fraude sur internet ou par téléphone, soyez vigilant ! (2026-05-05) — https://gironde.msa.fr/lfp/fraude-internet-telephone"
+    },
+    {
+      "nom": "Mutualité sociale agricole (MSA) Sud Aquitaine",
+      "type": "caisse d'assurance maladie agricole (MSA)",
+      "url_site": "https://sudaquitaine.msa.fr/lfp/accueil",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "La lutte contre la fraude (2023-03-28) — https://sudaquitaine.msa.fr/lfp/actions-partenaires/bilan-lutte-fraude"
+    },
+    {
+      "nom": "Centre hospitalier d'Oloron Sainte-Marie",
+      "type": "CH",
+      "url_site": "https://www.ch-oloron.fr/",
+      "code_http": 200,
+      "code_actualites": 200,
+      "code_flux": null,
+      "code_article": 200,
+      "exemple_cyber": "L'hôpital d'Oloron Sainte-Marie victime d'un ransomware (2021-03-10) — https://www.lemondeinformatique.fr/cybersecurite-conformite/2021-03-10-l-hopital-d-oloron-sainte-marie-victime-d-un-ransomware"
+    }
+  ],
+  "anomalies": {
+    "doublons": [],
+    "mortes": [],
+    "rejets": []
+  }
+}
