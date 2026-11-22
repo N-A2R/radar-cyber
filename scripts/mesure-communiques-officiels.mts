@@ -11,6 +11,7 @@
 import { writeFileSync } from "node:fs";
 import { closePools, query } from "../apps/api/src/db.js";
 import { measureWeeks } from "../apps/api/src/communiques/store.js";
+import { checkObjective } from "../apps/api/src/communiques/objectif.js";
 
 const argv = process.argv.slice(2);
 const weeks = Number(argv.find((a) => a.startsWith("--weeks="))?.split("=")[1] ?? 4);
@@ -40,6 +41,8 @@ if (out) {
     "",
     `**${measurement.currentWeekCount} communiqué${measurement.currentWeekCount > 1 ? "s" : ""} officiel${measurement.currentWeekCount > 1 ? "s" : ""} collecté${measurement.currentWeekCount > 1 ? "s" : ""} pour la semaine ${measurement.currentWeek}** (semaine ISO commençant le ${measurement.weeks.find((w) => w.week === measurement.currentWeek)?.weekStart ?? "n.d."}).`,
     "",
+    checkObjective(measurement).line,
+    "",
     `Total collecté toutes semaines confondues : ${measurement.total}. Sources officielles actives déclarées : ${measurement.sources}.`,
     "",
     `État réel du corpus au moment de la mesure : ${baseline.organisations.toLocaleString("fr-FR")} organisations, ${baseline.sources.toLocaleString("fr-FR")} sources, ${baseline.events.toLocaleString("fr-FR")} événements.`,
@@ -66,6 +69,8 @@ if (out) {
     "## Reproduction",
     "",
     `DATABASE_URL=postgres://radar:radar@localhost:5433/radar pnpm mesure:communiques -- --weeks=4 --json=bench/results/communiques-officiels-${measurement.generatedAt.slice(0, 10)}.json --out=docs/rapports/communiques-officiels-${measurement.generatedAt.slice(0, 10)}.md`,
+    "",
+    "Vérification de la déclaration sur les artefacts publiés : `pnpm verifie:objectif-communiques`.",
     "",
   ];
   writeFileSync(out, lines.join("\n"), "utf8");

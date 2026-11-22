@@ -4,6 +4,8 @@ Mesure exécutée le 2026-11-21T22:42:35.998Z.
 
 **13 communiqués officiels collectés pour la semaine 2026-W47** (semaine ISO commençant le 2026-11-16).
 
+OBJECTIF : atteint — 13 / 13 communiqués officiels collectés pour la semaine 2026-W47
+
 Total collecté toutes semaines confondues : 14. Sources officielles actives déclarées : 8.
 
 État réel du corpus au moment de la mesure : 1 673 203 organisations, 443 sources, 27 896 événements.
@@ -33,6 +35,8 @@ Un communiqué est une ligne `event` de famille `official_statement` dont la dat
 ## Reproduction
 
 DATABASE_URL=postgres://radar:radar@localhost:5433/radar pnpm mesure:communiques -- --weeks=4 --json=bench/results/communiques-officiels-2026-11-21.json --out=docs/rapports/communiques-officiels-2026-11-21.md
+Vérification de la déclaration sur les artefacts publiés (sans base ni réseau) : `pnpm verifie:objectif-communiques`.
+
 
 ## Clôture du chantier — 2026-11-21
 
