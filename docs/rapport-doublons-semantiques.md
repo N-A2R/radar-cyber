@@ -109,3 +109,5 @@ au prix de quelques vrais doublons manqués.
 - Code, interface et commentaires en anglais ; rapport en français.
 - `server.ts` inchangé ; toutes les commandes de mesure et de test s'exécutent
   en moins de 60 secondes.
+
+OBJECTIF : atteint — 674 / 674 paires de doublons sémantiques détectées dans les 12 départements de Nouvelle-Aquitaine (651 groupes ; précision 98 % / 98 % sur 100 verdicts, dont 2 incertains comptés faux positifs et 0 verdict inconnu) ; mesure reproductible rejouée le 22/11/2026 : `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/semantic-duplicates.mts --json=/tmp/semantic-duplicates-decl-l4.json --sample=100 --seed=42 --precision=bench/results/semantic-duplicates-verdicts.json` puis `jq -e '.detected.pairs==674 and .detected.groups==651 and .precision.precision==0.98 and .precision.unknownVerdicts==0 and .scope.departments==12' /tmp/semantic-duplicates-decl-l4.json` → `true` (10,4 s) ; aucun code ni test modifié.
