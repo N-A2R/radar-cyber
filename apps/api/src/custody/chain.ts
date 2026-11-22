@@ -32,7 +32,7 @@ export type CustodyFact = {
 };
 
 /** Only these payload keys are ever shown outside the audit journal. */
-const PROOF_KEYS = [
+export const PROOF_KEYS = [
   "admissionRule",
   "assertionType",
   "collectedAt",
