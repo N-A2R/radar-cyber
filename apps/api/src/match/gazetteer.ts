@@ -490,11 +490,13 @@ function aliasFrappes(gaz: Gazetteer, jetons: readonly string[]): Frappe[] {
  * Bounded typo recovery. Only alias keys whose first token is already present
  * (or one bounded near miss away) are examined: no scan of the alias index.
  * A near alias decides only when it names one organization unambiguously.
+ * Up to two tokens may drift by one edit each: long official names and a
+ * second slip in the same mention were still left unattributed.
  */
 function aliasFrappesApprochees(gaz: Gazetteer, jetons: readonly string[]): Frappe[] {
 	const frappes: Frappe[] = [];
 	const vues = new Set<string>();
-	const max = Math.min(gaz.maxTokens, 4);
+	const max = gaz.maxTokens;
 	for (let debut = 0; debut < jetons.length; debut++) {
 		const token = jetons[debut] as string;
 		const premiers = [token, ...nearTokens(token)];
@@ -514,7 +516,7 @@ function aliasFrappesApprochees(gaz: Gazetteer, jetons: readonly string[]): Frap
 				for (let i = 0; i < alias.length; i++) {
 					const observe = jetons[debut + i] as string;
 					if (observe === alias[i]) continue;
-					if (ecarts === 0 && estUneFaute(observe, alias[i] as string)) {
+					if (ecarts < 2 && estUneFaute(observe, alias[i] as string)) {
 						ecarts++;
 						continue;
 					}

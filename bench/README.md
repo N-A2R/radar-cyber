@@ -109,6 +109,19 @@ apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts \
 en trop) et quatre mentions qui doivent rester sans rattachement. Mesure du
 2026-11-22 : 12/12, 0 faux, 0 bruit ; A3 reste à 53/53, 0 faux, 0 bruit.
 
+### Noms longs et doubles fautes (jeu de stress A5)
+
+```bash
+apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts \
+  --gold=gold-stress-a5.json \
+  --json=bench/results/A5-longues-doubles-c7.json
+```
+
+16 cas hors de A3 et A4 : cinq alias longs (5 à 6 jetons) avec une faute,
+cinq mentions avec deux jetons fautifs, six mentions qui doivent rester sans
+rattachement. Mesure du 2026-11-22 : 16/16, 0 faux, 0 bruit ; A3 reste à 53/53
+et A4 à 12/12.
+
 ### A.3 Audit du catalogue de sources
 
 ```bash

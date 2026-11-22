@@ -107,3 +107,23 @@ test("a near miss on a different name stays unattributed", () => {
 	assert.equal(match.org, null);
 	assert.equal(match.reason, "aucun");
 });
+
+test("a long alias with one internal typo recovers the organization", () => {
+	const gaz = buildGazetteer([row(1, "Centre Hospitalier Universitaire de Bordeaux", { kind: "sante" })]);
+	assert.equal(resoudre(gaz, "Centre Hospitalier Universitaire de Bordeuax confirme une fuite").org?.id, 1);
+});
+
+test("two distinct token typos in one mention recover the organization", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'univeristé de Poiteirs signale une fuite").org?.id, 3);
+});
+
+test("a long near miss on a different name stays unattributed", () => {
+	const gaz = buildGazetteer([row(1, "Centre Hospitalier Universitaire de Bordeaux", { kind: "sante" })]);
+	assert.equal(resoudre(gaz, "Centre Hospitalier Universitaire de Bordelais confirme une fuite").org, null);
+});
+
+test("two near misses on a different name stay unattributed", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'univeristé de Bordelais signale une fuite").org, null);
+});
