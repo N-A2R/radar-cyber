@@ -90,3 +90,4 @@ résolutions passées. Le chiffre comptabilise les réponses DNS publiques
 actuelles des domaines connus, et non l’historique d’un capteur réseau déjà
 déployé. Les requêtes en erreur (382 sur 2 724 interrogations de type) sont
 consignées par lot et exclues du décompte.
+OBJECTIF : atteint — 3 417 résolutions DNS observées / 681 domaines NA du périmètre interrogé (cible : collecte DNS passive sur les domaines de Nouvelle-Aquitaine avec compteur quotidien ; 618 domaines ont au moins une résolution ; mesure rejouée le 22/11/2026 par `jq -s 'map(.resolutionsObserved)|add' bench/results/passive-dns-2026-11-22-offset*.json` → 3 417, identique à `scope.resolutions` du dernier lot ; la table `dns_passive_daily` n'est pas migrée dans la base partagée du worktree ; aucun code ni test modifié)
