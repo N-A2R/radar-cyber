@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:3e77c115-7683-44c5-aed2-563339503dbf>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 777
+WARC-Block-Digest: sha1:HTG7FELZTUDZSVMSO6FRMUPKB3HC7KJE
+X-Claim-Fingerprint: 9cf20898257d41b6e0e4da93
+X-Victim-Key: 911513fed1d24ba2eb804f7d
+
+{"post_title": "Universite de Pau et du Pays de lAdour", "discovered": "2025-09-29 21:28:09.344073", "description": "The Universit\u00e9 de Pau et du Pays de l'Adour was founded in 1972. It is a multi-site establishment, based in Pau, Bayonne, Tarbes, and Mont-de-Marsan and is part of the Academy of Bordeaux - we stole 80GB of data include Docs , reports , billing PDFs , Plans , Factory and payments Documents , Workers full infos , Complete student and Teachers data (Private IDs) , resources and lot more , we will provide decryptor + report + return and delete Data , follow readme to process", "link": "#", "magnet": null, "screen": "screenshots/nova/Universite de Pau et du Pays de lAdour.png", "misp_uuid": "0a249c9e-8551-589a-8d30-182d718695af", "group_name": "nova"}
+
