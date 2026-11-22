@@ -37,6 +37,8 @@ export type ExposureRow = {
 	website: string | null;
 	/** Hostnames returned by the passive observation, untrusted for ownership. */
 	hostnames: string[];
+	/** URLs where the service was observed, untrusted for ownership. */
+	observedUrls: string[];
 	/** Distinct ports carrying a technology on a non-shared IP. */
 	fingerprintPorts: number;
 	/** At least one observed IP is also attributed to another organization. */
@@ -157,10 +159,11 @@ export function hasServiceObservable(row: ExposureRow): boolean {
 }
 
 /**
- * A service observation is attributable only when the passive observation
- * names a host belonging to the organization itself: its normalised domain or
- * website, or a subdomain of it. Shared IPs and generic hosts hosted elsewhere
- * are not ownership evidence.
+ * A service observation is attributable only when the observation names a host
+ * belonging to the organization itself: its normalised domain or website, or a
+ * subdomain of it. The host can come from the passive hostname list or from the
+ * URL used by the HTTP observation. Shared IPs and generic hosts hosted
+ * elsewhere are not ownership evidence.
  */
 export function attributableService(row: ExposureRow): boolean {
 	if (row.sharedIp || !hasServiceObservable(row)) return false;
@@ -168,8 +171,8 @@ export function attributableService(row: ExposureRow): boolean {
 		.map(normalizeHostname)
 		.filter(isPlausibleDomain);
 	if (owned.length === 0) return false;
-	return row.hostnames.some((hostname) => {
-		const host = normalizeHostname(hostname);
+	const observed = [...row.hostnames, ...row.observedUrls].map(normalizeHostname);
+	return observed.some((host) => {
 		if (!host) return false;
 		return owned.some((domain) => host === domain || host.endsWith(`.${domain}`));
 	});

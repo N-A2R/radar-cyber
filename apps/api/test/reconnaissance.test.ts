@@ -47,6 +47,7 @@ function exposureRow(overrides: Partial<ExposureRow> = {}): ExposureRow {
 		domain: "example.fr",
 		website: "https://www.example.fr/",
 		hostnames: ["www.example.fr"],
+		observedUrls: [],
 		fingerprintPorts: 2,
 		sharedIp: false,
 		...overrides,
@@ -190,6 +191,21 @@ test("a service is attributable through its domain or one of its subdomains", ()
 	assert.equal(attributableService(exposureRow({ hostnames: ["mail.example.fr"] })), true);
 	assert.equal(
 		attributableService(exposureRow({ hostnames: ["other.invalid"] })),
+		false,
+	);
+});
+
+test("a service is attributable through the URL used for its observation", () => {
+	assert.equal(
+		attributableService(
+			exposureRow({ hostnames: [], observedUrls: ["https://WWW.Example.FR/path?q=1"] }),
+		),
+		true,
+	);
+	assert.equal(
+		attributableService(
+			exposureRow({ hostnames: [], observedUrls: ["https://hosted.invalid/page"] }),
+		),
 		false,
 	);
 });

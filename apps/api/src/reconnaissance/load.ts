@@ -26,6 +26,7 @@ type ExposureDbRow = {
 	domain: string | null;
 	website: string | null;
 	hostnames: string[];
+	observedUrls: string[];
 	fingerprintPorts: number;
 	sharedIp: boolean;
 };
@@ -61,6 +62,10 @@ const EXPOSURE_SQL = `
          count(DISTINCT e.port)
            FILTER (WHERE e.technology IS NOT NULL AND e.technology <> '')::int
            AS "fingerprintPorts",
+         COALESCE(
+           jsonb_agg(DISTINCT e.source_url) FILTER (WHERE e.source_url IS NOT NULL),
+           '[]'::jsonb
+         ) AS "observedUrls",
          COALESCE(bool_or(s.orgs > 1), false) AS "sharedIp"
     FROM exposition_service e
     JOIN org o ON o.id = e.org_id
@@ -160,6 +165,7 @@ export async function loadReconnaissanceInput(): Promise<LoadedReconnaissance> {
 		domain: row.domain,
 		website: row.website,
 		hostnames: Array.isArray(row.hostnames) ? row.hostnames : [],
+		observedUrls: Array.isArray(row.observedUrls) ? row.observedUrls : [],
 		fingerprintPorts: row.fingerprintPorts,
 		sharedIp: row.sharedIp,
 	}));
