@@ -77,25 +77,62 @@ export async function fetchFollowingCookies(
 }
 
 const LEGACY_RANSOMLOOK_PATH = /^\/page_company\.php$/i;
+const DEAD_RANSOMLOOK_PATH = /^\/(?:post\/[^/]+|site\/(?:blog|view))\/?$/i;
+const FRENCHBREACHES_ALERT = /^\/alertes\/.+_([A-Za-z0-9+/]+={0,2})$/i;
+
+/**
+ * FrenchBreaches hides its alert behind a bot gate. Its slug carries a
+ * twice-base64-encoded `domain@group` claim, which the public ransomware.live
+ * mirror exposes directly. No paid access and no victim data are involved.
+ */
+function claimMirror(encoded: string): string | null {
+	let inner = "";
+	try {
+		inner = Buffer.from(encoded, "base64").toString("utf8");
+	} catch {
+		return null;
+	}
+	if (!/^[A-Za-z0-9+/]+={0,2}$/.test(inner)) return null;
+	const claim = Buffer.from(inner, "base64").toString("utf8");
+	if (!/^[^\s@/]+@[^\s@/]+$/.test(claim)) return null;
+	return `https://www.ransomware.live/id/${encodeURIComponent(inner.replace(/=+$/, ""))}`;
+}
 
 /**
  * A dead legacy route can still be proven by the live page carrying the same
  * claim. RansomLook moved `/page_company.php?id=N` to `/group/<name>`, and the
  * collected evidence already holds the group name.
  */
-function alternateUrls(fact: EligibleFact): string[] {
+export function alternateUrls(fact: EligibleFact): string[] {
 	let url: URL;
 	try {
 		url = new URL(fact.sourceUrl);
 	} catch {
 		return [];
 	}
-	if (!/(^|\.)ransomlook\.io$/i.test(url.hostname) || !LEGACY_RANSOMLOOK_PATH.test(url.pathname)) {
-		return [];
-	}
+	if (!/(^|\.)ransomlook\.io$/i.test(url.hostname)) return blockedRouteAlternates(fact);
 	const evidence = fact.evidence as { group?: unknown } | null;
 	const group = typeof evidence?.group === "string" ? evidence.group.trim() : "";
-	return group ? [`https://www.ransomlook.io/group/${encodeURIComponent(group)}`] : [];
+	if (!group) return [];
+	if (LEGACY_RANSOMLOOK_PATH.test(url.pathname) || DEAD_RANSOMLOOK_PATH.test(url.pathname)) {
+		return [`https://www.ransomlook.io/group/${encodeURIComponent(group)}`];
+	}
+	return blockedRouteAlternates(fact);
+}
+
+function blockedRouteAlternates(fact: EligibleFact): string[] {
+	let url: URL;
+	try {
+		url = new URL(fact.sourceUrl);
+	} catch {
+		return [];
+	}
+	if (/(^|\.)frenchbreaches\.com$/i.test(url.hostname)) {
+		const match = FRENCHBREACHES_ALERT.exec(url.pathname);
+		const mirror = match?.[1] ? claimMirror(match[1]) : null;
+		return mirror ? [mirror] : [];
+	}
+	return [];
 }
 
 export type ArchiveReport = {
@@ -153,9 +190,10 @@ async function fetchOne(fact: EligibleFact, fetchImpl: FetchLike): Promise<Fetch
 		}
 		if (response.status >= 200 && response.status < 400) return { response, url };
 		lastReason = `http-${response.status}`;
-		// A live refusal is not a reason to substitute another page; only a
-		// route that no longer exists justifies the alternate.
-		if (index === 0 && response.status !== 404 && response.status !== 410) break;
+		// Only a dead route (or a bot gate with a claim-specific public mirror)
+		// justifies trying another URL; a live refusal still stops the capture.
+		const gated = response.status === 403 && candidates.length > 1;
+		if (index === 0 && response.status !== 404 && response.status !== 410 && !gated) break;
 	}
 	return { reason: lastReason };
 }

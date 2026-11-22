@@ -2,23 +2,23 @@
 
 Date : 2026-11-22. Branche : `ext/chantier-c2`.
 
-## Résultat mesuré
+## Résultat mesuré (relevé après la tranche suivante, 2026-11-22)
 
 ```
-WARC proofs: 271 / 271 facts (100%), scope=Nouvelle-Aquitaine
+WARC proofs: 81 / 81 facts (100%), scope=Nouvelle-Aquitaine
 ```
 
-OBJECTIF : atteint — 271 / 271
+OBJECTIF : atteint — 81 / 81
 
 ## État réel de départ (relevé en base, 2026-11-22)
 
 - 1 673 220 organisations (dont 1 671 906 en Nouvelle-Aquitaine)
 - 463 sources (362 actives)
 - 27 899 événements
-- 271 faits éligibles à une preuve archivable après filtrage
+- 271 faits éligibles à cette date (avant la dérive décrite en fin de rapport)
 
 Les ordres de grandeur du chantier (1 673 151, 312, ~28 000) sont confirmés ; les
-chiffres ci-dessus sont ceux effectivement mesurés au moment de la livraison.
+chiffres ci-dessus sont ceux effectivement mesurés au moment de la première livraison.
 
 ## Définition d'un fait avec preuve archivable
 
@@ -104,3 +104,29 @@ sont régénérables par la commande d'archivage.
 - **Commandes < 60 s** : l'archivage est borné par `--max-seconds` (45 s par
   défaut) et relançable ; la dernière passe a traité les 10 faits restants en
   moins de 10 s. La mesure s'exécute en quelques secondes.
+
+## Tranche suivante — reprise après dérive du corpus
+
+La mesure historique de 271/271 a été faite sur le corpus disponible à 01:23.
+Entre-temps, d'autres tranches ont retiré du périmètre 190 faits rattachés à
+tort (organisations sans lien réel avec la Nouvelle-Aquitaine). La cible
+recalculée en base est donc 81 faits éligibles, dont 69 seulement avaient encore
+une preuve vérifiable au relevé de 03:32 (85,19 %). Le chiffre 271 n'est plus
+reproductible sans réintroduire des faits que le chantier a explicitement
+exclus ; la nouvelle tranche vise donc 100 % du périmètre courant.
+
+Deux comportements ajoutés, chacun couvert par un test dédié
+(`apps/api/test/warc-alternates.test.ts`) :
+
+- les routes RansomLook abandonnées (`/post/<hash>`, `/site/blog?uuid=`,
+  `/site/view?uuid=`) renvoient à la page `/group/<groupe>` encore servie, dont
+  le nom est déjà dans la preuve du fait ;
+- une alerte FrenchBreaches bloquée par un gate anti-robot (403) est remplacée
+  par le miroir public `ransomware.live/id/<claim>` : le slug contient deux fois
+  en base64 le couple `domaine@groupe` de la même revendication. Aucun accès
+  payant, aucun cookie tiers, aucune donnée de victime ajoutée.
+
+Les six faits restants ont été recapturés avec ces règles ; nouvelle mesure :
+`eligibleFacts = 81`, `factsWithArchivableProof = 81`, `coveragePercent = 100`,
+`invalidProofs = []`, `warcFiles = 4`, `warcBytes = 25 148 880`.
+Le diff de `apps/api/src/server.ts` reste à zéro ligne.
