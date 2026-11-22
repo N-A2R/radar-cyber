@@ -1,0 +1,66 @@
+{
+  "www.2d.bordeaux.fr": {
+    "verdict": "true",
+    "reason": "SAN authenticates museum-bordeaux.fr, not the audited Bordeaux host; chain unauthorized and certificate expired."
+  },
+  "www.anglet.fr": {
+    "verdict": "false",
+    "reason": "Valid DigiCert certificate covering *.anglet.fr, issued 2026-10-01; the CT baseline only records the 2011 CA, a routine CA migration."
+  },
+  "www.artsetmetiers.fr": {
+    "verdict": "false",
+    "reason": "Valid GÉANT certificate for the institution, trusted chain and matching hostname; CA change from the 2016 CT entry is a platform renewal."
+  },
+  "www.biennale.anglet.fr": {
+    "verdict": "true",
+    "reason": "Wildcard *.anglet.fr does not cover the two-label host; TLS chain unauthorized in the live observation."
+  },
+  "www.billetterie-spectacle.bouscat.fr": {
+    "verdict": "true",
+    "reason": "Certificate belongs to *.mapado.com, not to the municipal ticketing host; TLS chain unauthorized."
+  },
+  "www.egurretik.bayonne.fr": {
+    "verdict": "true",
+    "reason": "Wildcard *.bayonne.fr does not authenticate the two-label host; TLS chain unauthorized."
+  },
+  "www.elgg.bordeaux.fr": {
+    "verdict": "true",
+    "reason": "Certificate authenticates cluster105.hosting.ovh.net only; TLS chain unauthorized for the Bordeaux host."
+  },
+  "www.incubateur.artsetmetiers.fr": {
+    "verdict": "false",
+    "reason": "Same trusted GÉANT certificate as the parent host, valid through 2027 and covering the name; no identity defect."
+  },
+  "www.info-violences-femmes.bordeaux.fr": {
+    "verdict": "true",
+    "reason": "Leaf certificate expired on 2023-05-03; TLS chain unauthorized at measurement time."
+  },
+  "www.jeparticipe.bordeaux.fr": {
+    "verdict": "true",
+    "reason": "Leaf certificate expired on 2024-09-19 and authenticates strategicts.net; TLS chain unauthorized."
+  },
+  "www.lalittorale.anglet.fr": {
+    "verdict": "true",
+    "reason": "Leaf certificate expired on 2026-08-09; TLS chain unauthorized at measurement time."
+  },
+  "www.lesjoursheureux.anglet.fr": {
+    "verdict": "true",
+    "reason": "Wildcard *.anglet.fr does not cover the two-label host; TLS chain unauthorized."
+  },
+  "www.angouleme.fr": {
+    "verdict": "false",
+    "reason": "Trusted Let's Encrypt certificate issued 2026-09-25 covering the host; CT baseline only recorded the 2014 GeoTrust CA."
+  },
+  "www.bayonne.fr": {
+    "verdict": "false",
+    "reason": "Trusted Gandi certificate issued 2026-09-04 covering the host; baseline CA was the 2011 Thawte intermediate."
+  },
+  "www.bordeaux.fr": {
+    "verdict": "false",
+    "reason": "Trusted DigiCert certificate issued 2026-08-21 covering the host; baseline recorded a VeriSign chain first seen in 2006."
+  },
+  "www.elucid.bordeaux.fr": {
+    "verdict": "false",
+    "reason": "Trusted Let's Encrypt certificate issued 2026-10-03 covering the host; no identity defect after verification."
+  }
+}
