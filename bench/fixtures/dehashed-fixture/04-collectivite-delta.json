@@ -1,0 +1,17 @@
+{
+  "query": "delta.example",
+  "total": 1,
+  "entries": [
+    {
+      "id": "dh-004",
+      "name": "Fuite simulée 04 — collectivité delta",
+      "domain": "delta.example",
+      "breach_date": "2024-08-30",
+      "accounts": 65,
+      "source_url": "https://example.invalid/dehashed-fixture/04",
+      "email": "agent-fictif@example.invalid",
+      "password": "mot-de-passe-fictif",
+      "ip": "203.0.113.13"
+    }
+  ]
+}
