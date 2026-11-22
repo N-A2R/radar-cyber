@@ -1,0 +1,501 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-87.jsonl",
+  "secteur": "bâtiment",
+  "departement": "87",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 19,
+  "urls_verifiees": 56,
+  "urls_200": 56,
+  "anomalies": [],
+  "detail": {
+    "corpus:sud-ouest-limoges-haute-vienne": {
+      "urls": {
+        "https://www.sudouest.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/",
+          "octets": 616978,
+          "ms": 276
+        },
+        "https://www.sudouest.fr/haute-vienne/limoges/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/haute-vienne/limoges/",
+          "octets": 206515,
+          "ms": 270
+        },
+        "https://news.google.com/rss/search?q=site%3Asudouest.fr%2Fhaute-vienne%20Limoges&hl=fr&gl=FR&ceid=FR%3Afr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=site%3Asudouest.fr%2Fhaute-vienne%20Limoges&hl=fr&gl=FR&ceid=FR%3Afr",
+          "octets": 72407,
+          "ms": 279
+        }
+      },
+      "nom": "Sud Ouest Limoges / Haute-Vienne"
+    },
+    "corpus:le-populaire-du-centre": {
+      "urls": {
+        "https://www.lepopulaire.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/",
+          "octets": 736216,
+          "ms": 234
+        },
+        "https://www.lepopulaire.fr/haute-vienne/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/haute-vienne/",
+          "octets": 267874,
+          "ms": 152
+        },
+        "https://news.google.com/rss/search?q=site%3Alepopulaire.fr%20Limoges%20%22Haute-Vienne%22&hl=fr&gl=FR&ceid=FR%3Afr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=site%3Alepopulaire.fr%20Limoges%20%22Haute-Vienne%22&hl=fr&gl=FR&ceid=FR%3Afr",
+          "octets": 154874,
+          "ms": 505
+        }
+      },
+      "nom": "Le Populaire du Centre"
+    },
+    "corpus:actu-fr-limoges-haute-vienne": {
+      "urls": {
+        "https://actu.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/",
+          "octets": 931300,
+          "ms": 402
+        },
+        "https://actu.fr/nouvelle-aquitaine/haute-vienne_87": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/haute-vienne_87",
+          "octets": 324310,
+          "ms": 197
+        },
+        "https://actu.fr/limoges/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/limoges/rss.xml",
+          "octets": 29879,
+          "ms": 178
+        }
+      },
+      "nom": "actu.fr Limoges / Haute-Vienne"
+    },
+    "corpus:ici-limousin-ici-limoges": {
+      "urls": {
+        "https://www.ici.fr/radio/limousin": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/radio/limousin",
+          "octets": 385290,
+          "ms": 256
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/limoges": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/limoges",
+          "octets": 326566,
+          "ms": 429
+        },
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "octets": 20408,
+          "ms": 101
+        }
+      },
+      "nom": "ICI Limousin / ICI Limoges"
+    },
+    "corpus:france-3-nouvelle-aquitaine-limousin-haute-vienne": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/",
+          "octets": 796272,
+          "ms": 250
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+          "octets": 659490,
+          "ms": 528
+        },
+        "https://news.google.com/rss/search?q=site%3Afrance3-regions.franceinfo.fr%20Limoges&hl=fr&gl=FR&ceid=FR%3Afr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=site%3Afrance3-regions.franceinfo.fr%20Limoges&hl=fr&gl=FR&ceid=FR%3Afr",
+          "octets": 187133,
+          "ms": 412
+        }
+      },
+      "nom": "France 3 Nouvelle-Aquitaine – Limousin/Haute-Vienne"
+    },
+    "corpus:limoges-metropole": {
+      "urls": {
+        "https://www.limoges-metropole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.limoges-metropole.fr/",
+          "octets": 218989,
+          "ms": 749
+        },
+        "https://www.limoges-metropole.fr/informations-transversales/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites",
+          "octets": 87917,
+          "ms": 1283
+        },
+        "https://www.limoges-metropole.fr/informations-transversales/actualites/rss": {
+          "code": 200,
+          "type": "text/xml;charset=utf-8",
+          "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites/rss",
+          "octets": 391415,
+          "ms": 5294
+        }
+      },
+      "nom": "Limoges Métropole"
+    },
+    "corpus:annonces-legales-fr-haute-vienne": {
+      "urls": {
+        "https://www.annonces-legales.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.annonces-legales.fr/",
+          "octets": 89605,
+          "ms": 248
+        },
+        "https://www.annonces-legales.fr/consultation/nouvelle-aquitaine/haute-vienne-87": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.annonces-legales.fr/consultation/nouvelle-aquitaine/haute-vienne-87",
+          "octets": 161266,
+          "ms": 288
+        },
+        "https://news.google.com/rss/search?q=%22annonces%20l%C3%A9gales%22%20%22Haute-Vienne%22&hl=fr&gl=FR&ceid=FR%3Afr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22annonces%20l%C3%A9gales%22%20%22Haute-Vienne%22&hl=fr&gl=FR&ceid=FR%3Afr",
+          "octets": 54504,
+          "ms": 301
+        }
+      },
+      "nom": "Annonces-legales.fr – Haute-Vienne"
+    },
+    "corpus:union-territoires-jal-haute-vienne": {
+      "urls": {
+        "https://www.terredactu.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.terredactu.com/",
+          "octets": 85461,
+          "ms": 3185
+        },
+        "https://www.terredactu.com/visualiser-les-al": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.terredactu.com/visualiser-les-al",
+          "octets": 59829,
+          "ms": 1628
+        },
+        "https://www.terredactu.com/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.terredactu.com/rss.xml",
+          "octets": 2005,
+          "ms": 194
+        }
+      },
+      "nom": "Union & Territoires (JAL Haute-Vienne)"
+    },
+    "corpus:ville-de-saint-junien": {
+      "urls": {
+        "https://www.saint-junien.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saint-junien.fr/",
+          "octets": 256651,
+          "ms": 712
+        },
+        "https://www.saint-junien.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saint-junien.fr/actualites/",
+          "octets": 188871,
+          "ms": 650
+        },
+        "https://www.saint-junien.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.saint-junien.fr/feed/",
+          "octets": 83595,
+          "ms": 528
+        }
+      },
+      "nom": "Ville de Saint-Junien"
+    },
+    "corpus:capeb-haute-vienne": {
+      "urls": {
+        "https://www.capeb.fr/haute-vienne": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/haute-vienne",
+          "octets": 56753,
+          "ms": 739
+        },
+        "https://www.capeb.fr/haute-vienne/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/haute-vienne/actualites",
+          "octets": 49158,
+          "ms": 575
+        },
+        "https://news.google.com/rss/search?q=CAPEB+Haute-Vienne&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=CAPEB+Haute-Vienne&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 16606,
+          "ms": 108
+        }
+      },
+      "nom": "CAPEB Haute-Vienne"
+    },
+    "corpus:acpresse-rubrique-haute-vienne-87-presse-professionnelle-de-la-construction": {
+      "urls": {
+        "https://www.acpresse.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.acpresse.fr/",
+          "octets": 616038,
+          "ms": 200
+        },
+        "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/haute-vienne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/haute-vienne/",
+          "octets": 347001,
+          "ms": 144
+        },
+        "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/haute-vienne/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/haute-vienne/feed/",
+          "octets": 1386,
+          "ms": 1332
+        }
+      },
+      "nom": "ACPresse — rubrique Haute-Vienne (87), presse professionnelle de la construction"
+    },
+    "corpus:cma-nouvelle-aquitaine-haute-vienne-limoges": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "octets": 324235,
+          "ms": 130
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "octets": 280274,
+          "ms": 193
+        },
+        "https://news.google.com/rss/search?q=%22CMA+Haute-Vienne%22&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22CMA+Haute-Vienne%22&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 15417,
+          "ms": 366
+        }
+      },
+      "nom": "CMA Nouvelle-Aquitaine - Haute-Vienne (Limoges)"
+    },
+    "corpus:caue-87-conseil-d-architecture-d-urbanisme-et-de-l-environnement-de-la-haute-vienne": {
+      "urls": {
+        "https://www.caue87.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue87.fr/",
+          "octets": 165331,
+          "ms": 3182
+        },
+        "https://www.caue87.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue87.fr/actualites/",
+          "octets": 157598,
+          "ms": 2085
+        },
+        "https://www.caue87.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.caue87.fr/feed/",
+          "octets": 62350,
+          "ms": 2493
+        }
+      },
+      "nom": "CAUE 87 (Conseil d'Architecture, d'Urbanisme et de l'Environnement de la Haute-Vienne)"
+    },
+    "corpus:qualibat": {
+      "urls": {
+        "https://www.qualibat.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/",
+          "octets": 147636,
+          "ms": 245
+        },
+        "https://www.qualibat.com/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/actualites",
+          "octets": 99350,
+          "ms": 226
+        },
+        "https://news.google.com/rss/search?q=%22Qualibat%22&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22Qualibat%22&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 79938,
+          "ms": 93
+        }
+      },
+      "nom": "Qualibat"
+    },
+    "corpus:btp-cfa-87-limoges-btp-cfa-nouvelle-aquitaine": {
+      "urls": {
+        "https://www.btpcfa-na.fr/centre/btp-cfa-87-limoges/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.btpcfa-na.fr/centre/btp-cfa-87-limoges/",
+          "octets": 221319,
+          "ms": 283
+        },
+        "https://www.btpcfa-na.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.btpcfa-na.fr/actualites/",
+          "octets": 120873,
+          "ms": 250
+        },
+        "https://www.btpcfa-na.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.btpcfa-na.fr/feed/",
+          "octets": 49102,
+          "ms": 368
+        }
+      },
+      "nom": "BTP CFA 87 Limoges (BTP CFA Nouvelle-Aquitaine)"
+    },
+    "corpus:odeys-cluster-construction-et-amenagement-durables-antenne-limoges": {
+      "urls": {
+        "https://www.odeys.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/",
+          "octets": 77524,
+          "ms": 404
+        },
+        "https://www.odeys.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/actualites",
+          "octets": 49055,
+          "ms": 155
+        },
+        "https://news.google.com/rss/search?q=%22Od%C3%A9ys%22&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22Od%C3%A9ys%22&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 6577,
+          "ms": 60
+        }
+      },
+      "nom": "Odéys - cluster construction et aménagement durables (antenne Limoges)"
+    },
+    "corpus:france-renov-service-public-de-la-renovation-de-l-habitat": {
+      "urls": {
+        "https://france-renov.gouv.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france-renov.gouv.fr/",
+          "octets": 90999,
+          "ms": 160
+        },
+        "https://france-renov.gouv.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france-renov.gouv.fr/actualites",
+          "octets": 67757,
+          "ms": 155
+        },
+        "https://news.google.com/rss/search?q=%22France+R%C3%A9nov%22+Haute-Vienne&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22France+R%C3%A9nov%22+Haute-Vienne&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 14827,
+          "ms": 85
+        }
+      },
+      "nom": "France Rénov' (service public de la rénovation de l'habitat)"
+    },
+    "corpus:guichet-habitat-de-limoges-metropole-france-renov": {
+      "urls": {
+        "https://guichet-habitat.limoges-metropole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://guichet-habitat.limoges-metropole.fr/",
+          "octets": 47666,
+          "ms": 683
+        },
+        "https://guichet-habitat.limoges-metropole.fr/informations-transversales/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://guichet-habitat.limoges-metropole.fr/informations-transversales/actualites",
+          "octets": 60170,
+          "ms": 624
+        },
+        "https://news.google.com/rss/search?q=%22Guichet+Habitat%22+Limoges&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22Guichet+Habitat%22+Limoges&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 15347,
+          "ms": 67
+        }
+      },
+      "nom": "Guichet Habitat de Limoges Métropole (France Rénov')"
+    },
+    "corpus:placeco-actualites-economiques-de-la-haute-vienne-87": {
+      "urls": {
+        "https://www.placeco.fr/haute-vienne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.placeco.fr/haute-vienne/",
+          "octets": 151505,
+          "ms": 904
+        },
+        "https://news.google.com/rss/search?q=%22Plac%C3%A9co%22+Haute-Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=%22Plac%C3%A9co%22+Haute-Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 1191,
+          "ms": 64
+        }
+      },
+      "nom": "Placéco — actualités économiques de la Haute-Vienne (87)"
+    }
+  }
+}
