@@ -84,7 +84,11 @@
 }
 
 .health-view__body table.data {
-  min-width: 820px;
+  /* 820 px forçaient une barre horizontale dans un corps de ~860 px : la
+     dernière colonne était coupée et les libellés de date tronqués
+     (« 11 y a h »). On laisse le tableau occuper la largeur disponible. */
+  min-width: 640px;
+  width: 100%;
 }
 
 .health-view__body thead th {
