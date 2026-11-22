@@ -4,15 +4,18 @@
  * Roadmap 3 ans, contrainte juridique n°4 : « Qui a décidé, quand, sur quelle
  * preuve, et pourquoi nommer plutôt qu'anonymiser. C'est le même journal
  * append-only que le reste : la décision de publier est un fait daté. »
+ * Contrainte n°1 : sans lien public vers la source qui affirme l'incident, le
+ * nommage est refusé (`source-primaire-manquante`) — même après 48 h.
  *
  * Le verdict 48 h (`incident-corroboration-48h.ts`) dit *quand* un incident
- * devient publiable. Ce module en tire *la décision* : nommer, ou refuser sous
- * le motif `publication-risquee` et anonymiser. Chaque décision porte son
- * auteur, son instant, sa preuve et sa raison, et s'enchaîne par empreinte
- * SHA-256 : retirer ou modifier une ligne casse la chaîne.
+ * devient publiable. Ce module en tire *la décision*. Quand un audit des sources
+ * est fourni, chaque décision porte son URL publique, nettoyée de tout jeton,
+ * et s'enchaîne par empreinte SHA-256 : retirer ou modifier une ligne casse la
+ * chaîne. Sans audit, le comportement historique reste identique.
  *
  * Pur, sans écriture ni réseau. Seules circulent des empreintes tronquées de
- * victime, des horodatages et des compteurs — jamais un titre ni un nom.
+ * victime, des horodatages, des URL publiques, des compteurs et des motifs —
+ * jamais un titre ni un nom de victime.
  */
 import { createHash } from "node:crypto";
 import {
@@ -23,6 +26,11 @@ import {
 
 /** Motif de refus de la file de revue quand le délai de publication court encore. */
 export const REFUS_PUBLICATION = "publication-risquee";
+/** Motif de refus quand aucun lien public ne prouve l'incident (contrainte n°1). */
+export const REFUS_SOURCE_MANCANTE = "source-primaire-manquante";
+/** Raison journalisée quand le nommage est refusé faute de source primaire. */
+export const RAISON_SANS_SOURCE =
+  "Aucun lien public vers la source qui affirme l'incident : nommage refusé, source primaire obligatoire.";
 
 /** Auteur de la décision : une règle versionnée, pas un humain implicite. */
 export const ACTEUR_DECISION = "moteur:publication-regles@1";
@@ -44,8 +52,10 @@ export type PublicationDecision = {
   verdict: VerdictKind;
   decisionAt: string;
   firstClaimAt: string;
+  /** Lien public vers l'éditeur qui affirme l'incident, présent si un audit des sources est fourni. */
+  sourcePrimaire?: string | null;
   nommer: boolean;
-  motifRefus: typeof REFUS_PUBLICATION | null;
+  motifRefus: typeof REFUS_PUBLICATION | typeof REFUS_SOURCE_MANCANTE | null;
   raison: string;
   preuve: {
     independentPublishers: number;
@@ -65,6 +75,9 @@ export type PublicationSummary = {
   secondSource: number;
   afterDelay: number;
   pending: number;
+  /** Incidents sans lien public vérifié, et incidents nommés malgré cette absence (toujours 0). */
+  sansSource: number;
+  nommesSansSource: number;
 };
 
 export type PublicationJournal = {
@@ -106,6 +119,7 @@ function canonical(decision: Omit<PublicationDecision, "hash">): string {
     decision.raison,
     decision.preuve,
     decision.acteur,
+    ...("sourcePrimaire" in decision ? [decision.sourcePrimaire] : []),
   ]);
 }
 
@@ -116,8 +130,16 @@ function empreinte(decision: Omit<PublicationDecision, "hash">): string {
 /**
  * Construit le journal dans un ordre reproductible : l'heure de décision, puis
  * l'empreinte de victime. À mesure identique, le journal est identique.
+ *
+ * `sources` associe l'identifiant de la décision à son URL publique (ou null).
+ * Sans cette carte, aucun champ de source n'est ajouté : les journaux déjà
+ * publiés restent rejouables et la règle historique s'applique.
  */
-export function buildPublicationJournal(verdicts: Verdicts, generatedAt: string): PublicationJournal {
+export function buildPublicationJournal(
+  verdicts: Verdicts,
+  generatedAt: string,
+  sources?: ReadonlyMap<string, string | null>,
+): PublicationJournal {
   if (!Number.isFinite(Date.parse(generatedAt))) throw new Error("Invalid measurement instant");
 
   const ordered = [...verdicts.incidents].sort(
@@ -126,17 +148,22 @@ export function buildPublicationJournal(verdicts: Verdicts, generatedAt: string)
   );
   const decisions: PublicationDecision[] = [];
   for (const [index, incident] of ordered.entries()) {
-    const nommer = incident.verdict !== "pending";
+    const identifiant = `${incident.victimHash}@${incident.firstClaimAt}`;
+    const sourcePrimaire = sources ? (sources.get(identifiant) ?? null) : undefined;
+    const sansSource = sourcePrimaire === null;
+    const nommer = incident.verdict !== "pending" && !sansSource;
     const base: Omit<PublicationDecision, "hash"> = {
       sequence: index + 1,
       victimHash: incident.victimHash,
-      identifiant: `${incident.victimHash}@${incident.firstClaimAt}`,
+      identifiant,
       verdict: incident.verdict,
       decisionAt: incident.decisionAt,
       firstClaimAt: incident.firstClaimAt,
+      ...(sources !== undefined ? { sourcePrimaire } : {}),
       nommer,
-      motifRefus: nommer ? null : REFUS_PUBLICATION,
-      raison: raison(incident.verdict),
+      motifRefus: nommer ? null : sansSource && incident.verdict !== "pending"
+        ? REFUS_SOURCE_MANCANTE : REFUS_PUBLICATION,
+      raison: sansSource && incident.verdict !== "pending" ? RAISON_SANS_SOURCE : raison(incident.verdict),
       preuve: {
         independentPublishers: incident.publishers,
         firstClaimAt: incident.firstClaimAt,
@@ -162,6 +189,8 @@ export function buildPublicationJournal(verdicts: Verdicts, generatedAt: string)
       secondSource: count("second_source"),
       afterDelay: count("after_delay"),
       pending: count("pending"),
+      sansSource: decisions.filter((item) => item.sourcePrimaire === null).length,
+      nommesSansSource: decisions.filter((item) => item.nommer && item.sourcePrimaire === null).length,
     },
   };
 }
@@ -173,13 +202,20 @@ export function verifyPublicationJournal(journal: PublicationJournal): JournalVe
   for (const [index, decision] of journal.decisions.entries()) {
     const expected = index + 1;
     const { hash, ...body } = decision;
+    const audited = "sourcePrimaire" in decision;
+    const nommable = audited
+      ? decision.verdict !== "pending" && decision.sourcePrimaire !== null
+      : decision.verdict !== "pending";
+    const motifAttendu = !nommable
+      ? audited && decision.verdict !== "pending" ? REFUS_SOURCE_MANCANTE : REFUS_PUBLICATION
+      : null;
     const coherent =
       decision.sequence === expected &&
       decision.previousHash === previousHash &&
       hash === empreinte(body) &&
       !seen.has(decision.identifiant) &&
-      decision.nommer === (decision.verdict !== "pending") &&
-      decision.motifRefus === (decision.nommer ? null : REFUS_PUBLICATION);
+      decision.nommer === nommable &&
+      decision.motifRefus === motifAttendu;
     if (!coherent) return { ok: false, checked: index, firstInvalidSequence: expected };
     seen.add(decision.identifiant);
     previousHash = hash;
@@ -188,4 +224,3 @@ export function verifyPublicationJournal(journal: PublicationJournal): JournalVe
     previousHash === journal.chainHead && journal.decisions.length === journal.summary.incidents;
   return { ok, checked: journal.decisions.length, firstInvalidSequence: ok ? null : journal.decisions.length + 1 };
 }
-

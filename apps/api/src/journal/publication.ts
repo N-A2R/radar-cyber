@@ -44,6 +44,7 @@ export async function enregistrerDecisionsPublication(
         firstClaimAt: decision.firstClaimAt,
         nommer: decision.nommer,
         motifRefus: decision.motifRefus,
+        sourcePrimaire: decision.sourcePrimaire ?? null,
         raison: decision.raison,
         preuve: decision.preuve,
         hash: decision.hash,

@@ -45,6 +45,7 @@ import leaksByDomainRoute from "./leaks-by-domain.js";
 import publicMandatesRoute from "./public-mandates.js";
 import incidentCorroborationRoute from "./incident-corroboration.js";
 import publicationDecisionsRoute from "./publication-decisions.js";
+import sourcePrimaireRoute from "./source-primaire.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -61,6 +62,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     onionIndexRoute,
     incidentCorroborationRoute,
     publicationDecisionsRoute,
+    sourcePrimaireRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }
