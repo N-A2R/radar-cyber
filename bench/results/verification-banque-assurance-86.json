@@ -1,0 +1,473 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "86",
+  "date": "2026-11-22",
+  "sources": 22,
+  "urls_verifiees": 66,
+  "urls_http_200": 66,
+  "urls_uniques": 66,
+  "urls": [
+    {
+      "url": "https://fbf.fr/fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 148
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 152
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 342
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 241
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+      "code": 200,
+      "ct": "text/xml; charset=UTF-8",
+      "items": 30,
+      "ms": 165
+    },
+    {
+      "url": "https://listepro.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 829
+    },
+    {
+      "url": "https://listepro.fr/blog/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 683
+    },
+    {
+      "url": "https://listepro.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 518
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPAM%20de%20la%20Vienne%22%20fraude%20OR%20cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 262
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Caisse%20d%E2%80%99%C3%89pargne%22%20Vienne%20cyber%20OR%20arnaque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 11,
+      "ms": 262
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit%20Agricole%20Touraine%20Poitou%22%20cyber%20OR%20fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 6,
+      "ms": 299
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Mutuelle%20de%20Poitiers%22%20Vienne&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 16,
+      "ms": 233
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Orias%22%20assurance%20usurpation&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 292
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Banque%20Populaire%20Grand%20Ouest%20Poitiers%20Vienne&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 240
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CNCGP+cyberattaque&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 4,
+      "ms": 142
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=FBF+cybers%C3%A9curit%C3%A9+banque+fraude&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 73
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Groupama%20Centre-Atlantique%20Poitiers%20Vienne&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 246
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Harmonie%20Mutuelle%20Poitiers%20Vienne&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 224
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MSA%20Poitou&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 49,
+      "ms": 318
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=chambre+agriculture+Vienne+cyberattaque&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 4,
+      "ms": 67
+    },
+    {
+      "url": "https://poitou.msa.fr/",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 1523
+    },
+    {
+      "url": "https://poitou.msa.fr/lfp/actualites-employeur",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 468
+    },
+    {
+      "url": "https://radiorec.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1009
+    },
+    {
+      "url": "https://radiorec.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 370
+    },
+    {
+      "url": "https://radiorec.fr/lecho-des-choucas/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 691
+    },
+    {
+      "url": "https://vienne.chambres-agriculture.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 769
+    },
+    {
+      "url": "https://vienne.chambres-agriculture.fr/actualites-1",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 625
+    },
+    {
+      "url": "https://www.ameli.fr/vienne/assure",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 229
+    },
+    {
+      "url": "https://www.ameli.fr/vienne/assure/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 103
+    },
+    {
+      "url": "https://www.aquitaineonline.com/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 836
+    },
+    {
+      "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/poitou-charentes/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 771
+    },
+    {
+      "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/poitou-charentes/feed/rss/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=utf-8",
+      "items": 10,
+      "ms": 467
+    },
+    {
+      "url": "https://www.assurance-mutuelle-poitiers.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 568
+    },
+    {
+      "url": "https://www.assurance-mutuelle-poitiers.fr/offres-actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1370
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/bpgo/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 370
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/bpgo/votre-banque/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 272
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/loire-centre/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 255
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/votre-banque/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 456
+    },
+    {
+      "url": "https://www.caracterres.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 117
+    },
+    {
+      "url": "https://www.caracterres.fr/rss.xml",
+      "code": 200,
+      "ct": "application/rss+xml; charset=utf-8",
+      "items": 20,
+      "ms": 80
+    },
+    {
+      "url": "https://www.caracterres.fr/vienne-rurale",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 114
+    },
+    {
+      "url": "https://www.cncgp.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 170
+    },
+    {
+      "url": "https://www.cncgp.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 117
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-tourainepoitou/particulier.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 259
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-tourainepoitou/particulier/conseils/magazine/tout-un-mag.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 215
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 303
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 386
+    },
+    {
+      "url": "https://www.franceassureurs.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 5,
+      "ms": 719
+    },
+    {
+      "url": "https://www.groupama.fr/regions/centre-atlantique/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 233
+    },
+    {
+      "url": "https://www.groupama.fr/regions/centre-atlantique/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 141
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 353
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/marque/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 151
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 267
+    },
+    {
+      "url": "https://www.ici.fr/poitou",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 261
+    },
+    {
+      "url": "https://www.ici.fr/rss/poitou/a-la-une.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 40,
+      "ms": 150
+    },
+    {
+      "url": "https://www.medef-vienne.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 828
+    },
+    {
+      "url": "https://www.medef-vienne.fr/actualite-de-lentreprise/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 819
+    },
+    {
+      "url": "https://www.medef-vienne.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 670
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 322
+    },
+    {
+      "url": "https://www.orias.fr/home/communications",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 271
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1465
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 493
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/actualites/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 437
+    },
+    {
+      "url": "https://www.poitiers.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 186
+    },
+    {
+      "url": "https://www.poitiers.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 271
+    },
+    {
+      "url": "https://www.poitiers.fr/rss.xml",
+      "code": 200,
+      "ct": "application/rss+xml; charset=utf-8",
+      "items": 10,
+      "ms": 100
+    }
+  ]
+}
