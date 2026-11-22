@@ -1,0 +1,721 @@
+{
+  "secteur": "energie-eau",
+  "departement": "33",
+  "date": "2026-11-22",
+  "sources": 26,
+  "urls_verifiees": 71,
+  "urls_http_200": 71,
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, delai 25 s ; controle du titre HTML ou de la racine XML et comptage des items pour les flux",
+  "urls": [
+    {
+      "url": "http://leaubordeauxmetropole.fr/",
+      "code_http": 200,
+      "final": "http://leaubordeauxmetropole.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 92226,
+      "items": 0,
+      "titre": "Régie de L&#039;Eau Bordeaux Métropole",
+      "ms": 69
+    },
+    {
+      "url": "http://leaubordeauxmetropole.fr/actualites",
+      "code_http": 200,
+      "final": "http://leaubordeauxmetropole.fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 226807,
+      "items": 0,
+      "titre": "Toutes nos actualités | Régie de L&#039;Eau Bordeaux Métropole",
+      "ms": 71
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/gironde_33/",
+      "code_http": 200,
+      "final": "https://actu.fr/nouvelle-aquitaine/gironde_33",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 333758,
+      "items": 0,
+      "titre": "Actu Gironde | actu.fr",
+      "ms": 119
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde",
+      "code_http": 200,
+      "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 659809,
+      "items": 0,
+      "titre": "Gironde : actualités et infos en direct, faits-divers, sport, loisir et culture - France 3 Nouvelle-Aquitaine",
+      "ms": 134
+    },
+    {
+      "url": "https://gironde.chambres-agriculture.fr/",
+      "code_http": 200,
+      "final": "https://gironde.chambres-agriculture.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 112902,
+      "items": 0,
+      "titre": "Chambre d&#039;Agriculture de la Gironde - Chambre d&#039;agriculture de la Gironde",
+      "ms": 508
+    },
+    {
+      "url": "https://gironde.chambres-agriculture.fr/energie-1",
+      "code_http": 200,
+      "final": "https://gironde.chambres-agriculture.fr/energie-1",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 87434,
+      "items": 0,
+      "titre": "Energie - Chambre d&#039;agriculture de la Gironde",
+      "ms": 336
+    },
+    {
+      "url": "https://justdecarb.grdf.fr/espace-presse",
+      "code_http": 200,
+      "final": "https://justdecarb.grdf.fr/espace-presse",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 33573,
+      "items": 0,
+      "titre": "Espace presse | Just decarb",
+      "ms": 268
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=EDF%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=EDF%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 49932,
+      "items": 32,
+      "titre": "\"EDF Gironde\" - Google Actualités",
+      "ms": 366
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ENGIE%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=ENGIE%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 48279,
+      "items": 32,
+      "titre": "\"ENGIE Gironde\" - Google Actualités",
+      "ms": 80
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=EPIDOR%20Dordogne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=EPIDOR%20Dordogne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 41114,
+      "items": 30,
+      "titre": "\"EPIDOR Dordogne\" - Google Actualités",
+      "ms": 79
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Enedis%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Enedis%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 70526,
+      "items": 45,
+      "titre": "\"Enedis Gironde\" - Google Actualités",
+      "ms": 81
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Etablissement%20Public%20Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Etablissement%20Public%20Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 54280,
+      "items": 34,
+      "titre": "\"Etablissement Public Garonne\" - Google Actualités",
+      "ms": 69
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=France%203%20Gironde%20eau%20%C3%A9nergie&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=France%203%20Gironde%20eau%20%C3%A9nergie&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 68465,
+      "items": 35,
+      "titre": "\"France 3 Gironde eau énergie\" - Google Actualités",
+      "ms": 84
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=GRDF%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=GRDF%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 25684,
+      "items": 17,
+      "titre": "\"GRDF Gironde\" - Google Actualités",
+      "ms": 57
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Gironde%20%C3%A9nergie%20site%3Achambres-agriculture.fr&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Gironde%20%C3%A9nergie%20site%3Achambres-agriculture.fr&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 76686,
+      "items": 58,
+      "titre": "\"Gironde énergie site:chambres-agriculture.fr\" - Google Actualités",
+      "ms": 78
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Gironde%20eau%20site%3Aactu.fr&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Gironde%20eau%20site%3Aactu.fr&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 143713,
+      "items": 100,
+      "titre": "\"Gironde eau site:actu.fr\" - Google Actualités",
+      "ms": 88
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ICI%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=ICI%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 154307,
+      "items": 100,
+      "titre": "\"ICI Gironde\" - Google Actualités",
+      "ms": 402
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=R%C3%A9gie%20de%20l%27Eau%20Bordeaux%20M%C3%A9tropole&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=R%C3%A9gie%20de%20l%27Eau%20Bordeaux%20M%C3%A9tropole&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 63427,
+      "items": 43,
+      "titre": "\"Régie de l'Eau Bordeaux Métropole\" - Google Actualités",
+      "ms": 281
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=RGE%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=RGE%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 12630,
+      "items": 9,
+      "titre": "\"RGE Gironde\" - Google Actualités",
+      "ms": 67
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SAUR%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SAUR%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 15126,
+      "items": 10,
+      "titre": "\"SAUR Gironde\" - Google Actualités",
+      "ms": 58
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SDEEG%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SDEEG%20Gironde&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 28958,
+      "items": 19,
+      "titre": "\"SDEEG Gironde\" - Google Actualités",
+      "ms": 64
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SIEA%20Portes%20de%20l%27Entre-Deux-Mers&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SIEA%20Portes%20de%20l%27Entre-Deux-Mers&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 7464,
+      "items": 5,
+      "titre": "\"SIEA Portes de l'Entre-Deux-Mers\" - Google Actualités",
+      "ms": 62
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SUEZ%20Gironde%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SUEZ%20Gironde%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 16918,
+      "items": 11,
+      "titre": "\"SUEZ Gironde eau\" - Google Actualités",
+      "ms": 61
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=site%3Agironde.fr%20eau%20%C3%A9nergie&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=site%3Agironde.fr%20eau%20%C3%A9nergie&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 113524,
+      "items": 100,
+      "titre": "\"site:gironde.fr eau énergie\" - Google Actualités",
+      "ms": 139
+    },
+    {
+      "url": "https://pro-rge.fr/entreprise/d/33/",
+      "code_http": 200,
+      "final": "https://pro-rge.fr/entreprise/d/33/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 304481,
+      "items": 0,
+      "titre": "Liste des entreprises RGE en Gironde 33 par commune",
+      "ms": 412
+    },
+    {
+      "url": "https://pro-rge.fr/entreprises/gironde-33/",
+      "code_http": 200,
+      "final": "https://pro-rge.fr/entreprises/gironde-33/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 387825,
+      "items": 0,
+      "titre": "1400 entreprises RGE en Gironde 33 | Liste Professionnels RGE",
+      "ms": 1630
+    },
+    {
+      "url": "https://sdeeg33.fr/",
+      "code_http": 200,
+      "final": "https://sdeeg33.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 72945,
+      "items": 0,
+      "titre": "Syndicat Départemental Energie et Environnement de la Gironde",
+      "ms": 620
+    },
+    {
+      "url": "https://sdeeg33.fr/actualites/",
+      "code_http": 200,
+      "final": "https://sdeeg33.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 71308,
+      "items": 0,
+      "titre": "Syndicat Départemental Energie et Environnement de la Gironde",
+      "ms": 630
+    },
+    {
+      "url": "https://www.bfmtv.com/bordeaux/",
+      "code_http": 200,
+      "final": "https://www.bfmtv.com/bordeaux/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 269940,
+      "items": 0,
+      "titre": "Actualités Bordeaux: Infos et vidéos de votre ville en continu - BFM",
+      "ms": 69
+    },
+    {
+      "url": "https://www.bfmtv.com/rss/news-24-7/",
+      "code_http": 200,
+      "final": "https://www.bfmtv.com/rss/news-24-7/",
+      "content_type": "application/xml",
+      "octets": 42078,
+      "items": 30,
+      "titre": "Home Fil actu - actualités",
+      "ms": 47
+    },
+    {
+      "url": "https://www.bordeaux-metropole.fr/",
+      "code_http": 200,
+      "final": "https://www.bordeaux-metropole.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 147189,
+      "items": 0,
+      "titre": "Accueil Bordeaux Métropole | Bordeaux Métropole",
+      "ms": 286
+    },
+    {
+      "url": "https://www.bordeaux-metropole.fr/actualites",
+      "code_http": 200,
+      "final": "https://www.bordeaux-metropole.fr/actualites-Bordeaux-Metropole",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 129376,
+      "items": 0,
+      "titre": "Actualités de Bordeaux Métropole | Bordeaux Métropole",
+      "ms": 518
+    },
+    {
+      "url": "https://www.bordeaux-metropole.fr/rss.xml",
+      "code_http": 200,
+      "final": "https://www.bordeaux-metropole.fr/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "octets": 49339,
+      "items": 10,
+      "titre": "Bordeaux Métropole",
+      "ms": 284
+    },
+    {
+      "url": "https://www.bordeaux.fr/",
+      "code_http": 200,
+      "final": "https://www.bordeaux.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 389262,
+      "items": 0,
+      "titre": "Site officiel de la ville de Bordeaux | Bordeaux",
+      "ms": 212
+    },
+    {
+      "url": "https://www.bordeaux.fr/rss.xml",
+      "code_http": 200,
+      "final": "https://www.bordeaux.fr/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "octets": 270675,
+      "items": 10,
+      "titre": "Site de la ville de Bordeaux",
+      "ms": 311
+    },
+    {
+      "url": "https://www.bordeaux.fr/toute-l-actualite",
+      "code_http": 200,
+      "final": "https://www.bordeaux.fr/toute-l-actualite",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 395028,
+      "items": 0,
+      "titre": "Toute l&#039;actualité | Site de la ville de Bordeaux",
+      "ms": 368
+    },
+    {
+      "url": "https://www.cieau.com/",
+      "code_http": 200,
+      "final": "https://www.cieau.com/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 231707,
+      "items": 0,
+      "titre": "Centre d'information sur l'eau",
+      "ms": 623
+    },
+    {
+      "url": "https://www.cieau.com/categorie/actualite-de-eau/",
+      "code_http": 200,
+      "final": "https://www.cieau.com/categorie/actualite-de-eau/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 204975,
+      "items": 0,
+      "titre": "L‘actualité de l‘eau | Centre d'information sur l'eau",
+      "ms": 558
+    },
+    {
+      "url": "https://www.cieau.com/feed/",
+      "code_http": 200,
+      "final": "https://www.cieau.com/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 12573,
+      "items": 10,
+      "titre": "Centre d'information sur l'eau",
+      "ms": 460
+    },
+    {
+      "url": "https://www.edf.fr/",
+      "code_http": 200,
+      "final": "https://www.edf.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 82440,
+      "items": 0,
+      "titre": "EDF France | Groupe EDF",
+      "ms": 121
+    },
+    {
+      "url": "https://www.edf.fr/groupe-edf/innover/rd-un-savoir-faire-mondial/toutes-les-actualites-de-la-rd",
+      "code_http": 200,
+      "final": "https://www.edf.fr/groupe-edf/innover/rd-un-savoir-faire-mondial/toutes-les-actualites-de-la-rd",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 144011,
+      "items": 0,
+      "titre": "Toutes les actualités de la R&amp;D | Groupe EDF",
+      "ms": 93
+    },
+    {
+      "url": "https://www.enedis.fr/",
+      "code_http": 200,
+      "final": "https://www.enedis.fr/",
+      "content_type": "text/html",
+      "octets": 86640,
+      "items": 0,
+      "titre": "Enedis | Gestionnaire du réseau de distribution d’électricité",
+      "ms": 343
+    },
+    {
+      "url": "https://www.enedis.fr/presse",
+      "code_http": 200,
+      "final": "https://www.enedis.fr/presse",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 92692,
+      "items": 0,
+      "titre": "Presse | Enedis",
+      "ms": 1262
+    },
+    {
+      "url": "https://www.engie.com/explore/actualites/",
+      "code_http": 200,
+      "final": "https://www.engie.com/explore/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 239910,
+      "items": 0,
+      "titre": "Actualités et tendances - ENGIE",
+      "ms": 171
+    },
+    {
+      "url": "https://www.ep-garonne.fr/",
+      "code_http": 200,
+      "final": "https://www.ep-garonne.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 461563,
+      "items": 0,
+      "titre": "Etablissement Public Garonne - Gascogne &amp; affluents pyrénéens",
+      "ms": 359
+    },
+    {
+      "url": "https://www.ep-garonne.fr/focus",
+      "code_http": 200,
+      "final": "https://www.ep-garonne.fr/focus",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 91406,
+      "items": 0,
+      "titre": "Actualités | Etablissement Public Garonne",
+      "ms": 257
+    },
+    {
+      "url": "https://www.eptb-dordogne.fr/",
+      "code_http": 200,
+      "final": "https://www.eptb-dordogne.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 24525,
+      "items": 0,
+      "titre": "",
+      "ms": 1182
+    },
+    {
+      "url": "https://www.eptb-dordogne.fr/index",
+      "code_http": 200,
+      "final": "https://www.eptb-dordogne.fr/index",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 24525,
+      "items": 0,
+      "titre": "",
+      "ms": 190
+    },
+    {
+      "url": "https://www.fp2e.org/",
+      "code_http": 200,
+      "final": "https://www.fp2e.org/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 127545,
+      "items": 0,
+      "titre": "Accueil - FP2E",
+      "ms": 680
+    },
+    {
+      "url": "https://www.fp2e.org/actualites/",
+      "code_http": 200,
+      "final": "https://www.fp2e.org/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 427587,
+      "items": 0,
+      "titre": "Actualités - FP2E",
+      "ms": 1848
+    },
+    {
+      "url": "https://www.fp2e.org/feed/",
+      "code_http": 200,
+      "final": "https://www.fp2e.org/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 171829,
+      "items": 2,
+      "titre": "FP2E",
+      "ms": 647
+    },
+    {
+      "url": "https://www.gironde.fr/",
+      "code_http": 200,
+      "final": "https://www.gironde.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 86016,
+      "items": 0,
+      "titre": "Accueil | Gironde.FR",
+      "ms": 193
+    },
+    {
+      "url": "https://www.gironde.fr/actualites",
+      "code_http": 200,
+      "final": "https://www.gironde.fr/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 83279,
+      "items": 0,
+      "titre": "Nos actualités | Gironde.FR",
+      "ms": 186
+    },
+    {
+      "url": "https://www.grdf.fr/",
+      "code_http": 200,
+      "final": "https://www.grdf.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 67479,
+      "items": 0,
+      "titre": "GRDF : le réseau de distribution de gaz en France | GRDF.FR",
+      "ms": 155
+    },
+    {
+      "url": "https://www.hautegironde.fr/",
+      "code_http": 200,
+      "final": "https://www.hautegironde.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 237809,
+      "items": 0,
+      "titre": "Haute Gironde: Actualités et informations en direct",
+      "ms": 395
+    },
+    {
+      "url": "https://www.hautegironde.fr/rss.xml",
+      "code_http": 200,
+      "final": "https://www.hautegironde.fr/rss.xml",
+      "content_type": "application/xml",
+      "octets": 28907,
+      "items": 20,
+      "titre": "Haute Gironde: Actualités et informations en direct",
+      "ms": 62
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/gironde-33",
+      "code_http": 200,
+      "final": "https://www.ici.fr/nouvelle-aquitaine/gironde-33",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 298927,
+      "items": 0,
+      "titre": "Gironde (33)  : actualités et podcasts de votre département en direct - ICI",
+      "ms": 183
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/",
+      "code_http": 200,
+      "final": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 67658,
+      "items": 0,
+      "titre": "Accueil | DREAL Nouvelle-Aquitaine",
+      "ms": 397
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=backend-actu&lang=fr",
+      "code_http": 200,
+      "final": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=backend-actu&lang=fr",
+      "content_type": "text/xml; charset=utf-8",
+      "octets": 91268,
+      "items": 176,
+      "titre": "DREAL Nouvelle-Aquitaine",
+      "ms": 242
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=liste-actualites&lang=fr",
+      "code_http": 200,
+      "final": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=liste-actualites&lang=fr",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 87852,
+      "items": 0,
+      "titre": "Actualités, page 1 | DREAL Nouvelle-Aquitaine",
+      "ms": 343
+    },
+    {
+      "url": "https://www.saur.com/fr/",
+      "code_http": 200,
+      "final": "https://www.saur.com/fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 138473,
+      "items": 0,
+      "titre": "Acteur exclusif de l’eau et des services essentiels | Saur",
+      "ms": 368
+    },
+    {
+      "url": "https://www.saur.com/fr/actualites/",
+      "code_http": 200,
+      "final": "https://www.saur.com/fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 170800,
+      "items": 0,
+      "titre": "Actualités : communiqués de presse, articles et annonces | Saur",
+      "ms": 113
+    },
+    {
+      "url": "https://www.siea-portesentredeuxmers.fr/",
+      "code_http": 200,
+      "final": "https://www.siea-portesentredeuxmers.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 22500,
+      "items": 0,
+      "titre": "SIEA des Portes de l'Entre-Deux-Mers",
+      "ms": 123
+    },
+    {
+      "url": "https://www.siea-portesentredeuxmers.fr/actualites",
+      "code_http": 200,
+      "final": "https://www.siea-portesentredeuxmers.fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 27694,
+      "items": 0,
+      "titre": "Actualités | SIEA",
+      "ms": 1156
+    },
+    {
+      "url": "https://www.smegreg.org/",
+      "code_http": 200,
+      "final": "https://www.smegreg.org/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 237197,
+      "items": 0,
+      "titre": "Accueil - SMEGREG",
+      "ms": 1719
+    },
+    {
+      "url": "https://www.smegreg.org/actualites/",
+      "code_http": 200,
+      "final": "https://www.smegreg.org/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 279840,
+      "items": 0,
+      "titre": "Actualités - SMEGREG",
+      "ms": 1765
+    },
+    {
+      "url": "https://www.smegreg.org/feed/",
+      "code_http": 200,
+      "final": "https://www.smegreg.org/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 8606,
+      "items": 10,
+      "titre": "SMEGREG",
+      "ms": 1594
+    },
+    {
+      "url": "https://www.sudouest.fr/gironde/",
+      "code_http": 200,
+      "final": "https://www.sudouest.fr/gironde/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 288227,
+      "items": 0,
+      "titre": "Gironde : Actualités et info en direct : faits divers, météo, sorties, sport - Sud Ouest",
+      "ms": 222
+    },
+    {
+      "url": "https://www.sudouest.fr/gironde/rss.xml",
+      "code_http": 200,
+      "final": "https://www.sudouest.fr/gironde/rss.xml",
+      "content_type": "application/xml",
+      "octets": 28982,
+      "items": 20,
+      "titre": "Gironde : Actualités et info en direct : faits divers, météo, sorties, sport - Sud Ouest",
+      "ms": 808
+    },
+    {
+      "url": "https://www.suez.com/fr",
+      "code_http": 200,
+      "final": "https://www.suez.com/fr",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 1209360,
+      "items": 0,
+      "titre": "SUEZ | Expert des m&#233;tiers de l&#39;eau et des d&#233;chets",
+      "ms": 941
+    },
+    {
+      "url": "https://www.suez.com/fr/news",
+      "code_http": 200,
+      "final": "https://www.suez.com/fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 1296390,
+      "items": 0,
+      "titre": "Toutes nos actualit&#233;s | SUEZ",
+      "ms": 397
+    }
+  ]
+}
