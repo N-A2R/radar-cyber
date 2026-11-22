@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api";
 import type { CommandPaletteProps, SearchHit } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { keepFocusInDialog } from "../a11y/dialog-focus";
 import "./palette.css";
 
 /**
@@ -13,8 +14,8 @@ import "./palette.css";
  * recherche est locale, sur les données simulées.
  *
  * Accessibilité : rôle combobox/listbox, focus rendu à l'ouverture, flèches
- * pour parcourir, Entrée pour ouvrir, Échap pour fermer. Pas de piège de
- * focus maison : le dialogue est modal et ne contient qu'un champ + une liste.
+ * pour parcourir, Entrée pour ouvrir, Échap pour fermer. Le focus reste dans
+ * le dialogue tant qu'il est ouvert (Tab circule entre ses contrôles).
  */
 
 const DEBOUNCE_MS = 180;
@@ -133,7 +134,9 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 		onClose();
 	}
 
-	function onKeyDown(event: React.KeyboardEvent) {
+
+	function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+		keepFocusInDialog(event);
 		if (event.key === "Escape") {
 			event.preventDefault();
 			onClose();
@@ -181,7 +184,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 					aria-expanded={results.length > 0}
 					aria-controls="palette-list"
 					aria-activedescendant={results[active] ? `palette-hit-${active}` : undefined}
-					placeholder="Rechercher une organisation, un événement, un indicateur…"
+					aria-label="Global search"
 					value={query}
 					onChange={(e) => setQuery(e.target.value)}
 				/>

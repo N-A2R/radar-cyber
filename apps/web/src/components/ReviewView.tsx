@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { authHeaders } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
+import { keepFocusInDialog } from "../a11y/dialog-focus";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./review.css";
 import { type ReviewUrlState, type RevueBucket } from "../url-state";
 export type { RevueBucket } from "../url-state";
 
 export type RevueDecision = "accepter" | "refuser" | "creer";
+
 
 export type RevueCandidate = {
   id: number;
@@ -129,6 +131,10 @@ export default function ReviewView({
   const pendingNotice = useRef<string | null>(null);
   const selectAllRef = useRef<HTMLInputElement>(null);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
+  const helpRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (help) helpRef.current?.querySelector("button")?.focus();
+  }, [help]);
 
   const families = useMemo(
     () => [...new Set(rows.map((row) => row.groupe).filter((name): name is string => Boolean(name)))]
@@ -778,7 +784,7 @@ export default function ReviewView({
       ) : null}
 
       {help ? (
-        <div className="revue__help" role="dialog" aria-modal="true" aria-labelledby="revue-help-title">
+        <div className="revue__help" role="dialog" aria-modal="true" aria-labelledby="revue-help-title" ref={helpRef} onKeyDown={keepFocusInDialog}>
           <div className="revue__help-card">
             <h2 id="revue-help-title">Raccourcis clavier</h2>
             <dl>

@@ -133,7 +133,17 @@ button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
   outline: var(--focus-offset) solid var(--focus);
   outline-offset: var(--focus-offset);
 }
-
+.skip-link {
+  position: absolute;
+  z-index: 1000;
+  top: -60px;
+  left: 12px;
+  padding: 8px 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+}
+.skip-link:focus { top: 12px; }
 /* Cible tactile minimale, sans imposer de largeur aux liens en texte. */
 :where(button, select, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], [role="tab"], [role="switch"], summary) {
   min-block-size: var(--control-min-size);

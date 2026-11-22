@@ -642,7 +642,8 @@ export default function App() {
 
   return (
     <div className="shell">
-      {MOCK_MODE ? <div className="shell__mock">mode démonstration, données simulées</div> : null}
+      <a className="skip-link" href="#main">Skip to content</a>
+      {MOCK_MODE ? <div className="shell__mock">Demo mode, simulated data</div> : null}
 
       <header className="rail">
         <div className="wordmark">
@@ -720,13 +721,13 @@ export default function App() {
       />
       </Suspense>
 
-      {error ? <p className="shell__error">API : {error}</p> : null}
+      {error ? <p className="shell__error" role="alert" aria-live="assertive">API : {error}</p> : null}
       {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
           croire à un temps réel qu'on n'a plus. */}
       {error && instantaneData ? (
-        <p className="shell__offline" data-etat={instantaneData.etat}>
+        <p className="shell__offline" data-etat={instantaneData.etat} role="status" aria-live="polite">
           {instantaneData.libelle}
-          {instantaneData.etat === "perime" ? " — carte figée sur la dernière réponse reçue" : null}
+          {instantaneData.etat === "perime" ? " — map frozen on the last response received" : null}
         </p>
       ) : null}
 
@@ -741,20 +742,20 @@ export default function App() {
               type="button"
               className="shell__feed-collapse"
               onClick={() => setFeedOpen(false)}
-              aria-label="Replier le fil d'événements"
-              title="Replier le fil"
+              aria-label="Collapse the event feed"
+              title="Collapse feed"
             >
               ‹
             </button>
-            <div className="family-filter" role="group" aria-label="Portée du fil">
-              <span className="family-filter__label">portée</span>
+            <div className="family-filter" role="group" aria-label="Feed scope">
+              <span className="family-filter__label">Scope</span>
               <button
                 type="button"
                 className="family-filter__btn"
                 aria-pressed={portee === "region"}
                 onClick={() => { setPortee("region"); setRegionalFirst(true); }}
               >
-                <span>région</span>
+                <span>Region</span>
               </button>
               <button
                 type="button"
@@ -762,16 +763,16 @@ export default function App() {
                 aria-pressed={portee === "toutes"}
                 onClick={() => { setPortee("toutes"); setRegionalFirst(false); }}
               >
-                <span>tout</span>
+                <span>All</span>
               </button>
               <button
                 type="button"
                 className="family-filter__btn"
                 aria-pressed={portee === "vulnerabilites"}
                 onClick={() => { setPortee("vulnerabilites"); setRegionalFirst(false); }}
-                title="Bulletins de vulnérabilités : 87 % du flux brut, aucun fait régional"
+                title="Vulnerability bulletins: 87% of the raw feed, no regional event"
               >
-                <span>vulnérabilités</span>
+                <span>Vulnerabilities</span>
               </button>
             </div>
             <Suspense fallback={<ViewSkeleton />}>
@@ -796,14 +797,14 @@ export default function App() {
             type="button"
             className="shell__feed-rail"
             onClick={() => setFeedOpen(true)}
-            aria-label="Déplier le fil d'événements"
-            title="Déplier le fil"
+            aria-label="Expand the event feed"
+            title="Expand feed"
           >
-            fil
+            Feed
           </button>
         )}
 
-        <main className="shell__stage">
+        <main className="shell__stage" id="main">
           <Suspense fallback={<ViewSkeleton />}>
           {view === "today" ? (
             <TodayView
