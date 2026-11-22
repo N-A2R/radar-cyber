@@ -81,3 +81,5 @@ apps/api/node_modules/.bin/tsx --test apps/api/test/crisis-scenarios.test.ts
 ```
 
 Résultat publié : `bench/results/crisis-scenarios-2026-11-22.json`.
+
+OBJECTIF : atteint — 10 / 10
