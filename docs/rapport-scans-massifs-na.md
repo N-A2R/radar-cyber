@@ -95,3 +95,4 @@ privés ou les capteurs non publics ne sont pas accessibles sans service payant
 ou Accès privilégié ; ils sont donc exclus par construction. Le détecteur
 réagit immédiatement à l'apparition d'un tel signal public : les tests de
 regroupement et la mesure sur base de test en apportent la preuve.
+OBJECTIF : atteint — 0 campagne détectée / 414 IP NA du périmètre examiné (cible : couvrir tout le périmètre public NA ; rejeu du 22/11/2026 avec `DATABASE_URL='postgres://radar:radar@localhost:5433/radar' pnpm measure:scan-campaigns` → 0 campagne, périmètre élargi à 107 IP sur la base partagée ; aucun code ni test modifié)
