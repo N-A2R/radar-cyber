@@ -86,3 +86,5 @@ matrice de contrôle d'accès (aucune règle déclarée), tandis que les mêmes
 routes sous `/api` sont publiques et fonctionnelles. Les SDK ciblent donc
 `/api`, configurable par `RADAR_API_BASE_URL`. Ce chantier ne modifie ni la
 matrice d'accès ni `server.ts` : ce point sort de son périmètre.
+
+OBJECTIF : atteint — 2/2 exemples exécutables et 12/12 tests réussis / 2/2 exemples exécutables et 12/12 tests réussis (mesure reproductible du 22/11/2026 : API locale `RADAR_COLLECT=0 PORT=8099 DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx apps/api/src/server.ts`, puis `NODE_OPTIONS=--test-reporter=tap RADAR_API_BASE_URL=http://127.0.0.1:8099/api pnpm measure:sdks` → `examples_executable=2/2`, `tests_passed=12/12`, `failures=[]` ; compteurs live relevés 1 673 220 organisations / 1 520 sources / 26 770 événements, l'écart avec le rapport venant de l'évolution de la base partagée ; sous Node 26 le reporter TAP doit être forcé, sinon `scripts/measure-sdks.mts` ne lit que 6/6 tests alors que les 12 passent effectivement).
