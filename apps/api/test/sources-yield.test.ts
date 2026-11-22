@@ -47,9 +47,9 @@ before(async () => {
 		[PRODUCTIVE],
 	);
 	await query(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, severity)
-		 VALUES ($1,'cti','ambient_signal','Événement de test productif',$2, now(), 2),
-		        ($3,'cti','ambient_signal','Deuxième événement de test',$2, now(), 2)`,
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, severity, source_url, evidence)
+		 VALUES ($1,'cti','ambient_signal','Événement de test productif',$2, now(), 2,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+		        ($3,'cti','ambient_signal','Deuxième événement de test',$2, now(), 2,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
 		[`${TAG}:p1`, PRODUCTIVE, `${TAG}:p2`],
 	);
 

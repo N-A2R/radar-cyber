@@ -28,8 +28,10 @@ type SourceRow = {
   last_ok_at: string | null;
   last_error_at: string | null;
   last_error: string | null;
-  items_total: number | null;
-  last_items: number | null;
+  /** bigint : le pilote pg le rend en chaîne, converti à la sortie. */
+  items_total: string | null;
+  /** bigint : le pilote pg le rend en chaîne, converti à la sortie. */
+  last_items: string | null;
   disabled_at: string | null;
   disabled_reason: string | null;
   /** Statut déclaré : active | morte (migration 042). */
@@ -151,8 +153,8 @@ export default async function (app: FastifyInstance) {
         lastEventAt: s.last_event_at,
         lastErrorAt: s.last_error_at,
         lastError: s.last_error,
-        itemsTotal: s.items_total,
-        lastItems: s.last_items,
+        itemsTotal: s.items_total === null ? null : Number(s.items_total),
+        lastItems: s.last_items === null ? null : Number(s.last_items),
         disabledAt: s.disabled_at,
         disabledReason: s.disabled_reason,
         statut: s.statut,

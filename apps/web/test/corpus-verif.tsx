@@ -1,8 +1,8 @@
 /**
  * Vérification du rendu SSR de l'écran Corpus, sans API ni navigateur.
  *
- * Ce que le typecheck ne voit pas : est-ce que la réponse à « est-ce que mon
- * corpus grossit ? » est un chiffre visible, est-ce que les barres empilées
+ * Ce que le typecheck ne voit pas : est-ce que la réponse à « le corpus
+ * progresse-t-il ? » est un chiffre visible, est-ce que les barres empilées
  * portent les bonnes familles, est-ce que la jauge annonce sa mesure, et
  * est-ce que les 20 derniers incidents ont un lien de source cliquable ?
  */
@@ -61,37 +61,39 @@ const data: CorpusStats = {
   })),
 };
 
-check("formatage anglais des grands noms", formatCount(1_673_151) === "1,673,151");
-check("pourcentage mesuré, jamais arrondi à zéro", formatPercent(0.0053) === "0.01%");
-check("pourcentage non mesurable explicite", formatPercent(null) === "not measurable");
+check("formatage français des grands nombres",
+  formatCount(1_673_151).replace(/[\u202f\u00a0]/g, " ") === "1 673 151");
+check("pourcentage mesuré, jamais arrondi à zéro", formatPercent(0.0053) === "0,01\u00a0%");
+check("pourcentage non mesurable explicite", formatPercent(null) === "non mesurable");
 
 const html = render();
-check("titre et vocabulaire anglais", html.includes("<h1>Corpus</h1>")
-  && html.includes("Is the corpus growing?")
-  && html.includes("Sources by department")
-  && html.includes("Organisations with a domain")
-  && html.includes("20 most recent corpus incidents"));
+check("titres de sections en français", html.includes("<h1>Corpus</h1>")
+  && html.includes("Le corpus progresse-t-il ?")
+  && html.includes("Sources par département")
+  && html.includes("Organisations avec un domaine")
+  && html.includes("20 derniers incidents du corpus"));
 check("réponse chiffrée à la question de croissance",
-  html.includes("+1,281") && html.includes("events ingested in the last 24 hours"));
+  html.includes(`+${formatCount(1281)}`) && html.includes("événements ingérés lors des 24 dernières heures"));
 check("comparaison avec la période précédente",
-  html.includes("4,506") && html.includes("−3,225") && html.includes("−71.6%"));
+  html.includes(formatCount(4506)) && html.includes(`−${formatCount(3225)}`) && html.includes(`−${formatPercent(71.6)}`));
 check("période de mesure datée et traçable",
-  html.includes("since the last 24 h report") && html.includes("2026-11-21T18:00:00.000Z"));
+  html.includes("depuis le dernier rapport de 24 h") && html.includes("2026-11-21T18:00:00.000Z"));
 
 check("barres empilées : deux départements", (html.match(/class="corpus__bar-row"/g) ?? []).length === 2);
 check("segments : trois familles sur la Gironde",
   (html.match(/data-family="presse"/g) ?? []).length >= 2
-  && html.includes('aria-label="Gironde: 4 sources. Press: 2, Threat intel: 1, Ransomware: 1"'));
+  && html.includes('aria-label="Gironde : 4 sources. Presse : 2, Renseignement sur les menaces : 1, Rançongiciel : 1"'));
 check("largeur des segments proportionnelle au compte", html.includes("width:50%") && html.includes("width:25%"));
 check("sources non localisées affichées, pas supprimées", html.includes("Not localised"));
-check("réserve sur l'inférence départementale", html.includes("unambiguous department"));
+check("réserve sur l'inférence départementale", html.includes("sans ambiguïté"));
 
 check("jauge : rôle, valeur et texte lisible",
   html.includes('role="progressbar"')
   && html.includes('aria-valuenow="0.0053"')
-  && html.includes('aria-valuetext="88 of 1,673,151 organisations"')
-  && html.includes("0.01%"));
-check("jauge : dénominateur explicité", html.includes("<strong>88</strong> of 1,673,151 organisations"));
+  && html.includes(`aria-valuetext="${formatCount(88)} sur ${formatCount(1_673_151)} organisations"`)
+  && html.includes("0,01\u00a0%"));
+check("jauge : dénominateur explicité",
+  html.includes(`<strong>88</strong> organisations sur ${formatCount(1_673_151)}`));
 
 const lignes = html.match(/<li class="corpus__incident"/g) ?? [];
 check("20 incidents rendus", lignes.length === 20, `${lignes.length} lignes`);
@@ -100,9 +102,9 @@ check("liens de source cliquables hors page",
   && (html.match(/target="_blank" rel="noopener noreferrer"/g) ?? []).length === 19);
 check("premier incident et sa source", html.includes("Incident 1") && html.includes("Source 1"));
 check("source absente : état explicite, pas un lien mort",
-  html.includes("source link unavailable") && !html.includes('href=""'));
+  html.includes("lien de source indisponible") && !html.includes('href=""'));
 check("définitions des compteurs affichées",
-  html.includes("confirmed incident or a third-party claim") && html.includes("event.collected_at"));
+  html.includes("incident confirmé ou une allégation tierce") && html.includes("event.collected_at"));
 
 const vide = render({
   data: {
@@ -116,17 +118,17 @@ const vide = render({
   },
 });
 check("états vides explicites",
-  vide.includes("No sources recorded yet.")
-  && vide.includes("No incidents in the corpus yet.")
-  && vide.includes("not measurable")
-  && vide.includes("no percentage available"));
+  vide.includes("Aucune source enregistrée")
+  && vide.includes("Aucun incident dans le corpus")
+  && vide.includes("non mesurable")
+  && vide.includes("aucun pourcentage disponible"));
 check("croissance nulle : zéro affiché, pas de signe trompeur",
   vide.includes('data-trend="flat"') && vide.includes(">0</div>"));
 
 check("chargement et erreur : états distincts",
-  render({ data: null, loading: true }).includes("Loading corpus statistics…")
-  && render({ data: null }).includes("not available in demo mode")
-  && render({ error: "backend down" }).includes("Could not load corpus statistics: backend down"));
+  render({ data: null, loading: true }).includes("Chargement des statistiques du corpus…")
+  && render({ data: null }).includes("ne sont pas disponibles en mode démo")
+  && render({ error: "backend down" }).includes("Impossible de charger les statistiques du corpus : backend down"));
 
 if (failures > 0) {
   console.error(`${failures} vérification(s) en échec`);

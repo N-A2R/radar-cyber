@@ -16,11 +16,11 @@ import {
 	detecterAnomaliesSeries,
 	FENETRE_REFERENCE_JOURS,
 	OBSERVATIONS_MIN,
-	SEUIL_Z,
 	ECART_MIN,
 	type AlerteSerie,
 	type PointSerie,
 } from "../apps/api/src/analyse/anomalies-series.js";
+import { FDR_CIBLE } from "../apps/api/src/analyse/online-fdr.js";
 import {
 	DEFAULT_MAX_LAG_DAYS,
 	DEFAULT_MIN_FRESH_SHARE,
@@ -138,8 +138,8 @@ async function main(): Promise<void> {
 		seuils: {
 			fenetreJours: FENETRE_REFERENCE_JOURS,
 			observationsMin: OBSERVATIONS_MIN,
-			seuilZ: SEUIL_Z,
 			ecartMin: ECART_MIN,
+			fdrCible: FDR_CIBLE,
 		},
 		fraicheur: {
 			maxLagDays: DEFAULT_MAX_LAG_DAYS,
@@ -164,6 +164,7 @@ async function main(): Promise<void> {
 			cle: a.cle,
 			explication: a.explication,
 			z: Math.round(a.z * 100) / 100,
+			seuilFdr: a.fdr.seuil,
 			faits: a.faits.slice(0, 3).map((id) => parFait.get(String(id)) ?? null),
 		})),
 		alertes: alertesFraiches.map((a) => ({
@@ -173,6 +174,7 @@ async function main(): Promise<void> {
 			date: a.date,
 			valeur: a.valeur,
 			z: Math.round(a.z * 100) / 100,
+			seuilFdr: a.fdr.seuil,
 			explication: a.explication,
 		})),
 		echantillonDetail: sample,

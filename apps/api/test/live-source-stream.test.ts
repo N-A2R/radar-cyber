@@ -59,8 +59,8 @@ test("the trigger records publication-to-record latency at insert time", async (
   const publishedAt = new Date(Date.now() - 2500);
   for (const id of [IDS.naRegion, IDS.ordinary]) {
     await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, date_source, date_confidence)
-       VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, 'feed', 'high')`,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, date_source, date_confidence, source_url, evidence)
+       VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, 'feed', 'high', 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)`,
       [`live-test:${TAG}:${id}`, `Cyber exercise ${TAG}`, id, publishedAt.toISOString()],
     );
   }

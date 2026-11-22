@@ -492,5 +492,10 @@ export async function enregistrer(rapport: RapportMoisson): Promise<{ sites: num
     );
     written += result.rowCount ?? 0;
   }
+  // Une annonce n'entre en diffusion publique qu'une fois corroborée : le
+  // score est recalculé après écriture, jamais laissé au hasard d'une colonne
+  // par défaut. Le calcul est ensembliste (moins d'une seconde sur 35 k
+  // revendications) et sans appel réseau.
+  await ingestQuery("SELECT public.recompute_leak_claim_corroboration()");
   return { sites: rapport.sites.length, claims: written };
 }

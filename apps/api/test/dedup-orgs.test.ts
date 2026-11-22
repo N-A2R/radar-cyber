@@ -104,8 +104,8 @@ test("applying one group preserves dependent rows and identity aliases", async (
 		first, `${PREFIX}-shared`, second,
 	]);
 	await query(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id)
-		 VALUES ($1,'cti','ambient_signal','event',$2,$3)`,
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, source_url, evidence)
+		 VALUES ($1,'cti','ambient_signal','event',$2,$3,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
 		[`${PREFIX}-event`, SOURCE, second],
 	);
 	await query("INSERT INTO alert (rule_id, title, severity, org_id) VALUES ($1,$2,2,$3)", [

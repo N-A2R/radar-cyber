@@ -1,6 +1,12 @@
 /**
  * Anomalies de séries temporelles : z-score robuste (médiane + MAD) sur les
- * comptages journaliers, sans dépendance externe.
+ * comptages journaliers, publié par un contrôle FDR en ligne.
+ *
+ * Le z robuste reste la preuve portée par chaque hypothèse, mais il ne décide
+ * plus seul : chaque fenêtre éligible devient un test dont la p-value alimente
+ * `ControleFdrEnLigne`. Une alerte n'est publiée que si le budget d'erreur
+ * séquentiel (LOND) accepte le test, ce qui borne le taux de fausses
+ * découvertes sur le flux à `fdrCible` (5 % par défaut).
  *
  * Le détecteur est pur : il reçoit des points (axe, groupe, jour, valeur) et
  * une borne temporelle, il ne lit ni la base ni l'horloge. Les trois axes
@@ -14,11 +20,18 @@
  *   - une fenêtre incomplète : un flux qui vient de démarrer n'a pas
  *     d'absences à faire valoir ;
  *   - un écart purement statistique sur un effectif dérisoire : ECART_MIN
- *     impose un saut d'au moins trois faits ;
+ *     impose un saut d'au moins trois faits, même quand le FDR accepte ;
  *   - les baisses : l'agent `source-muette` traite déjà les silences, et un
- *     jour absent n'est pas un point observé ici.
+ *     jour absent n'est pas un point observé ici. Elles restent dans le flux
+ *     de tests (p-value à queue droite proche de 1) pour ne pas fausser le rang.
  */
 import { mediane } from "./mediane.js";
+import {
+	ControleFdrEnLigne,
+	FDR_CIBLE,
+	pValueZ,
+	type DecisionFdr,
+} from "./online-fdr.js";
 
 export const JOUR_MS = 86_400_000;
 export const AXES_ANOMALIE = ["organisation", "secteur", "source"] as const;
@@ -28,16 +41,15 @@ export type AxeAnomalie = (typeof AXES_ANOMALIE)[number];
 export const FENETRE_REFERENCE_JOURS = 28;
 /** Jours actifs minimum dans la fenêtre de référence, pour calibrer la distribution. */
 export const OBSERVATIONS_MIN = 10;
-/** Robustesse : z >= 3 sur une médiane/MAD, hors plancher de dispersion. */
-export const SEUIL_Z = 3;
 /** Un écart purement statistique sur un ou deux faits n'est pas une alerte. */
 export const ECART_MIN = 3;
 
 export type OptionsAnomalies = {
 	fenetreJours?: number;
 	observationsMin?: number;
-	seuilZ?: number;
 	ecartMin?: number;
+	/** Taux de fausses découvertes visé sur le flux (défaut : 5 %). */
+	fdrCible?: number;
 	/** Borne haute : les points postérieurs sont ignorés (rejeu historique). */
 	maintenant?: number;
 };
@@ -79,7 +91,8 @@ export type AlerteSerie = {
 	/** valeur − médiane. */
 	ecart: number;
 	z: number;
-	seuilZ: number;
+	/** Décision du contrôle FDR en ligne qui a publié cette alerte. */
+	fdr: DecisionFdr;
 	/** Plus grand nombre de jours actifs observés sur un groupe de l'axe. */
 	maxJoursObserves: number;
 	/** Nombre de jours actifs observés sur l'axe entier. */
@@ -116,6 +129,23 @@ function enteteDistribution(d: DistributionSerie): string {
 	return `médiane ${d.mediane.toFixed(1)} sur ${d.jours} j (${d.joursActifs} actifs), MAD ${d.mad.toFixed(1)}, échelle ${d.echelle.toFixed(2)}`;
 }
 
+/** Hypothèse mise dans le flux : tout ce qu'il faut pour décider puis expliquer. */
+type Hypothese = {
+	cle: string;
+	axe: AxeAnomalie;
+	groupe: string;
+	date: string;
+	jour: number;
+	valeur: number;
+	distribution: DistributionSerie;
+	ecart: number;
+	z: number;
+	p: number;
+	maxJoursObserves: number;
+	points: number;
+	faits: (string | number)[];
+};
+
 /**
  * Détecte les jours hors distribution pour chaque série.
  *
@@ -130,14 +160,14 @@ export function detecterAnomaliesSeries(
 ): ResultatAnomalies {
 	const fenetre = options.fenetreJours ?? FENETRE_REFERENCE_JOURS;
 	const minObservations = options.observationsMin ?? OBSERVATIONS_MIN;
-	const seuil = options.seuilZ ?? SEUIL_Z;
 	const ecartMin = options.ecartMin ?? ECART_MIN;
+	const cible = options.fdrCible ?? FDR_CIBLE;
 	const borne = options.maintenant === undefined ? Infinity : jourUtc(new Date(options.maintenant).toISOString());
 	if (borne === null) throw new RangeError("maintenant doit être un instant valide");
 	if (!Number.isInteger(fenetre) || fenetre < 7) throw new RangeError("fenetreJours doit être un entier >= 7");
 	if (!Number.isFinite(minObservations) || minObservations < 2) throw new RangeError("observationsMin doit être >= 2");
-	if (!Number.isFinite(seuil) || seuil <= 0) throw new RangeError("seuilZ doit être > 0");
 	if (!Number.isFinite(ecartMin) || ecartMin <= 0) throw new RangeError("ecartMin doit être > 0");
+	if (!Number.isFinite(cible) || cible <= 0 || cible >= 1) throw new RangeError("fdrCible doit être dans (0, 1)");
 
 	const parGroupe = new Map<string, {
 		axe: AxeAnomalie;
@@ -162,7 +192,7 @@ export function detecterAnomaliesSeries(
 		serie.jours.set(jour, caseJour);
 	}
 
-	const alertes: AlerteSerie[] = [];
+	const hypotheses: Hypothese[] = [];
 	const diagnostics = new Map<AxeAnomalie, DiagnosticAxe>(
 		AXES_ANOMALIE.map((axe) => [axe, { axe, groupes: 0, groupesEligibles: 0, maxJoursObserves: 0, points: 0 }]),
 	);
@@ -202,34 +232,58 @@ export function detecterAnomaliesSeries(
 			if (!observe) continue;
 			const ecart = observe.valeur - med;
 			const z = ecart / echelle;
-			if (ecart < ecartMin || z < seuil) continue;
-
-			const distribution: DistributionSerie = {
-				jours: reference.length,
-				joursActifs,
-				mediane: med,
-				mad,
-				echelle,
-				min: Math.min(...reference),
-				max: Math.max(...reference),
-			};
 			const date = dateIso(jour);
-			alertes.push({
+			hypotheses.push({
 				cle: `${serie.axe}:${serie.groupe}:${date}`,
 				axe: serie.axe,
 				groupe: serie.groupe,
 				date,
+				jour,
 				valeur: observe.valeur,
-				distribution,
+				distribution: {
+					jours: reference.length,
+					joursActifs,
+					mediane: med,
+					mad,
+					echelle,
+					min: Math.min(...reference),
+					max: Math.max(...reference),
+				},
 				ecart,
 				z,
-				seuilZ: seuil,
+				p: pValueZ(z),
 				maxJoursObserves: diagnostic.maxJoursObserves,
 				points: diagnostic.points,
-				explication: `${serie.axe} ${serie.groupe} : ${observe.valeur} faits le ${date} contre ${enteteDistribution(distribution)} ; écart +${ecart.toFixed(1)}, z ${z.toFixed(1)} > ${seuil.toFixed(1)}`,
 				faits: [...observe.faits],
 			});
 		}
+	}
+
+	// Le flux est testé dans l'ordre où il arrive — jour, puis clé stable — et
+	// jamais trié par z : le contrôle séquentiel ne voit pas le futur. Les
+	// baisses restent dans le flux avec une p-value proche de 1 : elles
+	// consomment leur rang sans jamais devenir une découverte.
+	hypotheses.sort((a, b) => a.jour - b.jour || a.cle.localeCompare(b.cle));
+	const controle = new ControleFdrEnLigne(cible);
+	const alertes: AlerteSerie[] = [];
+	for (const h of hypotheses) {
+		const fdr = controle.tester(h.p);
+		if (!fdr.rejette || h.ecart < ecartMin) continue;
+		alertes.push({
+			cle: h.cle,
+			axe: h.axe,
+			groupe: h.groupe,
+			date: h.date,
+			valeur: h.valeur,
+			distribution: h.distribution,
+			ecart: h.ecart,
+			z: h.z,
+			fdr,
+			maxJoursObserves: h.maxJoursObserves,
+			points: h.points,
+			explication: `${h.axe} ${h.groupe} : ${h.valeur} faits le ${h.date} contre ${enteteDistribution(h.distribution)} ; écart +${h.ecart.toFixed(1)}, z ${h.z.toFixed(1)}, p ${h.p.toExponential(2)} ≤ seuil ${fdr.seuil.toExponential(2)} (FDR ${(cible * 100).toFixed(0)} %)`,
+			faits: h.faits,
+		});
 	}
 
 	alertes.sort((a, b) => b.z - a.z || a.axe.localeCompare(b.axe) || a.groupe.localeCompare(b.groupe) || a.date.localeCompare(b.date));

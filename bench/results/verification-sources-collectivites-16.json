@@ -1,0 +1,36 @@
+{
+  "secteur": "collectivités",
+  "departement": "16",
+  "date": "2026-11-22",
+  "methode": "GET curl -L (redirections suivies), user-agent Mozilla/5.0, timeout 18s, code et type de contenu relevés sur chaque URL",
+  "corpus": "bench/corpus/sources-collectivites-16.jsonl",
+  "sources": 14,
+  "urls_uniques": 37,
+  "urls_http_200": 37,
+  "url_par_source": [
+    {"nom": "Ville d'Angoulême", "urls": {"https://www.angouleme.fr/": 200, "https://www.angouleme.fr/accueil/on-se-tient-informe/": 200, "https://www.angouleme.fr/feed/": 200}},
+    {"nom": "GrandAngoulême — Communauté d'agglomération", "urls": {"https://www.grandangouleme.fr/": 200, "https://www.grandangouleme.fr/category/actualites/": 200, "https://www.grandangouleme.fr/feed/rss/": 200, "https://www.grandangouleme.fr/offre-61-directeur-des-systemes-dinformation-et-de-le-administration-f-h/": 200}},
+    {"nom": "Grand Cognac — Communauté d'agglomération", "urls": {"https://www.grand-cognac.fr/": 200, "https://www.grand-cognac.fr/comprendre-lagglo/les-actualites": 200, "https://www.grand-cognac.fr/rss.xml": 200}},
+    {"nom": "CDG 16 — Centre de gestion de la fonction publique territoriale de la Charente", "urls": {"https://www.cdg16.fr/": 200, "https://www.cdg16.fr/categorie/actualite-de-votre-cdg/": 200, "https://www.cdg16.fr/feed/": 200}},
+    {"nom": "AMF 16 — Association des maires de la Charente", "urls": {"https://amf16.fr/": 200, "https://amf16.fr/evenements/": 200, "https://amf16.fr/feed/": 200}},
+    {"nom": "Charente Numérique — Syndicat mixte", "urls": {"https://www.charente-numerique.fr/": 200, "https://www.charente-numerique.fr/actualites/": 200, "https://www.charente-numerique.fr/feed/": 200}},
+    {"nom": "CMA Charente — Chambre des métiers et de l'artisanat", "urls": {"https://cma-charente.fr/": 200, "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": 200}},
+    {"nom": "Charente Libre — rubrique Charente", "urls": {"https://www.charentelibre.fr/": 200, "https://www.charentelibre.fr/charente/": 200, "https://www.charentelibre.fr/charente/rss.xml": 200}},
+    {"nom": "Charente Libre — politique et collectivités", "urls": {"https://www.charentelibre.fr/": 200, "https://www.charentelibre.fr/politique/": 200, "https://www.charentelibre.fr/politique/rss.xml": 200}},
+    {"nom": "Sud Ouest — Charente", "urls": {"https://www.sudouest.fr/charente/": 200, "https://www.sudouest.fr/charente/rss.xml": 200}},
+    {"nom": "ICI Charente (Radio France)", "urls": {"https://www.ici.fr/nouvelle-aquitaine/charente-16": 200}},
+    {"nom": "Conseil départemental de la Charente", "urls": {"https://www.lacharente.fr/": 200, "https://www.lacharente.fr/actualite": 200}},
+    {"nom": "Communauté de communes Charente Limousine", "urls": {"https://charente-limousine.fr/": 200, "https://charente-limousine.fr/actualites/": 200, "https://charente-limousine.fr/feed/": 200}},
+    {"nom": "Angoulême Tourisme — Office de tourisme public", "urls": {"https://www.angouleme-tourisme.com/": 200, "https://www.angouleme-tourisme.com/actualites/": 200, "https://www.angouleme-tourisme.com/feed/": 200}}
+  ],
+  "flux_rss_verifies": 11,
+  "candidats_ecartes": [
+    {"url": "https://www.charente.cci.fr/", "raison": "HTTP 403 (Cloudflare)"},
+    {"url": "https://www.charente.gouv.fr/", "raison": "HTTP/2 stream reset (curl error 92)"},
+    {"url": "https://www.charente.fr/", "raison": "erreur certificat SSL (hostname) ; site officiel du Département : www.lacharente.fr"},
+    {"url": "https://www.lagazettedescommunes.com/", "raison": "HTTP 403"},
+    {"url": "https://www.ville-cognac.fr/", "raison": "HTTP 403"},
+    {"url": "http://www.charente.chambagri.fr/", "raison": "HTTP 503 (site en maintenance)"}
+  ],
+  "note_exemples_cyber": "Un seul exemple cyber a pu être rattaché à une URL vérifiée (offre de directeur des systèmes d'information de GrandAngoulême, observée dans le flux RSS). Les autres champs exemple_cyber sont vides : aucun article de cybersécurité propre à la source n'a été vérifié, aucune URL ni affirmation inventée."
+}

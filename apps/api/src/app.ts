@@ -45,6 +45,7 @@ import statsDepartementsRoute from "./routes/stats-departements.js";
 import statsRoute from "./routes/stats.js";
 import streamRoute from "./routes/stream.js";
 import todayRoute from "./routes/today.js";
+import exportMispRoute from "./routes/export-misp.js";
 
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
@@ -52,9 +53,9 @@ const ROUTES = [
   naRoute, providersRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
-  custodyRoute,
+  custodyRoute, exportMispRoute,
 ];
-const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|custody|docs|openapi\.json|auth)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth)(\/|$|\?)/;
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });
@@ -90,5 +91,6 @@ export async function buildApp(): Promise<FastifyInstance> {
     return { ok: true, sources: Number(r.rows[0]?.n ?? 0) };
   });
   for (const route of ROUTES) await app.register(route, { prefix: LEGACY_PREFIX });
+  await app.register(exportMispRoute);
   return app;
 }

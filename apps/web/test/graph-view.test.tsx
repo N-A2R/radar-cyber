@@ -139,12 +139,12 @@ describe('GraphView — filters', () => {
   it('enriches the graph and filters by family', async () => {
     await mount();
     await flush();
-    expect(counts()).toContain('11 nodes');
+    expect(counts()).toContain('11 nœuds');
     expect(container.querySelector('[data-node-id="event:101"]')).not.toBeNull();
     expect(container.querySelector('[data-node-id="source:src-1"]')).not.toBeNull();
 
     click('ransomware');
-    expect(counts()).toContain('6 nodes');
+    expect(counts()).toContain('6 nœuds');
     expect(container.querySelector('[data-node-id="event:102"]')).toBeNull();
     expect(container.querySelector('[data-node-id="source:src-2"]')).toBeNull();
     expect(button('ransomware').getAttribute('aria-pressed')).toBe('true');
@@ -159,14 +159,14 @@ describe('GraphView — filters', () => {
       setNativeValue?.call(search, 'Beta');
       search.dispatchEvent(new Event('input', { bubbles: true }));
     });
-    expect(counts()).toContain('5 nodes');
+    expect(counts()).toContain('5 nœuds');
     expect(container.querySelector('[data-node-id="org:10"]')).toBeNull();
     expect(container.querySelector('[data-node-id="org:20"]')).not.toBeNull();
 
-    click('Reset');
-    expect(counts()).toContain('11 nodes');
-    click('7 days');
-    expect(counts()).toContain('5 nodes');
+    click('Réinitialiser');
+    expect(counts()).toContain('11 nœuds');
+    click('7 jours');
+    expect(counts()).toContain('5 nœuds');
     expect(container.querySelector('[data-node-id="event:103"]')).toBeNull();
     expect(container.querySelector('[data-node-id="dept:Rhône"]')).toBeNull();
   });
@@ -181,8 +181,8 @@ describe('GraphView — selection', () => {
     const detail = container.querySelector('.gv-detail');
     expect(detail).not.toBeNull();
     expect(detail?.textContent).toContain('Ransomware hit Acme');
-    expect(detail?.textContent).toContain('Connections (3)');
-    expect(detail?.textContent).toContain('reported by');
+    expect(detail?.textContent).toContain('Connexions (3)');
+    expect(detail?.textContent).toContain('rapporté par');
     expect(detail?.textContent).toContain('Press Despatch');
     expect(selected).toEqual(['event:101']);
 
@@ -201,19 +201,58 @@ describe('GraphView — time-aware graph', () => {
   it('switches to the time-aware graph and shows each entity validity period', async () => {
     await mountTemporal();
     await flush();
-    expect(button('Time-aware')).not.toBeNull();
+    expect(button('Temporel')).not.toBeNull();
     expect(container.querySelector('[data-node-id="org:99"]')).toBeNull();
 
-    click('Time-aware');
+    click('Temporel');
     expect(container.querySelector('[data-node-id="org:99"]')).not.toBeNull();
     expect(container.querySelector('[data-node-id="ip:203.0.113.7"]')).not.toBeNull();
     act(() => { (container.querySelector('[data-node-id="org:99"]') as HTMLButtonElement).click(); });
     const detail = container.querySelector('.gv-detail')?.textContent ?? '';
-    expect(detail).toContain('Valid from');
-    expect(detail).toContain('still valid');
-    expect(detail).toContain('DNS link');
+    expect(detail).toContain('Valide depuis');
+    expect(detail).toContain('toujours valide');
+    expect(detail).toContain('lien DNS');
 
-    click('Structural');
+    click('Structurel');
     expect(container.querySelector('[data-node-id="org:99"]')).toBeNull();
+  });
+});
+
+describe('GraphView — encodage visuel', () => {
+  it('explains size, colour and constant link thickness in the legend', async () => {
+    await mount();
+    await flush();
+    const legend = container.querySelector('.gv-legend')?.textContent ?? '';
+    expect(legend).toContain('Taille = liens');
+    expect(legend).toContain('1 lien');
+    expect(legend).toContain('16 liens');
+    expect(legend).toContain('Couleur = type');
+    expect(legend).toContain('aucun poids dans la donnée');
+  });
+
+  it('labels the matrix in French with an intensity legend and header totals', async () => {
+    await mount();
+    await flush();
+    click('Matrice');
+    const corner = container.querySelector('.gm-corner')?.textContent ?? '';
+    expect(corner).toContain('Famille · Département');
+    const legend = container.querySelector('.gm-legend')?.textContent ?? '';
+    expect(legend).toContain('intensité = organisations par case');
+    expect(legend).toContain('totaux dans les en-têtes');
+    expect(container.querySelectorAll('.gm-total').length).toBeGreaterThan(0);
+  });
+
+  it('moves a visible keyboard focus through nodes and selects with Enter', async () => {
+    await mount();
+    await flush();
+    const canvas = container.querySelector('.gv-canvas') as HTMLDivElement;
+    const status = () => container.querySelector('.gv-sr-status')?.textContent ?? '';
+    act(() => { canvas.dispatchEvent(new FocusEvent('focusin', { bubbles: true })); });
+    expect(status()).toContain('Nœud 1 sur 11');
+    act(() => { canvas.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })); });
+    expect(status()).toContain('Nœud 2 sur 11');
+    act(() => { canvas.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); });
+    expect(container.querySelector('.gv-detail')).not.toBeNull();
+    expect(selected).toHaveLength(1);
   });
 });

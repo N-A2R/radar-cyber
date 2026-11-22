@@ -17,11 +17,12 @@
  */
 import type { PoolClient } from "pg";
 import { query, withClient, withTransaction } from "../db.js";
-import { buildAliasIndex, analyzeAliasIndex, type AliasRow } from "../match/core.js";
-import { loadOrgIndex, matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
+import { analyzeAliasIndex } from "../match/core.js";
+import { matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
+import { hintMatch, reviewIndexCacheActif, reviewSnapshot, snapshotRevueSiPret } from "./review-index.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
-import { buildCandidateIndex, candidatesFor } from "./candidates.js";
+import { candidatesFor } from "./candidates.js";
 import { contextesDes, type ContexteLigne } from "./contexte.js";
 import { compareQueueEntries, triageClaim, type TriageBucket, type TriageResult } from "./triage.js";
 
@@ -107,6 +108,8 @@ export type QueueResult = {
 	truncated: boolean;
 	facets: { source: QueueFacet[]; groupe: QueueFacet[]; bucket: QueueFacet[]; status: QueueFacet[] };
 	counts: { pending: number; reviewed: number; rejected: number; promoted: number };
+	/** L'index de rapprochement se construit en tâche de fond : file vide, réessayer. */
+	preparation: boolean;
 	tookMs: number;
 };
 
@@ -114,6 +117,24 @@ const DEFAULT_WINDOW = Number(process.env.RADAR_REVIEW_WINDOW ?? 2000);
 const MAX_WINDOW = 10000;
 const MAX_LIMIT = 200;
 const REVIEW_KEY = "_review";
+
+const COMPTES_SQL =
+	"SELECT status, promoted, count(*)::text AS n FROM quarantine_raw WHERE kind = 'claim' GROUP BY status, promoted";
+
+type CompteRow = { status: string; promoted: boolean; n: string };
+
+/** Comptes de la quarantaine, lus en base : vrais même quand l'index se prépare. */
+function compterQuarantaine(rows: readonly CompteRow[]): QueueResult["counts"] {
+	const counts = { pending: 0, reviewed: 0, rejected: 0, promoted: 0 };
+	for (const row of rows) {
+		const n = Number(row.n);
+		if (row.promoted) counts.promoted += n;
+		else if (row.status === "pending") counts.pending += n;
+		else if (row.status === "reviewed") counts.reviewed += n;
+		else if (row.status === "rejected") counts.rejected += n;
+	}
+	return counts;
+}
 
 type RawRow = {
 	id: number;
@@ -148,16 +169,6 @@ function facetOf(values: Iterable<string | null>): QueueFacet[] {
 		.sort((a, b) => b.count - a.count || a.value.localeCompare(b.value, "fr"));
 }
 
-/** Index d'alias du référentiel, second avis sur le rattachement. */
-async function loadSecondOpinionIndex() {
-	const r = await query<AliasRow>(
-		`SELECT a.org_id, o.name, a.alias
-		   FROM org_alias a JOIN org o ON o.id = a.org_id
-		  WHERE o.status = 'confirme'`,
-	);
-	return buildAliasIndex(r.rows);
-}
-
 export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult> {
 	const started = performance.now();
 	const limit = Math.min(MAX_LIMIT, Math.max(1, params.limit ?? 50));
@@ -190,7 +201,28 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	if (cursor !== null) add("id < ?", cursor);
 	values.push(window + 1);
 
-	const [raw, orgIndex, aliasIndex, countsRaw] = await Promise.all([
+	// Index de rapprochement construit à la demande : on ne fait jamais attendre
+	// la première requête de revue ~20 s. Les comptes viennent de la base, donc
+	// l'écran garde des totaux justes pendant la préparation.
+	const pret = snapshotRevueSiPret();
+	if (pret === null && reviewIndexCacheActif()) {
+		const complets = await query<CompteRow>(COMPTES_SQL);
+		return {
+			rows: [],
+			total: 0,
+			page,
+			limit,
+			nextCursor: null,
+			window: 0,
+			truncated: false,
+			facets: { source: [], groupe: [], bucket: [], status: [] },
+			counts: compterQuarantaine(complets.rows),
+			preparation: true,
+			tookMs: Number((performance.now() - started).toFixed(1)),
+		};
+	}
+
+	const [raw, countsRaw] = await Promise.all([
 		query<RawRow>(
 			`SELECT id, source, source_url, groupe, org_hint, claimed_at, received_at, tlp, status,
 			        promoted, promoted_by, promoted_at,
@@ -202,15 +234,11 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 			  LIMIT $${values.length}`,
 			values,
 		),
-		loadOrgIndex(),
-		loadSecondOpinionIndex(),
-		query<{ status: string; promoted: boolean; n: string }>(
-			"SELECT status, promoted, count(*)::text AS n FROM quarantine_raw WHERE kind = 'claim' GROUP BY status, promoted",
-		),
+		query<CompteRow>(COMPTES_SQL),
 	]);
+	const { orgIndex, candidates, aliasIndex } = pret ?? (await reviewSnapshot());
 
 	const truncated = raw.rows.length > window;
-	const candidates = buildCandidateIndex(orgIndex);
 	const orgById = new Map<number, OrgIndexEntry>(orgIndex.map((entry) => [entry.id, entry]));
 
 	// La file humaine montre plusieurs candidats, pas seulement le vainqueur
@@ -259,7 +287,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 
 	const scored: QueueRow[] = raw.rows.slice(0, window).map((row) => {
 		const hint = row.org_hint ?? "";
-		const primary = matchOrgInIndex(hint, candidatesFor(hint, candidates));
+		const primary = hintMatch(hint);
 		const second = analyzeAliasIndex(aliasIndex, hint);
 		const secondary = second.match ? { orgId: second.match.orgId, confidence: second.match.confidence } : null;
 		const triage = triageClaim(
@@ -308,14 +336,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 		score: b.triage.score, claimedAt: b.claimedAt, id: b.id,
 	}));
 
-	const counts = { pending: 0, reviewed: 0, rejected: 0, promoted: 0 };
-	for (const row of countsRaw.rows) {
-		const n = Number(row.n);
-		if (row.promoted) counts.promoted += n;
-		else if (row.status === "pending") counts.pending += n;
-		else if (row.status === "reviewed") counts.reviewed += n;
-		else if (row.status === "rejected") counts.rejected += n;
-	}
+	const counts = compterQuarantaine(countsRaw.rows);
 
 	const rows = filtered.slice(start, start + limit);
 	const hasMore = start + limit < filtered.length || (truncated && rows.length === limit);
@@ -347,6 +368,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 			status: facetOf(scored.map((row) => row.status)),
 		},
 		counts,
+		preparation: false,
 		tookMs: Number((performance.now() - started).toFixed(1)),
 	};
 }

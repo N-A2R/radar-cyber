@@ -5,6 +5,7 @@
  * numérique : tant que la réponse n'est pas là, on affiche un tiret, pas un
  * zéro qui prétendrait mesurer quelque chose.
  */
+import { useState } from "react";
 import type { DeptStat, TodayEvent } from "../api";
 import type { TodayViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
@@ -38,6 +39,21 @@ export function triRecents(evenements: TodayEvent[]): TodayEvent[] {
 
 const TRANCHE_MS = 2 * 60 * 60 * 1000;
 const NOMBRE_TRANCHES = 12;
+
+/** Libellés courts des cinq niveaux de sévérité, du plus calme au plus grave. */
+const LIBELLES_SEVERITE: Record<number, string> = {
+  1: "veille",
+  2: "faible",
+  3: "modérée",
+  4: "élevée",
+  5: "critique",
+};
+
+/** Niveau 1→5 exploitable, ou `null` si la donnée manque ou sort de l'échelle. */
+export function niveauSeverite(valeur: number | null | undefined): 1 | 2 | 3 | 4 | 5 | null {
+  if (typeof valeur !== "number" || !Number.isInteger(valeur) || valeur < 1 || valeur > 5) return null;
+  return valeur as 1 | 2 | 3 | 4 | 5;
+}
 
 export type TrancheTimeline = {
   /** Début de la tranche, en millisecondes UTC. */
@@ -111,6 +127,22 @@ export default function TodayView({
   const compteurs = data?.compteurs;
   const vide = data !== null && !loading && !error && evenements.length === 0;
 
+  // Tranche choisie au clic sur la timeline. Une tranche qui sort de la
+  // fenêtre (rafraîchissement des données) ne filtre plus rien.
+  const [trancheChoisie, setTrancheChoisie] = useState<number | null>(null);
+  const trancheActive = tranches.some((t) => t.debut === trancheChoisie) ? trancheChoisie : null;
+  let evenementsAffiches = evenements;
+  if (trancheActive !== null) {
+    const debut = trancheActive;
+    evenementsAffiches = evenements.filter((e) => {
+      const t = horodatage(e.date);
+      return t !== null && t >= debut && t < debut + TRANCHE_MS;
+    });
+  }
+  const labelTranche = trancheActive === null
+    ? null
+    : `${new Date(trancheActive).toISOString().slice(11, 13)}h → ${new Date(trancheActive + TRANCHE_MS).toISOString().slice(11, 13)}h`;
+
   return (
     <section className="today" aria-labelledby="today-titre">
       <LieesCard />
@@ -160,26 +192,43 @@ export default function TodayView({
         <section className="today__timeline" aria-labelledby="today-timeline-titre">
           <div className="today__timeline-head">
             <h2 id="today-timeline-titre">activité · 24 h</h2>
-            <p>{totalTranche} événement{totalTranche > 1 ? "s" : ""} · tranches de 2 h · UTC</p>
+            {labelTranche ? (
+              <p className="today__timeline-filtre" role="status">
+                plage filtrée : {labelTranche}
+                {" "}
+                <button type="button" className="today__timeline-reset" onClick={() => setTrancheChoisie(null)}>
+                  toute la période
+                </button>
+              </p>
+            ) : (
+              <p>{totalTranche} événement{totalTranche > 1 ? "s" : ""} · tranches de 2 h · UTC</p>
+            )}
           </div>
           <div className="today__timeline-graphe" role="list" aria-label="Répartition horaire des événements sur 24 heures">
-            {tranches.map((t) => (
-              <div
-                className="today__timeline-tranche"
-                role="listitem"
-                key={t.debut}
-                aria-label={`${t.label} : ${t.evenements} événement${t.evenements > 1 ? "s" : ""}`}
-              >
-                <span className="today__timeline-valeur">{t.evenements}</span>
-                <div className="today__timeline-piste" aria-hidden="true">
-                  <div
-                    className="today__timeline-barre"
-                    style={{ height: maxTranche > 0 ? `${(t.evenements / maxTranche) * 100}%` : "0%" }}
-                  />
+            {tranches.map((t) => {
+              const actif = t.debut === trancheActive;
+              return (
+                <div className="today__timeline-tranche" role="listitem" key={t.debut}>
+                  <button
+                    type="button"
+                    className="today__timeline-bouton"
+                    aria-pressed={actif}
+                    title={actif ? "retirer le filtre de cette tranche" : "filtrer le tableau sur cette tranche"}
+                    aria-label={`${t.label} : ${t.evenements} événement${t.evenements > 1 ? "s" : ""}`}
+                    onClick={() => setTrancheChoisie(actif ? null : t.debut)}
+                  >
+                    <span className="today__timeline-valeur">{t.evenements}</span>
+                    <div className="today__timeline-piste" aria-hidden="true">
+                      <div
+                        className="today__timeline-barre"
+                        style={{ height: maxTranche > 0 ? `${(t.evenements / maxTranche) * 100}%` : "0%" }}
+                      />
+                    </div>
+                    <time className="today__timeline-heure" dateTime={new Date(t.debut).toISOString()}>{t.label}</time>
+                  </button>
                 </div>
-                <time className="today__timeline-heure" dateTime={new Date(t.debut).toISOString()}>{t.label}</time>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       ) : null}
@@ -205,13 +254,14 @@ export default function TodayView({
         />
       ) : null}
 
-      {evenements.length > 0 ? (
+      {evenementsAffiches.length > 0 ? (
         <div className="today__table-wrap">
           <table className="today__table">
             <thead>
               <tr>
                 <th scope="col">date</th>
                 <th scope="col">titre</th>
+                <th scope="col">sévérité</th>
                 <th scope="col">organisation</th>
                 <th scope="col">source</th>
                 <th scope="col">famille</th>
@@ -219,38 +269,51 @@ export default function TodayView({
               </tr>
             </thead>
             <tbody>
-              {evenements.map((e) => (
-                <tr key={e.id}>
-                  <td>
-                    <time dateTime={e.date ?? undefined} title={e.dateSource === "collecte" ? "date de collecte" : "date observée"}>
-                      {dateLisible(e.date)}
-                    </time>
-                  </td>
-                  <td className="today__cellule-titre">
-                    <button type="button" className="today__lien-titre" onClick={() => onOpenEvent(String(e.id))}>
-                      {e.titre}
-                    </button>
-                  </td>
-                  <td>
-                    {e.orgId !== null ? (
-                      <button type="button" className="today__lien-org" onClick={() => onOpenOrg(e.orgId as number)}>
-                        {e.organisation ?? `organisation ${e.orgId}`}
+              {evenementsAffiches.map((e) => {
+                const sev = niveauSeverite(e.severite);
+                return (
+                  <tr key={e.id}>
+                    <td>
+                      <time dateTime={e.date ?? undefined} title={e.dateSource === "collecte" ? "date de collecte" : "date observée"}>
+                        {dateLisible(e.date)}
+                      </time>
+                    </td>
+                    <td className="today__cellule-titre">
+                      <button type="button" className="today__lien-titre" onClick={() => onOpenEvent(String(e.id))}>
+                        {e.titre}
                       </button>
-                    ) : (
-                      <span>non rattaché</span>
-                    )}
-                  </td>
-                  <td>{e.source}</td>
-                  <td>{e.famille}</td>
-                  <td>
-                    {e.url ? (
-                      <a href={e.url} target="_blank" rel="noreferrer noopener">ouvrir la source</a>
-                    ) : (
-                      <span>lien absent</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="today__cellule-sev">
+                      {sev === null ? (
+                        <span className="today__sev-vide" aria-label="sévérité inconnue">—</span>
+                      ) : (
+                        <span className="today__sev" data-sev={sev}>
+                          <span className="today__sev-pastille" style={{ background: `var(--sev-${sev})` }} aria-hidden="true" />
+                          <span className="today__sev-libelle">{LIBELLES_SEVERITE[sev]}</span>
+                        </span>
+                      )}
+                    </td>
+                    <td>
+                      {e.orgId !== null ? (
+                        <button type="button" className="today__lien-org" onClick={() => onOpenOrg(e.orgId as number)}>
+                          {e.organisation ?? `organisation ${e.orgId}`}
+                        </button>
+                      ) : (
+                        <span>non rattaché</span>
+                      )}
+                    </td>
+                    <td>{e.source}</td>
+                    <td>{e.famille}</td>
+                    <td>
+                      {e.url ? (
+                        <a href={e.url} target="_blank" rel="noreferrer noopener">ouvrir la source</a>
+                      ) : (
+                        <span>lien absent</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

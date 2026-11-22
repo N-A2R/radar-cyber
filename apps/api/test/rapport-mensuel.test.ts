@@ -87,16 +87,16 @@ async function installer(): Promise<void> {
 	]);
 	await query(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, org_id, severity,
-		 observed_at, collected_at, source_id, source_url, created_at, tlp)
-		 VALUES (${lignes[0]!.map((_, i) => `$${i + 1}`).join(", ")})
+		 observed_at, collected_at, source_id, source_url, created_at, tlp, evidence)
+		 VALUES (${lignes[0]!.map((_, i) => (i === 9 ? `COALESCE($${i + 1}, 'https://example.invalid/event')` : `$${i + 1}`)).join(", ")}, '{"run_id":"1"}'::jsonb)
 		 ON CONFLICT (dedup_key) DO NOTHING`,
 		lignes[0],
 	);
 	for (const ligne of lignes.slice(1)) {
 		await query(
 			`INSERT INTO event (dedup_key, family, assertion_type, title, org_id, severity,
-			 observed_at, collected_at, source_id, source_url, created_at, tlp)
-			 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+			 observed_at, collected_at, source_id, source_url, created_at, tlp, evidence)
+			 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, COALESCE($10, 'https://example.invalid/event'), $11, $12, '{"run_id":"1"}'::jsonb)
 			 ON CONFLICT (dedup_key) DO NOTHING`,
 			ligne,
 		);

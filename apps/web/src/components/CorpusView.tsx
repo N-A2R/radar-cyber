@@ -1,5 +1,5 @@
 /**
- * Écran Corpus — état mesuré du corpus, en anglais comme le reste de
+ * Écran Corpus — état mesuré du corpus, en français comme le reste de
  * l'interface. Le composant est purement présentatif : toutes les valeurs
  * viennent de `GET /api/corpus/stats`, une seule requête, aucune donnée
  * simulée côté navigateur. Chaque chiffre est accompagné de sa définition.
@@ -13,25 +13,26 @@ export type CorpusViewProps = {
   error?: string | null;
 };
 
-/** Libellés anglais des familles présentes dans `source.family`. */
+/** Libellés français des familles présentes dans `source.family`. */
 export const FAMILY_LABELS: Record<string, string> = {
-  ransomware: "Ransomware",
-  vuln: "Vulnerabilities",
-  phishing: "Phishing",
-  malware: "Malware",
+  ransomware: "Rançongiciel",
+  vuln: "Vulnérabilités",
+  phishing: "Hameçonnage",
+  malware: "Logiciels malveillants",
   cert: "CERT",
   cert_fr: "CERT-FR",
-  typosquat: "Typosquatting",
-  reputation: "Reputation",
-  cti: "Threat intel",
-  presse: "Press",
-  presse_cyber: "Cyber press",
-  warninglist: "Warning lists",
-  leaks: "Leaks",
-  paste: "Paste sites",
+  typosquat: "Typosquatage",
+  reputation: "Réputation",
+  cti: "Renseignement sur les menaces",
+  presse: "Presse",
+  presse_cyber: "Presse cyber",
+  presse_locale: "Presse locale",
+  warninglist: "Listes d'alerte",
+  leaks: "Fuites",
+  paste: "Sites de paste",
 };
 
-const numberFormat = new Intl.NumberFormat("en-GB");
+const numberFormat = new Intl.NumberFormat("fr-FR");
 
 export function formatCount(value: number): string {
   return numberFormat.format(value);
@@ -39,9 +40,9 @@ export function formatCount(value: number): string {
 
 /** Un pourcentage mesuré : jamais "0 %" quand le dénominateur est inconnu. */
 export function formatPercent(value: number | null): string {
-  if (value === null) return "not measurable";
+  if (value === null) return "non mesurable";
   const digits = value > 0 && value < 1 ? 2 : 1;
-  return `${value.toFixed(digits)}%`;
+  return `${value.toFixed(digits).replace(".", ",")}\u00a0%`;
 }
 
 export function familyLabel(family: string): string {
@@ -56,20 +57,20 @@ function departmentBars(data: CorpusStats) {
   return (
     <section className="corpus__panel" aria-labelledby="corpus-sources-title">
       <div className="corpus__panel-head">
-        <h2 id="corpus-sources-title">Sources by department</h2>
+        <h2 id="corpus-sources-title">Sources par département</h2>
         <span className="corpus__panel-meta">
-          {formatCount(data.totals.sources)} sources · {formatCount(data.totals.sourcesLocalised)} localised
+          {formatCount(data.totals.sources)} sources · {formatCount(data.totals.sourcesLocalised)} localisées
         </span>
       </div>
       {data.byDepartment.length === 0 ? (
-        <p className="corpus__empty">No sources recorded yet.</p>
+        <p className="corpus__empty">Aucune source enregistrée pour l'instant.</p>
       ) : (
         <div className="corpus__bars">
           {data.byDepartment.map((dept: CorpusDepartment) => {
             const slices = data.families
               .filter((family) => (dept.families[family] ?? 0) > 0)
               .map((family) => ({ family, count: dept.families[family] ?? 0 }));
-            const detail = slices.map((slice) => `${familyLabel(slice.family)}: ${slice.count}`).join(", ");
+            const detail = slices.map((slice) => `${familyLabel(slice.family)} : ${slice.count}`).join(", ");
             return (
               <div className="corpus__bar-row" key={dept.department || "unlocalised"}>
                 <span className="corpus__bar-label" title={dept.department || undefined}>
@@ -79,7 +80,7 @@ function departmentBars(data: CorpusStats) {
                 <span
                   className="corpus__bar"
                   role="img"
-                  aria-label={`${dept.label}: ${dept.total} sources. ${detail}`}
+                  aria-label={`${dept.label} : ${dept.total} sources. ${detail}`}
                 >
                   {slices.map((slice) => (
                     <span
@@ -87,7 +88,7 @@ function departmentBars(data: CorpusStats) {
                       data-family={slice.family}
                       key={slice.family}
                       style={{ width: `${(slice.count / dept.total) * 100}%` }}
-                      title={`${familyLabel(slice.family)}: ${slice.count}`}
+                      title={`${familyLabel(slice.family)} : ${slice.count}`}
                     />
                   ))}
                 </span>
@@ -95,7 +96,7 @@ function departmentBars(data: CorpusStats) {
               </div>
             );
           })}
-          <div className="corpus__legend" aria-label="Source families">
+          <div className="corpus__legend" aria-label="Familles de sources">
             {data.families.map((family) => (
               <span className="corpus__legend-item" key={family}>
                 <i className="corpus__swatch" data-family={family} aria-hidden="true" />
@@ -104,9 +105,9 @@ function departmentBars(data: CorpusStats) {
             ))}
           </div>
           <p className="corpus__note">
-            A source counts in a department only when its identifier, name, URL or description gives one
-            unambiguous department. National and ambiguous sources appear as “Not localised” — never as
-            zero, never assigned by guesswork.
+            Une source n'est comptée dans un département que lorsque son identifiant, son nom, son URL ou sa
+            description désigne un département sans ambiguïté. Les sources nationales ou ambiguës apparaissent
+            comme « Non localisées » — jamais comme zéro, jamais attribuées au hasard.
           </p>
         </div>
       )}
@@ -120,28 +121,28 @@ function domainGauge(data: CorpusStats) {
   return (
     <section className="corpus__panel" aria-labelledby="corpus-domains-title">
       <div className="corpus__panel-head">
-        <h2 id="corpus-domains-title">Organisations with a domain</h2>
-        <span className="corpus__panel-meta">reference directory</span>
+        <h2 id="corpus-domains-title">Organisations avec un domaine</h2>
+        <span className="corpus__panel-meta">annuaire de référence</span>
       </div>
       <div className="corpus__gauge-value">{formatPercent(coverage.percent)}</div>
       <div
         className="corpus__gauge"
         role="progressbar"
-        aria-label="Share of organisations with a verified domain"
+        aria-label="Part des organisations avec un domaine vérifié"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={percent}
-        aria-valuetext={`${formatCount(coverage.withDomain)} of ${formatCount(coverage.organisations)} organisations`}
+        aria-valuetext={`${formatCount(coverage.withDomain)} sur ${formatCount(coverage.organisations)} organisations`}
       >
         <span className="corpus__gauge-fill" style={{ width: `${Math.max(0, Math.min(100, percent))}%` }} />
       </div>
       <p className="corpus__gauge-caption">
-        <strong>{formatCount(coverage.withDomain)}</strong> of {formatCount(coverage.organisations)} organisations
-        carry a non-empty domain.
+        <strong>{formatCount(coverage.withDomain)}</strong> organisations sur {formatCount(coverage.organisations)}{" "}
+        portent un domaine non vide.
       </p>
       <p className="corpus__note">
-        The directory is much larger than the incident corpus: this gauge measures domain coverage in the
-        directory, not the share of corpus organisations.
+        L'annuaire est bien plus vaste que le corpus d'incidents : cette jauge mesure la couverture des domaines
+        dans l'annuaire, pas la part des organisations du corpus.
       </p>
     </section>
   );
@@ -154,23 +155,23 @@ function growthCard(data: CorpusStats) {
   return (
     <section className="corpus__panel corpus__growth" aria-labelledby="corpus-growth-title">
       <div className="corpus__panel-head">
-        <h2 id="corpus-growth-title">Is the corpus growing?</h2>
-        <span className="corpus__panel-meta">since the last {growth.windowHours} h report</span>
+        <h2 id="corpus-growth-title">Le corpus progresse-t-il ?</h2>
+        <span className="corpus__panel-meta">depuis le dernier rapport de {growth.windowHours} h</span>
       </div>
       <div className="corpus__growth-value" data-trend={rising ? "up" : falling ? "down" : "flat"}>
         {signedCount(growth.newEvents)}
       </div>
-      <p className="corpus__growth-caption">events ingested in the last {growth.windowHours} hours</p>
+      <p className="corpus__growth-caption">événements ingérés lors des {growth.windowHours} dernières heures</p>
       <p className="corpus__growth-compare">
-        Versus {formatCount(growth.previousEvents)} in the {growth.comparedTo}:{" "}
+        Par rapport à {formatCount(growth.previousEvents)} sur « {growth.comparedTo} » :{" "}
         <strong>{signedCount(growth.change)}</strong>
         {growth.percentChange === null
-          ? " · no percentage available (empty comparison window)"
+          ? " · aucun pourcentage disponible (fenêtre de comparaison vide)"
           : ` · ${growth.percentChange > 0 ? "+" : growth.percentChange < 0 ? "−" : ""}${formatPercent(Math.abs(growth.percentChange))}`}
       </p>
       <p className="corpus__note">
-        Growth counts events by collection time (<code>event.collected_at</code>). It measures ingestion into
-        the corpus, not the date the incident happened.
+        La croissance compte les événements par heure de collecte (<code>event.collected_at</code>). Elle mesure
+        l'ingestion dans le corpus, pas la date à laquelle l'incident a eu lieu.
       </p>
     </section>
   );
@@ -180,12 +181,12 @@ function incidentRow(incident: CorpusIncident) {
   return (
     <li className="corpus__incident" key={incident.id}>
       <time className="corpus__incident-date" dateTime={incident.date ?? undefined}>
-        {incident.date ?? "date unknown"}
+        {incident.date ?? "date inconnue"}
       </time>
       <span className="corpus__incident-main">
         <span className="corpus__incident-title">{incident.title}</span>
         <span className="corpus__incident-meta">
-          {incident.organisation ?? "organisation unknown"}
+          {incident.organisation ?? "organisation inconnue"}
           {incident.department ? ` · ${incident.department}` : ""}
           {" · "}
           {familyLabel(incident.type)}
@@ -196,7 +197,7 @@ function incidentRow(incident: CorpusIncident) {
           {incident.sourceName} <span aria-hidden="true">↗</span>
         </a>
       ) : (
-        <span className="corpus__incident-source corpus__incident-source--missing">source link unavailable</span>
+        <span className="corpus__incident-source corpus__incident-source--missing">lien de source indisponible</span>
       )}
     </li>
   );
@@ -206,22 +207,22 @@ function recentIncidents(data: CorpusStats) {
   return (
     <section className="corpus__panel corpus__incidents" aria-labelledby="corpus-incidents-title">
       <div className="corpus__panel-head">
-        <h2 id="corpus-incidents-title">20 most recent corpus incidents</h2>
+        <h2 id="corpus-incidents-title">20 derniers incidents du corpus</h2>
         <span className="corpus__panel-meta">
-          {formatCount(data.totals.incidents)} incidents in the corpus
+          {formatCount(data.totals.incidents)} incidents dans le corpus
         </span>
       </div>
       {data.recentIncidents.length === 0 ? (
-        <p className="corpus__empty">No incidents in the corpus yet.</p>
+        <p className="corpus__empty">Aucun incident dans le corpus pour l'instant.</p>
       ) : (
         <ol className="corpus__incident-list">
           {data.recentIncidents.map(incidentRow)}
         </ol>
       )}
       <p className="corpus__note">
-        An incident is a confirmed incident or a third-party claim. Technical indicators and ambient signals
-        are excluded. The source link opens the stored evidence URL, or the source home page when no evidence
-        URL was recorded.
+        Un incident désigne un incident confirmé ou une allégation tierce. Les indicateurs techniques et les
+        signaux ambiants sont exclus. Le lien de source ouvre l'URL de preuve enregistrée, ou la page d'accueil
+        de la source lorsqu'aucune URL de preuve n'a été relevée.
       </p>
     </section>
   );
@@ -231,26 +232,26 @@ export default function CorpusView({ data, loading = false, error = null }: Corp
   return (
     <div className="corpus">
       <header className="corpus__header">
-        <span className="micro">Corpus / overview</span>
+        <span className="micro">Corpus / vue d'ensemble</span>
         <h1>Corpus</h1>
-        <p>What the observatory actually holds — every figure comes from the corpus statistics endpoint.</p>
+        <p>Ce que l'observatoire contient réellement — chaque chiffre vient du point d'accès aux statistiques du corpus.</p>
       </header>
 
       {error ? (
         <p className="corpus__error" role="alert">
-          Could not load corpus statistics: {error}
+          Impossible de charger les statistiques du corpus : {error}
         </p>
       ) : null}
       {data === null ? (
         <p className="corpus__state" role="status">
-          {loading ? "Loading corpus statistics…" : "Corpus statistics are not available in demo mode."}
+          {loading ? "Chargement des statistiques du corpus…" : "Les statistiques du corpus ne sont pas disponibles en mode démo."}
         </p>
       ) : (
         <>
-          {error ? <p className="corpus__stale">Showing the last successful snapshot.</p> : null}
+          {error ? <p className="corpus__stale">Affichage du dernier instantané réussi.</p> : null}
           <div className="corpus__kpis">
             <div className="corpus__kpi">
-              <span className="micro">Incidents in corpus</span>
+              <span className="micro">Incidents dans le corpus</span>
               <strong>{formatCount(data.totals.incidents)}</strong>
             </div>
             <div className="corpus__kpi">
@@ -262,7 +263,7 @@ export default function CorpusView({ data, loading = false, error = null }: Corp
               <strong>{formatCount(data.totals.organisations)}</strong>
             </div>
             <div className="corpus__kpi">
-              <span className="micro">Domain coverage</span>
+              <span className="micro">Couverture des domaines</span>
               <strong>{formatPercent(data.domainCoverage.percent)}</strong>
             </div>
           </div>
@@ -273,8 +274,8 @@ export default function CorpusView({ data, loading = false, error = null }: Corp
           </div>
           {recentIncidents(data)}
           <footer className="corpus__footer">
-            Source: <code>GET /api/corpus/stats</code> · measured at {data.generatedAt} · read-only, no estimated
-            values.
+            Source : <code>GET /api/corpus/stats</code> · mesuré le {data.generatedAt} · lecture seule, aucune valeur
+            estimée.
           </footer>
         </>
       )}
