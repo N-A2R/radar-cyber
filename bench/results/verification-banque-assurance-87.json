@@ -1,0 +1,578 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "87",
+  "date": "2026-11-22",
+  "sources": 27,
+  "urls_verifiees": 81,
+  "urls_http_200": 81,
+  "urls_uniques": 81,
+  "urls": [
+    {
+      "url": "https://acpr.banque-france.fr/fr",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 666
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 164
+    },
+    {
+      "url": "https://actu.fr/limoges/dernieres-actus",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 133
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/limoges_87085",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 142
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/rss.xml",
+      "code": 200,
+      "ct": "application/rss+xml; charset=utf-8",
+      "items": 20,
+      "ms": 123
+    },
+    {
+      "url": "https://agences.macif.fr/assurance-haute-vienne-87",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 2341
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 182
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-haute-vienne",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 175
+    },
+    {
+      "url": "https://fbf.fr/fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 398
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 128
+    },
+    {
+      "url": "https://flashfm.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 169
+    },
+    {
+      "url": "https://flashfm.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 272
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 240
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 144
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss",
+      "code": 200,
+      "ct": "text/xml; charset=UTF-8",
+      "items": 30,
+      "ms": 152
+    },
+    {
+      "url": "https://haute-vienne.chambres-agriculture.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 474
+    },
+    {
+      "url": "https://haute-vienne.chambres-agriculture.fr/actualites-1",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 683
+    },
+    {
+      "url": "https://limousin.msa.fr/lfp",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 1290
+    },
+    {
+      "url": "https://limousin.msa.fr/lfp/actualites",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 402
+    },
+    {
+      "url": "https://limousin.territoriaux.medef.com/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 572
+    },
+    {
+      "url": "https://limousin.territoriaux.medef.com/fr/actualites?theme=2309",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 175
+    },
+    {
+      "url": "https://listepro.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 700
+    },
+    {
+      "url": "https://listepro.fr/blog/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 588
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPAM%20de%20la%20Haute-Vienne%22%20fraude%20OR%20cyber%20OR%20arnaque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 6,
+      "ms": 91
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit%20Agricole%22%20fraude%20OR%20cyberattaque%20OR%20phishing&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 48,
+      "ms": 82
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Groupama%22%20cyberattaque%20OR%20fraude%20OR%20phishing&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 73
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Harmonie%20Mutuelle%22%20cyberattaque%20OR%20fraude%20OR%20phishing&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 178
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22La%20Montagne%22%20Limoges%20fraude%20OR%20arnaque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 279
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Le%20Populaire%20du%20Centre%22%20Limoges%20arnaque%20OR%20fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 19,
+      "ms": 267
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22RCF%20Limousin%22%20fraude%20OR%20arnaque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 3,
+      "ms": 215
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ACPR%20cyber%20risque%20banque%20assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 327
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CJD%20dirigeants%20cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 7,
+      "ms": 306
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Caisse%20d%27Epargne%20cyberattaque%20fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 71
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MAIF%20cyberattaque%20OR%20fraude%20OR%20phishing&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 12,
+      "ms": 67
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MEDEF%20Limousin%20cyber%20securite%20entreprises&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 3,
+      "ms": 232
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MGEN%20cyberattaque%20OR%20fraude%20OR%20phishing&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 190
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MSA%20Limousin%20fraude%20OR%20arnaque%20OR%20cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 3,
+      "ms": 65
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Macif%20cyberattaque%20OR%20fraude%20OR%20phishing&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 14,
+      "ms": 107
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ORIAS%20fraude%20intermediaire%20assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 23,
+      "ms": 270
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=artisan%20Haute-Vienne%20fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 7,
+      "ms": 87
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=chambre%20agriculture%20Haute-Vienne%20cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 3,
+      "ms": 549
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=conseil%20gestion%20patrimoine%20cyber%20fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 11,
+      "ms": 231
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=cyberattaque%20banque%20fraude%20FBF&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 270
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=experts-comptables%20cyber%20fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 261
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=liste%20pro%20assurance%20arnaque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 77,
+      "ms": 511
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=site%3Aflashfm.fr%20fraude%20OR%20arnaque%20Limoges&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 14,
+      "ms": 197
+    },
+    {
+      "url": "https://oecnouvelle-aquitaine.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 193
+    },
+    {
+      "url": "https://oecnouvelle-aquitaine.fr/actualites-evenements-espace-presse",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 135
+    },
+    {
+      "url": "https://presse.macif.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 917
+    },
+    {
+      "url": "https://proximite.mgen.fr/99-agence-mgen-de-la-haute-vienne",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 187
+    },
+    {
+      "url": "https://www.ameli.fr/haute-vienne/assure",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 207
+    },
+    {
+      "url": "https://www.ameli.fr/haute-vienne/assure/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 186
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/loire-centre/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1203
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/loire-centre/professionnels/conseils/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 173
+    },
+    {
+      "url": "https://www.cjd.net/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 156
+    },
+    {
+      "url": "https://www.cjd.net/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 378
+    },
+    {
+      "url": "https://www.cncgp.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 302
+    },
+    {
+      "url": "https://www.cncgp.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 218
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-centreouest/particulier.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 163
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-centreouest/particulier/conseils/magazine/tout-un-mag.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 303
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 226
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 208
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 5,
+      "ms": 874
+    },
+    {
+      "url": "https://www.groupama.fr/regions/centre-atlantique/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 454
+    },
+    {
+      "url": "https://www.groupama.fr/regions/centre-atlantique/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 386
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 204
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 196
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 166
+    },
+    {
+      "url": "https://www.ici.fr/radio/limousin",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 144
+    },
+    {
+      "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 20,
+      "ms": 145
+    },
+    {
+      "url": "https://www.lamontagne.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 182
+    },
+    {
+      "url": "https://www.lamontagne.fr/limoges-87000",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 237
+    },
+    {
+      "url": "https://www.lepopulaire.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 290
+    },
+    {
+      "url": "https://www.lepopulaire.fr/limoges-87000/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 132
+    },
+    {
+      "url": "https://www.maif.fr/",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 182
+    },
+    {
+      "url": "https://www.maif.fr/infos-conseils",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 604
+    },
+    {
+      "url": "https://www.mgen.fr/ressources/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 253
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 534
+    },
+    {
+      "url": "https://www.orias.fr/home/juridique",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 218
+    },
+    {
+      "url": "https://www.rcf.fr/actualite?radio=limousin",
+      "code": 200,
+      "ct": "text/html;charset=utf-8",
+      "items": 0,
+      "ms": 85
+    },
+    {
+      "url": "https://www.rcf.fr/limousin",
+      "code": 200,
+      "ct": "text/html;charset=utf-8",
+      "items": 0,
+      "ms": 198
+    }
+  ]
+}

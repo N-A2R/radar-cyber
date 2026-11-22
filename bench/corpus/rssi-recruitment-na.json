@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "title": "Public RSSI recruitment signals in Nouvelle-Aquitaine",
+    "collectedAt": "2026-11-22T03:37:18.247Z",
+    "source": {
+      "name": "France Travail public job search",
+      "url": "https://candidat.francetravail.fr/offres/recherche",
+      "id": "france-travail-public-search",
+      "cost": "free"
+    },
+    "method": "Six public search pages (three title queries, two date-sorted ranges). Only offers located in a Nouvelle-Aquitaine department with a strict RSSI/CISO title are kept. Publication day comes from the relative label shown on the page. Organisation names and department codes only: no candidate, contact or victim data.",
+    "queries": [
+      "RSSI",
+      "CISO",
+      "responsable securite systemes information"
+    ],
+    "ranges": [
+      "0-99",
+      "100-199"
+    ],
+    "limitation": "The public board exposes mostly offers from the last 30 days; older recruitments are not observable from this source."
+  },
+  "offers": [
+    {
+      "id": "8843305",
+      "organisation": "Randstad professional",
+      "department": "64",
+      "title": "Information Security Officer - Client Final H/F",
+      "publishedAt": "2026-11-14T00:00:00Z",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/8843305",
+      "source": "france-travail-public-search",
+      "query": "RSSI"
+    },
+    {
+      "id": "9022052",
+      "organisation": "SYD Digital Care",
+      "department": "79",
+      "title": "Manager de Transition - RSSI H/F",
+      "publishedAt": "2026-11-20T00:00:00Z",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/9022052",
+      "source": "france-travail-public-search",
+      "query": "RSSI"
+    }
+  ]
+}
