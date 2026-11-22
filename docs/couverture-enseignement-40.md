@@ -46,3 +46,4 @@ cybersécurité, harcèlement et usages numériques scolaires, Cybermois, BTS
 cybersécurité). Les sites `ac-bordeaux.fr` (rectorat, DSDEN) et `sudouest.fr`
 ont été écartés : Cloudflare (403) ou boucle de redirection (307) empêchent un
 contrôle HTTP 200 reproductible.
+OBJECTIF : atteint — 26 / 5
