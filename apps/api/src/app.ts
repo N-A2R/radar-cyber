@@ -16,6 +16,7 @@ import { resolveUser } from "./middleware/auth.js";
 import { installPublicApi } from "./openapi/install.js";
 import { LEGACY_PREFIX } from "./openapi/version.js";
 
+import contagionRoute from "./routes/contagion.js";
 import alertsRoute from "./routes/alerts.js";
 import authRoute from "./routes/auth.js";
 import couvertureRoute from "./routes/couverture.js";
@@ -50,9 +51,10 @@ const ROUTES = [
   naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
+  contagionRoute,
 ];
 
-const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|docs|openapi\.json|auth)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|contagion|docs|openapi\.json|auth)(\/|$|\?)/;
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });

@@ -15,6 +15,7 @@ import { rateLimit } from "../middleware/rate-limit.js";
 import { buildOpenApi, documentedRouteCount } from "./spec.js";
 import { API_VERSION, CURRENT_PREFIX, withoutVersion } from "./version.js";
 
+import contagionRoute from "../routes/contagion.js";
 import alertsRoute from "../routes/alerts.js";
 import authRoute from "../routes/auth.js";
 import couvertureRoute from "../routes/couverture.js";
@@ -50,6 +51,7 @@ const ROUTES = [
   naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
+  contagionRoute,
 ];
 
 const OPEN_READ_RPM = Number(process.env.RADAR_PUBLIC_READ_RPM ?? 120);

@@ -13,6 +13,7 @@
     "dev:api": "pnpm -F @radar/api dev",
     "dev:web": "pnpm -F @radar/web dev",
     "collecte:communiques": "apps/api/node_modules/.bin/tsx scripts/collecte-communiques-officiels.mts",
+    "mesure:contagion": "apps/api/node_modules/.bin/tsx scripts/mesure-contagion.mts",
     "mesure:communiques": "apps/api/node_modules/.bin/tsx scripts/mesure-communiques-officiels.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
     "test": "pnpm -F @radar/api test",

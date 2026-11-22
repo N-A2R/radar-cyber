@@ -1,0 +1,18 @@
+{
+  "asOf": "2026-10-08",
+  "end": "2026-11-07",
+  "seedCount": 20,
+  "exposures": 4,
+  "precision": 0.875,
+  "exact": 20,
+  "partial": 2,
+  "unrelated": 2,
+  "target": 0.8,
+  "reachedTarget": true,
+  "rejectedEventPrecision": 0.02,
+  "eventCandidates": 25,
+  "sharedGroup": {
+    "exposures": 4,
+    "matched": 3
+  }
+}
