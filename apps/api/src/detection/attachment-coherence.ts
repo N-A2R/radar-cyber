@@ -22,6 +22,18 @@ const GENERIC_TOKENS: ReadonlySet<string> = new Set<string>([
 	"aspe", "hydravion", "instances", "connections", "actualites",
 ]);
 
+/** Directory-style labels made only of sector words ("DATA STORAGE", "GREEN ENERGY"). */
+const SECTOR_TOKENS: Record<string, true> = {
+	data: true, donnees: true, stockage: true, storage: true, green: true, energy: true,
+	energie: true, video: true, production: true, produce: true, private: true,
+	equity: true, major: true, construction: true, new: true, nouveau: true,
+	generation: true, good: true, job: true, process: true, communication: true,
+	communications: true, real: true, estate: true, immobilier: true, diagnostic: true,
+	service: true, services: true, graphic: true, design: true, thirty: true,
+	three: true, family: true, trust: true, quality: true, control: true, news: true,
+	media: true, they: true,
+};
+
 const DOMAIN_RE = /(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,24}/gi;
 
 export type CoherenceEntity = {
@@ -55,6 +67,7 @@ export type CoherenceReason =
 	| "shared-network"
 	| "shared-department"
 	| "distinctive-name"
+	| "sector-only-name"
 	| "publisher-domain-only"
 	| "no-shared-node"
 	| "domain-mismatch";
@@ -111,14 +124,26 @@ export function isDistinctiveName(name: string): boolean {
 	return distinctive.length >= 1;
 }
 
-function sharesDistinctiveName(input: CoherenceInput): boolean {
+/**
+ * A directory label built only from sector words names a category, not an
+ * entity. Claim descriptions use such words for the victim's business, so a
+ * textual match on them cannot identify the organisation.
+ */
+export function isSectorOnlyName(name: string): boolean {
+	const tokens = normalize(name).split(" ").filter(Boolean);
+	if (tokens.length === 0) return false;
+	return !tokens.some((token) => token.length >= 4
+		&& !GENERIC_TOKENS.has(token) && !SECTOR_TOKENS[token]);
+}
+
+function nameInText(input: CoherenceInput, names: readonly string[]): boolean {
 	const text = normalize(`${input.event.title ?? ""} ${input.event.summary ?? ""}`);
-	const names = [input.org.name, ...input.org.aliases, input.event.evidenceAlias ?? ""];
 	return names.some((name) => {
 		const normalized = normalize(name);
 		return normalized.length >= 5 && isDistinctiveName(normalized) && text.includes(normalized);
 	});
 }
+
 
 /**
  * Decide whether an existing attachment is supported by the graph.
@@ -142,12 +167,17 @@ export function evaluateCoherence(
 	if (input.event.department && input.event.department === input.org.department) {
 		return { coherent: true, reason: "shared-department", victimRoots };
 	}
-	if (sharesDistinctiveName(input)) {
+	const publisherOnly = victimRoots.length === 0
+		&& [...orgRoots].some((root) => publishers.has(root));
+	const aliasNodes = [...input.org.aliases, input.event.evidenceAlias ?? ""]
+		.filter((value) => !isSectorOnlyName(value));
+	if (isSectorOnlyName(input.org.name) && !nameInText(input, aliasNodes) && !publisherOnly) {
+		return { coherent: false, reason: "sector-only-name", victimRoots };
+	}
+	if (nameInText(input, [input.org.name, ...aliasNodes])) {
 		return { coherent: true, reason: "distinctive-name", victimRoots };
 	}
 
-	const publisherOnly = victimRoots.length === 0
-		&& [...orgRoots].some((root) => publishers.has(root));
 	return {
 		coherent: false,
 		reason: publisherOnly ? "publisher-domain-only" : victimRoots.length > 0 ? "domain-mismatch" : "no-shared-node",

@@ -112,3 +112,44 @@ test("requires two distinctive tokens to create a name node", () => {
 	assert.equal(isDistinctiveName("open source"), false);
 	assert.equal(isDistinctiveName("boulazac basket"), true);
 });
+
+test("flags a sector-only directory label matched in a claim description", () => {
+	const verdict = evaluateCoherence(
+		input(
+			{ name: "GREEN ENERGY", domains: [] },
+			event({
+				title: "EiCOh — revendiqué par the gentlemen",
+				summary: "eicoh.com is a Japanese company active in green energy and office solutions",
+				publisherRoots: ["ransomlook.example"],
+			}),
+		),
+	);
+	assert.equal(verdict.coherent, false);
+	assert.equal(verdict.reason, "sector-only-name");
+});
+
+test("keeps a real name that contains a sector word", () => {
+	const verdict = evaluateCoherence(
+		input(
+			{ name: "REAL ESTATE BORDEAUX", domains: [] },
+			event({
+				title: "Ransomware :REAL ESTATE BORDEAUX victime",
+				summary: null,
+				publisherRoots: ["ransomlook.example"],
+			}),
+		),
+	);
+	assert.equal(verdict.coherent, true);
+	assert.equal(verdict.reason, "distinctive-name");
+});
+
+test("keeps a sector-labelled org when the victim domain matches", () => {
+	const verdict = evaluateCoherence(
+		input(
+			{ name: "DATA STORAGE", domains: ["storage.example"] },
+			event({ hint: "www.storage.example", publisherRoots: ["ransomlook.example"] }),
+		),
+	);
+	assert.equal(verdict.coherent, true);
+	assert.equal(verdict.reason, "shared-domain");
+});

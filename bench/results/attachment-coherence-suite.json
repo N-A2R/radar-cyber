@@ -1,0 +1,132 @@
+{
+  "date": "2026-11-22",
+  "scope": "nouvelle-aquitaine",
+  "pass": 2,
+  "organisations": "1673220",
+  "sources": 543,
+  "events": "26758",
+  "attachments": 103,
+  "naAttachments": 45,
+  "coherent": 28,
+  "incoherentDetected": 17,
+  "journalRemovedBeforeRun": 195,
+  "reasons": {
+    "distinctive-name": 22,
+    "shared-domain": 3,
+    "sector-only-name": 17,
+    "shared-department": 3
+  },
+  "validation": {
+    "truePositives": 16,
+    "falsePositives": 0,
+    "keptTrue": 50,
+    "keptFalse": 14,
+    "checked": 80
+  },
+  "removed": 17,
+  "applied": true,
+  "findings": [
+    {
+      "eventId": 1292,
+      "orgId": 2175692,
+      "reason": "sector-only-name",
+      "department": "17"
+    },
+    {
+      "eventId": 3712,
+      "orgId": 2414137,
+      "reason": "sector-only-name",
+      "department": "24"
+    },
+    {
+      "eventId": 3728,
+      "orgId": 2022369,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 3732,
+      "orgId": 484768,
+      "reason": "sector-only-name",
+      "department": "86"
+    },
+    {
+      "eventId": 3741,
+      "orgId": 356184,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 3747,
+      "orgId": 712530,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 3749,
+      "orgId": 362018,
+      "reason": "sector-only-name",
+      "department": "64"
+    },
+    {
+      "eventId": 3764,
+      "orgId": 2175692,
+      "reason": "sector-only-name",
+      "department": "17"
+    },
+    {
+      "eventId": 23058,
+      "orgId": 522762,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 23224,
+      "orgId": 2360843,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 23645,
+      "orgId": 2287598,
+      "reason": "sector-only-name",
+      "department": "87"
+    },
+    {
+      "eventId": 46666,
+      "orgId": 558683,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 46827,
+      "orgId": 193878,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 49758,
+      "orgId": 2273120,
+      "reason": "sector-only-name",
+      "department": "86"
+    },
+    {
+      "eventId": 51226,
+      "orgId": 311824,
+      "reason": "sector-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 51272,
+      "orgId": 483916,
+      "reason": "sector-only-name",
+      "department": "17"
+    },
+    {
+      "eventId": 51287,
+      "orgId": 2261513,
+      "reason": "sector-only-name",
+      "department": "33"
+    }
+  ]
+}

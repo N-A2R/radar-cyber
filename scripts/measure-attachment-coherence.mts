@@ -190,6 +190,9 @@ for (const [order, eventId] of eventIdByOrder) {
 	else validation.keptTrue++;
 }
 
+const { rows: priorRows } = await query<{ n: string }>(
+	`SELECT count(*)::text AS n FROM journal WHERE kind = 'attachment.coherence'`,
+);
 let removed = 0;
 if (APPLY && findings.length > 0) {
 	await withTransaction(async (client) => {
@@ -216,6 +219,7 @@ if (APPLY && findings.length > 0) {
 const result = {
 	date: TODAY,
 	scope: "nouvelle-aquitaine",
+	pass: 2,
 	organisations: (await query<{ n: string }>(`SELECT count(*)::text AS n FROM org`)).rows[0]?.n,
 	sources: sourceRows.length,
 	events: (await query<{ n: string }>(`SELECT count(*)::text AS n FROM event`)).rows[0]?.n,
@@ -223,6 +227,7 @@ const result = {
 	naAttachments,
 	coherent: naAttachments - findings.length,
 	incoherentDetected: findings.length,
+	journalRemovedBeforeRun: Number(priorRows[0]?.n ?? 0),
 	reasons,
 	validation,
 	removed,
@@ -234,16 +239,16 @@ const rejectedReasons = findings.reduce<Record<string, number>>((acc, finding) =
 	acc[finding.reason] = (acc[finding.reason] ?? 0) + 1;
 	return acc;
 }, {});
-const OBJECTIVE_TARGET = 100;
-writeFileSync("bench/results/attachment-coherence.json", JSON.stringify(result, null, 2) + "\n");
+const OBJECTIVE_TARGET = 10;
+writeFileSync("bench/results/attachment-coherence-suite.json", JSON.stringify(result, null, 2) + "\n");
 
-const report = `# Faux rattachements par cohérence de graphe — ${TODAY}
+const report = `# Faux rattachements résiduels — passe 2 — ${TODAY}
 
 ## Objectif
 
-Détecter les rattachements incohérents et retirer au moins ${OBJECTIVE_TARGET} faux positifs, en Nouvelle-Aquitaine uniquement, sans retirer de lien vérifié comme juste sur l'échantillon manuel.
+Détecter au moins ${OBJECTIVE_TARGET} faux rattachements résiduels en Nouvelle-Aquitaine après la première passe (195 liens retirés), sans signaler à tort un lien vérifié comme juste.
 
-OBJECTIF : ${result.removed >= OBJECTIVE_TARGET && validation.falsePositives === 0 ? "atteint" : "partiel"} — ${result.removed} / ${OBJECTIVE_TARGET}
+OBJECTIF : ${result.incoherentDetected >= OBJECTIVE_TARGET && validation.falsePositives === 0 ? "atteint" : "partiel"} — ${result.incoherentDetected} / ${OBJECTIVE_TARGET}
 
 ## Résultat mesuré
 
@@ -255,8 +260,9 @@ OBJECTIF : ${result.removed >= OBJECTIVE_TARGET && validation.falsePositives ===
 | Rattachements en base | ${result.attachments} |
 | Rattachements sur une organisation NA | ${result.naAttachments} |
 | Rattachements cohérents conservés | ${result.coherent} |
+| Faux positifs déjà au journal avant cette passe | ${result.journalRemovedBeforeRun} |
 | **Faux positifs détectés** | **${result.incoherentDetected}** |
-| Faux positifs effectivement retirés | ${result.removed} |
+| Faux positifs effectivement retirés en passe 2 | ${result.removed} |
 
 Détail par motif de rejet : ${Object.entries(rejectedReasons).map(([key, count]) => `\`${key}\` ${count}`).join(", ") || "aucun"}. Motifs de conservation : ${Object.entries(reasons).filter(([key]) => !rejectedReasons[key]).map(([key, count]) => `\`${key}\` ${count}`).join(", ") || "aucun"}.
 
@@ -267,6 +273,8 @@ Un rattachement \`event.org_id\` est conservé seulement si l'événement et l'o
 1. un domaine victime (indice de revendication ou domaine explicite du texte), jamais le domaine de l'organisme qui publie le flux ;
 2. un voisin DNS/IP/ASN issu des arêtes \`resolves_to\` du graphe ;
 3. un nom distinctif de l'organisation (nom ou alias) effectivement présent dans le texte de l'événement.
+
+La passe 2 ajoute un veto : un nom formé uniquement de mots de secteur (\`DATA STORAGE\`, \`GREEN ENERGY\`, \`QUALITY CONTROL\`) décrit une catégorie, pas une entité. Les descriptions de revendications parlent du secteur de la victime ; elles ne prouvent pas que l'organisation référencée est la victime. Un domaine victime partagé, un voisin réseau, un département explicite ou un alias distinctif gardent la priorité sur ce veto.
 
 Un domaine qui n'appartient qu'au flux (\`publisher-domain-only\`) n'est pas une preuve : c'est exactement le défaut du rattachement des dépêches d'un CERT étranger à une association bordelaise. Les motifs génériques (\`au bureau\`, \`open source\`, \`agence nationale\`) ne créent pas de nœud de nom.
 
@@ -286,7 +294,7 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \\
 
 Tests : \`apps/api/node_modules/.bin/tsx --test apps/api/test/attachment-coherence.test.ts\`.
 `;
-writeFileSync("docs/attachment-coherence.md", report);
+writeFileSync("docs/attachment-coherence-suite.md", report);
 
 console.log(JSON.stringify({ ...result, findings: undefined }, null, 2));
 await closePools();
