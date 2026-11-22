@@ -45,3 +45,4 @@ Résultat : **13 sources, 42 URL distinctes toutes en HTTP 200** le 2026-11-22 (
 - `www.ch-agen.fr`, `www.ch-villeneuve.fr`, `www.ch-marmande.fr` : échec de connexion TLS/réseau (HTTP 000) — aucun HTTP 200.
 - `lotetgaronne.msa.fr`, `www.fhp47.fr`, `urps-medecins-na.fr` : NXDOMAIN ou échec réseau — non retenus.
 - Le quota de recherche Exa étant épuisé (402), la découverte a été complétée par des URL connues et vérifiées une à une avec `curl -L` ; aucune URL non vérifiée n'a été intégrée.
+OBJECTIF : atteint — 13 / 5
