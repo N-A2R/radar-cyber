@@ -29,6 +29,7 @@ import {
 	verifierOrientationCollectivites,
 } from "./orientation/verification.js";
 import { runRetention } from "./maintenance/retention.js";
+import { instruireDemandesDroitReponse } from "./domain/rectification-delais.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
@@ -407,6 +408,20 @@ async function verifierOrientation() {
   }
 void guarded("orientation collectivités", verifierOrientation);
 setInterval(() => void guarded("orientation collectivités", verifierOrientation), ORIENTATION_TICK_MS);
+ * Droit de réponse : instruction puis clôture dans le délai d'un mois.
+ * Indépendant de la collecte : un déploiement `RADAR_COLLECT=0` doit aussi
+ * tenir l'échéance. Le trigger SQL couvre l'insertion ; ce tick couvre le
+ * vieillissement des demandes déjà en base. Six heures de cadence laissent
+ * une marge d'un jour sous le seuil de 30 jours.
+const DROIT_REPONSE_TICK_MS = Number(process.env.RADAR_DROIT_REPONSE_TICK_MS ?? 6 * 3600 * 1000);
+async function instruireDroitReponse() {
+  const r = await instruireDemandesDroitReponse();
+  if (r.reconstituees || r.instruites || r.closes) {
+    log(
+      `droit de réponse : ${r.instruites} instruction(s), ${r.closes} clôture(s), ` +
+      `${r.reconstituees} histoire(s) reconstituée(s) (délai ${r.delaiJours} j)`,
+void guarded("droit de réponse", instruireDroitReponse);
+setInterval(() => void guarded("droit de réponse", instruireDroitReponse), DROIT_REPONSE_TICK_MS);
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {
 		app.log.info(`${signal} reçu : arrêt propre`);
