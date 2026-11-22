@@ -7,6 +7,7 @@
 import { createHash } from "node:crypto";
 import { XMLParser } from "fast-xml-parser";
 import { ingestQuery } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import {
@@ -712,6 +713,8 @@ async function ingestNarrative(
 	orgIndex: RelevanceOrg[],
 	coverage: CoverageContext,
 	pertinenceConfig: RelevanceConfig,
+	/** Run de collecte cité par chaque événement (migration 206). */
+	runId: number,
 ): Promise<IngestResult> {
   const parser = source.parser ?? {};
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
@@ -919,9 +922,10 @@ async function ingestNarrative(
       severity: 2,
       confidence: "C3",
       sourceId: source.id,
-      sourceUrl: link || undefined,
-      // La preuve porte le pourquoi du rattachement, pas seulement la source.
-      evidence: { feed: source.name, rattachement: versEvidence(explication), pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) } },
+      sourceUrl: link || `urn:source:${source.id}`,
+      // La preuve porte le pourquoi du rattachement, pas seulement la source,
+      // et le run de collecte qui a produit l'événement.
+      evidence: withRunId({ feed: source.name, rattachement: versEvidence(explication), pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) } }, runId),
       geoType: "unknown",
     });
     contract.record(admitted);
@@ -940,7 +944,7 @@ async function ingestNarrative(
        ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
-        event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
+        event.sourceId, event.sourceUrl ?? `urn:source:${source.id}`, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
         portee.regional, portee.motif, fingerprint,
         // valid_at : la date de l'article ; at : le moment où on l'a lu.
@@ -1036,18 +1040,19 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
   if (!force && !Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
+  // Le run est ouvert après la lecture du corps mais avant toute écriture
+  // d'événement : chaque ligne cite son identifiant (migration 206).
+  let runId: number | null = null;
   try {
     const body = await fetchText(source.url);
+    runId = await openRun(source.id);
     // 304 Not Modified : rien de neuf, la source reste saine.
     if (body === "") {
       await ingestQuery(
         "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1",
         [source.id]
       );
-      await ingestQuery(
-        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', 0, 0)",
-        [source.id]
-      );
+      await closeRun(runId, { itemsIn: 0, itemsNew: 0 });
       return;
     }
     const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body));
@@ -1058,7 +1063,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       : undefined;
     let result = asIndicator
       ? await ingestIndicator(source, body, filterIdx)
-      : await ingestNarrative(source, body, orgIndex, coverage, pertinenceConfig);
+      : await ingestNarrative(source, body, orgIndex, coverage, pertinenceConfig, runId);
     // Flux marqué `indicator` mais livré en JSON/CSV/RSS : les lignes brutes ne
     // portent aucun indicateur, on extrait les valeurs des items structurés.
     if (asIndicator && result.items === 0) {
@@ -1084,19 +1089,11 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
     const rejectedAvecMotif = motifRun
       ? { ...(result.rejected ?? {}), motif: motifRun }
       : (result.rejected ?? undefined);
-    await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped, items_rejected) VALUES ($1, now(), 'ok', $2, $3, $4, $5)",
-      [source.id, result.items, result.added, result.skipped, rejectedAvecMotif ? JSON.stringify(rejectedAvecMotif) : null]
-    ).catch(async (error: unknown) => {
-      // Base pas encore migrée vers 029 : la collecte ne doit pas être perdue
-      // pour une colonne de diagnostic. On retombe sur l'écriture historique —
-      // mais seulement dans ce cas, sinon on masquerait une vraie panne.
-      const message = String((error as Error)?.message ?? error);
-      if (!message.includes("items_rejected")) throw error;
-      await ingestQuery(
-        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
-        [source.id, result.items, result.added, result.skipped]
-      );
+    await closeRun(runId, {
+      itemsIn: result.items,
+      itemsNew: result.added,
+      itemsSkipped: result.skipped,
+      itemsRejected: rejectedAvecMotif ?? null,
     });
     // Le changement d'état est un fait : « elle se réveille » et « elle
     // s'assoupit » ne se lisent nulle part ailleurs, et c'est pourtant la seule
@@ -1107,10 +1104,16 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
     const err = String((e as Error)?.message ?? e);
     await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
     const motifErr = classerMotifEchec({ erreur: err }) ?? "reseau";
-    await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_rejected, error) VALUES ($1, now(), 'error', 0, 0, $2, $3)",
-      [source.id, JSON.stringify({ motif: motifErr }), err]
-    ).catch(() => {});
+    if (runId !== null) {
+      await closeRun(runId, { status: "error", error: err, itemsRejected: { motif: motifErr } }).catch(() => {});
+    } else {
+      // L'ouverture du run elle-même a échoué : on garde la trace d'échec
+      // historique, sans prétendre citer un run inexistant.
+      await ingestQuery(
+        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_rejected, error) VALUES ($1, now(), 'error', 0, 0, $2, $3)",
+        [source.id, JSON.stringify({ motif: motifErr }), err]
+      ).catch(() => {});
+    }
     await constaterTransition(source.id, "error", 0, err);
   }
 }

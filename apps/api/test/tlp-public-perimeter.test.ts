@@ -63,9 +63,9 @@ before(async () => {
 		amberIds.push(indicatorId);
 		const ev = await query<{ id: number }>(
 			`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id,
-			                    evidence, lat, lon, geo_type, observed_at)
-			 VALUES ($1, 'ransomware', 'technical_indicator', $2, $3, $4, $5::jsonb,
-			         48.8566, 2.3522, 'hosting_estimate', now()) RETURNING id`,
+			                    evidence, lat, lon, geo_type, observed_at, source_url)
+			 VALUES ($1, 'ransomware', 'technical_indicator', $2, $3, $4, $5::jsonb || '{"run_id":"1"}'::jsonb,
+			         48.8566, 2.3522, 'hosting_estimate', now(), 'https://example.invalid/event') RETURNING id`,
 			[
 				`${TAG}-event-${value}`,
 				`Indicateur restreint ${value}`,
@@ -85,9 +85,9 @@ before(async () => {
 	clearId = Number(clear.rows[0]!.id);
 	const clearEvent = await query<{ id: number }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id,
-		                    evidence, lat, lon, geo_type, observed_at)
-		 VALUES ($1, 'ransomware', 'technical_indicator', $2, $3, $4, $5::jsonb,
-		         48.8566, 2.3522, 'hosting_estimate', now())
+		                    evidence, lat, lon, geo_type, observed_at, source_url)
+		 VALUES ($1, 'ransomware', 'technical_indicator', $2, $3, $4, $5::jsonb || '{"run_id":"1"}'::jsonb,
+		         48.8566, 2.3522, 'hosting_estimate', now(), 'https://example.invalid/event')
 		 RETURNING id`,
 		[
 			`${TAG}-event-clear`,
@@ -103,8 +103,8 @@ before(async () => {
 	// être ramenée à CLEAR pour que le contrôle exact du critère reste à 0.
 	const aliasEvent = await query<{ id: number }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id,
-		                    evidence, observed_at)
-		 VALUES ($1, 'cti', 'confirmed_incident', $2, $3, $4, $5::jsonb, now())
+		                    evidence, observed_at, source_url)
+		 VALUES ($1, 'cti', 'confirmed_incident', $2, $3, $4, $5::jsonb || '{"run_id":"1"}'::jsonb, now(), 'https://example.invalid/event')
 		 RETURNING id`,
 		[`${TAG}-event-alias-clear`, `Fait public alias ${TAG}`, sourceId, orgId, JSON.stringify({ tlp: "TLP:CLEAR" })],
 	);
@@ -252,7 +252,7 @@ test("exports : 0 événement restreint dans export_public_event", async () => {
 test("révocation : un événement promu AMBER quitte la liste blanche", async () => {
 	const avant = await query("SELECT 1 FROM export_public_event WHERE event_id=$1", [clearEventId]);
 	assert.equal(avant.rows.length, 1, "l'événement CLEAR témoin doit être exporté");
-	await query("UPDATE event SET evidence=$2::jsonb WHERE id=$1", [clearEventId, JSON.stringify({ tlp: "TLP:AMBER" })]);
+	await query("UPDATE event SET evidence=$2::jsonb || '{\"run_id\":\"1\"}'::jsonb WHERE id=$1", [clearEventId, JSON.stringify({ tlp: "TLP:AMBER" })]);
 	const colonne = await query<{ tlp: string }>("SELECT tlp FROM event WHERE id=$1", [clearEventId]);
 	const apres = await query("SELECT 1 FROM export_public_event WHERE event_id=$1", [clearEventId]);
 	const audit = await query<{ count: string }>(AUDIT_SQL);

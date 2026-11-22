@@ -44,8 +44,8 @@ before(async () => {
 	] as const;
 	for (const [dedupKey, title, orgId] of events) {
 		const r = await query<{ id: number }>(
-			`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id)
-			 VALUES ($1, 'ransomware', 'confirmed_incident', $2, $3, $4) RETURNING id`,
+			`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, source_url, evidence)
+			 VALUES ($1, 'ransomware', 'confirmed_incident', $2, $3, $4, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb) RETURNING id`,
 			[dedupKey, title, SOURCE, orgId],
 		);
 		if (dedupKey === `${TAG}-connu`) knownEventId = Number(r.rows[0].id);

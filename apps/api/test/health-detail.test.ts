@@ -56,11 +56,11 @@ before(async () => {
   );
 
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, org_id)
-     VALUES ($1,$5,'ambient_signal','Fait vert (test)', now() - interval '2 hours',2,$9,$13),
-            ($2,$6,'ambient_signal','Fait orange (test)', now() - interval '3 days',2,$10,$13),
-            ($3,$7,'ambient_signal','Fait rouge (test)', now() - interval '10 days',2,$11,NULL),
-            ($4,$8,'ambient_signal','Fait source désactivée (test)', now() - interval '2 hours',2,$12,NULL)`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, org_id, source_url, evidence)
+     VALUES ($1,$5,'ambient_signal','Fait vert (test)', now() - interval '2 hours',2,$9,$13,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($2,$6,'ambient_signal','Fait orange (test)', now() - interval '3 days',2,$10,$13,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($3,$7,'ambient_signal','Fait rouge (test)', now() - interval '10 days',2,$11,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($4,$8,'ambient_signal','Fait source désactivée (test)', now() - interval '2 hours',2,$12,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [
       `${TAG}:ev-green`, `${TAG}:ev-orange`, `${TAG}:ev-red`, `${TAG}:ev-disabled`,
       FAMILY.green, FAMILY.orange, FAMILY.red, "cti",

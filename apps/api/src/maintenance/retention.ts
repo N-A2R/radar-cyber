@@ -35,6 +35,11 @@ function purgeFilter(table: Table): string {
   if (table === "event") {
     return " AND NOT EXISTS (SELECT 1 FROM alert a WHERE a.event_id = event.id)";
   }
+  if (table === "collector_run") {
+    // Un run encore cité est la preuve d'un événement : le purger laisserait
+    // un événement qui renvoie à un collecteur disparu (migration 206).
+    return " AND NOT EXISTS (SELECT 1 FROM event e WHERE e.evidence->>'run_id' = collector_run.id::text)";
+  }
   return "";
 }
 

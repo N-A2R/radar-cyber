@@ -279,6 +279,7 @@ const SQL_PLAN = `
            count(*) FILTER (WHERE status = 'ok') AS runs_ok,
            count(*) FILTER (WHERE status = 'error') AS runs_erreur
       FROM collector_run
+     WHERE kind IN ('live', 'scan', 'ingest')
      GROUP BY source_id
   )
   SELECT s.id, s.name, s.family, s.kind, s.interval_sec, s.last_ok_at, s.last_error_at,

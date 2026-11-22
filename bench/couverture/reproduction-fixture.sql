@@ -34,7 +34,10 @@ CREATE TABLE org (
 CREATE TABLE collector_run (
   id         bigserial PRIMARY KEY,
   source_id  text NOT NULL REFERENCES source(id),
-  started_at timestamptz NOT NULL
+  started_at timestamptz NOT NULL,
+  -- Depuis la migration 206 : nature du run. La collecte réelle est `live` ;
+  -- la fixture ne reproduit que celle-là.
+  kind       text NOT NULL DEFAULT 'live'
 );
 
 CREATE TABLE event (
