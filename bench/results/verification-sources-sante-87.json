@@ -1,0 +1,314 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-87.jsonl",
+  "secteur": "santé",
+  "departement": "87",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec redirections suivies (curl -L), User-Agent navigateur, délai 25 s ; statut final, type de contenu et détection des soft-404",
+  "sources": 10,
+  "urls_verifiees": 35,
+  "urls_200": 35,
+  "anomalies": [],
+  "detail": {
+    "ARS Nouvelle-Aquitaine": [
+      {
+        "role": "actualites",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml",
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+        "soft_error": false
+      }
+    ],
+    "CHU de Limoges": [
+      {
+        "role": "actualites",
+        "url": "https://www.chu-limoges.fr/actualites/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.chu-limoges.fr/actualites/",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.chu-limoges.fr/app/uploads/1/2025/12/chorus_no_56_light.pdf",
+        "code": 200,
+        "type": "application/pdf",
+        "final": "https://www.chu-limoges.fr/app/uploads/1/2025/12/chorus_no_56_light.pdf",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.chu-limoges.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.chu-limoges.fr/",
+        "soft_error": false
+      }
+    ],
+    "CPAM de la Haute-Vienne (Assurance Maladie)": [
+      {
+        "role": "actualites",
+        "url": "https://www.ameli.fr/haute-vienne/assure/actualites",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/haute-vienne/assure/actualites",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.assurance-maladie.ameli.fr/sites/default/files/2025-05-20-dp-Bilan_fraudes_CPAM87.pdf",
+        "code": 200,
+        "type": "application/pdf",
+        "final": "https://www.assurance-maladie.ameli.fr/sites/default/files/2025-05-20-dp-Bilan_fraudes_CPAM87.pdf",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.ameli.fr/haute-vienne/assure",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/haute-vienne/assure",
+        "soft_error": false
+      }
+    ],
+    "CPTS Limoges": [
+      {
+        "role": "actualites",
+        "url": "https://cpts-limoges.fr/actualites/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cpts-limoges.fr/actualites/",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://cpts-limoges.fr/cybersecurite-et-si-votre-cabinet-etait-le-prochain/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cpts-limoges.fr/cybersecurite-et-si-votre-cabinet-etait-le-prochain/",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://cpts-limoges.fr/feed/",
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://cpts-limoges.fr/feed/",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://cpts-limoges.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cpts-limoges.fr/",
+        "soft_error": false
+      }
+    ],
+    "CPTS Monts & Barrages": [
+      {
+        "role": "actualites",
+        "url": "https://www.cpts-monts-barrages.fr/actualites/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cpts-monts-barrages.fr/actualites/",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/video-limoges-comment-les-hopitaux-se-protegent-contre-les-pirates-informatiques-2699598.html",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/video-limoges-comment-les-hopitaux-se-protegent-contre-les-pirates-informatiques-2699598.html",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.cpts-monts-barrages.fr/feed/",
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.cpts-monts-barrages.fr/feed/",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.cpts-monts-barrages.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cpts-monts-barrages.fr/",
+        "soft_error": false
+      }
+    ],
+    "Conseil départemental de l’Ordre des médecins de la Haute-Vienne": [
+      {
+        "role": "actualites",
+        "url": "https://conseil87.ordre.medecin.fr/actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil87.ordre.medecin.fr/actualites",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.conseil-national.medecin.fr/publications/actualites/tentatives-dhameconnage",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.conseil-national.medecin.fr/publications/actualites/tentatives-dhameconnage",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://conseil87.ordre.medecin.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil87.ordre.medecin.fr/",
+        "soft_error": false
+      }
+    ],
+    "ESEA Nouvelle-Aquitaine (GIP e-santé)": [
+      {
+        "role": "actualites",
+        "url": "https://www.esea-na.fr/actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.esea-na.fr/actualites",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://wwwsec.esea-na.fr/node/402.html",
+        "code": 200,
+        "type": "text/html",
+        "final": "https://wwwsec.esea-na.fr/node/402.html",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.esea-na.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.esea-na.fr/",
+        "soft_error": false
+      }
+    ],
+    "FHF Nouvelle-Aquitaine (Fédération Hospitalière de France)": [
+      {
+        "role": "actualites",
+        "url": "https://www.fhf.fr/en-regions/nouvelle-aquitaine/nos-actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/en-regions/nouvelle-aquitaine/nos-actualites",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.fhf.fr/actualites/articles/cybersecurite-le-conseil-detat-conforte-des-financements-adaptes-aux-specificites-des-hopitaux",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/actualites/articles/cybersecurite-le-conseil-detat-conforte-des-financements-adaptes-aux-specificites-des-hopitaux",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.fhf.fr/en-regions/nouvelle-aquitaine",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/en-regions/nouvelle-aquitaine",
+        "soft_error": false
+      }
+    ],
+    "France 3 Nouvelle-Aquitaine — Haute-Vienne": [
+      {
+        "role": "actualites",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/video-limoges-comment-les-hopitaux-se-protegent-contre-les-pirates-informatiques-2699598.html",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/video-limoges-comment-les-hopitaux-se-protegent-contre-les-pirates-informatiques-2699598.html",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss",
+        "code": 200,
+        "type": "text/xml; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+        "soft_error": false
+      }
+    ],
+    "Santé publique France — Nouvelle-Aquitaine": [
+      {
+        "role": "actualites",
+        "url": "https://www.santepubliquefrance.fr/les-actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.santepubliquefrance.fr/les-actualites",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/un-prestataire-de-sante-publique-france-victime-d-une-cyberattaque-pres-de-80-000-donnees-de-contact-concernees_8146196.html",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/un-prestataire-de-sante-publique-france-victime-d-une-cyberattaque-pres-de-80-000-donnees-de-contact-concernees_8146196.html",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.santepubliquefrance.fr/rss/969",
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.santepubliquefrance.fr/rss/969",
+        "soft_error": false
+      },
+      {
+        "role": "site",
+        "url": "https://www.santepubliquefrance.fr/regions-et-territoires/nouvelle-aquitaine",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.santepubliquefrance.fr/regions-et-territoires/nouvelle-aquitaine",
+        "soft_error": false
+      }
+    ]
+  }
+}

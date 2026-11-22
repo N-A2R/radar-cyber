@@ -1,0 +1,306 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-17.jsonl",
+  "secteur": "santé",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, statut HTTP final et type de contenu",
+  "sources": 21,
+  "urls_verifiees": 48,
+  "urls_200": 48,
+  "anomalies": [],
+  "detail": {
+    "Centre hospitalier de La Rochelle": {
+      "https://www.ch-larochelle.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-larochelle.fr/"
+      },
+      "https://www.ch-larochelle.fr/toutes-les-actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-larochelle.fr/toutes-les-actualites/"
+      },
+      "https://www.ch-larochelle.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.ch-larochelle.fr/feed/"
+      },
+      "https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php"
+      }
+    },
+    "Groupe hospitalier Littoral Atlantique (La Rochelle — Rochefort)": {
+      "https://www.gh-littoral-atlantique.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.gh-littoral-atlantique.fr/"
+      },
+      "https://www.gh-littoral-atlantique.fr/toutes-les-actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.gh-littoral-atlantique.fr/toutes-les-actualites/"
+      },
+      "https://www.gh-littoral-atlantique.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.gh-littoral-atlantique.fr/feed/"
+      }
+    },
+    "Centre hospitalier de Rochefort": {
+      "https://www.ch-rochefort.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-rochefort.fr/"
+      },
+      "https://www.ch-rochefort.fr/toutes-les-actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-rochefort.fr/toutes-les-actualites/"
+      },
+      "https://www.ch-rochefort.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.ch-rochefort.fr/feed/"
+      },
+      "https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php"
+      }
+    },
+    "Centre hospitalier de Saintonge — Saintes": {
+      "https://saintes.gh-saintesangely.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://saintes.gh-saintesangely.fr/"
+      },
+      "https://saintes.gh-saintesangely.fr/toutes-les-actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://saintes.gh-saintesangely.fr/toutes-les-actualites/"
+      },
+      "https://saintes.gh-saintesangely.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://saintes.gh-saintesangely.fr/feed/"
+      },
+      "https://www.alouette.fr/charente-maritime-le-centre-hospitalier-de-saintes-victime-d-un-vol-informatique": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.alouette.fr/charente-maritime-le-centre-hospitalier-de-saintes-victime-d-un-vol-informatique"
+      }
+    },
+    "CPAM de la Charente-Maritime — Assurance Maladie": {
+      "https://www.ameli.fr/charente-maritime": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/charente-maritime"
+      },
+      "https://www.ameli.fr/charente-maritime/assure/liste-actualites-locales": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/charente-maritime/assure/liste-actualites-locales"
+      }
+    },
+    "ARS Nouvelle-Aquitaine — délégation de la Charente-Maritime (17)": {
+      "https://www.nouvelle-aquitaine.ars.sante.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058"
+      }
+    },
+    "Conseil départemental de l'Ordre des médecins de la Charente-Maritime": {
+      "https://conseil17.ordre.medecin.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil17.ordre.medecin.fr/"
+      },
+      "https://conseil17.ordre.medecin.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil17.ordre.medecin.fr/actualites"
+      }
+    },
+    "Annuaire santé — établissements de Charente-Maritime": {
+      "https://www.sante.fr/recherche/trouver/Centre%20hospitalier/Charente-Maritime": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sante.fr/recherche/trouver/Centre%20hospitalier/Charente-Maritime"
+      },
+      "https://www.sante.fr/recherche/trouver/EHPAD/Charente-Maritime": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sante.fr/recherche/trouver/EHPAD/Charente-Maritime"
+      }
+    },
+    "Sud Ouest — édition Charente-Maritime": {
+      "https://www.sudouest.fr/charente-maritime/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/charente-maritime/"
+      },
+      "https://www.sudouest.fr/charente-maritime/rss.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.sudouest.fr/charente-maritime/rss.xml"
+      }
+    },
+    "actu.fr — La Rochelle (17)": {
+      "https://actu.fr/nouvelle-aquitaine/la-rochelle_17300/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/la-rochelle_17300"
+      }
+    },
+    "ICI La Rochelle (Radio France)": {
+      "https://www.ici.fr/la-rochelle": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/radio/la-rochelle"
+      },
+      "https://www.ici.fr/radio/la-rochelle/actu": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/radio/la-rochelle/actu"
+      },
+      "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml"
+      }
+    },
+    "France 3 Nouvelle-Aquitaine — Charente-Maritime": {
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime"
+      },
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/rss": {
+        "code": 200,
+        "type": "text/xml; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/rss"
+      }
+    },
+    "Haute Saintonge — actualités de la Charente-Maritime": {
+      "https://www.hautesaintonge.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.hautesaintonge.fr/"
+      }
+    },
+    "Le Littoral — actualités du littoral charentais": {
+      "https://www.le-littoral.com/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.le-littoral.com/"
+      }
+    },
+    "Ordre des masseurs-kinésithérapeutes de la Charente-Maritime": {
+      "https://charente-maritime.ordremk.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordremk.fr/"
+      },
+      "https://charente-maritime.ordremk.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordremk.fr/"
+      },
+      "https://charente-maritime.ordremk.fr/feed": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordremk.fr/"
+      }
+    },
+    "URPS Médecins Libéraux Nouvelle-Aquitaine": {
+      "https://www.urpsml-na.org/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/"
+      }
+    },
+    "URPS Infirmiers Libéraux Nouvelle-Aquitaine": {
+      "https://urpsinfirmiers-na.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/"
+      },
+      "https://urpsinfirmiers-na.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/actualites/"
+      }
+    },
+    "URPS Pharmaciens Nouvelle-Aquitaine": {
+      "https://www.urps-pharmaciens-na.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urps-pharmaciens-na.fr/"
+      },
+      "https://www.urps-pharmaciens-na.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urps-pharmaciens-na.fr/actualites/"
+      }
+    },
+    "FHF Nouvelle-Aquitaine — Fédération Hospitalière de France": {
+      "https://www.fhf.fr/en-regions/nouvelle-aquitaine": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/en-regions/nouvelle-aquitaine"
+      },
+      "https://www.fhf.fr/en-regions/nouvelle-aquitaine/nos-actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/en-regions/nouvelle-aquitaine/nos-actualites"
+      }
+    },
+    "Sud Ouest — rubrique Santé": {
+      "https://www.sudouest.fr/sante/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/sante/"
+      },
+      "https://www.sudouest.fr/sante/rss.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.sudouest.fr/sante/rss.xml"
+      },
+      "https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/sante/charente-maritime-les-hopitaux-de-la-rochelle-et-de-rochefort-victimes-d-une-panne-informatique-12630626.php"
+      }
+    },
+    "Le Journal des Entreprises — secteur Santé": {
+      "https://www.lejournaldesentreprises.com/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/"
+      },
+      "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante"
+      }
+    }
+  }
+}
