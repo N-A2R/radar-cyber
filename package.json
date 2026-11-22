@@ -44,7 +44,8 @@
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts",
     "measure:shared-infrastructure": "apps/api/node_modules/.bin/tsx scripts/measure-shared-infrastructure.mts",
     "measure:shared-infrastructure-timeline": "apps/api/node_modules/.bin/tsx scripts/measure-shared-infrastructure-timeline.mts",
-    "measure:shared-infrastructure-geography": "apps/api/node_modules/.bin/tsx scripts/measure-shared-infrastructure-geography.mts"
+    "measure:shared-infrastructure-geography": "apps/api/node_modules/.bin/tsx scripts/measure-shared-infrastructure-geography.mts",
+    "measure:shared-infrastructure-persistence": "apps/api/node_modules/.bin/tsx scripts/measure-shared-infrastructure-persistence.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"

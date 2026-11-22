@@ -23,6 +23,10 @@ import {
   buildInfrastructureGeography,
   type InfrastructureGeography,
 } from "./shared-infrastructure-geography.js";
+import {
+  buildInfrastructurePersistence,
+  type InfrastructurePersistence,
+} from "./shared-infrastructure-persistence.js";
 
 export const NA_DEPARTMENTS: readonly string[] = Object.keys(DEPT_LABELS).sort();
 
@@ -125,6 +129,17 @@ async function loadInfrastructureData() {
   return { victims, observations, baseline };
 }
 
+async function loadDepartmentsByOrg(): Promise<Map<number, string>> {
+  const { rows } = await query<{ oid: number; dept: string }>(SQL.departments, [NA_DEPARTMENTS]);
+  const byOrg = new Map<number, string>();
+  for (const row of rows) {
+    if (typeof row.dept === "string" && row.dept.trim() !== "") {
+      byOrg.set(Number(row.oid), row.dept.trim());
+    }
+  }
+  return byOrg;
+}
+
 /** Runs the real database measurement, once, on the current base state. */
 export async function measureSharedInfrastructure(): Promise<SharedInfrastructureMeasurement> {
   const { victims, observations, baseline } = await loadInfrastructureData();
@@ -186,16 +201,10 @@ export type SharedInfrastructureGeographyMeasurement = {
 
 /** Measures how many detected clusters link victims from several NA departments. */
 export async function measureSharedInfrastructureGeography(): Promise<SharedInfrastructureGeographyMeasurement> {
-  const [{ observations, baseline }, departments] = await Promise.all([
+  const [{ observations, baseline }, departmentsByOrg] = await Promise.all([
     loadInfrastructureData(),
-    query<{ oid: number; dept: string }>(SQL.departments, [NA_DEPARTMENTS]),
+    loadDepartmentsByOrg(),
   ]);
-  const departmentsByOrg = new Map<number, string>();
-  for (const row of departments.rows) {
-    if (typeof row.dept === "string" && row.dept.trim() !== "") {
-      departmentsByOrg.set(Number(row.oid), row.dept.trim());
-    }
-  }
   const detected = detectSharedInfrastructure(observations);
   const geography = buildInfrastructureGeography(detected, departmentsByOrg);
 
@@ -205,6 +214,40 @@ export async function measureSharedInfrastructureGeography(): Promise<SharedInfr
     crossDepartmentClusters: geography.crossDepartmentClusters,
     departmentsCovered: geography.departmentsCovered,
     clusterGeographies: geography.clusterGeographies,
+    baseline,
+    measuredAt: new Date().toISOString(),
+  };
+}
+
+export type SharedInfrastructurePersistenceMeasurement = {
+  scope: "nouvelle-aquitaine";
+  clusterCount: number;
+  persistentClusters: number;
+  departmentsCovered: number;
+  datedClusters: number;
+  clusterPersistences: InfrastructurePersistence["clusters"];
+  baseline: Baseline;
+  measuredAt: string;
+};
+
+/** Cross-checks the geographic and temporal reuse of the same detected clusters. */
+export async function measureSharedInfrastructurePersistence(): Promise<SharedInfrastructurePersistenceMeasurement> {
+  const [{ observations, baseline }, departmentsByOrg] = await Promise.all([
+    loadInfrastructureData(),
+    loadDepartmentsByOrg(),
+  ]);
+  const detected = detectSharedInfrastructure(observations);
+  const geography = buildInfrastructureGeography(detected, departmentsByOrg);
+  const timeline = buildInfrastructureTimeline(detected, observations);
+  const persistence = buildInfrastructurePersistence(geography, timeline);
+
+  return {
+    scope: "nouvelle-aquitaine",
+    clusterCount: persistence.clusterCount,
+    persistentClusters: persistence.persistentClusters,
+    departmentsCovered: geography.departmentsCovered,
+    datedClusters: timeline.datedClusters,
+    clusterPersistences: persistence.clusters,
     baseline,
     measuredAt: new Date().toISOString(),
   };
