@@ -1330,3 +1330,61 @@ export const api = {
 export function getAffected(q: string, signal?: AbortSignal): Promise<AffectedReport> {
   return get<AffectedReport>(`/affected?q=${encodeURIComponent(q)}`, signal);
 }
+
+export type PressOnlySummary = {
+  scope: "Nouvelle-Aquitaine";
+  definition: "rapporte";
+  corpusTotal: number;
+  count: number;
+  withGreySource: number;
+  byDepartment: { department: string; count: number }[];
+  byPublisherKind: { press: number; grey: number };
+  incidents: {
+    id: string;
+    department: string;
+    publicationDate: string | null;
+    publisherKind: "press" | "grey" | "official" | "unknown";
+    incidentType: string | null;
+  }[];
+};
+
+export type UnconfirmedClaimsSummary = {
+  scope: "Nouvelle-Aquitaine";
+  definition: "declare";
+  corpusTotal: number;
+  count: number;
+  withGreySource: number;
+  byDepartment: { department: string; count: number }[];
+  byPublisherKind: { press: number; grey: number; unknown: number };
+  incidents: {
+    id: string;
+    department: string;
+    publicationDate: string | null;
+    publisherKind: "press" | "grey" | "official" | "unknown";
+    incidentType: string | null;
+  }[];
+};
+
+export type ConfirmedIncidentsSummary = {
+  scope: "Nouvelle-Aquitaine";
+  definition: "etabli";
+  corpusTotal: number;
+  count: number;
+  withGreySource: number;
+  byDepartment: { department: string; count: number }[];
+  byPublisherKind: { press: number; grey: number; official: number; unknown: number };
+  incidents: {
+    id: string;
+    department: string;
+    publicationDate: string | null;
+    publisherKind: "press" | "grey" | "official" | "unknown";
+    incidentType: string | null;
+  }[];
+};
+
+type JournalReviewResponseRaw = {
+  rows: JournalDecision[];
+  limite: number;
+  /** Next-page cursor; null = last page. */
+  avant: number | null;
+};

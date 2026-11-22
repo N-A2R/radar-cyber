@@ -1,0 +1,73 @@
+{
+  "measuredAt": "2026-11-22T03:41:24.501Z",
+  "corpus": "bench/fixtures/corpus-reference-na.json",
+  "command": "pnpm measure:unconfirmed-claims",
+  "scope": "Nouvelle-Aquitaine",
+  "definition": "declare",
+  "corpusTotal": 60,
+  "count": 6,
+  "withGreySource": 4,
+  "byDepartment": [
+    {
+      "department": "33",
+      "count": 3
+    },
+    {
+      "department": "47",
+      "count": 1
+    },
+    {
+      "department": "64",
+      "count": 2
+    }
+  ],
+  "byPublisherKind": {
+    "press": 2,
+    "grey": 4,
+    "unknown": 0
+  },
+  "incidents": [
+    {
+      "id": "na-2026-014",
+      "department": "47",
+      "publicationDate": "2026-11-10",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-023",
+      "department": "64",
+      "publicationDate": "2026-08-07",
+      "publisherKind": "grey",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-011",
+      "department": "33",
+      "publicationDate": "2026-07-23",
+      "publisherKind": "grey",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-010",
+      "department": "33",
+      "publicationDate": "2026-07-16",
+      "publisherKind": "grey",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-047",
+      "department": "64",
+      "publicationDate": "2025-09-29",
+      "publisherKind": "grey",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-057",
+      "department": "33",
+      "publicationDate": "2025-01-02",
+      "publisherKind": "press",
+      "incidentType": "ddos"
+    }
+  ]
+}

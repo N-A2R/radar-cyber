@@ -134,6 +134,31 @@
 
 .corpus__growth-compare strong { color: var(--text); }
 
+/* Press-only: the answer is the number, with no victim-level data nearby. */
+.press-only__count {
+  margin: 0;
+  font: 500 34px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.press-only__list {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.press-only__item {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font: 400 var(--text-label)/1.5 var(--font-mono);
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.press-only__item code { color: var(--text); }
+
 .corpus__grid {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
