@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-22",
+  "scope": "nouvelle-aquitaine",
+  "pass": 3,
+  "organisations": "1673221",
+  "sources": 563,
+  "events": "26758",
+  "attachments": 86,
+  "naAttachments": 28,
+  "coherent": 20,
+  "incoherentDetected": 8,
+  "journalRemovedBeforeRun": 212,
+  "reasons": {
+    "distinctive-name": 14,
+    "shared-domain": 3,
+    "body-only-name": 8,
+    "shared-department": 3
+  },
+  "validation": {
+    "truePositives": 6,
+    "falsePositives": 0,
+    "keptTrue": 50,
+    "keptFalse": 8,
+    "checked": 64
+  },
+  "removed": 8,
+  "applied": true,
+  "findings": [
+    {
+      "eventId": 3690,
+      "orgId": 710659,
+      "reason": "body-only-name",
+      "department": "33"
+    },
+    {
+      "eventId": 3729,
+      "orgId": 1472498,
+      "reason": "body-only-name",
+      "department": "79"
+    },
+    {
+      "eventId": 3750,
+      "orgId": 2195838,
+      "reason": "body-only-name",
+      "department": "40"
+    },
+    {
+      "eventId": 23035,
+      "orgId": 1949332,
+      "reason": "body-only-name",
+      "department": "16"
+    },
+    {
+      "eventId": 23036,
+      "orgId": 2021977,
+      "reason": "body-only-name",
+      "department": "24"
+    },
+    {
+      "eventId": 70896,
+      "orgId": 490299,
+      "reason": "body-only-name",
+      "department": "64"
+    },
+    {
+      "eventId": 81836,
+      "orgId": 367844,
+      "reason": "body-only-name",
+      "department": "87"
+    },
+    {
+      "eventId": 116469,
+      "orgId": 119880,
+      "reason": "body-only-name",
+      "department": "64"
+    }
+  ]
+}

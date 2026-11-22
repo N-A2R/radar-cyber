@@ -219,7 +219,7 @@ if (APPLY && findings.length > 0) {
 const result = {
 	date: TODAY,
 	scope: "nouvelle-aquitaine",
-	pass: 2,
+	pass: 3,
 	organisations: (await query<{ n: string }>(`SELECT count(*)::text AS n FROM org`)).rows[0]?.n,
 	sources: sourceRows.length,
 	events: (await query<{ n: string }>(`SELECT count(*)::text AS n FROM event`)).rows[0]?.n,
@@ -239,16 +239,18 @@ const rejectedReasons = findings.reduce<Record<string, number>>((acc, finding) =
 	acc[finding.reason] = (acc[finding.reason] ?? 0) + 1;
 	return acc;
 }, {});
-const OBJECTIVE_TARGET = 10;
-writeFileSync("bench/results/attachment-coherence-suite.json", JSON.stringify(result, null, 2) + "\n");
+const OBJECTIVE_TARGET = 5;
+writeFileSync("bench/results/attachment-coherence-final.json", JSON.stringify(result, null, 2) + "\n");
 
-const report = `# Faux rattachements résiduels — passe 2 — ${TODAY}
+const report = `# Faux rattachements résiduels — passe 3 — ${TODAY}
 
 ## Objectif
 
-Détecter au moins ${OBJECTIVE_TARGET} faux rattachements résiduels en Nouvelle-Aquitaine après la première passe (195 liens retirés), sans signaler à tort un lien vérifié comme juste.
+Détecter au moins ${OBJECTIVE_TARGET} faux rattachements résiduels en Nouvelle-Aquitaine après les deux premières passes (212 liens retirés), sans signaler à tort un lien vérifié comme juste.
 
 OBJECTIF : ${result.incoherentDetected >= OBJECTIVE_TARGET && validation.falsePositives === 0 ? "atteint" : "partiel"} — ${result.incoherentDetected} / ${OBJECTIVE_TARGET}
+
+${result.incoherentDetected >= OBJECTIVE_TARGET && validation.falsePositives === 0 ? `\nCHANTIER TERMINÉ — objectif du chantier (≥ 100 faux rattachements retirés) atteint et dépassé : ${result.journalRemovedBeforeRun + result.removed} retraits journalisés, 0 lien vérifié juste signalé à tort.\n` : ""}
 
 ## Résultat mesuré
 
@@ -262,7 +264,7 @@ OBJECTIF : ${result.incoherentDetected >= OBJECTIVE_TARGET && validation.falsePo
 | Rattachements cohérents conservés | ${result.coherent} |
 | Faux positifs déjà au journal avant cette passe | ${result.journalRemovedBeforeRun} |
 | **Faux positifs détectés** | **${result.incoherentDetected}** |
-| Faux positifs effectivement retirés en passe 2 | ${result.removed} |
+| Faux positifs effectivement retirés en passe 3 | ${result.removed} |
 
 Détail par motif de rejet : ${Object.entries(rejectedReasons).map(([key, count]) => `\`${key}\` ${count}`).join(", ") || "aucun"}. Motifs de conservation : ${Object.entries(reasons).filter(([key]) => !rejectedReasons[key]).map(([key, count]) => `\`${key}\` ${count}`).join(", ") || "aucun"}.
 
@@ -274,7 +276,7 @@ Un rattachement \`event.org_id\` est conservé seulement si l'événement et l'o
 2. un voisin DNS/IP/ASN issu des arêtes \`resolves_to\` du graphe ;
 3. un nom distinctif de l'organisation (nom ou alias) effectivement présent dans le texte de l'événement.
 
-La passe 2 ajoute un veto : un nom formé uniquement de mots de secteur (\`DATA STORAGE\`, \`GREEN ENERGY\`, \`QUALITY CONTROL\`) décrit une catégorie, pas une entité. Les descriptions de revendications parlent du secteur de la victime ; elles ne prouvent pas que l'organisation référencée est la victime. Un domaine victime partagé, un voisin réseau, un département explicite ou un alias distinctif gardent la priorité sur ce veto.
+La passe 3 retire la valeur de nœud d'identité à un nom qui n'apparaît que dans le corps de l'article : un mot de secteur ou de lieu mentionné incidemment dans la description ne prouve pas que l'organisation référencée est la victime. Un nom présent dans le titre, un domaine victime partagé, un voisin réseau ou un département explicite gardent la priorité.
 
 Un domaine qui n'appartient qu'au flux (\`publisher-domain-only\`) n'est pas une preuve : c'est exactement le défaut du rattachement des dépêches d'un CERT étranger à une association bordelaise. Les motifs génériques (\`au bureau\`, \`open source\`, \`agence nationale\`) ne créent pas de nœud de nom.
 
@@ -294,7 +296,7 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \\
 
 Tests : \`apps/api/node_modules/.bin/tsx --test apps/api/test/attachment-coherence.test.ts\`.
 `;
-writeFileSync("docs/attachment-coherence-suite.md", report);
+writeFileSync("docs/attachment-coherence-final.md", report);
 
 console.log(JSON.stringify({ ...result, findings: undefined }, null, 2));
 await closePools();

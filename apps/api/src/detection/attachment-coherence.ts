@@ -67,6 +67,7 @@ export type CoherenceReason =
 	| "shared-network"
 	| "shared-department"
 	| "distinctive-name"
+	| "body-only-name"
 	| "sector-only-name"
 	| "publisher-domain-only"
 	| "no-shared-node"
@@ -136,8 +137,11 @@ export function isSectorOnlyName(name: string): boolean {
 		&& !GENERIC_TOKENS.has(token) && !SECTOR_TOKENS[token]);
 }
 
-function nameInText(input: CoherenceInput, names: readonly string[]): boolean {
-	const text = normalize(`${input.event.title ?? ""} ${input.event.summary ?? ""}`);
+function nameInText(
+	input: CoherenceInput,
+	names: readonly string[],
+	text = normalize(`${input.event.title ?? ""} ${input.event.summary ?? ""}`),
+): boolean {
 	return names.some((name) => {
 		const normalized = normalize(name);
 		return normalized.length >= 5 && isDistinctiveName(normalized) && text.includes(normalized);
@@ -174,8 +178,16 @@ export function evaluateCoherence(
 	if (isSectorOnlyName(input.org.name) && !nameInText(input, aliasNodes) && !publisherOnly) {
 		return { coherent: false, reason: "sector-only-name", victimRoots };
 	}
-	if (nameInText(input, [input.org.name, ...aliasNodes])) {
+	const titleText = normalize(input.event.title ?? "");
+	const summaryText = normalize(input.event.summary ?? "");
+	const supportedNames = [input.org.name, ...aliasNodes];
+	if (nameInText(input, supportedNames, titleText)) {
 		return { coherent: true, reason: "distinctive-name", victimRoots };
+	}
+	// A name mentioned only in the article body is an incidental topic word,
+	// not proof that this particular organisation is the victim.
+	if (nameInText(input, supportedNames, summaryText)) {
+		return { coherent: false, reason: "body-only-name", victimRoots };
 	}
 
 	return {

@@ -133,7 +133,7 @@ test("keeps a real name that contains a sector word", () => {
 		input(
 			{ name: "REAL ESTATE BORDEAUX", domains: [] },
 			event({
-				title: "Ransomware :REAL ESTATE BORDEAUX victime",
+				title: "REAL ESTATE BORDEAUX victime d'un ransomware",
 				summary: null,
 				publisherRoots: ["ransomlook.example"],
 			}),
@@ -152,4 +152,34 @@ test("keeps a sector-labelled org when the victim domain matches", () => {
 	);
 	assert.equal(verdict.coherent, true);
 	assert.equal(verdict.reason, "shared-domain");
+});
+
+test("flags a directory alias mentioned only in the article body", () => {
+	const verdict = evaluateCoherence(
+		input(
+			{ name: "PROLUM NEW GEN", domains: [], aliases: ["TO LIGHT"] },
+			event({
+				title: "Ransomware: arrests of affiliate groups announced",
+				summary: "The victims were brought to light by independent researchers",
+				publisherRoots: ["databreaches.example"],
+			}),
+		),
+	);
+	assert.equal(verdict.coherent, false);
+	assert.equal(verdict.reason, "body-only-name");
+});
+
+test("keeps a title subject also repeated in the article body", () => {
+	const verdict = evaluateCoherence(
+		input(
+			{ name: "GITES DE FRANCE", domains: [] },
+			event({
+				title: "Gîtes de France - 117,574 breached accounts",
+				summary: "Gîtes de France confirmed the breach this week",
+				publisherRoots: ["leak.example"],
+			}),
+		),
+	);
+	assert.equal(verdict.coherent, true);
+	assert.equal(verdict.reason, "distinctive-name");
 });
