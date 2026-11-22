@@ -6,10 +6,12 @@
  * queue items, keyed by public source id and timestamps alone.
  */
 import { query } from "../db.js";
+import { loadRuleThresholds } from "./engine.js";
 import {
 	CADENCE_WINDOW_DAYS,
 	DAY_MS,
 	HOUR_MS,
+	SILENCE_ALERT_HOURS,
 	SILENT_SOURCE_RULE,
 	SILENT_SOURCE_SCOPE,
 	detectSilentSources,
@@ -98,7 +100,11 @@ export async function runSilentSourceCheck(options: { now?: number; force?: bool
 	}
 
 	const signals: SourceSignal[] = [...bySource].map(([sourceId, productionTimes]) => ({ sourceId, productionTimes }));
-	const alerts = detectSilentSources(signals, now);
+	// Seuil calibré en heures (table `rule_calibration`) ; 12 h historiques si
+	// la mesure manque, pour ne jamais changer de comportement sans preuve.
+	const thresholds = await loadRuleThresholds();
+	const thresholdHours = thresholds.get(SILENT_SOURCE_RULE) ?? SILENCE_ALERT_HOURS;
+	const alerts = detectSilentSources(signals, now, thresholdHours);
 	let created = 0;
 	for (const alert of alerts) {
 		if (await writeAlert(alert)) created++;
