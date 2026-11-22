@@ -84,10 +84,12 @@
 }
 
 .health-view__body table.data {
-  /* 820 px forçaient une barre horizontale dans un corps de ~860 px : la
-     dernière colonne était coupée et les libellés de date tronqués
-     (« 11 y a h »). On laisse le tableau occuper la largeur disponible. */
-  min-width: 640px;
+  /* Le contenu forçait 1 279 px (URLs de flux en 70 caractères) dans un corps
+     de 837 px : barre horizontale, dernière colonne coupée, dates tronquées
+     (« 11 y a h »). En layout fixe, les colonnes partagent la largeur et le
+     texte long s'ellipse — l'URL reste accessible par le lien et son title. */
+  table-layout: fixed;
+  min-width: 0;
   width: 100%;
 }
 
@@ -140,5 +142,18 @@
 }
 
 .health-view__page-etat {
+  white-space: nowrap;
+}
+
+/* Une seule ligne par cellule : l'ellipse remplace le débordement, et le
+   `title` porte le texte complet quand il est coupé. */
+.health-view__body table.data td,
+.health-view__body table.data th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.health-view__body table.data td > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
