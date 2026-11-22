@@ -217,3 +217,42 @@ describe('GraphView — time-aware graph', () => {
     expect(container.querySelector('[data-node-id="org:99"]')).toBeNull();
   });
 });
+
+describe('GraphView — encodage visuel', () => {
+  it('explains size, colour and constant link thickness in the legend', async () => {
+    await mount();
+    await flush();
+    const legend = container.querySelector('.gv-legend')?.textContent ?? '';
+    expect(legend).toContain('Taille = liens');
+    expect(legend).toContain('1 lien');
+    expect(legend).toContain('16 liens');
+    expect(legend).toContain('Couleur = type');
+    expect(legend).toContain('aucun poids dans la donnée');
+  });
+
+  it('labels the matrix in French with an intensity legend and header totals', async () => {
+    await mount();
+    await flush();
+    click('Matrice');
+    const corner = container.querySelector('.gm-corner')?.textContent ?? '';
+    expect(corner).toContain('Famille · Département');
+    const legend = container.querySelector('.gm-legend')?.textContent ?? '';
+    expect(legend).toContain('intensité = organisations par case');
+    expect(legend).toContain('totaux dans les en-têtes');
+    expect(container.querySelectorAll('.gm-total').length).toBeGreaterThan(0);
+  });
+
+  it('moves a visible keyboard focus through nodes and selects with Enter', async () => {
+    await mount();
+    await flush();
+    const canvas = container.querySelector('.gv-canvas') as HTMLDivElement;
+    const status = () => container.querySelector('.gv-sr-status')?.textContent ?? '';
+    act(() => { canvas.dispatchEvent(new FocusEvent('focusin', { bubbles: true })); });
+    expect(status()).toContain('Nœud 1 sur 11');
+    act(() => { canvas.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })); });
+    expect(status()).toContain('Nœud 2 sur 11');
+    act(() => { canvas.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); });
+    expect(container.querySelector('.gv-detail')).not.toBeNull();
+    expect(selected).toHaveLength(1);
+  });
+});

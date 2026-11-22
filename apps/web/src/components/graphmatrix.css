@@ -20,6 +20,41 @@
   font-variant-numeric: tabular-nums;
 }
 
+.gm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.gm-legend-title {
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.gm-legend-text {
+  color: var(--faint);
+}
+
+.gm-legend-scale {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.gm-swatch {
+  width: 18px;
+  height: 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) calc(var(--gm-i, 0) * 100%), transparent);
+}
+
 .gm-scroll {
   overflow: auto;
   min-height: 0;
@@ -90,14 +125,27 @@
   white-space: nowrap;
 }
 
+.gm-total {
+  margin-left: 6px;
+  color: var(--faint);
+  font-size: 10px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
 .gm-cell {
-  background: color-mix(in srgb, var(--accent) calc(var(--gm-i, 0) * 55%), transparent);
+  background: color-mix(in srgb, var(--accent) calc(var(--gm-i, 0) * 100%), transparent);
   color: var(--text);
   text-align: center;
 }
 
+.gm-cell--strong {
+  color: var(--accent-ink);
+}
+
 .gm-cell--zero {
   background: transparent;
+  color: var(--faint);
 }
 
 .gm-empty {
