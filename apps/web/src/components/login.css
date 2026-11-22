@@ -1,15 +1,17 @@
-/* Écran de connexion : une plaque, pas un vide.
-   Avant : un formulaire de 320 px flottant sur du noir, sans cadre ni repère,
-   qui ressemblait à une page cassée. Il porte maintenant sa surface, ses
-   champs sont des champs (bordés, cliquables sur toute la hauteur) et le
-   bouton a une cible de 44 px. */
+/* Écran de connexion : une plaque posée sur un fond profond, pas un formulaire
+   flottant. Hiérarchie lisible (marque, phrase de contexte, champs, action),
+   états explicites (vide, envoi, refus) et focus clavier toujours visible.
+   Uniquement des jetons de styles.css : aucune couleur en dur. */
 
 .login {
   display: grid;
   place-items: center;
   min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--space-6);
-  background: var(--bg);
+  background:
+    radial-gradient(1100px 520px at 50% -10%, var(--surface-2), transparent 70%),
+    var(--bg);
   color: var(--text);
   font-family: var(--font-body);
 }
@@ -17,32 +19,61 @@
 .login__form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
   width: 100%;
-  max-width: 380px;
-  padding: var(--space-6);
-  border: 1px solid var(--line);
+  max-width: 400px;
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  border: 1px solid var(--line-strong);
+  border-top: 2px solid var(--accent);
   border-radius: var(--radius);
   background: var(--surface);
 }
 
+.login__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.login__kicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-label) / 1.4 var(--font-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.login__mark {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+}
+
 .login__title {
   margin: 0;
-  font-size: var(--text-title);
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-size: calc(var(--text-title) * 1.5);
+  font-weight: var(--weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--text);
 }
 
-.login__title::after {
-  content: "Nouvelle-Aquitaine · observatoire d'incidents";
-  display: block;
-  margin-top: var(--space-1);
-  font-size: var(--text-body);
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
+.login__subtitle {
+  max-width: 36ch;
+  margin: 0;
   color: var(--muted);
+  font-size: var(--text-read);
+  line-height: var(--leading-relaxed);
+}
+
+.login__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 .login__field {
@@ -52,10 +83,10 @@
 }
 
 .login__field label {
-  font-size: var(--text-label);
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-label) / 1.4 var(--font-label);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--muted);
 }
 
 .login__field input {
@@ -65,7 +96,7 @@
   border-radius: var(--radius);
   background: var(--surface-2);
   color: var(--text);
-  font-size: var(--text-read);
+  font: var(--weight-regular) var(--text-read) / 1.4 var(--font-body);
   outline: none;
   transition: border-color 120ms ease, background-color 120ms ease;
 }
@@ -74,27 +105,61 @@
   color: var(--faint);
 }
 
-.login__field input:hover {
-  border-color: var(--line-strong);
+.login__field input:hover:not(:disabled) {
+  border-color: var(--faint);
 }
 
 .login__field input:focus-visible {
-  outline: 1px solid var(--accent);
-  outline-offset: 1px;
+  outline: 2px solid var(--focus);
+  outline-offset: var(--focus-offset);
   border-color: var(--accent);
 }
 
+.login__field input:disabled {
+  background: var(--surface);
+  color: var(--muted);
+  cursor: progress;
+}
+
+.login__field input[aria-invalid="true"] {
+  border-color: var(--sev-5);
+}
+
+.login__field input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--sev-5);
+}
+
+.login__field-error {
+  margin: 0;
+  color: var(--sev-5);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+}
+
+.login__error {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--sev-5);
+  background: var(--surface-2);
+  color: var(--sev-5);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
 .login__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   min-height: 44px;
-  margin-top: var(--space-2);
+  margin-top: var(--space-1);
   padding: 0 var(--space-4);
   border: 1px solid var(--accent);
   border-radius: var(--radius);
   background: var(--accent);
   color: var(--accent-ink);
-  font-size: var(--text-body);
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font: var(--weight-semibold) var(--text-read) / 1 var(--font-body);
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition: filter 120ms ease;
 }
@@ -104,22 +169,58 @@
 }
 
 .login__submit:focus-visible {
-  outline: 1px solid var(--accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--focus);
+  outline-offset: var(--focus-offset);
 }
 
 .login__submit:disabled {
   border-color: var(--line-strong);
-  background: transparent;
-  color: var(--faint);
+  background: var(--surface-2);
+  color: var(--muted);
   cursor: progress;
+  filter: none;
 }
 
-.login__error {
+.login__spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: login-spin 700ms linear infinite;
+}
+
+.login__status {
   min-height: 1.2em;
+  margin: calc(var(--space-2) * -1) 0 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.login__note {
   margin: 0;
-  font-size: var(--text-body);
-  color: var(--sev-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+}
+
+@keyframes login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 420px) {
+  .login {
+    padding: var(--space-4);
+  }
+
+  .login__form {
+    padding: var(--space-5) var(--space-4);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -127,5 +228,9 @@
   .login__submit {
     animation: none !important;
     transition: none !important;
+  }
+
+  .login__spinner {
+    animation-duration: 2.4s;
   }
 }
