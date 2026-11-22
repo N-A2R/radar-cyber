@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:f7dd253d-807e-4458-a892-e64c82d44606>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 322
+WARC-Block-Digest: sha1:7RJJYO6LSL4UUUUREG4XRFK3ZLAOMMJS
+X-Claim-Fingerprint: 9fae7ced6ab09656317a1f1a
+X-Victim-Key: 6220712e478c3f8fde89dd5e
+
+{"post_title": "Cushman & Wakefield", "discovered": "2026-05-04 20:55:18.516345", "description": "Real Estate", "link": "/site/blog?uuid=52b8fa05-6098-4d82-b0ad-8d8e7ec551bf", "magnet": null, "screen": "screenshots/qilin/Cushman & Wakefield.png", "misp_uuid": "3f9ec2a9-995f-5fd9-9301-600cb94cbbec", "group_name": "qilin"}
+

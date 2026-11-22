@@ -1,0 +1,112 @@
+{
+  "measuredAt": "2026-11-22T04:01:46.471Z",
+  "database": "postgres://radar:***@localhost:5433/radar",
+  "command": "pnpm measure:incident-cost",
+  "scope": "nouvelle-aquitaine",
+  "privacy": "aggregate euro amounts only; no victim names, addresses or source URLs",
+  "basis": "published losses from public sources; gray sources allowed; no paid service",
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "corpus": {
+    "files": [
+      "incidents-charente.jsonl",
+      "incidents-charentemaritime.jsonl",
+      "incidents-correze.jsonl",
+      "incidents-creuse.jsonl",
+      "incidents-deuxsevres.jsonl",
+      "incidents-dordogne.jsonl",
+      "incidents-gironde.jsonl",
+      "incidents-hautevienne.jsonl",
+      "incidents-landes.jsonl",
+      "incidents-lotetgaronne.jsonl",
+      "incidents-multilingues-na.jsonl",
+      "incidents-pyreneesatlantiques.jsonl",
+      "incidents-vienne.jsonl"
+    ],
+    "incidentRecords": 187
+  },
+  "incidents": {
+    "inNouvelleAquitaine": 146,
+    "withOrganizationVictim": 53,
+    "withPublishedCost": 8
+  },
+  "model": {
+    "method": "lognormal-mle-percentile-bootstrap",
+    "seed": 20261122,
+    "resamples": 2000,
+    "sampleSize": 8,
+    "mu": 10.804354,
+    "sigma": 1.210768,
+    "medianEur": 49234.72,
+    "meanEur": 102470.82,
+    "meanCi95": [
+      37371.88,
+      129125
+    ],
+    "predictionCi95": [
+      4588.23,
+      528320.7
+    ]
+  },
+  "observations": [
+    {
+      "incidentId": "cor-001",
+      "department": "19",
+      "incidentDate": null,
+      "amountEur": 44000,
+      "category": "loss"
+    },
+    {
+      "incidentId": "na-charente-004",
+      "department": "16",
+      "incidentDate": null,
+      "amountEur": 120000,
+      "category": "loss"
+    },
+    {
+      "incidentId": "na-creuse-004",
+      "department": "23",
+      "incidentDate": null,
+      "amountEur": 173000,
+      "category": "fraud"
+    },
+    {
+      "incidentId": "na-landes-005",
+      "department": "40",
+      "incidentDate": "2025-08-26",
+      "amountEur": 15000,
+      "category": "fraud"
+    },
+    {
+      "incidentId": "na-lg-001",
+      "department": "47",
+      "incidentDate": "2025-10-03",
+      "amountEur": 24000,
+      "category": "cost"
+    },
+    {
+      "incidentId": "na-lg-005",
+      "department": "47",
+      "incidentDate": "2026-10-12",
+      "amountEur": 75000,
+      "category": "loss"
+    },
+    {
+      "incidentId": "na-lg-009",
+      "department": "47",
+      "incidentDate": "2024-10",
+      "amountEur": 7000,
+      "category": "cost"
+    },
+    {
+      "incidentId": "pa-inc-009",
+      "department": "64",
+      "incidentDate": "2026-10-12",
+      "amountEur": 200000,
+      "category": "damage"
+    }
+  ]
+}

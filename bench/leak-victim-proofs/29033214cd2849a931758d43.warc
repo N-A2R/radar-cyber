@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:5b9a0a71-aeb7-45c5-a696-8e18e6afec67>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 342
+WARC-Block-Digest: sha1:UGMYABDZMNYJKMYC5TIINVZUYNPWGMFO
+X-Claim-Fingerprint: 2db6729e3ffed144bd91acd3
+X-Victim-Key: 29033214cd2849a931758d43
+
+{"post_title": "Sierra Management Group", "discovered": "2026-03-07 11:42:54.997450", "description": "Provides comprehensive medical practice management", "link": "/0fc724d1b71a64ccedc/", "magnet": null, "screen": "screenshots/genesis/Sierra Management Group.png", "misp_uuid": "9ebe9ee0-2925-55cc-99f6-3423f0d79acd", "group_name": "genesis"}
+

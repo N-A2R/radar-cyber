@@ -173,7 +173,7 @@ test("zéro source jamais collectée après un cycle : le ratissage en écrit un
 				[sourceId],
 			);
 		}
-	}, { limite: 1000 }); // le corpus Landes porte le total au-delà du lot par défaut (100)
+	}, { limite: 100_000 }); // au-delà de tout corpus : le test vérifie l'état final, pas la taille du lot
 	assert.deepEqual(restants, [], "aucune source active n'est restée sans run");
 	const runs = await query("SELECT status FROM collector_run WHERE source_id = $1", [id]);
 	assert.equal(runs.rows.length, 1, "la tentative est mesurée, même en échec");
