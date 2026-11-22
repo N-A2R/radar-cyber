@@ -46,7 +46,7 @@ export const KIND_LABEL: Record<string, string> = {
   "source.changed": "Changement de source",
   "source.morte": "Source retirée",
   "journal.lacune": "Lacune de journal",
-  "event.purge": "Purge d'événement",
+  "event.purge": "Purge de rétention",
 };
 
 /** Payload keys that carry the proof; everything else is context. */

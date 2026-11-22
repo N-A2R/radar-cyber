@@ -39,7 +39,7 @@ export type JournalKind =
 	| "source.morte"
 	/** Un fait visé n'a pas pu être écrit : le journal se souvient du trou. */
 	| "journal.lacune"
-	/** Un lot d'événements a été retiré de la table de lecture — jamais sans archive. */
+	/** Un lot a été retiré de la table de lecture ou du brut quarantaine — jamais sans trace. */
 	| "event.purge"
 	/** Un accès API a été refusé (rôle, jeton, route inconnue, débit). */
 	| "acces.refus"

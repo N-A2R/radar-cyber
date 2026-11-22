@@ -390,6 +390,7 @@ if (COLLECT) {
 	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
+		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s), ${r.rawRows} brut(s) sur ${r.rawSources} source(s), ${r.accessLog} accès`);
 		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s), ${r.accessLog} accès`);
 	});
 
@@ -437,7 +438,7 @@ if (COLLECT) {
 		void guarded("hermes", () => runHermesCollector(log));
 		void guarded("rétention", async () => {
 			const r = await runRetention(log);
-			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s), ${r.accessLog} accès`);
+			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s), ${r.rawRows} brut(s) sur ${r.rawSources} source(s), ${r.accessLog} accès`);
 		});
 	}, RETENTION_MS);
 

@@ -1,7 +1,9 @@
 import { ingestQuery } from "../db.js";
 import { consigner, MOTEURS } from "../journal/index.js";
 
-type Table = "event" | "indicator" | "collector_run" | "collecte_cycle";
+type Table = "event" | "indicator" | "collector_run" | "collecte_cycle" | "quarantine_raw";
+
+type GenericTable = Exclude<Table, "quarantine_raw">;
 
 export interface RetentionResult {
   events: number;
@@ -12,11 +14,15 @@ export interface RetentionResult {
   archived: number;
   /** Lignes du journal des accès supprimées par la rétention RGPD. */
   accessLog: number;
+  /** Lignes de brut quarantaine supprimées au-delà de la durée déclarée. */
+  rawRows: number;
+  /** Sources dont au moins une ligne de brut a été purgée. */
+  rawSources: number;
 }
 
 const BATCH = 10000;
 
-function cutoffExpr(table: Table): string {
+function cutoffExpr(table: GenericTable): string {
   if (table === "event") return "COALESCE(observed_at, collected_at) < $1";
   if (table === "indicator") return "last_seen < $1";
   if (table === "collector_run" || table === "collecte_cycle") {
@@ -31,7 +37,7 @@ function cutoffExpr(table: Table): string {
  * (plus de titre, d'organisation, de source). Ces événements restent donc en
  * base tant qu'une alerte les cite — c'est la preuve, pas le volume, qui prime.
  */
-function purgeFilter(table: Table): string {
+function purgeFilter(table: GenericTable): string {
   if (table === "event") {
     return " AND NOT EXISTS (SELECT 1 FROM alert a WHERE a.event_id = event.id)";
   }
@@ -43,21 +49,124 @@ function purgeFilter(table: Table): string {
   return "";
 }
 
+/**
+ * Rétention déclarée du brut : le registre dit combien de jours, source par
+ * source, et c'est exactement son prédicat que la suppression applique. Une
+ * source encore inconnue est d'abord déclarée à `defaultDays`, puis purgée :
+ * aucune collecte nouvelle n'échappe au registre. Chaque purge effective
+ * laisse un fait `event.purge` daté, sujet = source, dans le journal.
+ */
+async function purgerBrutParRegistre(
+  log: (msg: string) => void,
+  defaultDays: number,
+  dryRun: boolean,
+): Promise<{ rows: number; sources: number }> {
+  if (dryRun) {
+    const { rows } = await ingestQuery<{ n: string; sources: string }>(
+      `SELECT count(*)::text AS n, count(DISTINCT q.source_id)::text AS sources
+         FROM quarantine_raw q
+         LEFT JOIN registre_traitement r ON r.source_id = q.source_id
+        WHERE q.collected_at < now() - (COALESCE(r.duree_jours, $1::integer) || ' days')::interval`,
+      [defaultDays],
+    );
+    const n = Number(rows[0]?.n ?? 0);
+    log(`quarantine_raw: ${n} (dry-run)`);
+    return { rows: n, sources: Number(rows[0]?.sources ?? 0) };
+  }
+
+  // Déclarer avant de purger : le registre ne peut pas ignorer une source.
+  await ingestQuery(
+    `INSERT INTO registre_traitement (source_id, duree_jours)
+     SELECT DISTINCT q.source_id, $1::integer
+       FROM quarantine_raw q
+      WHERE NOT EXISTS (SELECT 1 FROM registre_traitement r WHERE r.source_id = q.source_id)
+     ON CONFLICT (source_id) DO NOTHING`,
+    [defaultDays],
+  );
+
+  const { rows: sources } = await ingestQuery<{ source_id: string; duree_jours: number }>(
+    `SELECT r.source_id, r.duree_jours
+       FROM registre_traitement r
+      WHERE EXISTS (
+        SELECT 1 FROM quarantine_raw q
+         WHERE q.source_id = r.source_id
+           AND q.collected_at < now() - (r.duree_jours || ' days')::interval)
+      ORDER BY r.source_id`,
+  );
+
+  let total = 0;
+  let purgedSources = 0;
+  for (const source of sources) {
+    let purged = 0;
+    while (true) {
+      const { rowCount } = await ingestQuery(
+        `WITH cible AS (
+           SELECT q.id
+             FROM quarantine_raw q
+             JOIN registre_traitement r ON r.source_id = q.source_id
+            WHERE q.source_id = $1
+              AND q.collected_at < now() - (r.duree_jours || ' days')::interval
+            LIMIT ${BATCH}
+         )
+         DELETE FROM quarantine_raw q USING cible c WHERE q.id = c.id`,
+        [source.source_id],
+      );
+      const n = rowCount ?? 0;
+      purged += n;
+      if (n < BATCH) break;
+    }
+    if (purged === 0) continue;
+    total += purged;
+    purgedSources++;
+    const purgeLe = new Date().toISOString();
+    log(`quarantine_raw ${source.source_id} : ${purged} ligne(s) purgée(s) (${source.duree_jours} j)`);
+    const trace = await consigner({
+      kind: "event.purge",
+      subject: source.source_id,
+      summary: `purge du brut : ${purged} ligne(s) de ${source.source_id} au-delà de ${source.duree_jours} j — purge du ${purgeLe}`,
+      actor: "moteur:retention@1",
+      payload: {
+        table: "quarantine_raw",
+        sourceId: source.source_id,
+        purged,
+        dureeJours: source.duree_jours,
+        purgeLe,
+      },
+      validAt: purgeLe,
+    });
+    if (!trace.ok) {
+      log(`journal : purge du brut ${source.source_id} non consignée (${trace.error ?? "erreur inconnue"})`);
+    }
+  }
+  return { rows: total, sources: purgedSources };
+}
+
 export async function runRetention(
   log: (msg: string) => void,
-  opts?: { days?: number; indicatorDays?: number; dryRun?: boolean; tables?: Table[] },
+  opts?: { days?: number; indicatorDays?: number; rawDays?: number; dryRun?: boolean; tables?: Table[] },
 ): Promise<RetentionResult> {
   // Durées distinctes : un événement perd sa valeur vite, un indicateur
   // technique reste utile un an. Décision utilisateur du 10 novembre.
   const days = opts?.days ?? Number(process.env.RADAR_RETENTION_DAYS ?? 90);
   const indicatorDays = opts?.indicatorDays ?? Number(process.env.RADAR_RETENTION_INDICATOR_DAYS ?? 365);
+  // Durée déclarée d'office pour une source de brut encore absente du registre.
+  const rawDays = opts?.rawDays ?? Number(process.env.RADAR_RETENTION_RAW_DAYS ?? 90);
   const dryRun = opts?.dryRun ?? false;
   const auditDays = Number(process.env.RADAR_AUDIT_RETENTION_DAYS ?? 90);
-  const tables = opts?.tables ?? ["event", "indicator", "collector_run", "collecte_cycle"];
+  const tables = opts?.tables ?? ["event", "indicator", "collector_run", "collecte_cycle", "quarantine_raw"];
 
-  const result: RetentionResult = { events: 0, indicators: 0, collectorRuns: 0, cyclesSupervision: 0, archived: 0, accessLog: 0 };
+  const result: RetentionResult = {
+    events: 0,
+    indicators: 0,
+    collectorRuns: 0,
+    cyclesSupervision: 0,
+    archived: 0,
+    accessLog: 0,
+    rawRows: 0,
+    rawSources: 0,
+  };
 
-  for (const table of tables) {
+  for (const table of tables.filter((t): t is GenericTable => t !== "quarantine_raw")) {
     const tableDays = table === "indicator" && opts?.days === undefined ? indicatorDays : days;
     const cutoff = new Date(Date.now() - tableDays * 24 * 60 * 60 * 1000).toISOString();
     let total = 0;
@@ -141,6 +250,14 @@ export async function runRetention(
     else if (table === "indicator") result.indicators = total;
     else if (table === "collecte_cycle") result.cyclesSupervision = total;
     else result.collectorRuns = total;
+  }
+
+  // Brut de quarantaine : la durée n'est pas globale, elle est lue dans le
+  // registre des traitements, source par source.
+  if (tables.includes("quarantine_raw")) {
+    const brut = await purgerBrutParRegistre(log, rawDays, dryRun);
+    result.rawRows = brut.rows;
+    result.rawSources = brut.sources;
   }
 
   // Rétention du journal des accès : seule suppression autorisée sur cette
