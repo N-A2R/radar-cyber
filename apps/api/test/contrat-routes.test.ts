@@ -41,6 +41,7 @@ import quarantineRoute from "../src/routes/quarantine.js";
 import reviewRoute from "../src/routes/review.js";
 import searchRoute from "../src/routes/search.js";
 import sourcesRoute from "../src/routes/sources.js";
+import { reglePour } from "../src/security/rbac.js";
 import statsRoute from "../src/routes/stats.js";
 import todayRoute from "../src/routes/today.js";
 
@@ -146,6 +147,18 @@ const SCHEMAS = {
     db: objet, sources: objet, events24h: z.number(), orgs7j: z.number(),
     queues: objet, families: objets,
   }),
+  "/api/health/sources": z.strictObject({
+    ok: z.literal(true), generatedAt: z.string(), total: z.number(),
+    counts: z.strictObject({ ok: z.number(), error: z.number(), pending: z.number() }),
+    families: z.array(z.strictObject({ family: z.string(), sources: z.number() })),
+    matching: z.number(), page: z.number(), pageSize: z.number(), pages: z.number(),
+    items: z.array(z.strictObject({
+      id: z.string(), name: z.string(), family: z.string(), url: z.string(),
+      enabled: z.boolean(), status: z.enum(["ok", "error", "pending"]),
+      lastOkAt: chaineNullable, lastErrorAt: chaineNullable, lastError: chaineNullable,
+      lastItems: nombreNullable,
+    })),
+  }),
   "/api/journal/review": z.strictObject({ rows: objets, limite: z.number(), avant: nombreNullable }),
   "/api/na/overview": z.strictObject({ depts: objets, derniereCollecte: chaineNullable, total: objet }),
   "/api/na/events": z.strictObject({ dept: z.string(), events: objets }),
@@ -249,6 +262,15 @@ for (const [path, schema] of Object.entries(SCHEMAS)) {
     await verifierContrat(path, schema);
   });
 }
+
+test("chaque route du contrat est déclarée dans la matrice d'accès", () => {
+  // Sans cette assertion, une route peut répondre au handler et renvoyer 404
+  // en production : `installAccessControl` refuse toute route absente de la
+  // matrice. C'est le sens routes → matrice, complémentaire de
+  // `securite-couverture.test.ts`.
+  const manquantes = Object.keys(SCHEMAS).filter((path) => reglePour("GET", path) === null);
+  assert.deepEqual(manquantes, [], `routes hors matrice : ${manquantes.join(", ")}`);
+});
 
 test("le contrat couvre au moins 15 routes GET", () => {
   assert.ok(Object.keys(SCHEMAS).length >= 15);

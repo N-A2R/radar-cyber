@@ -1,0 +1,140 @@
+/* Écran Santé : le stage est un item de grille en block, qui rogne. Ce
+   conteneur (monté dans App.tsx) répartit la hauteur entre le résumé et le
+   tableau ; chaque moitié défile pour son compte. */
+.health-ecran {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.health-ecran__resume {
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: 40%;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5) 0;
+}
+
+/* Vue « santé des sources » : elle prend la place restante, avec un en-tête et
+   un pied fixes et un corps qui défile. Jetons sémantiques uniquement. */
+.health-view {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  max-width: 1500px;
+  overflow: hidden;
+  padding: var(--space-4) var(--space-5);
+  gap: var(--space-3);
+}
+
+.health-view__head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.health-view__head h1 {
+  margin: 0;
+  font: 600 16px/1.2 var(--font-sans);
+}
+
+.health-view__resume {
+  margin: 0;
+  color: var(--muted);
+  font: 400 11px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.health-view__toolbar {
+  flex: 0 0 auto;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.health-view__toolbar select,
+.health-view__toolbar input {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+}
+
+.health-view__toolbar input {
+  min-width: 180px;
+}
+
+.health-view__compte {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Seul le corps défile : l'en-tête, la barre de filtres et la pagination
+   restent atteignables quelle que soit la hauteur des lignes. */
+.health-view__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.health-view__body table.data {
+  min-width: 820px;
+}
+
+.health-view__body thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg);
+}
+
+.health-view__attente,
+.health-view__erreur {
+  padding: var(--space-4);
+}
+
+.health-view__pager {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--line);
+  font: 400 11px/1.4 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.health-view__page-btn {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+}
+
+.health-view__page-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.health-view__page-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.health-view__page-btn:disabled {
+  color: var(--faint);
+  cursor: default;
+}
+
+.health-view__page-etat {
+  white-space: nowrap;
+}

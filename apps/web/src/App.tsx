@@ -893,10 +893,15 @@ export default function App() {
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 
           {view === "health" ? (
-            <>
-              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
+            // Le stage est un item de grille en block : deux vues empilées n'y
+            // tiennent pas. Ce conteneur donne à chacune sa place — le résumé
+            // garde 40 % au plus, le tableau prend le reste et défile.
+            <div className="health-ecran">
+              <div className="health-ecran__resume">
+                <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
+              </div>
               <HealthView sources={sources} loading={loading} onRetry={recharger} />
-            </>
+            </div>
           ) : null}
 
           {view === "dossier" ? <DossierView /> : null}
