@@ -35,3 +35,5 @@ Contrôle du 2026-11-22 : `curl -L GET`, redirections suivies, code final, User-
 - Aucun flux RSS n'a été trouvé pour Trans-Landes, RRTL, Movima, la CCI, la CMA, l'UNPC ou Transports Brocas ; leurs pages HTML sont suivies.
 - Les médias régionaux (Sud Ouest, ICI, France 3, actu.fr) couvrent les transports dans les Landes sans être strictement départementaux ; Sud Ouest et ICI sont retenus ici pour leurs rubriques 40, avec des exemples d'articles locaux (SNCF Dax–Ychoux, fraude aux cryptomonnaies à Rion-des-Landes).
 - Les URL d'exemple cyber sont des articles contextuels (cybersécurité des entreprises landaises, fraude au fret, logistique) et non des incidents subis par chaque organisation listée.
+
+OBJECTIF : atteint — 13 / 5
