@@ -47,3 +47,4 @@ Résultat : **25 sources, 58 URL distinctes toutes en HTTP 200** le 2026-11-22 (
 - `https://www.bressuire.fr/` : redirige vers `https://www.ville-bressuire.fr/`, URL retenue après redirection.
 
 Méthode : découverte des organisations via annuaires professionnels, chambres consulaires, fédérations, sites officiels et presse locale ; pages d'actualités et flux repérés dans les pages elles-mêmes ; chaque URL contrôlée par GET HTTP réel (`curl -L`, User-Agent navigateur, délai 25 s) le 2026-11-22.
+OBJECTIF : atteint — 25 / 5
