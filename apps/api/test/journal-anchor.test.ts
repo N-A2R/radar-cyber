@@ -4,7 +4,14 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, describe, it } from "node:test";
 import { closePools, query } from "../src/db.js";
-import { ancrerJour, ancrerJournalDuJour, jourHier, verifierJour } from "../src/journal/anchor.js";
+import {
+	ancrerJour,
+	ancrerJournalDuJour,
+	bornesDeLignes,
+	jourHier,
+	lignesDuJour as lignesJournalDuJour,
+	verifierJour,
+} from "../src/journal/anchor.js";
 import { feuilleJournal, racineJournal, racineMerkle, type LigneJournal } from "../src/journal/merkle.js";
 import { empreinteRacine, requeteTimestamp, verifierJeton, type JetonObtenu, type JetonVerifie } from "../src/journal/rfc3161.js";
 
@@ -119,6 +126,13 @@ describe("ancrage quotidien du journal de vérité", () => {
 		assert.equal(resultat.ancrage.racine_sha256, racineJournal(await lignesDuJour()));
 		assert.ok(Number(resultat.ancrage.journal_debut_id) > 0);
 		assert.ok(Number(resultat.ancrage.journal_fin_id) >= Number(resultat.ancrage.journal_debut_id));
+		const extremes = await query<{ debut: string; fin: string }>(
+			`SELECT min(id)::text AS debut, max(id)::text AS fin FROM journal
+			  WHERE (recorded_at AT TIME ZONE 'UTC')::date = $1::date`,
+			[JOUR],
+		);
+		assert.equal(resultat.ancrage.journal_debut_id, extremes.rows[0]?.debut, "borne basse = min numérique");
+		assert.equal(resultat.ancrage.journal_fin_id, extremes.rows[0]?.fin, "borne haute = max numérique");
 
 		const publie = JSON.parse(await readFile(join(dossier, `journal_root_${JOUR}.json`), "utf8"));
 		assert.equal(publie.schema, "radar.journal.root/v1");
@@ -208,6 +222,41 @@ describe("ancrage quotidien du journal de vérité", () => {
 		assert.equal(rejeu.ancrage.journal_lignes, "0");
 		const verification = await verifierJour({ jour, dossier, verificateur: verificateurTest });
 		assert.equal(verification.lignes, 0);
+	});
+
+	it("calcule des bornes ordonnées même quand les id changent de largeur", () => {
+		const ligne = (id: number): LigneJournal => ({
+			id,
+			kind: "revue.decided",
+			subject: `s-${id}`,
+			summary: "m",
+			payload: {},
+			actor: "humain:test",
+			valid_at: null,
+			recorded_at: "2026-11-20T12:00:00Z",
+		});
+		// Le défaut d'origine : un tri lexicographique rend 100000 avant 99999,
+		// donc `lignes[0]` > `lignes.at(-1)` et la contrainte refuse la ligne.
+		const lexicographique = [ligne(100000), ligne(125802), ligne(99999), ligne(96302)];
+		assert.deepEqual(bornesDeLignes(lexicographique), { debut: 96302, fin: 125802 });
+		assert.deepEqual(bornesDeLignes([]), { debut: 0, fin: 0 });
+	});
+
+	it("relit les lignes d'un jour par id numérique croissant, jamais lexicographique", async () => {
+		// Jour futur : hors de `joursManquants` (borné à la veille) et de tout
+		// autre test. La base de test est jetable ; la ligne reste en place.
+		const jour = "2027-01-01";
+		// Ids explicites très au-dessus de la séquence : aucun autre test ne peut
+		// les croiser, et leur largeur diffère (9 puis 10 chiffres).
+		await query(
+			`INSERT INTO journal (id, kind, subject, summary, payload, actor, valid_at, recorded_at) VALUES
+			   ($1, 'test.ordre', $3, 'ordre numérique', '{}'::jsonb, 'humain:test', NULL, $4::timestamptz),
+			   ($2, 'test.ordre', $3, 'ordre numérique', '{}'::jsonb, 'humain:test', NULL, $4::timestamptz)`,
+			[1000000000, 999999999, `${MARQUE}-ordre`, `${jour}T12:00:00Z`],
+		);
+		const lues = await lignesJournalDuJour(jour);
+		assert.deepEqual(lues.map((l) => Number(l.id)), [999999999, 1000000000]);
+		assert.deepEqual(bornesDeLignes(lues), { debut: 999999999, fin: 1000000000 });
 	});
 
 	it("ancre la veille et rattrape un jour récent laissé nu", async () => {
