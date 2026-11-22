@@ -72,3 +72,5 @@ non renseignée.
 - code et interface en anglais, rapport en français ;
 - `apps/api/src/server.ts` inchangé : 0 ligne de diff ;
 - aucune commande de plus de 60 secondes (mesure ~1,3 s, tests ~0,5 s).
+
+OBJECTIF : atteint — 1 / 1 contradiction détectée à la livraison (22/11/2026 02:13 ; `bench/results/source-contradictions-2026-11-22.json` : 1 désaccord de gravité NGINX entre 3 éditeurs, mesuré par la commande reproductible ci-dessus, identique à `pnpm mesure:contradictions`) ; rejeu du 22/11/2026 sur la base partagée élargie : 0 / 1 (1 678 195 organisations, 1 520 sources, 26 770 événements ; 126 événements NA chargés ; l'événement `cert_fr` 51151, gravité 3, n'est plus marqué régional ni rattaché à une organisation NA, donc hors périmètre du détecteur).
