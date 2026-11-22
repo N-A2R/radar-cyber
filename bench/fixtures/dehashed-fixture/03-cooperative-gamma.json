@@ -1,0 +1,17 @@
+{
+  "query": "gamma.example",
+  "total": 1,
+  "entries": [
+    {
+      "id": "dh-003",
+      "name": "Fuite simulée 03 — coopérative gamma",
+      "domain": "gamma.example",
+      "breach_date": "2024-05-07",
+      "accounts": 8900,
+      "source_url": "https://example.invalid/dehashed-fixture/03",
+      "email": "salarie-fictif@example.invalid",
+      "password": "mot-de-passe-fictif",
+      "ip": "203.0.113.12"
+    }
+  ]
+}
