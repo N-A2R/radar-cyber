@@ -43,3 +43,4 @@ Résultat : **21 sources, 52 URL distinctes toutes en HTTP 200** le 2026-11-22 (
 - `https://www.cdg64.fr/`, `https://www.pau-agglomeration.fr/`, `https://www.cc-pays-de-ladour.fr/`, `https://www.cma-pyrenees-atlantiques.fr/` : NXDOMAIN ou serveur injoignable (000) ; non retenus.
 - `https://pau.cci.fr/actualites/`, `https://www.bayonne.fr/actualites`, `https://www.mediabask.eus/eu/actualites`, `https://www.bayonne.fr/rss.xml`, `https://www.anglet.fr/rss.xml` : HTTP 404 ; les pages d'actualités et flux effectivement retenus ont été relocalisés puis vérifiés en 200.
 - Les quatre articles Sud Ouest mentionnés dans `exemple_cyber` proviennent du corpus d'incidents `bench/corpus/incidents-pyreneesatlantiques.jsonl` : ils documentent des faits réels mais leur URL est en 302 au contrôle ; ils ne sont pas comptés dans les 52 URL vérifiées.
+OBJECTIF : atteint — 21 / 5
