@@ -10,6 +10,7 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
 import { correlateEvents } from "./collectors/correlate.js";
+import { correlaterIndicateursCertfrMisp } from "./collectors/certfr-misp-correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
 import { runScheduledDiscovery } from "./discovery/discover.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
@@ -298,6 +299,22 @@ function messageErreur(reason: unknown): string {
 	if (typeof reason === "string") return reason;
 	return String(reason);
 }
+
+/**
+ * Corrélations : organisationnelle puis CERT-FR MISP. Les deux sont lancées
+ * ensemble ; un échec de l'une ne prive pas l'autre de son passage, et la
+ * corrélation MISP ne rafraîchit jamais `source.last_ok_at` (c'est l'ingestion
+ * qui prouve la fraîcheur du flux).
+ */
+async function correler(): Promise<void> {
+	const [organisationnelle, misp] = await Promise.allSettled([
+		correlateEvents(log),
+		correlaterIndicateursCertfrMisp({ log }),
+	]);
+	if (organisationnelle.status === "rejected") throw organisationnelle.reason;
+	if (misp.status === "rejected") log(`certfr_misp : corrélation non écrite — ${messageErreur(misp.reason)}`);
+}
+
 /** Relance manuelle d'une source : le bouton « relancer » du registre. */
 const relancesEnCours = new Set<string>();
 app.post<{ Params: { id: string } }>(
@@ -343,7 +360,7 @@ if (COLLECT) {
 	// Fast lane: opted-in Nouvelle-Aquitaine sources, polled independently of
 	// the 60-second cycle. The DB trigger records publication-to-record latency.
 	startLiveStream(log);
-	void guarded("corrélation", () => correlateEvents(log));
+	void guarded("corrélation", correler);
 	void guarded("hermes", () => runHermesCollector(log));
 	void guarded("détection", async () => {
 		const pass = await runDetectionPass();
@@ -386,7 +403,7 @@ if (COLLECT) {
 
 	setInterval(() => {
 		void guarded("cycle de collecte", executerCycleCollecte);
-		void guarded("corrélation", () => correlateEvents(log));
+		void guarded("corrélation", correler);
 		void guarded("détection", detect);
 		void guarded("silent sources", () => runSilentSourceCheck().then(() => undefined));
 		void guarded("ruptures", () =>
