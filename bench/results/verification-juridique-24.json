@@ -1,0 +1,288 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-juridique-24.jsonl",
+  "secteur": "juridique",
+  "departement": "24",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 18 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL (sites, pages d'actualités et flux).",
+  "sources": 16,
+  "urls_verifiees": 39,
+  "urls_200": 39,
+  "detail": [
+    {
+      "nom": "Greffe du Tribunal de commerce de Périgueux",
+      "urls": {
+        "https://www.greffe-tc-perigueux.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.greffe-tc-perigueux.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Notaires de France — annuaire des notaires de la Dordogne",
+      "urls": {
+        "https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/dordogne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.notaires.fr/fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.notaires.fr/rss/actualites": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 195
+        }
+      }
+    },
+    {
+      "nom": "Notaires de France — annuaire des notaires de Périgueux",
+      "urls": {
+        "https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/dordogne/perigueux": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.notaires.fr/fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.notaires.fr/rss/actualites": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 195
+        }
+      }
+    },
+    {
+      "nom": "Barreau de Périgueux — annuaire Avocat.fr",
+      "urls": {
+        "https://consultation.avocat.fr/avocats/barreau-perigueux.html": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.avocat.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 5
+        },
+        "https://www.avocat.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 17
+        }
+      }
+    },
+    {
+      "nom": "CCI Dordogne — chambre de commerce et d'industrie",
+      "urls": {
+        "https://dordogne.cci.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://dordogne.cci.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://dordogne.cci.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 11
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — antenne Dordogne",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Annonces-légales.fr — actualités juridiques",
+      "urls": {
+        "https://www.annonces-legales.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.annonces-legales.fr/actualite/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.annonces-legales.fr/actualite/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 13
+        }
+      }
+    },
+    {
+      "nom": "ICI Périgord — actualités Dordogne (24)",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/dordogne-24": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/dordogne-24/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/rss/perigord/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 3
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Dordogne",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/perigueux/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 24
+        }
+      }
+    },
+    {
+      "nom": "franceinfo — édition Dordogne",
+      "urls": {
+        "https://www.franceinfo.fr/france/nouvelle-aquitaine/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.franceinfo.fr/societe/justice.rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 23
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Périgueux / Dordogne",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/perigueux_24322/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://actu.fr/nouvelle-aquitaine/perigueux_24322/faits-divers/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Dordogne Libre — hebdomadaire local",
+      "urls": {
+        "https://www.dordognelibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.dordognelibre.fr/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.dordognelibre.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 11
+        }
+      }
+    },
+    {
+      "nom": "Le Courrier Français — édition Dordogne",
+      "urls": {
+        "https://www.courrier-francais.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.courrier-francais.com/actualites-dordogne.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Village de la Justice — annuaire des barreaux",
+      "urls": {
+        "https://www.village-justice.com/articles/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Dalloz Actualité — presse juridique",
+      "urls": {
+        "https://www.dalloz-actualite.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.dalloz-actualite.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Le Démocrate Indépendant — Bergerac",
+      "urls": {
+        "https://www.ledemocratedebergerac.fr/": {
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "https://www.ledemocratedebergerac.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    }
+  ]
+}
