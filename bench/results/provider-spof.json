@@ -40,18 +40,18 @@
   ],
   "totals": {
     "organizationsObserved": 1285,
-    "organizationsAttributed": 1160,
+    "organizationsAttributed": 1177,
     "domainsObserved": 1222,
-    "unknownHosts": 786
+    "unknownHosts": 584
   },
   "baseline": {
     "organizations": 1672551,
-    "sources": 463,
-    "events": 27899
+    "sources": 543,
+    "events": 26758
   },
   "sql": {
     "observations": "SELECT pd.domain,\n\t                      ARRAY(\n\t                        SELECT DISTINCT o.id\n\t                          FROM unnest(pd.org_ids) AS u(id)\n\t                          JOIN org o ON o.id = u.id\n\t                         WHERE o.dept = ANY($1::text[])\n\t                      )::int[] AS \"orgIds\",\n\t                      pd.ns, pd.mx\n\t                 FROM provider_domain pd\n\t                WHERE pd.last_state <> 'erreur'\n\t                ORDER BY pd.domain",
     "baseline": "SELECT (SELECT reltuples::bigint FROM pg_class WHERE oid = 'org'::regclass) AS organizations,\n\t                  (SELECT count(*) FROM source) AS sources,\n\t                  (SELECT count(*) FROM event) AS events"
   },
-  "measuredAt": "2026-11-22T01:10:41.427Z"
+  "measuredAt": "2026-11-22T02:48:45.894Z"
 }
