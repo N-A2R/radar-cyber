@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:b79a30e3-bf80-450c-ac9f-98a9dd78cb87>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 217
+WARC-Block-Digest: sha1:H3Z2JNDPCTQQZBAVVP7SF4SNX2RNWMTX
+X-Claim-Fingerprint: a10668d99618aad66e05f50d
+X-Victim-Key: 738c1cfbf54465480533a437
+
+{"post_title": "GD France", "discovered": "2026-03-20 11:43:17.066278", "description": "", "link": null, "magnet": null, "screen": null, "misp_uuid": "319fb7a8-5e88-5a63-ac5b-c67d0cad2cb1", "group_name": "nightspire"}
+

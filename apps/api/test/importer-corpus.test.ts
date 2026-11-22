@@ -141,7 +141,9 @@ describe("importer-corpus", () => {
 			await client.connect();
 			try {
 				// La migration 053 introduit 43 sources `corpus:landes-40-*` : étrangères à cet import.
-				const ids = await client.query<{ id: string }>("SELECT id FROM source WHERE id LIKE 'corpus:%' AND id NOT LIKE 'corpus:landes-40-%' ORDER BY id");
+				// On vérifie NOS quatre sources, pas la totalité de la table : d'autres
+				// migrations (076, 120…) ajoutent légitimement des sources corpus:*.
+				const ids = await client.query<{ id: string }>("SELECT id FROM source WHERE id IN ('corpus:editeur:exemple-fr','corpus:editeur:presse-test','corpus:flux-test','corpus:presse-test') AND id NOT LIKE 'corpus:landes-40-%' ORDER BY id");
 				assert.deepEqual(ids.rows.map((r) => r.id), [
 					"corpus:editeur:exemple-fr",
 					"corpus:editeur:presse-test",

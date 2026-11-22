@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:1680366f-f66b-4119-abf1-3b8e27ca0abb>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 125
+WARC-Block-Digest: sha1:A2UWP23JGGLHUHPFMTZFKG4GX3CV3DAL
+X-Claim-Fingerprint: 41c645f7940284083111f67c
+X-Victim-Key: 5447633227443851111bd033
+
+{
+        "post_title": "Alpha Data",
+        "group_name": "alphv",
+        "discovered": "2023-06-15 10:33:45.234634"
+    }
+
