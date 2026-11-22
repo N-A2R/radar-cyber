@@ -74,6 +74,9 @@
     "collect:na-containers": "apps/api/node_modules/.bin/tsx scripts/collect-public-containers.mts",
     "measure:na-containers": "apps/api/node_modules/.bin/tsx scripts/measure-public-containers.mts",
     "measure:affected": "apps/api/node_modules/.bin/tsx scripts/measure-affected.mts",
+    "genere:changepoints": "apps/api/node_modules/.bin/tsx scripts/genere-serie-changements-regime.mts",
+    "mesure:changepoints": "apps/api/node_modules/.bin/tsx scripts/mesure-changements-regime.mts",
+    "verifie:changepoints": "apps/api/node_modules/.bin/tsx scripts/verifie-changements-regime.mts",
     "dns:detection": "apps/api/node_modules/.bin/tsx scripts/dns-detection.mts"
   },
   "devDependencies": {
