@@ -50,3 +50,9 @@ INSERT INTO detection_rule (id, name, description, severity, enabled, match, act
 ('operateur-critique-vise', 'Opérateur critique visé',
  'Événement rattaché à un opérateur d''importance vitale (se déclenche quand la corrélation org est effective)',
  5, true, '{"org_kind":"operateur critique"}', 'alert');
+
+-- Le rechargement des règles vide `alert` : le lot de 20 alertes de
+-- collectivité qui porte le réflexe 17Cyber (migration 200) doit être
+-- reconstitué après chaque `DELETE FROM alert`, sinon la garantie
+-- d'orientation disparaît en même temps que les alertes.
+SELECT alert_orientation_seed_collectivites();

@@ -2,8 +2,9 @@
  * GraphView — force-directed network of organisations, events and sources.
  *
  * Uses the `GET /api/graph` contract (`{ nodes, links }`) and enriches it
- * with the event/source indexes already loaded by the app. All UI text is in
- * English; data values (family names, labels) are displayed as recorded.
+ * with the event/source indexes already loaded by the app. Toute l'interface
+ * est en français ; les valeurs de données (familles, libellés) restent telles
+ * qu'enregistrées.
  */
 import ForceGraph2D, { type ForceGraphMethods, type LinkObject, type NodeObject } from 'react-force-graph-2d';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
@@ -53,13 +54,13 @@ const KIND_COLOR: Record<string, string> = {
 
 const KIND_LABEL: Record<string, string> = {
   org: 'organisation',
-  event: 'event',
+  event: 'événement',
   source: 'source',
-  family: 'family',
-  dept: 'department',
-  group: 'group',
-  asset: 'asset',
-  ip: 'IP address',
+  family: 'famille',
+  dept: 'département',
+  group: 'groupe',
+  asset: 'actif',
+  ip: 'adresse IP',
 };
 
 const KIND_RADIUS: Record<string, number> = {
@@ -75,16 +76,17 @@ const KIND_RADIUS: Record<string, number> = {
 
 const FALLBACK_PALETTE = ['#38bdf8', '#f59e0b', '#22c55e', '#a78bfa', '#ef4444', '#e3b341', '#db61a2'];
 
-const FAMILY_FALLBACK: Record<string, string> = {
-  ransomware: '#f85149',
-  vuln: '#d29922',
-  phishing: '#a371f7',
-  malware: '#db61a2',
-  cert_fr: '#4da3ff',
-  cert: '#4da3ff',
-  typosquat: '#e3b341',
-  reputation: '#8b949e',
-  cti: '#6e7681',
+/** Repli par jeton CSS lorsque la variable de famille n'est pas déclarée. */
+const FAMILY_FALLBACK_VAR: Record<string, string> = {
+  ransomware: '--sev-5',
+  vuln: '--sev-3',
+  phishing: '--sev-4',
+  malware: '--sev-4',
+  cert_fr: '--sev-2',
+  cert: '--sev-2',
+  typosquat: '--sev-3',
+  reputation: '--muted',
+  cti: '--faint',
 };
 
 const FAMILY_VAR: Record<string, string> = {
@@ -114,10 +116,10 @@ const LINK_COLOR_BY_THEME: Record<string, string> = {
 };
 
 const PERIODS: { label: string; days: number | null }[] = [
-  { label: 'All', days: null },
-  { label: '7 days', days: 7 },
-  { label: '30 days', days: 30 },
-  { label: '90 days', days: 90 },
+  { label: 'Tout', days: null },
+  { label: '7 jours', days: 7 },
+  { label: '30 jours', days: 30 },
+  { label: '90 jours', days: 90 },
 ];
 
 const BOX_LABEL: CSSProperties = { margin: '10px 0 4px', fontSize: 11, color: 'var(--muted)' };
@@ -142,13 +144,13 @@ function readThemeVar(name: string, fallback: string): string {
 function formatDate(value: string | null | undefined): string {
   const time = observedTime(value);
   if (time === null) return '—';
-  return new Date(time).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  return new Date(time).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
 function severityColor(severity: number): string {
-  if (severity >= 4) return '#f85149';
-  if (severity === 3) return '#d29922';
-  return '#3fb950';
+  if (severity >= 4) return 'var(--sev-5)';
+  if (severity === 3) return 'var(--sev-3)';
+  return 'var(--sev-2)';
 }
 
 function dotStyle(color: string): CSSProperties {
@@ -225,7 +227,9 @@ export default function GraphView(props: GraphViewProps) {
   const familyColors = useMemo(() => {
     const palette: Record<string, string> = {};
     for (const [key, varName] of Object.entries(FAMILY_VAR)) {
-      palette[key] = readThemeVar(varName, FAMILY_FALLBACK[key] ?? fallbackColor(key));
+      const fallbackVar = FAMILY_FALLBACK_VAR[key];
+      const fallback = fallbackVar ? readThemeVar(fallbackVar, fallbackColor(key)) : fallbackColor(key);
+      palette[key] = readThemeVar(varName, fallback);
     }
     return palette;
   }, [theme]);
@@ -246,7 +250,7 @@ export default function GraphView(props: GraphViewProps) {
     }
     return [...found.entries()]
       .map(([name, color]) => ({ name, color }))
-      .sort((a, b) => a.name.localeCompare(b.name, 'en'));
+      .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
   }, [enriched.nodes, eventsById, familyColors]);
 
   const kinds = useMemo(() => {
@@ -457,37 +461,37 @@ export default function GraphView(props: GraphViewProps) {
     const orgInfo = node.kind === 'org' ? orgsById?.[id] : undefined;
     const sourceInfo = node.kind === 'source' ? sourcesById?.[id] : undefined;
     const rows: DetailRow[] = [
-      { label: 'Name', value: node.label },
+      { label: 'Nom', value: node.label },
       { label: 'Type', value: KIND_LABEL[node.kind] ?? node.kind },
-      { label: 'Degree', value: String(degreeMap.get(node.id) ?? 0) },
+      { label: 'Degré', value: String(degreeMap.get(node.id) ?? 0) },
     ];
 
     if (node.kind === 'event') {
       const family = node.family ?? eventInfo?.family;
       const canonical = canonicalFamily(family);
-      if (canonical) rows.push({ label: 'Family', value: canonical, color: familyColors[canonical] });
+      if (canonical) rows.push({ label: 'Famille', value: canonical, color: familyColors[canonical] });
       const severity = node.severity ?? eventInfo?.severity;
-      if (typeof severity === 'number') rows.push({ label: 'Severity', value: `${severity}/5`, color: severityColor(severity) });
-      rows.push({ label: 'Observed', value: formatDate(node.observedAt ?? eventInfo?.observedAt) });
+      if (typeof severity === 'number') rows.push({ label: 'Sévérité', value: `${severity}/5`, color: severityColor(severity) });
+      rows.push({ label: 'Observé', value: formatDate(node.observedAt ?? eventInfo?.observedAt) });
       const sourceId = node.sourceId ?? eventInfo?.sourceId;
-      if (sourceId) rows.push({ label: 'Source id', value: sourceId });
+      if (sourceId) rows.push({ label: 'Identifiant de source', value: sourceId });
       const sourceUrl = node.sourceUrl ?? eventInfo?.sourceUrl;
-      if (sourceUrl) rows.push({ label: 'Source URL', value: sourceUrl });
+      if (sourceUrl) rows.push({ label: 'URL de source', value: sourceUrl });
       const assertion = node.assertionType ?? eventInfo?.assertionType;
-      if (assertion) rows.push({ label: 'Assertion', value: assertion });
+      if (assertion) rows.push({ label: "Type d'assertion", value: assertion });
     }
     if (node.kind === 'org') {
-      rows.push({ label: 'Organisation kind', value: node.orgKind ?? orgInfo?.kind ?? '—' });
-      rows.push({ label: 'City', value: node.city ?? orgInfo?.city ?? '—' });
-      rows.push({ label: 'Department', value: node.dept ?? orgInfo?.dept ?? '—' });
+      rows.push({ label: "Type d'organisation", value: node.orgKind ?? orgInfo?.kind ?? '—' });
+      rows.push({ label: 'Ville', value: node.city ?? orgInfo?.city ?? '—' });
+      rows.push({ label: 'Département', value: node.dept ?? orgInfo?.dept ?? '—' });
     }
     if (node.kind === 'source') {
-      if (sourceInfo?.family) rows.push({ label: 'Family', value: sourceInfo.family });
+      if (sourceInfo?.family) rows.push({ label: 'Famille', value: sourceInfo.family });
       if (sourceInfo?.url) rows.push({ label: 'URL', value: sourceInfo.url });
     }
     if (node.validFrom) {
-      rows.push({ label: 'Valid from', value: formatDate(node.validFrom) });
-      rows.push({ label: 'Valid to', value: node.validTo ? formatDate(node.validTo) : 'still valid' });
+      rows.push({ label: 'Valide depuis', value: formatDate(node.validFrom) });
+      rows.push({ label: "Valide jusqu'au", value: node.validTo ? formatDate(node.validTo) : 'toujours valide' });
     }
     return rows;
   }, [selection.node, degreeMap, eventsById, orgsById, sourcesById, familyColors]);
@@ -502,40 +506,40 @@ export default function GraphView(props: GraphViewProps) {
       {props.loading && data.nodes.length === 0 ? (
         <LoadingSkeleton label="chargement du graphe…" />
       ) : null}
-      <div className="gv-mode-bar" role="tablist" aria-label="Graph display">
+      <div className="gv-mode-bar" role="tablist" aria-label="Affichage du graphe">
         <button
           type="button" role="tab" aria-selected={mode === 'network'} aria-current={mode === 'network' ? 'true' : undefined}
           className={mode === 'network' ? 'is-active' : undefined}
           onClick={() => setMode('network')}
         >
-          Network
+          Réseau
         </button>
         <button
           type="button" role="tab" aria-selected={mode === 'matrix'} aria-current={mode === 'matrix' ? 'true' : undefined}
           className={mode === 'matrix' ? 'is-active' : undefined}
           onClick={() => setMode('matrix')}
         >
-          Matrix
+          Matrice
         </button>
       </div>
 
       <div className="gv-filters">
         <button type="button" className="gv-collapse" onClick={() => persistFiltersOpen(!filtersOpen)} aria-expanded={filtersOpen}>
-          Filters {filtersOpen ? '▾' : '▸'}
+          Filtres {filtersOpen ? '▾' : '▸'}
         </button>
         {filtersOpen && (
           <>
-            <label className="gv-search-label" htmlFor="gv-search">Search</label>
+            <label className="gv-search-label" htmlFor="gv-search">Recherche</label>
             <input
               id="gv-search"
               className="gv-search"
               type="search"
               value={search}
-              placeholder="Name, id or family…"
+              placeholder="Nom, identifiant ou famille…"
               onChange={(event) => setSearch(event.target.value)}
-              aria-label="Search graph nodes"
+              aria-label="Rechercher des nœuds du graphe"
             />
-            <p style={BOX_LABEL}>Families</p>
+            <p style={BOX_LABEL}>Familles</p>
             <div style={CHIP_WRAP}>
               {families.map((family) => {
                 const active = familyFilter.has(family.name);
@@ -546,9 +550,9 @@ export default function GraphView(props: GraphViewProps) {
                   </button>
                 );
               })}
-              {families.length === 0 && <span style={MUTED}>No family recorded</span>}
+              {families.length === 0 && <span style={MUTED}>Aucune famille enregistrée</span>}
             </div>
-            <p style={BOX_LABEL}>Node types</p>
+            <p style={BOX_LABEL}>Types de nœuds</p>
             <div style={CHIP_WRAP}>
               {kinds.map((kind) => {
                 const active = kindFilter.has(kind.kind);
@@ -561,7 +565,7 @@ export default function GraphView(props: GraphViewProps) {
                 );
               })}
             </div>
-            <p style={BOX_LABEL}>Period</p>
+            <p style={BOX_LABEL}>Période</p>
             <div style={CHIP_WRAP}>
               {PERIODS.map((period) => (
                 <button
@@ -577,13 +581,13 @@ export default function GraphView(props: GraphViewProps) {
             </div>
             {temporal ? (
               <>
-                <p style={BOX_LABEL}>Time model</p>
+                <p style={BOX_LABEL}>Modèle temporel</p>
                 <div style={CHIP_WRAP}>
                   <button type="button" aria-pressed={!timeAware} onClick={() => setTimeAware(false)} style={chipStyle(!timeAware, accent)}>
-                    Structural
+                    Structurel
                   </button>
                   <button type="button" aria-pressed={timeAware} onClick={() => setTimeAware(true)} style={chipStyle(timeAware, accent)}>
-                    Time-aware
+                    Temporel
                   </button>
                 </div>
               </>
@@ -595,10 +599,10 @@ export default function GraphView(props: GraphViewProps) {
                 disabled={familyFilter.size === 0 && kindFilter.size === 0 && periodDays === null && search === ''}
                 className="gv-reset"
               >
-                Reset
+                Réinitialiser
               </button>
               <span style={MUTED}>
-                {visible.nodes.length} nodes · {visible.links.length} links
+                {visible.nodes.length} nœuds · {visible.links.length} liens
               </span>
             </div>
           </>
@@ -607,22 +611,22 @@ export default function GraphView(props: GraphViewProps) {
 
       {enriched.nodes.length <= 5 ? (
         <div className="gv-empty">
-          <p className="gv-empty-title">The graph only draws recorded links</p>
+          <p className="gv-empty-title">Le graphe ne dessine que les liens enregistrés</p>
           <p className="gv-empty-text">
             {enriched.nodes.length === 0
-              ? 'No fact has been linked to an organisation yet.'
-              : `${enriched.nodes.length} nodes: every organisation, department or family shown here must be attached to a linked event.`}
+              ? "Aucun fait n'a encore été relié à une organisation."
+              : `${enriched.nodes.length} nœuds : chaque organisation, département ou famille affiché ici doit être rattaché à un événement relié.`}
           </p>
           <p className="gv-empty-text">
-            A news article naming a business without a repository match stays in the feed but creates no node.
-            The graph grows with the quality of attachment, not with collection volume.
+            Un article de presse citant une entreprise sans correspondance dans le référentiel reste dans le fil
+            mais ne crée aucun nœud. Le graphe grandit avec la qualité du rattachement, pas avec le volume collecté.
           </p>
         </div>
       ) : visible.nodes.length === 0 ? (
         <div className="gv-empty">
-          <p className="gv-empty-title">No node matches these filters</p>
-          <p className="gv-empty-text">Try another family, period or search term.</p>
-          <button type="button" onClick={resetFilters} className="gv-reset">Reset filters</button>
+          <p className="gv-empty-title">Aucun nœud ne correspond à ces filtres</p>
+          <p className="gv-empty-text">Essayez une autre famille, période ou recherche.</p>
+          <button type="button" onClick={resetFilters} className="gv-reset">Réinitialiser les filtres</button>
         </div>
       ) : mode === 'matrix' ? (
         <div className="gv-matrix">
@@ -667,13 +671,13 @@ export default function GraphView(props: GraphViewProps) {
             )}
           </div>
 
-          <div className="gv-zoom" role="group" aria-label="Zoom controls">
-            <button type="button" onClick={() => zoomBy(1.4)} aria-label="Zoom in" title="Zoom in">+</button>
-            <button type="button" onClick={() => zoomBy(1 / 1.4)} aria-label="Zoom out" title="Zoom out">−</button>
-            <button type="button" onClick={zoomToFit} aria-label="Fit graph to view" title="Fit graph to view">Fit</button>
+          <div className="gv-zoom" role="group" aria-label="Commandes de zoom">
+            <button type="button" onClick={() => zoomBy(1.4)} aria-label="Zoom avant" title="Zoom avant">+</button>
+            <button type="button" onClick={() => zoomBy(1 / 1.4)} aria-label="Zoom arrière" title="Zoom arrière">−</button>
+            <button type="button" onClick={zoomToFit} aria-label="Ajuster le graphe à la vue" title="Ajuster le graphe à la vue">Ajuster</button>
           </div>
 
-          <div className="gv-legend" aria-label="Graph legend">
+          <div className="gv-legend" aria-label="Légende du graphe">
             <div className="gv-legend-row">
               {kinds.map((kind) => (
                 <span key={kind.kind} className="gv-legend-item">
@@ -693,14 +697,14 @@ export default function GraphView(props: GraphViewProps) {
       )}
 
       {selection.node && (
-        <aside className="gv-detail" aria-label="Node details">
+        <aside className="gv-detail" aria-label="Détails du nœud">
           <header className="gv-detail-head">
             <span style={dotStyle(nodeColor(selection.node))} />
             <div className="gv-detail-title">
               <strong>{selection.node.label}</strong>
-              <small>{KIND_LABEL[selection.node.kind] ?? selection.node.kind} · degree {degreeMap.get(selection.node.id) ?? 0}</small>
+              <small>{KIND_LABEL[selection.node.kind] ?? selection.node.kind} · degré {degreeMap.get(selection.node.id) ?? 0}</small>
             </div>
-            <button type="button" onClick={clearSelection} className="gv-close" aria-label="Close details">×</button>
+            <button type="button" onClick={clearSelection} className="gv-close" aria-label="Fermer les détails">×</button>
           </header>
           <dl className="kv">
             {detailRows.map((row) => (
@@ -710,9 +714,9 @@ export default function GraphView(props: GraphViewProps) {
               </Fragment>
             ))}
           </dl>
-          <p className="gv-detail-subtitle">Connections ({selection.incidentLinks.length})</p>
+          <p className="gv-detail-subtitle">Connexions ({selection.incidentLinks.length})</p>
           {selection.incidentLinks.length === 0 ? (
-            <p className="gv-detail-none">No recorded link.</p>
+            <p className="gv-detail-none">Aucun lien enregistré.</p>
           ) : (
             <ul className="gv-connections">
               {selection.incidentLinks.map((link, index) => (

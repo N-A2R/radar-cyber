@@ -71,6 +71,7 @@ const alerte = z.strictObject({
   event_title: json, event_family: json, event_tlp: json, event_summary: json,
   event_confidence: json, event_assertion: json, indicator_type: json,
   indicator_value: json, org_name: json, org_dept: json, confidence: objet,
+  url_orientation: chaineNullable, actions: z.array(z.string()), lien_verifie_le: json,
 });
 
 const evenement = z.strictObject({
