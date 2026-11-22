@@ -39,3 +39,4 @@ Résultat : **15 sources, 45 URL distinctes toutes en HTTP 200** le 2026-11-22 (
 - `https://www.chasseurs40.fr/`, `https://www.macs-landes.fr/`, `https://www.adour-armagnac.fr/`, `https://www.landes-darmagnac.fr/`, `https://www.observateur-landes.fr/` : NXDOMAIN ou serveur injoignable.
 - `https://www.lereporter.fr/` : gabarit Joomla générique sans contenu landais vérifiable — non retenu.
 - `https://www.ici.fr/rss/landes/a-la-une.xml` : flux ICI non disponible ; seule la page radio est retenue.
+OBJECTIF : atteint — 15 / 5
