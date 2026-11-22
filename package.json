@@ -39,6 +39,7 @@
     "domaines:mesurer": "apps/api/node_modules/.bin/tsx scripts/domain-coverage.mts",
     "domaines:etendre": "apps/api/node_modules/.bin/tsx scripts/expand-domains.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
+    "sources:discover-feeds": "apps/api/node_modules/.bin/tsx scripts/discover-source-feeds.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts"
