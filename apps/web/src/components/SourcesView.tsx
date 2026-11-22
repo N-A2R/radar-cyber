@@ -24,6 +24,17 @@ const STATUS_LABEL: Record<SourceStatus, string> = {
   pending: "jamais collecté",
 };
 
+/**
+ * Libellé court de l'état dans le tableau : « jamais collecté » débordait de
+ * sa colonne et se lisait par-dessus la date de production. Le libellé complet
+ * reste dans l'infobulle de la pastille.
+ */
+const STATUS_CELL_LABEL: Record<SourceStatus, string> = {
+  ok: "ok",
+  error: "erreur",
+  pending: "jamais",
+};
+
 type SortKey =
   | "name"
   | "family"
@@ -40,9 +51,16 @@ type SortKey =
   | "yield";
 type SortDir = "asc" | "desc";
 
+/**
+ * Colonnes du registre, dans l'ordre du `<colgroup>`, du `<thead>` et du
+ * `<tbody>` — les trois doivent rester alignés, sinon les en-têtes glissent
+ * d'une colonne. Les largeurs et les colonnes masquées quand la place manque
+ * sont décidées par les `@container` de `sources.css`.
+ */
 const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] = [
   { key: "name", label: "source" },
   { key: "family", label: "famille" },
+  { key: "status", label: "état", hint: "réponse de la dernière collecte" },
   { key: "lastProduction", label: "dernière production", hint: "dernier fait produit ; à défaut, dernier succès de collecte" },
   { key: "lastErrorAt", label: "dernier échec", hint: "le dernier passage a échoué" },
   { key: "entrees", label: "lues 30 j", num: true, hint: "entrées lues par le collecteur" },
@@ -358,7 +376,9 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                         : "descending"
                       : "none"
                   }
-                  className={col.num ? "sources-table__num" : undefined}
+                  className={`sources-table__cell sources-table__cell--${col.key}${
+                    col.num ? " sources-table__num" : ""
+                  }`}
                   title={col.hint}
                 >
                   <button type="button" className="sources-table__sort" onClick={() => toggleSort(col.key)}>
@@ -369,7 +389,9 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                   </button>
                 </th>
               ))}
-              <th scope="col">action</th>
+              <th scope="col" className="sources-table__cell sources-table__cell--action">
+                action
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -383,11 +405,16 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                   <th scope="row" className="sources-table__name">
                     {source.name}
                   </th>
-                  <td className="sources-table__family">{FAMILY_LABEL[source.family] ?? source.family}</td>
-                  <td className="sources-table__status">
-                    <span className="sources-status" data-status={status}>
+                  <td
+                    className="sources-table__cell sources-table__cell--family sources-table__family"
+                    title={FAMILY_LABEL[source.family] ?? source.family}
+                  >
+                    {FAMILY_LABEL[source.family] ?? source.family}
+                  </td>
+                  <td className="sources-table__cell sources-table__cell--status sources-table__status">
+                    <span className="sources-status" data-status={status} title={STATUS_LABEL[status]}>
                       <span className="sources-status__dot" aria-hidden="true" />
-                      {STATUS_LABEL[status]}
+                      {STATUS_CELL_LABEL[status]}
                     </span>
                     {source.disabledReason && (
                       <span className="sources-table__reason" title={source.disabledReason}>
@@ -395,7 +422,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       </span>
                     )}
                   </td>
-                  <td className="sources-table__time">
+                  <td className="sources-table__cell sources-table__cell--lastProduction sources-table__time">
                     <span title={formatAbsolute(production)}>{formatRelative(production)}</span>
                     {rouge && (
                       <span className="sources-table__red-badge" data-rouge="oui" title="aucun fait depuis plus de 7 jours">
@@ -403,21 +430,21 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       </span>
                     )}
                   </td>
-                  <td className="sources-table__time">
+                  <td className="sources-table__cell sources-table__cell--lastErrorAt sources-table__time">
                     <span title={formatAbsolute(source.lastErrorAt)}>
                       {formatRelative(source.lastErrorAt)}
                     </span>
                   </td>
-                  <td className="sources-table__num">{formatNumber(source.entrees)}</td>
-                  <td className="sources-table__num">{source.evenements30j}</td>
-                  <td className="sources-table__num">
+                  <td className="sources-table__cell sources-table__cell--entrees sources-table__num">{formatNumber(source.entrees)}</td>
+                  <td className="sources-table__cell sources-table__cell--evenements30j sources-table__num">{source.evenements30j}</td>
+                  <td className="sources-table__cell sources-table__cell--rendement sources-table__num">
                     <span className="sources-yield" data-yield={yieldKind}>
                       {source.rendement === null
                         ? "—"
                         : `${(source.rendement * 100).toFixed(source.rendement < 0.01 ? 1 : 0)} %`}
                     </span>
                   </td>
-                  <td className="sources-table__num">
+                  <td className="sources-table__cell sources-table__cell--unicite sources-table__num">
                     {typeof source.faitsUniques === "number" && typeof source.faits === "number" ? (
                       <span
                         className="sources-unique"
@@ -434,7 +461,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       <span className="sources-table__unmeasured">non mesuré</span>
                     )}
                   </td>
-                  <td className="sources-table__motif">
+                  <td className="sources-table__cell sources-table__cell--motif sources-table__motif">
                     {source.motifDominant === null ? (
                       <span className="sources-table__unmeasured">non mesuré</span>
                     ) : (
@@ -454,7 +481,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       </span>
                     )}
                   </td>
-                  <td className="sources-table__action">
+                  <td className="sources-table__cell sources-table__cell--action sources-table__action">
                     <RelancerButton
                       sourceId={source.id}
                       sourceName={source.name}

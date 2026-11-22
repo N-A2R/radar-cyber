@@ -56,6 +56,8 @@ type Props = {
 };
 
 const LIMIT = 50;
+/** Au-delà, la file est déclarée muette : un squelette sans fin n'informe pas. */
+const QUEUE_TIMEOUT_MS = 10_000;
 const BUCKETS: Array<{ value: RevueBucket | ""; label: string }> = [
   { value: "", label: "Toutes" },
   { value: "chaud", label: "Chaud" },
@@ -163,6 +165,18 @@ export default function ReviewView({
     if (query) params.set("q", query);
     setLoading(true);
     setError(null);
+    // Une requête muette ne doit pas laisser un squelette éternel : passé le
+    // délai, on quitte le chargement et on propose de réessayer. Les lignes
+    // déjà connues restent affichées, l'échec ne les efface pas.
+    let timedOut = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      pendingNotice.current = null;
+      setProgress(null);
+      setError("La file de revue ne répond pas.");
+      setLoading(false);
+      controller.abort();
+    }, QUEUE_TIMEOUT_MS);
     fetch(`/api/review/queue?${params.toString()}`, { headers: authHeaders(), signal: controller.signal })
       .then(async (res) => {
         if (res.status === 401) onUnauthorized?.();
@@ -170,6 +184,7 @@ export default function ReviewView({
         return res.json() as Promise<RevueQueue>;
       })
       .then((data) => {
+        if (timedOut) return;
         setRows(data.rows);
         setTotal(data.total);
         setOpenRow(null);
@@ -184,14 +199,19 @@ export default function ReviewView({
         pendingNotice.current = null;
       })
       .catch((err: Error) => {
-        if (err.name !== "AbortError") setError(err.message);
+        if (timedOut || err.name === "AbortError") return;
+        setError(err.message);
         pendingNotice.current = null;
         setProgress(null);
       })
       .finally(() => {
-        if (!controller.signal.aborted) setLoading(false);
+        clearTimeout(timer);
+        if (!timedOut && !controller.signal.aborted) setLoading(false);
       });
-    return () => controller.abort();
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [server, bucket, query, page, reloadKey, onUnauthorized]);
 
   // L'URL suit les filtres bucket et recherche : un lien copié reproduit
@@ -254,6 +274,13 @@ export default function ReviewView({
     pendingNotice.current = "File actualisée.";
     setReloadKey((key) => key + 1);
   }, [server, loading]);
+
+  // Réessayer après un échec repart du même contrat que l'actualisation :
+  // une nouvelle requête, et l'erreur disparaît dès que le chargement reprend.
+  const retry = useCallback(() => {
+    if (!server) return;
+    setReloadKey((key) => key + 1);
+  }, [server]);
 
   const toggleSelected = useCallback((id: number) => {
     setSelected((prev) => {
@@ -447,7 +474,11 @@ export default function ReviewView({
         <div>
           <h1>File de revue</h1>
           <p className="revue__count" role="status">
-            {total} {total === 1 ? "revendication restante" : "revendications restantes"} à examiner
+            {loading
+              ? "Chargement de la file…"
+              : error && rows.length === 0
+                ? "File indisponible"
+                : `${total} ${total === 1 ? "revendication restante" : "revendications restantes"} à examiner`}
           </p>
         </div>
         <div className="revue__tools">
@@ -516,13 +547,27 @@ export default function ReviewView({
         {families.length === 0 ? <span className="revue__none">aucune famille sur cette page</span> : null}
       </div>
 
-      <p className="revue__results" role="status">
-        {visibleRows.length} affichées sur {total} dans la file
-        {family ? ` · famille : ${family} (cette page)` : ""}
-      </p>
+      {!loading && !error ? (
+        <p className="revue__results" role="status">
+          {visibleRows.length} affichées sur {total} dans la file
+          {family ? ` · famille : ${family} (cette page)` : ""}
+        </p>
+      ) : null}
 
-      {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
-      {error ? <p className="revue__error" role="alert">{error}</p> : null}
+      {!loading && notice ? <p className="revue__notice" role="status">{notice}</p> : null}
+      {!loading && error ? (
+        <div className="revue__error" role="alert">
+          <p>{error}</p>
+          {server ? (
+            <button type="button" className="revue__retry" onClick={retry}>
+              Réessayer
+            </button>
+          ) : null}
+          {server && rows.length > 0 ? (
+            <p className="revue__stale">Dernier résultat connu conservé ci-dessous.</p>
+          ) : null}
+        </div>
+      ) : null}
       {loading ? <LoadingSkeleton label="Chargement de la file de revue…" /> : null}
       {!loading && visibleRows.length === 0 && !error && server ? (
         <EmptyState
@@ -544,7 +589,7 @@ export default function ReviewView({
       {!server ? <p className="revue__state">La file de revue nécessite l'API — aucune décision n'est simulée.</p> : null}
       {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour enregistrer des décisions.</p> : null}
 
-      {visibleRows.length > 0 && server ? (
+      {!loading && visibleRows.length > 0 && server ? (
         <div className="revue__bulk" aria-label="Décisions en masse">
           <div className="revue__bulk-head">
             <label className="revue__select">
@@ -620,6 +665,7 @@ export default function ReviewView({
         </div>
       ) : null}
 
+      {!loading && visibleRows.length > 0 ? (
       <ul className="revue__list">
         {visibleRows.map((row, index) => (
           <li className="revue__row" key={row.id} data-bucket={row.triage.bucket} data-active={index === active ? "true" : undefined}>
@@ -717,7 +763,9 @@ export default function ReviewView({
           </li>
         ))}
       </ul>
+      ) : null}
 
+      {!loading && !(error && rows.length === 0) ? (
       <footer className="revue__foot">
         <button type="button" disabled={loading || page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>
           Précédent
@@ -727,6 +775,7 @@ export default function ReviewView({
           Suivant
         </button>
       </footer>
+      ) : null}
 
       {help ? (
         <div className="revue__help" role="dialog" aria-modal="true" aria-labelledby="revue-help-title">

@@ -7,7 +7,7 @@
   box-sizing: border-box;
   height: 100%;
   max-width: 1500px;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
   padding: var(--space-6);
 }

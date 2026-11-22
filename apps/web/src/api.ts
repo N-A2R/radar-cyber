@@ -310,7 +310,7 @@ export type CouverturePublique = {
   global: CouvertureLigne;
   parMotif: Array<{ motif: string; incidents: number; part: number }>;
   parDepartement: Array<CouvertureLigne & { departement: string }>;
-  parSecteur: Array<CouvertureLigne & { secteur: string }>;
+  parType: Array<CouvertureLigne & { type: string }>;
 };
 
 /** Une ligne de barre empilée : un département, réparti par famille. */
@@ -1049,8 +1049,7 @@ export type CouvertureResponse = {
   global: CouvertureLigne;
   parMotif: Array<{ motif: string; incidents: number; part: number }>;
   parDepartement: Array<CouvertureLigne & { departement: string }>;
-  parSecteur: Array<CouvertureLigne & { secteur: string }>;
-  parMois: Array<CouvertureLigne & { mois: string }>;
+  parType: Array<CouvertureLigne & { type: string }>;
   /** Vrai quand le hash servi diverge de la référence : chiffre non publiable. */
   stale: boolean;
 };

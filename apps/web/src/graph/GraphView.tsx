@@ -199,21 +199,41 @@ export default function GraphView(props: GraphViewProps) {
   };
 
   const positionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  // Le conteneur du graphe n'existe qu'une fois les données chargées : un ref
+  // classique resterait nul au premier rendu et l'observateur ne serait jamais
+  // posé (écran vide à 271 nœuds, mesuré sur `main`). On le suit donc comme un
+  // état, pour que l'effet se rejoue à son montage.
+  const [containerEl, setContainerEl] = useState<HTMLDivElement | null>(null);
   const fgRef = useRef<ForceGraphMethods<GraphNode, GraphLink> | undefined>(undefined);
   const [size, setSize] = useState({ width: 0, height: 0 });
+  const [measured, setMeasured] = useState(false);
 
   useEffect(() => {
-    const element = containerRef.current;
-    if (!element) return;
-    const observer = new ResizeObserver((entries) => {
-      const rect = entries[0]?.contentRect;
-      if (!rect) return;
-      setSize({ width: Math.max(1, Math.floor(rect.width)), height: Math.max(1, Math.floor(rect.height)) });
-    });
-    observer.observe(element);
+    if (!containerEl) return;
+    const measure = (width: number, height: number) => {
+      // Pas de plancher à 1 px : une zone réellement nulle doit rester nulle
+      // pour déclencher l'état explicite au lieu d'un cadre noir de 1 px.
+      setSize({ width: Math.floor(width), height: Math.floor(height) });
+      setMeasured(true);
+    };
+    const observer = typeof ResizeObserver === 'undefined'
+      ? null
+      : new ResizeObserver((entries) => {
+          const rect = entries[0]?.contentRect;
+          if (rect) measure(rect.width, rect.height);
+        });
+    // Mesure immédiate seulement si elle est exploitable : un conteneur pas
+    // encore posé (0 × 0) ne doit pas écraser la première entrée de
+    // l'observateur, qui arrive au cycle suivant.
+    const rect = containerEl.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) measure(rect.width, rect.height);
+    if (!observer) {
+      setMeasured(true);
+      return;
+    }
+    observer.observe(containerEl);
     return () => observer.disconnect();
-  }, []);
+  }, [containerEl]);
 
   const familyColors = useMemo(() => {
     const palette: Record<string, string> = {};
@@ -287,7 +307,7 @@ export default function GraphView(props: GraphViewProps) {
   useEffect(() => {
     if (mode !== 'network') return;
     const fg = fgRef.current;
-    if (!fg || size.width <= 0) return;
+    if (!fg || size.width <= 0 || size.height <= 0) return;
     const timer = setTimeout(() => {
       try { fg.zoomToFit(400, 40); } catch { /* graph unmounted meanwhile */ }
     }, 350);
@@ -684,7 +704,7 @@ export default function GraphView(props: GraphViewProps) {
       ) : (
         <>
           <div
-            ref={containerRef}
+            ref={setContainerEl}
             className="gv-canvas"
             tabIndex={0}
             role="group"
@@ -692,7 +712,7 @@ export default function GraphView(props: GraphViewProps) {
             onKeyDown={handleCanvasKeyDown}
             onFocus={handleCanvasFocus}
           >
-            {size.width > 0 && (
+            {size.width > 0 && size.height > 0 ? (
               <ForceGraph2D<GraphNode, GraphLink>
                 ref={fgRef}
                 width={size.width}
@@ -719,7 +739,12 @@ export default function GraphView(props: GraphViewProps) {
                 onEngineTick={capturePositions}
                 onEngineStop={capturePositions}
               />
-            )}
+            ) : measured ? (
+              <p className="gv-no-size" role="status">
+                Zone de dessin mesurée à {size.width} × {size.height} px : dimensions insuffisantes pour
+                tracer le graphe. Vérifiez la taille du conteneur.
+              </p>
+            ) : null}
             <span className="gv-keyboard-hint" aria-hidden="true">Flèches : parcourir · Entrée : sélectionner</span>
             <p className="gv-sr-status" role="status" aria-live="polite">
               {keyboardNode
