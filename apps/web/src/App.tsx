@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import type { MapTimelineBucket, MapTimelineEvent } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -25,6 +26,8 @@ const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
+import MapTimeline from "./map/MapTimeline";
+import { buildBuckets, eventsInBucket, withEmptyBuckets } from "./map/timeline.js";
 
 // Chaque écran chargé à la demande garde sa place dans le shell : le
 // squelette occupe la même zone jusqu'à l'arrivée du chunk.
@@ -134,6 +137,12 @@ export default function App() {
   // mais elle occupe l'œil, et la densité du référentiel comme les pastilles
   // de regroupement ne se lisent plus dessus. C'est un mode de détail.
   const [basemap, setBasemap] = useState<"sat" | "plan">("plan");
+  // Map timeline: monthly counts from the API, one page of geolocated points.
+  const [mapBuckets, setMapBuckets] = useState<MapTimelineBucket[]>([]);
+  const [mapBucket, setMapBucket] = useState("all");
+  const [mapEvents, setMapEvents] = useState<MapTimelineEvent[]>([]);
+  const [mapTotal, setMapTotal] = useState(0);
+  const [mapLoading, setMapLoading] = useState(false);
   const [token, setToken] = useState<string | null>(() => getAuthToken());
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [liveAlerts, setLiveAlerts] = useState<LiveAlert[]>([]);
@@ -412,6 +421,51 @@ export default function App() {
       clearInterval(timer);
     };
   }, [view]);
+
+  // The scrubber is populated only while the map is open. In mock mode the
+  // same pure helpers read the simulated events, so no network call is made.
+  useEffect(() => {
+    if (view !== "map") return;
+    if (MOCK_MODE) {
+      setMapBuckets(buildBuckets(mockData.events, 12));
+      return;
+    }
+    if (!token) return;
+    const controller = new AbortController();
+    api.mapTimelineBuckets(12, controller.signal)
+      .then((response) => {
+        if (!controller.signal.aborted) setMapBuckets(withEmptyBuckets(response.buckets, 12));
+      })
+      .catch(() => { if (!controller.signal.aborted) setMapBuckets([]); });
+    return () => controller.abort();
+  }, [view, token, reloadSignal]);
+
+  useEffect(() => {
+    if (view !== "map") return;
+    if (MOCK_MODE) {
+      const visible = eventsInBucket(mockData.events, mapBucket);
+      setMapEvents(visible.slice(0, 1000));
+      setMapTotal(visible.length);
+      return;
+    }
+    if (!token || mapBuckets.length === 0) return;
+    const controller = new AbortController();
+    setMapLoading(true);
+    api.mapTimelineEvents(mapBucket, 1000, controller.signal)
+      .then((response) => {
+        if (controller.signal.aborted) return;
+        setMapEvents(response.events);
+        setMapTotal(response.total);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setMapEvents([]);
+          setMapTotal(0);
+        }
+      })
+      .finally(() => { if (!controller.signal.aborted) setMapLoading(false); });
+    return () => controller.abort();
+  }, [view, token, mapBucket, mapBuckets, reloadSignal]);
 
   // La liste des départements vient de l'agrégat serveur, pas du fil courant :
   // un filtre appliqué ne doit pas faire disparaître les autres départements.
@@ -788,18 +842,28 @@ export default function App() {
             <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
           ) : null}
           {view === "map" ? (
-            <Map3D
-              orgs={orgs}
-              events={filtered}
-              families={family ? [family] : undefined}
-              flows={flows}
-              basemap={basemap}
-              onSelect={handleSelectOrg}
-              onSelectEvent={(id) => {
-                setSelectedEventId(id);
-                setSelectedOrgId(null);
-              }}
-            />
+            <>
+              <Map3D
+                orgs={orgs}
+                events={mapEvents}
+                families={family ? [family] : undefined}
+                flows={flows}
+                basemap={basemap}
+                onSelect={handleSelectOrg}
+                onSelectEvent={(id) => {
+                  setSelectedEventId(id);
+                  setSelectedOrgId(null);
+                }}
+              />
+              <MapTimeline
+                buckets={mapBuckets}
+                selected={mapBucket}
+                shown={mapEvents.length}
+                total={mapTotal}
+                loading={mapLoading}
+                onSelect={setMapBucket}
+              />
+            </>
           ) : null}
 
           {view === "graph" ? (
