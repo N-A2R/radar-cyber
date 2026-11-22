@@ -6,6 +6,7 @@ OBJECTIF : atteint — 8 / 5 sources vérifiées en HTTP 200 pour le couple sect
 
 - `bench/corpus/sources-transport-16.jsonl` — 8 lignes au schéma `{nom, type, secteur, departement, url_site, url_actualites, url_flux, code_http, exemple_cyber}`.
 - `bench/results/verification-sources-transport-16.json` — 31 URL contrôlées le 2026-11-22 (`curl -L`, redirections suivies, User-Agent navigateur), 31 × 200 ; 8/8 sources valides.
+- `scripts/verif-corpus-transport-16.py` — rejoue le contrôle : `python3 scripts/verif-corpus-transport-16.py` régénère le rapport ci-dessus.
 - `db/migrate-095-sources-transport-16.sql` — 8 sources `corpus:transport16-*` en `department='16'`, 28 URL uniques tracées dans `source_verification` en `ok200`. Migration appliquée à la base locale et rejouée sans doublon (8 sources / 28 traces avant et après).
 - `bench/corpus/HASH` régénéré après ajout du corpus.
 
