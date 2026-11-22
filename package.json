@@ -39,6 +39,7 @@
     "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "mesure:confiance": "apps/api/node_modules/.bin/tsx scripts/compute-confidence-scores.mts",
     "mesure:corroboration": "apps/api/node_modules/.bin/tsx scripts/measure-incident-corroboration.mts",
+    "mesure:doublons-semantiques": "apps/api/node_modules/.bin/tsx scripts/semantic-duplicates.mts",
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
     "leak-proofs:archive": "apps/api/node_modules/.bin/tsx scripts/archive-leak-victim-proofs.mts",
     "leak-proofs:measure": "apps/api/node_modules/.bin/tsx scripts/measure-leak-victim-proofs.mts",
