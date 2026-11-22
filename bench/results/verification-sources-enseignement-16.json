@@ -1,0 +1,266 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-enseignement-16.jsonl",
+  "secteur": "enseignement",
+  "departement": "16",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, verifications du statut HTTP et du type de contenu",
+  "sources": 17,
+  "urls_verifiees": 42,
+  "urls_200": 42,
+  "detail": [
+    {
+      "nom": "IUT d'Angoulême",
+      "urls": {
+        "https://iut-angouleme.univ-poitiers.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://iut-angouleme.univ-poitiers.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://iut-angouleme.univ-poitiers.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Campus universitaire d'Angoulême",
+      "urls": {
+        "https://angouleme.univ-poitiers.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://angouleme.univ-poitiers.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://angouleme.univ-poitiers.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Cnam-Enjmin Angoulême",
+      "urls": {
+        "https://enjmin.cnam.fr/": {
+          "code": 200,
+          "type": "text/html;charset=UTF-8"
+        },
+        "https://enjmin.cnam.fr/cnam-enjmin/agenda/": {
+          "code": 200,
+          "type": "text/html;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "GRETA-CFA Aquitaine — antenne de Charente",
+      "urls": {
+        "https://greta-cfa-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://greta-cfa-aquitaine.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "CROUS de Poitiers — site d'Angoulême",
+      "urls": {
+        "https://www.crous-poitiers.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.crous-poitiers.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.crous-poitiers.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "ÉESI — École européenne supérieure de l'image (Angoulême)",
+      "urls": {
+        "https://eesi.eu/site/index.php": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        },
+        "https://eesi.eu/site/spip.php?page=backend": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "LISA — Lycée de l'Image et du Son d'Angoulême",
+      "urls": {
+        "https://www.lycee-image-son-angouleme.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.lycee-image-son-angouleme.fr/category/activites-vie-du-lycee/journal-du-lycee-lisactu/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.lycee-image-son-angouleme.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Magelis — pôle image d'Angoulême",
+      "urls": {
+        "https://magelis.org/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://magelis.org/infos/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://magelis.org/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Lycée Louise Michel (Ruffec)",
+      "urls": {
+        "https://lycee-louise-michel.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://lycee-louise-michel.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Lycée Chabanne (Angoulême)",
+      "urls": {
+        "https://www.lycee-chabanne16.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.lycee-chabanne16.fr/feed": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Saint-Joseph / Beaulieu (Cognac)",
+      "urls": {
+        "https://www.saintjoseph-cognac.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.saintjoseph-cognac.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.saintjoseph-cognac.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Collège Félix Gaillard (Cognac)",
+      "urls": {
+        "https://etab.ac-poitiers.fr/coll-felix-gaillard-cognac/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "Charente Libre — éducation",
+      "urls": {
+        "https://www.charentelibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.charentelibre.fr/education/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.charentelibre.fr/education/rss.xml": {
+          "code": 200,
+          "type": "application/xml"
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — édition Charente",
+      "urls": {
+        "https://www.sudouest.fr/charente/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.sudouest.fr/charente/rss.xml": {
+          "code": 200,
+          "type": "application/xml"
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Charente",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/charente_16/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "SNES-FSU",
+      "urls": {
+        "https://www.snes.edu/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.snes.edu/article/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.snes.edu/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "UNSA Éducation",
+      "urls": {
+        "https://www.unsa-education.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.unsa-education.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.unsa-education.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    }
+  ]
+}
