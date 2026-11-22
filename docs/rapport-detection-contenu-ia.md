@@ -106,3 +106,5 @@ Le diff de `apps/api/src/server.ts` est de **0 ligne**.
 - Aucune donnée personnelle de victime n'est lue, stockée ou publiée : seuls
   des textes d'événements publics, des noms d'organisations et des codes de
   signaux circulent dans la mesure.
+
+OBJECTIF : atteint — 0,9333 / 0,9333
