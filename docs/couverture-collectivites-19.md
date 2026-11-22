@@ -40,3 +40,5 @@ Recherche web (annuaires consulaires, sites officiels, intercommunalités, press
 
 Corpus : `bench/corpus/sources-collectivites-19.jsonl` (13 lignes, empreinte `bench/corpus/HASH` recalculée).
 Base : `db/migrate-069-sources-collectivites-19.sql` insère 13 lignes dans `source` (parser pointant vers le corpus) et 28 traces `source_verification` en état `ok200`.
+
+OBJECTIF : atteint — 13 / 5
