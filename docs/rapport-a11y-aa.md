@@ -73,3 +73,5 @@ visible, les jetons de contraste AA et les région `status` des écrans internes
   reste de l'interface.
 - Aucune commande de vérification ne dépasse 60 s (mesure : 4 à 13 s,
   typecheck : 7 à 14 s).
+
+OBJECTIF : atteint — 0 / 0 violations axe-core A/AA (11 / 11 écrans audités, 50 / 50 violations initiales corrigées, 10 / 10 comportements corrigés et testés ; mesure reproductible : `cd apps/web && ./node_modules/.bin/vitest run test/a11y-audit.test.tsx test/a11y-shell-status.test.tsx --reporter=dot`).
