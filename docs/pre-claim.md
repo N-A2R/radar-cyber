@@ -23,8 +23,8 @@ les autres reposent sur un préavis de campagne (même groupe).
 ## État réel de départ
 
 La base vivante contient 1 673 220 organisations,
-463 sources déclarées, 27 899 événements et
-4 710 événements archivés. La mesure lit
+914 sources déclarées, 26 770 événements et
+5 305 événements archivés. La mesure lit
 34 992 revendications datées avec groupe connu et
 16 770 listings gris horodatés. Aucune donnée synthétique.
 

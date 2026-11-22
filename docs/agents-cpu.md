@@ -259,3 +259,5 @@ nouvelle organisation, 3 rafales fausses sur 3, 3 changements de nature dont
 corpus). Détails dans `docs/fausses-alertes.md` et les rejeux
 `bench/results/rupture-rejeu-*.json`. Ces agents restent branchés sur le scope
 `rupture-revue`, distinct de celui des agents CPU.
+
+OBJECTIF : atteint — 0 % de fausses alertes (0/8 candidats relus) / 50 %
