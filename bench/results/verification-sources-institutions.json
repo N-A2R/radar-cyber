@@ -1,0 +1,456 @@
+{
+  "genere_le": "2026-11-22T01:48:47.649667+00:00",
+  "cibles": 55,
+  "verifiees": 55,
+  "directes": 42,
+  "via_proxy": 13,
+  "par_categorie": {
+    "agglomération": 23,
+    "conseil départemental": 6,
+    "intercommunalité": 12,
+    "préfecture": 13,
+    "région": 1
+  },
+  "detail": [
+    {
+      "id": "na-instactu-001",
+      "nom": "Préfecture de la Charente — Actualités",
+      "url": "https://www.charente.gouv.fr/Actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.charente.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-002",
+      "nom": "Préfecture de la Charente-Maritime — Actualités",
+      "url": "https://www.charente-maritime.gouv.fr/Actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.charente-maritime.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-003",
+      "nom": "Préfecture de la Corrèze — Actualités",
+      "url": "https://www.correze.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.correze.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-004",
+      "nom": "Préfecture de la Creuse — Actualités",
+      "url": "https://www.creuse.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.creuse.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-005",
+      "nom": "Préfecture de la Dordogne — Actualités",
+      "url": "https://www.dordogne.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.dordogne.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-006",
+      "nom": "Préfecture de la Gironde — Actualités",
+      "url": "https://www.gironde.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.gironde.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-007",
+      "nom": "Préfecture des Landes — Actualités",
+      "url": "https://www.landes.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.landes.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-008",
+      "nom": "Préfecture de Lot-et-Garonne — Actualités",
+      "url": "https://www.lot-et-garonne.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.lot-et-garonne.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-009",
+      "nom": "Préfecture des Pyrénées-Atlantiques — Actualités",
+      "url": "https://www.pyrenees-atlantiques.gouv.fr/Actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.pyrenees-atlantiques.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-010",
+      "nom": "Préfecture des Deux-Sèvres — Actualités",
+      "url": "https://www.deux-sevres.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.deux-sevres.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-011",
+      "nom": "Préfecture de la Vienne — Actualités",
+      "url": "https://www.vienne.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.vienne.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-012",
+      "nom": "Préfecture de la Haute-Vienne — Actualités",
+      "url": "https://www.haute-vienne.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.haute-vienne.gouv.fr/Actualites"
+    },
+    {
+      "id": "na-instactu-013",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Actualités",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.nouvelle-aquitaine.gouv.fr/actualites"
+    },
+    {
+      "id": "na-instactu-014",
+      "nom": "Conseil départemental de la Charente-Maritime — Actualités",
+      "url": "https://www.charente-maritime.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://la.charente-maritime.fr/"
+    },
+    {
+      "id": "na-instactu-015",
+      "nom": "Conseil départemental de la Corrèze — Actualités",
+      "url": "https://www.correze.fr/actualites/trophees-des-entreprises-2026",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.correze.fr/actualites/trophees-des-entreprises-2026"
+    },
+    {
+      "id": "na-instactu-016",
+      "nom": "Conseil départemental de la Creuse — Espace presse",
+      "url": "https://www.creuse.fr/Espace-presse",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.creuse.fr/Espace-presse"
+    },
+    {
+      "id": "na-instactu-017",
+      "nom": "Conseil départemental de la Gironde — Actualités",
+      "url": "https://www.gironde.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.gironde.fr/actualites"
+    },
+    {
+      "id": "na-instactu-018",
+      "nom": "Conseil départemental des Deux-Sèvres — Actualités",
+      "url": "https://www.deux-sevres.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.deux-sevres.fr/actualites"
+    },
+    {
+      "id": "na-instactu-019",
+      "nom": "Conseil départemental de la Haute-Vienne — Toutes les actualités",
+      "url": "https://www.haute-vienne.fr/tous-les-actualites-et-evenements",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.haute-vienne.fr/tous-les-actualites-et-evenements"
+    },
+    {
+      "id": "na-instactu-020",
+      "nom": "Région Nouvelle-Aquitaine — Actualités",
+      "url": "https://www.nouvelle-aquitaine.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.nouvelle-aquitaine.fr/actualites"
+    },
+    {
+      "id": "na-instactu-021",
+      "nom": "Bordeaux Métropole — Actualités",
+      "url": "https://www.bordeaux-metropole.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.bordeaux-metropole.fr/actualites-Bordeaux-Metropole"
+    },
+    {
+      "id": "na-instactu-022",
+      "nom": "Communauté d'agglomération du Pays Basque — Actualités",
+      "url": "https://www.communaute-paysbasque.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.communaute-paysbasque.fr/actualites"
+    },
+    {
+      "id": "na-instactu-023",
+      "nom": "Communauté d'agglomération de La Rochelle — Actualités",
+      "url": "https://www.agglo-larochelle.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.agglo-larochelle.fr/actualites"
+    },
+    {
+      "id": "na-instactu-024",
+      "nom": "Limoges Métropole — Actualités",
+      "url": "https://www.limoges-metropole.fr/informations-transversales/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites"
+    },
+    {
+      "id": "na-instactu-025",
+      "nom": "Grand Poitiers — Actualités",
+      "url": "https://www.grandpoitiers.fr/information-transversale/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grandpoitiers.fr/information-transversale/actualites"
+    },
+    {
+      "id": "na-instactu-026",
+      "nom": "Grand Angoulême — Actualités",
+      "url": "https://www.grandangouleme.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grandangouleme.fr/post_grid/actualites-2-accueil/"
+    },
+    {
+      "id": "na-instactu-027",
+      "nom": "Le Grand Périgueux — Actualités",
+      "url": "https://www.grandperigueux.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grandperigueux.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-028",
+      "nom": "Niort Agglo — Toutes les actualités",
+      "url": "https://www.niortagglo.fr/lagglo/toutes-les-actualites/index.html",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.niortagglo.fr/lagglo/toutes-les-actualites/index.html"
+    },
+    {
+      "id": "na-instactu-029",
+      "nom": "Agglomération d'Agen — Actualités",
+      "url": "https://www.agglo-agen.net/en-ce-moment/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.agglo-agen.net/en-ce-moment/actualites"
+    },
+    {
+      "id": "na-instactu-030",
+      "nom": "Grand Châtellerault — Actualités",
+      "url": "https://www.grand-chatellerault.fr/vivre/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grand-chatellerault.fr/vivre/actualites"
+    },
+    {
+      "id": "na-instactu-031",
+      "nom": "Grand Cognac — Les actualités",
+      "url": "https://www.grand-cognac.fr/comprendre-lagglo/les-actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grand-cognac.fr/comprendre-lagglo/les-actualites"
+    },
+    {
+      "id": "na-instactu-032",
+      "nom": "Grand Villeneuvois — Actualités",
+      "url": "https://www.grand-villeneuvois.fr/actualites.html",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grand-villeneuvois.fr/actualites.html"
+    },
+    {
+      "id": "na-instactu-033",
+      "nom": "Grand Dax — Actualités et agenda",
+      "url": "https://www.grand-dax.fr/connaitre-lagglo/actualite-agenda/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grand-dax.fr/connaitre-lagglo/actualite-agenda/"
+    },
+    {
+      "id": "na-instactu-034",
+      "nom": "Rochefort Océan — Actualités",
+      "url": "https://www.agglo-rochefortocean.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.agglo-rochefortocean.fr/actualites"
+    },
+    {
+      "id": "na-instactu-035",
+      "nom": "Saintes - Grandes Rives - L'Agglo — Actualités",
+      "url": "https://www.agglo-saintes.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://agglo-saintes.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-036",
+      "nom": "CA du Libournais — Actualités",
+      "url": "https://www.lacali.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.lacali.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-037",
+      "nom": "Agglo COBAS — Actualités à la une",
+      "url": "https://www.agglo-cobas.fr/category/actualites-a-la-une/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.agglo-cobas.fr/category/actualites-a-la-une/"
+    },
+    {
+      "id": "na-instactu-038",
+      "nom": "Mont de Marsan Agglomération — Actualités",
+      "url": "https://www.montdemarsan.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.montdemarsan.fr/connaitre-le-territoire/actualites/"
+    },
+    {
+      "id": "na-instactu-039",
+      "nom": "Val de Garonne Agglomération — Actualités",
+      "url": "https://www.vg-agglo.com/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://valdegaronne.fr/9-liste-actualites.htm"
+    },
+    {
+      "id": "na-instactu-040",
+      "nom": "Grand Guéret — Actualités",
+      "url": "https://www.agglo-grandgueret.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.agglo-grandgueret.fr/lagglo/actualites/"
+    },
+    {
+      "id": "na-instactu-041",
+      "nom": "Tulle Agglo — Actualités",
+      "url": "https://www.tulleagglo.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.tulleagglo.fr/lagglo/actualites/"
+    },
+    {
+      "id": "na-instactu-042",
+      "nom": "COBAN Atlantique — Actualités",
+      "url": "https://www.coban-atlantique.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://coban-atlantique.fr/la-coban/actualites/"
+    },
+    {
+      "id": "na-instactu-043",
+      "nom": "Pau Agglomération — Actualités",
+      "url": "https://www.pau.fr/actualites",
+      "verifie": true,
+      "methode": "proxy r.jina.ai (origine non joignable en direct)",
+      "url_finale": "https://www.pau.fr/actualites"
+    },
+    {
+      "id": "na-instactu-044",
+      "nom": "CC du Haut Poitou — Actualités",
+      "url": "https://cc-hautpoitou.fr/nous-connaitre/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://cc-hautpoitou.fr/nous-connaitre/actualites/"
+    },
+    {
+      "id": "na-instactu-045",
+      "nom": "CC Isle Double Landais — Actualités",
+      "url": "https://ccidl.fr/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://ccidl.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-046",
+      "nom": "CC Vézère-Monédières-Millesources — Actualité",
+      "url": "https://www.ccv2m.fr/actualite/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.ccv2m.fr/actualite/"
+    },
+    {
+      "id": "na-instactu-047",
+      "nom": "CC du Bazadais — Actualités",
+      "url": "https://cdcdubazadais.fr/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://cdcdubazadais.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-048",
+      "nom": "CC du Sud Gironde — Actualités",
+      "url": "https://cdcsudgironde.fr/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://cdcsudgironde.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-049",
+      "nom": "CC Adour Madiran — Actualités",
+      "url": "https://www.adour-madiran.fr/systeme/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.adour-madiran.fr/systeme/actualites/"
+    },
+    {
+      "id": "na-instactu-050",
+      "nom": "CC du Grand Saint Emilionnais — Actualités",
+      "url": "https://www.grand-saint-emilionnais.fr/systeme/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.grand-saint-emilionnais.fr/systeme/actualites/"
+    },
+    {
+      "id": "na-instactu-051",
+      "nom": "CC du Thouarsais — Actualités",
+      "url": "https://www.thouars-communaute.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.thouars-communaute.fr/actualites"
+    },
+    {
+      "id": "na-instactu-052",
+      "nom": "CC du Val de Vienne — Actualités",
+      "url": "https://valdevienne.fr/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://valdevienne.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-053",
+      "nom": "CC des Vallées du Clain — Actualités",
+      "url": "https://www.valleesduclain.fr/actualites-de-la-ccvc/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.valleesduclain.fr/actualites-de-la-ccvc/"
+    },
+    {
+      "id": "na-instactu-054",
+      "nom": "CC Vienne et Gartempe — Actualités",
+      "url": "https://www.vienneetgartempe.fr/actualites/",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.vienneetgartempe.fr/actualites/"
+    },
+    {
+      "id": "na-instactu-055",
+      "nom": "CC Xaintrie Val'Dordogne — Actualités",
+      "url": "https://www.xaintrie-val-dordogne.fr/actualites",
+      "verifie": true,
+      "methode": "direct",
+      "url_finale": "https://www.xaintrie-val-dordogne.fr/actualites"
+    }
+  ]
+}
