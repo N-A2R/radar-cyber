@@ -50,3 +50,5 @@
 - https://www.ici.fr/rss/lot-et-garonne/a-la-une.xml, https://www.ladepeche.fr/lot-et-garonne/rss.xml, https://lot-et-garonne.chambres-agriculture.fr/actualites.rss : 404.
 
 Limite de périmètre : les organisations strictement départementales (FDSEA 47, MODEF 47, Coordination Rurale 47, Chambre d'agriculture 47, Cerfrance Lot-et-Garonne, SR 47/GED 47, Cuma 33-47, Truffes47, Cave du Marmandais) côtoient des réseaux régionaux ou nationaux (SAFER, Chambres, Cuma, FNAB, presse agricole) qui couvrent explicitement le Lot-et-Garonne. Les exemples cyber du champ `exemple_cyber` sont des cas agricoles documentés et vérifiés en HTTP 200, rattachés au type de source concerné ; ils ne sont pas des incidents constatés sur la source elle-même.
+
+OBJECTIF : atteint — 29 / 5
