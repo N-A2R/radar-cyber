@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-19.jsonl",
+  "secteur": "commerce",
+  "departement": "19",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 18 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL. Candidats identifiés depuis les corpus départementaux existants, les sites officiels et la recherche web, puis tous contrôlés en HTTP direct.",
+  "sources": 11,
+  "urls_verifiees": 26,
+  "urls_200": 26,
+  "detail": [
+    {
+      "nom": "CMA Nouvelle-Aquitaine — actualités (Corrèze)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://cma-correze.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      },
+      "note": "L'ancien domaine cma-correze.fr redirige vers le site régional CMA Nouvelle-Aquitaine, dont la page actualités couvre la Corrèze."
+    },
+    {
+      "nom": "Ville de Brive-la-Gaillarde — actualités (économie et commerces)",
+      "urls": {
+        "https://www.brive.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.brive.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "La Montagne — Corrèze (économie)",
+      "urls": {
+        "https://www.lamontagne.fr/correze/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lamontagne.fr/economie/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      },
+      "note": "La URL /economie/rss.xml répond 200 mais sert une page HTML, pas un flux : aucun flux RSS retenu pour cette source."
+    },
+    {
+      "nom": "actu.fr — Brive-la-Gaillarde (Corrèze)",
+      "urls": {
+        "https://actu.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/brive-la-gaillarde_19031/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      },
+      "note": "Le flux /nouvelle-aquitaine/correze_19/rss.xml répond 200 en application/rss+xml mais contient un canal vide (0 item) : non retenu."
+    },
+    {
+      "nom": "ICI Corrèze (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/limousin": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/correze-19/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Corrèze",
+      "urls": {
+        "https://www.sudouest.fr/correze/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/correze/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Corrèze",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Terres de Corrèze — office de tourisme",
+      "urls": {
+        "https://www.terresdecorreze.com/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.terresdecorreze.com/destination/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.terresdecorreze.com/alerte-arnaque/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "FCD — Fédération du commerce et de la distribution",
+      "urls": {
+        "https://www.fcd.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.fcd.fr/qui-sommes-nous/actualites-de-la-fcd/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "FEVAD — Fédération du e-commerce et de la vente à distance",
+      "urls": {
+        "https://www.fevad.com/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.fevad.com/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.fevad.com/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10}
+      },
+      "note": "/actualites/ redirige vers l'accueil du site, qui porte les actualités de la fédération."
+    },
+    {
+      "nom": "Cyberattaque.org — actualités des incidents cyber",
+      "urls": {
+        "https://www.cyberattaque.org/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.cyberattaque.org/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10},
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    }
+  ],
+  "candidats_ecartes": [
+    {"nom": "CCI Corrèze", "url": "https://correze.cci.fr/", "raison": "HTTP 403 persistant sur le site et les pages actualités ; non intégrée."},
+    {"nom": "Ville de Tulle", "url": "https://www.tulle.fr/", "raison": "NXDOMAIN sur les domaines tulle.fr, www.tulle.fr, mairie-tulle.fr et tulle-agglo.fr testés."},
+    {"nom": "La Montagne — flux économie", "url": "https://www.lamontagne.fr/economie/rss.xml", "raison": "200 mais contenu HTML, pas un flux RSS."},
+    {"nom": "actu.fr — flux Corrèze", "url": "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml", "raison": "200 application/rss+xml mais canal vide (0 item)."}
+  ]
+}
