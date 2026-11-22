@@ -388,22 +388,6 @@ void guarded("mesure organisations reliées", mesurerOrgsLiees);
 setInterval(() => {
   void guarded("mesure organisations reliées", mesurerOrgsLiees);
 }, MESURE_ORGS_LIEES_MS);
- * Ancrage quotidien du journal de vérité : la veille est scellée une fois par
- * jour (racine Merkle recomputable + jeton RFC 3161), même quand la collecte
- * est coupée. Sans cet ancrage, corriger une projection effacerait la preuve
- * de ce qu'on croyait la veille. Un rattrapage borné comble les jours laissés
- * nus par un arrêt de l'API ; `RADAR_ANCRAGE_JOURNAL=0` coupe le déclenchement.
-const ANCRAGE_JOURNAL_MS = 24 * 3600 * 1000;
-async function ancrerJournal(): Promise<void> {
-	const resultat = await ancrerJournalDuJour({ rattrapage: 7 });
-	if (resultat.ancres.length > 0) {
-		log(`ancrage journal : ${resultat.ancres.map((a) => `${a.ancrage.jour} (${a.statut})`).join(", ")}`);
-	for (const echec of resultat.echecs) {
-		log(`ancrage journal ${echec.jour} : échec — ${echec.erreur}`);
-if (process.env.RADAR_ANCRAGE_JOURNAL !== "0") {
-	void guarded("ancrage journal", ancrerJournal);
-		void guarded("ancrage journal", ancrerJournal);
-	}, ANCRAGE_JOURNAL_MS);
  * Guichet d'orientation des collectivités : contrôle HTTP réel du lien 17Cyber
  * au démarrage puis chaque jour, rejoué seulement si la dernière date vérifiée
  * a plus de 7 jours (cadence hebdomadaire). Indépendant de la collecte : un
@@ -420,6 +404,22 @@ async function verifierOrientation() {
   }
 void guarded("orientation collectivités", verifierOrientation);
 setInterval(() => void guarded("orientation collectivités", verifierOrientation), ORIENTATION_TICK_MS);
+ * Ancrage quotidien du journal de vérité : la veille est scellée une fois par
+ * jour (racine Merkle recomputable + jeton RFC 3161), même quand la collecte
+ * est coupée. Sans cet ancrage, corriger une projection effacerait la preuve
+ * de ce qu'on croyait la veille. Un rattrapage borné comble les jours laissés
+ * nus par un arrêt de l'API ; `RADAR_ANCRAGE_JOURNAL=0` coupe le déclenchement.
+const ANCRAGE_JOURNAL_MS = 24 * 3600 * 1000;
+async function ancrerJournal(): Promise<void> {
+	const resultat = await ancrerJournalDuJour({ rattrapage: 7 });
+	if (resultat.ancres.length > 0) {
+		log(`ancrage journal : ${resultat.ancres.map((a) => `${a.ancrage.jour} (${a.statut})`).join(", ")}`);
+	for (const echec of resultat.echecs) {
+		log(`ancrage journal ${echec.jour} : échec — ${echec.erreur}`);
+if (process.env.RADAR_ANCRAGE_JOURNAL !== "0") {
+	void guarded("ancrage journal", ancrerJournal);
+		void guarded("ancrage journal", ancrerJournal);
+	}, ANCRAGE_JOURNAL_MS);
  * Droit de réponse : instruction puis clôture dans le délai d'un mois.
  * Indépendant de la collecte : un déploiement `RADAR_COLLECT=0` doit aussi
  * tenir l'échéance. Le trigger SQL couvre l'insertion ; ce tick couvre le
