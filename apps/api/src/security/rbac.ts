@@ -50,6 +50,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/today/departements", niveau: "public" },
   { methode: "GET", route: "/api/couverture", niveau: "public" },
   { methode: "GET", route: "/api/leaks/by-domain", niveau: "public" },
+  { methode: "GET", route: "/api/resale/listings", niveau: "public" },
   { methode: "GET", route: "/api/corpus/stats", niveau: "public" },
   { methode: "GET", route: "/api/confidence/distribution", niveau: "public" },
   { methode: "GET", route: "/api/confidence/events/:eventId", niveau: "public" },
@@ -77,6 +78,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/quarantine/stats", niveau: "public" },
   { methode: "GET", route: "/api/quarantine/queue", niveau: "analyste" },
   { methode: "GET", route: "/api/onion-index", niveau: "public" },
+  { methode: "GET", route: "/api/custody", niveau: "public", motif: "chaîne de custody : métadonnées de source et journal, sans donnée personnelle" },
   { methode: "GET", route: "/api/orgs", niveau: "public" },
 
   // --- Lectures authentifiées ----------------------------------------------

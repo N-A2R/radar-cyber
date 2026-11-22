@@ -42,7 +42,9 @@ import auditRoute from "./audit.js";
 import onionIndexRoute from "./onion-index.js";
 import confidenceRoute from "./confidence.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
+import resaleListingsRoute from "./resale-listings.js";
 import publicMandatesRoute from "./public-mandates.js";
+import custodyRoute from "./custody.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -55,8 +57,10 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     rectificationRoute, auditRoute,
     confidenceRoute,
     leaksByDomainRoute,
+    resaleListingsRoute,
     publicMandatesRoute,
     onionIndexRoute,
+    custodyRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }

@@ -112,7 +112,7 @@ const latences = lignes.map((l) => l.ms).sort((a, b) => a - b);
 
 const resultat = {
 	date: new Date().toISOString().slice(0, 10),
-	moteur: "gazetteer@2",
+	moteur: "gazetteer@4+context-resolution",
 	jeu: { organisations: gold.orgs.length, cas: gold.cases.length, alias: rows.length },
 	constructionMs: Math.round(construction),
 	latence: {
