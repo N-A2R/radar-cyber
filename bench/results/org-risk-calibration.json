@@ -1,0 +1,154 @@
+{
+  "model": "org_risk_calibrated",
+  "generatedAt": "2026-11-22T11:44:59.133Z",
+  "command": "pnpm mesure:risk-calibration",
+  "referenceDate": "2026-11-22",
+  "horizonDays": 90,
+  "window": [
+    "2026-08-24",
+    "2026-11-22"
+  ],
+  "scope": "Nouvelle-Aquitaine (12 départements), agrégats publics numériques uniquement",
+  "label": "revendication d'incident observée dans la fenêtre de 90 jours (leak_claim.na ou event third_party_claim)",
+  "negatives": "échantillon déterministe id % 997 = 7, sans incident dans la fenêtre",
+  "binning": "10 strates de rang à effectif égal (score décroissant, id en départage) ; lissage vers la fréquence de base",
+  "pool": {
+    "organisations": 1699,
+    "positives": 18
+  },
+  "cohort": {
+    "organisations": 120,
+    "positives": 18,
+    "minBinCount": 12
+  },
+  "evaluation": {
+    "brier": 0.12703450520833334,
+    "ece": 0.03645833333333333,
+    "binCount": 10,
+    "prior": 0.15,
+    "priorWeight": 5
+  },
+  "bins": [
+    {
+      "index": 0,
+      "scoreMin": 4,
+      "scoreMax": 7,
+      "count": 12,
+      "positives": 4,
+      "probability": 0.27941176470588236,
+      "observed": 0.3333333333333333,
+      "looMean": 0.2760416666666667,
+      "eceContribution": 0.005729166666666664
+    },
+    {
+      "index": 1,
+      "scoreMin": 3,
+      "scoreMax": 3,
+      "count": 12,
+      "positives": 1,
+      "probability": 0.10294117647058823,
+      "observed": 0.08333333333333333,
+      "looMean": 0.10416666666666667,
+      "eceContribution": 0.002083333333333334
+    },
+    {
+      "index": 2,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 1,
+      "probability": 0.10294117647058823,
+      "observed": 0.08333333333333333,
+      "looMean": 0.10416666666666667,
+      "eceContribution": 0.002083333333333334
+    },
+    {
+      "index": 3,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 3,
+      "probability": 0.22058823529411764,
+      "observed": 0.25,
+      "looMean": 0.21875,
+      "eceContribution": 0.003125
+    },
+    {
+      "index": 4,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 3,
+      "probability": 0.22058823529411764,
+      "observed": 0.25,
+      "looMean": 0.21875,
+      "eceContribution": 0.003125
+    },
+    {
+      "index": 5,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 0,
+      "probability": 0.04411764705882353,
+      "observed": 0,
+      "looMean": 0.046875,
+      "eceContribution": 0.004687500000000001
+    },
+    {
+      "index": 6,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 0,
+      "probability": 0.04411764705882353,
+      "observed": 0,
+      "looMean": 0.046875,
+      "eceContribution": 0.004687500000000001
+    },
+    {
+      "index": 7,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 4,
+      "probability": 0.27941176470588236,
+      "observed": 0.3333333333333333,
+      "looMean": 0.2760416666666667,
+      "eceContribution": 0.005729166666666664
+    },
+    {
+      "index": 8,
+      "scoreMin": 2,
+      "scoreMax": 2,
+      "count": 12,
+      "positives": 2,
+      "probability": 0.16176470588235295,
+      "observed": 0.16666666666666666,
+      "looMean": 0.16145833333333334,
+      "eceContribution": 0.0005208333333333315
+    },
+    {
+      "index": 9,
+      "scoreMin": 0,
+      "scoreMax": 0,
+      "count": 12,
+      "positives": 0,
+      "probability": 0.04411764705882353,
+      "observed": 0,
+      "looMean": 0.046875,
+      "eceContribution": 0.004687500000000001
+    }
+  ],
+  "targets": {
+    "brier": 0.15,
+    "ece": 0.05,
+    "binCount": 10,
+    "sampleCount": 120,
+    "minBinCount": 12
+  },
+  "limitations": [
+    "peu d'incidents positifs sur la fenêtre : les probabilités restent proches de la fréquence de base",
+    "le score d'exposition est peu discriminant ; ce chantier mesure la calibration, pas l'AUC"
+  ]
+}
