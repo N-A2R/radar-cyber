@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-40.jsonl",
+  "secteur": "agriculture",
+  "departement": "40",
+  "methode": "GET réel avec redirections suivies et cookies conservés (scripts/verifier-sources.mts), User-Agent navigateur, délai 25 s ; code HTTP, type de contenu et items RSS enregistrés",
+  "sources": 15,
+  "urls_verifiees": 30,
+  "urls_200": 30,
+  "detail": [
+    {"nom": "FDSEA des Landes", "urls": [{"url": "http://fdsea40.sacea.fr/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}]},
+    {"nom": "MODEF 40", "urls": [{"url": "https://www.modef40.fr/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://www.modef40.fr/notre-actu/le-fil-infos", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}]},
+    {"nom": "Chambre d'agriculture des Landes", "urls": [{"url": "https://landes.chambres-agriculture.fr/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://landes.chambres-agriculture.fr/actualites-1", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}]},
+    {"nom": "Cerfrance Adour-Océan (Landes)", "urls": [{"url": "https://www.cerfrance-adourocean.fr/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://www.cerfrance-adourocean.fr/actualites.html", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}]},
+    {"nom": "SAFER Nouvelle-Aquitaine (antenne Landes)", "urls": [{"url": "https://www.saferna.fr/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://www.saferna.fr/actualites/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://www.saferna.fr/feed/", "code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10}]},
+    {"nom": "Fédération régionale des Cuma Nouvelle-Aquitaine", "urls": [{"url": "https://nouvelle-aquitaine.cuma.fr/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://nouvelle-aquitaine.cuma.fr/actualites/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}]},
+    {"nom": "FNCuma — annuaire fédération Cuma Landes", "urls": [{"url": "https://www.cuma.fr/contacter-une-federation/?_fselect_department=40", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://www.cuma.fr/actualites/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}]},
+    {"nom": "Annuaire des Chambres d'agriculture France", "urls": [{"url": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://chambres-agriculture.fr/actualites", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}]},
+    {"nom": "Chambre régionale d'agriculture Nouvelle-Aquitaine", "urls": [{"url": "https://nouvelle-aquitaine.chambres-agriculture.fr/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}]},
+    {"nom": "ICI Landes (Radio France)", "urls": [{"url": "https://www.ici.fr/nouvelle-aquitaine/landes-40", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://www.ici.fr/nouvelle-aquitaine/landes-40/actu", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}]},
+    {"nom": "France 3 Nouvelle-Aquitaine — Landes", "urls": [{"url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}, {"url": "https://france3-regions.franceinfo.fr/economie/agriculture", "code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}]},
+    {"nom": "actu.fr — Landes", "urls": [{"url": "https://actu.fr/nouvelle-aquitaine/landes_40/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}]},
+    {"nom": "Le Parisien — Landes (40)", "urls": [{"url": "https://www.leparisien.fr/landes-40/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://www.leparisien.fr/landes-40/rss.xml", "code": 200, "type": "application/xml; charset=utf-8", "items_rss": 100}]},
+    {"nom": "Réussir (presse agricole spécialisée)", "urls": [{"url": "https://www.reussir.fr/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://www.reussir.fr/fil-actualites", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://www.reussir.fr/rss.xml", "code": 200, "type": "application/xml;charset=UTF-8", "items_rss": 20}]},
+    {"nom": "La France Agricole", "urls": [{"url": "https://www.lafranceagricole.fr/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}, {"url": "https://www.lafranceagricole.fr/actualites/", "code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}]}
+  ],
+  "candidats_ecartes": [
+    "https://www.fdsea40.fr/ et https://fdsea40.fr/ : DNS/TLS sans réponse ; le site actif est http://fdsea40.sacea.fr/ (HTTP 200, pas de TLS).",
+    "https://www.jeunesagriculteurs40.fr/, https://ja40.fr/, https://jeunesagriculteurs-landes.fr/ : domaines sans réponse.",
+    "https://landes.chambagri.fr/ : certificat TLS sans ce nom d'hôte ; la Chambre est desservie par landes.chambres-agriculture.fr.",
+    "https://actu.fr/nouvelle-aquitaine/landes_40/rss.xml :flux Cloudflare intermittent (403 selon le User-Agent) — non retenu.",
+    "https://www.sudouest.fr/landes/ : boucle de redirection anti-bot (302) — non retenu.",
+    "https://www.ici.fr/rss/landes/rubrique/infos.xml et https://www.cerfrance-adourocean.fr/rss.xml : 404."
+  ]
+}
