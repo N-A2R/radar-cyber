@@ -45,3 +45,5 @@ Candidats écartés après contrôle HTTP : CCI Deux-Sèvres (www.deux-sevres.cc
 Corpus : bench/corpus/sources-numerique-79.jsonl (22 lignes, empreinte recalculée dans bench/corpus/HASH).
 Rapport : bench/results/verification-numerique-79.json (72 URL, code HTTP, type de contenu, URL finale et items RSS).
 Base : db/migrate-180-sources-numerique-79.sql (22 sources insérées dans source, 22 traces source_verification).
+
+OBJECTIF : atteint — 22 / 5
