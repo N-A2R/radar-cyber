@@ -72,3 +72,4 @@ des pages d'actualités et des flux, puis contrôle GET de chaque URL avec
 User-Agent navigateur et suivi des redirections, délai 25 s, comptage des items
 pour les flux. Le détail des 71 contrôles figure dans le rapport de
 vérification.
+OBJECTIF : atteint — 26 sources vérifiées HTTP 200 / 5 minimum.
