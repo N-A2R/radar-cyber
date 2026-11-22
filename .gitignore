@@ -22,6 +22,7 @@ build/
 *.tsbuildinfo
 .vite/
 .smoke-out/
+storybook-static/
 
 # Logs et artefacts
 *.log
