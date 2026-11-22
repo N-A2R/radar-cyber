@@ -41,3 +41,5 @@ Résultat : **17 sources, 42 URL distinctes toutes en HTTP 200** (42 contrôles 
 ## Méthode
 
 Recherche des organisations du droit dans les Landes (barreaux, notariat, commissaires de justice, CDAD, juridictions, annuaires et presse locale avec rubrique justice), lecture des pages officielles pour trouver les rubriques d'actualités et les flux, puis contrôle GET réel de chaque URL (redirections suivies, délai 20 s) avec enregistrement du code HTTP, du type de contenu, de l'URL finale et du nombre d'items RSS. Aucune URL n'a été retenue sans observation préalable de la page ou du flux.
+
+OBJECTIF : atteint — 17 / 5
