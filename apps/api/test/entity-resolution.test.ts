@@ -85,3 +85,25 @@ test("an alias shared by two organizations stays ambiguous", () => {
 	assert.equal(match.org, null);
 	assert.equal(match.reason, "ambigu");
 });
+
+test("an internal swap in a later token recovers the organization", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'université de Poiteirs signale une fuite").org?.id, 3);
+});
+
+test("an internal swap in the first token recovers the organization", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'univeristé de Poitiers confirme une intrusion").org?.id, 3);
+});
+
+test("an internal extra letter recovers the organization", () => {
+	const gaz = buildGazetteer([row(21, "Cofinoga")]);
+	assert.equal(resoudre(gaz, "Cofinooga signalée dans une fuite").org?.id, 21);
+});
+
+test("a near miss on a different name stays unattributed", () => {
+	const gaz = buildGazetteer([row(1, "CHU de Bordeaux", { kind: "sante" })]);
+	const match = resoudre(gaz, "Le CHU de Bordelais confirme une attaque");
+	assert.equal(match.org, null);
+	assert.equal(match.reason, "aucun");
+});

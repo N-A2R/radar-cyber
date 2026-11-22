@@ -97,6 +97,18 @@ payant. Le rapport donne le rappel, la précision et le F1 globaux, puis le
 détail par secteur et par catégorie. Le jeu est choisi pour couvrir les modes
 d'échec connus, ce n'est pas un tirage aléatoire du flux.
 
+### Fautes internes (jeu de stress A4)
+
+```bash
+apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts \
+  --gold=gold-stress-a4.json \
+  --json=bench/results/A4-typos-internes-c7.json
+```
+
+12 cas hors du jeu A3 : huit fautes internes (inversion de lettres ou lettre
+en trop) et quatre mentions qui doivent rester sans rattachement. Mesure du
+2026-11-22 : 12/12, 0 faux, 0 bruit ; A3 reste à 53/53, 0 faux, 0 bruit.
+
 ### A.3 Audit du catalogue de sources
 
 ```bash

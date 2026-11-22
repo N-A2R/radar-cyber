@@ -37,7 +37,7 @@ import {
 } from "./generique.js";
 import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex, construireIndexTrie } from "./index-compact.js";
 import {
-	hasBrandCue, isBenignOnly, isSubjectMention, nearTokens, positionOfAlias, TERRITORIAL_ROLES,
+	estUneFaute, hasBrandCue, isBenignOnly, isSubjectMention, nearTokens, positionOfAlias, TERRITORIAL_ROLES,
 } from "./context-resolution.js";
 
 export type GazetteerOrg = {
@@ -514,7 +514,7 @@ function aliasFrappesApprochees(gaz: Gazetteer, jetons: readonly string[]): Frap
 				for (let i = 0; i < alias.length; i++) {
 					const observe = jetons[debut + i] as string;
 					if (observe === alias[i]) continue;
-					if (ecarts === 0 && nearTokens(observe).includes(alias[i] as string)) {
+					if (ecarts === 0 && estUneFaute(observe, alias[i] as string)) {
 						ecarts++;
 						continue;
 					}
