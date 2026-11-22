@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import type { RansomwareGroupsResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -23,6 +24,7 @@ const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
+const RansomwareGroupsView = lazy(() => import("./components/RansomwareGroupsView"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
@@ -48,6 +50,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "review", label: "Review" },
   { id: "journal", label: "Journal" },
   { id: "corpus", label: "Corpus" },
+  { id: "ransomware", label: "Ransomware groups" },
   { id: "sources", label: "Sources" },
   { id: "map", label: "Map" },
   { id: "graph", label: "Graph" },
@@ -80,6 +83,9 @@ export default function App() {
   const [corpusData, setCorpusData] = useState<CorpusStats | null>(null);
   const [corpusLoading, setCorpusLoading] = useState(false);
   const [corpusError, setCorpusError] = useState<string | null>(null);
+  const [ransomwareData, setRansomwareData] = useState<RansomwareGroupsResponse | null>(null);
+  const [ransomwareLoading, setRansomwareLoading] = useState(false);
+  const [ransomwareError, setRansomwareError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [temporalGraph, setTemporalGraph] = useState<Graph | null>(null);
@@ -411,6 +417,26 @@ export default function App() {
       controller.abort();
       clearInterval(timer);
     };
+  }, [view]);
+  // Ransomware groups: public read, refreshed each time the view opens.
+  useEffect(() => {
+    if (MOCK_MODE || view !== "ransomware") return;
+    const controller = new AbortController();
+    setRansomwareLoading(true);
+    api.ransomwareGroups(controller.signal)
+      .then((data) => {
+        setRansomwareData(data);
+        setRansomwareError(null);
+      })
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) {
+          setRansomwareError(err instanceof Error ? err.message : "unavailable");
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setRansomwareLoading(false);
+      });
+    return () => controller.abort();
   }, [view]);
 
   // La liste des départements vient de l'agrégat serveur, pas du fil courant :
@@ -846,6 +872,9 @@ export default function App() {
 
           {view === "corpus" ? (
             <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
+          ) : null}
+          {view === "ransomware" ? (
+            <RansomwareGroupsView data={ransomwareData} loading={ransomwareLoading} error={ransomwareError} />
           ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 

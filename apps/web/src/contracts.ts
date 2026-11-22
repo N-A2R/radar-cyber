@@ -2,7 +2,7 @@ import type { Alert, CouverturePublique, DeptStat, Event, Graph, Health, NaFil, 
 import type { DirectoryUrlState } from "./url-state";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "today" | "coverage" | "review" | "journal" | "corpus" | "sources" | "map" | "directory" | "graph" | "health" | "alerts" | "dossier" | "na";
+export type ViewKey = "today" | "coverage" | "review" | "journal" | "corpus" | "sources" | "map" | "directory" | "graph" | "health" | "alerts" | "dossier" | "na" | "ransomware";
 
 
 /** Contrat de l'écran d'accueil « Aujourd'hui ». */

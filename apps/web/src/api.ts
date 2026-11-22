@@ -1027,6 +1027,27 @@ function journalQuery(params: JournalReviewParams, withCursor = true): string {
   return qs.toString();
 }
 
+/** Response of GET /api/ransomware-groups — organisation-level evidence only. */
+export type RansomwareGroupsResponse = {
+  trackedGroups: number;
+  groupsWithNaVictims: number;
+  groups: Array<{
+    name: string;
+    slug: string;
+    claims: number;
+    naVictims: number;
+    victims: Array<{
+      orgId: number;
+      orgName: string;
+      department: string | null;
+      source: string;
+      sourceUrl: string | null;
+      claimedAt: string | null;
+      matchType: string;
+    }>;
+  }>;
+};
+
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   /** Relance manuelle d'une collecte : le serveur répond avant la fin du run. */
@@ -1101,6 +1122,8 @@ export const api = {
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   /** Écran Corpus : volumes, couverture des domaines et croissance. */
   corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
+  /** Tracked ransomware groups and their victims in Nouvelle-Aquitaine. */
+  ransomwareGroups: (signal?: AbortSignal) => get<RansomwareGroupsResponse>("/ransomware-groups", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),

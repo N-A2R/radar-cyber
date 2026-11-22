@@ -12,7 +12,7 @@
  * Fonctions pures : testables sans navigateur.
  */
 
-export const VIEWS = ["today", "coverage", "review", "journal", "corpus", "sources", "map", "directory", "graph", "health", "alerts", "dossier", "na"] as const;
+export const VIEWS = ["today", "coverage", "review", "journal", "corpus", "sources", "map", "directory", "graph", "health", "alerts", "dossier", "na", "ransomware"] as const;
 export type ViewId = (typeof VIEWS)[number];
 
 /** Filtres de la file de revue, portés par l'URL (`#/review?bucket=…&q=…`). */
