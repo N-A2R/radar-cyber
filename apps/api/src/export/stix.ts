@@ -4,9 +4,14 @@
  * Chaque objet passe par normalizeTrustTags() : TLP, PAP et Admiralty sont
  * normalisés une seule fois, puis portés à la fois dans le JSON STIX
  * (object_marking_refs, confidence numérique, extension x-radar-trust) et dans
- * les colonnes de `stix_object`. TLP:RED et PAP:RED ne sont pas exportés :
- * ils restent en quarantaine, conformément à la règle du produit — un objet
- * marqué « ne pas diffuser » ne peut pas figurer dans un export.
+ * les colonnes de `stix_object`.
+ *
+ * L'export est le périmètre public : seuls les faits TLP:CLEAR (normalisés
+ * WHITE) produisent un objet. GREEN, AMBER et RED restent hors de l'export,
+ * et un PAP:RED aussi. Un partenaire ne reçoit donc jamais un fait dont la
+ * diffusion est restreinte, même si l'appelant lui passe toutes les lignes.
+ * La liste blanche `export_public_event` (migration 200) est la seconde
+ * barrière : `listPublicEvents()` ne lit que les événements qui y figurent.
  *
  * Seuls des champs structurels sont exportés (famille, type d'affirmation,
  * identifiant) : ni titre, résumé, evidence brute, ni nom de victime.
@@ -60,7 +65,7 @@ function evidenceTags(evidence: StixEventRow["evidence"]): Record<string, unknow
 	return evidence && typeof evidence === "object" && !Array.isArray(evidence) ? evidence : {};
 }
 
-/** Construit un objet STIX, ou null pour un fait TLP:RED / PAP:RED non publiable. */
+/** Construit un objet STIX, ou null pour un fait hors du périmètre public. */
 export function buildStixObject(row: StixEventRow): StixExport | null {
 	const evidence = evidenceTags(row.evidence);
 	const tags = normalizeTrustTags({
@@ -68,7 +73,7 @@ export function buildStixObject(row: StixEventRow): StixExport | null {
 		pap: evidence.pap,
 		confidence: evidence.confidence ?? row.confidence,
 	});
-	if (tags.tlp === "RED" || tags.pap === "RED") return null;
+	if (tags.tlp !== "WHITE" || tags.pap === "RED") return null;
 
 	const reference = row.dedup_key ?? String(row.id);
 	const id = `indicator--${stixUuid("event", reference)}`;
@@ -113,6 +118,22 @@ export const UPSERT_STIX_OBJECT = `
     source_event_id = EXCLUDED.source_event_id,
     exported_at = now()
 `;
+
+/**
+ * Lignes du seul périmètre public : la liste blanche `export_public_event`
+ * (migration 200). Lire autre chose que cette liste serait un export inattentif.
+ */
+export const PUBLIC_EVENTS_SQL = `
+  SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.tlp, e.confidence, e.evidence, e.created_at
+    FROM event e
+    JOIN export_public_event x ON x.event_id = e.id
+   ORDER BY e.id
+`;
+
+export async function listPublicEvents(sql: SqlQuery = query): Promise<StixEventRow[]> {
+	const r = await sql(PUBLIC_EVENTS_SQL);
+	return r.rows as StixEventRow[];
+}
 
 /**
  * Écrit les objets exportables ; renvoie les comptes, sans rien taire.

@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { etagOu304 } from "../etag.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 /**
  * Écran « Aujourd'hui » — tout ce qu'il faut pour ouvrir l'app et lire les
@@ -9,9 +10,9 @@ import { etagOu304 } from "../etag.js";
  * jointures réelles (organisation, source, département).
  *
  * Lecture seule et anonyme, comme `/na/*` : titres, sources et dates publiques.
- * Aucun résumé n'est renvoyé ici — la colonne `tlp` n'est pas filtrée sur cette
- * lecture, donc on ne l'expose pas ; l'inspecteur authentifié reste le chemin
- * vers le détail.
+ * Seuls les faits TLP:CLEAR sont listés — un titre peut porter un indicateur
+ * restreint. Aucun résumé n'est renvoyé ici ; l'inspecteur authentifié reste
+ * le chemin vers le détail.
  *
  * La date d'un événement est `COALESCE(observed_at, collected_at)` — la même
  * définition partout (API, compteurs, preuve psql) : un seul moment, un seul
@@ -55,7 +56,10 @@ export default async function (app: FastifyInstance) {
 		);
 
 		const params: unknown[] = [];
-		const where: string[] = ["COALESCE(e.observed_at, e.collected_at) >= now() - interval '24 hours'"];
+		const where: string[] = [
+			"COALESCE(e.observed_at, e.collected_at) >= now() - interval '24 hours'",
+			evenementPublicSql("e"),
+		];
 		if (q.family) { params.push(q.family); where.push(`e.family = $${params.length}`); }
 		if (q.dept) { params.push(q.dept); where.push(`o.dept = $${params.length}`); }
 		params.push(2000);

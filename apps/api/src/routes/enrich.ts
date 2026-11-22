@@ -8,6 +8,7 @@ import { certificatesFor } from "../enrich/certs.js";
 import { scoreIndicator } from "../enrich/score.js";
 import { depuisEvidence, estIndisponible, libelleMotif } from "../journal/rattachement.js";
 import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
+import { evenementPublicSql, indicateurPublicSql } from "../security/tlp.js";
 
 async function cacheGet(key: string): Promise<unknown | null> {
   const r = await query<{ value: unknown }>("SELECT value FROM enrich_cache WHERE key=$1 AND expires_at > now()", [key]);
@@ -20,7 +21,7 @@ async function cacheSet(key: string, value: unknown, ttlHours = 24) {
 export default async function (app: FastifyInstance) {
   app.get<{ Params: { id: string } }>("/enrich/indicator/:id", async (req) => {
     const id = Number(req.params.id);
-    const ir = await query("SELECT * FROM indicator WHERE id=$1", [id]);
+    const ir = await query("SELECT * FROM indicator i WHERE i.id=$1 AND " + indicateurPublicSql("i"), [id]);
     const ind = ir.rows[0];
     if (!ind) throw notFound();
     const key = `ind:${id}`;
@@ -47,7 +48,7 @@ export default async function (app: FastifyInstance) {
   });
   app.get<{ Params: { id: string } }>("/enrich/events/:id", async (req) => {
     const id = Number(req.params.id);
-    const er = await query("SELECT * FROM event WHERE id=$1", [id]);
+    const er = await query("SELECT * FROM event e WHERE e.id=$1 AND " + evenementPublicSql("e"), [id]);
     const ev = er.rows[0];
     if (!ev) throw notFound();
     // Le pourquoi du rattachement, tel qu'il a été décidé à l'ingestion. Il vit
@@ -65,7 +66,10 @@ export default async function (app: FastifyInstance) {
           indecis: estIndisponible(explication),
         }
       : null;
-    const inds = await query("SELECT * FROM indicator WHERE id=ANY($1::bigint[])", [ev.evidence?.indicator_ids ?? []]).catch(() => ({ rows: [] }));
+    const inds = await query(
+      "SELECT * FROM indicator i WHERE i.id=ANY($1::bigint[]) AND " + indicateurPublicSql("i"),
+      [ev.evidence?.indicator_ids ?? []],
+    ).catch(() => ({ rows: [] }));
     const org = ev.org_id ? (await query("SELECT * FROM org WHERE id=$1", [ev.org_id])).rows[0] : null;
     // Fraîcheur et confiance : mêmes calculs que GET /events, pour que
     // l'inspecteur dise « depuis quand » et « à quel point on y croit »
