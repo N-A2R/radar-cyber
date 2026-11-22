@@ -131,3 +131,5 @@ publié.
 en Nouvelle-Aquitaine sur 12 mois**, **8 montants publiés totalisant
 2 444 814,09 €**, **6 marchés avec attributaire nommé**, 0 donnée de victime,
 0 service payant, `server.ts` inchangé.
+
+OBJECTIF : atteint — 14 marchés cyber mesurés sur 12 mois / 14 marchés cyber attendus
