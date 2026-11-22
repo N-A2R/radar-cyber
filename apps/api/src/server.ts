@@ -16,13 +16,12 @@ import { runScheduledDiscovery } from "./discovery/discover.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
-import { prechaufferIndexRevue } from "./quarantine/review-index.js";
-import { reviewQueue } from "./quarantine/review.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
 import { chargerCadencesValeur } from "./collectors/valeur-plan.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
 import { startLiveStream } from "./collecte/live.js";
+import { closeRun, openRun, withRunId } from "./collecte/runs.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { ancrerJournalDuJour } from "./journal/anchor.js";
 import { porteeRegionale } from "./match/territorial.js";
@@ -40,6 +39,7 @@ import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import { requireRole } from "./middleware/auth.js";
 import { registerApiRoutes } from "./routes/index.js";
+import exportMispRoute from "./routes/export-misp.js";
 import { installAccessControl } from "./security/rbac.js";
 import { installSecurityHeaders } from "./security/headers.js";
 import { installErrorHandler } from "./errors.js";
@@ -105,6 +105,9 @@ if (existsSync(webDist)) {
 /** Toutes les routes API sont déclarées dans un registre unique, audité par
  *  le test de couverture des règles d'accès. */
 await registerApiRoutes(app);
+/** Alias racine du flux MISP, pour le partenaire qui importe l'URL telle
+ *  quelle. Les alias `/api` et `/api/v1` restent servis par les registres. */
+await app.register(exportMispRoute);
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
 	return {
@@ -148,7 +151,11 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 		let itemsIn = 0;
 		let itemsNew = 0;
 		let langueSkipped = 0;
+		// Le run est ouvert avant l'exécution : les événements écrits par
+		// l'orchestrateur le citent dans `evidence.run_id` (migration 206).
+		let runId: number | null = null;
 		try {
+			runId = await openRun(c.id);
 			const result = await executerCollecteur(c, makeContext(cursor, (m) => app.log.info(m)));
 			itemsIn = result.events.length;
 			// Le type `NormalizedEvent` n'était qu'une assertion du compilateur :
@@ -175,7 +182,7 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$19,$20)
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
 					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
-					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language, pertinence.score, pertinence.rule]
+					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? `urn:source:${c.id}`, JSON.stringify(withRunId(event.evidence ?? {}, runId)), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language, pertinence.score, pertinence.rule]
 				);
 				if ((r.rowCount ?? 0) > 0) {
 					itemsNew++;
@@ -195,15 +202,18 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 					app.log.warn(`[journal] ${c.id} : ${lot.consignes} fait(s) consigné(s), ${lot.lacunes} lacune(s), ${lot.erreurs.length} échec(s) — ${lot.erreurs[0]?.slice(0, 120) ?? ""}`);
 			const newCursor = result.cursor ?? cursor;
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);
-			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)", [c.id, itemsIn, itemsNew]);
+			await closeRun(runId, { itemsIn, itemsNew });
 			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)${langueSkipped > 0 ? `, ${langueSkipped} langue(s) exclue(s)` : ""}`);
 			const contractLine = contract.logLine();
 			if (contractLine) app.log.warn(`collecteur ${c.id} : contrat — ${contractLine}`);
 		} catch (e: unknown) {
-			const err = String((e as { message?: string })?.message ?? e);
+			const err = e instanceof Error ? e.message : String(e);
 			app.log.error(e);
 			await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, c.id]).catch(() => {});
-			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', $2, $3, $4)", [c.id, itemsIn, itemsNew, err]).catch(() => {});
+			if (runId !== null) {
+				await closeRun(runId, { status: "error", itemsIn, itemsNew, error: err }).catch(() => {});
+			} else {
+				await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', $2, $3, $4)", [c.id, itemsIn, itemsNew, err]).catch(() => {});
 		}
 	}, { log: (m) => app.log.info(m) });
 	let restants: string[] = [];
@@ -461,4 +471,8 @@ const host = process.env.HOST ?? "127.0.0.1";
 		await reviewQueue({ limit: 1 });
 		log(`index de revue : chargé en ${Math.round(performance.now() - debut)} ms (org + org_alias)`);
 		app.log.error(e, "index de revue indisponible au démarrage");
+// L'index de la file de revue (org + org_alias, 1,5 à 2,8 Go) n'est plus
+// chargé ici : il se construit à la première requête de revue, en tâche de
+// fond, et celle-ci répond « en préparation » pendant ce temps. Le démarrage
+// n'attend donc plus ~20 s et le RSS au repos reste celui du serveur seul.
 await app.listen({ port, host });

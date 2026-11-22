@@ -1,0 +1,227 @@
+{
+  "dateMesure": "2026-11-22",
+  "commande": "DATABASE_URL=$DATABASE_URL tsx scripts/mesure-stl-pics.mts",
+  "fixture": {
+    "version": "stl-180j-v1",
+    "source": "benchmark-stl-180j",
+    "start": "2026-05-26",
+    "jours": 180,
+    "familles": 6,
+    "lignesEventInjectees": 20739,
+    "description": "Fixture de benchmark STL : volumes quotidiens simulés par famille, saison hebdomadaire, bruit surdispersé, 20 pics annotés et 4 imports historiques non annotés. Aucun fait réel, aucune organisation, aucune donnée personnelle."
+  },
+  "serie": {
+    "requete": "SELECT family,\n       date(observed_at) AS day,\n       count(*)::int AS volume,\n       count(*) FILTER (WHERE collected_at <= observed_at + interval '7 days')::int AS fresh\n  FROM event\n WHERE observed_at >= $1::date\n   AND observed_at < $1::date + $2::int * interval '1 day'\n GROUP BY 1, 2\n ORDER BY 1, 2",
+    "groupes": 750,
+    "picsAnnotes": 20
+  },
+  "detecteur": {
+    "methode": "STL saisonnier (période 7) sur log1p(volume), fenêtre glissante, z robuste du reste",
+    "periode": 7,
+    "fenetreJours": 56,
+    "seuil": 4.5,
+    "delaiMaxJours": 1,
+    "gardeFouFraicheur": "score × 0,1 sous 50 % de preuves collectées à J+7"
+  },
+  "resultat": {
+    "prAuc": 0.8785213151662813,
+    "prAucTrapeze": 0.8772668222761544,
+    "picsAnnotes": 20,
+    "picsDetectes": 15,
+    "fauxPositifs": 1,
+    "delaiMedianJours": 1,
+    "delaiMoyenJours": 1,
+    "sqlDelaiMoyenTp": "1.00000000000000000000"
+  },
+  "detail": [
+    {
+      "family": "cert",
+      "day": "2026-09-14",
+      "score": 1.620650058924061,
+      "label": true,
+      "tp": false,
+      "detectedOn": null,
+      "delayDays": null
+    },
+    {
+      "family": "cert_fr",
+      "day": "2026-08-14",
+      "score": 6.35520023581201,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-08-15",
+      "delayDays": 1
+    },
+    {
+      "family": "cert_fr",
+      "day": "2026-10-11",
+      "score": 1.5571473522375037,
+      "label": true,
+      "tp": false,
+      "detectedOn": null,
+      "delayDays": null
+    },
+    {
+      "family": "cti",
+      "day": "2026-08-06",
+      "score": 6.223486997044545,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-08-07",
+      "delayDays": 1
+    },
+    {
+      "family": "cti",
+      "day": "2026-09-02",
+      "score": 6.901688616638266,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-09-03",
+      "delayDays": 1
+    },
+    {
+      "family": "cti",
+      "day": "2026-10-01",
+      "score": 3.5872685227703833,
+      "label": true,
+      "tp": false,
+      "detectedOn": null,
+      "delayDays": null
+    },
+    {
+      "family": "cti",
+      "day": "2026-10-30",
+      "score": 5.375673942699429,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-10-31",
+      "delayDays": 1
+    },
+    {
+      "family": "leaks",
+      "day": "2026-08-09",
+      "score": 0.7206094420661658,
+      "label": true,
+      "tp": false,
+      "detectedOn": null,
+      "delayDays": null
+    },
+    {
+      "family": "leaks",
+      "day": "2026-09-07",
+      "score": 2.8424189569481237,
+      "label": true,
+      "tp": false,
+      "detectedOn": null,
+      "delayDays": null
+    },
+    {
+      "family": "leaks",
+      "day": "2026-10-05",
+      "score": 5.842183318338836,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-10-06",
+      "delayDays": 1
+    },
+    {
+      "family": "leaks",
+      "day": "2026-11-05",
+      "score": 7.3155692445342435,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-11-06",
+      "delayDays": 1
+    },
+    {
+      "family": "leaks",
+      "day": "2026-11-21",
+      "score": 4.9417443765794555,
+      "label": false,
+      "tp": false,
+      "detectedOn": null,
+      "delayDays": null
+    },
+    {
+      "family": "ransomware",
+      "day": "2026-07-31",
+      "score": 10.693261554379848,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-08-01",
+      "delayDays": 1
+    },
+    {
+      "family": "ransomware",
+      "day": "2026-08-29",
+      "score": 7.975638060369649,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-08-30",
+      "delayDays": 1
+    },
+    {
+      "family": "ransomware",
+      "day": "2026-09-26",
+      "score": 5.956763132579713,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-09-27",
+      "delayDays": 1
+    },
+    {
+      "family": "ransomware",
+      "day": "2026-10-24",
+      "score": 6.766238178782007,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-10-25",
+      "delayDays": 1
+    },
+    {
+      "family": "ransomware",
+      "day": "2026-11-13",
+      "score": 6.164731892922759,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-11-14",
+      "delayDays": 1
+    },
+    {
+      "family": "vuln",
+      "day": "2026-07-26",
+      "score": 19.964707631001655,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-07-27",
+      "delayDays": 1
+    },
+    {
+      "family": "vuln",
+      "day": "2026-08-22",
+      "score": 15.705411608308506,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-08-23",
+      "delayDays": 1
+    },
+    {
+      "family": "vuln",
+      "day": "2026-09-20",
+      "score": 19.42508464518654,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-09-21",
+      "delayDays": 1
+    },
+    {
+      "family": "vuln",
+      "day": "2026-10-17",
+      "score": 16.262110586537126,
+      "label": true,
+      "tp": true,
+      "detectedOn": "2026-10-18",
+      "delayDays": 1
+    }
+  ]
+}

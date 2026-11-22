@@ -56,6 +56,44 @@ const PROOF_KEYS: Record<string, true> = {
   evidence: true,
 };
 
+/**
+ * French labels for stored payload keys. The raw key stays available through
+ * the `title` attribute, never as the visible text.
+ */
+export const KEY_LABEL: Record<string, string> = {
+  preuve: "Preuve",
+  proof: "Preuve",
+  evidence: "Preuve",
+  decision: "Décision",
+  reason: "Motif",
+  motif: "Motif",
+  action: "Action",
+  regle: "Règle",
+  agent: "Agent",
+  score: "Score",
+  orgId: "Identifiant d'organisation",
+  nomBrut: "Nom brut",
+  changements: "Changements",
+  quarantineId: "Identifiant de quarantaine",
+  avant: "Avant",
+  apres: "Après",
+  sujet: "Sujet",
+  acteur: "Acteur",
+  resume: "Résumé",
+  raison: "Motif",
+};
+
+/** Readable French label for a payload key; unknown keys are humanised, never raw. */
+export function keyLabel(key: string): string {
+  const known = KEY_LABEL[key];
+  if (known) return known;
+  const words = key
+    .replace(/[._-]+/g, " ")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .toLowerCase();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
 export function formatValue(value: unknown): string {
   if (value === null || value === undefined || value === "") return "—";
   if (typeof value === "string") return value;
@@ -100,7 +138,7 @@ function EntryDetails({ row }: { row: JournalDecision }) {
             <dl className="journal__detail-values">
               {preuves.map(([key, value]) => (
                 <div key={key}>
-                  <dt>{key}</dt>
+                  <dt title={key}>{keyLabel(key)}</dt>
                   <dd><pre>{formatValue(value)}</pre></dd>
                 </div>
               ))}
@@ -116,7 +154,7 @@ function EntryDetails({ row }: { row: JournalDecision }) {
             <dl className="journal__detail-values">
               {contexte.map(([key, value]) => (
                 <div key={key}>
-                  <dt>{key}</dt>
+                  <dt title={key}>{keyLabel(key)}</dt>
                   <dd><pre>{formatValue(value)}</pre></dd>
                 </div>
               ))}
@@ -127,15 +165,17 @@ function EntryDetails({ row }: { row: JournalDecision }) {
   );
 }
 
+/** Nombre de lignes fantômes affichées pendant le chargement d'une page. */
+const SKELETON_ROWS = 8;
+
 type Props = {
+  /** Lignes de la page courante, rendues par le serveur. */
   rows: JournalDecision[];
-  /** Entries kept after filtering, across all pages. */
-  resultCount: number;
+  /** Total filtré, toutes pages confondues — rendu par le serveur. */
+  total: number;
   filters: JournalFilters;
   onFilterChange: (patch: JournalFilters) => void;
   onReset: () => void;
-  /** The journal exceeds the 10,000-row loading cap. */
-  truncated: boolean;
   loading: boolean;
   error: string | null;
   page: number;
@@ -153,7 +193,7 @@ type Props = {
 };
 
 export default function JournalList({
-  rows, resultCount, filters, onFilterChange, onReset, truncated,
+  rows, total, filters, onFilterChange, onReset,
   loading, error, page, pageCount, onPrevious, onNext,
   selected, onSelect, onCloseDetail, onExport, exporting, exportError, onRetry,
 }: Props) {
@@ -235,13 +275,14 @@ export default function JournalList({
         <button type="button" className="journal__reset" onClick={onReset}>Réinitialiser</button>
       </div>
 
-      {truncated ? (
-        <p className="journal__truncated" role="status">
-          Seules les 10 000 entrées les plus récentes sont affichées. Réduisez la période ou le type pour
-          atteindre les plus anciennes.
-        </p>
+      {error ? (
+        <div className="journal__error" role="alert">
+          <span>API : {error}</span>
+          {onRetry ? (
+            <button type="button" className="journal__retry" onClick={onRetry}>Réessayer</button>
+          ) : null}
+        </div>
       ) : null}
-      {error ? <p className="journal__error" role="alert">API : {error}</p> : null}
       {exportError ? <p className="journal__error" role="alert">{exportError}</p> : null}
       {loading ? <LoadingSkeleton label="Chargement du journal…" /> : null}
       {!loading && !error && rows.length === 0 ? (
@@ -256,8 +297,21 @@ export default function JournalList({
         />
       ) : null}
 
-      <div className="journal__scroll">
+      <div
+        className="journal__scroll"
+        role="region"
+        aria-label="Entrées du journal"
+        tabIndex={0}
+      >
         <table className="journal__table">
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
           <thead>
             <tr>
               <th scope="col">Date (UTC)</th>
@@ -269,7 +323,13 @@ export default function JournalList({
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
+            {loading ? Array.from({ length: SKELETON_ROWS }, (_, index) => (
+              <tr key={`squelette-${index}`} className="journal__row journal__row--squelette" aria-hidden="true">
+                {Array.from({ length: 6 }, (_, cell) => (
+                  <td key={cell}><span className="journal__shimmer" /></td>
+                ))}
+              </tr>
+            )) : rows.map((row) => (
               <tr key={row.id} className="journal__row">
                 <td>
                   {/* `recorded_at::text` arrives as `2026-11-21 14:03:12+00`;
@@ -289,7 +349,9 @@ export default function JournalList({
                     {row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
                   </span>
                 </td>
-                <td>{row.resume ?? row.raison ?? row.indice ?? "—"}</td>
+                <td title={row.resume ?? row.raison ?? row.indice ?? "—"}>
+                  {row.resume ?? row.raison ?? row.indice ?? "—"}
+                </td>
                 <td>
                   <button
                     type="button"
@@ -311,7 +373,9 @@ export default function JournalList({
           Précédent
         </button>
         <span>
-          {resultCount} {resultCount === 1 ? "entrée" : "entrées"} — page {page} / {pageCount}
+          {loading
+            ? "Chargement…"
+            : `${total} ${total === 1 ? "entrée" : "entrées"} — page ${page} / ${pageCount}`}
         </span>
         <button type="button" onClick={onNext} disabled={loading || page >= pageCount}>
           Suivant

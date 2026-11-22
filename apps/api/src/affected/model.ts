@@ -113,12 +113,22 @@ const OBSERVATION_LABELS: Record<string, string> = {
   "leaks:ambient_signal": "Data-leak publication report",
   "paste:ambient_signal": "Paste-site publication report",
   "presse_cyber:ambient_signal": "Cybersecurity press report",
+  "presse_locale:ambient_signal": "Local press report",
   "cert:ambient_signal": "Security advisory",
   "cert_fr:ambient_signal": "National security advisory",
 };
 
 const GREY_FAMILIES: Readonly<Record<string, true>> = {
   ransomware: true, leaks: true, paste: true, onion: true,
+};
+
+/**
+ * Veille de presse locale : un fait régional, jamais un incident. Il reste
+ * affichable quand une organisation est nommée, mais sa catégorie ne doit pas
+ * le faire passer pour un incident confirmé ou revendiqué.
+ */
+const LOCAL_PRESS_FAMILIES: Readonly<Record<string, true>> = {
+  presse_locale: true,
 };
 
 /** Emails and French phone numbers must never reach the interface. */
@@ -250,9 +260,10 @@ function observationStatement(event: Observation): Statement | null {
     safeText(event.family, 80);
   if (!label) return null;
   const grey = GREY_FAMILIES[event.family] === true;
+  const localPress = LOCAL_PRESS_FAMILIES[event.family] === true;
   return {
     id: `event:${event.id}`,
-    category: grey ? "claim" : "incident",
+    category: grey ? "claim" : localPress ? "activity" : "incident",
     label,
     // Structured label only: title, summary and evidence payload stay out.
     value: label,

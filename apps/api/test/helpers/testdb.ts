@@ -83,6 +83,14 @@ VALUES ('Organisation Référence Tests', 'org-reference-tests', 'entreprise',
 
 INSERT INTO alert (rule_id, title, severity, status)
 VALUES ('ransomware-revendication', 'Alerte de référence (jeu de test)', 3, 'open');
+
+-- Preuve de référence : depuis la migration 206, tout événement cite un run.
+-- Les tests qui sèment un événement directement en SQL citent ce run (id 1) et
+-- une source_url explicite. Le run est déclaré explicitement pour que son
+-- identifiant soit stable d'une base de test à l'autre.
+INSERT INTO collector_run (id, source_id, started_at, finished_at, status, items_in, items_new, kind)
+VALUES (1, 'ransomlook', now(), now(), 'ok', 0, 0, 'live');
+SELECT setval('collector_run_id_seq', 1, true);
 `;
 
 async function schemaFiles(): Promise<string[]> {

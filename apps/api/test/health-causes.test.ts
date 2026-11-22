@@ -44,8 +44,8 @@ before(async () => {
   // Une source avec un fait récent n'est pas rouge : son erreur 403 ne doit
   // pas apparaître dans la répartition des sources rouges.
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id)
-     VALUES ($1,'cti','ambient_signal','Fait récent (test)',now(),2,$2)`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, source_url, evidence)
+     VALUES ($1,'cti','ambient_signal','Fait récent (test)',now(),2,$2,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [`${TAG}:evenement`, IDS.active],
   );
 

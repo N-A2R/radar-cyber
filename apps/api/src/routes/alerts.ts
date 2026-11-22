@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { scoreAlert } from "../detect/confidence.js";
+import { loadCorroborationContext } from "../detect/engine.js";
 import { badRequest, notFound, unauthorized } from "../errors.js";
 
 import { z } from "zod";
@@ -33,19 +34,12 @@ export default async function (app: FastifyInstance) {
       ORDER BY a.created_at DESC, a.id DESC LIMIT $${limitIdx}`;
     const r = await query<Record<string, unknown>>(sql, params);
 
-    // Corroboration de la page en une requête : sources distinctes par
-    // organisation sur 30 jours, plutôt qu'un comptage par alerte.
+    // Corroboration de la page en une requête : sources indépendantes par
+    // organisation sur 30 jours, reprises inter-flux dédoublonnées.
     const orgIds = [...new Set(r.rows.map((row) => row.org_id).filter((id): id is number => typeof id === "number"))];
-    const sourceCounts = new Map<number, number>();
-    if (orgIds.length > 0) {
-      const counts = await query<{ org_id: number; n: number }>(
-        `SELECT org_id, COUNT(DISTINCT source_id)::int AS n FROM event
-         WHERE org_id = ANY($1) AND observed_at >= now() - interval '30 days'
-         GROUP BY org_id`,
-        [orgIds]
-      );
-      for (const row of counts.rows) sourceCounts.set(row.org_id, row.n);
-    }
+    const sourceCounts = orgIds.length > 0
+      ? (await loadCorroborationContext(orgIds)).sourcesByOrg
+      : new Map<number, number>();
 
     const out: Record<string, unknown>[] = [];
     for (const row of r.rows) {

@@ -116,8 +116,8 @@ test("le moteur applique le seuil calibré de la règle", async () => {
 		const source = await query<{ id: string }>("SELECT id FROM source ORDER BY id LIMIT 1");
 		const insertEvent = async (title: string): Promise<number> => {
 			const r = await query<{ id: number }>(
-				`INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence, source_id, org_id, evidence)
-				 VALUES ($1,'testcalibration','ambient_signal',$2,3,'A1',$3,$4,'{}') RETURNING id`,
+				`INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence, source_id, org_id, evidence, source_url)
+				 VALUES ($1,'testcalibration','ambient_signal',$2,3,'A1',$3,$4,'{}'::jsonb || '{"run_id":"1"}'::jsonb,'https://example.invalid/event') RETURNING id`,
 				[`${TAG}-${title}`, title, source.rows[0]!.id, orgId],
 			);
 			return r.rows[0]!.id;

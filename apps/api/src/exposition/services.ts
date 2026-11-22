@@ -9,7 +9,7 @@
  */
 import { ingestQuery } from "../db.js";
 
-export const CATEGORIES = ["web", "mail", "vpn", "base_de_donnees", "autre"] as const;
+export const CATEGORIES = ["web", "mail", "vpn", "base_de_donnees", "rdp", "autre"] as const;
 export type Category = (typeof CATEGORIES)[number];
 
 export type InternetDbResponse = {
@@ -40,7 +40,6 @@ type Cpe = { vendor: string; product: string; version: string | null };
 const WEB = ["nginx", "apache", "http_server", "httpd", "iis", "lighttpd", "openresty", "tomcat", "jetty", "cloudflare", "php", "jquery", "jquery_ui", "wordpress", "drupal", "varnish_cache", "varnish_cache_plus", "plesk", "matomo", "react", "bootstrap", "moment", "amazon_cloudfront"];
 const MAIL = ["postfix", "exim", "sendmail", "dovecot", "courier", "exchange", "mail_enable"];
 const VPN = ["openvpn", "wireguard", "strongswan", "libreswan", "ipsec", "l2tp", "pptp", "softether"];
-const BASE = ["postgresql", "mysql", "mariadb", "mongodb", "redis", "elasticsearch", "opensearch", "microsoft_sql_server", "oracle", "couchdb", "memcached"];
 const FTP = ["pure-ftpd", "proftpd", "filezilla", "vsftpd", "ftp"];
 
 /** Correspondances volontairement conservatrices : un port connu, un service connu. */
@@ -59,24 +58,24 @@ const PORTS: Record<number, PortConnu> = {
 	993: { category: "mail", service: "imaps", products: MAIL },
 	995: { category: "mail", service: "pop3s", products: MAIL },
 	1194: { category: "vpn", service: "openvpn", products: VPN },
-	1433: { category: "base_de_donnees", service: "mssql", products: BASE },
-	1521: { category: "base_de_donnees", service: "oracle", products: BASE },
+	1433: { category: "base_de_donnees", service: "mssql", products: ["microsoft_sql_server", "mssql"] },
+	1521: { category: "base_de_donnees", service: "oracle", products: ["oracle"] },
 	1701: { category: "vpn", service: "l2tp", products: VPN },
 	1723: { category: "vpn", service: "pptp", products: VPN },
-	3306: { category: "base_de_donnees", service: "mysql", products: BASE },
-	3389: { category: "autre", service: "rdp", products: ["microsoft", "freerdp"] },
+	3306: { category: "base_de_donnees", service: "mysql", products: ["mysql", "mariadb"] },
+	3389: { category: "rdp", service: "rdp", products: ["microsoft", "freerdp"] },
 	4500: { category: "vpn", service: "ipsec-nat", products: VPN },
-	5432: { category: "base_de_donnees", service: "postgresql", products: BASE },
-	5984: { category: "base_de_donnees", service: "couchdb", products: BASE },
-	6379: { category: "base_de_donnees", service: "redis", products: BASE },
+	5432: { category: "base_de_donnees", service: "postgresql", products: ["postgresql"] },
+	5984: { category: "base_de_donnees", service: "couchdb", products: ["couchdb"] },
+	6379: { category: "base_de_donnees", service: "redis", products: ["redis"] },
 	8000: { category: "web", service: "http-alt", products: WEB },
 	8008: { category: "web", service: "http-alt", products: WEB },
 	8080: { category: "web", service: "http-alt", products: WEB },
 	8443: { category: "web", service: "https-alt", products: WEB },
 	8888: { category: "web", service: "http-alt", products: WEB },
-	9200: { category: "base_de_donnees", service: "elasticsearch", products: BASE },
-	11211: { category: "base_de_donnees", service: "memcached", products: BASE },
-	27017: { category: "base_de_donnees", service: "mongodb", products: BASE },
+	9200: { category: "base_de_donnees", service: "elasticsearch", products: ["elasticsearch", "opensearch"] },
+	11211: { category: "base_de_donnees", service: "memcached", products: ["memcached"] },
+	27017: { category: "base_de_donnees", service: "mongodb", products: ["mongodb"] },
 };
 
 export function categoriePort(port: number): Category {
