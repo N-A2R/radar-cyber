@@ -1,0 +1,917 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-numerique-79.jsonl",
+  "secteur": "numerique",
+  "departement": "79",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "method": "GET réel avec suivi des redirections, User-Agent navigateur, délai 20 s, concurrence 8 (Node fetch) : code HTTP, type de contenu, URL finale, octets et items RSS enregistrés pour chaque site, page d'actualités, flux et article cyber/numérique.",
+  "sources": 22,
+  "urls_verifiees": 72,
+  "urls_200": 72,
+  "cyber": [
+    {
+      "url": "https://www.lecampusbycci79.fr/actualite/la-fresque-du-numerique",
+      "code_http": 200,
+      "url_finale": "https://www.lecampusbycci79.fr/actualite/la-fresque-du-numerique"
+    },
+    {
+      "url": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur"
+    },
+    {
+      "url": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur"
+    },
+    {
+      "url": "https://u2p-france.fr/articles/cybersecurite-l-u2-p-plaide-pour-un-accompagnement-adapte-aux-realites-des-tpe",
+      "code_http": 200,
+      "url_finale": "https://u2p-france.fr/articles/cybersecurite-l-u2-p-plaide-pour-un-accompagnement-adapte-aux-realites-des-tpe"
+    },
+    {
+      "url": "https://numeum.fr/cybersecurite/actu-informatique-colloque-senat-renforcer-maturite-cyber/",
+      "code_http": 200,
+      "url_finale": "https://numeum.fr/cybersecurite/actu-informatique-colloque-senat-renforcer-maturite-cyber/"
+    },
+    {
+      "url": "https://www.aliptic.net/actu/retour-en-images-rdv-cyber-a-l-universite-de-limoges.html",
+      "code_http": 200,
+      "url_finale": "https://www.aliptic.net/actu/retour-en-images-rdv-cyber-a-l-universite-de-limoges.html"
+    },
+    {
+      "url": "https://altae-technopole.fr/ptit-dej-decembre-x-quartiers-libres-le-recap/",
+      "code_http": 200,
+      "url_finale": "https://altae-technopole.fr/ptit-dej-decembre-x-quartiers-libres-le-recap/"
+    },
+    {
+      "url": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html"
+    },
+    {
+      "url": "https://www.vivre-a-niort.com/actualites/agenda/rechercher-une-manifestation/rencontre-avec-les-experts-sur-la-defense-cyber-du-patrimoine-intellectuel-a-niort/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.vivre-a-niort.com/actualites/agenda/rechercher-une-manifestation/rencontre-avec-les-experts-sur-la-defense-cyber-du-patrimoine-intellectuel-a-niort/index.html"
+    },
+    {
+      "url": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html"
+    },
+    {
+      "url": "https://www.deux-sevres-numerique.fr/le-deploiement/",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres-numerique.fr/le-deploiement/"
+    },
+    {
+      "url": "https://niort.univ-poitiers.fr/portes-ouvertes-campus-de-niort-le-28-fevrier-2026/",
+      "code_http": 200,
+      "url_finale": "https://niort.univ-poitiers.fr/portes-ouvertes-campus-de-niort-le-28-fevrier-2026/"
+    },
+    {
+      "url": "https://iutp.univ-poitiers.fr/b-u-t-reseaux-et-telecommunications/",
+      "code_http": 200,
+      "url_finale": "https://iutp.univ-poitiers.fr/b-u-t-reseaux-et-telecommunications/"
+    },
+    {
+      "url": "https://www.deux-sevres.gouv.fr/Actualites/Securite-bilan-delinquance-2021",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.gouv.fr/Actualites/Securite-bilan-delinquance-2021"
+    },
+    {
+      "url": "https://www.france-services.gouv.fr/actualites/experimentation-dun-modele-dassistance-france-services-IA",
+      "code_http": 200,
+      "url_finale": "https://www.france-services.gouv.fr/actualites/experimentation-dun-modele-dassistance-france-services-IA"
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/deux-sevres/d-apres-une-etude-les-deux-sevres-figurent-dans-le-top-10-des-departements-les-plus-sensibles-aux-risques-cyber-1783353232",
+      "code_http": 200,
+      "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres/d-apres-une-etude-les-deux-sevres-figurent-dans-le-top-10-des-departements-les-plus-sensibles-aux-risques-cyber-1783353232"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/niort_79191/niort-google-propose-une-journee-gratuite-pour-aider-les-entreprises-a-tirer-parti-de-l-intelligence-artificielle_65079475.html",
+      "code_http": 200,
+      "url_finale": "https://actu.fr/nouvelle-aquitaine/niort_79191/niort-google-propose-une-journee-gratuite-pour-aider-les-entreprises-a-tirer-parti-de-l-intelligence-artificielle_65079475.html"
+    },
+    {
+      "url": "https://www.ici.fr/infos/faits-divers-justice/deux-sevres-le-fournisseur-d-energie-seolis-alerte-sur-des-arnaques-par-telephone-avec-des-voix-generees-par-ia-7507489",
+      "code_http": 200,
+      "url_finale": "https://www.ici.fr/infos/faits-divers-justice/deux-sevres-le-fournisseur-d-energie-seolis-alerte-sur-des-arnaques-par-telephone-avec-des-voix-generees-par-ia-7507489"
+    },
+    {
+      "url": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "code_http": 200,
+      "url_finale": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/"
+    },
+    {
+      "url": "https://eniort.com/2026/05/31/alouette-ai-niort-laureate-france-2030/",
+      "code_http": 200,
+      "url_finale": "https://eniort.com/2026/05/31/alouette-ai-niort-laureate-france-2030/"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/facturation-electronique-abby",
+      "code_http": 200,
+      "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/facturation-electronique-abby"
+    },
+    {
+      "url": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "code_http": 200,
+      "url_finale": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/"
+    }
+  ],
+  "detail": [
+    {
+      "nom": "Le Campus by CCI Deux-Sèvres",
+      "role": "site",
+      "url": "https://www.lecampusbycci79.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.lecampusbycci79.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 642054,
+      "titre": "Le Campus by CCI Deux-Sèvres"
+    },
+    {
+      "nom": "Le Campus by CCI Deux-Sèvres",
+      "role": "actualites",
+      "url": "https://www.lecampusbycci79.fr/actualites",
+      "code_http": 200,
+      "url_finale": "https://www.lecampusbycci79.fr/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 53501,
+      "titre": "Actualités du Campus by CCI Deux-Sèvres | Le Campus by CCI Deux-Sèvres"
+    },
+    {
+      "nom": "Le Campus by CCI Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://www.lecampusbycci79.fr/actualite/la-fresque-du-numerique",
+      "code_http": 200,
+      "url_finale": "https://www.lecampusbycci79.fr/actualite/la-fresque-du-numerique",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 40842,
+      "titre": "La Fresque du Numérique | Le Campus by CCI Deux-Sèvres"
+    },
+    {
+      "nom": "CPME 79 — Confédération des petites et moyennes entreprises des Deux-Sèvres",
+      "role": "site",
+      "url": "https://www.cpme79.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 39367,
+      "titre": "CPME 79 (Deux-Sèvres)"
+    },
+    {
+      "nom": "CPME 79 — Confédération des petites et moyennes entreprises des Deux-Sèvres",
+      "role": "actualites",
+      "url": "https://www.cpme79.fr/Actualites",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/Actualites",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 41550,
+      "titre": "CPME 79 (Deux-Sèvres)"
+    },
+    {
+      "nom": "CPME 79 — Confédération des petites et moyennes entreprises des Deux-Sèvres",
+      "role": "flux",
+      "url": "https://www.cpme79.fr/spip.php?page=backend",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/spip.php?page=backend",
+      "content_type": "text/xml; charset=utf-8",
+      "items_rss": 10,
+      "octets": 23969,
+      "titre": "CPME 79 (Deux-S&#232;vres)"
+    },
+    {
+      "nom": "CPME 79 — Confédération des petites et moyennes entreprises des Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 34492,
+      "titre": "Cybersécurité : les TPE-PME progressent mais doivent encore renforcer leur maturité"
+    },
+    {
+      "nom": "MEDEF Deux-Sèvres — actualités des entreprises",
+      "role": "site",
+      "url": "https://www.medef79.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.medef79.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 27951,
+      "titre": "MEDEF - Deux Sèvres"
+    },
+    {
+      "nom": "MEDEF Deux-Sèvres — actualités des entreprises",
+      "role": "actualites",
+      "url": "https://www.medef79.fr/actualites",
+      "code_http": 200,
+      "url_finale": "https://www.medef79.fr/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 24266,
+      "titre": "Actualités - Deux Sèvres"
+    },
+    {
+      "nom": "MEDEF Deux-Sèvres — actualités des entreprises",
+      "role": "cyber",
+      "url": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur",
+      "code_http": 200,
+      "url_finale": "https://www.cpme79.fr/Cybersecurite-les-TPE-PME-progressent-mais-doivent-encore-renforcer-leur",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 34492,
+      "titre": "Cybersécurité : les TPE-PME progressent mais doivent encore renforcer leur maturité"
+    },
+    {
+      "nom": "U2P — Union des entreprises de proximité (artisans et commerçants du 79)",
+      "role": "site",
+      "url": "https://u2p-france.fr/",
+      "code_http": 200,
+      "url_finale": "https://u2p-france.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 1768038,
+      "titre": "U2P"
+    },
+    {
+      "nom": "U2P — Union des entreprises de proximité (artisans et commerçants du 79)",
+      "role": "actualites",
+      "url": "https://u2p-france.fr/search",
+      "code_http": 200,
+      "url_finale": "https://u2p-france.fr/search",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 193929,
+      "titre": "U2P - Recherche"
+    },
+    {
+      "nom": "U2P — Union des entreprises de proximité (artisans et commerçants du 79)",
+      "role": "flux",
+      "url": "https://u2p-france.fr/rss.xml",
+      "code_http": 200,
+      "url_finale": "https://u2p-france.fr/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "items_rss": 162,
+      "octets": 139206,
+      "titre": "U2P - Actualités"
+    },
+    {
+      "nom": "U2P — Union des entreprises de proximité (artisans et commerçants du 79)",
+      "role": "cyber",
+      "url": "https://u2p-france.fr/articles/cybersecurite-l-u2-p-plaide-pour-un-accompagnement-adapte-aux-realites-des-tpe",
+      "code_http": 200,
+      "url_finale": "https://u2p-france.fr/articles/cybersecurite-l-u2-p-plaide-pour-un-accompagnement-adapte-aux-realites-des-tpe",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 102895,
+      "titre": "Cybersécurité : l’U2P plaide pour un accompagnement adapté aux réalités des TPE"
+    },
+    {
+      "nom": "Numeum — syndicat professionnel du numérique",
+      "role": "site",
+      "url": "https://numeum.fr/",
+      "code_http": 200,
+      "url_finale": "https://numeum.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 252020,
+      "titre": "Numeum - Le Syndicat engagé pour les Entreprises du Numérique"
+    },
+    {
+      "nom": "Numeum — syndicat professionnel du numérique",
+      "role": "actualites",
+      "url": "https://numeum.fr/les-actualites-numeum/",
+      "code_http": 200,
+      "url_finale": "https://numeum.fr/les-actualites-numeum/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 135702,
+      "titre": "Les actualités Numeum - Numeum"
+    },
+    {
+      "nom": "Numeum — syndicat professionnel du numérique",
+      "role": "flux",
+      "url": "https://numeum.fr/feed/",
+      "code_http": 200,
+      "url_finale": "https://numeum.fr/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 10,
+      "octets": 87564,
+      "titre": "Numeum"
+    },
+    {
+      "nom": "Numeum — syndicat professionnel du numérique",
+      "role": "cyber",
+      "url": "https://numeum.fr/cybersecurite/actu-informatique-colloque-senat-renforcer-maturite-cyber/",
+      "code_http": 200,
+      "url_finale": "https://numeum.fr/cybersecurite/actu-informatique-colloque-senat-renforcer-maturite-cyber/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 135040,
+      "titre": "Colloque au Sénat : renforcer la maturité cyber"
+    },
+    {
+      "nom": "ALIPTIC — cluster numérique de Nouvelle-Aquitaine",
+      "role": "site",
+      "url": "https://www.aliptic.net/",
+      "code_http": 200,
+      "url_finale": "https://www.aliptic.net/accueil.html",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 42246,
+      "titre": "Accueil - ALIPTIC | Association Limousine des Professionnels des Technologies de l&#39;Information et de la Communicatio"
+    },
+    {
+      "nom": "ALIPTIC — cluster numérique de Nouvelle-Aquitaine",
+      "role": "actualites",
+      "url": "https://www.aliptic.net/actualites.html",
+      "code_http": 200,
+      "url_finale": "https://www.aliptic.net/actualites.html",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 47029,
+      "titre": "Actualités - ALIPTIC | Association Limousine des Professionnels des Technologies de l&#39;Information et de la Communica"
+    },
+    {
+      "nom": "ALIPTIC — cluster numérique de Nouvelle-Aquitaine",
+      "role": "cyber",
+      "url": "https://www.aliptic.net/actu/retour-en-images-rdv-cyber-a-l-universite-de-limoges.html",
+      "code_http": 200,
+      "url_finale": "https://www.aliptic.net/actu/retour-en-images-rdv-cyber-a-l-universite-de-limoges.html",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 46342,
+      "titre": "Retour en images : RDV Cyber à L&apos;Université de Limoges - ALIPTIC | Association Limousine des Professionnels des Tec"
+    },
+    {
+      "nom": "Altæ Technopole Niort Deux-Sèvres",
+      "role": "site",
+      "url": "https://altae-technopole.fr/",
+      "code_http": 200,
+      "url_finale": "https://altae-technopole.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 212293,
+      "titre": "Accueil - Altæ"
+    },
+    {
+      "nom": "Altæ Technopole Niort Deux-Sèvres",
+      "role": "actualites",
+      "url": "https://altae-technopole.fr/actualites/",
+      "code_http": 200,
+      "url_finale": "https://altae-technopole.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 194027,
+      "titre": "Actualités | Altæ Technopole Niort Deux-Sèvres"
+    },
+    {
+      "nom": "Altæ Technopole Niort Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://altae-technopole.fr/ptit-dej-decembre-x-quartiers-libres-le-recap/",
+      "code_http": 200,
+      "url_finale": "https://altae-technopole.fr/ptit-dej-decembre-x-quartiers-libres-le-recap/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 162811,
+      "titre": "Retour sur le Petit Déj’ Cybersécurité : Protégez votre Entreprise"
+    },
+    {
+      "nom": "Niort Agglo — centre de ressources en cybersécurité",
+      "role": "site",
+      "url": "https://www.niortagglo.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 156411,
+      "titre": "Niort Agglo, le site officiel de la Communauté d&#039;Agglomération du Niortais"
+    },
+    {
+      "nom": "Niort Agglo — centre de ressources en cybersécurité",
+      "role": "actualites",
+      "url": "https://www.niortagglo.fr/lagglo/toutes-les-actualites/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/lagglo/toutes-les-actualites/index.html",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 150849,
+      "titre": "Toutes les actualités - Niort Agglo"
+    },
+    {
+      "nom": "Niort Agglo — centre de ressources en cybersécurité",
+      "role": "flux",
+      "url": "https://www.niortagglo.fr/rss.xml",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/rss.xml",
+      "content_type": "application/rss+xml;charset=utf-8",
+      "items_rss": 30,
+      "octets": 92020,
+      "titre": "Dummy Title"
+    },
+    {
+      "nom": "Niort Agglo — centre de ressources en cybersécurité",
+      "role": "cyber",
+      "url": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 125101,
+      "titre": "Niort Agglo lance un centre de ressources en cybersécurité"
+    },
+    {
+      "nom": "Ville de Niort — Vivre à Niort",
+      "role": "site",
+      "url": "https://www.vivre-a-niort.com/",
+      "code_http": 200,
+      "url_finale": "https://www.vivre-a-niort.com/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 194749,
+      "titre": "Site officiel de la Ville de Niort - Vivre à Niort"
+    },
+    {
+      "nom": "Ville de Niort — Vivre à Niort",
+      "role": "actualites",
+      "url": "https://www.vivre-a-niort.com/actualites/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.vivre-a-niort.com/actualites/index.html",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 140132,
+      "titre": "Actualités de la ville de Niort - Mairie de Niort - Vivre à Niort"
+    },
+    {
+      "nom": "Ville de Niort — Vivre à Niort",
+      "role": "flux",
+      "url": "https://www.vivre-a-niort.com/news.xml",
+      "code_http": 200,
+      "url_finale": "https://www.vivre-a-niort.com/news.xml",
+      "content_type": "application/rss+xml;charset=utf-8",
+      "items_rss": 30,
+      "octets": 88606,
+      "titre": "Actualité de la Ville de Niort"
+    },
+    {
+      "nom": "Ville de Niort — Vivre à Niort",
+      "role": "cyber",
+      "url": "https://www.vivre-a-niort.com/actualites/agenda/rechercher-une-manifestation/rencontre-avec-les-experts-sur-la-defense-cyber-du-patrimoine-intellectuel-a-niort/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.vivre-a-niort.com/actualites/agenda/rechercher-une-manifestation/rencontre-avec-les-experts-sur-la-defense-cyber-du-patrimoine-intellectuel-a-niort/index.html",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 136840,
+      "titre": "Agenda Ville de Niort : Rencontre avec les experts sur la défense cyber du patrimoine intellectuel à Niort - Vivre à Nio"
+    },
+    {
+      "nom": "Département des Deux-Sèvres",
+      "role": "site",
+      "url": "https://www.deux-sevres.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 309201,
+      "titre": "Département des Deux-Sèvres - Conseil Départemental"
+    },
+    {
+      "nom": "Département des Deux-Sèvres",
+      "role": "actualites",
+      "url": "https://www.deux-sevres.fr/toutes-les-actualites",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.fr/toutes-les-actualites",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 294841,
+      "titre": "Toutes les actualités | Département des Deux-Sèvres"
+    },
+    {
+      "nom": "Département des Deux-Sèvres",
+      "role": "flux",
+      "url": "https://www.deux-sevres.fr/rss.xml",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.fr/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "items_rss": 10,
+      "octets": 19529,
+      "titre": "Département des Deux-Sèvres"
+    },
+    {
+      "nom": "Département des Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html",
+      "code_http": 200,
+      "url_finale": "https://www.niortagglo.fr/details-de-lactualite/niort-agglo-se-mobilise-pour-la-cybersecurite/index.html",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 125101,
+      "titre": "Niort Agglo lance un centre de ressources en cybersécurité"
+    },
+    {
+      "nom": "Deux-Sèvres Numérique — syndicat mixte de la fibre",
+      "role": "site",
+      "url": "https://www.deux-sevres-numerique.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres-numerique.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 73766,
+      "titre": "Deux-Sèvres Numérique &#8211; Suivez le déploiement de la fibre en Deux-Sèvres"
+    },
+    {
+      "nom": "Deux-Sèvres Numérique — syndicat mixte de la fibre",
+      "role": "cyber",
+      "url": "https://www.deux-sevres-numerique.fr/le-deploiement/",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres-numerique.fr/le-deploiement/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 73505,
+      "titre": "LE DÉPLOIEMENT &#8211; Deux-Sèvres Numérique"
+    },
+    {
+      "nom": "Campus de Niort — Université de Poitiers",
+      "role": "site",
+      "url": "https://niort.univ-poitiers.fr/",
+      "code_http": 200,
+      "url_finale": "https://niort.univ-poitiers.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 192913,
+      "titre": "Campus de Niort &#8211; Bienvenue sur le campus niortais de l&#039;université de Poitiers !"
+    },
+    {
+      "nom": "Campus de Niort — Université de Poitiers",
+      "role": "flux",
+      "url": "https://niort.univ-poitiers.fr/feed/",
+      "code_http": 200,
+      "url_finale": "https://niort.univ-poitiers.fr/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 6,
+      "octets": 4233,
+      "titre": "Campus de Niort"
+    },
+    {
+      "nom": "Campus de Niort — Université de Poitiers",
+      "role": "cyber",
+      "url": "https://niort.univ-poitiers.fr/portes-ouvertes-campus-de-niort-le-28-fevrier-2026/",
+      "code_http": 200,
+      "url_finale": "https://niort.univ-poitiers.fr/portes-ouvertes-campus-de-niort-le-28-fevrier-2026/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 196940,
+      "titre": "Portes ouvertes du Campus de Niort : Le programme du 28 février 2026 &#8211; Campus de Niort"
+    },
+    {
+      "nom": "IUT Poitiers-Niort-Châtellerault",
+      "role": "site",
+      "url": "https://iutp.univ-poitiers.fr/",
+      "code_http": 200,
+      "url_finale": "https://iutp.univ-poitiers.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 194189,
+      "titre": "Institut Universitaire de Technologie &#8211; Université de Poitiers"
+    },
+    {
+      "nom": "IUT Poitiers-Niort-Châtellerault",
+      "role": "actualites",
+      "url": "https://iutp.univ-poitiers.fr/sd/c/actualites/",
+      "code_http": 200,
+      "url_finale": "https://iutp.univ-poitiers.fr/sd/c/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 186550,
+      "titre": "Actualités et événements &#8211; BUT Science des Données &#8211; Niort"
+    },
+    {
+      "nom": "IUT Poitiers-Niort-Châtellerault",
+      "role": "flux",
+      "url": "https://iutp.univ-poitiers.fr/feed/",
+      "code_http": 200,
+      "url_finale": "https://iutp.univ-poitiers.fr/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 10,
+      "octets": 7171,
+      "titre": "Institut Universitaire de Technologie"
+    },
+    {
+      "nom": "IUT Poitiers-Niort-Châtellerault",
+      "role": "cyber",
+      "url": "https://iutp.univ-poitiers.fr/b-u-t-reseaux-et-telecommunications/",
+      "code_http": 200,
+      "url_finale": "https://iutp.univ-poitiers.fr/b-u-t-reseaux-et-telecommunications/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 191449,
+      "titre": "B.U.T. Réseaux et Télécommunications &#8211; Institut Universitaire de Technologie"
+    },
+    {
+      "nom": "Préfecture des Deux-Sèvres",
+      "role": "site",
+      "url": "https://www.deux-sevres.gouv.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.gouv.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 143674,
+      "titre": "Accueil - Les services de l'État dans les Deux-Sèvres"
+    },
+    {
+      "nom": "Préfecture des Deux-Sèvres",
+      "role": "actualites",
+      "url": "https://www.deux-sevres.gouv.fr/Actualites",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.gouv.fr/Actualites",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 106251,
+      "titre": "Actualités - Les services de l'État dans les Deux-Sèvres"
+    },
+    {
+      "nom": "Préfecture des Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://www.deux-sevres.gouv.fr/Actualites/Securite-bilan-delinquance-2021",
+      "code_http": 200,
+      "url_finale": "https://www.deux-sevres.gouv.fr/Actualites/Securite-bilan-delinquance-2021",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 91503,
+      "titre": "Sécurité : bilan délinquance 2021 - Actualités - Les services de l'État dans les Deux-Sèvres"
+    },
+    {
+      "nom": "France Services",
+      "role": "site",
+      "url": "https://www.france-services.gouv.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.france-services.gouv.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 77436,
+      "titre": "Accueil | France services"
+    },
+    {
+      "nom": "France Services",
+      "role": "actualites",
+      "url": "https://www.france-services.gouv.fr/actualites",
+      "code_http": 200,
+      "url_finale": "https://www.france-services.gouv.fr/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 51935,
+      "titre": "Actualités | France services"
+    },
+    {
+      "nom": "France Services",
+      "role": "cyber",
+      "url": "https://www.france-services.gouv.fr/actualites/experimentation-dun-modele-dassistance-france-services-IA",
+      "code_http": 200,
+      "url_finale": "https://www.france-services.gouv.fr/actualites/experimentation-dun-modele-dassistance-france-services-IA",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 43023,
+      "titre": "Expérimentation d’un modèle d’assistance aux conseillers France services basé sur l’intelligence artificielle | France s"
+    },
+    {
+      "nom": "La Nouvelle République — Deux-Sèvres",
+      "role": "site",
+      "url": "https://www.lanouvellerepublique.fr/deux-sevres",
+      "code_http": 200,
+      "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 1625586,
+      "titre": "Deux-Sèvres : actualités et infos - 79 - La Nouvelle République"
+    },
+    {
+      "nom": "La Nouvelle République — Deux-Sèvres",
+      "role": "flux",
+      "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+      "code_http": 200,
+      "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 40,
+      "octets": 34582,
+      "titre": "La Nouvelle République - Deux-Sèvres"
+    },
+    {
+      "nom": "La Nouvelle République — Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://www.lanouvellerepublique.fr/deux-sevres/d-apres-une-etude-les-deux-sevres-figurent-dans-le-top-10-des-departements-les-plus-sensibles-aux-risques-cyber-1783353232",
+      "code_http": 200,
+      "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres/d-apres-une-etude-les-deux-sevres-figurent-dans-le-top-10-des-departements-les-plus-sensibles-aux-risques-cyber-1783353232",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 385090,
+      "titre": "D’après une étude, les Deux-Sèvres figurent dans le top 10 des départements &quot;les plus sensibles aux risques cyber&q"
+    },
+    {
+      "nom": "actu.fr — Deux-Sèvres",
+      "role": "site",
+      "url": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/",
+      "code_http": 200,
+      "url_finale": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 325882,
+      "titre": "Actu Deux-Sèvres | actu.fr"
+    },
+    {
+      "nom": "actu.fr — Deux-Sèvres",
+      "role": "flux",
+      "url": "https://actu.fr/deux-sevres/rss.xml",
+      "code_http": 200,
+      "url_finale": "https://actu.fr/deux-sevres/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "items_rss": 20,
+      "octets": 30130,
+      "titre": "Actu Deux-Sèvres - L'actualité locale - actu.fr"
+    },
+    {
+      "nom": "actu.fr — Deux-Sèvres",
+      "role": "cyber",
+      "url": "https://actu.fr/nouvelle-aquitaine/niort_79191/niort-google-propose-une-journee-gratuite-pour-aider-les-entreprises-a-tirer-parti-de-l-intelligence-artificielle_65079475.html",
+      "code_http": 200,
+      "url_finale": "https://actu.fr/nouvelle-aquitaine/niort_79191/niort-google-propose-une-journee-gratuite-pour-aider-les-entreprises-a-tirer-parti-de-l-intelligence-artificielle_65079475.html",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 233077,
+      "titre": "Niort : Google propose une journée gratuite pour aider les entreprises à tirer parti de l’intelligence artificielle"
+    },
+    {
+      "nom": "ICI Poitou — Radio France",
+      "role": "site",
+      "url": "https://www.ici.fr/radio/poitou",
+      "code_http": 200,
+      "url_finale": "https://www.ici.fr/radio/poitou",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 389276,
+      "titre": "ICI Poitou – Écouter la radio en direct, actualité locale et sorties, fréquence radio"
+    },
+    {
+      "nom": "ICI Poitou — Radio France",
+      "role": "flux",
+      "url": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+      "code_http": 200,
+      "url_finale": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+      "content_type": "application/xml",
+      "items_rss": 20,
+      "octets": 19233,
+      "titre": "Infos – ICI Poitou"
+    },
+    {
+      "nom": "ICI Poitou — Radio France",
+      "role": "cyber",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/deux-sevres-le-fournisseur-d-energie-seolis-alerte-sur-des-arnaques-par-telephone-avec-des-voix-generees-par-ia-7507489",
+      "code_http": 200,
+      "url_finale": "https://www.ici.fr/infos/faits-divers-justice/deux-sevres-le-fournisseur-d-energie-seolis-alerte-sur-des-arnaques-par-telephone-avec-des-voix-generees-par-ia-7507489",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 175735,
+      "titre": "Deux-Sèvres : le fournisseur d'énergie SÉOLIS alerte sur des arnaques par téléphone avec des voix générées par IA - ICI"
+    },
+    {
+      "nom": "Niort Info",
+      "role": "site",
+      "url": "https://niortinfo.media/",
+      "code_http": 200,
+      "url_finale": "https://niortinfo.media/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 467537,
+      "titre": "Niort info &#8226; Les infos de Niort et du niortais"
+    },
+    {
+      "nom": "Niort Info",
+      "role": "flux",
+      "url": "https://niortinfo.media/feed/",
+      "code_http": 200,
+      "url_finale": "https://niortinfo.media/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 10,
+      "octets": 23852,
+      "titre": "Niort info"
+    },
+    {
+      "nom": "Niort Info",
+      "role": "cyber",
+      "url": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "code_http": 200,
+      "url_finale": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 362264,
+      "titre": "Cyber arnaque en cours dans les Deux-Sèvres &#8226; Niort info"
+    },
+    {
+      "nom": "E.Niort",
+      "role": "site",
+      "url": "https://eniort.com/",
+      "code_http": 200,
+      "url_finale": "https://eniort.com/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 174979,
+      "titre": "actualités de Niort et des Deux-Sèvres"
+    },
+    {
+      "nom": "E.Niort",
+      "role": "flux",
+      "url": "https://eniort.com/feed/",
+      "code_http": 200,
+      "url_finale": "https://eniort.com/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 10,
+      "octets": 95244,
+      "titre": "E.Niort"
+    },
+    {
+      "nom": "E.Niort",
+      "role": "cyber",
+      "url": "https://eniort.com/2026/05/31/alouette-ai-niort-laureate-france-2030/",
+      "code_http": 200,
+      "url_finale": "https://eniort.com/2026/05/31/alouette-ai-niort-laureate-france-2030/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 138122,
+      "titre": "Alouette AI, startup niortaise lauréate France 2030 - E.Niort"
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — chambre des métiers et de l’artisanat",
+      "role": "site",
+      "url": "https://cma-nouvelleaquitaine.fr/",
+      "code_http": 200,
+      "url_finale": "https://cma-nouvelleaquitaine.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 324235,
+      "titre": "CMA Nouvelle-Aquitaine | Formation et accompagnement"
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — chambre des métiers et de l’artisanat",
+      "role": "actualites",
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code_http": 200,
+      "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 280274,
+      "titre": "Actualités - CMA Nouvelle-Aquitaine"
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — chambre des métiers et de l’artisanat",
+      "role": "cyber",
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/facturation-electronique-abby",
+      "code_http": 200,
+      "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/facturation-electronique-abby",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 290330,
+      "titre": "Facturation électronique : la CMA Nouvelle-Aquitaine s&#039;associe à Abby pour accompagner les artisans"
+    },
+    {
+      "nom": "Deuxsevres.fr — annuaire professionnel et revue de presse locale",
+      "role": "site",
+      "url": "https://www.deuxsevres.fr/",
+      "code_http": 200,
+      "url_finale": "https://www.deuxsevres.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 293933,
+      "titre": "Comparateur de services, annuaire, panier gourmand et actualit&eacute;s des Deux Sèvres"
+    },
+    {
+      "nom": "Deuxsevres.fr — annuaire professionnel et revue de presse locale",
+      "role": "actualites",
+      "url": "https://www.deuxsevres.fr/nav-newsactus",
+      "code_http": 200,
+      "url_finale": "https://www.deuxsevres.fr/nav-newsactus",
+      "content_type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "octets": 39976,
+      "titre": "Actualit&eacute;s r&eacute;centes dans les Deux Sèvres et dans la r&eacute;gion Deux-Sèvres."
+    },
+    {
+      "nom": "Deuxsevres.fr — annuaire professionnel et revue de presse locale",
+      "role": "cyber",
+      "url": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "code_http": 200,
+      "url_finale": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "content_type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "octets": 362245,
+      "titre": "Cyber arnaque en cours dans les Deux-Sèvres &#8226; Niort info"
+    }
+  ]
+}

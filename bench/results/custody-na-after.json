@@ -1,0 +1,14 @@
+{
+  "definition": "Complete custody chain for a Nouvelle-Aquitaine event: source id and URL, observation time, and an append-only journal admission fact with actor, recording clock and stored proof. No victim personal data.",
+  "scope": "nouvelle-aquitaine",
+  "generatedAt": "2026-11-21T23:29:38.525Z",
+  "organisations": 1673220,
+  "sources": 463,
+  "events": 27899,
+  "regionalEvents": 112,
+  "complete": 112,
+  "incomplete": 0,
+  "rate": 100,
+  "gaps": {},
+  "samples": []
+}

@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:a8b96d72-4cbe-43ff-ab22-08d68fcb8183>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 516
+WARC-Block-Digest: sha1:ZKT5KRO3MMP3AEINWXY66HE4OEI4RVHS
+X-Claim-Fingerprint: 24c4be7d625e4a8663351f95
+X-Victim-Key: 11ffca87ab0a165c42d47773
+
+{"post_title": "SELECT WINES \ud83c\udde8\ud83c\udde6", "discovered": "2026-06-18 16:46:32.615145", "description": "The company is engaged in importing and distributing premium wines, supplying restaurants, hotels, and retail, and representing international wine brands in the Canadian market.", "link": "/blog/5230c21b-fa35-4558-a36f-bfc4f2262d68", "magnet": null, "screen": "screenshots/bravox/SELECT WINES \ud83c\udde8\ud83c\udde6.png", "misp_uuid": "fed8d97a-7c75-574a-96b0-649782cbeea4", "group_name": "bravox"}
+
