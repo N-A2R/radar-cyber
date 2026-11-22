@@ -9,6 +9,7 @@ import { porteeRegionale } from "../match/territorial.js";
 import { promisify } from "node:util";
 import { createHash } from "node:crypto";
 import { query } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { languageVerdict } from "./filter.js";
 
 const execFileAsync = promisify(execFile);
@@ -76,7 +77,11 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
   let total = 0;
   let added = 0;
   const contract = new AdmissionTally();
+  // Le run est ouvert avant le premier événement : chaque ligne le cite dans
+  // `evidence.run_id` (migration 206).
+  const runId = await openRun(SOURCE_ID);
 
+  try {
   for (const file of files) {
     const raw = await runRemote(`cat ${file}`);
     if (!raw.trim()) continue;
@@ -103,7 +108,11 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
          ON CONFLICT (dedup_key) DO NOTHING`,
         [event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
          event.observedAt ?? recuA, recuA, event.severity,
-         event.confidence ?? "C3", event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType,
+         event.confidence ?? "C3", event.sourceId,
+         // Un briefing peut ne pas citer d'URL : la provenance est alors le
+         // fichier distant qui le porte, pas une URL inventée.
+         event.sourceUrl ?? `hermes://briefing/${file.split("/").pop() ?? "unknown"}`,
+         JSON.stringify(withRunId(event.evidence ?? {}, runId)), event.geoType,
          candidate.orgHint ?? null,
          porteeRegionale(`${event.title} ${event.summary ?? ""}`, null).regional,
          porteeRegionale(`${event.title} ${event.summary ?? ""}`, null).motif, langue.language]
@@ -123,12 +132,13 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
       }
     }
   }
+  } catch (error) {
+    await closeRun(runId, { status: "error", error: String((error as Error)?.message ?? error) }).catch(() => {});
+    throw error;
+  }
+  await closeRun(runId, { itemsIn: total, itemsNew: added });
 
   log(`hermes: ${files.length} briefing(s), ${total} événement(s), ${added} nouveau(x)`);
   const contractLine = contract.logLine();
   if (contractLine) log(`hermes: contrat — ${contractLine}`);
-  await query(
-    "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)",
-    [SOURCE_ID, total, added]
-  ).catch(() => {});
 }

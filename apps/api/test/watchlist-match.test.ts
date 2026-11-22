@@ -22,8 +22,8 @@ let watchlistId: number;
 
 async function insertEvent(titre: string, orgId: number | null): Promise<number> {
   const res = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id)
-     VALUES ($1, 'ransomware', 'confirmed_incident', $2, 4, $3, $4)
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, source_url, evidence)
+     VALUES ($1, 'ransomware', 'confirmed_incident', $2, 4, $3, $4, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)
      RETURNING id`,
     [`${TAG}-${titre}-${EVENT_IDS.length}`, titre, SOURCE_ID, orgId],
   );

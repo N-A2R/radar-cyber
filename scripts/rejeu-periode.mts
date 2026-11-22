@@ -230,6 +230,20 @@ async function ecrire(decisions: Decision[], journaux: JournalEntry[]): Promise<
 	if (decisions.length === 0) return { insertes: 0, misAJour: 0, journalises: 0, lacunes: 0 };
 	const c = colonnes(decisions);
 	return withTransaction(async (client) => {
+		// Un run de rejeu par source : la projection recréée cite son run dans
+		// `evidence.run_id` (migration 206). Le `kind` le distingue d'une
+		// collecte réelle.
+		const runBySource = new Map<string, number>();
+		for (const sourceId of new Set(c.sources)) {
+			const { rows } = await client.query<{ id: string }>(
+				"INSERT INTO collector_run (source_id, status, kind) VALUES ($1, 'running', 'replay') RETURNING id",
+				[sourceId],
+			);
+			const id = Number(rows[0]?.id);
+			if (!Number.isInteger(id) || id <= 0) throw new Error(`run de rejeu non créé pour ${sourceId}`);
+			runBySource.set(sourceId, id);
+		}
+		const runIds = c.sources.map((sourceId) => String(runBySource.get(sourceId)));
 		// Les événements purgés n'existent plus dans `event` : on recrée une
 		// projection minimale, les champs absents de l'archive restent à leur
 		// défaut. La preuve de provenance est dans `evidence`, pas dans le titre.
@@ -239,20 +253,22 @@ async function ecrire(decisions: Decision[], journaux: JournalEntry[]): Promise<
 			    severity, confidence, source_id, source_url, admission_rule, evidence, org_id)
 			 SELECT d.cle, d.famille, d.type, d.titre, d.observe::timestamptz, d.collecte::timestamptz,
 			        COALESCE(d.valide, d.observe)::timestamptz, d.su::timestamptz,
-			        d.severite, d.confiance, d.source, d.url, d.admission,
-			        jsonb_build_object('rejeu', 'event_archive', 'orgArchiveId', d.avant_id,
+			        d.severite, d.confiance, d.source,
+			        COALESCE(NULLIF(btrim(d.url), ''), 'urn:source:' || d.source), d.admission,
+			        jsonb_build_object('run_id', d.run_id,
+			                           'rejeu', 'event_archive', 'orgArchiveId', d.avant_id,
 			                           'orgArchiveNom', d.avant_nom),
 			        d.org_id
 			   FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::timestamptz[],
 			               $6::timestamptz[], $7::smallint[], $8::text[], $9::text[], $10::text[],
 			               $11::text[], $12::int[], $13::text[], $14::text[],
-			               $15::timestamptz[], $16::timestamptz[])
+			               $15::timestamptz[], $16::timestamptz[], $17::text[])
 			        AS d(cle, famille, type, titre, observe, collecte, severite, confiance,
-			             source, url, admission, org_id, avant_id, avant_nom, valide, su)
+			             source, url, admission, org_id, avant_id, avant_nom, valide, su, run_id)
 			   ON CONFLICT (dedup_key) DO NOTHING`,
 			[c.cles, c.familles, c.types, c.titres, c.observes, c.collectes, c.severites,
 				c.confidences, c.sources, c.urls, c.admissions, c.orgIds, c.avantIds, c.avantNoms,
-				c.valides, c.su],
+				c.valides, c.su, runIds],
 		);
 		// Un événement encore présent au brut garde son texte : seul le
 		// rattachement est rejoué, jamais les champs que l'archive n'a pas.
@@ -268,6 +284,13 @@ async function ecrire(decisions: Decision[], journaux: JournalEntry[]): Promise<
 			journaux,
 		);
 		if (lot.erreurs.length > 0) throw new Error(`journal : ${lot.erreurs.join(" ; ")}`);
+		for (const [sourceId, id] of runBySource) {
+			const itemsIn = c.sources.filter((s) => s === sourceId).length;
+			await client.query(
+				"UPDATE collector_run SET finished_at=now(), status='ok', items_in=$2, items_new=0 WHERE id=$1",
+				[id, itemsIn],
+			);
+		}
 		return {
 			insertes: insert.rowCount ?? 0,
 			misAJour: update.rowCount ?? 0,

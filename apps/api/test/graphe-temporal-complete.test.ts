@@ -53,7 +53,7 @@ before(async () => {
 
   const first = await query<{ id: number }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, source_url, evidence)
-     VALUES ($1, 'ransomware', 'observation', $2, $3, $4, $5, $6, $7) RETURNING id`,
+     VALUES ($1, 'ransomware', 'observation', $2, $3, $4, $5, COALESCE($6, 'https://example.invalid/event'), $7::jsonb || '{"run_id":"1"}'::jsonb) RETURNING id`,
     [
       `${TAG}-first`, `Leak at ${VICTIM}`, MARCH, TAG, naOrgId,
       "https://news.example.com/article?utm=1",
@@ -63,7 +63,7 @@ before(async () => {
   firstEventId = first.rows[0]!.id;
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, source_url, evidence)
-     VALUES ($1, 'cti', 'observation', $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, 'cti', 'observation', $2, $3, $4, $5, COALESCE($6, 'https://example.invalid/event'), $7::jsonb || '{"run_id":"1"}'::jsonb)`,
     [
       `${TAG}-second`, `Second ${TAG}`, NOVEMBER, TAG, outsideOrgId,
       "https://www.other.example.org/story",

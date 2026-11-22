@@ -22,6 +22,7 @@ import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
 import { startLiveStream } from "./collecte/live.js";
+import { closeRun, openRun, withRunId } from "./collecte/runs.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { ancrerJournalDuJour } from "./journal/anchor.js";
 import { porteeRegionale } from "./match/territorial.js";
@@ -161,7 +162,11 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 		let itemsIn = 0;
 		let itemsNew = 0;
 		let langueSkipped = 0;
+		// Le run est ouvert avant l'exécution : les événements écrits par
+		// l'orchestrateur le citent dans `evidence.run_id` (migration 206).
+		let runId: number | null = null;
 		try {
+			runId = await openRun(c.id);
 			const result = await executerCollecteur(c, makeContext(cursor, (m) => app.log.info(m)));
 			itemsIn = result.events.length;
 			// Le type `NormalizedEvent` n'était qu'une assertion du compilateur :
@@ -189,7 +194,7 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$19,$20)
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
 					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
-					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language, pertinence.score, pertinence.rule]
+					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? `urn:source:${c.id}`, JSON.stringify(withRunId(event.evidence ?? {}, runId)), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language, pertinence.score, pertinence.rule]
 				);
 				if ((r.rowCount ?? 0) > 0) {
 					itemsNew++;
@@ -213,15 +218,19 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 			}
 			const newCursor = result.cursor ?? cursor;
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);
-			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)", [c.id, itemsIn, itemsNew]);
+			await closeRun(runId, { itemsIn, itemsNew });
 			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)${langueSkipped > 0 ? `, ${langueSkipped} langue(s) exclue(s)` : ""}`);
 			const contractLine = contract.logLine();
 			if (contractLine) app.log.warn(`collecteur ${c.id} : contrat — ${contractLine}`);
 		} catch (e: unknown) {
-			const err = String((e as { message?: string })?.message ?? e);
+			const err = e instanceof Error ? e.message : String(e);
 			app.log.error(e);
 			await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, c.id]).catch(() => {});
-			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', $2, $3, $4)", [c.id, itemsIn, itemsNew, err]).catch(() => {});
+			if (runId !== null) {
+				await closeRun(runId, { status: "error", itemsIn, itemsNew, error: err }).catch(() => {});
+			} else {
+				await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', $2, $3, $4)", [c.id, itemsIn, itemsNew, err]).catch(() => {});
+			}
 		}
 	}, { log: (m) => app.log.info(m) });
 
