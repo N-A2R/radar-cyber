@@ -27,6 +27,8 @@
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
     "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
+    "mesure:stl-pics": "apps/api/node_modules/.bin/tsx scripts/mesure-stl-pics.mts",
+    "verifie:stl-pics": "apps/api/node_modules/.bin/tsx scripts/verifie-stl-pics.mts",
     "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
