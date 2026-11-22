@@ -1,0 +1,172 @@
+{
+  "dateMesure": "2026-11-21",
+  "commande": "DATABASE_URL=$DATABASE_URL tsx scripts/mesure-anomalies-series.mts --json=bench/results/anomalies-faux-positifs-2026-11-22.json --verdicts=bench/results/anomalies-series-verdicts.json --echantillon=20",
+  "base": {
+    "evenements": 26394,
+    "organisations": 73,
+    "sources": 98,
+    "premierFait": "2015-07-24",
+    "dernierFait": "2026-11-21",
+    "joursDistincts": 589
+  },
+  "seuils": {
+    "fenetreJours": 28,
+    "observationsMin": 10,
+    "seuilZ": 3,
+    "ecartMin": 3
+  },
+  "fraicheur": {
+    "maxLagDays": 7,
+    "minFreshShare": 0.5,
+    "alertesConservees": 1,
+    "alertesRejetees": 5,
+    "rejets": [
+      {
+        "cle": "source:cisa_kev:2026-04-13",
+        "raison": "0/7 records collected within 7 day(s); oldest delay 214.86 day(s): historical import"
+      },
+      {
+        "cle": "source:cisa_kev:2026-09-02",
+        "raison": "0/7 records collected within 7 day(s); oldest delay 72.86 day(s): historical import"
+      },
+      {
+        "cle": "source:cisa_kev:2026-05-20",
+        "raison": "0/6 records collected within 7 day(s); oldest delay 177.86 day(s): historical import"
+      },
+      {
+        "cle": "source:cisa_kev:2026-08-26",
+        "raison": "0/6 records collected within 7 day(s); oldest delay 79.86 day(s): historical import"
+      },
+      {
+        "cle": "source:cisa_kev:2026-10-20",
+        "raison": "0/6 records collected within 7 day(s); oldest delay 24.86 day(s): historical import"
+      }
+    ]
+  },
+  "total": {
+    "alertes": 1,
+    "parAxe": {
+      "organisation": {
+        "alertes": 0,
+        "groupes": 72,
+        "groupesEligibles": 0,
+        "maxJoursObserves": 3,
+        "pointsJours": 83
+      },
+      "secteur": {
+        "alertes": 0,
+        "groupes": 16,
+        "groupesEligibles": 0,
+        "maxJoursObserves": 8,
+        "pointsJours": 50
+      },
+      "source": {
+        "alertes": 6,
+        "groupes": 98,
+        "groupesEligibles": 11,
+        "maxJoursObserves": 434,
+        "pointsJours": 1350
+      }
+    }
+  },
+  "echantillon": {
+    "taille": 1,
+    "classes": 1,
+    "vraies": 1,
+    "fausses": 0,
+    "nonClassables": 0,
+    "tauxFaussesAlertes": 0
+  },
+  "top5": [
+    {
+      "cle": "source:poc_github:2026-11-20",
+      "explication": "source poc_github : 6 faits le 2026-11-20 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "z": 4.05,
+      "faits": [
+        {
+          "id": "119649",
+          "titre": "CVE-2026-99491 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-99491"
+        },
+        {
+          "id": "119651",
+          "titre": "CVE-2026-99312 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/jmginer/pve-cve-2026-99312"
+        },
+        {
+          "id": "119654",
+          "titre": "CVE-2026-98937 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-98937"
+        }
+      ]
+    }
+  ],
+  "alertes": [
+    {
+      "cle": "source:poc_github:2026-11-20",
+      "axe": "source",
+      "groupe": "poc_github",
+      "date": "2026-11-20",
+      "valeur": 6,
+      "z": 4.05,
+      "explication": "source poc_github : 6 faits le 2026-11-20 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0"
+    }
+  ],
+  "echantillonDetail": [
+    {
+      "cle": "source:poc_github:2026-11-20",
+      "axe": "source",
+      "groupe": "poc_github",
+      "date": "2026-11-20",
+      "valeur": 6,
+      "ecart": 6,
+      "z": 4.05,
+      "explication": "source poc_github : 6 faits le 2026-11-20 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "faits": [
+        {
+          "id": "119649",
+          "titre": "CVE-2026-99491 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-99491"
+        },
+        {
+          "id": "119651",
+          "titre": "CVE-2026-99312 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/jmginer/pve-cve-2026-99312"
+        },
+        {
+          "id": "119654",
+          "titre": "CVE-2026-98937 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-98937"
+        },
+        {
+          "id": "119655",
+          "titre": "CVE-2026-98499 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-98499"
+        },
+        {
+          "id": "119678",
+          "titre": "CVE-2026-97555 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-97555"
+        },
+        {
+          "id": "119684",
+          "titre": "CVE-2026-97205 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/suominen/CVE-2026-97205"
+        }
+      ],
+      "verdict": {
+        "classement": "vraie",
+        "raison": "6 PoC publics distincts, URLs GitHub distinctes, collectés le 21/11 (moins d'un jour) : rafale réelle et exploitable"
+      }
+    }
+  ]
+}
