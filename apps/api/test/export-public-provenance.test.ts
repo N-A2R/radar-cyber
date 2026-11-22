@@ -26,17 +26,20 @@ const sourceId = `provenance-test-${suffix}`;
 const dedupKey = `public:provenance-test:${suffix}`;
 
 describe("export public : provenance et licence", () => {
-  it("complète la chaîne d'un fait sans URL ni licence puis le publie", async () => {
+  it("complète la licence et les horloges d'un fait dont la source n'en déclare pas, puis le publie", async () => {
     await query(
       `INSERT INTO source (id, name, family, url, license)
        VALUES ($1, $2, 'ransomware', $3, NULL)`,
       [sourceId, "Source de test provenance", `https://example.invalid/${suffix}`],
     );
+    // Depuis la migration 206, un événement cite obligatoirement l'URL de sa
+    // provenance : l'URL est donc présente à l'insertion. La licence, les
+    // horloges de connaissance et de collecte, elles, restent à compléter.
     const inserted = await query<{ id: string }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, observed_at)
-       VALUES ($1, 'ransomware', 'third_party_claim', 'Fait sans URL', $2, NULL, now())
+      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, observed_at, evidence)
+       VALUES ($1, 'ransomware', 'third_party_claim', 'Fait sans licence', $2, $3, now(), '{"run_id":"1"}'::jsonb)
        RETURNING id::text AS id`,
-      [dedupKey, sourceId],
+      [dedupKey, sourceId, `https://example.invalid/${suffix}`],
     );
     const eventId = Number(inserted.rows[0]!.id);
 
@@ -69,9 +72,9 @@ describe("export public : provenance et licence", () => {
 
   it("refuse une ligne d'export dont l'URL ou la licence est vide", async () => {
     const inserted = await query<{ id: string }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, tlp)
+      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, tlp, evidence)
        VALUES ($1, 'ransomware', 'third_party_claim', 'Fait public', $2,
-               'https://example.invalid/public', 'CLEAR')
+               'https://example.invalid/public', 'CLEAR', '{"run_id":"1"}'::jsonb)
        RETURNING id::text AS id`,
       [`${dedupKey}-cleare`, sourceId],
     );

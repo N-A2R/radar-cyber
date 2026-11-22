@@ -121,6 +121,12 @@ test("applying one group preserves dependent rows and identity aliases", async (
 	const report = run(siren);
 	const group = report.groups.find((item) => item.memberIds.includes(first) && item.memberIds.includes(second));
 	assert.ok(group, "the group exists before application");
+	// Le trigger bi-temporel archive chaque version d'organisation : le nombre
+	// de lignes n'est pas fixe, mais aucune ne doit disparaître à la fusion.
+	const historyBefore = (
+		await query<{ id: number }>("SELECT id FROM org_history WHERE org_id IN ($1,$2) ORDER BY id", [first, second])
+	).rows.map((row) => row.id);
+	assert.ok(historyBefore.length >= 3, "two organisations plus the explicit version");
 	const applied = run(siren, ["--apply", `--group=${group.id}`]);
 	assert.equal(applied.duplicatesMerged, 1);
 	assert.equal(applied.verification.length, 1);
@@ -132,8 +138,8 @@ test("applying one group preserves dependent rows and identity aliases", async (
 	assert.equal(events.rows[0]!.org_id, first);
 	const alerts = await query<{ org_id: number }>("SELECT org_id FROM alert WHERE rule_id=$1", [`${PREFIX}-rule`]);
 	assert.equal(alerts.rows[0]!.org_id, first);
-	const histories = await query<{ org_id: number }>("SELECT org_id FROM org_history WHERE org_id=$1", [first]);
-	assert.equal(histories.rows.length, 1);
+	const histories = await query<{ id: number }>("SELECT id FROM org_history WHERE org_id=$1 ORDER BY id", [first]);
+	assert.deepEqual(histories.rows.map((row) => row.id), historyBefore, "every history row moves to the survivor");
 	const aliases = await query<{ alias: string; source: string }>("SELECT alias, source FROM org_alias WHERE org_id=$1", [first]);
 	const shared = aliases.rows.find((row) => row.alias === `${PREFIX}-shared`);
 	assert.ok(shared?.source?.includes("first") && shared.source.includes("second"), "alias provenance is merged");

@@ -63,9 +63,9 @@ async function insertEvent(input: {
 	orgId?: number | null;
 }): Promise<number> {
 	const { rows } = await query<{ id: number }>(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, severity, org_id)
-		 VALUES ($1,'cert_fr','ambient_signal',$2,$3,$4,2,$5) RETURNING id`,
-		[`${PREFIX}:${input.suffix}`, input.title, input.sourceId, `${input.day}T10:00:00Z`, input.orgId ?? null],
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, observed_at, severity, org_id, evidence)
+		 VALUES ($1,'cert_fr','ambient_signal',$2,$3,$4,$5,2,$6,'{"run_id":"1"}'::jsonb) RETURNING id`,
+		[`${PREFIX}:${input.suffix}`, input.title, input.sourceId, `https://example.invalid/${PREFIX}/${input.suffix}`, `${input.day}T10:00:00Z`, input.orgId ?? null],
 	);
 	return rows[0]!.id;
 }

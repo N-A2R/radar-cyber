@@ -38,8 +38,9 @@ before(async () => {
     [C2_SOURCE_ID, "https://example.invalid/c2.ipset"],
   );
   const event = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, evidence)
-     VALUES ($1, 'cti', 'reported_observation', $2, 3, 'ransomlook', '{}') RETURNING id`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, source_url, evidence)
+     VALUES ($1, 'cti', 'reported_observation', $2, 3, 'ransomlook',
+             'https://example.invalid/${TAG}/event', '{"run_id":"1"}'::jsonb) RETURNING id`,
     [`${TAG}-event`, "C2 server hosted in Bordeaux"],
   );
   fixtureEventId = Number(event.rows[0]!.id);

@@ -52,19 +52,20 @@ before(async () => {
 		// le trigger TLP de la migration 200 durcit alors la colonne.
 		const ambre = i < 3;
 		const tlpColonne = ambre ? (i === 1 ? "AMBER" : "TLP:AMBER") : i % 3 === 0 ? "TLP:GREEN" : "CLEAR";
-		const evidence = ambre
-			? (i === 2 ? { tlp: "TLP:AMBER" } : {})
-			: i % 3 === 0
-				? { tlp: "TLP:GREEN" }
-				: {};
+		const evidence: { run_id: string; tlp?: string } = { run_id: "1" };
+		if (i === 2) evidence.tlp = "TLP:AMBER";
+		else if (!ambre && i % 3 === 0) evidence.tlp = "TLP:GREEN";
 		const titre = ambre ? AMBER_TITLES[i]! : `Signal régional ${i} ${TAG}`;
 		const observation = new Date(Date.UTC(2026, 10, 1, 10, i, 0)).toISOString();
 		const inserted = await query<{ id: number }>(
-			`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, evidence,
+			`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, evidence,
 			                    tlp, regional, severity, confidence, observed_at)
-			 VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4::jsonb, $5, $6, 3, 'B2', $7)
+			 VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, $5::jsonb, $6, $7, 3, 'B2', $8)
 			 RETURNING id`,
-			[`${TAG}-event-${i}`, titre, SOURCE, JSON.stringify(evidence), tlpColonne, i % 2 === 0, observation],
+			[
+				`${TAG}-event-${i}`, titre, SOURCE, `https://example.invalid/misp/item-${i}`,
+				JSON.stringify(evidence), tlpColonne, i % 2 === 0, observation,
+			],
 		);
 		ids.push(Number(inserted.rows[0]!.id));
 	}

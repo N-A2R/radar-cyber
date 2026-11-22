@@ -60,9 +60,12 @@ before(async () => {
   ): Promise<void> => {
     await query(
       `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, valid_at,
-                          source_id, org_id, evidence)
-       VALUES ($1, 'ransomware', 'third_party_claim', $2, $3, $3, $4, $5, $6)`,
-      [`${TAG}-${suffix}`, title, WHEN, source, org, JSON.stringify(group ? { group } : {})],
+                          source_id, source_url, org_id, evidence)
+       VALUES ($1, 'ransomware', 'third_party_claim', $2, $3, $3, $4, $5, $6, $7)`,
+      [
+        `${TAG}-${suffix}`, title, WHEN, source, `https://example.invalid/${TAG}/${suffix}`, org,
+        JSON.stringify({ ...(group ? { group } : {}), run_id: "1" }),
+      ],
     );
   };
 

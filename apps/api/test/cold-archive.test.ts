@@ -60,8 +60,8 @@ async function insertEvent(
 ): Promise<number> {
   const { rows } = await query<{ id: number }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at,
-                        collected_at, source_id, source_url, org_id, regional, tlp)
-     VALUES ($1,$2,'ambient_signal',$3,$4,$5,$5,$6,$7,$8,$9,COALESCE($10, 'CLEAR')) RETURNING id`,
+                        collected_at, source_id, source_url, org_id, regional, tlp, evidence)
+     VALUES ($1,$2,'ambient_signal',$3,$4,$5,$5,$6,$7,$8,$9,COALESCE($10, 'CLEAR'),'{"run_id":"1"}'::jsonb) RETURNING id`,
     [
       `${TAG}:${key}`,
       options.family ?? "cti",
