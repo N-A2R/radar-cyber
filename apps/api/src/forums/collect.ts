@@ -17,6 +17,7 @@ import {
   type ForumVerdict,
 } from "./classify.js";
 import { FORUM_SOURCES, type ForumSource } from "./sources.js";
+import { persistForumActorMentions } from "./actor-store.js";
 
 export type ForumCollection = {
   verdicts: ForumVerdict[];
@@ -186,6 +187,8 @@ export async function readForumStats(): Promise<ForumStats> {
 export async function runForumCycle(log: (msg: string) => void): Promise<void> {
   const collection = await collectForums();
   const inserted = await persistForumMessages(collection);
+  const actorMentions = await persistForumActorMentions(collection);
+  log(`forum actors: ${actorMentions} new mention(s)`);
   log(
     `forums: ${collection.summary.followedForums} followed, ` +
     `${collection.summary.relevantMessages} relevant message(s), ${inserted} new`,

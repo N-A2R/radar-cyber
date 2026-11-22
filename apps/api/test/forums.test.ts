@@ -27,11 +27,20 @@ const source = (id: string) => {
 };
 
 test("registry contains only free public forums with an explicit NA scope", () => {
-  assert.equal(FORUM_SOURCES.length, 6);
+  assert.equal(FORUM_SOURCES.length, 9);
   assert.ok(FORUM_SOURCES.every(isPublicFreeForum));
   const scoped = FORUM_SOURCES.filter((s) => s.scope.kind === "department");
-  assert.deepEqual(scoped.map((s) => s.scope), NA_SCOPES.map((value) => ({ kind: "department", value })));
+  const scopedScope = NA_SCOPES.map((value) => ({ kind: "department" as const, value }));
+  assert.deepEqual(scoped.map((s) => s.scope), [...scopedScope, ...scopedScope]);
   assert.ok(FORUM_SOURCES.every((s) => !/author|victim|email/i.test(s.url)));
+});
+
+test("French-language community feeds stay free, public and NA-scoped", () => {
+  const french = FORUM_SOURCES.filter((s) => s.id.startsWith("forum:zataz:"));
+  assert.deepEqual(french.map((s) => s.id), NA_SCOPES.map((value) => `forum:zataz:${value}`));
+  assert.ok(french.every(isPublicFreeForum));
+  assert.ok(french.every((s) => s.format === "rss" && s.scope.kind === "department"));
+  assert.ok(french.every((s) => /no account/.test(s.license)));
 });
 
 test("an NA-scoped discussion feed admits a cyber message without a department name", () => {
@@ -126,22 +135,23 @@ test("a dead forum isolates its error and repeated messages are counted once", a
 });
 
 test("the API counts registered forum sources and admitted messages from the database", async () => {
-  const before = await readForumStats();
-  assert.equal(before.followedForums, 6);
   const collection = await collectForums({
     sources: [source("forum:hn:bordeaux")],
     fetchImpl: (async () => new Response(JSON.stringify({
       hits: [{ objectID: "db-test", title: "Ransomware campaign in Bordeaux", story_text: "intrusion", created_at: "2026-11-20T10:00:00Z" }],
     }), { status: 200 })) as unknown as typeof fetch,
   });
+  const testKey = collection.verdicts.find((v) => v.relevant)?.dedupKey ?? "";
+  await query("DELETE FROM event WHERE dedup_key = $1", [testKey]);
+  const before = await readForumStats();
+  assert.equal(before.followedForums, 9);
   const inserted = await persistForumMessages(collection);
   assert.equal(inserted, 1);
   const again = await persistForumMessages(collection);
   assert.equal(again, 0, "a second pass must not double the counter");
   const after = await readForumStats();
   assert.equal(after.relevantMessages, before.relevantMessages + 1);
-  const key = collection.verdicts.find((v) => v.relevant)?.dedupKey ?? "";
-  const rows = await query<{ title: string }>("SELECT title FROM event WHERE dedup_key = $1", [key]);
+  const rows = await query<{ title: string }>("SELECT title FROM event WHERE dedup_key = $1", [testKey]);
   assert.equal(rows.rows.length, 1);
   assert.equal(rows.rows[0]?.title, "Ransomware campaign in Bordeaux");
 });

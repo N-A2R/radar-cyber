@@ -49,8 +49,22 @@ function hnSearch(place: string): ForumSource {
   };
 }
 
+
+/** Free public RSS search of a French-speaking security community (gray source). */
+function zatazSearch(place: string): ForumSource {
+  return {
+    id: `forum:zataz:${slug(place)}`,
+    name: `Zataz — ${place} public discussion`,
+    url: `https://www.zataz.com/?s=${encodeURIComponent(place)}&feed=rss2`,
+    format: "rss",
+    license: "public RSS — free, no account, gray source",
+    scope: { kind: "department", value: place },
+  };
+}
+
 export const FORUM_SOURCES: readonly ForumSource[] = [
   ...NA_SCOPES.map(hnSearch),
+  ...NA_SCOPES.map(zatazSearch),
   {
     id: "forum:hn:latest",
     name: "Hacker News — latest discussion",

@@ -46,6 +46,7 @@ import resaleListingsRoute from "./resale-listings.js";
 import publicMandatesRoute from "./public-mandates.js";
 import custodyRoute from "./custody.js";
 import forumsRoute from "./forums.js";
+import forumActorsRoute from "./forum-actors.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -63,6 +64,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     onionIndexRoute,
     custodyRoute,
     forumsRoute,
+    forumActorsRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }
