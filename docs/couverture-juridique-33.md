@@ -36,3 +36,4 @@ Résultat : **11 sources, 31 URL distinctes toutes en HTTP 200** (31 contrôles)
 ## Méthode
 
 Recherche des organisations du droit en Gironde (barreaux, juridictions, notariat, commissaires de justice, annuaires et média juridique), lecture des pages officielles pour trouver les rubriques d'actualités et les flux, puis contrôle GET réel de chaque URL (redirections suivies, délai 20 s) avec enregistrement du code HTTP, du type de contenu, de l'URL finale et du nombre d'items RSS. Aucune URL n'a été retenue sans observation préalable de la page ou du flux.
+OBJECTIF : atteint — 11 sources vérifiées en 200 / 5 sources vérifiées en 200
