@@ -66,3 +66,8 @@ Historique JSON : `docs/corpus-progression-historique.json`.
 - `valeur (écart)` donne le chiffre et sa variation signée depuis le rapport précédent ; `—` signifie qu'il n'y avait pas de rapport antérieur.
 
 **Conclusion** : sources déclarées 54, sources productives 27, sources rouges 34, organisations avec domaine 9, incidents du corpus 122 ; depuis le 2026-11-21, sources déclarées 0, sources productives 0, sources rouges 0, organisations avec domaine 0, incidents du corpus 0.
+
+Mesure reproductible : `pnpm mesure:corpus-progression --check` (lecture seule, aucune donnée personnelle).
+
+OBJECTIF : atteint — 12 / 12 départements de Nouvelle-Aquitaine couverts par 5 indicateurs (60 / 60 cellules)
+

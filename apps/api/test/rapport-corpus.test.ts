@@ -17,6 +17,7 @@ import {
 	snapshotVide,
 	type Snapshot,
 } from "../src/analyse/rapport-corpus.js";
+import { DEPT_LABELS } from "../src/collectors/relevance.js";
 
 const DEPTS = ["16", "17", HORS_NA];
 const LIBELLES = { "16": "charente", "17": "charente-maritime", [HORS_NA]: "hors NA" };
@@ -108,4 +109,20 @@ test("la conclusion tient en une phrase et porte les cinq chiffres", () => {
 	for (const chiffre of ["déclarées 1", "productives 1", "rouges 0", "organisations avec domaine 1", "incidents du corpus 1"]) {
 		assert.ok(conclusion[0]!.includes(chiffre), `conclusion sans ${chiffre}`);
 	}
+});
+
+test("le rapport généré déclare l'objectif de couverture et la mesure", () => {
+	const depts = Object.keys(DEPT_LABELS);
+	const markdown = rendreRapport(
+		snapshotVide("2026-11-22", depts),
+		null,
+		depts,
+		DEPT_LABELS,
+		"docs/historique.json",
+	);
+	assert.match(markdown, /Mesure reproductible : `pnpm mesure:corpus-progression --check`/);
+	assert.match(
+		markdown,
+		/OBJECTIF : atteint — 12 \/ 12 départements de Nouvelle-Aquitaine couverts par 5 indicateurs \(60 \/ 60 cellules\)/,
+	);
 });

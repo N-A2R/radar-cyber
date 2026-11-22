@@ -33,6 +33,12 @@ export const INDICATEURS: readonly Indicateur[] = [
 	"incidents",
 ];
 
+export const OBJECTIF_CORPUS_PROGRESSION = {
+	departements: 12,
+	indicateurs: INDICATEURS.length,
+	cellules: 12 * INDICATEURS.length,
+} as const;
+
 export const LIBELLES_INDICATEURS: Record<Indicateur, string> = {
 	declarees: "Sources déclarées",
 	productives: "Sources productives",
@@ -315,6 +321,16 @@ export function rendreRapport(
 		"- `valeur (écart)` donne le chiffre et sa variation signée depuis le rapport précédent ; `—` signifie qu'il n'y avait pas de rapport antérieur.",
 		"",
 		conclusion(snapshot, precedent),
+		"",
+	);
+	const deptsNA = depts.filter((dept) => dept !== HORS_NA);
+	const cellules = deptsNA.length * INDICATEURS.length;
+	const etat = deptsNA.length === OBJECTIF_CORPUS_PROGRESSION.departements ? "atteint" : "partiel";
+	lignes.push(
+		"",
+		"Mesure reproductible : `pnpm mesure:corpus-progression --check` (lecture seule, aucune donnée personnelle).",
+		"",
+		`OBJECTIF : ${etat} — ${deptsNA.length} / ${OBJECTIF_CORPUS_PROGRESSION.departements} départements de Nouvelle-Aquitaine couverts par ${INDICATEURS.length} indicateurs (${cellules} / ${OBJECTIF_CORPUS_PROGRESSION.cellules} cellules)`,
 		"",
 	);
 	return lignes.join("\n");
