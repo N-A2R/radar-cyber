@@ -121,3 +121,4 @@ ne couvre ni les coûts non monétaires, ni les incidents sans montant public, n
 les victimes physiques, volontairement exclues. Il ne s'agit pas d'une
 extrapolation aux 26 259 événements de la base : c'est un coût par incident
 observé, avec son intervalle d'incertitude.
+OBJECTIF : atteint — 1 / 1 modèle de coût par incident publié avec méthode et intervalle à 95 % (8 / 8 incidents à montant publié, moyenne 102 471 €, IC 95 % [37 372 € ; 129 125 €] ; mesure rejouée le 22/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-incident-cost.mts` depuis un répertoire temporaire, sans réécrire `bench/results/incident-cost.json` ; aucun code ni test modifié).
