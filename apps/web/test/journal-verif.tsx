@@ -133,11 +133,10 @@ function render(overrides: Partial<Props> = {}) {
   return renderToStaticMarkup(
     <JournalList
       rows={rows}
-      resultCount={rows.length}
+      total={rows.length}
       filters={{}}
       onFilterChange={() => {}}
       onReset={() => {}}
-      truncated={false}
       loading={false}
       error={null}
       page={1}
@@ -150,6 +149,7 @@ function render(overrides: Partial<Props> = {}) {
       onExport={() => {}}
       exporting={false}
       exportError={null}
+      onRetry={() => {}}
       {...overrides}
     />,
   );
@@ -194,7 +194,7 @@ check("last page: Next disabled, Previous enabled",
 
 const filteredHtml = render({
   filters: { actor: "moteur", kind: "publication", q: "staff", from: "2026-11-19", to: "2026-11-21" },
-  rows: [rows[4]], resultCount: 1,
+  rows: [rows[4]], total: 1,
 });
 check("filters reflected in the fields",
   filteredHtml.includes('value="moteur"')
@@ -228,26 +228,27 @@ check("proof keys are labelled in French, raw key kept in title",
   && withProof.includes('title="nomBrut"') && withProof.includes(">Nom brut</dt>")
   && !withProof.includes("<dt>nomBrut</dt>") && !withProof.includes("<dt>orgId</dt>"));
 
-const truncated = render({ truncated: true });
-check("truncation is announced",
-  truncated.includes('role="status"')
-  && truncated.includes("Seules les 10 000 entrées les plus récentes sont affichées"));
-
-const loading = render({ rows: [], resultCount: 0, loading: true });
+const loading = render({ rows: [], total: 0, loading: true });
 check("loading state announced and controls disabled",
   loading.includes('role="status"') && loading.includes("Chargement du journal…")
   && (loading.match(/disabled=""/g) ?? []).length >= 3);
+check("loading shows skeleton rows, never an empty count",
+  (loading.match(/journal__row--squelette/g) ?? []).length >= 8
+  && loading.includes("Chargement…") && !loading.includes("0 entrées")
+  && !loading.includes("Aucune entrée de journal enregistrée"));
 
-const error = render({ rows: [], resultCount: 0, error: "/api/journal/review → 500" });
-check("error shown without claiming the list is empty",
+const error = render({ rows: [], total: 0, error: "/api/journal/review → 500" });
+check("error shown without claiming the list is empty, with a retry",
   error.includes('role="alert"') && error.includes("API : /api/journal/review → 500")
-  && !error.includes("Aucune entrée de journal enregistrée"));
+  && error.includes(">Réessayer</button>")
+  && !error.includes("Aucune entrée de journal enregistrée")
+  && !error.includes("journal__row--squelette"));
 
-const empty = render({ rows: [], resultCount: 0, pageCount: 1 });
+const empty = render({ rows: [], total: 0, pageCount: 1 });
 check("explicit empty state without filters",
   empty.includes("Aucune entrée de journal enregistrée pour l&#x27;instant.")
   && empty.includes("0 entrées — page 1 / 1") && !empty.includes('role="alert"'));
-const noMatch = render({ rows: [], resultCount: 0, pageCount: 1, filters: { q: "none" } });
+const noMatch = render({ rows: [], total: 0, pageCount: 1, filters: { q: "none" } });
 check("explicit empty state with filters",
   noMatch.includes("Aucune entrée de journal ne correspond à ces filtres."));
 
@@ -257,7 +258,7 @@ check("export error is distinct from the API error, in French",
   && exportError.includes("Exporter en CSV"));
 
 const unspecified = render({
-  rows: [{ ...rows[3] }], resultCount: 1, pageCount: 1,
+  rows: [{ ...rows[3] }], total: 1, pageCount: 1,
 });
 check("entry without decision stays readable",
   unspecified.includes("Non précisée") && unspecified.includes(`data-decision="${DECISION_UNSPECIFIED}"`));

@@ -1,15 +1,15 @@
 /**
- * Audit journal screen.
+ * Écran du journal d'audit.
  *
- * Reads GET /api/journal/review (every decision kind, not only reviews).
- * Filters are debounced and pushed to the API so the server does the work and
- * the CSV export can apply the exact same query. The rows are also filtered
- * locally by a pure function — instant feedback while typing, and a single
- * testable definition of what "filtered" means. Stale requests are cancelled
- * on unmount or when the filters change.
+ * Lit GET /api/journal/review (toutes les décisions, pas seulement les revues).
+ * Une seule requête par page affichée : la pagination du bas change `offset`
+ * et le serveur rend les lignes de cette page avec le total filtré. Les
+ * filtres sont temporisés (250 ms), repartent en page 1 et sont appliqués en
+ * SQL — plus de tampon accumulé côté client. La requête en cours est annulée
+ * quand les filtres, la page ou l'écran changent.
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { api, type JournalDecision, type JournalReviewParams } from "../api";
+import { api, type JournalDecision, type JournalReviewParams, type JournalReviewResponse } from "../api";
 import JournalList, {
   DECISION_UNSPECIFIED, KIND_CATEGORIES, KIND_LABEL, DECISION_LABEL,
   type JournalFilters,
@@ -18,9 +18,8 @@ import JournalList, {
 export { DECISION_UNSPECIFIED, KIND_CATEGORIES, KIND_LABEL, DECISION_LABEL } from "./JournalListe";
 export type { JournalFilters } from "./JournalListe";
 
-const API_LIMIT = 500;
-const MAX_ROWS = 10_000;
-const ROWS_PER_PAGE = 50;
+/** Taille d'une page : assez de lignes pour lire, assez peu pour répondre vite. */
+export const ROWS_PER_PAGE = 50;
 const SEARCH_DELAY_MS = 250;
 
 /** Transforms the UI filter shape into the API query (and the export query). */
@@ -47,6 +46,9 @@ function searchableText(row: JournalDecision): string {
  * search = case-insensitive substring over subject, actor, summary, reason,
  * decision and the raw evidence; dates = inclusive bounds on the first ten
  * characters of the timestamp (YYYY-MM-DD).
+ *
+ * Le serveur applique déjà ces règles : cette fonction reste la définition
+ * testable de « filtré » et n'est plus utilisée pour tronquer la page reçue.
  */
 export function filterJournal(
   rows: JournalDecision[],
@@ -83,65 +85,56 @@ type Props = {
 };
 
 export default function JournalView({ onUnauthorized }: Props) {
-  const [rows, setRows] = useState<JournalDecision[]>([]);
   const [filters, setFilters] = useState<JournalFilters>({});
-  /** Debounced copy actually sent to the API. */
+  /** Copie temporisée réellement envoyée à l'API. */
   const [applied, setApplied] = useState<JournalFilters>({});
   const [page, setPage] = useState(1);
+  const [result, setResult] = useState<JournalReviewResponse | null>(null);
   const [selected, setSelected] = useState<JournalDecision | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [truncated, setTruncated] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
   const [reloadSignal, setReloadSignal] = useState(0);
 
-  // Avoid a second identical request on mount: the initial `applied` object
-  // already matches the initial `filters`.
+  // Le debounce ne relance rien tant que les filtres n'ont pas changé ; quand
+  // ils changent, on revient page 1 dans le même rendu pour éviter une requête
+  // intermédiaire sur l'ancienne page.
   useEffect(() => {
     const timer = setTimeout(() => {
       setApplied((previous) =>
         previous.actor === filters.actor && previous.kind === filters.kind
         && previous.q === filters.q && previous.from === filters.from
         && previous.to === filters.to ? previous : filters);
+      setPage(1);
     }, SEARCH_DELAY_MS);
     return () => clearTimeout(timer);
   }, [filters]);
 
+  // Une requête par page affichée. `offset` saute directement à la page
+  // demandée : le serveur rend les lignes et le total correspondant aux filtres.
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
     setError(null);
-    setPage(1);
     setSelected(null);
 
     (async () => {
-      const loaded: JournalDecision[] = [];
-      let cursor: number | null = null;
-      let truncatedResult = false;
       try {
-        for (;;) {
-          const data = await api.journalReview(
-            { ...journalApiParams(applied), limite: API_LIMIT, avant: cursor },
-            controller.signal,
-          );
-          if (controller.signal.aborted) return;
-
-          const remaining = MAX_ROWS - loaded.length;
-          loaded.push(...data.rows.slice(0, remaining));
-          if (data.rows.length > remaining) truncatedResult = true;
-          if (data.avant === null || data.rows.length === 0) break;
-          if (loaded.length >= MAX_ROWS || data.avant === cursor) {
-            truncatedResult = true;
-            break;
-          }
-          cursor = data.avant;
-        }
-        setRows(filterJournal(loaded, applied));
-        setTruncated(truncatedResult);
+        const data = await api.journalReview(
+          {
+            ...journalApiParams(applied),
+            limit: ROWS_PER_PAGE,
+            offset: (page - 1) * ROWS_PER_PAGE,
+          },
+          controller.signal,
+        );
+        if (controller.signal.aborted) return;
+        setResult(data);
       } catch (err: unknown) {
         if (controller.signal.aborted) return;
         if (statusOf(err) === 401) onUnauthorized?.();
+        setResult(null);
         setError(err instanceof Error ? err.message : "journal indisponible");
       } finally {
         if (!controller.signal.aborted) setLoading(false);
@@ -149,15 +142,17 @@ export default function JournalView({ onUnauthorized }: Props) {
     })();
 
     return () => controller.abort();
-  }, [applied, onUnauthorized, reloadSignal]);
+  }, [applied, page, onUnauthorized, reloadSignal]);
 
-  const filteredRows = useMemo(() => filterJournal(rows, applied), [rows, applied]);
-  const pageCount = Math.max(1, Math.ceil(filteredRows.length / ROWS_PER_PAGE));
+  const rows = useMemo(() => result?.rows ?? [], [result]);
+  const total = result?.total ?? 0;
+  const pageCount = Math.max(1, Math.ceil(total / ROWS_PER_PAGE));
   const currentPage = Math.min(page, pageCount);
-  const visibleRows = filteredRows.slice(
-    (currentPage - 1) * ROWS_PER_PAGE,
-    currentPage * ROWS_PER_PAGE,
-  );
+
+  // Un filtre peut réduire le total sous la page courante : on borne la page.
+  useEffect(() => {
+    if (!loading && result && page > pageCount) setPage(pageCount);
+  }, [loading, result, page, pageCount]);
 
   const changeFilter = useCallback((patch: JournalFilters) => {
     setFilters((previous) => ({ ...previous, ...patch }));
@@ -184,9 +179,9 @@ export default function JournalView({ onUnauthorized }: Props) {
     } catch (err: unknown) {
       if (statusOf(err) === 401) onUnauthorized?.();
       else if (statusOf(err) === 403) {
-        setExportError("L'export CSV exige un accès administrateur.");
+        setExportError("CSV export requires administrator access.");
       } else {
-        setExportError(`L'export CSV a échoué : ${err instanceof Error ? err.message : "service indisponible"}`);
+        setExportError(`CSV export failed: ${err instanceof Error ? err.message : "unavailable"}`);
       }
     } finally {
       setExporting(false);
@@ -195,12 +190,11 @@ export default function JournalView({ onUnauthorized }: Props) {
 
   return (
     <JournalList
-      rows={visibleRows}
-      resultCount={filteredRows.length}
+      rows={rows}
+      total={total}
       filters={filters}
       onFilterChange={changeFilter}
       onReset={reset}
-      truncated={truncated}
       loading={loading}
       error={error}
       page={currentPage}
