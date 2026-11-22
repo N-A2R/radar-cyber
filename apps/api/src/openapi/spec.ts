@@ -3,6 +3,7 @@ import { z } from "zod";
 import { OPERATIONS, type Operation, type Security } from "./catalog.js";
 import { SCHEMAS, INPUT_SCHEMAS } from "./schemas.js";
 import { API_VERSION } from "./version.js";
+import { buildExamples, exampleRequest, type OperationExample } from "./examples.js";
 
 type Doc = Record<string, any>;
 
@@ -18,7 +19,11 @@ function jsonSchema(schema: z.ZodType): Doc {
   return z.toJSONSchema(schema, { target: "openapi-3.1", io: "output" }) as Doc;
 }
 
-function parameters(schema: z.ZodType | undefined, place: "query" | "path"): Doc[] {
+function parameters(
+  schema: z.ZodType | undefined,
+  place: "query" | "path",
+  examples: Record<string, string | number>,
+): Doc[] {
   if (!schema) return [];
   const converted = jsonSchema(schema);
   const required: string[] = converted.required ?? [];
@@ -27,10 +32,11 @@ function parameters(schema: z.ZodType | undefined, place: "query" | "path"): Doc
     in: place,
     required: place === "path" ? true : required.includes(name),
     schema: s,
+    example: examples[name],
   }));
 }
 
-function operationDoc(op: Operation): Doc {
+function operationDoc(op: Operation, example: OperationExample): Doc {
   const success = String(op.status ?? 200);
   const content = op.contentType ?? "application/json";
   const successSchema: Doc = content === "application/json"
@@ -42,19 +48,26 @@ function operationDoc(op: Operation): Doc {
     summary: op.summary,
     operationId: op.operationId,
     security: SECURITY[op.security],
-    parameters: [...parameters(op.params, "path"), ...parameters(op.query, "query")],
+    parameters: [
+      ...parameters(op.params, "path", example.params),
+      ...parameters(op.query, "query", example.query),
+    ],
     responses: {
-      [success]: { description: "Succès", content: { [content]: { schema: successSchema } } },
+      [success]: {
+        description: "Succès",
+        content: { [content]: { schema: successSchema, example: example.response } },
+      },
       "400": { description: "Requête invalide", content: { "application/json": { schema: errorRef } } },
       "401": { description: "Authentification requise", content: { "application/json": { schema: errorRef } } },
       "403": { description: "Droits insuffisants", content: { "application/json": { schema: errorRef } } },
       "429": { description: "Quota épuisé", content: { "application/json": { schema: errorRef } } },
     },
+    "x-request-example": exampleRequest(op, example),
   };
   if (op.body) {
     doc.requestBody = {
       required: true,
-      content: { "application/json": { schema: jsonSchema(op.body) } },
+      content: { "application/json": { schema: jsonSchema(op.body), example: example.body } },
     };
   }
   return doc;
@@ -66,11 +79,12 @@ export function openApiPath(path: string): string {
 }
 
 export function buildOpenApi(): Doc {
+  const examples = buildExamples();
   const paths: Doc = {};
   for (const op of OPERATIONS) {
     const path = openApiPath(op.path);
     paths[path] ??= {};
-    paths[path]![op.method] = operationDoc(op);
+    paths[path]![op.method] = operationDoc(op, examples.get(op.operationId)!);
   }
   const components: Doc = {
     schemas: {},
@@ -104,4 +118,18 @@ export function buildOpenApi(): Doc {
 
 export function documentedRouteCount(spec: Doc = buildOpenApi()): number {
   return Object.values(spec.paths as Doc).reduce((n: number, item: Doc) => n + Object.keys(item).length, 0);
+}
+
+/** Number of operations publishing both a runnable request and a response example. */
+export function executableExampleCount(spec: Doc = buildOpenApi()): number {
+  let count = 0;
+  for (const item of Object.values(spec.paths as Doc)) {
+    for (const operation of Object.values(item as Doc) as Doc[]) {
+      if (!operation?.["x-request-example"]) continue;
+      const status = Object.keys(operation.responses ?? {})[0];
+      const media = Object.keys(operation.responses?.[status]?.content ?? {})[0];
+      if (operation.responses?.[status]?.content?.[media]?.example !== undefined) count += 1;
+    }
+  }
+  return count;
 }
