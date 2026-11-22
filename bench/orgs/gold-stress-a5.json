@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-22",
+  "moteur": "gazetteer@4+context-resolution",
+  "jeu": "A5 — noms longs et doubles fautes, hors des jeux A3 et A4",
+  "orgs": [
+    {
+      "id": 1,
+      "name": "CHU de Bordeaux",
+      "kind": "sante",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["CHU de Bordeaux", "Centre Hospitalier Universitaire de Bordeaux", "CHU Bordeaux"]
+    },
+    {
+      "id": 2,
+      "name": "Université de Bordeaux",
+      "kind": "enseignement",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["Université de Bordeaux", "Universite de Bordeaux"]
+    },
+    {
+      "id": 3,
+      "name": "Université de Poitiers",
+      "kind": "enseignement",
+      "city": "Poitiers",
+      "dept": "86",
+      "aliases": ["Université de Poitiers"]
+    },
+    {
+      "id": 4,
+      "name": "Université de Limoges",
+      "kind": "enseignement",
+      "city": "Limoges",
+      "dept": "87",
+      "aliases": ["Université de Limoges"]
+    },
+    {
+      "id": 6,
+      "name": "CHU de Poitiers",
+      "kind": "sante",
+      "city": "Poitiers",
+      "dept": "86",
+      "aliases": ["CHU de Poitiers", "Centre Hospitalier Universitaire de Poitiers"]
+    },
+    {
+      "id": 7,
+      "name": "CHU de Limoges",
+      "kind": "sante",
+      "city": "Limoges",
+      "dept": "87",
+      "aliases": ["CHU de Limoges", "Centre Hospitalier Universitaire de Limoges"]
+    },
+    {
+      "id": 12,
+      "name": "Département de la Gironde",
+      "kind": "collectivite",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["Département de la Gironde", "Conseil départemental de la Gironde"]
+    },
+    {
+      "id": 16,
+      "name": "Cdiscount",
+      "kind": "entreprise",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["Cdiscount"]
+    },
+    {
+      "id": 17,
+      "name": "Ubisoft Bordeaux",
+      "kind": "entreprise",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["Ubisoft Bordeaux"]
+    },
+    {
+      "id": 18,
+      "name": "Dassault Aviation",
+      "kind": "entreprise",
+      "city": "Mérignac",
+      "dept": "33",
+      "aliases": ["Dassault Aviation"]
+    },
+    {
+      "id": 19,
+      "name": "Thales Avionique",
+      "kind": "entreprise",
+      "city": "Mérignac",
+      "dept": "33",
+      "aliases": ["Thales Avionique"]
+    },
+    {
+      "id": 20,
+      "name": "Safran Helicopter Engines",
+      "kind": "entreprise",
+      "city": "Bordes",
+      "dept": "64",
+      "aliases": ["Safran Helicopter Engines"]
+    },
+    {
+      "id": 23,
+      "name": "MAAF Assurances",
+      "kind": "entreprise",
+      "city": "Niort",
+      "dept": "79",
+      "aliases": ["MAAF Assurances", "MAAF"]
+    },
+    {
+      "id": 29,
+      "name": "ARS Nouvelle-Aquitaine",
+      "kind": "sante",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["ARS Nouvelle-Aquitaine", "Agence régionale de santé Nouvelle-Aquitaine"]
+    }
+  ],
+  "cases": [
+    { "id": "a5-01", "text": "Centre Hospitalier Universitaire de Bordeuax confirme une fuite", "expect": 1, "category": "typo-long" },
+    { "id": "a5-02", "text": "Centre Hospitalier Universitaire de Poiteirs signale une intrusion", "expect": 6, "category": "typo-long" },
+    { "id": "a5-03", "text": "Centre Hospitalier Universitaire de Limogees signale une exfiltration", "expect": 7, "category": "typo-long" },
+    { "id": "a5-04", "text": "Conseil departemental de la Gironnde signale une fuite", "expect": 12, "category": "typo-long" },
+    { "id": "a5-05", "text": "Agence regionale de sante Nouvelle-Aquitaaine signale une fuite", "expect": 29, "category": "typo-long" },
+    { "id": "a5-06", "text": "L'univeristé de Poiteirs signale une fuite", "expect": 3, "category": "typo-double" },
+    { "id": "a5-07", "text": "Safran Helicopeter Enginnes signale une attaque", "expect": 20, "category": "typo-double" },
+    { "id": "a5-08", "text": "Dassaultt Aviaiton victime d'une exfiltration", "expect": 18, "category": "typo-double" },
+    { "id": "a5-09", "text": "Ubisofte Bordeuax signale une panne", "expect": 17, "category": "typo-double" },
+    { "id": "a5-10", "text": "Maaff Assurannces signale une fuite de donnees", "expect": 23, "category": "typo-double" },
+    { "id": "a5-11", "text": "Centre Hospitalier Universitaire de Bordelais confirme une fuite", "expect": null, "category": "negatif" },
+    { "id": "a5-12", "text": "L'univeristé de Bordelais signale une fuite", "expect": null, "category": "negatif" },
+    { "id": "a5-13", "text": "Safran Helicopeter Enginnes sponsorise un salon regional", "expect": null, "category": "negatif" },
+    { "id": "a5-14", "text": "Centre Hospitalier Universitaire de Poitou signale une fuite", "expect": null, "category": "negatif" },
+    { "id": "a5-15", "text": "Ubisofte Bordelais signale une fuite", "expect": null, "category": "negatif" },
+    { "id": "a5-16", "text": "Le Centre Hospitalier Universitaire de Bordeaux (Ohio) signale une fuite", "expect": null, "category": "negatif" }
+  ]
+}
