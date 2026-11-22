@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:e3812c21-7f4c-4b85-a181-003f3b1b6492>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 1011
+WARC-Block-Digest: sha1:GA3JOB5YKG4YBG5WL7UWKNSQH34PVCO7
+X-Claim-Fingerprint: cbfcaf124ccb3d80cc6ebc6f
+X-Victim-Key: 0fe10146e13144aaf4aaadb4
+
+{"post_title": "Novabio (france laboratories)", "discovered": "2025-12-10 10:25:41.086514", "description": "Novabio is a medical biology laboratory that helps people across southwestern France get accurate health tests. Located in several regions including Dordogne and Gironde, the team runs complete medical examinations to support local communities' health needs. Their skilled professionals use modern equipment to deliver precise and reliable medical analysis for doctors and patients - the whole data of kalilab and france laboratories Data, Patients full informations, doctors informations, partners, finance, screening results, 500GB of data (millions of files) include PDFs, DOCs, XLSx, SQLs, SSH keys and lot more, network has encrypted, we are Ready to provide decryptor and delete full data, we will provide sample, reach us asap", "link": "#", "magnet": null, "screen": "screenshots/nova/Novabio (france laboratories).png", "misp_uuid": "50f4aeb4-f49c-5cea-9da6-54735dd97730", "group_name": "nova"}
+

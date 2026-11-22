@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:13421385-804f-4c08-a80c-a15836b5773d>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 395
+WARC-Block-Digest: sha1:WND6HUST3UIMRGTZ7Z5GZI56OGHAYSPR
+X-Claim-Fingerprint: fc826e2c66c14f1258a13d6d
+X-Victim-Key: 3774c990b0afeb6a25a75b93
+
+{"post_title": "DTS -services", "discovered": "2025-04-06 23:41:52.388455", "description": "www.dtsservices.uk\r\n\r\nUK, London, St Dts, 112\r\n\r\n2.13 GB\r\nDescription\r\n\r\nCar repair, car service, sales and etc.\r\n\r\n", "link": null, "magnet": null, "screen": "screenshots/dragonforce/DTS -services.png", "misp_uuid": "de501821-5f17-5383-a762-3d4e0fddf3aa", "group_name": "dragonforce"}
+
