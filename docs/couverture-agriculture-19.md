@@ -40,3 +40,4 @@ Résultat : **10 sources, 24 URLs toutes en HTTP 200** (dont 4 flux RSS) contrô
 - `https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml` : 403.
 
 Limite de périmètre : le flux ICI est celui de la station Limousin (pas de flux Corrèze dédié), et les rubriques « agriculture » de France 3, Sud Ouest, La Montagne et La France Agricole sont nationales/régionales mais couvrent le département.
+OBJECTIF : atteint — 10 / 5 (mesure reproductible rejouée le 22/11/2026 : `jq -s '{sources: length, secteurs: (map(.secteur)|unique), departements: (map(.departement)|unique), code_http_200: (map(select(.code_http==200))|length)}' bench/corpus/sources-agriculture-19.jsonl` → 10 sources, toutes `agriculture`/`19`, 10 en `code_http=200` ; `jq '{sources, urls_verifiees, urls_200}' bench/results/verification-agriculture-19.json` → 10 sources, 24 URL contrôlées, 24 en HTTP 200 ; cible : au moins 5 sources vérifiées en 200 pour le couple agriculture/19 ; aucun code ni test modifié).
