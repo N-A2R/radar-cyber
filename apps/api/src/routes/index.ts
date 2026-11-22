@@ -32,6 +32,7 @@ import enrichRoute from "./enrich.js";
 import authRoute from "./auth.js";
 import alertsRoute from "./alerts.js";
 import quarantineRoute from "./quarantine.js";
+import cyberContractsRoute from "./cyber-contracts.js";
 import reviewRoute from "./review.js";
 import journalRoute from "./journal.js";
 import orgsLieesRoute from "./orgs-liees.js";
@@ -46,6 +47,7 @@ import leaksByDomainRoute from "./leaks-by-domain.js";
 import resaleListingsRoute from "./resale-listings.js";
 import publicMandatesRoute from "./public-mandates.js";
 import custodyRoute from "./custody.js";
+import affectedRoute from "./affected.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -59,9 +61,11 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     confidenceRoute,
     leaksByDomainRoute,
     resaleListingsRoute,
+    cyberContractsRoute,
     publicMandatesRoute,
     onionIndexRoute,
     custodyRoute,
+    affectedRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }
