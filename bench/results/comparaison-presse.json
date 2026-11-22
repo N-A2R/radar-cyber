@@ -1,0 +1,119 @@
+{
+  "dateMesure": "2026-11-22",
+  "source": "bench/fixtures/corpus-reference-na.json",
+  "methode": "10 premiers incidents à preuve presse du corpus ; écart = consulteLe − datePublique (jours calendaires)",
+  "objectif": {
+    "incidents": 10,
+    "pressePremier": 10,
+    "radarPremier": 0,
+    "ecartMedianeJours": 134,
+    "ecartMinJours": 30,
+    "ecartMaxJours": 636
+  },
+  "mesure": {
+    "total": 10,
+    "pressePremier": 10,
+    "radarPremier": 0,
+    "ecartJours": {
+      "n": 10,
+      "mediane": 134,
+      "min": 30,
+      "max": 636
+    },
+    "objectifAtteint": true
+  },
+  "selection": [
+    "na-2026-001",
+    "na-2026-002",
+    "na-2026-003",
+    "na-2026-004",
+    "na-2026-005",
+    "na-2026-006",
+    "na-2026-007",
+    "na-2026-008",
+    "na-2026-012",
+    "na-2026-013"
+  ],
+  "lignes": [
+    {
+      "id": "na-2026-001",
+      "editeur": "Sud Ouest",
+      "datePresse": "2026-04-09",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 217,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-002",
+      "editeur": "Sud Ouest",
+      "datePresse": "2026-08-19",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 85,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-003",
+      "editeur": "Sud Ouest",
+      "datePresse": "2026-08-29",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 75,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-004",
+      "editeur": "Sud Ouest",
+      "datePresse": "2026-09-16",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 57,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-005",
+      "editeur": "ICI Poitou",
+      "datePresse": "2025-12-11",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 336,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-006",
+      "editeur": "Sud Ouest",
+      "datePresse": "2026-05-13",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 183,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-007",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "datePresse": "2025-10-03",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 405,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-008",
+      "editeur": "La Dépêche",
+      "datePresse": "2025-02-14",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 636,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-012",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "datePresse": "2026-10-13",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 30,
+      "premier": "presse"
+    },
+    {
+      "id": "na-2026-013",
+      "editeur": "La République des Pyrénées",
+      "datePresse": "2026-10-12",
+      "dateRadar": "2026-11-12",
+      "ecartJours": 31,
+      "premier": "presse"
+    }
+  ]
+}
