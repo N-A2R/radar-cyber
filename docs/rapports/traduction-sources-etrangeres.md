@@ -84,3 +84,4 @@ les structures de titres courantes, pas la grammaire complète. Les langues
 couvertes sont l'anglais, l'allemand et le néerlandais ; l'occitan et le basque
 restent suivis par le chantier des langues régionales. La qualité mesurée est
 un proxy reproductible (F1 + préservation), pas une évaluation humaine.
+OBJECTIF : atteint — 11 / 11 articles étrangers traduits (qualité moyenne 0,9451 ≥ seuil 0,85)
