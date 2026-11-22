@@ -12,6 +12,7 @@ import {
   FALSE_REASON,
   detectFalseEvent,
   recordFalseEvent,
+  sweepUnrecordedFalseEvents,
 } from "../src/detect/false-events.js";
 
 const TAG = `fe${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
@@ -168,6 +169,76 @@ test("recording the same decision twice keeps one row", async () => {
     assert.equal(verdict.isFalse, true);
     assert.equal(await recordFalseEvent(eventId, verdict), true);
     assert.equal(await recordFalseEvent(eventId, verdict), false);
+    const rows = await query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM false_event WHERE event_id=$1",
+      [eventId]
+    );
+    assert.equal(Number(rows.rows[0].n), 1);
+  } finally {
+    await cleanup({ events: [eventId], rules: [] });
+  }
+});
+
+test("sweep records a false event that never reached the engine", async () => {
+  const eventId = await insertEvent("Village fete programme");
+  try {
+    const result = await sweepUnrecordedFalseEvents({ after: eventId - 1, limit: 10 });
+    assert.ok(result.recorded >= 1);
+    const rows = await query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM false_event WHERE event_id=$1",
+      [eventId]
+    );
+    assert.equal(Number(rows.rows[0].n), 1);
+  } finally {
+    await cleanup({ events: [eventId], rules: [] });
+  }
+});
+
+test("sweep keeps an event carrying a cyber signal", async () => {
+  const eventId = await insertEvent("Ransomware hits a hospital in Bordeaux");
+  try {
+    await sweepUnrecordedFalseEvents({ after: eventId - 1, limit: 10 });
+    const rows = await query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM false_event WHERE event_id=$1",
+      [eventId]
+    );
+    assert.equal(Number(rows.rows[0].n), 0);
+  } finally {
+    await cleanup({ events: [eventId], rules: [] });
+  }
+});
+
+test("sweep retires an open alert on the newly false event", async () => {
+  const ids = { events: [] as number[], rules: [] as string[] };
+  const ruleId = `rule-${next()}`;
+  ids.rules.push(ruleId);
+  try {
+    await insertRule(ruleId);
+    const eventId = await insertEvent("Town band concert");
+    ids.events.push(eventId);
+    await query(
+      `INSERT INTO alert (rule_id, title, severity, event_id, status, evidence)
+       VALUES ($1,'Alert on an unanchored event',4,$2,'open','{}'::jsonb)`,
+      [ruleId, eventId]
+    );
+    const result = await sweepUnrecordedFalseEvents({ after: eventId - 1, limit: 10 });
+    assert.ok(result.alertsClosed >= 1);
+    const rows = await query<{ status: string; evidence: { false_event?: { reason?: string } } }>(
+      "SELECT status, evidence FROM alert WHERE event_id=$1",
+      [eventId]
+    );
+    assert.equal(rows.rows[0].status, "resolved");
+    assert.equal(rows.rows[0].evidence.false_event?.reason, FALSE_REASON);
+  } finally {
+    await cleanup(ids);
+  }
+});
+
+test("repeating the sweep keeps a single decision row", async () => {
+  const eventId = await insertEvent("Harvest fair programme");
+  try {
+    await sweepUnrecordedFalseEvents({ after: eventId - 1, limit: 10 });
+    await sweepUnrecordedFalseEvents({ after: eventId - 1, limit: 10 });
     const rows = await query<{ n: string }>(
       "SELECT count(*)::text AS n FROM false_event WHERE event_id=$1",
       [eventId]

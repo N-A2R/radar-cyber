@@ -13,6 +13,7 @@
  */
 import { query } from "../db.js";
 import { evaluateEvent, evaluateIndicator } from "./engine.js";
+import { sweepUnrecordedFalseEvents } from "./false-events.js";
 
 const DEFAULT_EVENT_LIMIT = Number(process.env.RADAR_DETECT_EVENT_LIMIT ?? 500);
 const DEFAULT_INDICATOR_LIMIT = Number(process.env.RADAR_DETECT_INDICATOR_LIMIT ?? 1000);
@@ -22,6 +23,7 @@ const LATE_LIMIT = Number(process.env.RADAR_DETECT_LATE_LIMIT ?? 200);
 /** Plafond de la mémoire des non-matchants : au-delà, les plus anciens sortent.
  *  Sans plafond, la ligne d'état grossirait indéfiniment dans `source.cursor`. */
 const LATE_REMEMBERED = Number(process.env.RADAR_DETECT_LATE_REMEMBER ?? 5000);
+const DEFAULT_FALSE_LIMIT = Number(process.env.RADAR_DETECT_FALSE_LIMIT ?? 500);
 
 export type DetectionPass = {
 	events: number;
@@ -35,6 +37,7 @@ export type DetectionPass = {
 let eventCursor: number | null = null;
 let indicatorCursor: number | null = null;
 let lateEvaluated: Set<number> = new Set();
+let falseCursor: number | null = null;
 
 const STATE_SOURCE_ID = "radar-detection";
 
@@ -42,6 +45,7 @@ export function resetDetectionCursors(): void {
 	eventCursor = null;
 	indicatorCursor = null;
 	lateEvaluated = new Set();
+	falseCursor = null;
 }
 
 async function maxId(table: "event" | "indicator"): Promise<number> {
@@ -64,12 +68,13 @@ async function loadState(): Promise<void> {
 	if (typeof c.eventCursor === "number") eventCursor = c.eventCursor;
 	if (typeof c.indicatorCursor === "number") indicatorCursor = c.indicatorCursor;
 	if (Array.isArray(c.lateEvaluated)) lateEvaluated = new Set(c.lateEvaluated.map(Number));
+	if (typeof c.falseCursor === "number") falseCursor = c.falseCursor;
 }
 
 async function saveState(): Promise<void> {
 	await query(
 		"UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2",
-		[JSON.stringify({ eventCursor, indicatorCursor, lateEvaluated: [...lateEvaluated] }), STATE_SOURCE_ID],
+		[JSON.stringify({ eventCursor, indicatorCursor, lateEvaluated: [...lateEvaluated], falseCursor }), STATE_SOURCE_ID],
 	);
 }
 
@@ -89,11 +94,13 @@ export async function runDetectionPass(opts?: {
 	indicatorLimit?: number;
 	catchUp?: number;
 	lateLimit?: number;
+	falseLimit?: number;
 }): Promise<DetectionPass> {
 	const eventLimit = opts?.eventLimit ?? DEFAULT_EVENT_LIMIT;
 	const indicatorLimit = opts?.indicatorLimit ?? DEFAULT_INDICATOR_LIMIT;
 	const catchUp = opts?.catchUp ?? DEFAULT_CATCH_UP;
 	const lateLimit = opts?.lateLimit ?? LATE_LIMIT;
+	const falseLimit = opts?.falseLimit ?? DEFAULT_FALSE_LIMIT;
 
 	if (eventCursor === null || indicatorCursor === null) await loadState();
 	if (eventCursor === null) eventCursor = Math.max(0, (await maxId("event")) - catchUp);
@@ -111,6 +118,17 @@ export async function runDetectionPass(opts?: {
 		alerts += await evaluateEvent(id, { corroboration });
 		eventCursor = Math.max(eventCursor ?? 0, id);
 	}
+
+	// Un événement peut perdre son ancrage après son admission : le balayage
+	// « late » ne le revoit pas (il exige un org_id). Ce rattrapage borne
+	// enregistre ces faux et clôt leurs alertes, sans toucher aux vrais.
+	const sweep = await sweepUnrecordedFalseEvents({
+		after: falseCursor ?? 0,
+		limit: falseLimit,
+	});
+	const highestEventId = await maxId("event");
+	falseCursor =
+		sweep.scanned === 0 || sweep.lastId >= highestEventId ? 0 : sweep.lastId;
 
 	const freshIndicators = await query<{ id: number }>(
 		"SELECT id FROM indicator WHERE id > $1 ORDER BY id LIMIT $2",

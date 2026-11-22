@@ -123,3 +123,46 @@ Aucune commande de mesure ou de test n'a dépassé 60 secondes : mesure 9–19 s
 tests 4–7 s, typecheck 8–9 s. Aucun service payant n'est appelé par le
 détecteur ; le modèle de décision optionnel préexistant n'est pas utilisé sur
 le chemin des faux.
+
+## Tranche suivante — rattrapage des faux non enregistrés (22 novembre 2026)
+
+La mesure de reprise montrait un écart : **1 833 détectés, 1 774 écartés**.
+Cause identifiée : le balayage « late » de `detect/incremental.ts` ne revoit
+que les événements avec `org_id`, donc un événement qui perd son rattachement
+après son admission n'est jamais réévalué — sa décision de faux n'est jamais
+écrite dans `false_event`.
+
+Livré dans cette tranche :
+
+- `sweepUnrecordedFalseEvents()` (`detect/false-events.ts`) : parcours borné
+  des événements sans ancrage absents de `false_event`, classification par le
+  moteur partagé, insertion idempotente et clôture des alertes ouvertes.
+- `runDetectionPass()` avance un curseur `falseCursor` persistant dans
+  `source.cursor` (borne `RADAR_DETECT_FALSE_LIMIT`, 500 par défaut) ; le
+  balayage repart de zéro en fin de table. `server.ts` reste inchangé (0 ligne).
+- Quatre tests, un par comportement : enregistrement d'un faux jamais évalué,
+  conservation d'un fait cyber, clôture d'une alerte ouverte, idempotence.
+
+Mesure après application du rattrapage sur la base partagée, en lecture seule :
+
+```json
+{
+  "mode": "read-only",
+  "organisations": 1673220,
+  "sources": 543,
+  "events": 26758,
+  "false_detected": 1304,
+  "false_discarded": 1304,
+  "by_family": {
+    "cti": 219, "ransomware": 627, "leaks": 407, "cert": 40,
+    "presse_cyber": 1, "vuln": 5, "cert_fr": 2, "paste": 3
+  }
+}
+```
+
+La base étant partagée avec d'autres travaux, le nombre d'événements est passé
+de 27 899 à 26 758 pendant cette tranche : le rattrapage a enregistré 18 faux
+et clos 1 alerte, le reste de l'écart provenant de suppressions d'événements
+externes. La mesure de contrôle relue deux fois donne 1 304 / 1 304.
+24 tests de détection passent (20 précédents + 4 nouveaux) et le typecheck
+`tsc --noEmit -p apps/api/tsconfig.json` est vert.
