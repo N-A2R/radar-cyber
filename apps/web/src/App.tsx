@@ -43,16 +43,16 @@ function ViewSkeleton() {
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
-  { id: "today", label: "Today" },
-  { id: "coverage", label: "Coverage" },
-  { id: "review", label: "Review" },
+  { id: "today", label: "Aujourd'hui" },
+  { id: "coverage", label: "Couverture" },
+  { id: "review", label: "Revue" },
   { id: "journal", label: "Journal" },
   { id: "corpus", label: "Corpus" },
   { id: "sources", label: "Sources" },
-  { id: "map", label: "Map" },
-  { id: "graph", label: "Graph" },
-  { id: "health", label: "Health" },
-  { id: "alerts", label: "Alerts" },
+  { id: "map", label: "Carte" },
+  { id: "graph", label: "Graphe" },
+  { id: "health", label: "Santé" },
+  { id: "alerts", label: "Alertes" },
   { id: "na", label: "Nouvelle-Aquitaine" },
 ];
 
@@ -641,7 +641,7 @@ export default function App() {
           onClick={() => setPaletteOpen(true)}
           aria-keyshortcuts="Meta+K Control+K"
         >
-          Search ⌘K
+          Rechercher ⌘K
         </button>
 
         {view === "map" ? (
@@ -651,18 +651,18 @@ export default function App() {
             aria-pressed={basemap === "sat"}
             onClick={() => setBasemap(basemap === "sat" ? "plan" : "sat")}
           >
-            {basemap === "sat" ? "satellite" : "street"}
+            {basemap === "sat" ? "satellite" : "plan"}
           </button>
         ) : null}
 
         <span className="rail__live" data-on={connected}>
           <i aria-hidden="true" />
-          {connected ? "live feed" : "feed down"}
+          {connected ? "flux direct" : "flux interrompu"}
         </span>
 
         {token ? (
           <button type="button" className="rail__toggle" onClick={onUnauthorized}>
-            Sign out
+            Déconnexion
           </button>
         ) : null}
       </header>

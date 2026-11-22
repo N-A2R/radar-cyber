@@ -162,7 +162,7 @@ describe("flux SSE des alertes", () => {
       });
       expect(host.querySelector(".live-alerts__title")?.textContent).toBe("Ransomware wave");
       expect(host.querySelector(".live-alerts__more")?.textContent).toBe("+2");
-      expect(host.textContent).toContain("Sound off");
+      expect(host.textContent).toContain("Son coupé");
       expect(host.textContent).not.toContain("aucune");
     } finally {
       await act(async () => { root?.unmount(); });

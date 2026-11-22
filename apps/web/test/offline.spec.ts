@@ -135,16 +135,16 @@ test("la barre contient les vues dans l'ordre du produit", async ({ page, contex
 		),
 	);
 	expect(labels).toEqual([
-		"Today",
-		"Coverage",
-		"Review",
+		"Aujourd'hui",
+		"Couverture",
+		"Revue",
 		"Journal",
 		"Corpus",
 		"Sources",
-		"Map",
-		"Graph",
-		"Health",
-		"Alerts",
+		"Carte",
+		"Graphe",
+		"Santé",
+		"Alertes",
 		"Nouvelle-Aquitaine",
 	]);
 });
