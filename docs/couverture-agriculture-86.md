@@ -64,3 +64,4 @@
 - https://www.coordinationrurale.fr/feed/ et https://vienne.cuma.fr/feed/ : 200 mais HTML, pas des flux RSS — laissés vides.
 
 Limite de périmètre : les organisations strictement départementales (Chambre 86, JA 86, Coordination Rurale Vienne, Confédération paysanne 86, Agrilocal86, MSA Poitou, GDS 86, Cuma Poitou, Vienne Agrobio, presse locale 86) côtoient des réseaux régionaux ou nationaux (Chambres, Cuma, SAFER, bio, DRAAF, presse agricole) qui couvrent explicitement la Vienne. Les exemples cyber du champ `exemple_cyber` sont des cas agricoles documentés et vérifiés en HTTP 200, rattachés au type de source concerné ; ils ne sont pas des incidents constatés sur la source elle-même.
+OBJECTIF : atteint — 35 / 5
