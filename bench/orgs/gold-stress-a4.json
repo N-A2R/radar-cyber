@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-22",
+  "moteur": "gazetteer@4+context-resolution",
+  "jeu": "A4 — fautes internes et gardes anti-bruit, hors du jeu A3",
+  "orgs": [
+    {
+      "id": 1,
+      "name": "CHU de Bordeaux",
+      "kind": "sante",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["CHU de Bordeaux", "Centre Hospitalier Universitaire de Bordeaux", "CHU Bordeaux"]
+    },
+    {
+      "id": 3,
+      "name": "Université de Poitiers",
+      "kind": "enseignement",
+      "city": "Poitiers",
+      "dept": "86",
+      "aliases": ["Université de Poitiers"]
+    },
+    {
+      "id": 4,
+      "name": "Université de Limoges",
+      "kind": "enseignement",
+      "city": "Limoges",
+      "dept": "87",
+      "aliases": ["Université de Limoges"]
+    },
+    {
+      "id": 6,
+      "name": "CHU de Poitiers",
+      "kind": "sante",
+      "city": "Poitiers",
+      "dept": "86",
+      "aliases": ["CHU de Poitiers", "Centre Hospitalier Universitaire de Poitiers"]
+    },
+    {
+      "id": 18,
+      "name": "Dassault Aviation",
+      "kind": "entreprise",
+      "city": "Mérignac",
+      "dept": "33",
+      "aliases": ["Dassault Aviation"]
+    },
+    {
+      "id": 19,
+      "name": "Thales Avionique",
+      "kind": "entreprise",
+      "city": "Mérignac",
+      "dept": "33",
+      "aliases": ["Thales Avionique"]
+    },
+    {
+      "id": 20,
+      "name": "Safran Helicopter Engines",
+      "kind": "entreprise",
+      "city": "Bordes",
+      "dept": "64",
+      "aliases": ["Safran Helicopter Engines"]
+    },
+    {
+      "id": 21,
+      "name": "Cofinoga",
+      "kind": "entreprise",
+      "city": "Niort",
+      "dept": "79",
+      "aliases": ["Cofinoga"]
+    },
+    {
+      "id": 37,
+      "name": "Orange Nouvelle-Aquitaine",
+      "kind": "operateur",
+      "city": "Bordeaux",
+      "dept": "33",
+      "aliases": ["Orange Nouvelle-Aquitaine"]
+    }
+  ],
+  "cases": [
+    {
+      "id": "a4-01",
+      "text": "L'université de Poiteirs signale une fuite de données",
+      "expect": 3,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-02",
+      "text": "L'univeristé de Poitiers confirme une intrusion",
+      "expect": 3,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-03",
+      "text": "Le CHU de Bordaeux confirme une cyberattaque",
+      "expect": 1,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-04",
+      "text": "Dassault Aviaiton victime d'une exfiltration",
+      "expect": 18,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-05",
+      "text": "Thales Avioniqe touché par une panne",
+      "expect": 19,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-06",
+      "text": "Cofinooga signalée dans une fuite",
+      "expect": 21,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-07",
+      "text": "Safran Helicopeter Engines signale une attaque",
+      "expect": 20,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-08",
+      "text": "L'université de Limogees signale un incident",
+      "expect": 4,
+      "category": "typo-interne"
+    },
+    {
+      "id": "a4-09",
+      "text": "Le CHU de Bordelais confirme une attaque",
+      "expect": null,
+      "category": "negatif"
+    },
+    {
+      "id": "a4-10",
+      "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional",
+      "expect": null,
+      "category": "negatif"
+    },
+    {
+      "id": "a4-11",
+      "text": "Dassault Avions signale une fuite",
+      "expect": null,
+      "category": "negatif"
+    },
+    {
+      "id": "a4-12",
+      "text": "Thales Avionique sponsorise un salon",
+      "expect": null,
+      "category": "negatif"
+    }
+  ]
+}

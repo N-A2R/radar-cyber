@@ -1,0 +1,386 @@
+{
+  "date": "2026-11-22",
+  "secteur": "bâtiment",
+  "departement": "64",
+  "sources": 21,
+  "corpus": "bench/corpus/sources-batiment-64.jsonl",
+  "urls_verifiees": 48,
+  "urls_200": 48,
+  "anomalies": [],
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
+  "detail": {
+    "corpus:batiment-64-01-caue-64-conseil-d-architecture-d-urbanisme-et-d-environnement-des-pyrenees-atlantiques": {
+      "urls": {
+        "https://www.caue64.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue64.fr/",
+          "octets": 88434
+        },
+        "https://www.caue64.fr/accueil/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue64.fr/",
+          "octets": 88434
+        }
+      }
+    },
+    "corpus:batiment-64-02-cci-pau-bearn-chambre-de-commerce-et-d-industrie": {
+      "urls": {
+        "https://pau.cci.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://pau.cci.fr/",
+          "octets": 407943
+        },
+        "https://pau.cci.fr/?post_type=post": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://pau.cci.fr/?post_type=post",
+          "octets": 199055
+        },
+        "https://pau.cci.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://pau.cci.fr/feed/",
+          "octets": 69687
+        }
+      }
+    },
+    "corpus:batiment-64-03-cma-nouvelle-aquitaine-actualites-des-artisans-des-pyrenees-atlantiques-64": {
+      "urls": {
+        "https://www.cma64.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "octets": 324235
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Pyr%C3%A9n%C3%A9es-Atlantiques": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Pyr%C3%A9n%C3%A9es-Atlantiques",
+          "octets": 280486
+        }
+      }
+    },
+    "corpus:batiment-64-04-societe-com-annuaire-des-entreprises-recherche-pyrenees-atlantiques-64": {
+      "urls": {
+        "https://www.societe.com/": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.societe.com/",
+          "octets": 67552
+        },
+        "https://www.societe.com/recherche?departement=64": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.societe.com/recherche?departement=64",
+          "octets": 10298
+        }
+      }
+    },
+    "corpus:batiment-64-05-actu-fr-actu-pyrenees-atlantiques-64": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/pyrenees-atlantiques_64/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/pyrenees-atlantiques_64",
+          "octets": 330262
+        },
+        "https://actu.fr/nouvelle-aquitaine/pyrenees-atlantiques_64/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/pyrenees-atlantiques_64/rss.xml",
+          "octets": 1453
+        }
+      }
+    },
+    "corpus:batiment-64-06-ici-pyrenees-atlantiques-64-actualites-de-radio-france": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64",
+          "octets": 300033
+        }
+      }
+    },
+    "corpus:batiment-64-07-france-3-nouvelle-aquitaine-edition-pyrenees-atlantiques": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques",
+          "octets": 633586
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques/rss",
+          "octets": 80869
+        }
+      }
+    },
+    "corpus:batiment-64-08-capeb-federation-nationale-des-artisans-du-batiment": {
+      "urls": {
+        "https://www.capeb.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/",
+          "octets": 55547
+        },
+        "https://www.capeb.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/actualites",
+          "octets": 48545
+        }
+      }
+    },
+    "corpus:batiment-64-09-qualibat-certification-et-annuaire-des-entreprises-du-batiment": {
+      "urls": {
+        "https://www.qualibat.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/",
+          "octets": 147636
+        },
+        "https://www.qualibat.com/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/actualites",
+          "octets": 99350
+        }
+      }
+    },
+    "corpus:batiment-64-10-artisanat-fr-magazine-d-actualites-de-l-artisanat-cma": {
+      "urls": {
+        "https://www.artisanat.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artisanat.fr/",
+          "octets": 118288
+        },
+        "https://www.artisanat.fr/magazine/actus": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artisanat.fr/magazine/actus",
+          "octets": 140397
+        }
+      }
+    },
+    "corpus:batiment-64-11-odeys-cluster-de-la-construction-et-de-l-amenagement-durables-nouvelle-aquitaine": {
+      "urls": {
+        "https://www.odeys.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/",
+          "octets": 77524
+        },
+        "https://www.odeys.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/actualites",
+          "octets": 49055
+        },
+        "https://www.odeys.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.odeys.fr/rss.xml",
+          "octets": 48903
+        }
+      }
+    },
+    "corpus:batiment-64-12-cerc-nouvelle-aquitaine-observatoire-de-la-construction": {
+      "urls": {
+        "https://www.cerc-na.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerc-na.fr/",
+          "octets": 83143
+        },
+        "https://www.cerc-na.fr/category/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerc-na.fr/category/actualites/",
+          "octets": 62105
+        },
+        "https://www.cerc-na.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.cerc-na.fr/feed/",
+          "octets": 18708
+        }
+      }
+    },
+    "corpus:batiment-64-13-bing-actualites-veille-batiment-pyrenees-atlantiques-64": {
+      "urls": {
+        "https://www.bing.com/news": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.bing.com/news",
+          "octets": 451690
+        },
+        "https://www.bing.com/news/search?q=b%C3%A2timent+Pyr%C3%A9n%C3%A9es-Atlantiques&format=rss": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://www.bing.com/news/search?q=b%C3%A2timent+Pyr%C3%A9n%C3%A9es-Atlantiques&format=rss",
+          "octets": 9598
+        }
+      }
+    },
+    "corpus:batiment-64-14-prefecture-des-pyrenees-atlantiques-actualites-habitat-et-urbanisme": {
+      "urls": {
+        "https://www.pyrenees-atlantiques.gouv.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.pyrenees-atlantiques.gouv.fr/",
+          "octets": 134360
+        },
+        "https://www.pyrenees-atlantiques.gouv.fr/Actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.pyrenees-atlantiques.gouv.fr/Actualites",
+          "octets": 100567
+        }
+      }
+    },
+    "corpus:batiment-64-15-ville-de-bayonne-actualites-urbanisme-et-chantiers": {
+      "urls": {
+        "https://www.bayonne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bayonne.fr/",
+          "octets": 139771
+        },
+        "https://www.bayonne.fr/information-transversale/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bayonne.fr/information-transversale/actualites",
+          "octets": 124522
+        }
+      }
+    },
+    "corpus:batiment-64-16-la-depeche-du-midi-edition-pyrenees-atlantiques-64": {
+      "urls": {
+        "https://www.ladepeche.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/",
+          "octets": 463968
+        },
+        "https://www.ladepeche.fr/pyrenees-atlantiques": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/communes/pyrenees-atlantiques,64/",
+          "octets": 188557
+        },
+        "https://www.ladepeche.fr/rss.xml": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/rss.xml",
+          "octets": 134632
+        }
+      }
+    },
+    "corpus:batiment-64-17-mediabask-quotidien-local-du-pays-basque": {
+      "urls": {
+        "https://www.mediabask.eus/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.mediabask.eus/",
+          "octets": 145133
+        },
+        "https://www.mediabask.eus/eu/rss/sections/mediabask.rss": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.mediabask.eus/eu/rss/sections/mediabask.rss",
+          "octets": 47950
+        }
+      }
+    },
+    "corpus:batiment-64-18-ici-pays-basque-actualites-et-renovation": {
+      "urls": {
+        "https://www.ici.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/",
+          "octets": 1006056
+        },
+        "https://www.ici.fr/radio/pays-basque": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/radio/pays-basque",
+          "octets": 416328
+        },
+        "https://www.ici.fr/rss/pays-basque/a-la-une.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/pays-basque/a-la-une.xml",
+          "octets": 38267
+        }
+      }
+    },
+    "corpus:batiment-64-19-ici-bearn-bigorre-actualites-de-pau-et-du-bearn": {
+      "urls": {
+        "https://www.ici.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/",
+          "octets": 1006056
+        },
+        "https://www.ici.fr/radio/bearn": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/radio/bearn",
+          "octets": 422462
+        },
+        "https://www.ici.fr/rss/bearn/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/bearn/rubrique/infos.xml",
+          "octets": 19190
+        }
+      }
+    },
+    "corpus:batiment-64-20-departement-des-pyrenees-atlantiques-le64-fr": {
+      "urls": {
+        "https://www.le64.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.le64.fr/",
+          "octets": 199321
+        },
+        "https://www.le64.fr/lactualite-du-departement": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.le64.fr/lactualite-du-departement",
+          "octets": 96156
+        },
+        "https://le64.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://le64.fr/rss.xml",
+          "octets": 53594
+        }
+      }
+    },
+    "corpus:batiment-64-21-greta-cfa-aquitaine-pole-batiment-travaux-publics-bearn-pays-basque": {
+      "urls": {
+        "https://greta-cfa-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://greta-cfa-aquitaine.fr/",
+          "octets": 168113
+        },
+        "https://greta-cfa-aquitaine.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://greta-cfa-aquitaine.fr/actualites/",
+          "octets": 179493
+        }
+      }
+    }
+  }
+}
