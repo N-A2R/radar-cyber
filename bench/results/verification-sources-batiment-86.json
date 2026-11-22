@@ -1,0 +1,655 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-86.jsonl",
+  "secteur": "bâtiment",
+  "departement": "86",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 26,
+  "urls_verifiees": 73,
+  "urls_200": 73,
+  "anomalies": [],
+  "detail": {
+    "corpus:capeb-vienne-section-departementale-du-batiment-86": {
+      "urls": {
+        "https://www.capeb.fr/vienne/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/vienne/",
+          "octets": 62443,
+          "ms": 510
+        },
+        "https://www.capeb.fr/vienne/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/vienne/actualites",
+          "octets": 49021,
+          "ms": 385
+        },
+        "https://news.google.com/rss/search?q=CAPEB+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=CAPEB+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 15601,
+          "ms": 65
+        }
+      },
+      "nom": "CAPEB Vienne — section départementale du bâtiment (86)"
+    },
+    "corpus:cma-nouvelle-aquitaine-cma-de-la-vienne-86": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-vienne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-vienne",
+          "octets": 205339,
+          "ms": 109
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "octets": 280274,
+          "ms": 184
+        },
+        "https://news.google.com/rss/search?q=artisans+Vienne+b%C3%A2timent+cyber&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=artisans+Vienne+b%C3%A2timent+cyber&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 2563,
+          "ms": 53
+        }
+      },
+      "nom": "CMA Nouvelle-Aquitaine — CMA de la Vienne (86)"
+    },
+    "corpus:cma-formation-centre-de-saint-benoit-86": {
+      "urls": {
+        "https://formation.cma-nouvelleaquitaine.fr/nos-centres-de-formation/saint-benoit": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://formation.cma-nouvelleaquitaine.fr/nos-centres-de-formation/saint-benoit",
+          "octets": 142981,
+          "ms": 135
+        },
+        "https://formation.cma-nouvelleaquitaine.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://formation.cma-nouvelleaquitaine.fr/actualites",
+          "octets": 180085,
+          "ms": 151
+        },
+        "https://news.google.com/rss/search?q=CMA+Formation+Saint-Benoit+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=CMA+Formation+Saint-Benoit+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 14537,
+          "ms": 62
+        }
+      },
+      "nom": "CMA Formation — centre de Saint-Benoît (86)"
+    },
+    "corpus:btp-cfa-vienne-centre-de-formation-des-apprentis-du-batiment": {
+      "urls": {
+        "https://www.btpcfa-poitou-charentes.fr/btp-cfa/nos-centres/btp-cfa-vienne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.btpcfa-poitou-charentes.fr/btp-cfa/nos-centres/btp-cfa-vienne/",
+          "octets": 77944,
+          "ms": 145
+        },
+        "https://www.btpcfa-poitou-charentes.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.btpcfa-poitou-charentes.fr/actualites/",
+          "octets": 75468,
+          "ms": 138
+        },
+        "https://news.google.com/rss/search?q=BTP+CFA+Vienne+86&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=BTP+CFA+Vienne+86&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 14344,
+          "ms": 62
+        }
+      },
+      "nom": "BTP CFA Vienne — centre de formation des apprentis du bâtiment"
+    },
+    "corpus:coop-bat-en-vienne-cooperative-d-entrepreneurs-du-batiment-liguge": {
+      "urls": {
+        "https://www.coopetbat.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coopetbat.fr/",
+          "octets": 129654,
+          "ms": 6719
+        },
+        "https://www.coopetbat.fr/category/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coopetbat.fr/category/actualites/",
+          "octets": 91391,
+          "ms": 1019
+        },
+        "https://www.coopetbat.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.coopetbat.fr/feed/",
+          "octets": 152487,
+          "ms": 1328
+        }
+      },
+      "nom": "Coop&Bat en Vienne — coopérative d'entrepreneurs du bâtiment (Ligugé)"
+    },
+    "corpus:odeys-cluster-de-la-construction-et-de-l-amenagement-durables-poitiers": {
+      "urls": {
+        "https://www.odeys.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/",
+          "octets": 77524,
+          "ms": 448
+        },
+        "https://www.odeys.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/actualites",
+          "octets": 49055,
+          "ms": 242
+        },
+        "https://www.odeys.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.odeys.fr/rss.xml",
+          "octets": 48903,
+          "ms": 144
+        }
+      },
+      "nom": "Odéys — cluster de la construction et de l'aménagement durables (Poitiers)"
+    },
+    "corpus:pro-rge-entreprises-rge-de-la-vienne-86": {
+      "urls": {
+        "https://pro-rge.fr/entreprise/d/86/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprise/d/86/",
+          "octets": 262281,
+          "ms": 495
+        },
+        "https://pro-rge.fr/entreprises/vienne-86/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprises/vienne-86/",
+          "octets": 382841,
+          "ms": 651
+        },
+        "https://news.google.com/rss/search?q=RGE+Vienne+86+r%C3%A9novation&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=RGE+Vienne+86+r%C3%A9novation&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 2377,
+          "ms": 57
+        }
+      },
+      "nom": "Pro-RGE — entreprises RGE de la Vienne (86)"
+    },
+    "corpus:qualibat-certification-et-annuaire-des-entreprises-du-batiment": {
+      "urls": {
+        "https://www.qualibat.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/",
+          "octets": 147636,
+          "ms": 236
+        },
+        "https://www.qualibat.com/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/actualites",
+          "octets": 99350,
+          "ms": 220
+        },
+        "https://news.google.com/rss/search?q=Qualibat+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Qualibat+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 3746,
+          "ms": 61
+        }
+      },
+      "nom": "Qualibat — certification et annuaire des entreprises du bâtiment"
+    },
+    "corpus:caue-86-conseil-d-architecture-d-urbanisme-et-de-l-environnement": {
+      "urls": {
+        "https://www.caue86.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.caue86.fr/",
+          "octets": 29905,
+          "ms": 334
+        },
+        "https://www.caue86.fr/index.php/actus": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.caue86.fr/index.php/actus",
+          "octets": 23891,
+          "ms": 299
+        },
+        "https://www.caue86.fr/index.php?format=feed&type=rss": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.caue86.fr/index.php?format=feed&type=rss",
+          "octets": 641,
+          "ms": 226
+        }
+      },
+      "nom": "CAUE 86 — conseil d'architecture, d'urbanisme et de l'environnement"
+    },
+    "corpus:maison-de-l-architecture-de-poitiers-86": {
+      "urls": {
+        "https://ma-poitiers.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://ma-poitiers.fr/",
+          "octets": 353920,
+          "ms": 279
+        },
+        "https://ma-poitiers.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://ma-poitiers.fr/actualites/",
+          "octets": 323191,
+          "ms": 177
+        },
+        "https://ma-poitiers.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://ma-poitiers.fr/feed/",
+          "octets": 272372,
+          "ms": 160
+        }
+      },
+      "nom": "Maison de l'Architecture de Poitiers (86)"
+    },
+    "corpus:habitat-de-la-vienne-office-public-de-l-habitat": {
+      "urls": {
+        "https://habitatdelavienne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://habitatdelavienne.fr/",
+          "octets": 205657,
+          "ms": 191
+        },
+        "https://habitatdelavienne.fr/actualites-informations/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://habitatdelavienne.fr/actualites-informations/",
+          "octets": 102809,
+          "ms": 180
+        },
+        "https://news.google.com/rss/search?q=Habitat+de+la+Vienne+logement+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Habitat+de+la+Vienne+logement+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 30519,
+          "ms": 251
+        }
+      },
+      "nom": "Habitat de la Vienne — office public de l'habitat"
+    },
+    "corpus:ddt-86-direction-departementale-des-territoires-de-la-vienne": {
+      "urls": {
+        "https://www.vienne.gouv.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vienne.gouv.fr/",
+          "octets": 112978,
+          "ms": 965
+        },
+        "https://www.vienne.gouv.fr/Actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vienne.gouv.fr/Actualites",
+          "octets": 87920,
+          "ms": 317
+        },
+        "https://news.google.com/rss/search?q=DDT+86+Vienne+logement+construction&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=DDT+86+Vienne+logement+construction&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 2685,
+          "ms": 195
+        }
+      },
+      "nom": "DDT 86 — direction départementale des territoires de la Vienne"
+    },
+    "corpus:grand-poitiers-communaute-urbaine-actualites-urbanisme-et-habitat": {
+      "urls": {
+        "https://www.grandpoitiers.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.grandpoitiers.fr/",
+          "octets": 301846,
+          "ms": 575
+        },
+        "https://www.grandpoitiers.fr/information-transversale/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.grandpoitiers.fr/information-transversale/actualites",
+          "octets": 156493,
+          "ms": 453
+        },
+        "https://www.grandpoitiers.fr/information-transversale/actualites/rss": {
+          "code": 200,
+          "type": "text/xml;charset=utf-8",
+          "url_finale": "https://www.grandpoitiers.fr/information-transversale/actualites/rss",
+          "octets": 164842,
+          "ms": 1943
+        }
+      },
+      "nom": "Grand Poitiers Communauté urbaine — actualités urbanisme et habitat"
+    },
+    "corpus:ville-de-poitiers-actualites-urbanisme-et-travaux": {
+      "urls": {
+        "https://www.poitiers.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.poitiers.fr/",
+          "octets": 280157,
+          "ms": 177
+        },
+        "https://www.poitiers.fr/les-actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.poitiers.fr/les-actualites",
+          "octets": 281868,
+          "ms": 158
+        },
+        "https://www.poitiers.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.poitiers.fr/rss.xml",
+          "octets": 17541,
+          "ms": 95
+        }
+      },
+      "nom": "Ville de Poitiers — actualités urbanisme et travaux"
+    },
+    "corpus:departement-de-la-vienne-fil-d-infos-logement-et-batiment": {
+      "urls": {
+        "https://www.lavienne86.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lavienne86.fr/",
+          "octets": 337326,
+          "ms": 327
+        },
+        "https://www.lavienne86.fr/fil-infos/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lavienne86.fr/fil-infos/actualites",
+          "octets": 251477,
+          "ms": 322
+        },
+        "https://news.google.com/rss/search?q=Vienne+86+logement+habitat+construction&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Vienne+86+logement+habitat+construction&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 14451,
+          "ms": 230
+        }
+      },
+      "nom": "Département de la Vienne — fil d'infos (logement et bâtiment)"
+    },
+    "corpus:cci-de-la-vienne-poitiers-actualites-des-entreprises": {
+      "urls": {
+        "https://www.poitiers.cci.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.poitiers.cci.fr/",
+          "octets": 147898,
+          "ms": 411
+        },
+        "https://www.poitiers.cci.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.poitiers.cci.fr/actualites/",
+          "octets": 121286,
+          "ms": 402
+        },
+        "https://www.poitiers.cci.fr/actualites/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.poitiers.cci.fr/actualites/feed/",
+          "octets": 67920,
+          "ms": 332
+        }
+      },
+      "nom": "CCI de la Vienne (Poitiers) — actualités des entreprises"
+    },
+    "corpus:medef-vienne-actualites-de-l-entreprise": {
+      "urls": {
+        "https://www.medef-vienne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.medef-vienne.fr/",
+          "octets": 124135,
+          "ms": 542
+        },
+        "https://www.medef-vienne.fr/actualite-de-lentreprise/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.medef-vienne.fr/actualite-de-lentreprise/",
+          "octets": 86106,
+          "ms": 496
+        },
+        "https://www.medef-vienne.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.medef-vienne.fr/feed/",
+          "octets": 51895,
+          "ms": 428
+        }
+      },
+      "nom": "MEDEF Vienne — actualités de l'entreprise"
+    },
+    "corpus:la-nouvelle-republique-edition-vienne-86-flux-rss": {
+      "urls": {
+        "https://www.lanouvellerepublique.fr/vienne": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/vienne",
+          "octets": 1609459,
+          "ms": 288
+        },
+        "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+          "octets": 36047,
+          "ms": 361
+        }
+      },
+      "nom": "La Nouvelle République — édition Vienne (86, flux RSS)"
+    },
+    "corpus:actu-fr-actu-vienne-86": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/vienne_86/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/vienne_86",
+          "octets": 327011,
+          "ms": 173
+        },
+        "https://news.google.com/rss/search?q=actu.fr+Vienne+chantier+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=actu.fr+Vienne+chantier+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 53014,
+          "ms": 74
+        }
+      },
+      "nom": "actu.fr — Actu Vienne (86)"
+    },
+    "corpus:ici-poitou-rubrique-btp-et-actualites-de-la-vienne-86": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/vienne-86": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+          "octets": 287002,
+          "ms": 158
+        },
+        "https://www.ici.fr/theme/btp": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/theme/btp",
+          "octets": 260342,
+          "ms": 144
+        },
+        "https://www.ici.fr/rss/poitou/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+          "octets": 19233,
+          "ms": 316
+        }
+      },
+      "nom": "ICI Poitou — rubrique BTP et actualités de la Vienne (86)"
+    },
+    "corpus:placeco-actualites-economiques-de-la-vienne-86": {
+      "urls": {
+        "https://www.placeco.fr/vienne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.placeco.fr/vienne/",
+          "octets": 151518,
+          "ms": 647
+        },
+        "https://news.google.com/rss/search?q=Plac%C3%A9co+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Plac%C3%A9co+Vienne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 4551,
+          "ms": 58
+        }
+      },
+      "nom": "Placéco — actualités économiques de la Vienne (86)"
+    },
+    "corpus:google-actualites-veille-batiment-vienne-86": {
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://news.google.com/home?ucbcb=1&hl=en-US&gl=US&ceid=US:en",
+          "octets": 1675970,
+          "ms": 375
+        },
+        "https://news.google.com/rss/search?q=b%C3%A2timent+Vienne+86&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=b%C3%A2timent+Vienne+86&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 50302,
+          "ms": 76
+        }
+      },
+      "nom": "Google Actualités — veille bâtiment Vienne (86)"
+    },
+    "corpus:france-3-nouvelle-aquitaine-edition-vienne-86": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+          "octets": 612600,
+          "ms": 151
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+          "octets": 76293,
+          "ms": 120
+        }
+      },
+      "nom": "France 3 Nouvelle-Aquitaine — édition Vienne (86)"
+    },
+    "corpus:acpresse-rubrique-vienne-86-presse-professionnelle-de-la-construction": {
+      "urls": {
+        "https://www.acpresse.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.acpresse.fr/",
+          "octets": 616038,
+          "ms": 170
+        },
+        "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/vienne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/vienne/",
+          "octets": 348378,
+          "ms": 136
+        },
+        "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/vienne/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.acpresse.fr/category/territoires/nouvelle-aquitaine/vienne/feed/",
+          "octets": 6819,
+          "ms": 297
+        }
+      },
+      "nom": "ACPresse — rubrique Vienne (86), presse professionnelle de la construction"
+    },
+    "corpus:le7-info-rubrique-urbanisme-poitiers-86": {
+      "urls": {
+        "https://www.le7.info/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.le7.info/",
+          "octets": 51932,
+          "ms": 1441
+        },
+        "https://www.le7.info/tag/14-urbanisme": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.le7.info/tag/14-urbanisme",
+          "octets": 81828,
+          "ms": 697
+        },
+        "https://news.google.com/rss/search?q=Le7.info+urbanisme+Poitiers&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Le7.info+urbanisme+Poitiers&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 11959,
+          "ms": 214
+        }
+      },
+      "nom": "Le7.info — rubrique urbanisme (Poitiers, 86)"
+    },
+    "corpus:entreprises-en-vienne-revue-economique-du-medef-86": {
+      "urls": {
+        "https://entreprisesenvienne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://entreprisesenvienne.fr/",
+          "octets": 47023,
+          "ms": 102
+        },
+        "https://entreprisesenvienne.fr/categories/actus-locales": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://entreprisesenvienne.fr/categories/actus-locales",
+          "octets": 23735,
+          "ms": 68
+        },
+        "https://news.google.com/rss/search?q=Entreprises+en+Vienne+BTP+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Entreprises+en+Vienne+BTP+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 26175,
+          "ms": 256
+        }
+      },
+      "nom": "Entreprises en Vienne — revue économique du MEDEF 86"
+    }
+  }
+}

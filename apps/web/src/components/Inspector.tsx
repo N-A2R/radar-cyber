@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { InspectorProps } from "../contracts";
 import { api, type EventEnrichment, type Org } from "../api";
 import { renduRattachement } from "./rattachement-view";
+import CustodyPanel from "./CustodyPanel";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./inspector.css";
 
@@ -223,6 +224,8 @@ function EventDetail({ data, onClose }: { data: EventEnrichment; onClose: () => 
           </p>
         )}
       </section>
+
+      <CustodyPanel subject={event.dedup_key} />
 
       {hasValue(event.summary) && (
         <section className="inspector__section">
