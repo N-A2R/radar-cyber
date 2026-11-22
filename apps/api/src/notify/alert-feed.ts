@@ -5,10 +5,11 @@
  * que mettre en forme, la sélection et la rédaction vivent ici.
  *
  * Même règle de confidentialité que le canal d'événements : une alerte assise
- * sur un événement TLP:RED n'est pas poussée. Le titre d'une alerte peut
- * contenir le nom d'une organisation victime.
+ * sur un événement non public n'est pas poussée. Le titre d'une alerte peut
+ * contenir un indicateur restreint ou le nom d'une organisation victime.
  */
 import { query } from "../db.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 export type LiveAlert = {
 	id: number;
@@ -31,7 +32,7 @@ export async function selectNewAlerts(sinceId: number, limit = 100): Promise<Liv
 		   FROM alert a
 		   LEFT JOIN event e ON e.id = a.event_id
 		  WHERE a.id > $1
-		    AND (e.tlp IS NULL OR e.tlp <> 'RED')
+		    AND ${evenementPublicSql("e")}
 		  ORDER BY a.id
 		  LIMIT $2`,
 		[sinceId, limit],
