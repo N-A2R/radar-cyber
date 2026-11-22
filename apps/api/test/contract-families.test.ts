@@ -17,11 +17,11 @@ import { FAMILIES } from "@radar/shared";
 import { classifyFamily, isFamily, type Family } from "../src/collectors/classify.js";
 
 test("le contrat connaît les familles du catalogue et de migrate-019", () => {
-	for (const family of ["leaks", "paste", "presse_cyber"]) {
+	for (const family of ["leaks", "paste", "presse_cyber", "presse_locale"]) {
 		assert.ok(FAMILIES.includes(family as Family), `${family} doit être au contrat`);
 		assert.equal(isFamily(family), true);
 	}
-	assert.equal(FAMILIES.length, 13);
+	assert.equal(FAMILIES.length, 14);
 	assert.equal(isFamily("nimportequoi"), false);
 });
 
@@ -46,6 +46,16 @@ test("une famille inconnue reste refusée par isFamily", () => {
 	for (const bad of ["leak", "pastes", "darkweb", "", "LEAKS"]) {
 		assert.equal(isFamily(bad), false, `${bad} ne doit pas passer`);
 	}
+});
+
+test("presse_locale traverse la porte : la provenance départementale est le signal", () => {
+	const got = classifyFamily({
+		title: "Le marché de Noël ouvre ce samedi",
+		summary: null,
+		sourceFamily: "presse_locale",
+		sourceName: "Sud Ouest — Charente (RSS)",
+	});
+	assert.equal(got, "presse_locale");
 });
 
 test("ransomware et cert_fr traversent la porte sans être reclassés", () => {

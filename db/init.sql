@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS event (
   source_url     text,
   evidence       jsonb NOT NULL DEFAULT '{}'::jsonb,
   geo_type       text NOT NULL DEFAULT 'unknown', -- entity_location | hosting_estimate | claimed_origin | unknown
+  dept           text,                         -- code INSEE du département éditeur (presse_locale)
   lat            double precision,
   lon            double precision,
   org_id         integer REFERENCES org(id) ON DELETE SET NULL,

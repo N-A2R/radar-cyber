@@ -25,6 +25,11 @@ export const FAMILIES = [
   "leaks",
   "paste",
   "presse_cyber",
+  // Veille de la presse locale départementale : un titre de presse locale est
+  // un signal ambiant par sa provenance, pas parce que son texte parle cyber.
+  // Cette famille est alimentée par les sources `presse_locale` dont le
+  // département est vérifié ; elle ne sert jamais à requalifier un incident.
+  "presse_locale",
 ] as const;
 
 /** Nature de l'assertion — jamais fusionnée avec la confiance. */

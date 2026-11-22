@@ -84,6 +84,8 @@ const PRIORITE_FAMILLE: Readonly<Record<string, number>> = {
   phishing: 1,
   presse: 2,
   presse_cyber: 2,
+  // Veille large : elle ne doit pas retarder les familles d'incident.
+  presse_locale: 3,
   reputation: 2,
   leaks: 2,
   paste: 3,

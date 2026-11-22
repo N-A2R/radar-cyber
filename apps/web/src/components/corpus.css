@@ -201,6 +201,7 @@
 .corpus__bar-segment[data-family="cti"] { background: var(--family-cti); }
 .corpus__bar-segment[data-family="presse"] { background: var(--family-presse); }
 .corpus__bar-segment[data-family="presse_cyber"] { background: var(--data-teal); }
+.corpus__bar-segment[data-family="presse_locale"] { background: var(--data-green); }
 .corpus__bar-segment[data-family="warninglist"] { background: var(--data-steel); }
 .corpus__bar-segment[data-family="leaks"] { background: var(--sev-5); }
 .corpus__bar-segment[data-family="paste"] { background: var(--sev-2); }
@@ -245,6 +246,7 @@
 .corpus__swatch[data-family="cti"] { background: var(--family-cti); }
 .corpus__swatch[data-family="presse"] { background: var(--family-presse); }
 .corpus__swatch[data-family="presse_cyber"] { background: var(--data-teal); }
+.corpus__swatch[data-family="presse_locale"] { background: var(--data-green); }
 .corpus__swatch[data-family="warninglist"] { background: var(--data-steel); }
 .corpus__swatch[data-family="leaks"] { background: var(--sev-5); }
 .corpus__swatch[data-family="paste"] { background: var(--sev-2); }

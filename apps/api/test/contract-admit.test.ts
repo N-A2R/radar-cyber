@@ -39,7 +39,8 @@ test("famille hors contrat : rejet, jamais de passe-plat", () => {
 test("les familles élargies passent l'admission", () => {
 	// Arbitrage utilisateur : leaks, paste et presse_cyber entrent au contrat.
 	// Les 8 sources actives qui les déclarent ne doivent pas être réduites au silence.
-	for (const family of ["leaks", "paste", "presse_cyber"]) {
+	// `presse_locale` porte la veille départementale : même exigence.
+	for (const family of ["leaks", "paste", "presse_cyber", "presse_locale"]) {
 		const result = admitEvent({ ...valid, family });
 		assert.equal(result.ok, true, `${family} doit être admis`);
 		if (result.ok) assert.equal(result.event.family, family);
