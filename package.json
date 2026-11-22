@@ -46,7 +46,8 @@
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
-    "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts"
+    "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts",
+    "measure:sector-mode-f1": "apps/api/node_modules/.bin/tsx scripts/measure-sector-mode-f1.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"

@@ -1,0 +1,131 @@
+{
+  "metric": "macro-F1 averaged over the sector and mode axes",
+  "macroF1": 0.9938,
+  "weightedF1": 0.9911,
+  "exactMatch": 0.9821,
+  "sector": {
+    "precision": 1,
+    "recall": 1,
+    "f1": 1,
+    "support": 56,
+    "perClass": {
+      "agro-food": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 4
+      },
+      "commerce": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 2
+      },
+      "construction": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 2
+      },
+      "education": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 4
+      },
+      "health": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 6
+      },
+      "industry": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 1
+      },
+      "other": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 5
+      },
+      "public": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 21
+      },
+      "services": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 11
+      }
+    },
+    "weightedF1": 1,
+    "microF1": 1
+  },
+  "mode": {
+    "precision": 0.9821,
+    "recall": 0.9821,
+    "f1": 0.9875,
+    "support": 56,
+    "perClass": {
+      "compromise": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 14
+      },
+      "data-leak": {
+        "precision": 0.9231,
+        "recall": 1,
+        "f1": 0.96,
+        "support": 12
+      },
+      "defacement": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 1
+      },
+      "fraud": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 5
+      },
+      "phishing": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 10
+      },
+      "ransomware": {
+        "precision": 1,
+        "recall": 0.9091,
+        "f1": 0.9524,
+        "support": 11
+      },
+      "service-disruption": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "support": 3
+      }
+    },
+    "weightedF1": 0.9821,
+    "microF1": 0.9821
+  },
+  "goldCases": 56,
+  "labelFingerprint": "d8bfd341682254ea",
+  "database": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26259,
+    "regionalEvents": 71
+  },
+  "measuredAt": "2026-11-22T02:30:22.375Z"
+}
