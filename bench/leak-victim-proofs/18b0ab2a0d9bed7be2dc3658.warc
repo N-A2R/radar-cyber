@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:39802138-bf82-46e0-a04d-d66570d57622>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 133
+WARC-Block-Digest: sha1:STKLJ4RQ7M3AI77UZQANVTWCOREXCEDF
+X-Claim-Fingerprint: d2603fdc9487741b8fbc5410
+X-Victim-Key: 18b0ab2a0d9bed7be2dc3658
+
+{
+        "post_title": "MCP Services LLC",
+        "group_name": "sabbath",
+        "discovered": "2021-11-22 22:41:09.998609"
+    }
+

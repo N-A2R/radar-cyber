@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:308765b3-d617-411a-a7c7-63b2f7f02d02>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 665
+WARC-Block-Digest: sha1:2WMO3WUQXUMBCJHXQCLD2BOKDZBTRMDI
+X-Claim-Fingerprint: 43622645a5c6ea5049ab2fec
+X-Victim-Key: 5379a120d1eeb285b3e394c2
+
+{"post_title": "Media Consulting", "discovered": "2026-05-05 16:13:09.701761", "description": "mconweb.it zoominfo.com/c/media-consulting-srl/372633129 Media Consulting is an Italian web agency based in Cesena that designs and develops custom responsive websites. They offer a full range of digital services including Social Media Marketing, Web Marketing (Google Ads, Email Marketing, Analytics), and graphic design. The agency also provides web marketing training for teams and assists businesses in accessing public funding grants", "link": null, "magnet": null, "screen": null, "misp_uuid": "0bcc5b92-abbc-55ff-acfe-a7e2b543325d", "group_name": "the gentlemen"}
+
