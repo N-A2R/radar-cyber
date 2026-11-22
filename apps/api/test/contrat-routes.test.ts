@@ -41,6 +41,7 @@ import quarantineRoute from "../src/routes/quarantine.js";
 import reviewRoute from "../src/routes/review.js";
 import searchRoute from "../src/routes/search.js";
 import sourcesRoute from "../src/routes/sources.js";
+import { reglePour } from "../src/security/rbac.js";
 import statsRoute from "../src/routes/stats.js";
 import todayRoute from "../src/routes/today.js";
 
@@ -261,6 +262,15 @@ for (const [path, schema] of Object.entries(SCHEMAS)) {
     await verifierContrat(path, schema);
   });
 }
+
+test("chaque route du contrat est déclarée dans la matrice d'accès", () => {
+  // Sans cette assertion, une route peut répondre au handler et renvoyer 404
+  // en production : `installAccessControl` refuse toute route absente de la
+  // matrice. C'est le sens routes → matrice, complémentaire de
+  // `securite-couverture.test.ts`.
+  const manquantes = Object.keys(SCHEMAS).filter((path) => reglePour("GET", path) === null);
+  assert.deepEqual(manquantes, [], `routes hors matrice : ${manquantes.join(", ")}`);
+});
 
 test("le contrat couvre au moins 15 routes GET", () => {
   assert.ok(Object.keys(SCHEMAS).length >= 15);
