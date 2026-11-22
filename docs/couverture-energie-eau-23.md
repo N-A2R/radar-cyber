@@ -55,3 +55,4 @@ presse locale), identification des pages d'actualités et des flux, puis contrô
 GET de chaque URL avec User-Agent navigateur et suivi des redirections, délai
 22 s, comptage des items pour les flux. Le détail des 47 contrôles figure dans
 le rapport de vérification.
+OBJECTIF : atteint — 18 / 5
