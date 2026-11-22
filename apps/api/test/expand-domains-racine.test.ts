@@ -2,6 +2,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+	excludeAttributedCandidates,
+	labelsFromReport,
 	labelMatches,
 	provenanceForRacine,
 	rootTokens,
@@ -63,6 +65,26 @@ describe("expand domains by domain root", () => {
 		assert.equal(labelMatches("SMICTOM DU PERIGORD NOIR", "Smictom d'Alsace Centrale"), false);
 		assert.equal(labelMatches("Collège Joseph Kessel", "Kessel GmbH"), false);
 		assert.equal(labelMatches("BARRAULT (THOUARS)", null), false);
+	});
+
+	it("does not reuse a candidate already attributed by a verified-domain route", () => {
+		const other = { ...candidate, qid: "Q456", url: "https://www.autre.fr/" };
+		const remaining = excludeAttributedCandidates(
+			[
+				{ candidate, organisation: org, domain: "barrault.fr" },
+				{ candidate: other, organisation: { ...org, id: 8 }, domain: "autre.fr" },
+			],
+			new Set(["Q123"]),
+		);
+		assert.deepEqual(remaining.map((entry) => entry.candidate.qid), ["Q456"]);
+	});
+
+	it("reuses labels recorded by a previous dry run", () => {
+		const labels = labelsFromReport({
+			domains: [{ qid: "Q123", label: "Barrault" }, { qid: "Q456", label: "" }],
+		});
+		assert.equal(labels.get("Q123"), "Barrault");
+		assert.equal(labels.size, 1);
 	});
 
 	it("records the root-match route in traceable provenance", () => {

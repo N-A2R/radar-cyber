@@ -8,7 +8,7 @@
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
  *     apps/api/node_modules/.bin/tsx scripts/expand-domains-racine.mts \
  *       --candidates=bench/domain-candidates/wikidata-siren-sites.tsv \
- *       --limit=300 [--concurrency=48] [--apply]
+ *       --limit=300 [--concurrency=48] [--labels-from=rapport.json] [--apply]
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
@@ -95,6 +95,14 @@ export function selectByRootToken(
 	return selected;
 }
 
+/** A candidate already used by a verified-domain route cannot be attributed again. */
+export function excludeAttributedCandidates(
+	selections: Selection[],
+	attributedQids: ReadonlySet<string>,
+): Selection[] {
+	return selections.filter((selection) => !attributedQids.has(selection.candidate.qid));
+}
+
 /** Provenance keeps the root-match route distinct from the SIREN route. */
 export function provenanceForRacine(selection: Selection, verdict: Verdict, token: string, label: string) {
 	return {
@@ -156,6 +164,15 @@ export async function fetchLabels(qids: string[]): Promise<Map<string, string>> 
 	return labels;
 }
 
+/** Reuses labels recorded by a dry run when the Wikidata API is rate-limited. */
+export function labelsFromReport(report: { domains?: Array<{ qid: string; label: string }> }): Map<string, string> {
+	const labels = new Map<string, string>();
+	for (const domain of report.domains ?? []) {
+		if (domain.qid && domain.label) labels.set(domain.qid, domain.label);
+	}
+	return labels;
+}
+
 /** Reads only Nouvelle-Aquitaine organisations whose name shares a candidate token. */
 async function organisationsByToken(tokens: string[]): Promise<Map<string, Organisation[]>> {
 	if (!tokens.length) return new Map();
@@ -180,6 +197,18 @@ async function organisationsByToken(tokens: string[]): Promise<Map<string, Organ
 	return grouped;
 }
 
+/** QIDs already carrying a verified domain, read from public provenance only. */
+async function attributedQids(): Promise<Set<string>> {
+	const { rows } = await query<{ qid: string }>(`
+		SELECT DISTINCT preuve->>'qid' AS qid
+		FROM org_enrichissement
+		WHERE champ = 'domaine'
+		  AND source IN ('wikidata:P856:http200', 'wikidata:P856:racine:http200')
+		  AND preuve->>'qid' IS NOT NULL
+	`);
+	return new Set(rows.map((row) => row.qid));
+}
+
 function option(name: string, fallback: string): string {
 	const prefix = `--${name}=`;
 	return process.argv.slice(2).find((arg) => arg.startsWith(prefix))?.slice(prefix.length) ?? fallback;
@@ -196,8 +225,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 		.filter((candidate): candidate is Candidate => candidate !== null);
 	const before = await measure();
 	const tokens = [...new Set(candidates.flatMap((candidate) => rootTokens(candidate.url)))];
-	const selected = selectByRootToken(candidates, await organisationsByToken(tokens)).slice(0, limit);
-	const labels = await fetchLabels([...new Set(selected.map((selection) => selection.candidate.qid))]);
+	const selected = excludeAttributedCandidates(
+		selectByRootToken(candidates, await organisationsByToken(tokens)), await attributedQids(),
+	).slice(0, limit);
+	const labelsPath = option("labels-from", "");
+	const labels = labelsPath
+		? labelsFromReport(JSON.parse(await readFile(labelsPath, "utf8")) as { domains?: Array<{ qid: string; label: string }> })
+		: await fetchLabels([...new Set(selected.map((selection) => selection.candidate.qid))]);
 	const confirmed = selected.filter((selection) =>
 		labelMatches(selection.organisation.name, labels.get(selection.candidate.qid)));
 	const verdicts = await withConcurrency(confirmed, concurrency, async (selection) => {
