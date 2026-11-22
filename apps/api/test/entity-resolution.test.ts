@@ -85,3 +85,45 @@ test("an alias shared by two organizations stays ambiguous", () => {
 	assert.equal(match.org, null);
 	assert.equal(match.reason, "ambigu");
 });
+
+test("an internal swap in a later token recovers the organization", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'université de Poiteirs signale une fuite").org?.id, 3);
+});
+
+test("an internal swap in the first token recovers the organization", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'univeristé de Poitiers confirme une intrusion").org?.id, 3);
+});
+
+test("an internal extra letter recovers the organization", () => {
+	const gaz = buildGazetteer([row(21, "Cofinoga")]);
+	assert.equal(resoudre(gaz, "Cofinooga signalée dans une fuite").org?.id, 21);
+});
+
+test("a near miss on a different name stays unattributed", () => {
+	const gaz = buildGazetteer([row(1, "CHU de Bordeaux", { kind: "sante" })]);
+	const match = resoudre(gaz, "Le CHU de Bordelais confirme une attaque");
+	assert.equal(match.org, null);
+	assert.equal(match.reason, "aucun");
+});
+
+test("a long alias with one internal typo recovers the organization", () => {
+	const gaz = buildGazetteer([row(1, "Centre Hospitalier Universitaire de Bordeaux", { kind: "sante" })]);
+	assert.equal(resoudre(gaz, "Centre Hospitalier Universitaire de Bordeuax confirme une fuite").org?.id, 1);
+});
+
+test("two distinct token typos in one mention recover the organization", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'univeristé de Poiteirs signale une fuite").org?.id, 3);
+});
+
+test("a long near miss on a different name stays unattributed", () => {
+	const gaz = buildGazetteer([row(1, "Centre Hospitalier Universitaire de Bordeaux", { kind: "sante" })]);
+	assert.equal(resoudre(gaz, "Centre Hospitalier Universitaire de Bordelais confirme une fuite").org, null);
+});
+
+test("two near misses on a different name stay unattributed", () => {
+	const gaz = buildGazetteer([row(3, "Université de Poitiers", { kind: "enseignement" })]);
+	assert.equal(resoudre(gaz, "L'univeristé de Bordelais signale une fuite").org, null);
+});
