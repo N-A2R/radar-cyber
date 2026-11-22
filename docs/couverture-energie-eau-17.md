@@ -34,3 +34,4 @@ Le champ `exemple_cyber` du corpus s'appuie sur des événements réels et véri
 ## Méthode
 
 Recherche web (annuaires consulaires, annuaires professionnels, sites officiels, fédérations et presse locale via DuckDuckGo/Google Actualités), identification des pages d'actualités et des flux, puis contrôle GET de chaque URL avec User-Agent navigateur et suivi des redirections (25 s maximum). Seules les sources dont toutes les URLs ont répondu 200 ont été intégrées au corpus et à la base.
+OBJECTIF : atteint — 10 / 5
