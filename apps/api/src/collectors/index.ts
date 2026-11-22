@@ -163,6 +163,7 @@ export async function planifierCycle(options: {
 	force?: boolean;
 	maintenant?: number;
 	log?: (msg: string) => void;
+	intervalles?: Readonly<Record<string, number>>;
 } = {}): Promise<PlanCycle> {
 	const maintenant = options.maintenant ?? Date.now();
 	const candidats = collectors.filter((c) => !options.onlyId || c.id === options.onlyId);
@@ -179,7 +180,7 @@ export async function planifierCycle(options: {
 	for (let i = 0; i < candidats.length; i++) {
 		const collecteur = candidats[i] as Collector;
 		const sante = etats[i] ?? null;
-		const decision = doitCollecter(sante, collecteur.intervalSec, { force: options.force }, maintenant);
+		const decision = doitCollecter(sante, options.intervalles?.[collecteur.id] ?? collecteur.intervalSec, { force: options.force }, maintenant);
 		if (!decision.collecter) {
 			sautees.push(decision);
 			continue;

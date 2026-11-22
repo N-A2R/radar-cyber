@@ -1054,13 +1054,13 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
   return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, pertinenceConfig: RelevanceConfig, force = false): Promise<void> {
+async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, pertinenceConfig: RelevanceConfig, force = false, intervalles: Readonly<Record<string, number>> = {}): Promise<void> {
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
   const lastAttempt = source.last_error_at ? Date.parse(source.last_error_at) : NaN;
   const reference = Number.isNaN(lastOk) ? lastAttempt : lastOk;
-  const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
+  const minInterval = (intervalles[source.id] ?? source.interval_sec ?? 3600) * 1000 * 0.8;
   if (!force && !Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
   // Le run est ouvert après la lecture du corps mais avant toute écriture
@@ -1143,7 +1143,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
 
 export async function runGenericSources(
 	log: (msg: string) => void,
-	opts?: { sourceIds?: string[]; limit?: number; force?: boolean },
+	opts?: { sourceIds?: string[]; limit?: number; force?: boolean; intervalles?: Readonly<Record<string, number>> },
 ): Promise<void> {
 	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
@@ -1194,7 +1194,7 @@ export async function runGenericSources(
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source, orgIndex, coverage, pertinenceConfig, opts?.force === true);
+      await processSource(source, orgIndex, coverage, pertinenceConfig, opts?.force === true, opts?.intervalles);
     }
   });
   await Promise.all(workers);

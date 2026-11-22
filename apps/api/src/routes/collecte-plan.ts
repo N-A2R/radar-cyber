@@ -8,7 +8,9 @@
  */
 import type { FastifyInstance } from "fastify";
 import { chargerPlanCycle } from "../collectors/plan.js";
+import { query } from "../db.js";
+import { chargerCadencesValeur } from "../collectors/valeur-plan.js";
 
 export default async function (app: FastifyInstance): Promise<void> {
-  app.get("/collecte/plan", async () => chargerPlanCycle());
+  app.get("/collecte/plan", async () => chargerPlanCycle(query, await chargerCadencesValeur()));
 }
