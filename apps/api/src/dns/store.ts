@@ -15,6 +15,7 @@ import {
 	measurementState,
 	normalizeDomain,
 	type DnsChange,
+	type DnsChangeKind,
 	type DnsProvider,
 	type DnsProviderCategory,
 	type DnsSnapshot,
@@ -193,6 +194,52 @@ export async function marquerEchec(domain: string, erreur: string): Promise<void
 	);
 }
 
+/**
+ * Libellé persisté d'un changement. La comparaison parle en familles internes
+ * (`ip`, `mx`, `ns`) ; le signal de détection parle en type d'enregistrement
+ * DNS (`A`, `MX`, `NS`). La traduction vit ici, à la frontière d'écriture, pour
+ * qu'un seul endroit décide du vocabulaire stocké.
+ */
+export function kindEnregistre(kind: DnsChangeKind): string {
+	if (kind === "ip") return "A";
+	if (kind === "mx") return "MX";
+	if (kind === "ns") return "NS";
+	return kind;
+}
+
+async function insererChangements(
+	domain: string,
+	previousSnapshotId: number | null,
+	currentSnapshotId: number,
+	changes: readonly DnsChange[],
+	detectedAt: string,
+	ignoreDoublons: boolean,
+): Promise<number> {
+	let ecrits = 0;
+	for (const change of changes) {
+		const r = await ingestQuery(
+			`INSERT INTO dns_change
+			   (domain, previous_snapshot_id, current_snapshot_id, detected_at,
+			    kind, severity, summary, before, after)
+			 VALUES ($1, $2, $3, $4::timestamptz, $5, $6, $7, $8::jsonb, $9::jsonb)
+			 ${ignoreDoublons ? "ON CONFLICT (previous_snapshot_id, current_snapshot_id, kind) DO NOTHING" : ""}`,
+			[
+				domain,
+				previousSnapshotId,
+				currentSnapshotId,
+				detectedAt,
+				kindEnregistre(change.kind),
+				change.severity,
+				change.summary,
+				JSON.stringify(change.before),
+				JSON.stringify(change.after),
+			],
+		);
+		ecrits += Number(r.rowCount ?? 0);
+	}
+	return ecrits;
+}
+
 export async function enregistrerChangements(
 	domain: string,
 	previousSnapshotId: number | null,
@@ -200,26 +247,47 @@ export async function enregistrerChangements(
 	changes: readonly DnsChange[],
 	detectedAt: string,
 ): Promise<number> {
-	for (const change of changes) {
-		await ingestQuery(
-			`INSERT INTO dns_change
-			   (domain, previous_snapshot_id, current_snapshot_id, detected_at,
-			    kind, severity, summary, before, after)
-			 VALUES ($1, $2, $3, $4::timestamptz, $5, $6, $7, $8::jsonb, $9::jsonb)`,
-			[
-				domain,
-				previousSnapshotId,
-				currentSnapshotId,
-				detectedAt,
-				change.kind,
-				change.severity,
-				change.summary,
-				JSON.stringify(change.before),
-				JSON.stringify(change.after),
-			],
+	return insererChangements(domain, previousSnapshotId, currentSnapshotId, changes, detectedAt, false);
+}
+
+export interface ChangementConsecutif {
+	domain: string;
+	previousSnapshotId: number;
+	currentSnapshotId: number;
+	detectedAt: string;
+	change: DnsChange;
+}
+
+/** Toutes les observations d'un domaine, dans l'ordre où elles ont eu lieu. */
+export async function snapshotsDuDomaine(domain: string): Promise<SnapshotEnregistre[]> {
+	const r = await query<LigneSnapshot>(
+		`SELECT id, domain, observed_at, a, aaaa, mx, ns, ptr, registrar, errors
+		 FROM dns_snapshot WHERE domain = $1 ORDER BY observed_at, id`,
+		[domain],
+	);
+	return r.rows.map(snapshotDepuisLigne);
+}
+
+/**
+ * Écrit les différences d'une passe rétrospective. L'index unique
+ * (previous_snapshot_id, current_snapshot_id, kind) rend le rejeu inoffensif :
+ * une paire déjà traitée ne produit aucun doublon.
+ */
+export async function enregistrerChangementsConsecutifs(
+	signaux: readonly ChangementConsecutif[],
+): Promise<number> {
+	let ecrits = 0;
+	for (const signal of signaux) {
+		ecrits += await insererChangements(
+			signal.domain,
+			signal.previousSnapshotId,
+			signal.currentSnapshotId,
+			[signal.change],
+			signal.detectedAt,
+			true,
 		);
 	}
-	return changes.length;
+	return ecrits;
 }
 
 export interface StatistiquesDns {
