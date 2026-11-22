@@ -85,6 +85,18 @@ doublons. Splink 5 a une API différente de la v4 documentée en ligne :
 `DuckDBAPI().register(df, table_name=...)` puis `Linker(frame, settings)` — il
 n'y a plus de paramètre `db_api`.
 
+### Rattachement des organisations (gazetteer de production)
+
+```bash
+apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts \
+  --json=bench/results/A3-entity-resolution-c7.json
+```
+
+75 cas annotés, 40 organisations de Nouvelle-Aquitaine, aucune base ni service
+payant. Le rapport donne le rappel, la précision et le F1 globaux, puis le
+détail par secteur et par catégorie. Le jeu est choisi pour couvrir les modes
+d'échec connus, ce n'est pas un tirage aléatoire du flux.
+
 ### A.3 Audit du catalogue de sources
 
 ```bash
