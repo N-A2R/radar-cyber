@@ -92,8 +92,8 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
   const { counts, columns, rows, max, contributingOrgs } = matrix;
   const summary = (
     <p className="gm-summary">
-      <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> departments ·{" "}
-      <b>{rows.length}</b> families
+      <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> départements ·{" "}
+      <b>{rows.length}</b> familles
     </p>
   );
 
@@ -126,7 +126,7 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
     <div className="gm-root">
       {summary}
       <div className="gm-scroll">
-        <table className="gm-table" aria-label="Organisations by family and department">
+        <table className="gm-table" aria-label="Organisations par famille et département">
           <thead>
             <tr>
               <th scope="col" className="gm-corner">
