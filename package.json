@@ -76,7 +76,8 @@
     "collect:na-containers": "apps/api/node_modules/.bin/tsx scripts/collect-public-containers.mts",
     "measure:na-containers": "apps/api/node_modules/.bin/tsx scripts/measure-public-containers.mts",
     "measure:affected": "apps/api/node_modules/.bin/tsx scripts/measure-affected.mts",
-    "verifie:fuite-timeline": "apps/api/node_modules/.bin/tsx scripts/verifie-fuite-timeline.mts"
+    "collecte:exposition-risque": "apps/api/node_modules/.bin/tsx scripts/collecte-exposition-risque.mts",
+    "verifie:exposition-risque": "apps/api/node_modules/.bin/tsx scripts/verifie-exposition-risque.mts"
     "genere:changepoints": "apps/api/node_modules/.bin/tsx scripts/genere-serie-changements-regime.mts",
     "mesure:changepoints": "apps/api/node_modules/.bin/tsx scripts/mesure-changements-regime.mts",
     "verifie:changepoints": "apps/api/node_modules/.bin/tsx scripts/verifie-changements-regime.mts",
