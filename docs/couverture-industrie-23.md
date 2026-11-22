@@ -71,3 +71,4 @@ détaillée est dans `bench/results/verification-industrie-23.json`.
 Corpus : `bench/corpus/sources-industrie-23.jsonl` (23 lignes, empreinte `bench/corpus/HASH`
 recalculée). Base : `db/migrate-081-sources-industrie-23.sql` insère 23 lignes dans
 `source` et 52 traces `source_verification` en état `ok200` (51 URL uniques).
+OBJECTIF : atteint — 23 / 5
