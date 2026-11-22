@@ -26,6 +26,13 @@ export default defineConfig({
       .filter(Boolean),
     proxy: { "/api": process.env.RADAR_API_ORIGIN ?? "http://localhost:8080" },
   },
+  // `vite preview` a son propre bloc : sans lui, un build de recette renvoie
+  // l'index HTML à la place des réponses d'API, et tous les écrans paraissent
+  // vides (0 flux, 0 entrée) alors que le code est bon.
+  preview: {
+    host: "127.0.0.1",
+    proxy: { "/api": process.env.RADAR_API_ORIGIN ?? "http://localhost:8080" },
+  },
   // Réglages lus par vitest uniquement : le build navigateur n'y touche pas.
   test: {
     // `test/offline.spec.ts` est un spec Playwright (voir playwright.config.ts),

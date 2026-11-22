@@ -52,6 +52,7 @@ export const Journal = z.object({ rows: z.array(z.object({}).passthrough()), lim
 export const ReviewQueue = z.object({}).passthrough();
 export const Coverage = z.object({ hashCorpus: z.string(), publiable: z.boolean() }).passthrough();
 export const HealthDetail = z.object({}).passthrough();
+export const HealthSources = z.object({}).passthrough();
 export const Enrichment = z.object({}).passthrough();
 export const Dossier = z.object({}).passthrough();
 export const Stream = z.string();
@@ -71,7 +72,7 @@ export const AuthUser = z.object({ id: z.number().int(), email: z.string(), role
 export const SCHEMAS = {
   ErrorBody, Ok, Health, Event, EventList, EventRows, Org, OrgList, OrgDetail, Directory,
   SourceList, Stats, Flows, Graph, SearchResults, Today, Alerts, Quarantine,
-  Journal, ReviewQueue, Coverage, HealthDetail, Enrichment, Dossier, Stream, Csv,
+  Journal, ReviewQueue, Coverage, HealthDetail, HealthSources, Enrichment, Dossier, Stream, Csv,
   KeyRow, KeyList, KeyCreated, DecisionResult, AuthLogin, AuthUser,
 } as const;
 
