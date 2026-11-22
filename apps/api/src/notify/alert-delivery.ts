@@ -78,6 +78,10 @@ WHERE a.delivered_at IS NULL
   AND a.attempts < $1
   AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
   AND a.scope <> ALL($3::text[])
+  -- Une alerte déjà traitée ne se diffuse jamais : les doublons acquittés par
+  -- la politique de fatigue (db/migrate-201-alert-fatigue.sql) ne doivent pas
+  -- partir sur un canal après coup.
+  AND a.status = 'open'
 ORDER BY a.created_at ASC, a.id ASC
 LIMIT $2`;
 

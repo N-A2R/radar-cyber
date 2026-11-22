@@ -24,6 +24,7 @@ import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
+import { applyAlertFatiguePolicy } from "./maintenance/alert-fatigue.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
@@ -44,6 +45,8 @@ const RETENTION_MS = Number(process.env.RADAR_RETENTION_TICK_MS ?? 24 * 3600 * 1
 const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1000);
 /** Cadence de diffusion des alertes (défaut : 2 min). Aucun effet si non configuré. */
 const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
+/** Cadence de la politique de fatigue (défaut : 1 min, comme la collecte). */
+const ALERT_FATIGUE_MS = Number(process.env.RADAR_ALERT_FATIGUE_TICK_MS ?? 60_000);
 
 const app = Fastify({ logger: true, bodyLimit: 1024 * 1024 });
 installErrorHandler(app);
@@ -443,6 +446,24 @@ void guarded("mesure organisations reliées", mesurerOrgsLiees);
 setInterval(() => {
   void guarded("mesure organisations reliées", mesurerOrgsLiees);
 }, MESURE_ORGS_LIEES_MS);
+
+/**
+ * Fatigue d'alerte : acquitte les doublons (organisation, jour Europe/Paris,
+ * règle) puis republie la charge sur 30 jours glissants. Indépendant des
+ * collecteurs (`RADAR_COLLECT=0`) : la mesure et la déduplication tournent
+ * quand même, et aucun doublon acquitté ne peut partir en diffusion.
+ */
+async function appliquerFatigueAlerte(): Promise<void> {
+  const r = await applyAlertFatiguePolicy();
+  log(
+    `fatigue alerte : ${r.acknowledgedDuplicates} doublon(s) acquitté(s), ` +
+      `${r.dailyRows} organisation(s)-jour(s) mesuré(s)`,
+  );
+}
+void guarded("fatigue alerte", appliquerFatigueAlerte);
+setInterval(() => {
+  void guarded("fatigue alerte", appliquerFatigueAlerte);
+}, ALERT_FATIGUE_MS);
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {
