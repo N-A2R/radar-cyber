@@ -58,3 +58,4 @@ Résultat : **29 sources, 68 URLs toutes en HTTP 200** (dont 17 flux RSS/Atom) c
 - `https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/dordogne/rss` : 200 mais corps HTML, pas un flux — le flux régional `/rss-nouvelle-aquitaine` est retenu.
 
 Limite de périmètre : MEDEF, CPME et UIMM Nouvelle-Aquitaine, Fibois NA, CMA NA et les agrégateurs nationaux couvrent la Dordogne sans être départementaux ; ils complètent les organisations strictement locales (CCI 24, CPME 24, CAPEB 24, Digital Valley, French Tech Périgord, Initiative Périgord, Grand Périgueux, presse périgourdine). Les flux ICI et France 3 sont ceux de la station/rédaction Périgord-Dordogne (pas de flux départemental dédié supplémentaire).
+OBJECTIF : atteint — 29 / 5
