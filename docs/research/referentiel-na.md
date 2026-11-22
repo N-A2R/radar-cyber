@@ -79,6 +79,13 @@ Banc : `bench/referentiel/probe-match.mts`, résultats bruts
 - « La mairie de Mazerolles » → **aucun rattachement, motif `ambiguous`**. C'est
   le comportement voulu : cinq communes portent ce nom.
 
+**Depuis le 2026-11-22**, la même mesure avec le département cité donne
+**4 293/4 293 rattachements corrects, 0 erreur, 0 abstention**, dont
+**247/247 communes homonymes** (`bench/results/NA-homonymes-c7.json`). Le
+cœur de rattachement en ligne (`match/core.ts`) porte désormais le département
+de chaque organisation et ne l'utilise que s'il départage un unique candidat
+à égalité ; sans indice, l'abstention reste la règle.
+
 **Ce que ce banc ne dit pas** : il mesure le rattachement d'une formulation
 synthétique propre, pas le rappel sur de vrais articles. Il ne prouve rien sur
 le bruit de la presse réelle.
@@ -133,9 +140,11 @@ Trois règles de sécurité, chacune couverte par un test en base :
   (FINESS), ni scolaire (UAI). L'objectif « référentiel exhaustif NA » n'est
   **pas atteint** : il manque les personnes morales économiques et sanitaires,
   qui exigent un export ou un jeu officiel.
-- **Homonymes non résolus.** 111 noms communaux restent ambigus sans contexte
-  de département. Le moteur s'abstient ; la résolution demandera soit le
-  contexte géographique du texte, soit une revue humaine.
+- **Homonymes résolus seulement avec un indice explicite (2026-11-22).**
+  Ancien état : 111 noms communaux ambigus sans contexte, le moteur s'abstenait.
+  SUPERSEDED on 2026-11-22 → le département cité dans le texte départage les
+  247 communes concernées (247/247) ; sans département, l'abstention est
+  conservée. Une revue humaine reste nécessaire pour les textes sans indice.
 - **Centroïdes, pas adresses.** Suffisant pour la carte et le tri territorial,
   insuffisant pour de la géolocalisation fine.
 - **Pas de sites web ni de domaines.** Le jeu ne les fournit pas ; ils viendront
@@ -147,3 +156,4 @@ Trois règles de sécurité, chacune couverte par un test en base :
 - `apps/api/test/referentiel-load.test.ts` : **4/4**, en base.
 - Suite API complète : **122/122**.
 - Typecheck API : 0 erreur.
+OBJECTIF : atteint — 247/247 communes homonymes NA désambiguïées / 247 communes homonymes
