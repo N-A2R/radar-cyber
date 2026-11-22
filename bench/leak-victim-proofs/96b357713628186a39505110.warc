@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:b2e64a03-85da-4fc7-a7c8-6259556c325a>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 313
+WARC-Block-Digest: sha1:FN6VPFIDAXP2GSKSZUBT3T7XHKMNWTBB
+X-Claim-Fingerprint: 657c23282ac72af8f5b1f931
+X-Victim-Key: 96b357713628186a39505110
+
+{"post_title": "TERRA.COM", "discovered": "2025-01-24 17:39:19.717229", "description": "", "link": "http://santat7kpllt6iyvqbr7q4amdv6dzrh6paatvyrzl7ry3zm72zigf4ad.onion/terra-com", "magnet": "", "screen": "screenshots/clop/TERRACOM.png", "misp_uuid": "b9d7c5b8-dd75-5f13-8cf9-619c295cc7f5", "group_name": "clop"}
+
