@@ -30,6 +30,11 @@ nohup.out
 coverage/
 out/
 
+# Python (tests hors ligne)
+__pycache__/
+*.pyc
+.pytest_cache/
+
 # Benches : les prédictions du bench B sont régénérables depuis le corpus
 # externe (~2,6 Mo) ; on ne versionne que les scores et les temps mesurés.
 bench/results/B-*.json
