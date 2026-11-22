@@ -1,5 +1,6 @@
 /* Écran de connexion : une plaque posée sur un fond profond, pas un formulaire
-   flottant. Hiérarchie lisible (marque, phrase de contexte, champs, action),
+   flottant. La colonne de gauche porte l'identité du produit (région, carte
+   simplifiée, chiffres réels) ; celle de droite, l'action. Hiérarchie lisible,
    états explicites (vide, envoi, refus) et focus clavier toujours visible.
    Uniquement des jetons de styles.css : aucune couleur en dur. */
 
@@ -11,22 +12,33 @@
   padding: var(--space-6);
   background:
     radial-gradient(1100px 520px at 50% -10%, var(--surface-2), transparent 70%),
+    radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0 / 24px 24px,
     var(--bg);
   color: var(--text);
   font-family: var(--font-body);
 }
 
 .login__form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  gap: var(--space-6);
   width: 100%;
-  max-width: 400px;
-  padding: var(--space-6) var(--space-6) var(--space-5);
+  max-width: 800px;
+  padding: var(--space-6);
   border: 1px solid var(--line-strong);
   border-top: 2px solid var(--accent);
   border-radius: var(--radius);
   background: var(--surface);
+}
+
+/* ── Identité : ce que l'on regarde avant de saisir quoi que ce soit ── */
+.login__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  padding-right: var(--space-6);
+  border-right: 1px solid var(--line);
 }
 
 .login__head {
@@ -55,19 +67,91 @@
 
 .login__title {
   margin: 0;
-  font-size: calc(var(--text-title) * 1.5);
+  font-size: calc(var(--text-title) * 1.6);
   font-weight: var(--weight-semibold);
-  line-height: 1.15;
+  line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--text);
 }
 
 .login__subtitle {
-  max-width: 36ch;
+  max-width: 34ch;
   margin: 0;
   color: var(--muted);
   font-size: var(--text-read);
   line-height: var(--leading-relaxed);
+}
+
+/* Bande de faits : absente du DOM quand l'API ne répond pas — aucun trou. */
+.login__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.login__fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.login__fact dt {
+  min-height: 2.6em;
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-micro) / 1.3 var(--font-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.login__fact dd {
+  margin: 0;
+  color: var(--text);
+  font: var(--weight-semibold) var(--text-title) / 1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.login__fact-of {
+  margin-left: 2px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+}
+
+/* Silhouette des douze départements : elle situe la région, sans prétendre
+   être une carte de données. Décorative, donc absente de l'arbre a11y. */
+.login__map {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.login__map svg {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+}
+
+.login__map path {
+  fill: var(--surface-3);
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ── Action : champs, erreur, bouton ── */
+.login__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+  min-width: 0;
 }
 
 .login__fields {
@@ -213,6 +297,25 @@
   }
 }
 
+@media (max-width: 720px) {
+  .login__form {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 420px;
+    gap: var(--space-5);
+  }
+
+  .login__identity {
+    padding-right: 0;
+    padding-bottom: var(--space-4);
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .login__map {
+    display: none;
+  }
+}
+
 @media (max-width: 420px) {
   .login {
     padding: var(--space-4);
@@ -220,6 +323,10 @@
 
   .login__form {
     padding: var(--space-5) var(--space-4);
+  }
+
+  .login__facts {
+    gap: var(--space-2);
   }
 }
 
