@@ -12,6 +12,7 @@
  */
 import { z } from "zod";
 import { query } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { NA_DEPARTMENTS, isNaDepartment } from "../technical/catalog.js";
 
 /** The two NA departments covered by the original promotion slice. */
@@ -217,42 +218,59 @@ async function promoteClaimsFor(config: PromotionConfig): Promise<{
   let refused = 0;
   let inserted = 0;
   let alreadyPresent = 0;
-  for (const row of rows.rows) {
-    const claim = parseGapClaim({
-      id: row.id,
-      orgId: row.orgId,
-      department: row.department,
-      groupName: row.groupName,
-      publishedAt: new Date(row.published_at).toISOString(),
-      evidenceUrl: row.evidenceUrl,
-      source: row.source,
-    });
-    if (!claim || !isNaDepartment(claim.department)) {
-      refused += 1;
-      continue;
+  // Un run par source, ouvert avant le premier événement qui le cite : la
+  // migration 206 exige que `evidence.run_id` désigne un `collector_run`.
+  const runs = new Map<string, { id: number; inserted: number }>();
+  try {
+    for (const row of rows.rows) {
+      const claim = parseGapClaim({
+        id: row.id,
+        orgId: row.orgId,
+        department: row.department,
+        groupName: row.groupName,
+        publishedAt: new Date(row.published_at).toISOString(),
+        evidenceUrl: row.evidenceUrl,
+        source: row.source,
+      });
+      if (!claim || !isNaDepartment(claim.department)) {
+        refused += 1;
+        continue;
+      }
+      const sourceId = await resolveSourceId(claim);
+      if (!sourceId) {
+        refused += 1;
+        continue;
+      }
+      let run = runs.get(sourceId);
+      if (!run) {
+        run = { id: await openRun(sourceId, "analyst"), inserted: 0 };
+        runs.set(sourceId, run);
+      }
+      const event = buildGapEvent(claim, sourceId, config);
+      const evidence = withRunId(event.evidence, run.id);
+      const result = await query<{ inserted: boolean }>(
+        `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity,
+                            confidence, source_id, source_url, evidence, geo_type, org_id, tlp,
+                            tlp_source, admission_rule, regional, regional_motif)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
+         ON CONFLICT (dedup_key) DO NOTHING
+         RETURNING (xmax = 0) AS inserted`,
+        [
+          event.dedupKey, event.family, event.assertionType, event.title, event.summary,
+          event.observedAt, event.severity, event.confidence, event.sourceId, event.sourceUrl,
+          JSON.stringify(evidence), event.geoType, event.orgId, event.tlp, event.tlpSource,
+          event.admissionRule, event.regional, event.regionalMotif,
+        ],
+      );
+      if (result.rows[0]?.inserted) {
+        inserted += 1;
+        run.inserted += 1;
+      } else alreadyPresent += 1;
     }
-    const sourceId = await resolveSourceId(claim);
-    if (!sourceId) {
-      refused += 1;
-      continue;
+  } finally {
+    for (const run of runs.values()) {
+      await closeRun(run.id, { itemsIn: run.inserted, itemsNew: run.inserted });
     }
-    const event = buildGapEvent(claim, sourceId, config);
-    const result = await query<{ inserted: boolean }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity,
-                          confidence, source_id, source_url, evidence, geo_type, org_id, tlp,
-                          tlp_source, admission_rule, regional, regional_motif)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
-       ON CONFLICT (dedup_key) DO NOTHING
-       RETURNING (xmax = 0) AS inserted`,
-      [
-        event.dedupKey, event.family, event.assertionType, event.title, event.summary,
-        event.observedAt, event.severity, event.confidence, event.sourceId, event.sourceUrl,
-        JSON.stringify(event.evidence), event.geoType, event.orgId, event.tlp, event.tlpSource,
-        event.admissionRule, event.regional, event.regionalMotif,
-      ],
-    );
-    if (result.rows[0]?.inserted) inserted += 1;
-    else alreadyPresent += 1;
   }
   return { scanned: rows.rows.length, refused, inserted, alreadyPresent };
 }

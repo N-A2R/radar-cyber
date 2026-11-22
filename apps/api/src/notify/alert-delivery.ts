@@ -1,4 +1,6 @@
 import { ingestQuery } from "../db.js";
+import { buildNotificationMessage } from "./notification-content.js";
+import { sendSmtpEmail } from "./smtp.js";
 import { buildSignedWebhookHeaders } from "./webhook-signature.js";
 import { ALERT_SCOPES_REVUE } from "../alert-scope.js";
 import { evenementPublicSql } from "../security/tlp.js";
@@ -15,6 +17,14 @@ export interface DeliveryConfig {
   telegramChatId?: string;
   /** Base publique du front pour construire un lien d'alerte (optionnel). */
   webBaseUrl?: string;
+  /** Canal e-mail : un relais SMTP local suffit, aucun fournisseur payant. */
+  emailHost?: string;
+  emailPort?: number;
+  emailFrom?: string;
+  emailTo?: string;
+  emailUser?: string;
+  emailPassword?: string;
+  emailSecure?: boolean;
 }
 
 export interface DeliveryAlert {
@@ -26,7 +36,9 @@ export interface DeliveryAlert {
   attempts: number;
   webhook_delivered_at: Date | string | null;
   telegram_delivered_at: Date | string | null;
+  email_delivered_at: Date | string | null;
   org_name: string | null;
+  org_dept: string | null;
   org_kind: string | null;
   source_name: string | null;
   event_title: string | null;
@@ -39,6 +51,7 @@ export interface DeliveryAlert {
 
 export interface DeliveryMessage {
   alertId: number;
+  subject: string;
   text: string;
   payload: Record<string, unknown>;
 }
@@ -58,12 +71,32 @@ export function readDeliveryConfig(env: NodeJS.ProcessEnv = process.env): Delive
   const telegramBotToken = env.RADAR_ALERT_TELEGRAM_BOT_TOKEN?.trim() || undefined;
   const telegramChatId = env.RADAR_ALERT_TELEGRAM_CHAT_ID?.trim() || undefined;
   const webBaseUrl = env.RADAR_WEB_BASE_URL?.trim().replace(/\/+$/, "") || undefined;
-  return { webhookUrl, webhookSecret, telegramBotToken, telegramChatId, webBaseUrl };
+  const emailHost = env.RADAR_ALERT_EMAIL_HOST?.trim() || undefined;
+  const emailPortRaw = Number(env.RADAR_ALERT_EMAIL_PORT ?? 25);
+  const emailPort = Number.isInteger(emailPortRaw) && emailPortRaw > 0 && emailPortRaw <= 65535 ? emailPortRaw : 25;
+  const emailFrom = env.RADAR_ALERT_EMAIL_FROM?.trim() || undefined;
+  const emailTo = env.RADAR_ALERT_EMAIL_TO?.trim() || undefined;
+  const emailUser = env.RADAR_ALERT_EMAIL_USER?.trim() || undefined;
+  const emailPassword = env.RADAR_ALERT_EMAIL_PASSWORD?.trim() || undefined;
+  const emailSecure = env.RADAR_ALERT_EMAIL_SECURE?.trim().toLowerCase() === "true";
+  return {
+    webhookUrl, webhookSecret, telegramBotToken, telegramChatId, webBaseUrl,
+    emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure,
+  };
+}
+
+/** True quand une destination e-mail et un hôte SMTP sont configurés. */
+export function isEmailConfigured(cfg: DeliveryConfig): boolean {
+  return Boolean(cfg.emailHost && cfg.emailFrom && cfg.emailTo);
 }
 
 /** True si au moins un canal est configuré. */
 export function isDeliveryConfigured(cfg: DeliveryConfig = readDeliveryConfig()): boolean {
-  return Boolean(cfg.webhookUrl || (cfg.telegramBotToken && cfg.telegramChatId));
+  return Boolean(
+    cfg.webhookUrl ||
+    (cfg.telegramBotToken && cfg.telegramChatId) ||
+    isEmailConfigured(cfg),
+  );
 }
 
 const SELECT_PENDING = `
@@ -76,7 +109,9 @@ SELECT
   a.attempts,
   a.webhook_delivered_at,
   a.telegram_delivered_at,
+  (to_jsonb(a) ->> 'email_delivered_at')::timestamptz AS email_delivered_at,
   o.name AS org_name,
+  o.dept AS org_dept,
   o.kind AS org_kind,
   s.name AS source_name,
   e.title AS event_title,
@@ -99,11 +134,6 @@ LIMIT $2`;
 export async function fetchPendingAlerts(limit = BATCH_LIMIT): Promise<DeliveryAlert[]> {
   const r = await ingestQuery<DeliveryAlert>(SELECT_PENDING, [MAX_ATTEMPTS, limit, [...ALERT_SCOPES_REVUE]]);
   return r.rows;
-}
-
-function severityLabel(severity: number): string {
-  const labels: Record<number, string> = { 1: "info", 2: "faible", 3: "moyenne", 4: "élevée", 5: "critique" };
-  return labels[severity] ?? String(severity);
 }
 
 function fmtDate(value: Date | string): string {
@@ -134,23 +164,13 @@ function orientationDiffusee(alert: DeliveryAlert): OrientationDiffusee | null {
   };
 }
 
-/** Construit un message lisible et une charge JSON pour un canal webhook. */
+/** Construit un message lisible et une charge JSON pour un canal externe. */
 export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig = readDeliveryConfig()): DeliveryMessage {
-  const org = alert.org_name?.trim() || "organisation inconnue";
-  const source = alert.source_name?.trim() || "source inconnue";
-  const date = fmtDate(alert.created_at);
-  const eventTitle = alert.event_title?.trim() || alert.title?.trim() || "Alerte";
-  const link = alert.source_url?.trim() || (cfg.webBaseUrl ? `${cfg.webBaseUrl}/alerts/${alert.id}` : "");
+  // Le contenu de base ne lit que des champs structurés et assainit les
+  // libellés : un titre d'alerte ou d'événement peut nommer une victime.
+  const base = buildNotificationMessage(alert, cfg.webBaseUrl);
   const orientation = orientationDiffusee(alert);
-
-  const lines = [
-    `[Radar Cyber] Alerte #${alert.id} — sévérité ${alert.severity} (${severityLabel(alert.severity)})`,
-    `Titre : ${eventTitle}`,
-    `Organisation : ${org}`,
-    `Source : ${source}`,
-    `Date : ${date}`,
-  ];
-  if (link) lines.push(`Lien : ${link}`);
+  const lines = [base.text];
   if (orientation) {
     lines.push("", "Réflexe collectivité — 17Cyber (dispositif national) :");
     orientation.actions.forEach((action, i) => lines.push(`${i + 1}) ${action}`));
@@ -159,23 +179,11 @@ export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig =
   }
 
   const payload = {
-    type: "radar.alert",
-    alert: {
-      id: alert.id,
-      title: alert.title,
-      event_title: alert.event_title,
-      severity: alert.severity,
-      status: alert.status,
-      organization: alert.org_name,
-      source: alert.source_name,
-      date,
-      link: link || null,
-      attempts: alert.attempts,
-      orientation,
-    },
+    ...base.payload,
+    alert: { ...(base.payload.alert as Record<string, unknown>), orientation },
   };
 
-  return { alertId: alert.id, text: lines.join("\n"), payload };
+  return { alertId: base.alertId, subject: base.subject, text: lines.join("\n"), payload };
 }
 
 async function sendWebhook(url: string, payload: Record<string, unknown>, secret: string): Promise<void> {
@@ -231,8 +239,16 @@ async function markDelivered(id: number): Promise<void> {
   );
 }
 
-async function markChannelDelivered(id: number, channel: "webhook" | "telegram"): Promise<void> {
-  const column = channel === "webhook" ? "webhook_delivered_at" : "telegram_delivered_at";
+async function markChannelDelivered(
+  id: number,
+  channel: "webhook" | "telegram" | "email",
+): Promise<void> {
+  const column =
+    channel === "webhook"
+      ? "webhook_delivered_at"
+      : channel === "telegram"
+        ? "telegram_delivered_at"
+        : "email_delivered_at";
   await ingestQuery(
     `UPDATE alert SET ${column} = now(), updated_at = now() WHERE id = $1`,
     [id],
@@ -280,6 +296,7 @@ export async function deliverPendingAlerts(
     try {
       let webhookOk = Boolean(alert.webhook_delivered_at);
       let telegramOk = Boolean(alert.telegram_delivered_at);
+      let emailOk = Boolean(alert.email_delivered_at);
       if (cfg.webhookUrl && !cfg.webhookSecret) {
         throw new Error("signing secret is not configured");
       }
@@ -293,9 +310,27 @@ export async function deliverPendingAlerts(
         telegramOk = true;
         await markChannelDelivered(alert.id, "telegram");
       }
+      if (isEmailConfigured(cfg) && !emailOk) {
+        await sendSmtpEmail(
+          {
+            host: cfg.emailHost as string,
+            port: cfg.emailPort ?? 25,
+            from: cfg.emailFrom as string,
+            to: cfg.emailTo as string,
+            user: cfg.emailUser,
+            password: cfg.emailPassword,
+            secure: cfg.emailSecure,
+          },
+          msg.subject,
+          msg.text,
+        );
+        emailOk = true;
+        await markChannelDelivered(alert.id, "email");
+      }
       const allOk =
         (cfg.webhookUrl ? webhookOk : true) &&
-        (cfg.telegramBotToken && cfg.telegramChatId ? telegramOk : true);
+        (cfg.telegramBotToken && cfg.telegramChatId ? telegramOk : true) &&
+        (isEmailConfigured(cfg) ? emailOk : true);
       if (allOk) {
         await markDelivered(alert.id);
         result.delivered++;

@@ -31,8 +31,10 @@ function jour(offset: number): Date {
 	return new Date(Date.now() + offset * 24 * 3600 * 1000);
 }
 
-const INSERT_EVENT = `INSERT INTO event (dedup_key, family, assertion_type, title, at, source_id)
-	 VALUES ($1,'vuln','confirmed_incident',$2,$3,$4)`;
+const INSERT_EVENT = `INSERT INTO event (dedup_key, family, assertion_type, title, at, source_id,
+	                                    source_url, evidence)
+	 VALUES ($1,'vuln','confirmed_incident',$2,$3,$4,
+	         'https://example.invalid/premier-rapport', '{"run_id":"1"}'::jsonb)`;
 
 async function prepareSources(): Promise<void> {
 	for (const id of SOURCES) {

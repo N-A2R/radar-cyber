@@ -49,9 +49,11 @@ async function makeFixture(options: {
   const orgId = Number(org.rows[0]?.id);
   const eventKey = `${key}-event`;
   const event = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, tlp, regional)
-     VALUES ($1,'cti','confirmed_incident',$2,4,'ransomlook',$3,$4,true) RETURNING id`,
-    [eventKey, options.title ?? `Incident ${key}`, orgId, options.tlp ?? "AMBER"],
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, tlp, regional,
+                        source_url, evidence)
+     VALUES ($1,'cti','confirmed_incident',$2,4,'ransomlook',$3,$4,true,
+             'https://example.invalid/notification', '{"run_id":"1"}'::jsonb) RETURNING id`,
+    [eventKey, options.title ?? `Incident ${key}`, orgId, options.tlp ?? "CLEAR"],
   );
   const eventId = Number(event.rows[0]?.id);
   const alert = await query<{ id: number }>(

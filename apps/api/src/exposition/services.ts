@@ -169,14 +169,14 @@ export async function enregistrerServices(orgId: number, services: ServiceExpose
 	for (const s of services) {
 		await ingestQuery(
 			`INSERT INTO exposition_service
-			 (org_id, ip, port, category, service, technology, version, source, source_url, consulted_at, evidence)
-			 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb)
+			 (org_id, ip, port, category, service, technology, version, source, source_url, consulted_at, first_seen_at, evidence)
+			 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb)
 			 ON CONFLICT (org_id, ip, port, source) DO UPDATE SET
 			   category = EXCLUDED.category, service = EXCLUDED.service,
 			   technology = EXCLUDED.technology, version = EXCLUDED.version,
 			   source_url = EXCLUDED.source_url, consulted_at = EXCLUDED.consulted_at,
 			   evidence = EXCLUDED.evidence`,
-			[orgId, s.ip, s.port, s.category, s.service, s.technology, s.version, s.source, s.sourceUrl, s.consultedAt, JSON.stringify(s.evidence)],
+			[orgId, s.ip, s.port, s.category, s.service, s.technology, s.version, s.source, s.sourceUrl, s.consultedAt, s.consultedAt, JSON.stringify(s.evidence)],
 		);
 		ecrit++;
 	}

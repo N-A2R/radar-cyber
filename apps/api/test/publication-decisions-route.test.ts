@@ -45,12 +45,12 @@ before(async () => {
      RETURNING id`,
     [
       `${TAG}:1`, `Incident confidentiel ${TAG}`, claimAt, SOURCES[0], `https://${SOURCES[0]}.example.invalid/v`, orgId,
-      JSON.stringify({ group: "testgroup", org_hint: `${TAG}.fr`, claimed_at: claimAt }),
+      JSON.stringify({ group: "testgroup", org_hint: `${TAG}.fr`, claimed_at: claimAt, run_id: "1" }),
       `${TAG}:2`, SOURCES[1], `https://${SOURCES[1]}.example.invalid/v`,
       `${TAG}:3`, `Incident ancien ${TAG}`, OLD_CLAIM,
-      JSON.stringify({ group: "testgroup", org_hint: `${TAG}old.fr`, claimed_at: OLD_CLAIM }),
+      JSON.stringify({ group: "testgroup", org_hint: `${TAG}old.fr`, claimed_at: OLD_CLAIM, run_id: "1" }),
       `${TAG}:4`, `Incident recent ${TAG}`, claimAt,
-      JSON.stringify({ group: "testgroup", org_hint: `${TAG}recent.fr`, claimed_at: claimAt }),
+      JSON.stringify({ group: "testgroup", org_hint: `${TAG}recent.fr`, claimed_at: claimAt, run_id: "1" }),
     ],
   );
   eventIds = inserted.rows.map((row) => Number(row.id));

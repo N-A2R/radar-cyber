@@ -61,8 +61,10 @@ before(async () => {
 		[SLUG_PREFIX, ORGS],
 	);
 	await query(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at)
-		 VALUES ($1, 'ransomware', 'confirmed_incident', 'Incident de test attestation', $2, $3)
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at,
+		                    source_url, evidence)
+		 VALUES ($1, 'ransomware', 'confirmed_incident', 'Incident de test attestation', $2, $3,
+		         'https://example.invalid/attestation', '{"run_id":"1"}'::jsonb)
 		 ON CONFLICT (dedup_key) DO NOTHING`,
 		[`${TAG}-event`, SOURCE_IDS[0], "2020-01-15T12:00:00.000Z"],
 	);

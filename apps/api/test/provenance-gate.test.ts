@@ -168,8 +168,9 @@ test("the measured ledger carries no victim title or journal summary", async () 
       [sourceId, `Source ${tag}`, PROOF_URL]);
     await query(
       `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, collected_at,
-                          source_id, source_url, regional, regional_motif)
-       VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,$6,true,'nouvelle-aquitaine')`,
+                          source_id, source_url, regional, regional_motif, evidence)
+       VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,$6,true,'nouvelle-aquitaine',
+               '{"run_id":"1"}'::jsonb)`,
       [subject, secret, OBSERVED, OBSERVED, sourceId, PROOF_URL],
     );
     const outputPath = join(dir, "ledger.json");

@@ -78,9 +78,11 @@ async function install(): Promise<void> {
   ] as const) {
     await query(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id,
-                          severity, observed_at, collected_at, source_id, tlp, regional)
+                          severity, observed_at, collected_at, source_id, tlp, regional,
+                          source_url, evidence)
        VALUES ($1, 'ransomware', 'third_party_claim', $2, $3, $4, 4,
-               '2026-11-20T10:00:00Z', '2026-11-20T12:00:00Z', $5, 'CLEAR', true)
+               '2026-11-20T10:00:00Z', '2026-11-20T12:00:00Z', $5, 'CLEAR', true,
+               'https://example.invalid/org-report', '{"run_id":"1"}'::jsonb)
        ON CONFLICT (dedup_key) DO NOTHING`,
       [`${PREFIX}-event-${suffix}`, `Victime ${PERSONAL_NAME}`, `Contact ${PERSONAL_NAME} au 06...`, orgId, source],
     );

@@ -13,14 +13,14 @@ import { closePools, query, withIngestTransaction } from "../src/db.js";
 const MODEL = `test_calibration_${Date.now().toString(36)}_${randomBytes(3).toString("hex")}`;
 
 after(async () => {
-	await query("DELETE FROM model_eval WHERE model = $1", [MODEL]);
+	await query("DELETE FROM model_eval_legacy WHERE model = $1", [MODEL]);
 	await closePools().catch(() => {});
 });
 
 test("la migration fournit la table et ses contraintes", async () => {
 	const columns = await query<{ column_name: string }>(
 		`SELECT column_name FROM information_schema.columns
-		  WHERE table_schema = 'public' AND table_name = 'model_eval' ORDER BY ordinal_position`,
+		  WHERE table_schema = 'public' AND table_name = 'model_eval_legacy' ORDER BY ordinal_position`,
 	);
 	for (const name of ["model", "brier", "ece", "sample_count", "bin_count", "min_bin_count"]) {
 		assert.ok(columns.rows.some((row) => row.column_name === name), `colonne ${name} absente`);
@@ -36,7 +36,7 @@ test("la migration fournit la table et ses contraintes", async () => {
 test("une mesure est lisible par le SELECT du critère avec 10 bins peuplés", async () => {
 	await withIngestTransaction(async (client) => {
 		await client.query(
-			`INSERT INTO model_eval
+			`INSERT INTO model_eval_legacy
 			   (model, brier, ece, sample_count, bin_count, min_bin_count, horizon_days,
 			    reference_date, method, report_path)
 			 VALUES ($1, 0.041, 0.015, 120, 10, 12, 90, '2026-11-22', 'test', 'test.json')`,
@@ -54,7 +54,7 @@ test("une mesure est lisible par le SELECT du critère avec 10 bins peuplés", a
 	});
 
 	const measured = await query<{ brier: number; ece: number }>(
-		"SELECT brier, ece FROM model_eval WHERE model = $1",
+		"SELECT brier, ece FROM model_eval_legacy WHERE model = $1",
 		[MODEL],
 	);
 	assert.equal(measured.rows.length, 1);
