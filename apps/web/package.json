@@ -32,7 +32,8 @@
     "test:journal": "vite build --ssr test/journal-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/journal-verif.js",
     "test:droit-reponse": "vite build --ssr test/droit-reponse-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/droit-reponse-verif.js",
     "test:etats-vides": "vite build --ssr test/etats-vides-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/etats-vides-verif.js",
-    "test:press-only": "vite build --ssr test/press-only-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/press-only-verif.js"
+    "test:press-only": "vite build --ssr test/press-only-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/press-only-verif.js",
+    "test:unconfirmed-claims": "vite build --ssr test/unconfirmed-claims-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/unconfirmed-claims-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

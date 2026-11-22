@@ -99,6 +99,9 @@ function publishers(incident: CorpusIncident): string[] {
   ].filter((name): name is string => typeof name === "string" && name.trim().length > 0);
 }
 
+/** Shared evidence list for the claim detector; never derived from prose. */
+export const corpusPublishers = publishers;
+
 /** A press-only incident: `rapporte`, inside NA, with press/grey evidence and no official publisher. */
 export function isPressOnly(incident: CorpusIncident): boolean {
   if (incident.confiance !== "rapporte") return false;

@@ -371,6 +371,24 @@ export type PressOnlySummary = {
   }[];
 };
 
+/** Privacy-safe projection of GET /api/unconfirmed-claims/incidents. */
+export type UnconfirmedClaimsSummary = {
+  scope: "Nouvelle-Aquitaine";
+  definition: "declare";
+  corpusTotal: number;
+  count: number;
+  withGreySource: number;
+  byDepartment: { department: string; count: number }[];
+  byPublisherKind: { press: number; grey: number; unknown: number };
+  incidents: {
+    id: string;
+    department: string;
+    publicationDate: string | null;
+    publisherKind: "press" | "grey" | "official" | "unknown";
+    incidentType: string | null;
+  }[];
+};
+
 /** Nature d'un nœud du graphe relationnel (GET /api/graph). */
 export type GraphNodeKind =
   | "org"
@@ -1121,6 +1139,8 @@ export const api = {
   corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
   /** Press-only incidents: governed by the same versioned corpus, without victim data. */
   pressOnly: (signal?: AbortSignal) => get<PressOnlySummary>("/press-only/incidents", signal),
+  /** Unconfirmed claims: the corpus `declare` class, without victim data. */
+  unconfirmedClaims: (signal?: AbortSignal) => get<UnconfirmedClaimsSummary>("/unconfirmed-claims/incidents", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),

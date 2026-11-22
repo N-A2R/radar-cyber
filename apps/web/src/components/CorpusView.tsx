@@ -4,7 +4,7 @@
  * viennent de `GET /api/corpus/stats`, une seule requête, aucune donnée
  * simulée côté navigateur. Chaque chiffre est accompagné de sa définition.
  */
-import type { CorpusDepartment, CorpusIncident, CorpusStats, PressOnlySummary } from "../api";
+import type { CorpusDepartment, CorpusIncident, CorpusStats, PressOnlySummary, UnconfirmedClaimsSummary } from "../api";
 import "./corpus.css";
 
 export type CorpusViewProps = {
@@ -14,6 +14,9 @@ export type CorpusViewProps = {
   pressOnly?: PressOnlySummary | null;
   pressOnlyLoading?: boolean;
   pressOnlyError?: string | null;
+  unconfirmedClaims?: UnconfirmedClaimsSummary | null;
+  unconfirmedClaimsLoading?: boolean;
+  unconfirmedClaimsError?: string | null;
 };
 
 /** Libellés anglais des familles présentes dans `source.family`. */
@@ -264,6 +267,40 @@ function pressOnlyPanel(summary: PressOnlySummary) {
   );
 }
 
+function unconfirmedClaimsPanel(summary: UnconfirmedClaimsSummary) {
+  return (
+    <section className="corpus__panel corpus__press-only" aria-labelledby="corpus-unconfirmed-claims-title">
+      <div className="corpus__panel-head">
+        <h2 id="corpus-unconfirmed-claims-title">Unconfirmed claims</h2>
+        <span className="corpus__panel-meta">{summary.scope}</span>
+      </div>
+      <p className="press-only__count">{formatCount(summary.count)}</p>
+      <p className="corpus__growth-caption">
+        of {formatCount(summary.corpusTotal)} corpus incidents are attacker claims
+      </p>
+      <p className="corpus__note">
+        An attacker claim, not confirmed by the victim or an authority in the cited evidence.
+        Grey public publishers are claim leads only, never confirmation.
+      </p>
+      <ul className="press-only__list">
+        {summary.incidents.map((incident) => (
+          <li className="press-only__item" key={incident.id}>
+            <code>{incident.id}</code>
+            {" · department "}
+            {incident.department}
+            {" · "}
+            {incident.publicationDate ?? "date unknown"}
+            {" · "}
+            {incident.publisherKind}
+            {" · "}
+            {incident.incidentType ?? "type unknown"}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export default function CorpusView({
   data,
   loading = false,
@@ -271,6 +308,9 @@ export default function CorpusView({
   pressOnly = null,
   pressOnlyLoading = false,
   pressOnlyError = null,
+  unconfirmedClaims = null,
+  unconfirmedClaimsLoading = false,
+  unconfirmedClaimsError = null,
 }: CorpusViewProps) {
   return (
     <div className="corpus">
@@ -327,6 +367,18 @@ export default function CorpusView({
             ) : null
           ) : (
             pressOnlyPanel(pressOnly)
+          )}
+          {unconfirmedClaimsError ? (
+            <p className="corpus__error" role="alert">
+              {`Could not load unconfirmed claims: ${unconfirmedClaimsError}`}
+            </p>
+          ) : null}
+          {unconfirmedClaims === null ? (
+            unconfirmedClaimsLoading ? (
+              <p className="corpus__state" role="status">Loading unconfirmed claims…</p>
+            ) : null
+          ) : (
+            unconfirmedClaimsPanel(unconfirmedClaims)
           )}
           <footer className="corpus__footer">
             Source: <code>GET /api/corpus/stats</code> · measured at {data.generatedAt} · read-only, no estimated
