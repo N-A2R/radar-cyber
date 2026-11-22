@@ -1,0 +1,986 @@
+{
+  "generatedAt": "2026-11-22T03:26:01.301Z",
+  "scope": "Nouvelle-Aquitaine",
+  "feeds": [
+    {
+      "url": "https://www.ransomlook.io/api/recent/5000",
+      "claims": 4999
+    },
+    {
+      "url": "https://www.ransomlook.io/api/posts/2025",
+      "claims": 8825
+    },
+    {
+      "url": "https://www.ransomlook.io/api/posts/2026",
+      "claims": 5105
+    },
+    {
+      "url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "claims": 16056
+    }
+  ],
+  "victims": [
+    {
+      "victimKey": "9fbf8726f156c48f46bbffb4",
+      "claimFingerprint": "0a7142054b16cde8133d0880",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "9fbf8726f156c48f46bbffb4.warc",
+      "payloadSha256": "a7c83603c9c613c35f1f7ee9d9b8cd92bf72d3e822e776099b0c3c4b566b23a8",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 313584,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "0964ea5b4a20771e4749c658",
+      "claimFingerprint": "1cd9b0dd852bcfb8b5eb644f",
+      "source": "ransomlook",
+      "groupName": "lamashtu",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "0964ea5b4a20771e4749c658.warc",
+      "payloadSha256": "a72db44b6483ab8560e31bed856ab48c925ce19ffcb3ec20cec2bf163c6e98b8",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 35134,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "ab7bf7f330b77d7da57f6887",
+      "claimFingerprint": "e3d645d34bc8e984fb198f3e",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "ab7bf7f330b77d7da57f6887.warc",
+      "payloadSha256": "4ef948d16f370116c9d033ead864e0deba443e063f3408468df8bad6d2da28f2",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2420547,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "bef06f2004baad6cd4d1f577",
+      "claimFingerprint": "440f4fcf764bcb80f6c8d662",
+      "source": "ransomlook",
+      "groupName": "inc ransom",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "bef06f2004baad6cd4d1f577.warc",
+      "payloadSha256": "0a2e7308a307adf5e1501fba802bee3185b30e11bde2ad523b3e0c91fd65e29b",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2230758,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "040baa18e7c52cc261a87bc3",
+      "claimFingerprint": "3b81da17bfcd524bf9d187ac",
+      "source": "ransomlook",
+      "groupName": "play",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "040baa18e7c52cc261a87bc3.warc",
+      "payloadSha256": "0b9121f420c54db7da138017d8da032e429ac3ed76636672950dae5ee0f9df7b",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 275378,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "1968f0057809db2efe13855b",
+      "claimFingerprint": "80b5357d0a9e0d52e2b36b30",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "1968f0057809db2efe13855b.warc",
+      "payloadSha256": "e3f9644f2c4a422c7ccf99e99c5d3e5b2a53e2f5d169c2cf9418a471e525244d",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2285568,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "dd5c3fa6069a8d9807492a3d",
+      "claimFingerprint": "7069b048b5149805bd97ebbf",
+      "source": "ransomlook",
+      "groupName": "crpx0",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "dd5c3fa6069a8d9807492a3d.warc",
+      "payloadSha256": "d07b48bc2525b9e2bb82245183f9e5ce0cccf88c9f510e9e93824834c8c49e6b",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 688670,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "7f404ab1c10306253afb459a",
+      "claimFingerprint": "b6b2a7ba1458c53635320e03",
+      "source": "ransomlook",
+      "groupName": "booba team",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "7f404ab1c10306253afb459a.warc",
+      "payloadSha256": "6037977368c8855d7e4a45a290fd86e1e1b0fb89ebaf4ba1b1d03c159d65a8d3",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 25675,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "3176f4399b4b36fb3080296c",
+      "claimFingerprint": "d3e3c26a0b065c35ea0f4819",
+      "source": "ransomlook",
+      "groupName": "anubis",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "3176f4399b4b36fb3080296c.warc",
+      "payloadSha256": "bb9a0dc9972812131d945a477599e0e23defc0264167d395fd51b8319a0acdd1",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 510241,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "0d25de79e063c0d63998a777",
+      "claimFingerprint": "0e72a4148f05a30e739d43c8",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "0d25de79e063c0d63998a777.warc",
+      "payloadSha256": "f8b7c542535cb8306b220935c6bf145927a5da53ecd997b4c96bd51e1d39b7a1",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 368452,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "d9fd1f943dff1002ea1d0ba7",
+      "claimFingerprint": "5c2ceaa4e0587c3ba5359229",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/recent/5000",
+      "warcPath": "d9fd1f943dff1002ea1d0ba7.warc",
+      "payloadSha256": "16caa8b72e6fcbfb701cdfcd18ed669a5d96eec16a1f7da105ec943da6611375",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 34384,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "0fe10146e13144aaf4aaadb4",
+      "claimFingerprint": "cbfcaf124ccb3d80cc6ebc6f",
+      "source": "ransomlook",
+      "groupName": "nova",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "0fe10146e13144aaf4aaadb4.warc",
+      "payloadSha256": "ce41856b1c20ab2cbfeb2fda1a224265b3e3856cf551498389398833479f2dde",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": null,
+      "naMotifs": [
+        "departement"
+      ]
+    },
+    {
+      "victimKey": "9b4d8d727ecf9b4a7f29187a",
+      "claimFingerprint": "e3bfa941b0d434fa473cfc51",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "9b4d8d727ecf9b4a7f29187a.warc",
+      "payloadSha256": "0f01a2ebd5e95a40f3ced9c0a30ba5fbb1adba660f060a01e006c37d7d9febf9",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2204976,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "8a4eb2bcc8892e4150434d62",
+      "claimFingerprint": "5b865656b019d69f89c5a27a",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "8a4eb2bcc8892e4150434d62.warc",
+      "payloadSha256": "244db5ca9e80b0c4c8e93eb57b8beff6ebba7a13e1b1b0a205931fa4b850f9db",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2084266,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "7ebd6eaf2472c49aa3931760",
+      "claimFingerprint": "7b726bab2f04055a986a6a93",
+      "source": "ransomlook",
+      "groupName": "killsec3",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "7ebd6eaf2472c49aa3931760.warc",
+      "payloadSha256": "e04c07e0b6ffbf34813ada6bff745f56915d14c5ef247d0b9e64eb5459791c05",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2346245,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "911513fed1d24ba2eb804f7d",
+      "claimFingerprint": "9cf20898257d41b6e0e4da93",
+      "source": "ransomlook",
+      "groupName": "nova",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "911513fed1d24ba2eb804f7d.warc",
+      "payloadSha256": "32f4b712245deef1a7e8e6aa53ea28765cf545afdbbe114696db87697acc982e",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": null,
+      "naMotifs": [
+        "commune"
+      ]
+    },
+    {
+      "victimKey": "bcdd9079c3809f762d31ca0b",
+      "claimFingerprint": "6b44308fdccd1ebec5e344d7",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "bcdd9079c3809f762d31ca0b.warc",
+      "payloadSha256": "60b72a5a4a659b894a8b4e0e75215bbc69784bee88a9a7d364d08f8ec27b28af",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2185276,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "1f91949b3a389b1c4504b3aa",
+      "claimFingerprint": "011e5b91974cfd525818c966",
+      "source": "ransomlook",
+      "groupName": "everest",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "1f91949b3a389b1c4504b3aa.warc",
+      "payloadSha256": "2142115a61d015c072af44daf684448763d6b1c0e0c39a66120afd10ff83e560",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2356664,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "81fbccf22bef51e7b552ae02",
+      "claimFingerprint": "a6756ce7a9457a4c82699f90",
+      "source": "ransomlook",
+      "groupName": "lynx",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "81fbccf22bef51e7b552ae02.warc",
+      "payloadSha256": "9c2d17d66dc3e1b2bdc955551d8777a595c05828555e83891b42829bede1d89e",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 129065,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "0445a9689bd22474dc32332f",
+      "claimFingerprint": "a62bd5d441a02fda28dba30b",
+      "source": "ransomlook",
+      "groupName": "everest",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "0445a9689bd22474dc32332f.warc",
+      "payloadSha256": "1908e596a3b864efdaa4a4a76d05aeda0d18db6fc17c7d02975c9802ed8e4b39",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2067346,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "3774c990b0afeb6a25a75b93",
+      "claimFingerprint": "fc826e2c66c14f1258a13d6d",
+      "source": "ransomlook",
+      "groupName": "dragonforce",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "3774c990b0afeb6a25a75b93.warc",
+      "payloadSha256": "a469c5b55ef5dac4569092c0b4c2ace5fd749359260afbec3a5304c93d6e3a8f",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2139835,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "fc42366061a10f8ce78b161a",
+      "claimFingerprint": "4b6b036af84bb676a5b7bf57",
+      "source": "ransomlook",
+      "groupName": "clop",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "fc42366061a10f8ce78b161a.warc",
+      "payloadSha256": "6f9f4a75d0f8f0f1bc08fc26a8bb0bfd17d0ae62b04779322d36761e4d36e26f",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2255409,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "fc8429c30daffb7b173af0d8",
+      "claimFingerprint": "7f5dc7bfa36357c663622a12",
+      "source": "ransomlook",
+      "groupName": "lynx",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "fc8429c30daffb7b173af0d8.warc",
+      "payloadSha256": "b2365da86157b013ee9764141f2098202edba5330e51ceb31e959d69b3375483",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 682176,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "96b357713628186a39505110",
+      "claimFingerprint": "657c23282ac72af8f5b1f931",
+      "source": "ransomlook",
+      "groupName": "clop",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "96b357713628186a39505110.warc",
+      "payloadSha256": "f86de44aeb35730c67c4b4356f0b23fbd9c3d4e9913c5afb92d87e28b2375246",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2388017,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "bfcd263ceb106eeab1eed8fc",
+      "claimFingerprint": "ba914ca4fa522e0113b70316",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "bfcd263ceb106eeab1eed8fc.warc",
+      "payloadSha256": "93a4106ab6d78f8e2dcacc3f125044e0307bf628257524f1a0781ad82aa16f19",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 406311,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "e4078a715e9c20c97c025e27",
+      "claimFingerprint": "e6a16b7c303df4a839e90025",
+      "source": "ransomlook",
+      "groupName": "eraleign (apt73)",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2025",
+      "warcPath": "e4078a715e9c20c97c025e27.warc",
+      "payloadSha256": "f66e7889a0a875bd6512312fdf7aa1b2db5fd3cb5105f6f8b72113eb885889c5",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 604869,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "11ffca87ab0a165c42d47773",
+      "claimFingerprint": "24c4be7d625e4a8663351f95",
+      "source": "ransomlook",
+      "groupName": "bravox",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "11ffca87ab0a165c42d47773.warc",
+      "payloadSha256": "d60236c7190da1f69b8d524ba99954cbbad571fe784e1279a6fbaa1e3c0c2d77",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 457351,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "244c9220548d76b1dae5cd94",
+      "claimFingerprint": "a1e64b4f5a7cb6f44cc79ba9",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "244c9220548d76b1dae5cd94.warc",
+      "payloadSha256": "0bff5d2e5f724c25a3d3b17200ea4246c333647a3b1ad7a66c7cc608b6a0b0a2",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": null,
+      "naMotifs": [
+        "commune"
+      ]
+    },
+    {
+      "victimKey": "306f69be6ae3d25b51bfa4eb",
+      "claimFingerprint": "5412c654e38f3b7185f1042c",
+      "source": "ransomlook",
+      "groupName": "space bears",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "306f69be6ae3d25b51bfa4eb.warc",
+      "payloadSha256": "06e7883ba7b041fbba0ab3a4681a6a7e9606dad719627919377d25ca63d71438",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": null,
+      "naMotifs": [
+        "commune"
+      ]
+    },
+    {
+      "victimKey": "ef3c144dc9fbf99579c4d594",
+      "claimFingerprint": "dbf36ec80bb2eae661ea8710",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "ef3c144dc9fbf99579c4d594.warc",
+      "payloadSha256": "fc825d7c81ea7d52c7e0062647bc49dedf49376e74c22b4ce1502bf8ed04b161",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2224051,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "5379a120d1eeb285b3e394c2",
+      "claimFingerprint": "43622645a5c6ea5049ab2fec",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "5379a120d1eeb285b3e394c2.warc",
+      "payloadSha256": "7cf09a7354fefa60ac4f4b48963064106fb217f3c6364b057d297b77bdc8f489",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 180588,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "6220712e478c3f8fde89dd5e",
+      "claimFingerprint": "9fae7ced6ab09656317a1f1a",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "6220712e478c3f8fde89dd5e.warc",
+      "payloadSha256": "8dc022f9f4bcf4e60b1a3f1718dc66ed4b0aef8bcccda277b351c0e2edb1376d",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 160389,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "0ba5987aa3b48f12a76952ad",
+      "claimFingerprint": "e393d326c2353e78f65c0e1c",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "0ba5987aa3b48f12a76952ad.warc",
+      "payloadSha256": "97da9c8de7d502a81c4887eda2faac1cdb3beff17914813f89c4081df244b3ee",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2243516,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "88a0520a67421a611ed6c2f6",
+      "claimFingerprint": "5379b4eb7c619982d4ff30a2",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "88a0520a67421a611ed6c2f6.warc",
+      "payloadSha256": "f4c1cd29704504e00b3bfbab15a172f8e33fce23f785dbcada9267486c0eaa4c",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2198759,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "cdadbb3c53ae3532a37bced0",
+      "claimFingerprint": "a9ec9025bfecd10444e3ee1d",
+      "source": "ransomlook",
+      "groupName": "play",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "cdadbb3c53ae3532a37bced0.warc",
+      "payloadSha256": "d78c4efa36da8fda516b9abc860052aa0169594ae70006106a78693ba90cb3a7",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2073563,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "738c1cfbf54465480533a437",
+      "claimFingerprint": "a10668d99618aad66e05f50d",
+      "source": "ransomlook",
+      "groupName": "nightspire",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "738c1cfbf54465480533a437.warc",
+      "payloadSha256": "849d5df8c32dfd36d88a3c5827fffc2c530f2a6a3c93bf8e7a53c667c88e1af6",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 567828,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "5104cdffecfd0b544a146a83",
+      "claimFingerprint": "37b60f05f07bc91c537d68e0",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "5104cdffecfd0b544a146a83.warc",
+      "payloadSha256": "d5870c70b0bb00186f089bba2a2d92bbcec32277e57904c57217934695bb2ef2",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 53186,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "519e7ff41743a42e24589684",
+      "claimFingerprint": "457ea33f46ebe41213512f6b",
+      "source": "ransomlook",
+      "groupName": "everest",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "519e7ff41743a42e24589684.warc",
+      "payloadSha256": "2e65991b306e4bf361e33ab5cb27872e5e14184ba550e40a7fe00d7bc4789713",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2237595,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "29033214cd2849a931758d43",
+      "claimFingerprint": "2db6729e3ffed144bd91acd3",
+      "source": "ransomlook",
+      "groupName": "genesis",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "29033214cd2849a931758d43.warc",
+      "payloadSha256": "9b66d5074761a438e5babfbc3fe1cfb21cacb054ba72f99df2aa92ac760f0d41",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2217809,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "130ade753ee16d414c1690d0",
+      "claimFingerprint": "4345ab7cd54db17b31959d3b",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "130ade753ee16d414c1690d0.warc",
+      "payloadSha256": "b7f3b2258f293824dd0107c8028ad08483888c0223d86a96cc8a51376e4ef6d2",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 164790,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "ae630b5a92509ca2dc0b4335",
+      "claimFingerprint": "ed07a2edb858f959d743bb9b",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "ae630b5a92509ca2dc0b4335.warc",
+      "payloadSha256": "d2d905dedc497a142497a19e263a1ed0ec4a71f740ed952753db71afd7134def",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 1972666,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "02cedd8a3c5d8de925cf6dc8",
+      "claimFingerprint": "d174a9a10ae753570a445564",
+      "source": "ransomlook",
+      "groupName": "dragonforce",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "02cedd8a3c5d8de925cf6dc8.warc",
+      "payloadSha256": "eafa19761e1b5ae489380d5529163d6275fb388b1687bc69f5ebbaf311cbcfb7",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2823,
+      "naMotifs": [
+        "departement",
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "b0ea09eed4a090f0a5678b12",
+      "claimFingerprint": "acd8353c923653da3b87bb52",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "b0ea09eed4a090f0a5678b12.warc",
+      "payloadSha256": "5a83c3a1102b5d8cf5132d859b7284843ec5e17d532faaa346f793e8e9303188",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 93140,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "92900205830c8b73bbcb8704",
+      "claimFingerprint": "ef2d1cf2cde223bb4b09549c",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "92900205830c8b73bbcb8704.warc",
+      "payloadSha256": "482853a9eee29d8a4a3c2fa3aebe2ef35429ee8084a9b61ca3b2046f6f61b639",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 571661,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "c575277d85f3dfed81c72913",
+      "claimFingerprint": "510c9bd72ce4ee4b671b5daf",
+      "source": "ransomlook",
+      "groupName": "qilin",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "c575277d85f3dfed81c72913.warc",
+      "payloadSha256": "6ef639d2dd08adf2d8d1102c7df695e79d9d099e0412e5c0ba33fba941c02ddb",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2352690,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "e09358d7708d7bf5aecb02ed",
+      "claimFingerprint": "dfffd902620e1f00b21b66b2",
+      "source": "ransomlook",
+      "groupName": "the gentlemen",
+      "sourceUrl": "https://www.ransomlook.io/api/posts/2026",
+      "warcPath": "e09358d7708d7bf5aecb02ed.warc",
+      "payloadSha256": "add34ee834abb5b431030f028125c518ca0018848287af6b070c6b1911a0da51",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2330528,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "dfebb1cd3874e87d6b61940a",
+      "claimFingerprint": "6bfa6666483808e3acfe0970",
+      "source": "ransomwatch",
+      "groupName": "spook",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "dfebb1cd3874e87d6b61940a.warc",
+      "payloadSha256": "d24cba56582f93665376e7a7a8cf38e9875fd30c5e4f2a77a64700a2fc9185c6",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 77376,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "a41cdd557c9211613114137f",
+      "claimFingerprint": "7f0e5600419ce74e021b2e90",
+      "source": "ransomwatch",
+      "groupName": "spook",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "a41cdd557c9211613114137f.warc",
+      "payloadSha256": "cd6188374258f719a24e735bc4b61cad7b7678fa639746ae0b4d07c9557572d1",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 288262,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "18b0ab2a0d9bed7be2dc3658",
+      "claimFingerprint": "d2603fdc9487741b8fbc5410",
+      "source": "ransomwatch",
+      "groupName": "sabbath",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "18b0ab2a0d9bed7be2dc3658.warc",
+      "payloadSha256": "a49b9d733280ac74283764a9cbf9f6d0be62858ff478d9331850e2645c21be8c",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 336636,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "c0ae4b32a87fa3064c262f34",
+      "claimFingerprint": "0daa7b8039d1599807eb61b7",
+      "source": "ransomwatch",
+      "groupName": "conti",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "c0ae4b32a87fa3064c262f34.warc",
+      "payloadSha256": "e3ae1748c676299e18e475db6c801b329acc6c75a1e684c2f99e08393795455c",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2264086,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "a5ca0a7e157c470a63c12b40",
+      "claimFingerprint": "f452e7ec75dd5888cc7ffeae",
+      "source": "ransomwatch",
+      "groupName": "hiveleak",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "a5ca0a7e157c470a63c12b40.warc",
+      "payloadSha256": "6c9052348946486b50cd762df8e5f8daa52b7938e990aa75a07c1898409f2e1a",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 204209,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "9293630ea1ef45f10f9dcde1",
+      "claimFingerprint": "d0b0498cfbd4e678b418a864",
+      "source": "ransomwatch",
+      "groupName": "alphv",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "9293630ea1ef45f10f9dcde1.warc",
+      "payloadSha256": "11c8b647c48e76890fc58b7f5bf37644ac4261f15ced8803fc91d19e23e37b46",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2346669,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "5447633227443851111bd033",
+      "claimFingerprint": "41c645f7940284083111f67c",
+      "source": "ransomwatch",
+      "groupName": "alphv",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "5447633227443851111bd033.warc",
+      "payloadSha256": "5d766e560978af76754a08006bdb3214242cb0dfa43ee50ecd444d8cb162141a",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2404016,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "e5e61657c8bd0885beeee72e",
+      "claimFingerprint": "abdc6e2c2157a3dca13595f0",
+      "source": "ransomwatch",
+      "groupName": "rhysida",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "e5e61657c8bd0885beeee72e.warc",
+      "payloadSha256": "a2c837dd352b088f921ab01f0e857e8e14ea95f8a675c4c20b2a7975fd61f666",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2055123,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "bfb4ccc0d81ca562382f608c",
+      "claimFingerprint": "c302000e4e332b6c6b91d973",
+      "source": "ransomwatch",
+      "groupName": "cactus",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "bfb4ccc0d81ca562382f608c.warc",
+      "payloadSha256": "d6d317855bbba15f3148448ec2ead3689081cb96964003ed8e4176deb95a4fc4",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 1985021,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "82029624633438c1fe2db6e4",
+      "claimFingerprint": "9939d2ed457ba0b29a2e4997",
+      "source": "ransomwatch",
+      "groupName": "incransom",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "82029624633438c1fe2db6e4.warc",
+      "payloadSha256": "b08a19ffd9d35d9d326d306b595915d96cfeb57c4560b6ac20f7abadf97453e4",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 561900,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "63e00f5b30f2f147b14e634a",
+      "claimFingerprint": "bc97062f7d163d27c3c898c8",
+      "source": "ransomwatch",
+      "groupName": "incransom",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "63e00f5b30f2f147b14e634a.warc",
+      "payloadSha256": "c57cb1705dfe8abb688117b77e33a89dc93d37ca9f094ea78e31083161322a37",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2048570,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "5155f880ab2a73a7772f0392",
+      "claimFingerprint": "2eca47e834bbc1b3ce7ec11a",
+      "source": "ransomwatch",
+      "groupName": "8base",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "5155f880ab2a73a7772f0392.warc",
+      "payloadSha256": "cd0a086b60fef272eff979ba00f9646a3a721137682487fab23801591178b83c",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2233089,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "340518de43a3c6677eacf5d1",
+      "claimFingerprint": "b7fae826926606378a669113",
+      "source": "ransomwatch",
+      "groupName": "bianlian",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "340518de43a3c6677eacf5d1.warc",
+      "payloadSha256": "667494ef4bcddf0f6315bec893a46b59c006e9516dc1021ec9627478006de795",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 191592,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "d7e6d6db0316b234e604235c",
+      "claimFingerprint": "acd6a976522acb1976bd9e8a",
+      "source": "ransomwatch",
+      "groupName": "akira",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "d7e6d6db0316b234e604235c.warc",
+      "payloadSha256": "3927bdf45bae176bca3c3caabfd41b1268a2f60550c70d89b448c84056cc4bd8",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2287157,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "ec42bf3e752767cee9d841f9",
+      "claimFingerprint": "3fb8beca86b3a54d31c78520",
+      "source": "ransomwatch",
+      "groupName": "donutleaks",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "ec42bf3e752767cee9d841f9.warc",
+      "payloadSha256": "2490242214051738b7643abb0c54df91a03855b018cc53c4ae08baa196519adf",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2346302,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "78cb3cfc9425987716435fef",
+      "claimFingerprint": "eebcd588b2eed02f0e7615fe",
+      "source": "ransomwatch",
+      "groupName": "play",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "78cb3cfc9425987716435fef.warc",
+      "payloadSha256": "7fc0c808f8f443d76edec572882669761e715e6693d790ca24b7689954d2d10d",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2312327,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "5abb41ceb059eaadde6499b0",
+      "claimFingerprint": "9635c42c4871e8da7de4ff9e",
+      "source": "ransomwatch",
+      "groupName": "monti",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "5abb41ceb059eaadde6499b0.warc",
+      "payloadSha256": "f430cffb3c66c60db7990601f7a6a99b165f0cce2bc7f6534171b08e16ea13c9",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2042884,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "8faa13fbeda994e4f4fad122",
+      "claimFingerprint": "7a2f3a344c8cd5b19d52b012",
+      "source": "ransomwatch",
+      "groupName": "hunters",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "8faa13fbeda994e4f4fad122.warc",
+      "payloadSha256": "2b49bf7328f349d0a72a4266e3f581a2636c8ad74024d9ca0d38c595f2fb55b3",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 293106,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "1e29ea7870e56e7e1ca5ebc3",
+      "claimFingerprint": "03485b00a9644458e5075d24",
+      "source": "ransomwatch",
+      "groupName": "bianlian",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "1e29ea7870e56e7e1ca5ebc3.warc",
+      "payloadSha256": "814db13046ae696562d02a06c4167acac89eccfb37315503c649de009beb57a0",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 463534,
+      "naMotifs": [
+        "rattachement"
+      ]
+    },
+    {
+      "victimKey": "86c8b91c38f522d390d540de",
+      "claimFingerprint": "0bfd56775c357961e17fd9aa",
+      "source": "ransomwatch",
+      "groupName": "play",
+      "sourceUrl": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "warcPath": "86c8b91c38f522d390d540de.warc",
+      "payloadSha256": "a1e1095564beb5e90dd4915d095f46a1965d29dc911cdf31bec0316bfb37c15c",
+      "capturedAt": "2026-11-22T03:26:01.301Z",
+      "orgId": 2295368,
+      "naMotifs": [
+        "rattachement"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "claimFingerprint": "aff6c9413647ac75c7176d75",
+      "reason": "duplicate victim"
+    },
+    {
+      "claimFingerprint": "4494be1c47e42893ed20f9f5",
+      "reason": "duplicate victim"
+    },
+    {
+      "claimFingerprint": "6aa05d2353b3f067332afbc0",
+      "reason": "duplicate victim"
+    }
+  ],
+  "stats": {
+    "naClaims": 69,
+    "victims": 66,
+    "archived": 66,
+    "skipped": 3
+  },
+  "basis": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "harvest": {
+    "sitesHarvested": 72,
+    "sitesBlocked": 8,
+    "claims": 34985,
+    "claimsNa": 69,
+    "claimsAttached": 65,
+    "bySource": {
+      "ransomlook": 18929,
+      "ransomwatch": 16056
+    }
+  },
+  "command": "pnpm leak-proofs:archive"
+}

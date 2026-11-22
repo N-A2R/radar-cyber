@@ -1,0 +1,25 @@
+{
+  "command": "pnpm measure:na-containers",
+  "scope": "nouvelle-aquitaine",
+  "basis": "anonymous-public-metadata",
+  "count": 29,
+  "byKind": {
+    "repository": 29,
+    "gist": 0,
+    "bucket": 0
+  },
+  "accessibleChecked": 29,
+  "duplicates": 0,
+  "candidatesScanned": 496,
+  "corpusCollectedAt": "2026-11-22T03:47:31.523Z",
+  "baseline": {
+    "organizations": 1673151,
+    "naOrganizations": 1671907,
+    "sources": 312,
+    "events": 26259
+  },
+  "measuredAt": "2026-11-22T03:48:45.444Z",
+  "sql": {
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM org WHERE dept IN ('16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'))::int AS \"naOrganizations\",\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events"
+  }
+}
