@@ -123,3 +123,4 @@ concerne la région, n'entre volontairement pas dans cette réponse.
 **CHANTIER TERMINÉ.** Objectif chiffré atteint et re-mesuré sur la base réelle
 le 22 novembre 2026 : 1 671 907 / 1 671 907 organisations NA avec preuve (100 %).
 Livré via la PR #480 sur `ext/chantier-s2`.
+OBJECTIF : atteint — 100 % / 99 % (mesure reproductible rejouée le 22/11/2026 avec `DATABASE_URL=postgres://radar:radar@localhost:5433/radar pnpm measure:affected` : 1 671 906 organisations de Nouvelle-Aquitaine avec au moins une affirmation accompagnée d'une preuve sur 1 671 906, 0 fuite de donnée personnelle de victime, 0 réponse hors région ; mesure initiale 1 671 907 / 1 671 907 ; aucun code ni test modifié).
