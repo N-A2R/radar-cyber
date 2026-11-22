@@ -1,0 +1,315 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-numerique-19.jsonl",
+  "secteur": "numerique",
+  "departement": "19",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 25 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL. Candidats identifiés via annuaires et sites officiels (Dorsal, Corrèze Numérique, Département, NATHD, IUT), Google Actualités RSS et corpus départementaux existants, puis tous contrôlés en HTTP direct. Exa indisponible (402 crédits épuisés).",
+  "sources": 18,
+  "urls_verifiees": 39,
+  "urls_200": 39,
+  "detail": [
+    {
+      "nom": "Dorsal — service public du numérique en Limousin (Corrèze)",
+      "urls": {
+        "https://www.dorsal.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.dorsal.fr/actu-numerique-limousin/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.dorsal.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Corrèze Numérique — portail départemental d'inclusion numérique",
+      "urls": {
+        "https://www.correzenumerique.fr/": {
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.correzenumerique.fr/actualites": {
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "items_rss": 0
+        }
+      },
+      "note": "Aucun flux RSS/Atom public trouvé ; page actualités vérifiée en HTTP 200."
+    },
+    {
+      "nom": "Département de la Corrèze — fibre et innovation numérique",
+      "urls": {
+        "https://www.correze.fr/": {
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.correze.fr/fibre": {
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.correze.fr/rss": {
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "NATHD — société publique locale du très haut débit en Nouvelle-Aquitaine",
+      "urls": {
+        "https://nathd.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://nathd.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 5
+        }
+      }
+    },
+    {
+      "nom": "Corrèze Centre de Supervision Rural",
+      "urls": {
+        "https://www.supervision.correze.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      },
+      "note": "Aucun flux RSS/Atom public trouvé ; page actualités vérifiée en HTTP 200."
+    },
+    {
+      "nom": "CorrTech — tiers-lieu numérique des Bains Douches (Tulle)",
+      "urls": {
+        "https://www.corrtech.fr/": {
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      },
+      "note": "Aucun flux RSS/Atom public trouvé ; page actualités vérifiée en HTTP 200."
+    },
+    {
+      "nom": "IUT du Limousin — formations numériques (Brive, Tulle)",
+      "urls": {
+        "https://www.iut.unilim.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.iut.unilim.fr/tous-les-articles/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.iut.unilim.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Corrèze",
+      "urls": {
+        "https://www.sudouest.fr/correze/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/correze/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "La Montagne — Corrèze",
+      "urls": {
+        "https://www.lamontagne.fr/correze/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://news.google.com/rss/search?q=site%3Alamontagne.fr%20Corr%C3%A8ze%20num%C3%A9rique&hl=fr&gl=FR&ceid=FR%3Afr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items_rss": 100
+        }
+      },
+      "note": "Relais Google Actualités RSS : flux du média sans RSS public direct."
+    },
+    {
+      "nom": "actu.fr — Corrèze",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/correze_19/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://news.google.com/rss/search?q=site%3Aactu.fr%20Corr%C3%A8ze%20cyberattaque&hl=fr&gl=FR&ceid=FR%3Afr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items_rss": 9
+        }
+      },
+      "note": "Relais Google Actualités RSS : flux du média sans RSS public direct."
+    },
+    {
+      "nom": "ICI Corrèze (Radio France)",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/correze-19/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Corrèze",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 30
+        }
+      }
+    },
+    {
+      "nom": "Cybermalveillance.gouv.fr — actualités cybersécurité",
+      "urls": {
+        "https://www.cybermalveillance.gouv.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.cybermalveillance.gouv.fr/blog": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.cybermalveillance.gouv.fr/feed/atom-flux-actualites": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Numeum — syndicat des métiers du numérique",
+      "urls": {
+        "https://numeum.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://numeum.fr/les-actualites-numeum/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://numeum.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "La Vie Corrézienne — actualités locales",
+      "urls": {
+        "https://www.laviecorrezienne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.laviecorrezienne.fr/actualites-actualites.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      },
+      "note": "Aucun flux RSS/Atom public trouvé ; page actualités vérifiée en HTTP 200."
+    },
+    {
+      "nom": "FAL19 — pôle numérique (Tulle)",
+      "urls": {
+        "https://fal19.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://fal19.fr/vie-associative/numerique": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      },
+      "note": "Aucun flux RSS/Atom public trouvé ; page actualités vérifiée en HTTP 200."
+    },
+    {
+      "nom": "Les PTTs — cybercafé et ateliers numériques (Tarnac)",
+      "urls": {
+        "https://lesptts.net/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://lesptts.net/category/lesateliers/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://lesptts.net/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 7
+        }
+      }
+    },
+    {
+      "nom": "Annuaire de la médiation numérique en Corrèze (MedNum19)",
+      "urls": {
+        "https://mednum19.gogocarto.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      },
+      "note": "Aucun flux RSS/Atom public trouvé ; page actualités vérifiée en HTTP 200."
+    }
+  ],
+  "exemples_cyber_urls": {
+    "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/j-en-ai-pleure-victime-d-une-cyberattaque-cette-mairie-perd-44-000-euros-de-son-budget-3174492.html": 200,
+    "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/le-montant-de-la-rancon-qui-etait-de-8-000-euros-ce-college-perd-tous-les-bulletins-des-eleves-apres-une-cyberattaque-3107128.html": 200,
+    "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html": 200,
+    "https://lesptts.net/cybercafe/": 200,
+    "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": 200,
+    "https://www.lamontagne.fr/altillac-19120/actualites/a-altillac-en-correze-le-supermarche-intermarche-victime-dune-cyberattaque_15062828/": 200
+  },
+  "exemples_cyber_200": 6
+}
