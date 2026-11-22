@@ -39,3 +39,4 @@ Résultat : **9 sources, 30 URL distinctes toutes en HTTP 200** le 2026-11-22 (5
 - `www.sudouest.fr/lot-et-garonne/...` : redirections 302 sans destination stable — non retenu.
 - `cci47.fr/rss/?follow=actualites` : page HTML d'agrégation, pas un document XML — non comptée comme flux.
 - MEDEF Nouvelle-Aquitaine et CPME Nouvelle-Aquitaine : portées régionales sans page départementale 47 vérifiée.
+OBJECTIF : atteint — 9 / 5
