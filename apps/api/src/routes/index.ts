@@ -49,6 +49,7 @@ import publicMandatesRoute from "./public-mandates.js";
 import technicalCoverageRoute from "./technical-coverage.js";
 import naDepartmentsRoute from "./na-departments.js";
 import custodyRoute from "./custody.js";
+import insuranceScoreRoute from "./insurance-score.js";
 import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
 import watchlistsRoute from "./watchlists.js";
@@ -72,6 +73,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     naDepartmentsRoute,
     onionIndexRoute,
     custodyRoute,
+    insuranceScoreRoute,
     publicDataContainersRoute,
     affectedRoute,
     watchlistsRoute,

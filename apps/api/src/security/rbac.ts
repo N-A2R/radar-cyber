@@ -65,6 +65,8 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/stats", niveau: "public" },
   { methode: "GET", route: "/api/stats/departements", niveau: "public" },
   { methode: "GET", route: "/api/sources", niveau: "public" },
+  { methode: "GET", route: "/api/insurance/methodology", niveau: "public", motif: "méthodologie publique du score d'assurance" },
+  { methode: "GET", route: "/api/insurance/organisations/:id", niveau: "public", motif: "score d'assurance : agrégats numériques d'une organisation NA, sans donnée de victime" },
   { methode: "GET", route: "/api/directory", niveau: "public" },
   { methode: "GET", route: "/api/public-mandates", niveau: "public" },
   { methode: "GET", route: "/api/cyber-contracts", niveau: "public", motif: "marchés publics cyber : lecture publique, sans donnée personnelle" },
