@@ -44,3 +44,4 @@ Candidats écartés après contrôle HTTP : CCI Bayonne (403 Cloudflare), PagesJ
 Corpus : `bench/corpus/sources-numerique-64.jsonl` (21 lignes, empreinte recalculée dans `bench/corpus/HASH`).
 Rapport : `bench/results/verification-numerique-64.json` (62 URL, code HTTP, type de contenu et items RSS).
 Base : `db/migrate-066-sources-numerique-64.sql` (21 sources insérées dans `source`, 21 traces `source_verification`). Migration appliquée et vérifiée le 2026-11-22 sur la base de développement PostgreSQL : 21 lignes `corpus:numerique-64-%`, codes HTTP 200/200 (min/max).
+OBJECTIF : atteint — 21 / 5
