@@ -108,10 +108,52 @@ export function isSubjectMention(tokens: readonly string[], alias: readonly stri
 }
 
 /**
- * Bounded near-miss tokens for typo recovery: trim either edge, or replace an
- * edge by one letter. Covers the observed variants (Bordeau/Bordeaux,
- * Poitier/Poitiers, Lectraa/Lectra, discountt/cdiscount) without generating
- * substitutions for every character of every token.
+ * One bounded edit between two tokens: one insertion, one deletion, one
+ * substitution or one adjacent swap. Unlike `nearTokens` this allocates
+ * nothing and accepts an internal slip on either side — "poiteirs" for
+ * "poitiers", "aviationn" for "aviation".
+ */
+export function estUneFaute(a: string, b: string): boolean {
+	const la = a.length;
+	const lb = b.length;
+	if (la < 4 || la > 24 || Math.abs(la - lb) > 1) return false;
+	let i = 0;
+	let j = 0;
+	let ecart = 0;
+	while (i < la && j < lb) {
+		if (a.charAt(i) === b.charAt(j)) {
+			i++;
+			j++;
+			continue;
+		}
+		if (ecart === 1) return false;
+		ecart = 1;
+		if (la > lb) {
+			i++;
+			continue;
+		}
+		if (lb > la) {
+			j++;
+			continue;
+		}
+		if (a.charAt(i) === b.charAt(j + 1) && a.charAt(i + 1) === b.charAt(j)) {
+			i += 2;
+			j += 2;
+			continue;
+		}
+		i++;
+		j++;
+	}
+	if (i === la && j === lb) return true;
+	if (ecart === 1) return false;
+	return la - i === 1 || lb - j === 1;
+}
+
+/**
+ * Bounded near-miss tokens for typo recovery: trim either edge, replace an
+ * edge by one letter, or drop/swap one internal letter. The first-token index
+ * needs candidate keys, so variants are generated — but only two per internal
+ * position, never a scan of the 1.7 M alias index.
  */
 export function nearTokens(token: string): readonly string[] {
 	if (token.length < 4 || token.length > 24) return [];
@@ -123,6 +165,12 @@ export function nearTokens(token: string): readonly string[] {
 			const letter = String.fromCharCode(code);
 			variants.add(letter + base);
 			variants.add(base + letter);
+		}
+	}
+	for (let i = 1; i < token.length - 1; i++) {
+		variants.add(token.slice(0, i) + token.slice(i + 1));
+		if (i + 2 < token.length) {
+			variants.add(token.slice(0, i) + token.charAt(i + 1) + token.charAt(i) + token.slice(i + 2));
 		}
 	}
 	variants.delete(token);
