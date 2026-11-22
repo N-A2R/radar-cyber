@@ -52,7 +52,7 @@ export default async function (app: FastifyInstance) {
       "INSERT INTO app_user (email, password_hash, role, display_name) VALUES ($1,$2,$3,$4) RETURNING id",
       [body.email, hash, finalRole, body.displayName ?? null]
     );
-    reply.code(201).send({ id: r.rows[0].id, email: body.email, role: finalRole });
+    return reply.code(201).send({ id: r.rows[0].id, email: body.email, role: finalRole });
   });
 
   app.post("/auth/login", { config: { rateLimit: { max: 5, timeWindow: "1 minute" } } }, async (req, reply) => {
@@ -73,7 +73,7 @@ export default async function (app: FastifyInstance) {
     // chez le client.
     await query("INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2,$3)", [hashSessionToken(token), row.id, expires.toISOString()]);
     await query("UPDATE app_user SET last_login_at = now() WHERE id = $1", [row.id]);
-    reply.send({ token, user: { id: row.id, email, role: row.role, displayName: row.display_name } });
+    return reply.send({ token, user: { id: row.id, email, role: row.role, displayName: row.display_name } });
   });
 
   app.post("/auth/logout", { preHandler: requireAuth() }, async (req, reply) => {
@@ -82,7 +82,7 @@ export default async function (app: FastifyInstance) {
     const h = req.headers.authorization as string;
     const token = h.slice(7).trim();
     await query("DELETE FROM app_session WHERE token = $1", [hashSessionToken(token)]);
-    reply.send({ ok: true });
+    return reply.send({ ok: true });
   });
 
   app.get("/auth/me", { preHandler: requireAuth() }, async (req) => {
