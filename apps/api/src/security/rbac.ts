@@ -56,6 +56,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/resale/listings", niveau: "public" },
   { methode: "GET", route: "/api/public-data-containers", niveau: "public", motif: "compteurs de dépôts et buckets publics, sans donnée personnelle" },
   { methode: "GET", route: "/api/corpus/stats", niveau: "public" },
+  { methode: "GET", route: "/api/actor-attributions", niveau: "public" },
   { methode: "GET", route: "/api/confidence/distribution", niveau: "public" },
   { methode: "GET", route: "/api/confidence/events/:eventId", niveau: "public" },
   { methode: "GET", route: "/api/confidence/attachments/:eventId/:orgId", niveau: "public" },

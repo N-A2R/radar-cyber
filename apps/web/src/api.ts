@@ -1168,6 +1168,24 @@ function journalQuery(params: JournalReviewParams, withPagination = true): strin
   return qs.toString();
 }
 
+/** Response of GET /api/actor-attributions — counts with confidence. */
+export type ActorAttributionsResponse = {
+  total: number;
+  byLevel: { high: number; medium: number; low: number };
+  byMethod: Record<string, number>;
+  averageConfidence: number;
+  attributions: Array<{
+    actor: string;
+    groupSlug: string;
+    groupName: string;
+    confidence: number;
+    level: string;
+    method: string;
+    sources: number;
+    claims: number;
+  }>;
+};
+
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   /** Relance manuelle d'une collecte : le serveur répond avant la fin du run. */
@@ -1260,6 +1278,8 @@ export const api = {
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   /** Écran Corpus : volumes, couverture des domaines et croissance. */
   corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
+  /** Actor labels attributed to tracked groups, with confidence. */
+  actorAttributions: (signal?: AbortSignal) => get<ActorAttributionsResponse>("/actor-attributions", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
