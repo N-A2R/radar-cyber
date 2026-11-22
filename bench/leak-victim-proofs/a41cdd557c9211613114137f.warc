@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:fda7871c-0c17-4321-a824-5bca3a62e7c3>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 127
+WARC-Block-Digest: sha1:TUOB7P3BPMQ5SL7BMNJ2PPM4PR3TW2VH
+X-Claim-Fingerprint: 7f0e5600419ce74e021b2e90
+X-Victim-Key: a41cdd557c9211613114137f
+
+{
+        "post_title": "North Island",
+        "group_name": "spook",
+        "discovered": "2021-10-19 18:49:19.466913"
+    }
+

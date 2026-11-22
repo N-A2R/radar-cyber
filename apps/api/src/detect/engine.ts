@@ -1,6 +1,7 @@
 import { query, ingestQuery } from "../db.js";
 import { classifyScope, isConfident, isScopeGateEnabled } from "./scope.js";
 import { REVIEW_THRESHOLD, scoreAlert } from "./confidence.js";
+import { discardIfFalse } from "./false-events.js";
 
 export type RuleMatch = {
   family?: string;
@@ -97,6 +98,9 @@ export async function evaluateEvent(eventId: number, ctx?: { corroboration?: Map
   const er = await query<Record<string, unknown>>("SELECT * FROM event WHERE id=$1", [eventId]);
   const e = er.rows[0];
   if (!e) return 0;
+  // Faux événements : bruit sans ancrage régional, écarté avant toute règle.
+  // Une promotion humaine (`force`) conserve son alerte.
+  if (await discardIfFalse(e, { force: ctx?.force })) return 0;
   let org: Record<string, unknown> | null = null;
   if (e.org_id) {
     const or = await query<Record<string, unknown>>("SELECT * FROM org WHERE id=$1", [e.org_id as number]);
@@ -108,7 +112,8 @@ export async function evaluateEvent(eventId: number, ctx?: { corroboration?: Map
   //     n'a pas répondu avec assez de confiance pour dire « régional », on
   //     n'alerte pas : mieux vaut rater un signal que noyer la file.
   let regionalVerdict: { scope: string; confidence: number; probabilities: Record<string, number>; model: string } | null = null;
-  if (e.org_id == null && isScopeGateEnabled()) {
+  // A human promotion outranks automatic gates, including the scope gate.
+  if (e.org_id == null && isScopeGateEnabled() && !ctx?.force) {
     const decision = await classifyScope(`${String(e.title ?? "")} ${String(e.summary ?? "")}`);
     if (!isConfident(decision) || decision.scope !== "REGIONAL") return 0;
     regionalVerdict = decision;
