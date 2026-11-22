@@ -34,6 +34,7 @@ authentifiée ne part avant la connexion.
 | **Sources** | `components/SourcesView.tsx` | Registre des flux : état, dernier succès, dernier échec, nombre d'éléments, recherche. |
 | **Santé** | `components/HealthView.tsx` | Même donnée, orientée diagnostic : répartition par famille et par état. |
 | **Alertes** | `components/AlertsView.tsx` | File d'alertes, séparée en incidents d'organisation et avis régionaux, filtres statut et sévérité, détail dépliable avec provenance, corroboration et note de confiance sur 100. |
+| **Sources dashboard** | `components/SourcesDashboardView.tsx` | États des sources (200, muette, morte, lente, dormante), 10 meilleures et 10 pires par rendement, évolution sur 7 jours et temps de collecte cumulé. Une seule lecture de `GET /api/sources/dashboard`, calculée en base à chaque appel. |
 
 ## Données et temps réel
 
@@ -45,6 +46,7 @@ authentifiée ne part avant la connexion.
 - Un endpoint en erreur n'empêche plus l'affichage : le chargement initial
   utilise `Promise.allSettled` et signale seulement les blocs indisponibles.
 - Mode démonstration : `VITE_DATA_MODE=mock` sert `mock.ts` sans aucun appel API.
+- `GET /api/sources/dashboard` sert l'écran Sources dashboard : états, classements, évolution et temps de collecte sont calculés par SQL au moment de l'appel, jamais mis en cache ni estimés côté navigateur.
 
 ## Fichiers de style
 
@@ -61,6 +63,7 @@ composant lui-même :
 | `components/inspector.css` | `Inspector` |
 | `components/orgsheet.css` | `OrgSheet` |
 | `components/login.css` | `LoginScreen` |
+| `components/sources-dashboard.css` | `SourcesDashboardView` |
 
 ## Ajouter une vue
 

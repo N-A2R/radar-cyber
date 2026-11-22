@@ -15,6 +15,7 @@
     "test:review-keys": "vitest run test/ReviewView.keys.test.tsx --environment jsdom",
     "test:sources": "vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js",
     "test:sources-tri": "vite build --ssr test/sources-tri-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-tri-verif.js",
+    "test:sources-dashboard": "vite build --ssr test/sources-dashboard-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-dashboard-verif.js",
     "test:corpus": "vite build --ssr test/corpus-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corpus-verif.js",
     "test:navigation": "vitest run test/navigation-ecrans.test.tsx",
     "test:inspecteur": "vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js",

@@ -42,12 +42,13 @@ import statsDepartementsRoute from "../routes/stats-departements.js";
 import statsRoute from "../routes/stats.js";
 import streamRoute from "../routes/stream.js";
 import todayRoute from "../routes/today.js";
+import sourcesDashboardRoute from "../routes/sources-dashboard.js";
 
 /** Les routes historiques, exposées aussi sous `/api/v1`. */
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
   statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute, directoryRoute,
-  naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
+  naRoute, graphRoute, streamRoute, sourcesRoute, sourcesDashboardRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
 ];

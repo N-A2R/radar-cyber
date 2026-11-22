@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -23,6 +23,7 @@ const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
+const SourcesDashboardView = lazy(() => import("./components/SourcesDashboardView"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
@@ -49,6 +50,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "journal", label: "Journal" },
   { id: "corpus", label: "Corpus" },
   { id: "sources", label: "Sources" },
+  { id: "sources-dashboard", label: "Sources dashboard" },
   { id: "map", label: "Map" },
   { id: "graph", label: "Graph" },
   { id: "health", label: "Health" },
@@ -80,6 +82,9 @@ export default function App() {
   const [corpusData, setCorpusData] = useState<CorpusStats | null>(null);
   const [corpusLoading, setCorpusLoading] = useState(false);
   const [corpusError, setCorpusError] = useState<string | null>(null);
+  const [sourcesDashboardData, setSourcesDashboardData] = useState<SourcesDashboard | null>(null);
+  const [sourcesDashboardLoading, setSourcesDashboardLoading] = useState(false);
+  const [sourcesDashboardError, setSourcesDashboardError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [temporalGraph, setTemporalGraph] = useState<Graph | null>(null);
@@ -403,6 +408,36 @@ export default function App() {
         })
         .finally(() => {
           if (!controller.signal.aborted) setCorpusLoading(false);
+        });
+    };
+    charger();
+    const timer = setInterval(charger, 60_000);
+    return () => {
+      controller.abort();
+      clearInterval(timer);
+    };
+  }, [view]);
+
+  // Tableau de bord des sources : une seule lecture publique, à l'ouverture
+  // puis chaque minute. Aucun chiffre n'est recalculé dans le navigateur.
+  useEffect(() => {
+    if (MOCK_MODE || view !== "sources-dashboard") return;
+    const controller = new AbortController();
+    const charger = () => {
+      setSourcesDashboardLoading(true);
+      api
+        .sourcesDashboard(controller.signal)
+        .then((donnees) => {
+          setSourcesDashboardData(donnees);
+          setSourcesDashboardError(null);
+        })
+        .catch((err: unknown) => {
+          if (!controller.signal.aborted) {
+            setSourcesDashboardError(err instanceof Error ? err.message : "indisponible");
+          }
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setSourcesDashboardLoading(false);
         });
     };
     charger();
@@ -848,6 +883,14 @@ export default function App() {
             <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
           ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
+
+          {view === "sources-dashboard" ? (
+            <SourcesDashboardView
+              data={sourcesDashboardData}
+              loading={sourcesDashboardLoading}
+              error={sourcesDashboardError}
+            />
+          ) : null}
 
           {view === "health" ? (
             <>

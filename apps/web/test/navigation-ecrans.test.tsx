@@ -8,7 +8,7 @@ import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import App from "../src/App";
-import type { CouvertureResponse, CorpusStats } from "../src/api";
+import type { CouvertureResponse, CorpusStats, SourcesDashboard } from "../src/api";
 
 const testGlobals = globalThis as unknown as Record<string, unknown>;
 testGlobals.IS_REACT_ACT_ENVIRONMENT = true;
@@ -51,6 +51,25 @@ const corpus: CorpusStats = {
     sourceName: "Sud Ouest",
     sourceUrl: "https://example.invalid/article",
   }],
+};
+
+const dashboard: SourcesDashboard = {
+  generatedAt: "2026-11-22T09:00:00.000Z",
+  fenetreJours: 7,
+  fenetreRendementJours: 30,
+  seuilLenteMs: 30_000,
+  limiteClassement: 10,
+  totalSources: 4,
+  etats: { ok200: 1, muette: 1, morte: 1, lente: 1, dormante: 0 },
+  meilleures: [{ id: "top", name: "Sud Ouest", family: "presse", entrees: 10, evenements: 2, rendement: 0.2 }],
+  pires: [{ id: "bottom", name: "Silent source", family: "cti", entrees: 20, evenements: 0, rendement: 0 }],
+  evolution: Array.from({ length: 7 }, (_, i) => ({
+    date: `2026-11-${String(16 + i).padStart(2, "0")}`,
+    evenements: i === 6 ? 4 : 0,
+    entrees: i === 6 ? 40 : 0,
+    sourcesActives: i === 6 ? 3 : 0,
+  })),
+  collecte: { dureeTotaleMs: 65_000, runs: 6 },
 };
 
 class FakeEventSource {
@@ -105,6 +124,9 @@ beforeEach(() => {
     if (url.includes("/api/corpus/stats")) {
       return { ok: true, status: 200, json: async () => corpus } as Response;
     }
+    if (url.includes("/api/sources/dashboard")) {
+      return { ok: true, status: 200, json: async () => dashboard } as Response;
+    }
     // Other panels are not under test here: fail them explicitly instead of
     // inventing data. App catches those failures and still renders the rail.
     return { ok: false, status: 503, json: async () => ({}) } as Response;
@@ -125,9 +147,9 @@ describe("Coverage and Corpus navigation", () => {
     await mount("#/coverage");
     const labels = [...host.querySelectorAll("nav.rail__nav button")]
       .map((button) => button.textContent?.trim());
-    expect(labels.slice(0, 10)).toEqual([
+    expect(labels.slice(0, 11)).toEqual([
       "Today", "Coverage", "Review", "Journal", "Corpus",
-      "Sources", "Map", "Graph", "Health", "Alerts",
+      "Sources", "Sources dashboard", "Map", "Graph", "Health", "Alerts",
     ]);
   });
 
@@ -153,5 +175,22 @@ describe("Coverage and Corpus navigation", () => {
     await mount("#/corpus");
     await waitForText("Sources by department");
     expect(window.location.hash).toBe("#/corpus");
+  });
+
+  it("opens the Sources dashboard from #/sources-dashboard and calls GET /api/sources/dashboard", async () => {
+    await mount("#/sources-dashboard");
+    await waitForText("What the collectors actually do");
+    await waitForText("1 min 5 s");
+    expect(window.location.hash).toBe("#/sources-dashboard");
+    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/api/sources/dashboard"))).toBe(true);
+  });
+
+  it("reaches the Sources dashboard from the rail", async () => {
+    await mount("#/coverage");
+    await clickRail("Sources dashboard");
+    await waitForText("Sources by state");
+    await waitForText("20.0%");
+    expect(window.location.hash).toBe("#/sources-dashboard");
+    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/api/sources/dashboard"))).toBe(true);
   });
 });
