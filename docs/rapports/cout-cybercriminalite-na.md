@@ -129,3 +129,4 @@ compteurs, cohérence des fichiers réels versionnés.
 
 `apps/api/src/server.ts` n'est pas modifié (0 ligne de diff). Le code et
 l'interface sont en anglais ; le présent rapport est en français.
+OBJECTIF : atteint — 1 / 1 estimation annuelle du coût de la cybercriminalité en Nouvelle-Aquitaine publiée avec méthode et IC 95 % (3 495 110 € / an ; IC 95 % [2 459 805 € ; 7 024 134 €], bootstrap 2 000 réplications, graine 20261122 ; mesure rejouée le 22/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/estimate-cybercrime-cost.mts` sans `--check` — compteurs live dérivés depuis la mesure —, estimation identique au JSON versionné ; aucun code ni test modifié).
