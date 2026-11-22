@@ -18,6 +18,7 @@ import { domainFromHint } from "../match/domaine.js";
 import { estSigle } from "../match/sigles.js";
 import { consignerAvec } from "../journal/index.js";
 import { createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } from "../quarantine/from-hint.js";
+import { resetReviewIndexes } from "../quarantine/review-index.js";
 import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantine/promote.js";
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
@@ -340,6 +341,7 @@ export default async function (app: FastifyInstance) {
 				}
 				if (!decided) throw conflict("already decided");
 				const { result: promoted, creation } = decided;
+				if (creation.created) resetReviewIndexes();
 				const org = creation.org;
 				const alerts = promoted.inserted && promoted.eventId !== null
 					? await evaluateEvent(promoted.eventId, { force: true })

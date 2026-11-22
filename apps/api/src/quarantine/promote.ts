@@ -258,7 +258,7 @@ export function extractDomain(hint: string): string | null {
 /**
  * Ligne `org` → entrée d'index pré-normalisée.
  */
-function toIndexEntry(o: OrgRow, aliasSigle?: string): OrgIndexEntry {
+export function toIndexEntry(o: OrgRow, aliasSigle?: string): OrgIndexEntry {
   const nameNorm = normalizeName(o.name);
   return {
     ...o,
@@ -308,16 +308,16 @@ SELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.website, a.alias
  WHERE a.source = 'domain' AND a.status = 'active' AND a.valid_to IS NULL
  ORDER BY o.id, a.alias`;
 
-type AliasDomaineRow = OrgRow & { alias: string };
+export type AliasDomaineRow = OrgRow & { alias: string };
 
 /** Toutes les lignes alias-domaine, ou seulement celles de la racine visée. */
-async function chargerAliasDomaines(racine?: string): Promise<AliasDomaineRow[]> {
+export async function chargerAliasDomaines(racine?: string): Promise<AliasDomaineRow[]> {
   const r = await query<AliasDomaineRow>(SQL_ALIAS_DOMAINE);
   return racine ? r.rows.filter((row) => domaineRacine(row.alias) === racine) : r.rows;
 }
 
 /** Attache les alias-domaine aux entrées présentes, en créant les manquantes. */
-function attacherAliasDomaines(
+export function attacherAliasDomaines(
   entrees: OrgIndexEntry[],
   rows: readonly AliasDomaineRow[],
 ): OrgIndexEntry[] {
