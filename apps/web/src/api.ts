@@ -416,16 +416,6 @@ export type HealthDetail = {
     enabled: number;
     actives7j: number;
     muettes7j: number;
-    bySource: {
-      id: string;
-      name: string;
-      family: string;
-      enabled: boolean;
-      lastCollectedAt: string | null;
-      lastEventAt: string | null;
-      ageHours: number | null;
-      tone: "green" | "orange" | "red";
-    }[];
   };
   events24h: number;
   orgs7j: number;
@@ -437,6 +427,45 @@ export type HealthDetail = {
     ageDays: number | null;
     tone: "green" | "orange" | "red";
   }[];
+};
+
+/** Une ligne de `GET /api/health/sources` : la flotte est paginée côté API. */
+export type LigneSourceSante = {
+  id: string;
+  name: string;
+  family: string;
+  url: string;
+  enabled: boolean;
+  status: SourceStatus;
+  lastOkAt: string | null;
+  lastErrorAt: string | null;
+  lastError: string | null;
+  lastItems: number | null;
+};
+
+/** Filtres et page demandés à `GET /api/health/sources`. */
+export type HealthSourcesQuery = {
+  family?: string | null;
+  status?: SourceStatus | null;
+  q?: string | null;
+  page?: number;
+  pageSize?: number;
+  sort?: "status" | "name" | "family" | "lastOkAt" | "lastError" | "lastItems";
+  dir?: "asc" | "desc";
+};
+
+/** Résumé SQL + une seule page de sources (GET /api/health/sources). */
+export type HealthSources = {
+  ok: true;
+  generatedAt: string;
+  total: number;
+  counts: Record<SourceStatus, number>;
+  families: { family: string; sources: number }[];
+  matching: number;
+  page: number;
+  pageSize: number;
+  pages: number;
+  items: LigneSourceSante[];
 };
 
 /** Réponse de GET /api/health/causes : répartition réelle des causes de rougeur. */
@@ -1147,6 +1176,19 @@ export const api = {
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
   healthDetail: () => get<HealthDetail>("/health/detail"),
+  /** Page du tableau des sources : le navigateur ne reçoit jamais la flotte. */
+  healthSources: (params: HealthSourcesQuery = {}, signal?: AbortSignal) => {
+    const qs = new URLSearchParams();
+    if (params.family) qs.set("family", params.family);
+    if (params.status) qs.set("status", params.status);
+    if (params.q) qs.set("q", params.q);
+    if (params.page) qs.set("page", String(params.page));
+    if (params.pageSize) qs.set("pageSize", String(params.pageSize));
+    if (params.sort) qs.set("sort", params.sort);
+    if (params.dir) qs.set("dir", params.dir);
+    const suffix = qs.toString();
+    return get<HealthSources>(`/health/sources${suffix ? `?${suffix}` : ""}`, signal);
+  },
   healthCauses: () => get<HealthCauses>("/health/causes"),
   health: () => get<Health>("/health"),
   flows: (days = 30, limit = 300, mode = "arcs") => get<Flows>(`/flows?days=${days}&limit=${limit}&mode=${mode}`),

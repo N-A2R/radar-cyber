@@ -146,6 +146,18 @@ const SCHEMAS = {
     db: objet, sources: objet, events24h: z.number(), orgs7j: z.number(),
     queues: objet, families: objets,
   }),
+  "/api/health/sources": z.strictObject({
+    ok: z.literal(true), generatedAt: z.string(), total: z.number(),
+    counts: z.strictObject({ ok: z.number(), error: z.number(), pending: z.number() }),
+    families: z.array(z.strictObject({ family: z.string(), sources: z.number() })),
+    matching: z.number(), page: z.number(), pageSize: z.number(), pages: z.number(),
+    items: z.array(z.strictObject({
+      id: z.string(), name: z.string(), family: z.string(), url: z.string(),
+      enabled: z.boolean(), status: z.enum(["ok", "error", "pending"]),
+      lastOkAt: chaineNullable, lastErrorAt: chaineNullable, lastError: chaineNullable,
+      lastItems: nombreNullable,
+    })),
+  }),
   "/api/journal/review": z.strictObject({ rows: objets, limite: z.number(), avant: nombreNullable }),
   "/api/na/overview": z.strictObject({ depts: objets, derniereCollecte: chaineNullable, total: objet }),
   "/api/na/events": z.strictObject({ dept: z.string(), events: objets }),
