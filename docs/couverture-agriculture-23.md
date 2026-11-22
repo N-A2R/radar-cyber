@@ -62,3 +62,4 @@ Résultat : **23 sources, 58 URLs toutes en HTTP 200** (dont 14 flux RSS) contr�
 - `https://www.populaire-du-centre.fr/` : DNS absent ; `https://www.terre-net-occasions.fr/actualites/` : 404.
 
 Limite de périmètre : plusieurs sources sont régionales ou nationales (Chambre NA, Safer NA, FRCUMA, FNCuma, FNSEA, FNAB, Jeunes Agriculteurs, presse agricole spécialisée) mais couvrent la Creuse ; les actualités locales creusoises sont couvertes par la chambre 23, le Conseil départemental, ICI Creuse, La Montagne, actu.fr, France 3 et Sud Ouest.
+OBJECTIF : atteint — 23 / 5
