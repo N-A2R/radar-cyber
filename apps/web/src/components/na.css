@@ -1,0 +1,150 @@
+/* Vue Nouvelle-Aquitaine — échelle chiffrée et états interactifs de la carte.
+   Les règles de base .na-* restent dans styles.css (un propriétaire par
+   fichier) ; ce fichier ajoute ce que la carte ne disait pas : la couleur
+   vit en jetons, la légende est lisible sans survol, et la sélection se voit
+   par une bordure en plus de la teinte. */
+
+:root {
+  /* Échelle séquentielle bleue : niveau 0 = zéro événement (gris neutre, pas
+     une couleur d'alerte), niveaux 1 → 5 = nombre d'événements croissant.
+     Une pastille n'est jamais seule : chaque niveau porte son libellé chiffré. */
+  --na-niveau-0: #1d222b;
+  --na-niveau-1: #1e3a5f;
+  --na-niveau-2: #27537f;
+  --na-niveau-3: #336ca3;
+  --na-niveau-4: #4d8ec9;
+  --na-niveau-5: #6fb1e3;
+  --na-contour: var(--surface-2);
+  --na-contour-actif: var(--accent);
+  --na-pastille: 18px;
+}
+
+.na-carte-bloc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* La carte garde son ratio mais cède de la hauteur à la légende : sur un
+   écran de 900 px, carte + lecture + légende tiennent sans défilement. */
+.na-view .na-carte {
+  width: auto;
+  max-width: 100%;
+  max-height: 44vh;
+  margin-inline: auto;
+}
+
+/* La couleur d'un département (et d'une pastille) vient d'ici, jamais du TSX. */
+.na-niveau-0 { fill: var(--na-niveau-0); background: var(--na-niveau-0); }
+.na-niveau-1 { fill: var(--na-niveau-1); background: var(--na-niveau-1); }
+.na-niveau-2 { fill: var(--na-niveau-2); background: var(--na-niveau-2); }
+.na-niveau-3 { fill: var(--na-niveau-3); background: var(--na-niveau-3); }
+.na-niveau-4 { fill: var(--na-niveau-4); background: var(--na-niveau-4); }
+.na-niveau-5 { fill: var(--na-niveau-5); background: var(--na-niveau-5); }
+
+/* Survol et sélection : la teinte seule ne suffit pas.
+   Actif = bordure accent épaisse en pointillés (forme + couleur). */
+.na-dept {
+  stroke: var(--na-contour);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+.na-dept:hover,
+.na-dept-survol {
+  filter: brightness(1.3);
+}
+
+.na-dept-actif {
+  stroke: var(--na-contour-actif);
+  stroke-width: 3;
+  stroke-dasharray: 6 3;
+  filter: brightness(1.15);
+}
+
+.na-dept:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  stroke: var(--focus);
+  stroke-width: 3;
+}
+
+/* Lecture au survol ou au focus : chiffres en clair, sous la carte. */
+.na-survol {
+  margin: 0;
+  min-block-size: 34px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: var(--text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Légende : sous la carte, bornes chiffrées et unité, sans survol. */
+.na-legende {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.na-legende figcaption {
+  color: var(--text);
+  font-size: var(--text-body);
+}
+
+.na-legende-echelle {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.na-legende-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: 24px;
+  color: var(--muted);
+  font-size: var(--text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.na-legende-pastille {
+  inline-size: var(--na-pastille);
+  block-size: var(--na-pastille);
+  flex: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+}
+
+/* Lignes de la liste : cible de 44 px, sélection marquée par bordure +
+   fond, jamais par la couleur seule. */
+.na-ligne {
+  min-block-size: 44px;
+  align-items: center;
+}
+
+.na-ligne-survol:not(.na-ligne-actif) {
+  background: var(--surface-2);
+  border-color: var(--line-strong);
+}
+
+.na-ligne-actif {
+  border-color: var(--na-contour-actif);
+  background: var(--surface-3);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.na-ligne-actif .na-ligne-nom {
+  font-weight: var(--weight-semibold);
+}

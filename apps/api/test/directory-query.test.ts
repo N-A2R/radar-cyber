@@ -33,8 +33,8 @@ async function seed(spec: Seed): Promise<number> {
 	const source = await query<{ id: string }>("SELECT id FROM source ORDER BY id LIMIT 1");
 	for (let i = 0; i < (spec.events ?? 0); i++) {
 		await query(
-			`INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, geo_type, org_id)
-			 VALUES ($1,'ransomware','confirmed_incident',$2,4,$3,'entity_location',$4)`,
+			`INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, geo_type, org_id, source_url, evidence)
+			 VALUES ($1,'ransomware','confirmed_incident',$2,4,$3,'entity_location',$4,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
 			[`${slug}-e${i}`, `Incident ${spec.name}`, source.rows[0].id, id],
 		);
 	}

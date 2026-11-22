@@ -34,6 +34,7 @@ SELECT cr.source_id, cr.finished_at AS produced_at
   JOIN source s ON s.id = cr.source_id
  WHERE s.enabled = true
    AND s.statut IS DISTINCT FROM 'morte'
+   AND cr.kind IN ('live', 'scan', 'ingest')
    AND cr.status = 'ok'
    AND cr.items_in > 0
    AND cr.finished_at >= $1::timestamptz

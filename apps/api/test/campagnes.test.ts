@@ -170,8 +170,8 @@ test("la campagne est écrite en base avec sa liste d'incidents et sa preuve", a
 	const evenements: EvenementCampagne[] = [];
 	for (const [i, date] of ["2026-11-14T10:00:00Z", "2026-11-16T10:00:00Z"].entries()) {
 		const insere = await query<{ id: number }>(
-			`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, evidence)
-			 VALUES ($1, 'ransomware', 'third_party_claim', $2, $3, 'ransomlook', $4)
+			`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, evidence, source_url)
+			 VALUES ($1, 'ransomware', 'third_party_claim', $2, $3, 'ransomlook', $4::jsonb || '{"run_id":"1"}'::jsonb, 'https://example.invalid/event')
 			 RETURNING id`,
 			[`${TAG}-${i}`, `${label} victime ${i}`, date, JSON.stringify({ group: label })],
 		);

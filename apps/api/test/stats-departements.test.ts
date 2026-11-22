@@ -83,15 +83,15 @@ before(async () => {
   }
 
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, org_id)
-     VALUES ($1,'cti','ambient_signal','Fait 33', now() - interval '1 hour',2,$9,$15),
-            ($2,'cti','ambient_signal','Fait 33 sans org', now() - interval '2 days',2,$9,NULL),
-            ($3,'cti','ambient_signal','Fait 40', now() - interval '3 days',2,$10,$16),
-            ($4,'cti','ambient_signal','Fait 40 ancien', now() - interval '10 days',2,$10,NULL),
-            ($5,'cti','ambient_signal','Fait 47 sans org', now() - interval '1 day',2,$11,NULL),
-            ($6,'cti','ambient_signal','Fait national', now() - interval '1 hour',2,$12,NULL),
-            ($7,'cti','ambient_signal','Fait source morte', now() - interval '1 hour',2,$13,NULL),
-            ($8,'cti','ambient_signal','Fait ambigu', now() - interval '1 hour',2,$14,NULL)`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, org_id, source_url, evidence)
+     VALUES ($1,'cti','ambient_signal','Fait 33', now() - interval '1 hour',2,$9,$15,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($2,'cti','ambient_signal','Fait 33 sans org', now() - interval '2 days',2,$9,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($3,'cti','ambient_signal','Fait 40', now() - interval '3 days',2,$10,$16,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($4,'cti','ambient_signal','Fait 40 ancien', now() - interval '10 days',2,$10,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($5,'cti','ambient_signal','Fait 47 sans org', now() - interval '1 day',2,$11,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($6,'cti','ambient_signal','Fait national', now() - interval '1 hour',2,$12,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($7,'cti','ambient_signal','Fait source morte', now() - interval '1 hour',2,$13,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($8,'cti','ambient_signal','Fait ambigu', now() - interval '1 hour',2,$14,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [
       `${TAG}:e33a`, `${TAG}:e33b`, `${TAG}:e40a`, `${TAG}:e40old`,
       `${TAG}:e47`, `${TAG}:enational`, `${TAG}:emorte`, `${TAG}:eambig`,

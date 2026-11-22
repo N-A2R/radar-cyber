@@ -39,10 +39,10 @@ test("le script rapporte les doublons existants et ne supprime que les copies", 
   // Deux variantes du même titre, même jour, même source : l'empreinte n'a
   // jamais été écrite (cas d'une base antérieure à la migration 045).
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, severity)
-     VALUES ($1,'ransomware','ambient_signal','Rançongiciel : ville touchée',$3,'2026-11-21T10:00:00Z',2),
-            ($2,'ransomware','ambient_signal','RANÇONGICIEL:  VILLE  TOUCHÉE',$3,'2026-11-21T18:00:00Z',2),
-            ($4,'ransomware','ambient_signal','Autre article',$3,'2026-11-21T10:00:00Z',2)`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, severity, source_url, evidence)
+     VALUES ($1,'ransomware','ambient_signal','Rançongiciel : ville touchée',$3,'2026-11-21T10:00:00Z',2,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($2,'ransomware','ambient_signal','RANÇONGICIEL:  VILLE  TOUCHÉE',$3,'2026-11-21T18:00:00Z',2,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($4,'ransomware','ambient_signal','Autre article',$3,'2026-11-21T10:00:00Z',2,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [`feed:${SOURCE}:1`, `feed:${SOURCE}:2`, SOURCE, `feed:${SOURCE}:3`],
   );
 
