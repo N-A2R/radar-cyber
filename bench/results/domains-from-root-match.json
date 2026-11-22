@@ -1,0 +1,897 @@
+{
+  "candidates": 14458,
+  "tokens": 9987,
+  "examined": 500,
+  "labelConfirmed": 144,
+  "verified": 97,
+  "applied": true,
+  "before": {
+    "organisations": 1673220,
+    "nouvelleAquitaine": 1671911,
+    "withDomain": 1285,
+    "withVerifiedProvenance": 1270,
+    "coveragePercent": 0.076
+  },
+  "after": {
+    "organisations": 1673220,
+    "nouvelleAquitaine": 1671911,
+    "withDomain": 1382,
+    "withVerifiedProvenance": 1367,
+    "coveragePercent": 0.0818
+  },
+  "domains": [
+    {
+      "orgId": 4809,
+      "siren": "200071827",
+      "domain": "grandangouleme.fr",
+      "qid": "Q42848665",
+      "jeton": "grandangouleme",
+      "label": "Grand Angoulême",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 473461,
+      "siren": "200071827",
+      "domain": "grandangouleme.fr",
+      "qid": "Q42848665",
+      "jeton": "grandangouleme",
+      "label": "Grand Angoulême",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 8376,
+      "siren": "519158794",
+      "domain": "domusvi.com",
+      "qid": "Q111208441",
+      "jeton": "domusvi",
+      "label": "DomusVi",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 10601,
+      "siren": "519158794",
+      "domain": "domusvi.com",
+      "qid": "Q111208441",
+      "jeton": "domusvi",
+      "label": "DomusVi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1970139,
+      "siren": "519158794",
+      "domain": "domusvi.com",
+      "qid": "Q111208441",
+      "jeton": "domusvi",
+      "label": "DomusVi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13541,
+      "siren": "775680309",
+      "domain": "coallia.org",
+      "qid": "Q56312228",
+      "jeton": "coallia",
+      "label": "Coallia",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 13564,
+      "siren": "775680309",
+      "domain": "coallia.org",
+      "qid": "Q56312228",
+      "jeton": "coallia",
+      "label": "Coallia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21405,
+      "siren": "430355495",
+      "domain": "koesio.com",
+      "qid": "Q140886309",
+      "jeton": "koesio",
+      "label": "Koesio",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 147251,
+      "siren": "430355495",
+      "domain": "koesio.com",
+      "qid": "Q140886309",
+      "jeton": "koesio",
+      "label": "Koesio",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 23882,
+      "siren": "378558050",
+      "domain": "technologia.fr",
+      "qid": "Q3516916",
+      "jeton": "technologia",
+      "label": "Technologia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2423302,
+      "siren": "378558050",
+      "domain": "technologia.fr",
+      "qid": "Q3516916",
+      "jeton": "technologia",
+      "label": "Technologia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 27890,
+      "siren": "775690191",
+      "domain": "invivo-group.com",
+      "qid": "Q3153960",
+      "jeton": "invivo",
+      "label": "InVivo",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 358514,
+      "siren": "775690191",
+      "domain": "invivo-group.com",
+      "qid": "Q3153960",
+      "jeton": "invivo",
+      "label": "InVivo",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2188354,
+      "siren": "775690191",
+      "domain": "invivo-group.com",
+      "qid": "Q3153960",
+      "jeton": "invivo",
+      "label": "InVivo",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 30739,
+      "siren": "484348487",
+      "domain": "neosoft.fr",
+      "qid": "Q141891173",
+      "jeton": "neosoft",
+      "label": "Néosoft",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 43982,
+      "siren": "679200741",
+      "domain": "sopral.com",
+      "qid": "Q131218095",
+      "jeton": "sopral",
+      "label": "SOPRAL",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1989660,
+      "siren": "679200741",
+      "domain": "sopral.com",
+      "qid": "Q131218095",
+      "jeton": "sopral",
+      "label": "SOPRAL",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2023890,
+      "siren": "679200741",
+      "domain": "sopral.com",
+      "qid": "Q131218095",
+      "jeton": "sopral",
+      "label": "SOPRAL",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 47471,
+      "siren": "451962856",
+      "domain": "editions-talaia.com",
+      "qid": "Q115403435",
+      "jeton": "editions",
+      "label": "Talaia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 69704,
+      "siren": "451962856",
+      "domain": "editions-talaia.com",
+      "qid": "Q115403435",
+      "jeton": "editions",
+      "label": "Talaia",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 563516,
+      "siren": "451962856",
+      "domain": "editions-talaia.com",
+      "qid": "Q115403435",
+      "jeton": "editions",
+      "label": "Talaia",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 52966,
+      "siren": "898360839",
+      "domain": "paradigme.fr",
+      "qid": "Q138330657",
+      "jeton": "paradigme",
+      "label": "Paradigme",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 452633,
+      "siren": "898360839",
+      "domain": "paradigme.fr",
+      "qid": "Q138330657",
+      "jeton": "paradigme",
+      "label": "Paradigme",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 57323,
+      "siren": "316643170",
+      "domain": "chevignon.fr",
+      "qid": "Q787601",
+      "jeton": "chevignon",
+      "label": "Chevignon",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1963081,
+      "siren": "316643170",
+      "domain": "chevignon.fr",
+      "qid": "Q787601",
+      "jeton": "chevignon",
+      "label": "Chevignon",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 71716,
+      "siren": "505280727",
+      "domain": "fifteen.eu",
+      "qid": "Q3487061",
+      "jeton": "fifteen",
+      "label": "Fifteen",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2216383,
+      "siren": "505280727",
+      "domain": "fifteen.eu",
+      "qid": "Q3487061",
+      "jeton": "fifteen",
+      "label": "Fifteen",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 73450,
+      "siren": "950025155",
+      "domain": "skolae.fr",
+      "qid": "Q126476785",
+      "jeton": "skolae",
+      "label": "Skolae",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 82640,
+      "siren": "377981667",
+      "domain": "rustica.fr",
+      "qid": "Q124877777",
+      "jeton": "rustica",
+      "label": "Rustica",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2124171,
+      "siren": "377981667",
+      "domain": "rustica.fr",
+      "qid": "Q124877777",
+      "jeton": "rustica",
+      "label": "Rustica",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2253261,
+      "siren": "377981667",
+      "domain": "rustica.fr",
+      "qid": "Q124877777",
+      "jeton": "rustica",
+      "label": "Rustica",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 99765,
+      "siren": "101335990",
+      "domain": "valiris.io",
+      "qid": "Q142143559",
+      "jeton": "valiris",
+      "label": "Valiris",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 102069,
+      "siren": "310188420",
+      "domain": "chimirec.fr",
+      "qid": "Q17493996",
+      "jeton": "chimirec",
+      "label": "Chimirec",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 149342,
+      "siren": "310188420",
+      "domain": "chimirec.fr",
+      "qid": "Q17493996",
+      "jeton": "chimirec",
+      "label": "Chimirec",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 127329,
+      "siren": "775714405",
+      "domain": "ruggieri.fr",
+      "qid": "Q3452944",
+      "jeton": "ruggieri",
+      "label": "Ruggieri",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1777796,
+      "siren": "775714405",
+      "domain": "ruggieri.fr",
+      "qid": "Q3452944",
+      "jeton": "ruggieri",
+      "label": "Ruggieri",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2115124,
+      "siren": "775714405",
+      "domain": "ruggieri.fr",
+      "qid": "Q3452944",
+      "jeton": "ruggieri",
+      "label": "Ruggieri",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 133321,
+      "siren": "395030844",
+      "domain": "sanofi.com",
+      "qid": "Q158205",
+      "jeton": "sanofi",
+      "label": "Sanofi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 192555,
+      "siren": "395030844",
+      "domain": "sanofi.com",
+      "qid": "Q158205",
+      "jeton": "sanofi",
+      "label": "Sanofi",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1981809,
+      "siren": "395030844",
+      "domain": "sanofi.com",
+      "qid": "Q158205",
+      "jeton": "sanofi",
+      "label": "Sanofi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 151435,
+      "siren": "449715556",
+      "domain": "francim-reseau.org",
+      "qid": "Q30754312",
+      "jeton": "francim",
+      "label": "FRANCIM",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 155641,
+      "siren": "341102770",
+      "domain": "francofolies.fr",
+      "qid": "Q3082411",
+      "jeton": "francofolies",
+      "label": "Francofolies",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 525839,
+      "siren": "341102770",
+      "domain": "francofolies.fr",
+      "qid": "Q3082411",
+      "jeton": "francofolies",
+      "label": "Francofolies",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2043971,
+      "siren": "341102770",
+      "domain": "francofolies.fr",
+      "qid": "Q3082411",
+      "jeton": "francofolies",
+      "label": "Francofolies",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 168674,
+      "siren": "793196536",
+      "domain": "arkose.com",
+      "qid": "Q124329187",
+      "jeton": "arkose",
+      "label": "Arkose",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 194120,
+      "siren": "793196536",
+      "domain": "arkose.com",
+      "qid": "Q124329187",
+      "jeton": "arkose",
+      "label": "Arkose",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 181182,
+      "siren": "339956781",
+      "domain": "bloc-rhodia.com",
+      "qid": "Q3429614",
+      "jeton": "rhodia",
+      "label": "Rhodia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1998482,
+      "siren": "339956781",
+      "domain": "bloc-rhodia.com",
+      "qid": "Q3429614",
+      "jeton": "rhodia",
+      "label": "Rhodia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2091198,
+      "siren": "339956781",
+      "domain": "bloc-rhodia.com",
+      "qid": "Q3429614",
+      "jeton": "rhodia",
+      "label": "Rhodia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 186195,
+      "siren": "782260848",
+      "domain": "seaska.eus",
+      "qid": "Q3052775",
+      "jeton": "seaska",
+      "label": "Seaska",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 331299,
+      "siren": "782260848",
+      "domain": "seaska.eus",
+      "qid": "Q3052775",
+      "jeton": "seaska",
+      "label": "Seaska",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1985270,
+      "siren": "812140234",
+      "domain": "reaute-chocolat.com",
+      "qid": "Q56307634",
+      "jeton": "reaute",
+      "label": "Réauté Chocolat",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 373842,
+      "siren": "778127613",
+      "domain": "stelia-aerospace.com",
+      "qid": "Q20177373",
+      "jeton": "stelia",
+      "label": "STELIA Aerospace",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 222498,
+      "siren": "379138365",
+      "domain": "florame.com",
+      "qid": "Q16636422",
+      "jeton": "florame",
+      "label": "Florame",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 235776,
+      "siren": "485680151",
+      "domain": "saupiquet.com",
+      "qid": "Q3474249",
+      "jeton": "saupiquet",
+      "label": "Saupiquet",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2046244,
+      "siren": "485680151",
+      "domain": "saupiquet.com",
+      "qid": "Q3474249",
+      "jeton": "saupiquet",
+      "label": "Saupiquet",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 239232,
+      "siren": "420844193",
+      "domain": "natives.fr",
+      "qid": "Q18549090",
+      "jeton": "natives",
+      "label": "Natives",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 604732,
+      "siren": "420844193",
+      "domain": "natives.fr",
+      "qid": "Q18549090",
+      "jeton": "natives",
+      "label": "Natives",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2355475,
+      "siren": "420844193",
+      "domain": "natives.fr",
+      "qid": "Q18549090",
+      "jeton": "natives",
+      "label": "Natives",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 242073,
+      "siren": "818211252",
+      "domain": "bicephale.fr",
+      "qid": "Q43125404",
+      "jeton": "bicephale",
+      "label": "Bicéphale",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 263027,
+      "siren": "509494464",
+      "domain": "figaret.com",
+      "qid": "Q4705652",
+      "jeton": "figaret",
+      "label": "Figaret",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1976854,
+      "siren": "509494464",
+      "domain": "figaret.com",
+      "qid": "Q4705652",
+      "jeton": "figaret",
+      "label": "Figaret",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1976855,
+      "siren": "509494464",
+      "domain": "figaret.com",
+      "qid": "Q4705652",
+      "jeton": "figaret",
+      "label": "Figaret",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 263883,
+      "siren": "828465187",
+      "domain": "recital.ai",
+      "qid": "Q131716311",
+      "jeton": "recital",
+      "label": "reciTAL",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 265419,
+      "siren": "448323758",
+      "domain": "audiens.org",
+      "qid": "Q97367329",
+      "jeton": "audiens",
+      "label": "Audiens",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 269477,
+      "siren": "662054543",
+      "domain": "lenotre.com",
+      "qid": "Q3229541",
+      "jeton": "lenotre",
+      "label": "Lenôtre",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 446137,
+      "siren": "662054543",
+      "domain": "lenotre.com",
+      "qid": "Q3229541",
+      "jeton": "lenotre",
+      "label": "Lenôtre",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1652876,
+      "siren": "662054543",
+      "domain": "lenotre.com",
+      "qid": "Q3229541",
+      "jeton": "lenotre",
+      "label": "Lenôtre",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 278026,
+      "siren": "391068632",
+      "domain": "philapostel.net",
+      "qid": "Q135412799",
+      "jeton": "philapostel",
+      "label": "Philapostel",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 284904,
+      "siren": "353445166",
+      "domain": "auberon.fr",
+      "qid": "Q2870652",
+      "jeton": "auberon",
+      "label": "Aubéron",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 289335,
+      "siren": "325307106",
+      "domain": "cofidis.fr",
+      "qid": "Q1106920",
+      "jeton": "cofidis",
+      "label": "Cofidis",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2014167,
+      "siren": "325307106",
+      "domain": "cofidis.fr",
+      "qid": "Q1106920",
+      "jeton": "cofidis",
+      "label": "Cofidis",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 292471,
+      "siren": "442812301",
+      "domain": "aguttes.com",
+      "qid": "Q60849231",
+      "jeton": "aguttes",
+      "label": "Aguttes",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 316159,
+      "siren": "440096790",
+      "domain": "komilfo.fr",
+      "qid": "Q108870467",
+      "jeton": "komilfo",
+      "label": "Komilfo",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1973746,
+      "siren": "440096790",
+      "domain": "komilfo.fr",
+      "qid": "Q108870467",
+      "jeton": "komilfo",
+      "label": "Komilfo",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 316414,
+      "siren": "919108795",
+      "domain": "valexis.re",
+      "qid": "Q141726492",
+      "jeton": "valexis",
+      "label": "VALEXIS",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 321178,
+      "siren": "572050169",
+      "domain": "latecoere.aero",
+      "qid": "Q1516576",
+      "jeton": "latecoere",
+      "label": "Latécoère",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1967635,
+      "siren": "572050169",
+      "domain": "latecoere.aero",
+      "qid": "Q1516576",
+      "jeton": "latecoere",
+      "label": "Latécoère",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2251788,
+      "siren": "572050169",
+      "domain": "latecoere.aero",
+      "qid": "Q1516576",
+      "jeton": "latecoere",
+      "label": "Latécoère",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 326441,
+      "siren": "832698310",
+      "domain": "solary.fr",
+      "qid": "Q75589899",
+      "jeton": "solary",
+      "label": "Solary",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1978966,
+      "siren": "832698310",
+      "domain": "solary.fr",
+      "qid": "Q75589899",
+      "jeton": "solary",
+      "label": "Solary",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 331258,
+      "siren": "844557751",
+      "domain": "magelec.com",
+      "qid": "Q3276725",
+      "jeton": "magelec",
+      "label": "Magelec",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 335570,
+      "siren": "402960397",
+      "domain": "butagaz.fr",
+      "qid": "Q2696565",
+      "jeton": "butagaz",
+      "label": "Butagaz",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 464240,
+      "siren": "402960397",
+      "domain": "butagaz.fr",
+      "qid": "Q2696565",
+      "jeton": "butagaz",
+      "label": "Butagaz",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 338605,
+      "siren": "444122196",
+      "domain": "normaal.fr",
+      "qid": "Q3343724",
+      "jeton": "normaal",
+      "label": "Normaal",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 346540,
+      "siren": "827637547",
+      "domain": "bengale.tv",
+      "qid": "Q141807455",
+      "jeton": "bengale",
+      "label": "Bengale",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 354665,
+      "siren": "370800880",
+      "domain": "manuloc.fr",
+      "qid": "Q3287088",
+      "jeton": "manuloc",
+      "label": "Manuloc",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 389618,
+      "siren": "433432820",
+      "domain": "cojean.fr",
+      "qid": "Q2981929",
+      "jeton": "cojean",
+      "label": "Cojean",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1877365,
+      "siren": "433432820",
+      "domain": "cojean.fr",
+      "qid": "Q2981929",
+      "jeton": "cojean",
+      "label": "Cojean",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 408623,
+      "siren": "899142731",
+      "domain": "epopee-village.com",
+      "qid": "Q115604965",
+      "jeton": "epopee",
+      "label": "L'Épopée",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 617570,
+      "siren": "899142731",
+      "domain": "epopee-village.com",
+      "qid": "Q115604965",
+      "jeton": "epopee",
+      "label": "L'Épopée",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 413122,
+      "siren": "421010745",
+      "domain": "felibrige.org",
+      "qid": "Q1165363",
+      "jeton": "felibrige",
+      "label": "Félibrige",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 421751,
+      "siren": "825241318",
+      "domain": "supercoop.fr",
+      "qid": "Q109425811",
+      "jeton": "supercoop",
+      "label": "Supercoop",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 430023,
+      "siren": "808924708",
+      "domain": "fedora-platform.com",
+      "qid": "Q47470240",
+      "jeton": "fedora",
+      "label": "Fedora",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1710611,
+      "siren": "808924708",
+      "domain": "fedora-platform.com",
+      "qid": "Q47470240",
+      "jeton": "fedora",
+      "label": "Fedora",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 434242,
+      "siren": "797050085",
+      "domain": "somatra.fr",
+      "qid": "Q130538149",
+      "jeton": "somatra",
+      "label": "SOMATRA",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1965200,
+      "siren": "797050085",
+      "domain": "somatra.fr",
+      "qid": "Q130538149",
+      "jeton": "somatra",
+      "label": "SOMATRA",
+      "confidence": 0.95
+    }
+  ]
+}

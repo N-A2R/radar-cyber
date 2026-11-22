@@ -49,7 +49,7 @@ export interface Verdict {
 	htmlLength: number;
 }
 
-const GENERIC_TOKENS = new Set([
+export const GENERIC_TOKENS = new Set([
 	"mairie", "ville", "commune", "departement", "region", "association", "societe",
 	"entreprise", "services", "service", "groupe", "centre", "office", "syndicat",
 ]);
@@ -154,7 +154,7 @@ export function provenanceFor(selection: Selection, verdict: Verdict) {
 	};
 }
 
-async function fetchPage(url: string): Promise<{ html: string; status: number; finalUrl: string }> {
+export async function fetchPage(url: string): Promise<{ html: string; status: number; finalUrl: string }> {
 	const response = await fetch(url, {
 		redirect: "follow",
 		signal: AbortSignal.timeout(5000),
@@ -179,7 +179,7 @@ async function fetchPage(url: string): Promise<{ html: string; status: number; f
 	};
 }
 
-async function withConcurrency<T, R>(items: T[], limit: number, work: (item: T) => Promise<R>): Promise<R[]> {
+export async function withConcurrency<T, R>(items: T[], limit: number, work: (item: T) => Promise<R>): Promise<R[]> {
 	const results: R[] = new Array(items.length);
 	let cursor = 0;
 	await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {

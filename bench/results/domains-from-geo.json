@@ -1,0 +1,688 @@
+{
+  "candidates": 5693,
+  "priorQids": 13701,
+  "tokens": 5167,
+  "selected": 134,
+  "verified": 83,
+  "applied": true,
+  "before": {
+    "organisations": 1673220,
+    "nouvelleAquitaine": 1671911,
+    "withDomain": 1497,
+    "withVerifiedProvenance": 1482,
+    "coveragePercent": 0.0886
+  },
+  "after": {
+    "organisations": 1673220,
+    "nouvelleAquitaine": 1671911,
+    "withDomain": 1580,
+    "withVerifiedProvenance": 1565,
+    "coveragePercent": 0.0936
+  },
+  "domains": [
+    {
+      "orgId": 451900,
+      "siren": "824651681",
+      "domain": "elephanthaven.com",
+      "qid": "Q100741375",
+      "label": "Elephant Haven",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1974063,
+      "siren": null,
+      "domain": "chateau-mouton-rothschild.com",
+      "qid": "Q1061469",
+      "label": "château Mouton Rothschild",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 127734,
+      "siren": "385159579",
+      "domain": "arcachon.com",
+      "qid": "Q107377508",
+      "label": "parc mauresque",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1503,
+      "siren": "212401764",
+      "domain": "ccpsp24.fr",
+      "qid": "Q1079561",
+      "label": "Faurilles",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 100123,
+      "siren": "342762457",
+      "domain": "helioparc.fr",
+      "qid": "Q109038736",
+      "label": "Hélioparc",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 373986,
+      "siren": "781985296",
+      "domain": "chateau-figeac.com",
+      "qid": "Q1090441",
+      "label": "château-Figeac",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 93131,
+      "siren": "333383933",
+      "domain": "phelansegur.com",
+      "qid": "Q1090612",
+      "label": "château Phélan Ségur",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 138418,
+      "siren": "392694881",
+      "domain": "chateaurauzansegla.com",
+      "qid": "Q1090652",
+      "label": "château Rauzan-Ségla",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 82516,
+      "siren": "318415023",
+      "domain": "chateau-issan.com",
+      "qid": "Q1090725",
+      "label": "château d'Issan",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 127081,
+      "siren": "384809281",
+      "domain": "yquem.fr",
+      "qid": "Q1090764",
+      "label": "château d'Yquem",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 365493,
+      "siren": "752576280",
+      "domain": "agrocampus17.fr",
+      "qid": "Q113552962",
+      "label": "lycée Georges-Desclaude",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 180202,
+      "siren": "419950043",
+      "domain": "balata-golf-medoc.com",
+      "qid": "Q120219084",
+      "label": "Balata Golf Practice",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 85993,
+      "siren": "324078872",
+      "domain": "irulegikoirratia.eus",
+      "qid": "Q12259767",
+      "label": "Irulegiko irratia",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 627779,
+      "siren": "931364848",
+      "domain": "julesmarouzeau.entcreuse.fr",
+      "qid": "Q125783663",
+      "label": "collège Jules Marouzeau de Guéret",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 386409,
+      "siren": "792874224",
+      "domain": "etab.ac-poitiers.fr",
+      "qid": "Q125784167",
+      "label": "collège Edgar Quinet de Saintes",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 705579,
+      "siren": "993706613",
+      "domain": "jean-lartaut.fr",
+      "qid": "Q125785441",
+      "label": "collège Jean Lartaut de Jarnac",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 582470,
+      "siren": "911031128",
+      "domain": "college-germillac.fr",
+      "qid": "Q125786364",
+      "label": "collège Germillac de Tonneins",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18220,
+      "siren": null,
+      "domain": "college-morcenx.fr",
+      "qid": "Q125787326",
+      "label": "collège Henri Scognamiglio",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 320956,
+      "siren": "515166957",
+      "domain": "henrijudet.entcreuse.fr",
+      "qid": "Q125789180",
+      "label": "collège Henri Judet de Boussac",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 122135,
+      "siren": "382286912",
+      "domain": "lyceemaxlinder.fr",
+      "qid": "Q125840460",
+      "label": "lycée Max Linder de Libourne",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 411208,
+      "siren": "805323672",
+      "domain": "lyceepro-pessac.fr",
+      "qid": "Q125841316",
+      "label": "lycée professionnel Philadelphe de Gerde de Pessac",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2333961,
+      "siren": "782297915",
+      "domain": "collegeursuya.fr",
+      "qid": "Q125969742",
+      "label": "collège Ursuya de Hasparren",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1974065,
+      "siren": null,
+      "domain": "chateau-darmailhac.com",
+      "qid": "Q128427",
+      "label": "château d'Armailhac",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 218670,
+      "siren": "442005930",
+      "domain": "btcbiscarrossais.wifeo.com",
+      "qid": "Q138307452",
+      "label": "Ball Trap Club Biscarrossais",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 591820,
+      "siren": "914384938",
+      "domain": "vigiers.com",
+      "qid": "Q138683032",
+      "label": "Les Fresques",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 668531,
+      "siren": "952637841",
+      "domain": "lachamoise.com",
+      "qid": "Q139669924",
+      "label": "La Chamoise",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 21526,
+      "siren": "831267968",
+      "domain": "mercato-emploi.com",
+      "qid": "Q139827040",
+      "label": "Le Mercato de l'Emploi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 217021,
+      "siren": "441321452",
+      "domain": "chateaugoudichaud.fr",
+      "qid": "Q14040925",
+      "label": "château Goudichaud",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1992576,
+      "siren": null,
+      "domain": "sowell.fr",
+      "qid": "Q140420321",
+      "label": "SOWELL Family Les Landes de Gascogne",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2138938,
+      "siren": "404116337",
+      "domain": "chateau-puymartin.com",
+      "qid": "Q1518981",
+      "label": "château de Puymartin",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1946399,
+      "siren": null,
+      "domain": "pair-non-pair.fr",
+      "qid": "Q1643799",
+      "label": "grotte de Pair-non-Pair",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18481,
+      "siren": null,
+      "domain": "lyceedebaudre.net",
+      "qid": "Q16508738",
+      "label": "lycée Jean-Baptiste-de-Baudre",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 328310,
+      "siren": "521181842",
+      "domain": "lauregatet.fr",
+      "qid": "Q16661602",
+      "label": "lycée Laure-Gatet",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 108895,
+      "siren": "351535075",
+      "domain": "chateaulegrandverdus.com",
+      "qid": "Q20065183",
+      "label": "Château Le Grand Verdus",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2002820,
+      "siren": "306344441",
+      "domain": "milandes.com",
+      "qid": "Q2007231",
+      "label": "château des Milandes",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3028,
+      "siren": "214703191",
+      "domain": "villebramar.fr",
+      "qid": "Q209420",
+      "label": "Villebramar",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 173314,
+      "siren": "414721282",
+      "domain": "la-vallee-des-singes.fr",
+      "qid": "Q2186578",
+      "label": "Vallée des singes",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 58405,
+      "siren": "104465851",
+      "domain": "justice.gouv.fr",
+      "qid": "Q22248966",
+      "label": "centre de détention de Neuvic",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2017050,
+      "siren": "318673332",
+      "domain": "chateaufalfas.com",
+      "qid": "Q22996555",
+      "label": "château Falfas",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 631183,
+      "siren": "932823644",
+      "domain": "mbh.bayonne.fr",
+      "qid": "Q2620702",
+      "label": "musée Bonnat-Helleu",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21047,
+      "siren": "339343915",
+      "domain": "citram-charente.fr",
+      "qid": "Q28494617",
+      "label": "Citram Charente",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 204452,
+      "siren": "433945763",
+      "domain": "stelme.fr",
+      "qid": "Q28495215",
+      "label": "École Saint-Elme",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 329295,
+      "siren": "521747444",
+      "domain": "bordeaux-euratlantique.fr",
+      "qid": "Q2910676",
+      "label": "Bordeaux-Euratlantique",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1946833,
+      "siren": null,
+      "domain": "chateaudillon.com",
+      "qid": "Q2967871",
+      "label": "château Dillon",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2145508,
+      "siren": "409961224",
+      "domain": "agassac.com",
+      "qid": "Q2968037",
+      "label": "château d'Agassac",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2149708,
+      "siren": "412108862",
+      "domain": "curton.fr",
+      "qid": "Q2969100",
+      "label": "château de Curton",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1946402,
+      "siren": null,
+      "domain": "chateau-puyguilhem.fr",
+      "qid": "Q2970324",
+      "label": "château de Puyguilhem",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2150141,
+      "siren": "412382053",
+      "domain": "respide.fr",
+      "qid": "Q2970361",
+      "label": "château de Respide",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 474735,
+      "siren": "835113820",
+      "domain": "mothe-chandeniers.com",
+      "qid": "Q2971307",
+      "label": "château de la Mothe-Chandeniers",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 295426,
+      "siren": "501577951",
+      "domain": "citebd.org",
+      "qid": "Q2974816",
+      "label": "cité internationale de la bande dessinée et de l'image",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1948534,
+      "siren": null,
+      "domain": "espace-carat.fr",
+      "qid": "Q3058115",
+      "label": "Espace Carat",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 170959,
+      "siren": "413667544",
+      "domain": "ester-technopole.org",
+      "qid": "Q3058921",
+      "label": "Ester Technopole",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 103707,
+      "siren": "347775512",
+      "domain": "historail.org",
+      "qid": "Q3136524",
+      "label": "HistoRail",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1963200,
+      "siren": null,
+      "domain": "idelis.fr",
+      "qid": "Q3146580",
+      "label": "IDEcycle",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1955064,
+      "siren": null,
+      "domain": "montdemarsan.fr",
+      "qid": "Q3329127",
+      "label": "musée Despiau-Wlérick",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 332076,
+      "siren": "523197846",
+      "domain": "museelabenche.fr",
+      "qid": "Q3329231",
+      "label": "Musée Labenche",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 153352,
+      "siren": "402131742",
+      "domain": "protestantisme-museelarochelle.fr",
+      "qid": "Q3330760",
+      "label": "musée protestant",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 407584,
+      "siren": "803801109",
+      "domain": "planet-exotica.com",
+      "qid": "Q3364279",
+      "label": "Planet Exotica",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1950929,
+      "siren": null,
+      "domain": "pharedelacoubre.fr",
+      "qid": "Q3378474",
+      "label": "phare de la Coubre",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1985868,
+      "siren": null,
+      "domain": "benevent-scenovision.fr",
+      "qid": "Q3476626",
+      "label": "Scénovision de Bénévent-l'Abbaye",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2027,
+      "siren": "213301765",
+      "domain": "gabarnac.fr",
+      "qid": "Q457717",
+      "label": "Gabarnac",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1944613,
+      "siren": null,
+      "domain": "tribunal-stationnement-payant.fr",
+      "qid": "Q48755315",
+      "label": "Tribunal du stationnement payant",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 373905,
+      "siren": "781967229",
+      "domain": "domaines-delon.com",
+      "qid": "Q5118694",
+      "label": "Château Nénin",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2085,
+      "siren": "213302359",
+      "domain": "lavazan.fr",
+      "qid": "Q523546",
+      "label": "Lavazan",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1910,
+      "siren": "200083780",
+      "domain": "mairieblaignan-prignac.fr",
+      "qid": "Q59342084",
+      "label": "Blaignan-Prignac",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3557,
+      "siren": "216405340",
+      "domain": "mairiedetaron.fr",
+      "qid": "Q594410",
+      "label": "Taron-Sadirac-Viellenave",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2100437,
+      "siren": "383820834",
+      "domain": "circuit-pau-arnos.fr",
+      "qid": "Q609448",
+      "label": "circuit Pau-Arnos",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 390539,
+      "siren": "794642785",
+      "domain": "lougerbassou.fr",
+      "qid": "Q63206973",
+      "label": "Lou Gerbassou",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 390425,
+      "siren": "794593178",
+      "domain": "pastoureaux-valoin.wixsite.com",
+      "qid": "Q63208465",
+      "label": "Les Pastoureaux De La Valoine",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 369580,
+      "siren": "778073965",
+      "domain": "leglantino.fr",
+      "qid": "Q63208475",
+      "label": "L'eglantino Do Lemouzi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 277113,
+      "siren": "492178033",
+      "domain": "lesefournigeas.wifeo.com",
+      "qid": "Q63208519",
+      "label": "Les Efournigeas",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 374999,
+      "siren": "782132344",
+      "domain": "louscadetouns.e-monsite.com",
+      "qid": "Q63208523",
+      "label": "Lous Cadetouns",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 373948,
+      "siren": "781976402",
+      "domain": "lous-reoules.com",
+      "qid": "Q63208529",
+      "label": "Lous Réoulès",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 316419,
+      "siren": "512837303",
+      "domain": "elisa-aerospace.fr",
+      "qid": "Q65162999",
+      "label": "École d'ingénieurs des sciences aérospatiales",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1984,
+      "siren": "213301336",
+      "domain": "castillonpujols.fr",
+      "qid": "Q664393",
+      "label": "Coubeyrac",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 373757,
+      "siren": "781920855",
+      "domain": "malartic-lagraviere.com",
+      "qid": "Q734456",
+      "label": "château Malartic-Lagravière",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 761,
+      "siren": "211704242",
+      "domain": "semoussac.fr",
+      "qid": "Q775360",
+      "label": "Semoussac",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2000,
+      "siren": "213301492",
+      "domain": "daubeze.fr",
+      "qid": "Q862004",
+      "label": "Daubèze",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 242531,
+      "siren": "453069007",
+      "domain": "lerevedelaborigene.org",
+      "qid": "Q86663839",
+      "label": "Le Rêve de l'aborigène",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1946400,
+      "siren": null,
+      "domain": "chateau-oiron.fr",
+      "qid": "Q905650",
+      "label": "château d'Oiron",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2220612,
+      "siren": "454201674",
+      "domain": "chateau-lascombes.com",
+      "qid": "Q939256",
+      "label": "château Lascombes",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1125,
+      "siren": "212302806",
+      "domain": "bosroger.fr",
+      "qid": "Q965060",
+      "label": "Bosroger",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 446752,
+      "siren": "822847281",
+      "domain": "brasserie-ladebauche.com",
+      "qid": "Q98664051",
+      "label": "La Débauche",
+      "confidence": 0.95
+    }
+  ]
+}
