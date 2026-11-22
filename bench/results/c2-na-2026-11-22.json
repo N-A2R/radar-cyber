@@ -1,0 +1,98 @@
+{
+  "command": "pnpm measure:c2-na",
+  "scope": "nouvelle-aquitaine",
+  "basis": "explicit-c2-hosting",
+  "count": 0,
+  "detections": [],
+  "signalsScanned": 8,
+  "signals": [
+    {
+      "id": "23478",
+      "source": "actu-infosecurity-magazine",
+      "origin": "event",
+      "family": "cti"
+    },
+    {
+      "id": "51241",
+      "source": "actu-infosecurity-magazine",
+      "origin": "event",
+      "family": "cti"
+    },
+    {
+      "id": "23340",
+      "source": "actu-infosecurity-magazine",
+      "origin": "event",
+      "family": "cti"
+    },
+    {
+      "id": "23777",
+      "source": "actu-infosecurity-magazine",
+      "origin": "event",
+      "family": "cti"
+    },
+    {
+      "id": "3360",
+      "source": "ransomwatch",
+      "origin": "claim",
+      "family": null
+    },
+    {
+      "id": "11250",
+      "source": "ransomwatch",
+      "origin": "claim",
+      "family": null
+    },
+    {
+      "id": "1032968",
+      "source": "ransomwatch",
+      "origin": "claim",
+      "family": null
+    },
+    {
+      "id": "1040858",
+      "source": "ransomwatch",
+      "origin": "claim",
+      "family": null
+    }
+  ],
+  "c2Sources": [
+    {
+      "id": "feed:firehol:c2_tracker",
+      "name": "FireHOL c2_tracker",
+      "family": "reputation"
+    },
+    {
+      "id": "feed:firehol:cybercrime",
+      "name": "FireHOL cybercrime",
+      "family": "reputation"
+    },
+    {
+      "id": "feodo-ip",
+      "name": "Feodo Tracker (abuse.ch) IP blocklist",
+      "family": "reputation"
+    },
+    {
+      "id": "osint-threatfox",
+      "name": "ThreatFox (site)",
+      "family": "cti"
+    }
+  ],
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26239,
+    "claims": 32959
+  },
+  "patterns": {
+    "c2": "(?:^|[^a-z0-9])(?:c2|c&c|cnc|command[- ]and[- ]control|command[- ]&[- ]control|serveur de commande)(?:[^a-z0-9]|$)|cobalt strike|teamserver|meterpreter|brute ratel|sliver c2",
+    "c2Sources": "c2|cybercrime|feodo|threatfox|botnet"
+  },
+  "sql": {
+    "events": "SELECT e.id::text AS id, e.source_id AS source, e.title AS text,\n                  e.family AS family, 'event' AS origin\n           FROM event e\n           WHERE e.family <> 'vuln' AND e.title ~* $1",
+    "claims": "SELECT q.id::text AS id, q.source AS source, q.org_hint AS text,\n                  NULL::text AS family, 'claim' AS origin\n           FROM quarantine_raw q\n           WHERE q.kind = 'claim' AND q.org_hint IS NOT NULL AND q.org_hint ~* $1",
+    "sources": "SELECT id, name, family FROM source\n            WHERE id ~* $1 OR name ~* $1 ORDER BY id",
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events,\n                    (SELECT count(*) FROM quarantine_raw WHERE kind = 'claim')::int AS claims",
+    "signals": "SELECT ((SELECT count(*) FROM event\n                      WHERE family <> 'vuln' AND title ~* $1) +\n                     (SELECT count(*) FROM quarantine_raw\n                      WHERE kind = 'claim' AND org_hint IS NOT NULL AND org_hint ~* $1))::int AS total"
+  },
+  "measuredAt": "2026-11-22T03:12:29.850Z"
+}
