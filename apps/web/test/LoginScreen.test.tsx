@@ -51,6 +51,9 @@ describe("LoginScreen — connexion soignée", () => {
     onAuthenticated = vi.fn();
     host = document.createElement("div");
     document.body.appendChild(host);
+    // Par défaut, les chiffres publics sont hors ligne : les tests qui ne
+    // portent pas sur la bande de faits n'ont ainsi aucun réseau réel.
+    vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("hors ligne"))));
   });
 
   afterEach(async () => {
@@ -80,6 +83,8 @@ describe("LoginScreen — connexion soignée", () => {
     expect(html.toLowerCase()).toContain('autocomplete="current-password"');
     expect(html).toContain('type="submit"');
     expect(html).toContain("Accès réservé aux agents habilités");
+    // Les faits viennent du client : rien d'inventé au rendu serveur.
+    expect(html).not.toContain("login__facts");
   });
 
   it("présente la marque, une phrase de contexte et des champs étiquetés", async () => {
@@ -88,6 +93,7 @@ describe("LoginScreen — connexion soignée", () => {
     expect(host.querySelector("h1")?.textContent).toBe("Radar Cyber");
     expect(host.querySelector(".login__subtitle")?.textContent).toContain("observatoire");
     expect(host.querySelector(".login__note")?.textContent).toContain("agents habilités");
+    expect(host.querySelector(".login__submit")?.textContent).toBe("Se connecter");
 
     const email = host.querySelector<HTMLInputElement>("#login-email");
     const password = host.querySelector<HTMLInputElement>("#login-password");
@@ -98,6 +104,72 @@ describe("LoginScreen — connexion soignée", () => {
     expect(email?.getAttribute("autocomplete")).toBe("username");
     expect(password?.getAttribute("autocomplete")).toBe("current-password");
     expect(document.activeElement).toBe(email);
+  });
+
+  it("affiche les chiffres publics exacts, limités aux douze départements de la région", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: unknown) => {
+      const url = String(input);
+      if (url === "/api/stats") {
+        return response({ sources: { total: 2506, active: 2405 } });
+      }
+      if (url === "/api/stats/departements") {
+        return response({
+          windowDays: 7,
+          departements: [
+            { departement: "33", evenements7j: 5, organisations: 10, sourcesActives: 2 },
+            { departement: "17", evenements7j: 3, organisations: 4, sourcesActives: 1 },
+            { departement: "75", evenements7j: 999, organisations: 1, sourcesActives: 0 },
+            { departement: "16", evenements7j: 0, organisations: 2, sourcesActives: 0 },
+          ],
+        });
+      }
+      return response({}, 404);
+    }));
+
+    await mount();
+    await flush();
+
+    const band = host.querySelector(".login__facts");
+    expect(band).not.toBeNull();
+    expect(band?.getAttribute("aria-label")).toBe("Le radar en chiffres");
+    const values = [...host.querySelectorAll(".login__fact dd")].map((dd) =>
+      (dd.textContent ?? "").replace(/\s/g, " ").trim(),
+    );
+    expect(values).toEqual(["2 506", "8", "2/12"]);
+    const labels = [...host.querySelectorAll(".login__fact dt")].map((dt) => dt.textContent);
+    expect(labels).toEqual(["sources suivies", "incidents sur 7 jours", "départements couverts"]);
+  });
+
+  it("disparaît sans trou ni message quand les statistiques sont indisponibles", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: unknown) =>
+      String(input) === "/api/stats"
+        ? response({ error: "boom" }, 500)
+        : response({ departements: [] }),
+    ));
+
+    await mount();
+    await flush();
+
+    expect(host.querySelector(".login__facts")).toBeNull();
+    expect(host.querySelector('[role="alert"]')).toBeNull();
+    expect(host.querySelector(".login__error")).toBeNull();
+    expect(host.textContent).not.toContain("erreur");
+    expect(host.querySelector("form")).not.toBeNull();
+    expect(host.querySelector<HTMLInputElement>("#login-email")).not.toBeNull();
+  });
+
+  it("disparaît aussi si la réponse ne respecte pas le contrat attendu", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: unknown) =>
+      String(input) === "/api/stats"
+        ? response({ sources: "beaucoup" })
+        : response({ departements: "aucun" }),
+    ));
+
+    await mount();
+    await flush();
+
+    expect(host.querySelector(".login__facts")).toBeNull();
+    expect(host.querySelector('[role="alert"]')).toBeNull();
   });
 
   it("refuse un formulaire vide sans appeler l'API, et relie chaque message au champ", async () => {
@@ -143,7 +215,7 @@ describe("LoginScreen — connexion soignée", () => {
 
     const button = host.querySelector<HTMLButtonElement>(".login__submit")!;
     expect(button.disabled).toBe(true);
-    expect(button.textContent).toContain("connexion…");
+    expect(button.textContent).toContain("Connexion…");
     expect(host.querySelector(".login__status")?.textContent).toBe("Vérification des identifiants…");
     expect(host.querySelector<HTMLInputElement>("#login-email")!.disabled).toBe(true);
 
@@ -153,8 +225,10 @@ describe("LoginScreen — connexion soignée", () => {
 
   it("identifiants refusés : message utile et alerte annoncée", async () => {
     vi.stubGlobal("fetch", vi.fn(async (input: unknown, init?: RequestInit) => {
+      const url = String(input);
+      if (!url.endsWith("/auth/login")) return response({}, 404);
       const body = typeof init?.body === "string" ? JSON.parse(init.body) as Call["body"] : null;
-      calls.push({ url: String(input), method: init?.method ?? "GET", body });
+      calls.push({ url, method: init?.method ?? "GET", body });
       return response({ error: "invalid" }, 401);
     }));
 
