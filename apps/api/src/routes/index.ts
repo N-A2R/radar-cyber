@@ -44,6 +44,7 @@ import confidenceRoute from "./confidence.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
 import publicMandatesRoute from "./public-mandates.js";
 import custodyRoute from "./custody.js";
+import translationsRoute from "./translations.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -59,6 +60,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     publicMandatesRoute,
     onionIndexRoute,
     custodyRoute,
+    translationsRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }

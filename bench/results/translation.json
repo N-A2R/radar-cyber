@@ -1,0 +1,30 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "rule": "article = event anchored in Nouvelle-Aquitaine (regional flag or org department in the 12 NA codes); foreign = deterministic title language detection with at least 3 evidence points and confidence >= 0.3; translation = offline glossary, no network and no paid service; personal data = email or phone in the headline blocks translation; quality = 85% multiset content F1 against an independent French reference + 15% identifier preservation",
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "naArticles": 103,
+  "foreignArticles": 11,
+  "translatedArticles": 11,
+  "byLanguage": {
+    "de": 2,
+    "en": 6,
+    "nl": 3
+  },
+  "quality": {
+    "goldEntries": 11,
+    "goldCovered": true,
+    "meanReferenceQuality": 0.9451,
+    "minReferenceQuality": 0.7556,
+    "meanSelfQuality": 0.9451
+  },
+  "personalDataViolations": 0,
+  "corpus": "bench/corpus/translation-gold.jsonl",
+  "sql": {
+    "articles": "\n  SELECT e.id::text AS id, e.title, e.regional, o.dept AS department, e.source_id\n    FROM event e\n    LEFT JOIN org o ON o.id = e.org_id\n   WHERE e.regional OR o.dept IN ('16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87')\n   ORDER BY e.id\n",
+    "baseline": "\n  SELECT (SELECT count(*)::int FROM org) AS organizations,\n         (SELECT count(*)::int FROM source) AS sources,\n         (SELECT count(*)::int FROM event) AS events\n"
+  }
+}
