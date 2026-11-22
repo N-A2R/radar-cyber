@@ -56,6 +56,13 @@ import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
 import watchlistsRoute from "./watchlists.js";
 import exportMispRoute from "./export-misp.js";
+import reviewAssistantRoute from "./review-assistant.js";
+import providerSpofRoute from "./provider-spof.js";
+import attackPathRoute from "./attack-path.js";
+import providersRoute from "./providers.js";
+import newExposedServicesRoute from "./exposition-new-services.js";
+import earlyWarningRoute from "./early-warning.js";
+import siretEstablishmentsRoute from "./siret-establishments.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -83,6 +90,13 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     affectedRoute,
     watchlistsRoute,
     exportMispRoute,
+    reviewAssistantRoute,
+    providerSpofRoute,
+    attackPathRoute,
+    providersRoute,
+    newExposedServicesRoute,
+    earlyWarningRoute,
+    siretEstablishmentsRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }

@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "stability": "stable",
+  "baseline": {
+    "organisations": 1673151,
+    "sources": 312,
+    "evenements": 26719,
+    "provenance": "bench/results/couverture-mesuree.json"
+  },
+  "contract": {
+    "version": "1.0.0",
+    "frozenAt": "2026-11-22",
+    "frozenOperations": 54,
+    "liveOperations": 54,
+    "addedOperations": [],
+    "breakingChanges": [],
+    "digest": "b38488c0c88e44efa260fcbca899f8b1dac970b1cc4c36dc70a1f34139724298",
+    "liveDigest": "b38488c0c88e44efa260fcbca899f8b1dac970b1cc4c36dc70a1f34139724298",
+    "digestMatches": true
+  },
+  "publication": {
+    "openapi": "3.1.0",
+    "documentedOperations": 54,
+    "xStability": "stable",
+    "compatibilityRules": 5,
+    "prefixes": [
+      "/api/v1",
+      "/api"
+    ]
+  },
+  "verdict": "stable"
+}
