@@ -1,0 +1,24 @@
+{
+  "command": "pnpm measure:resale-na",
+  "scope": "nouvelle-aquitaine",
+  "basis": "explicit-sale",
+  "count": 0,
+  "candidatesScanned": 32,
+  "saleOffersAll": 34,
+  "naDomains": 2,
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26221,
+    "claims": 32914
+  },
+  "listings": [],
+  "sql": {
+    "events": "SELECT e.id::text AS id, e.source_id AS source, e.title AS text,\n                  o.dept AS department, NULL::text AS \"domainHint\", 'event' AS origin\n           FROM event e LEFT JOIN org o ON o.id = e.org_id\n           WHERE e.family <> 'vuln' AND e.title ~* $1",
+    "claims": "SELECT q.id::text AS id, q.source AS source, q.org_hint AS text,\n                  NULL::text AS department, q.org_hint AS \"domainHint\", 'claim' AS origin\n           FROM quarantine_raw q\n           WHERE q.kind = 'claim' AND q.org_hint IS NOT NULL AND q.org_hint ~* $1",
+    "organizations": "SELECT id, dept AS department, domain, website\n                  FROM org WHERE domain IS NOT NULL OR website IS NOT NULL",
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events,\n                    (SELECT count(*) FROM quarantine_raw WHERE kind = 'claim')::int AS claims",
+    "allOffers": "SELECT ((SELECT count(*) FROM event WHERE title ~* $1) +\n                     (SELECT count(*) FROM quarantine_raw\n                      WHERE kind = 'claim' AND org_hint IS NOT NULL AND org_hint ~* $1))::int AS total"
+  },
+  "measuredAt": "2026-11-22T00:44:59.546Z"
+}
