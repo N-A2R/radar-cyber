@@ -1,20 +1,17 @@
 /*
- * Service worker de la carte radar.
+ * Service worker for the radar application shell.
  *
- * Règle d'or : ne jamais toucher à /api/. Ce sont des données dynamiques,
- * authentifiées, et un cache d'API afficherait des millions d'organisations
- * périmées comme si elles étaient fraîches. La persistance des données passe
- * par IndexedDB (voir src/offline.ts), pas par ici.
- *
- * Ce worker ne garde que trois choses : le shell de l'application, ses assets
- * (modules Vite compris) et un nombre borné de tuiles de fond de carte.
+ * Golden rule: never touch /api/. Dynamic data is cached client-side by the
+ * allowlist in src/offline/pwa.ts, where it can be redacted, bounded and dated.
+ * This worker keeps the application shell, its assets (Vite modules included)
+ * and a bounded number of map tiles so a cold reload works offline.
  */
 
-const PREFIX = "radar-offline-v1";
+const PREFIX = "radar-offline-v2";
 const CACHE_SHELL = `${PREFIX}-shell`;
 const CACHE_ASSETS = `${PREFIX}-assets`;
 const CACHE_TILES = `${PREFIX}-tiles`;
-const RACINE = "/";
+const SHELL_URLS = ["/", "/index.html", "/manifest.webmanifest", "/icon.svg"];
 const MAX_TILES = 300;
 const MAX_ASSETS = 800;
 
@@ -51,16 +48,16 @@ self.addEventListener("install", (event) => {
 	event.waitUntil(
 		(async () => {
 			const cache = await caches.open(CACHE_SHELL);
-			try {
-				const reponse = await fetch(RACINE, { cache: "reload" });
-				if (reponse.ok) {
-					await cache.put(RACINE, reponse.clone());
-					await cache.put("/index.html", reponse.clone());
-				}
-			} catch {
-				// Premier chargement sans réseau : le shell sera précaché par la
-				// page dès que le réseau revient (message RADAR_PRECACHE_URLS).
-			}
+			await Promise.all(
+				SHELL_URLS.map(async (url) => {
+					try {
+						const reponse = await fetch(url, { cache: "reload" });
+						if (reponse.ok) await cache.put(url, reponse.clone());
+					} catch {
+						// Shell URLs are retried on the next controlled navigation.
+					}
+				}),
+			);
 			await self.skipWaiting();
 		})(),
 	);

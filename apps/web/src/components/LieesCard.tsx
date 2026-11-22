@@ -6,26 +6,11 @@
  * d'erreur, le message d'API ; quand la base ne mesure rien, le mot « aucune ».
  */
 import { useEffect, useState } from "react";
-import { authHeaders } from "../api";
+import { api, type HistoriquePoint, type OrgsLiees } from "../api";
+export type { HistoriquePoint, OrgsLiees };
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./liees.css";
 
-export type OrgsLiees = {
-  semaine: number;
-  total: number;
-  enAttente: number;
-  examinees: number;
-  parDepartement: { dept: string; n: number }[];
-};
-
-/** Un relevé quotidien, tel que renvoyé par GET /api/orgs/liees/historique. */
-export type HistoriquePoint = {
-  jour: string;
-  semaine: number;
-  total: number;
-  enAttente: number;
-  examinees: number;
-};
 
 type LieesContenuProps = LieesEtat & {
   /** Vide quand aucun relevé n'a encore été écrit : aucune courbe affichée. */
@@ -164,28 +149,17 @@ export default function LieesCard() {
     setLoading(true);
     setHistorique([]);
     setError(null);
-    fetch("/api/orgs/liees", { headers: authHeaders(), signal: controller.signal })
-      .then(async (res) => {
-        if (!res.ok) {
-          throw new Error(
-            res.status === 401
-              ? "/api/orgs/liees → 401 (authentification requise)"
-              : `/api/orgs/liees → ${res.status}`,
-          );
-        }
-        return await res.json() as OrgsLiees;
-      })
+    api.orgsLiees()
       .then((json) => { if (!controller.signal.aborted) setData(json); })
       .catch((err: unknown) => {
-        if (!controller.signal.aborted) {
-          setError(err instanceof Error ? err.message : "erreur inconnue");
-        }
+        if (controller.signal.aborted) return;
+        const status = err instanceof Error && "status" in err ? err.status : undefined;
+        setError(status === 401
+          ? "/api/orgs/liees → 401 (authentification requise)"
+          : status !== undefined ? `/api/orgs/liees → ${status}` : String(err));
       })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
-    fetch("/api/orgs/liees/historique?jours=30", { headers: authHeaders(), signal: controller.signal })
-      .then(async (res) => res.ok
-        ? await res.json() as { points?: HistoriquePoint[] }
-        : { points: [] })
+    api.orgsLieesHistorique(30)
       .then((json) => {
         if (controller.signal.aborted) return;
         const points = Array.isArray(json?.points) ? json.points : [];

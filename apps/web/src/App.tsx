@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
+import { lastOfflineFallback, offlineStatus, onOfflineFallback } from "./offline/pwa";
 import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
@@ -111,6 +112,26 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
   const instantaneData = useMemo(() => etatDonnees(instantane, horloge), [instantane, horloge]);
+  // Offline is a first-class state: the network can drop between two renders.
+  // The timestamp comes from the last replayed response, or from the map
+  // snapshot when the current view made no API call.
+  const [offline, setOffline] = useState(() => typeof navigator !== "undefined" ? !navigator.onLine : false);
+  const [offlineAt, setOfflineAt] = useState<number | null>(() => lastOfflineFallback()?.at ?? null);
+  useEffect(() => {
+    const down = () => setOffline(true);
+    const up = () => { setOffline(false); setOfflineAt(null); };
+    const unsubscribe = onOfflineFallback((info) => {
+      setOffline(true);
+      setOfflineAt(info.at);
+    });
+    window.addEventListener("offline", down);
+    window.addEventListener("online", up);
+    return () => {
+      window.removeEventListener("offline", down);
+      window.removeEventListener("online", up);
+      unsubscribe();
+    };
+  }, []);
   const [loading, setLoading] = useState(!MOCK_MODE);
   const [reloadSignal, setReloadSignal] = useState(0);
   const recharger = useCallback(() => setReloadSignal((n) => n + 1), []);
@@ -685,14 +706,10 @@ export default function App() {
       </Suspense>
 
       {error ? <p className="shell__error">API : {error}</p> : null}
-      {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
-          croire à un temps réel qu'on n'a plus. */}
-      {error && instantaneData ? (
-        <p className="shell__offline" data-etat={instantaneData.etat}>
-          {instantaneData.libelle}
-          {instantaneData.etat === "perime" ? " — carte figée sur la dernière réponse reçue" : null}
-        </p>
-      ) : null}
+      {offline ? (() => {
+        const statut = offlineStatus(offlineAt ?? instantane?.at ?? null, horloge);
+        return <p className="shell__offline" data-etat={statut.state}>{statut.label}</p>;
+      })() : null}
 
       <div className="shell__body" style={bodyStyle}>
         {view === "today" ? null : feedOpen ? (

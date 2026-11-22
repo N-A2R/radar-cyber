@@ -1,5 +1,15 @@
 const BASE = "/api";
 
+import { OfflineApiCache, type OfflineStorage } from "./offline/pwa";
+
+function browserStorage(): OfflineStorage | null {
+  try { return typeof localStorage === "undefined" ? null : localStorage; } catch { return null; }
+}
+
+/** One cache for every read-only API call in the interface. */
+export const offlineCache = new OfflineApiCache(browserStorage());
+
+
 /** Clé de stockage du jeton de session. */
 const TOKEN_KEY = "radar_token";
 
@@ -21,10 +31,29 @@ function apiError(path: string, status: number): ApiError {
   return err;
 }
 
+
+function isNetworkFailure(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  const status = (err as ApiError).status;
+  if (status === 502 || status === 503 || status === 504) return true;
+  if (status !== undefined) return false;
+  return err.name === "TypeError" || /network|fetch|offline|internet disconnected/i.test(err.message);
+}
+
 async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
-  const res = await fetch(BASE + path, { headers: authHeaders(), signal });
-  if (!res.ok) throw apiError(path, res.status);
-  return res.json() as Promise<T>;
+  try {
+    const res = await fetch(BASE + path, { headers: authHeaders(), signal });
+    if (!res.ok) throw apiError(path, res.status);
+    const data = await res.json() as T;
+    offlineCache.remember("GET", path, data, res.status);
+    return data;
+  } catch (err) {
+    if (!signal?.aborted && isNetworkFailure(err)) {
+      const cached = offlineCache.recall<T>("GET", path);
+      if (cached) return cached.value;
+    }
+    throw err;
+  }
 }
 
 /** POST authentifié (ack / resolve) : le token est relu à chaque appel. */
@@ -64,8 +93,26 @@ export function setAuthToken(token: string): void {
 /** Oublie le jeton de session. */
 export function clearAuthToken(): void {
   try { localStorage.removeItem(TOKEN_KEY); } catch { /* stockage indisponible */ }
+  offlineCache.clear();
 }
 
+/** Compteur « organisations reliées » affiché sur l'accueil. */
+export type OrgsLiees = {
+  semaine: number;
+  total: number;
+  enAttente: number;
+  examinees: number;
+  parDepartement: { dept: string; n: number }[];
+};
+
+/** Un relevé quotidien du compteur « organisations reliées ». */
+export type HistoriquePoint = {
+  jour: string;
+  semaine: number;
+  total: number;
+  enAttente: number;
+  examinees: number;
+};
 export type Org = {
   id: number;
   name: string;
@@ -1033,6 +1080,9 @@ export const api = {
   collecte: (sourceId: string) => post<{ id: string; lancee: true }>(`/sources/${encodeURIComponent(sourceId)}/collecte`),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
+  /** Compteur de la carte d'accueil : passe par le cache hors ligne comme les autres lectures. */
+  orgsLiees: () => get<OrgsLiees>("/orgs/liees"),
+  orgsLieesHistorique: (jours = 30) => get<{ points?: HistoriquePoint[] }>(`/orgs/liees/historique?jours=${jours}`),
   naOverview: () => get<NaOverview>("/na/overview"),
   naEvents: (dept: string) => get<NaFil>(`/na/events?dept=${encodeURIComponent(dept)}`),
   dossier: () => get<{ etat: Record<string, unknown>; dossier: { genere: string; sections: { cle: string; titre: string; points: string[] }[] } }>("/dossier"),
@@ -1118,6 +1168,16 @@ export const api = {
     return get<Alert[]>(`/alerts?${qs.toString()}`);
   },
   alertStats: () => get<AlertStatRow[]>("/alerts/stats"),
+  alertDetail: <T>(id: number) => get<T>(`/alerts/${id}`),
+  /** Legacy review queue read, still used by the Review screen. */
+  legacyReviewQueue: <T>(params: { limit?: number; page?: number; bucket?: string; q?: string } = {}) => {
+    const qs = new URLSearchParams();
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== "") qs.set(key, String(value));
+    }
+    const suffix = qs.toString();
+    return get<T>(`/review/queue${suffix ? `?${suffix}` : ""}`);
+  },
   ackAlert: (id: number) => post<{ ok: boolean }>(`/alerts/${id}/ack`),
   resolveAlert: (id: number) => post<{ ok: boolean }>(`/alerts/${id}/resolve`),
   enrichIndicator: (id: number) => get<IndicatorEnrichment>(`/enrich/indicator/${id}`),

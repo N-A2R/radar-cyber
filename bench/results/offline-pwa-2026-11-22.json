@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-11-22T01:47:29.452Z",
+  "baseline": {
+    "path": "bench/fixtures/offline-baseline-na.json",
+    "scope": "Nouvelle-Aquitaine (12 departments)",
+    "capturedAt": "2026-11-21",
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26719,
+    "archivedEvents": 4710,
+    "origin": "docs/couverture-mesuree.md and docs/agents-cpu.md, read-only PostgreSQL state of 2026-11-21"
+  },
+  "command": "pnpm measure:offline-pwa",
+  "behaviours": {
+    "passed": 22,
+    "total": 22
+  },
+  "checks": [
+    {
+      "name": "every product view has a replayable read route",
+      "ok": true
+    },
+    {
+      "name": "write methods are never cached",
+      "ok": true
+    },
+    {
+      "name": "identity routes are never cached",
+      "ok": true
+    },
+    {
+      "name": "routes outside the read allowlist are ignored",
+      "ok": true
+    },
+    {
+      "name": "all view read endpoints are allowed",
+      "ok": true
+    },
+    {
+      "name": "filter order does not multiply cache keys",
+      "ok": true
+    },
+    {
+      "name": "an online read is written through to the cache",
+      "ok": true
+    },
+    {
+      "name": "error responses are never written to the cache",
+      "ok": true
+    },
+    {
+      "name": "different filters keep separate cached payloads",
+      "ok": true
+    },
+    {
+      "name": "a failed read without a cached response has no fake fallback",
+      "ok": true
+    },
+    {
+      "name": "entries older than the age limit are not replayed",
+      "ok": true
+    },
+    {
+      "name": "a cached date in the future is rejected",
+      "ok": true
+    },
+    {
+      "name": "oversized payloads are skipped",
+      "ok": true
+    },
+    {
+      "name": "oldest entries are evicted under the byte budget",
+      "ok": true
+    },
+    {
+      "name": "the entry count is bounded",
+      "ok": true
+    },
+    {
+      "name": "a full storage never breaks an online read",
+      "ok": true
+    },
+    {
+      "name": "corrupt entries are discarded instead of replayed",
+      "ok": true
+    },
+    {
+      "name": "personal fields are redacted before a payload is stored",
+      "ok": true
+    },
+    {
+      "name": "sign-out clears every cached response",
+      "ok": true
+    },
+    {
+      "name": "replaying a response notifies the offline banner",
+      "ok": true
+    },
+    {
+      "name": "the banner is English and age-aware",
+      "ok": true
+    },
+    {
+      "name": "a missing cache is reported honestly",
+      "ok": true
+    }
+  ]
+}

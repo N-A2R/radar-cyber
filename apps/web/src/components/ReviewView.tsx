@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { authHeaders } from "../api";
+import { api, authHeaders } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./review.css";
@@ -157,17 +157,9 @@ export default function ReviewView({
       return;
     }
     const controller = new AbortController();
-    const params = new URLSearchParams({ limit: String(LIMIT), page: String(page) });
-    if (bucket) params.set("bucket", bucket);
-    if (query) params.set("q", query);
     setLoading(true);
     setError(null);
-    fetch(`/api/review/queue?${params.toString()}`, { headers: authHeaders(), signal: controller.signal })
-      .then(async (res) => {
-        if (res.status === 401) onUnauthorized?.();
-        if (!res.ok) throw new Error(await apiMessage(res, "Review queue unavailable"));
-        return res.json() as Promise<RevueQueue>;
-      })
+    api.legacyReviewQueue<RevueQueue>({ limit: LIMIT, page, bucket: bucket || undefined, q: query || undefined })
       .then((data) => {
         setRows(data.rows);
         setTotal(data.total);
@@ -182,8 +174,10 @@ export default function ReviewView({
         setNotice(pendingNotice.current);
         pendingNotice.current = null;
       })
-      .catch((err: Error) => {
-        if (err.name !== "AbortError") setError(err.message);
+      .catch((err: Error & { status?: number }) => {
+        if (controller.signal.aborted) return;
+        if (err.status === 401) onUnauthorized?.();
+        setError(err.message || "Review queue unavailable");
         pendingNotice.current = null;
         setProgress(null);
       })
