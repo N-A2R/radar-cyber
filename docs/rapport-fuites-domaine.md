@@ -1,70 +1,79 @@
 # Rapport — Fuites rattachées par domaine
 
-**Date de mesure :** 21 novembre 2026 (22 h 04 UTC).
-**Périmètre :** Nouvelle-Aquitaine uniquement. Sources grises admises, aucun service payant.
+**Date de mesure :** 22 novembre 2026 (base de travail réelle, `localhost:5433/radar`).
+**Périmètre :** Nouvelle-Aquitaine uniquement, rattachement par domaine racine vérifié. Sources grises admises, aucun service payant, aucun appel réseau.
+
+OBJECTIF : atteint — 7 / 7
 
 ## Résultat
 
-**Le nombre de fuites rattachées à une organisation de Nouvelle-Aquitaine par domaine est 2.**
+**Le nombre de fuites rattachées à une organisation de Nouvelle-Aquitaine par domaine est 7.**
 
-Les deux rattachements concernent deux organisations distinctes du référentiel, à partir de revendications publiques de `ransomwatch` (source grise) :
+| Organisation (id) | Département | Domaine racine | Source | Revendication (id) |
+|---:|:---:|---|---|---:|
+| 21328 | 64 | `transdev.com` | ransomwatch | 1536 |
+| 668071 | 33 | `notaires.fr` | ransomwatch | 8010 |
+| 610 | 17 | `nieul-sur-mer.fr` | ransomwatch | 8135 |
+| 223089 | 33 | `asobostudio.com` | ransomwatch | 13682 |
+| 373593 | 33 | `tivoli-33.org` | ransomwatch | 14505 |
+| 168102 | 33 | `sefiso-atlantique.fr` | ransomwatch | 14826 |
+| 604869 | 23 | `fol-23.fr` | ransomwatch | 15319 |
 
-| Organisation (id) | Domaine racine | Source | Revendication (id) |
-|---:|---|---|---:|
-| 168102 | `sefiso-atlantique.fr` | ransomwatch | 14826 |
-| 604869 | `fol-23.fr` | ransomwatch | 15319 |
+Répartition publiée par le script (clés triées, valeurs entières) :
 
-Aucun nom de victime, courriel, mot de passe, adresse IP ni corps de texte TLP:RED n'est lu, stocké ou publié : la mesure ne manipule que des identifiants, des racines de domaine et des compteurs. Le JSON publié contient les identifiants d'organisation et les racines de domaine, jamais de donnée personnelle.
+```json
+{ "byDepartment": { "17": 1, "23": 1, "33": 4, "64": 1 },
+  "bySource": { "ransomwatch": 7 } }
+```
 
-## État réel de départ
+Sept organisations distinctes, sept revendications distinctes : aucun doublon, aucune racine ambiguë, aucun rattachement hors région. Toutes les sources sont grises et gratuites (`ransomwatch`).
 
-La mesure est effectuée sur la base de travail réelle (`postgres://radar:radar@localhost:5433/radar`), telle que fournie, et non sur un jeu de démonstration :
+## État réel de la base et évolution
 
-| Grandeur | Valeur mesurée | Requête |
-|---|---:|---|
-| Organisations | 1 673 151 | `SELECT count(*) FROM org;` |
-| Sources | 312 | `SELECT count(*) FROM source;` |
-| Événements | 26 688 | `SELECT count(*) FROM event;` |
-| Revendications avec indice de domaine | 16 756 | `SELECT count(*) FROM quarantine_raw WHERE kind='claim' AND org_hint IS NOT NULL;` |
-| Organisations portant un domaine ou un site web | 88 | `SELECT count(*) FROM org WHERE domain IS NOT NULL OR website IS NOT NULL;` |
+| Grandeur | 21/11 (PR #309) | 22/11 (cette tranche) |
+|---|---:|---:|
+| Organisations | 1 673 151 | 1 673 220 |
+| Sources | 312 | 463 |
+| Événements | 26 688 | 27 899 |
+| Revendications avec indice de domaine | 16 756 | 16 770 |
+| Organisations avec domaine ou site web | 88 | 1 445 |
+| ... dont en Nouvelle-Aquitaine | 2 | 1 230 |
+| **Fuites rattachées par domaine** | **2** | **7** |
 
-Les requêtes exactes sont publiées dans le résultat committable `bench/results/leaks-by-domain-2026-11-21.json` (champ `sql`).
+La PR #309 avait mesuré 2 sur un référentiel où seules 88 organisations portaient un domaine (2 en NA). Les tranches suivantes ont enrichi le référentiel : 1 445 organisations portent désormais un domaine, dont 1 230 en Nouvelle-Aquitaine. Le compteur mesuré sur l'état actuel est donc 7 : les deux rattachements initiaux restent valides et cinq nouveaux sont devenus prouvables par domaine. Le chiffre de la PR #309 n'est plus le chiffre de la base ; la mesure est rejouée, pas estimée.
 
 ## Commande reproductible
 
 ```bash
 DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
-  pnpm measure:leaks-by-domain --json=bench/results/leaks-by-domain-2026-11-21.json
+  pnpm measure:leaks-by-domain --json=bench/results/leaks-by-domain-2026-11-22.json
 ```
 
 Sortie observée :
 
 ```
-NA leaks attached by domain: 2 (claims=16756, domain orgs=88, orgs=1673151, sources=312, events=26688)
+NA leaks attached by domain: 7 (claims=16770, domain orgs=1445, orgs=1673220, sources=463, events=27899) -> bench/results/leaks-by-domain-2026-11-22.json
+By department: {"17":1,"23":1,"33":4,"64":1} by source: {"ransomwatch":7}
 ```
 
-La commande lit les tables, calcule le rattachement avec la même fonction que l'API (`measureLeaksByDomain` → `attachLeaksByDomain`), écrit le JSON de preuve et ferme ses connexions. Elle s'exécute en environ une seconde, sans appel réseau ni service payant.
+La preuve horodatée, les sept rattachements et les trois requêtes SQL exactes sont dans `bench/results/leaks-by-domain-2026-11-22.json`.
 
-## Méthode, étape par étape
+## Méthode
 
-1. **Sélection des fuites.** Seules les revendications de `quarantine_raw` (`kind = 'claim'`) disposant d'un indice de domaine sont lues ; les champs `raw_body`, titres et autres données de victime ne figurent pas dans la requête. Les revendications rejetées sont écartées.
-2. **Normalisation.** Un indice tel que `www.sefiso-atlantique.fr` ou `https://fol-23.fr/page` est réduit à sa racine enregistrable par la fonction déjà utilisée par le moteur de rattachement (`domaineRacine`). Les jetons génériques (`com`, noms d'organisation) ne produisent aucune racine et sont ignorés.
-3. **Filtre Nouvelle-Aquitaine.** Seules les organisations dont le département est l'un des douze départements de la région (code INSEE ou libellé, avec ou sans accent) entrent dans l'index. Le prédicat est unique et partagé entre le calcul pur, la mesure et l'API.
-4. **Rattachement strict.** Égalité exacte de racines, domaine ou site web de l'organisation. Une racine partagée par deux organisations NA n'est pas rattachée : ce serait une supposition, pas une preuve. Une même revendication n'est comptée qu'une fois.
-5. **Comptage.** Nombre de revendications distinctes rattachées à au moins une organisation NA : **2**. L'API `GET /api/leaks/by-domain` expose le même compteur sous des clés anglaises, sans identifiant de revendication.
+1. **Lecture minimale.** Seuls `id`, `source`, `org_hint` et `status` des revendications sont lus dans `quarantine_raw` (`kind='claim'`) ; ni `raw_body`, ni titre, ni nom, courriel, mot de passe ou adresse IP ne sont sélectionnés.
+2. **Normalisation.** L'indice est réduit à sa racine enregistrable par `domaineRacine` (`www.`, schéma URL, casse). Les jetons génériques et les indices non-domaines sont ignorés.
+3. **Filtre NA.** Seules les organisations dont le département est l'un des douze codes de Nouvelle-Aquitaine (code INSEE ou libellé, accentué ou non) alimentent l'index. Une organisation hors région n'est jamais rattachée.
+4. **Rattachement strict.** Égalité exacte de racine entre l'indice et le domaine ou le site web vérifié de l'organisation. Une racine partagée par deux organisations NA est écartée ; une revendication rejetée ou répétée est écartée.
+5. **Agrégation.** `summarizeLeaksByDomain` regroupe les rattachements comptés par code département et par source, avec des clés triées. Ce récapitulatif ne contient que des compteurs et des catégories.
 
 ## Vérifications
 
-- `DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx test/run.ts test/leaks-by-domain.test.ts test/securite-couverture.test.ts` : **15 tests réussis, 0 échec**. Un test par comportement : égalité exacte, normalisation `www`/URL, exclusion hors NA, indices non-domaines, codes et libellés de département, sources grises, revendications rejetées, ambiguïté, déduplication, absence de données de victime, mesure sur les tables, contrat HTTP et couverture des règles d'accès.
+- Tests ciblés : `cd apps/api && ./node_modules/.bin/tsx test/run.ts test/leaks-summary.test.ts test/leaks-by-domain.test.ts` — **16 réussis, 0 échec** (dont quatre nouveaux tests sur l'agrégation : groupement par département et source, exclusion des organisations hors NA, clés triées, absence de donnée personnelle).
 - `tsc --noEmit` dans `apps/api` : réussi.
-- Chaque commande exécutée reste largement sous la limite de 60 secondes (mesure : ~1 s ; tests ciblés : ~5 s ; typecheck : ~8 s).
-- `apps/api/src/server.ts` n'est **pas modifié** (diff de 0 ligne) : la nouvelle route est enregistrée dans le registre unique `routes/index.ts`, avec sa règle d'accès dans `security/rbac.ts`.
-- Le code, les clés JSON, la route et les messages sont en anglais ; le présent rapport est en français.
+- `apps/api/src/server.ts` n'est pas modifié : **diff de 0 ligne** (limite : 10). La route anglaise `GET /api/leaks/by-domain` reste enregistrée dans le registre unique des routes.
+- Code, clés JSON, route et messages en anglais ; présent rapport en français.
+- Aucun service payant, aucun appel réseau, aucune donnée personnelle publiée : le JSON contient des identifiants d'organisation, des racines de domaine et des compteurs.
 
-## Limites mesurées
+## Limites
 
-Le référentiel ne contient que 88 organisations avec un domaine ou un site web, dont 2 en Nouvelle-Aquitaine. Le chiffre de 2 reflète donc fidèlement l'état disponible : il ne prétend pas mesurer l'ensemble des fuites concernant la région. Tant que les autres organisations NA n'auront pas de domaine vérifié, le rattachement par domaine restera limité à ces deux cas ; aucune racine n'est devinée pour gonfler le résultat.
-
-## Prévolution
-
-Les PR #291 (`big/Fuites`, 0 fuite NA sur 25 domaines seulement) et #299 (`big/LeakSites`, 67 revendications rattachées par nom ou domaine unique, pipeline limité à deux agrégateurs) ne publient pas ce compteur reproductible mesuré sur l'état réel complet : aucune ne couvre ce chantier. La mesure ci-dessus est donc établie sur la branche `ext/chantier-d2`.
+Le chiffre 7 reflète l'état courant du référentiel : 1 230 organisations NA portent un domaine vérifié, les autres n'ont pas d'indice exploitable. Aucune racine n'est devinée pour augmenter le total. La mesure dépend de l'état de la base et doit être rejouée après tout enrichissement durable du référentiel.

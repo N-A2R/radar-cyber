@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:3f1780c8-b31d-46d2-aaa5-15bf5d6a392b>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 387
+WARC-Block-Digest: sha1:J62ZLFDTCLJU6OWJHDZTT2H7VHRYX4WI
+X-Claim-Fingerprint: d174a9a10ae753570a445564
+X-Victim-Key: 02cedd8a3c5d8de925cf6dc8
+
+{"post_title": "MAIRIE DE FUMEL", "discovered": "2026-02-14 00:38:39.778791", "description": "Fumel is a commune in the Lot-et-Garonne department in south-western France. Situated at the right bank of the river Lot, it is the centre of a small agglomerat...", "link": null, "magnet": null, "screen": null, "misp_uuid": "22d4bdf7-388f-5872-9650-05e2d0319551", "group_name": "dragonforce"}
+
