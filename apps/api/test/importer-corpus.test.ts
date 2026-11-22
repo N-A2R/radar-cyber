@@ -140,8 +140,8 @@ describe("importer-corpus", () => {
 			const client = new Client({ connectionString: process.env.DATABASE_URL });
 			await client.connect();
 			try {
-				// La migration 053 introduit 43 sources `corpus:landes-40-*` : étrangères à cet import.
-				const ids = await client.query<{ id: string }>("SELECT id FROM source WHERE id LIKE 'corpus:%' AND id NOT LIKE 'corpus:landes-40-%' ORDER BY id");
+				// Les migrations 053 et 162 introduisent des sources corpus:landes-40-* et corpus:juridique-79-*, étrangères à cet import.
+				const ids = await client.query<{ id: string }>("SELECT id FROM source WHERE id LIKE 'corpus:%' AND id NOT LIKE 'corpus:landes-40-%' AND id NOT LIKE 'corpus:juridique-79-%' ORDER BY id");
 				assert.deepEqual(ids.rows.map((r) => r.id), [
 					"corpus:editeur:exemple-fr",
 					"corpus:editeur:presse-test",
