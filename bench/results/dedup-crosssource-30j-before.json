@@ -1,0 +1,21 @@
+{
+  "rule": "cross-source@1",
+  "windowDays": 30,
+  "windowStart": "2026-10-23T02:06:23.266Z",
+  "generatedAt": "2026-11-22T02:06:23.266Z",
+  "scope": {
+    "region": "nouvelle-aquitaine",
+    "greySources": true,
+    "victimData": false
+  },
+  "mode": "report",
+  "eventsScanned": 26369,
+  "groupsFound": 96,
+  "duplicatesFound": 135,
+  "duplicatesEliminated": 0,
+  "residualDuplicates": 135,
+  "dedupRatePercent": null,
+  "rateBasis": "none",
+  "baseline": null,
+  "verifications": []
+}

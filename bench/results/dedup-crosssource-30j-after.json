@@ -1,0 +1,1444 @@
+{
+  "rule": "cross-source@1",
+  "windowDays": 30,
+  "windowStart": "2026-10-23T02:06:30.987Z",
+  "generatedAt": "2026-11-22T02:06:32.687Z",
+  "scope": {
+    "region": "nouvelle-aquitaine",
+    "greySources": true,
+    "victimData": false
+  },
+  "mode": "apply",
+  "eventsScanned": 26369,
+  "groupsFound": 96,
+  "duplicatesFound": 135,
+  "duplicatesEliminated": 135,
+  "residualDuplicates": 0,
+  "dedupRatePercent": 100,
+  "rateBasis": "apply",
+  "baseline": null,
+  "verifications": [
+    {
+      "survivorId": "46587",
+      "duplicateIds": [
+        "51115"
+      ],
+      "sourceIds": [
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51172",
+      "duplicateIds": [
+        "52335"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "36",
+      "duplicateIds": [
+        "600",
+        "20658"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "10",
+      "duplicateIds": [
+        "570",
+        "20638"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "11",
+      "duplicateIds": [
+        "477",
+        "20639"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51162",
+      "duplicateIds": [
+        "52266"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51159",
+      "duplicateIds": [
+        "52303"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51151",
+      "duplicateIds": [
+        "52347"
+      ],
+      "sourceIds": [
+        "cert-fr-alerte",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46603",
+      "duplicateIds": [
+        "47719"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "19",
+      "duplicateIds": [
+        "597",
+        "20647"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "13",
+      "duplicateIds": [
+        "484",
+        "20641"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46589",
+      "duplicateIds": [
+        "47685"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "21",
+      "duplicateIds": [
+        "491",
+        "20649"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51164",
+      "duplicateIds": [
+        "52261"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51",
+      "duplicateIds": [
+        "630",
+        "20666"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51175",
+      "duplicateIds": [
+        "52363"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "42",
+      "duplicateIds": [
+        "632",
+        "20662"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51174",
+      "duplicateIds": [
+        "52359"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51181",
+      "duplicateIds": [
+        "52361"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "47",
+      "duplicateIds": [
+        "626",
+        "20665"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51169",
+      "duplicateIds": [
+        "52355"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "54",
+      "duplicateIds": [
+        "625",
+        "20667"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51170",
+      "duplicateIds": [
+        "52357"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "12",
+      "duplicateIds": [
+        "521",
+        "20640"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "29",
+      "duplicateIds": [
+        "590",
+        "20655"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "24",
+      "duplicateIds": [
+        "470",
+        "20651"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "34",
+      "duplicateIds": [
+        "610",
+        "20657"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51157",
+      "duplicateIds": [
+        "52272"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "40",
+      "duplicateIds": [
+        "605",
+        "20661"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51183",
+      "duplicateIds": [
+        "52316"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51146",
+      "duplicateIds": [
+        "52236"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "57",
+      "duplicateIds": [
+        "635",
+        "20668"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51168",
+      "duplicateIds": [
+        "52365"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "28",
+      "duplicateIds": [
+        "506",
+        "20654"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51171",
+      "duplicateIds": [
+        "52340"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "17",
+      "duplicateIds": [
+        "555",
+        "20645"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51153",
+      "duplicateIds": [
+        "52250"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51182",
+      "duplicateIds": [
+        "52345"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "6",
+      "duplicateIds": [
+        "498",
+        "20634"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51165",
+      "duplicateIds": [
+        "52293"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "9",
+      "duplicateIds": [
+        "579",
+        "20637"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51161",
+      "duplicateIds": [
+        "52289"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46592",
+      "duplicateIds": [
+        "47690"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51166",
+      "duplicateIds": [
+        "52367"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "7",
+      "duplicateIds": [
+        "549",
+        "20635"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "22",
+      "duplicateIds": [
+        "525",
+        "20650"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46588",
+      "duplicateIds": [
+        "47700"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "5",
+      "duplicateIds": [
+        "539",
+        "20633"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "20",
+      "duplicateIds": [
+        "531",
+        "20648"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46600",
+      "duplicateIds": [
+        "47730"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "8",
+      "duplicateIds": [
+        "544",
+        "20636"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46597",
+      "duplicateIds": [
+        "47703"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "25",
+      "duplicateIds": [
+        "559",
+        "20652"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46591",
+      "duplicateIds": [
+        "47694"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "15",
+      "duplicateIds": [
+        "584",
+        "20643"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51177",
+      "duplicateIds": [
+        "52313"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "39",
+      "duplicateIds": [
+        "614",
+        "20660"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46601",
+      "duplicateIds": [
+        "47724"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51148",
+      "duplicateIds": [
+        "52210"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51149",
+      "duplicateIds": [
+        "52216"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51150",
+      "duplicateIds": [
+        "52229"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51147",
+      "duplicateIds": [
+        "52222"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51158",
+      "duplicateIds": [
+        "52308"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "59",
+      "duplicateIds": [
+        "612",
+        "20669"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "32",
+      "duplicateIds": [
+        "619",
+        "20656"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51156",
+      "duplicateIds": [
+        "52257"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51167",
+      "duplicateIds": [
+        "52349"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46598",
+      "duplicateIds": [
+        "47712"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51178",
+      "duplicateIds": [
+        "52321"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "16",
+      "duplicateIds": [
+        "563",
+        "20644"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46595",
+      "duplicateIds": [
+        "47722"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "45",
+      "duplicateIds": [
+        "603",
+        "20664"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51154",
+      "duplicateIds": [
+        "52283"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51160",
+      "duplicateIds": [
+        "52277"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "18",
+      "duplicateIds": [
+        "516",
+        "20646"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46599",
+      "duplicateIds": [
+        "47710"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46590",
+      "duplicateIds": [
+        "47697"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46593",
+      "duplicateIds": [
+        "47688"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "14",
+      "duplicateIds": [
+        "575",
+        "20642"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51173",
+      "duplicateIds": [
+        "52352"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46602",
+      "duplicateIds": [
+        "47707"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46596",
+      "duplicateIds": [
+        "47716"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51179",
+      "duplicateIds": [
+        "52332"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "37",
+      "duplicateIds": [
+        "622",
+        "20659"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51163",
+      "duplicateIds": [
+        "52298"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "26",
+      "duplicateIds": [
+        "594",
+        "20653"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51180",
+      "duplicateIds": [
+        "52326"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51176",
+      "duplicateIds": [
+        "52329"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "4",
+      "duplicateIds": [
+        "567",
+        "20632"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "43",
+      "duplicateIds": [
+        "616",
+        "20663"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51152",
+      "duplicateIds": [
+        "52344"
+      ],
+      "sourceIds": [
+        "cert-fr-alerte",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "3",
+      "duplicateIds": [
+        "511",
+        "20631"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert-fr-feed",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "46594",
+      "duplicateIds": [
+        "47692"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "51155",
+      "duplicateIds": [
+        "52241"
+      ],
+      "sourceIds": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "1722",
+      "duplicateIds": [
+        "1842"
+      ],
+      "sourceIds": [
+        "ransom-binaryresponse",
+        "ransom-securityalert"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    },
+    {
+      "survivorId": "500",
+      "duplicateIds": [
+        "595"
+      ],
+      "sourceIds": [
+        "cat-cisa-ics-advisories",
+        "cert-cisa-advisories"
+      ],
+      "alertsMoved": 0,
+      "alertsMerged": 0,
+      "ok": true,
+      "detail": "copies removed, provenance kept, alerts reassigned"
+    }
+  ]
+}

@@ -45,6 +45,7 @@ export type JournalKind =
 	| "acces.refus"
 	/** Une organisation nommée a demandé une rectification. */
 	| "droit_reponse.demande"
+	| "event.dedup"
 	/** Une demande de rectification a changé de statut (publication comprise). */
 	| "droit_reponse.decision";
 
