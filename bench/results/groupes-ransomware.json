@@ -1,0 +1,325 @@
+{
+  "measuredAt": "2026-11-22T00:28:34.436Z",
+  "command": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx scripts/mesure-groupes-ransomware.mts",
+  "definitions": {
+    "trackedGroups": "rows of ransomware_group",
+    "groupsWithNaVictims": "tracked groups with at least one row of ransomware_victim",
+    "naVictims": "distinct group/organisation pairs, always an org in one of the 12 NA departments"
+  },
+  "sql": {
+    "totals": "\n  SELECT count(*)::int AS tracked_groups,\n         count(*) FILTER (WHERE na_victims > 0)::int AS groups_with_na_victims,\n         COALESCE(sum(na_victims), 0)::int AS na_victims\n    FROM (\n      SELECT g.id, count(v.id) AS na_victims\n        FROM ransomware_group g\n        LEFT JOIN ransomware_victim v ON v.group_id = g.id\n       GROUP BY g.id\n    ) t\n",
+    "byGroup": "\n  SELECT g.name, g.slug, g.claims_count, count(v.id)::int AS na_victims\n    FROM ransomware_group g\n    LEFT JOIN ransomware_victim v ON v.group_id = g.id\n   GROUP BY g.id, g.name, g.slug, g.claims_count\n   ORDER BY na_victims DESC, g.name ASC\n",
+    "byMatch": "\n  SELECT match_type, count(*)::int AS victims\n    FROM ransomware_victim\n   GROUP BY match_type\n   ORDER BY match_type\n"
+  },
+  "trackedGroups": 50,
+  "groupsWithNaVictims": 21,
+  "naVictims": 36,
+  "byMatchType": {
+    "curated": 4,
+    "domain": 2,
+    "event": 21,
+    "name": 9
+  },
+  "groups": [
+    {
+      "name": "Inc Ransom",
+      "slug": "inc-ransom",
+      "claims": 272,
+      "naVictims": 7
+    },
+    {
+      "name": "The Gentlemen",
+      "slug": "the-gentlemen",
+      "claims": 22,
+      "naVictims": 7
+    },
+    {
+      "name": "RansomHub",
+      "slug": "ransomhub",
+      "claims": 1029,
+      "naVictims": 2
+    },
+    {
+      "name": "endzone",
+      "slug": "endzone",
+      "claims": 0,
+      "naVictims": 2
+    },
+    {
+      "name": "rhysida",
+      "slug": "rhysida",
+      "claims": 223,
+      "naVictims": 2
+    },
+    {
+      "name": "8Base",
+      "slug": "8base",
+      "claims": 412,
+      "naVictims": 1
+    },
+    {
+      "name": "ALPHV",
+      "slug": "alphv",
+      "claims": 756,
+      "naVictims": 1
+    },
+    {
+      "name": "LockBit 3.0",
+      "slug": "lockbit-3-0",
+      "claims": 2054,
+      "naVictims": 1
+    },
+    {
+      "name": "aurora",
+      "slug": "aurora",
+      "claims": 6,
+      "naVictims": 1
+    },
+    {
+      "name": "bashe",
+      "slug": "bashe",
+      "claims": 124,
+      "naVictims": 1
+    },
+    {
+      "name": "byod",
+      "slug": "byod",
+      "claims": 1,
+      "naVictims": 1
+    },
+    {
+      "name": "conti",
+      "slug": "conti",
+      "claims": 333,
+      "naVictims": 1
+    },
+    {
+      "name": "donutleaks",
+      "slug": "donutleaks",
+      "claims": 44,
+      "naVictims": 1
+    },
+    {
+      "name": "hyflock",
+      "slug": "hyflock",
+      "claims": 4,
+      "naVictims": 1
+    },
+    {
+      "name": "krybit",
+      "slug": "krybit",
+      "claims": 5,
+      "naVictims": 1
+    },
+    {
+      "name": "leakeddata",
+      "slug": "leakeddata",
+      "claims": 0,
+      "naVictims": 1
+    },
+    {
+      "name": "lynx",
+      "slug": "lynx",
+      "claims": 262,
+      "naVictims": 1
+    },
+    {
+      "name": "monti",
+      "slug": "monti",
+      "claims": 115,
+      "naVictims": 1
+    },
+    {
+      "name": "panzer",
+      "slug": "panzer",
+      "claims": 3,
+      "naVictims": 1
+    },
+    {
+      "name": "spook",
+      "slug": "spook",
+      "claims": 35,
+      "naVictims": 1
+    },
+    {
+      "name": "vexy",
+      "slug": "vexy",
+      "claims": 0,
+      "naVictims": 1
+    },
+    {
+      "name": "LockBit 2.0",
+      "slug": "lockbit-2-0",
+      "claims": 1006,
+      "naVictims": 0
+    },
+    {
+      "name": "akira",
+      "slug": "akira",
+      "claims": 365,
+      "naVictims": 0
+    },
+    {
+      "name": "avaddon",
+      "slug": "avaddon",
+      "claims": 142,
+      "naVictims": 0
+    },
+    {
+      "name": "bianlian",
+      "slug": "bianlian",
+      "claims": 622,
+      "naVictims": 0
+    },
+    {
+      "name": "blackbasta",
+      "slug": "blackbasta",
+      "claims": 456,
+      "naVictims": 0
+    },
+    {
+      "name": "blackbyte",
+      "slug": "blackbyte",
+      "claims": 140,
+      "naVictims": 0
+    },
+    {
+      "name": "blacksuit",
+      "slug": "blacksuit",
+      "claims": 184,
+      "naVictims": 0
+    },
+    {
+      "name": "cactus",
+      "slug": "cactus",
+      "claims": 569,
+      "naVictims": 0
+    },
+    {
+      "name": "clop",
+      "slug": "clop",
+      "claims": 477,
+      "naVictims": 0
+    },
+    {
+      "name": "cuba",
+      "slug": "cuba",
+      "claims": 104,
+      "naVictims": 0
+    },
+    {
+      "name": "dragonforce",
+      "slug": "dragonforce",
+      "claims": 105,
+      "naVictims": 0
+    },
+    {
+      "name": "everest",
+      "slug": "everest",
+      "claims": 258,
+      "naVictims": 0
+    },
+    {
+      "name": "fog",
+      "slug": "fog",
+      "claims": 140,
+      "naVictims": 0
+    },
+    {
+      "name": "hiveleak",
+      "slug": "hiveleak",
+      "claims": 207,
+      "naVictims": 0
+    },
+    {
+      "name": "hunters",
+      "slug": "hunters",
+      "claims": 318,
+      "naVictims": 0
+    },
+    {
+      "name": "killsecurity",
+      "slug": "killsecurity",
+      "claims": 170,
+      "naVictims": 0
+    },
+    {
+      "name": "lockbit3_fs",
+      "slug": "lockbit3-fs",
+      "claims": 112,
+      "naVictims": 0
+    },
+    {
+      "name": "medusa",
+      "slug": "medusa",
+      "claims": 199,
+      "naVictims": 0
+    },
+    {
+      "name": "noescape",
+      "slug": "noescape",
+      "claims": 123,
+      "naVictims": 0
+    },
+    {
+      "name": "play",
+      "slug": "play",
+      "claims": 901,
+      "naVictims": 0
+    },
+    {
+      "name": "pysa",
+      "slug": "pysa",
+      "claims": 307,
+      "naVictims": 0
+    },
+    {
+      "name": "qilin",
+      "slug": "qilin",
+      "claims": 252,
+      "naVictims": 0
+    },
+    {
+      "name": "ragnarlocker",
+      "slug": "ragnarlocker",
+      "claims": 123,
+      "naVictims": 0
+    },
+    {
+      "name": "ragroup",
+      "slug": "ragroup",
+      "claims": 147,
+      "naVictims": 0
+    },
+    {
+      "name": "ransomhouse",
+      "slug": "ransomhouse",
+      "claims": 164,
+      "naVictims": 0
+    },
+    {
+      "name": "royal",
+      "slug": "royal",
+      "claims": 192,
+      "naVictims": 0
+    },
+    {
+      "name": "snatch",
+      "slug": "snatch",
+      "claims": 146,
+      "naVictims": 0
+    },
+    {
+      "name": "stormous",
+      "slug": "stormous",
+      "claims": 97,
+      "naVictims": 0
+    },
+    {
+      "name": "vicesociety",
+      "slug": "vicesociety",
+      "claims": 174,
+      "naVictims": 0
+    }
+  ]
+}

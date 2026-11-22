@@ -1388,3 +1388,23 @@ type JournalReviewResponseRaw = {
   /** Next-page cursor; null = last page. */
   avant: number | null;
 };
+
+export type RansomwareGroupsResponse = {
+  trackedGroups: number;
+  groupsWithNaVictims: number;
+  groups: Array<{
+    name: string;
+    slug: string;
+    claims: number;
+    naVictims: number;
+    victims: Array<{
+      orgId: number;
+      orgName: string;
+      department: string | null;
+      source: string;
+      sourceUrl: string | null;
+      claimedAt: string | null;
+      matchType: string;
+    }>;
+  }>;
+};
