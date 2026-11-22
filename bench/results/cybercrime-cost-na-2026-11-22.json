@@ -1,0 +1,61 @@
+{
+  "objective": "annual cost of cybercrime in Nouvelle-Aquitaine",
+  "command": "apps/api/node_modules/.bin/tsx scripts/estimate-cybercrime-cost.mts --json=bench/results/cybercrime-cost-na-2026-11-22.json --check",
+  "window": {
+    "from": "2025-11-01",
+    "to": "2026-10-31"
+  },
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259,
+    "naOrganizations": 1671907
+  },
+  "baselineCheck": true,
+  "baselineProblems": [],
+  "method": {
+    "incidentCount": "known incidents / measured radar recall (reference corpus)",
+    "unitCost": "median amount actually awarded for a cyber contract in Nouvelle-Aquitaine over the same window",
+    "interval": "percentile bootstrap over detection flags and awarded amounts",
+    "seed": 20261122,
+    "iterations": 2000,
+    "included": [
+      "organisation-level events",
+      "public contract amounts",
+      "grey literature"
+    ],
+    "excluded": [
+      "victim personal data",
+      "ransom payments",
+      "business interruption",
+      "paid services"
+    ]
+  },
+  "inputs": {
+    "knownIncidents": 42,
+    "matchedIncidents": 31,
+    "detectionRate": 0.7380952380952381,
+    "awardedContracts": 4,
+    "publishedAmountContracts": 10,
+    "awardedAmountsEur": [
+      43189.09,
+      123440,
+      62844,
+      60000
+    ]
+  },
+  "estimate": {
+    "estimatedIncidentsPerYear": 56.90322580645161,
+    "unitCostEur": 61422,
+    "annualCostEur": 3495109.9354838706,
+    "ci95LowEur": 2459804.794054054,
+    "ci95HighEur": 7024134.193548387
+  },
+  "sensitivity": {
+    "withoutDetectionCorrectionEur": 2579724,
+    "withBudgetCeilingEur": 13656774.193548387
+  },
+  "privacy": {
+    "victimPersonalData": false
+  }
+}
