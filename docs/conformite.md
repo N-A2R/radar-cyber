@@ -271,6 +271,7 @@ Commandes de référence, depuis la racine du worktree :
 
 ```bash
 pnpm -F @radar/api typecheck
+pnpm mesure:conformite  # 121 / 121 routes API couvertes, aucune base ni réseau
 pnpm -F @radar/api test -- test/droit-reponse.test.ts \
   test/securite-rbac.test.ts test/securite-headers.test.ts \
   test/securite-couverture.test.ts
@@ -285,4 +286,4 @@ jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
 
-OBJECTIF : atteint — 117 / 117 routes API avec une décision d'accès explicite (HEAD inclus ; 66 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm mesure:conformite` (aucune base, aucun réseau).
+OBJECTIF : atteint — 121 / 121 routes API avec une décision d'accès explicite (HEAD inclus ; 68 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm mesure:conformite` (aucune base, aucun réseau).
