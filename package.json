@@ -28,6 +28,7 @@
     "mesure:manques": "apps/api/node_modules/.bin/tsx scripts/manques-referentiel.mts",
     "mesure:anticipation": "apps/api/node_modules/.bin/tsx scripts/mesure-anticipation.mts",
     "anticipation:rapport": "apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts",
+    "mesure:pre-claim": "apps/api/node_modules/.bin/tsx scripts/mesure-pre-claim.mts",
     "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "mesure:confiance": "apps/api/node_modules/.bin/tsx scripts/compute-confidence-scores.mts",
     "mesure:corroboration": "apps/api/node_modules/.bin/tsx scripts/measure-incident-corroboration.mts",
