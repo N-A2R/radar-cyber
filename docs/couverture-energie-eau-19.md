@@ -61,3 +61,4 @@ flux, puis contrôle GET de chaque URL avec User-Agent navigateur et suivi des
 redirections (22 s maximum). Le contenu des flux est vérifié (nombre d'items).
 Seules les sources dont toutes les URLs ont répondu 200 ont été intégrées au
 corpus et à la base.
+OBJECTIF : atteint — 21 / 5
