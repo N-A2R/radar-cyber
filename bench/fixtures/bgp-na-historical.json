@@ -1,0 +1,2811 @@
+{
+  "meta": {
+    "title": "Historical BGP announcements for Nouvelle-Aquitaine network operators",
+    "capturedAt": "2026-11-22T03:12:00Z",
+    "source": "RIPE NCC RIPEstat data API (free, public) : bgp-updates, announced-prefixes, as-overview",
+    "sourceUrl": "https://stat.ripe.net/data/bgp-updates/data.json",
+    "window": {
+      "start": "2026-11-21T10:00:00Z",
+      "end": "2026-11-21T11:00:00Z"
+    },
+    "note": "Announcements are observed historical data. Replay events are a documented attack-pattern validation injected into that baseline; they are not observed incidents."
+  },
+  "operators": [
+    {
+      "asn": 198551,
+      "name": "REZOCEAN SAS",
+      "region": "NA",
+      "role": "telecom operator",
+      "evidence": "PeeringDB net 198551 (Societe Atlantique de Telephonie et Communication SARL); RIPEstat as-overview holder REZOCEAN-AS"
+    },
+    {
+      "asn": 208458,
+      "name": "Region Nouvelle-Aquitaine",
+      "region": "NA",
+      "role": "regional network operator",
+      "evidence": "PeeringDB net 208458 (Nouvelle-Aquitaine); RIPEstat as-overview holder NOUVELLE-AQUITAINE"
+    }
+  ],
+  "announcements": [
+    {
+      "timestamp": "2026-11-21T10:18:07Z",
+      "prefix": "139.100.6.0/23",
+      "originAs": 208458,
+      "type": "A",
+      "peer": "15-187.16.216.209",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:07Z",
+      "prefix": "149.232.243.0/24",
+      "originAs": 208458,
+      "type": "A",
+      "peer": "15-187.16.216.209",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:58Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:18:59Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:41Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:42Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:25:45Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.233",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:11Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:26:14Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:29Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:33Z",
+      "prefix": "139.100.6.0/23",
+      "originAs": 208458,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:37Z",
+      "prefix": "149.232.243.0/24",
+      "originAs": 208458,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:41Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:41Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:41Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:45Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:45Z",
+      "prefix": "130.93.184.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:29:45Z",
+      "prefix": "130.93.188.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:01Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:02Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:02Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:02Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:02Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:03Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:04Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:05Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:05Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:11Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.171.112.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.200.144.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.200.144.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.200.145.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.200.146.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.200.147.0/24",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.204.204.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.204.208.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.206.116.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.208.60.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.218.32.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.226.16.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.234.140.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.238.36.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:15Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:48Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.231",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:48Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.226.193",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:48Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "00-195.90.96.2",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:49Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.225.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:49Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.195",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:49Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.80.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:49Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "03-193.239.119.253",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:30:52Z",
+      "prefix": "130.93.180.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-195.66.227.233",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:31:11Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.216",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:31:16Z",
+      "prefix": "212.84.56.0/21",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "01-5.57.81.210",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:40:59Z",
+      "prefix": "185.76.0.0/22",
+      "originAs": 198551,
+      "type": "A",
+      "peer": "24-200.40.162.202",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:52:37Z",
+      "prefix": "139.100.6.0/23",
+      "originAs": 208458,
+      "type": "A",
+      "peer": "15-187.16.216.209",
+      "source": "observed"
+    },
+    {
+      "timestamp": "2026-11-21T10:52:37Z",
+      "prefix": "149.232.243.0/24",
+      "originAs": 208458,
+      "type": "A",
+      "peer": "15-187.16.216.209",
+      "source": "observed"
+    }
+  ],
+  "replay": [
+    {
+      "timestamp": "2026-11-21T10:30:00Z",
+      "prefix": "185.218.32.0/23",
+      "originAs": 64496,
+      "type": "A",
+      "peer": "validation-replay",
+      "source": "documented-replay",
+      "documentedFrom": "2024-06-27 Cloudflare 1.1.1.1/32 more-specific hijack by AS267613 (Eletronet)",
+      "sourceUrl": "https://en.wikipedia.org/wiki/BGP_hijacking"
+    }
+  ]
+}
