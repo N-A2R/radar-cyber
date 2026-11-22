@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-11-22T02:10:26.287Z",
+  "metric": {
+    "definition": "NA events with an ISO date and explicit non-fallback provenance (feed, inferred or claim) / all NA events",
+    "scope": "Nouvelle-Aquitaine regional flag or an organisation in one of the 13 NA departments",
+    "excluded": "collection-time fallback (fetched) is never counted as a normalized date",
+    "privacy": "counts and reason codes only; no title, organisation or victim data exported"
+  },
+  "dataset": {
+    "organisations": 1673151,
+    "organisationsExact": true,
+    "sources": 312,
+    "events": 26259
+  },
+  "before": {
+    "events": 103,
+    "normalized": 37,
+    "ratePercent": 35.92,
+    "byKind": {
+      "source-dated": 37,
+      "unlabeled-date": 23,
+      "unlabeled-claim": 41,
+      "collection-fallback": 2
+    }
+  },
+  "after": {
+    "events": 103,
+    "normalized": 101,
+    "ratePercent": 98.06,
+    "byKind": {
+      "source-dated": 60,
+      "claim-dated": 41,
+      "collection-fallback": 2
+    }
+  },
+  "plannedChanges": 64,
+  "changesApplied": {
+    "claims": 41,
+    "provenance": 23
+  }
+}
