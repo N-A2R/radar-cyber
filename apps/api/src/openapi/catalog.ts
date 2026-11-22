@@ -130,6 +130,7 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/flows", operationId: "getFlows", summary: "Flux d'attaques et de signalements", tag: "Statistiques", response: "Flows", security: "public", query: FlowsQuery },
 
   { method: "get", path: "/sources", operationId: "getSources", summary: "Registre des sources", tag: "Sources", response: "SourceList", security: "public" },
+  { method: "get", path: "/sources/verification", operationId: "getSourcesVerification", summary: "Vérification HTTP exhaustive des sources : 200, muettes, mortes, lentes et sources à débrancher", tag: "Sources", response: "SourceVerification", security: "public" },
   { method: "post", path: "/sources/:id/collecte", operationId: "recollectSource", summary: "Relancer la collecte d'une source", tag: "Sources", response: "Ok", security: "session", params: IdParam, status: 202 },
   { method: "post", path: "/sources/:id/morte", operationId: "markSourceDead", summary: "Déclarer une source morte", tag: "Sources", response: "Ok", security: "session", params: IdParam, body: MorteBody },
   { method: "post", path: "/sources/:id/reactiver", operationId: "reactivateSource", summary: "Réactiver une source", tag: "Sources", response: "Ok", security: "session", params: IdParam, body: MorteBody },

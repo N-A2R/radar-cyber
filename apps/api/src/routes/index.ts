@@ -25,6 +25,7 @@ import graphRoute from "./graph.js";
 import graphTemporalRoute from "./graph-temporal.js";
 import streamRoute from "./stream.js";
 import sourcesRoute from "./sources.js";
+import sourcesVerificationRoute from "./sources-verification.js";
 import statsRoute from "./stats.js";
 import searchRoute from "./search.js";
 import enrichRoute from "./enrich.js";
@@ -49,7 +50,8 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     healthRoute, eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute,
     collecteMetricsRoute, corpusStatsRoute, collectePlanRoute,
     todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute,
-    directoryRoute, naRoute, graphRoute, graphTemporalRoute, streamRoute, sourcesRoute, statsRoute,
+    directoryRoute, naRoute, graphRoute, graphTemporalRoute, streamRoute, sourcesRoute,
+    sourcesVerificationRoute, statsRoute,
     searchRoute, enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute,
     journalRoute, orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute,
     rectificationRoute, auditRoute,
