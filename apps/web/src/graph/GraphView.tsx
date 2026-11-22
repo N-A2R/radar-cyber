@@ -7,7 +7,7 @@
  * qu'enregistrées.
  */
 import ForceGraph2D, { type ForceGraphMethods, type LinkObject, type NodeObject } from 'react-force-graph-2d';
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import GraphMatrix from '../components/GraphMatrix';
 import { LoadingSkeleton } from '../components/Skeleton';
 import {
@@ -16,6 +16,7 @@ import {
   endId,
   familyOf,
   filterGraph,
+  nodeRadius,
   observedTime,
   rawId,
   selectNeighborhood,
@@ -61,17 +62,6 @@ const KIND_LABEL: Record<string, string> = {
   group: 'groupe',
   asset: 'actif',
   ip: 'adresse IP',
-};
-
-const KIND_RADIUS: Record<string, number> = {
-  family: 6,
-  dept: 5,
-  org: 5,
-  event: 4,
-  source: 4,
-  group: 4,
-  asset: 3,
-  ip: 3,
 };
 
 const FALLBACK_PALETTE = ['#38bdf8', '#f59e0b', '#22c55e', '#a78bfa', '#ef4444', '#e3b341', '#db61a2'];
@@ -186,14 +176,15 @@ export default function GraphView(props: GraphViewProps) {
   const accent = readThemeVar('--accent', '#4da3ff');
   const linkBase = LINK_COLOR_BY_THEME[theme] ?? LINK_COLOR_BY_THEME.observatoire;
   const faintLink = theme === 'clair' ? 'rgba(71,85,105,0.10)' : 'rgba(148,163,184,0.10)';
-  const labelInk = theme === 'clair' ? '#17202b' : '#ffffff';
-  const labelBg = theme === 'clair' ? 'rgba(255,255,255,0.88)' : 'rgba(0,0,0,0.62)';
+  const labelInk = readThemeVar('--text', '#e6e9ef');
+  const labelBg = readThemeVar('--surface', '#0e1014');
 
   const [familyFilter, setFamilyFilter] = useState<Set<string>>(() => new Set());
   const [kindFilter, setKindFilter] = useState<Set<string>>(() => new Set());
   const [periodDays, setPeriodDays] = useState<number | null>(null);
   const [search, setSearch] = useState('');
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [keyboardFocusId, setKeyboardFocusId] = useState<string | null>(null);
   const [mode, setMode] = useState<'network' | 'matrix'>('network');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [timeAware, setTimeAware] = useState(false);
@@ -208,21 +199,41 @@ export default function GraphView(props: GraphViewProps) {
   };
 
   const positionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  // Le conteneur du graphe n'existe qu'une fois les données chargées : un ref
+  // classique resterait nul au premier rendu et l'observateur ne serait jamais
+  // posé (écran vide à 271 nœuds, mesuré sur `main`). On le suit donc comme un
+  // état, pour que l'effet se rejoue à son montage.
+  const [containerEl, setContainerEl] = useState<HTMLDivElement | null>(null);
   const fgRef = useRef<ForceGraphMethods<GraphNode, GraphLink> | undefined>(undefined);
   const [size, setSize] = useState({ width: 0, height: 0 });
+  const [measured, setMeasured] = useState(false);
 
   useEffect(() => {
-    const element = containerRef.current;
-    if (!element) return;
-    const observer = new ResizeObserver((entries) => {
-      const rect = entries[0]?.contentRect;
-      if (!rect) return;
-      setSize({ width: Math.max(1, Math.floor(rect.width)), height: Math.max(1, Math.floor(rect.height)) });
-    });
-    observer.observe(element);
+    if (!containerEl) return;
+    const measure = (width: number, height: number) => {
+      // Pas de plancher à 1 px : une zone réellement nulle doit rester nulle
+      // pour déclencher l'état explicite au lieu d'un cadre noir de 1 px.
+      setSize({ width: Math.floor(width), height: Math.floor(height) });
+      setMeasured(true);
+    };
+    const observer = typeof ResizeObserver === 'undefined'
+      ? null
+      : new ResizeObserver((entries) => {
+          const rect = entries[0]?.contentRect;
+          if (rect) measure(rect.width, rect.height);
+        });
+    // Mesure immédiate seulement si elle est exploitable : un conteneur pas
+    // encore posé (0 × 0) ne doit pas écraser la première entrée de
+    // l'observateur, qui arrive au cycle suivant.
+    const rect = containerEl.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) measure(rect.width, rect.height);
+    if (!observer) {
+      setMeasured(true);
+      return;
+    }
+    observer.observe(containerEl);
     return () => observer.disconnect();
-  }, []);
+  }, [containerEl]);
 
   const familyColors = useMemo(() => {
     const palette: Record<string, string> = {};
@@ -296,7 +307,7 @@ export default function GraphView(props: GraphViewProps) {
   useEffect(() => {
     if (mode !== 'network') return;
     const fg = fgRef.current;
-    if (!fg || size.width <= 0) return;
+    if (!fg || size.width <= 0 || size.height <= 0) return;
     const timer = setTimeout(() => {
       try { fg.zoomToFit(400, 40); } catch { /* graph unmounted meanwhile */ }
     }, 350);
@@ -321,6 +332,16 @@ export default function GraphView(props: GraphViewProps) {
     [hoveredId, visible],
   );
   const focusSet = selection.node ? selection.nodeIds : hoverSelection?.nodeIds ?? null;
+
+  // Keyboard traversal follows the strongest nodes first, then the label.
+  const keyboardOrder = useMemo(() => {
+    return [...visible.nodes].sort((a, b) => {
+      const degreeDelta = (degreeMap.get(b.id) ?? 0) - (degreeMap.get(a.id) ?? 0);
+      return degreeDelta || a.label.localeCompare(b.label, 'fr');
+    });
+  }, [visible.nodes, degreeMap]);
+  const keyboardIndex = keyboardOrder.findIndex((node) => node.id === keyboardFocusId);
+  const keyboardNode = keyboardIndex >= 0 ? keyboardOrder[keyboardIndex] : null;
 
   const capturePositions = useCallback(() => {
     const positions = positionsRef.current;
@@ -385,31 +406,69 @@ export default function GraphView(props: GraphViewProps) {
     onSelect?.(null);
   }, [onSelect]);
 
-  const nodeColor = useCallback(
-    (node: GraphNode): string => {
-      if (node.kind === 'family') {
-        const canonical = canonicalFamily(node.label);
-        return (canonical && familyColors[canonical]) || KIND_COLOR.family;
-      }
-      if (node.kind === 'event') {
-        const canonical = canonicalFamily(familyOf(node, eventsById));
-        return (canonical && familyColors[canonical]) || KIND_COLOR.event;
-      }
-      const canonical = canonicalFamily(node.family);
-      if (node.kind === 'source' && canonical && familyColors[canonical]) return familyColors[canonical];
-      return KIND_COLOR[node.kind] ?? fallbackColor(node.kind);
+  const moveKeyboardFocus = useCallback(
+    (index: number) => {
+      if (keyboardOrder.length === 0) return;
+      const wrapped = ((index % keyboardOrder.length) + keyboardOrder.length) % keyboardOrder.length;
+      setKeyboardFocusId(keyboardOrder[wrapped].id);
     },
-    [eventsById, familyColors],
+    [keyboardOrder],
   );
+
+  const handleCanvasKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
+      if (keyboardOrder.length === 0) return;
+      switch (event.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          event.preventDefault();
+          moveKeyboardFocus(keyboardIndex + 1);
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          event.preventDefault();
+          moveKeyboardFocus(keyboardIndex < 0 ? 0 : keyboardIndex - 1);
+          break;
+        case 'Home':
+          event.preventDefault();
+          moveKeyboardFocus(0);
+          break;
+        case 'End':
+          event.preventDefault();
+          moveKeyboardFocus(keyboardOrder.length - 1);
+          break;
+        case 'Enter':
+        case ' ':
+          if (keyboardNode) {
+            event.preventDefault();
+            setSelectedId(keyboardNode.id);
+            onSelect?.(keyboardNode.id);
+          }
+          break;
+        case 'Escape':
+          setKeyboardFocusId(null);
+          break;
+        default:
+          break;
+      }
+    },
+    [keyboardIndex, keyboardNode, keyboardOrder.length, moveKeyboardFocus, onSelect],
+  );
+
+  const handleCanvasFocus = useCallback(() => {
+    if (keyboardFocusId === null && keyboardOrder.length > 0) setKeyboardFocusId(keyboardOrder[0].id);
+  }, [keyboardFocusId, keyboardOrder]);
+
+  // Colour encodes the node type only, so the legend stays truthful.
+  const nodeColor = useCallback((node: GraphNode): string => KIND_COLOR[node.kind] ?? fallbackColor(node.kind), []);
 
   const paintNode = useCallback(
     (node: NodeObject<GraphNode>, ctx: CanvasRenderingContext2D, globalScale: number) => {
       const id = typeof node.id === 'string' ? node.id : '';
-      const kind = typeof node.kind === 'string' ? node.kind : 'org';
       const x = typeof node.x === 'number' ? node.x : 0;
       const y = typeof node.y === 'number' ? node.y : 0;
-      const radius = (KIND_RADIUS[kind] ?? 4) + Math.min(6, Math.sqrt(degreeMap.get(id) ?? 0) * 1.4);
-      const dimmed = focusSet !== null && !focusSet.has(id);
+      const radius = nodeRadius(degreeMap.get(id) ?? 0);
+      const dimmed = focusSet !== null && !focusSet.has(id) && id !== keyboardFocusId;
 
       ctx.globalAlpha = dimmed ? 0.12 : 1;
       ctx.beginPath();
@@ -421,9 +480,20 @@ export default function GraphView(props: GraphViewProps) {
         ctx.strokeStyle = id === selectedId ? labelInk : accent;
         ctx.stroke();
       }
+      if (id === keyboardFocusId) {
+        // Dashed ring drawn outside the fill: keyboard focus stays visible
+        // whatever the node colour and without hiding the selection ring.
+        ctx.beginPath();
+        ctx.arc(x, y, radius + 3, 0, Math.PI * 2);
+        ctx.setLineDash([4, 3]);
+        ctx.lineWidth = 2 / globalScale;
+        ctx.strokeStyle = labelInk;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
 
       const label = typeof node.label === 'string' ? node.label : '';
-      if (label && !dimmed && (globalScale >= 1.6 || id === hoveredId || id === selectedId)) {
+      if (label && !dimmed && (globalScale >= 1.6 || id === hoveredId || id === selectedId || id === keyboardFocusId)) {
         const fontSize = 11 / globalScale;
         const padding = 2 / globalScale;
         ctx.font = `${fontSize}px ui-sans-serif, system-ui, sans-serif`;
@@ -437,14 +507,13 @@ export default function GraphView(props: GraphViewProps) {
       }
       ctx.globalAlpha = 1;
     },
-    [accent, degreeMap, focusSet, hoveredId, labelBg, labelInk, nodeColor, selectedId],
+    [accent, degreeMap, focusSet, hoveredId, keyboardFocusId, labelBg, labelInk, nodeColor, selectedId],
   );
 
   const paintPointerArea = useCallback(
     (node: NodeObject<GraphNode>, color: string, ctx: CanvasRenderingContext2D) => {
-      const kind = typeof node.kind === 'string' ? node.kind : 'org';
       const id = typeof node.id === 'string' ? node.id : '';
-      const radius = (KIND_RADIUS[kind] ?? 4) + Math.min(6, Math.sqrt(degreeMap.get(id) ?? 0) * 1.4);
+      const radius = nodeRadius(degreeMap.get(id) ?? 0);
       ctx.fillStyle = color;
       ctx.beginPath();
       ctx.arc(typeof node.x === 'number' ? node.x : 0, typeof node.y === 'number' ? node.y : 0, radius + 2, 0, Math.PI * 2);
@@ -634,15 +703,22 @@ export default function GraphView(props: GraphViewProps) {
         </div>
       ) : (
         <>
-          <div ref={containerRef} className="gv-canvas">
-            {size.width > 0 && (
+          <div
+            ref={setContainerEl}
+            className="gv-canvas"
+            tabIndex={0}
+            role="group"
+            aria-label="Graphe relationnel. Flèches pour parcourir les nœuds, Entrée pour sélectionner."
+            onKeyDown={handleCanvasKeyDown}
+            onFocus={handleCanvasFocus}
+          >
+            {size.width > 0 && size.height > 0 ? (
               <ForceGraph2D<GraphNode, GraphLink>
                 ref={fgRef}
                 width={size.width}
                 height={size.height}
                 graphData={data}
                 backgroundColor={bg}
-                nodeRelSize={8}
                 cooldownTicks={120}
                 warmupTicks={30}
                 nodeCanvasObject={paintNode}
@@ -655,12 +731,7 @@ export default function GraphView(props: GraphViewProps) {
                     ? accent
                     : faintLink;
                 }}
-                linkWidth={(link) => {
-                  if (!focusSet) return 1;
-                  const source = endId(link.source);
-                  const target = endId(link.target);
-                  return source !== undefined && target !== undefined && focusSet.has(source) && focusSet.has(target) ? 1.8 : 0.4;
-                }}
+                linkWidth={() => 1}
                 onNodeHover={handleNodeHover}
                 onNodeClick={handleNodeClick}
                 onBackgroundClick={clearSelection}
@@ -668,7 +739,18 @@ export default function GraphView(props: GraphViewProps) {
                 onEngineTick={capturePositions}
                 onEngineStop={capturePositions}
               />
-            )}
+            ) : measured ? (
+              <p className="gv-no-size" role="status">
+                Zone de dessin mesurée à {size.width} × {size.height} px : dimensions insuffisantes pour
+                tracer le graphe. Vérifiez la taille du conteneur.
+              </p>
+            ) : null}
+            <span className="gv-keyboard-hint" aria-hidden="true">Flèches : parcourir · Entrée : sélectionner</span>
+            <p className="gv-sr-status" role="status" aria-live="polite">
+              {keyboardNode
+                ? `Nœud ${keyboardIndex + 1} sur ${keyboardOrder.length} : ${keyboardNode.label}, ${degreeMap.get(keyboardNode.id) ?? 0} lien(s). Entrée pour sélectionner.`
+                : ''}
+            </p>
           </div>
 
           <div className="gv-zoom" role="group" aria-label="Commandes de zoom">
@@ -679,6 +761,20 @@ export default function GraphView(props: GraphViewProps) {
 
           <div className="gv-legend" aria-label="Légende du graphe">
             <div className="gv-legend-row">
+              <span className="gv-legend-key">Taille = liens</span>
+              {[1, 4, 16].map((degree) => (
+                <span key={degree} className="gv-legend-item">
+                  <span
+                    className="gv-size-sample"
+                    style={{ width: nodeRadius(degree) * 2, height: nodeRadius(degree) * 2 }}
+                  />
+                  {degree} {degree > 1 ? 'liens' : 'lien'}
+                </span>
+              ))}
+              <span className="gv-legend-note">surface proportionnelle au degré réel</span>
+            </div>
+            <div className="gv-legend-row">
+              <span className="gv-legend-key">Couleur = type</span>
               {kinds.map((kind) => (
                 <span key={kind.kind} className="gv-legend-item">
                   <span style={dotStyle(kind.color)} />{kind.label}
@@ -686,6 +782,8 @@ export default function GraphView(props: GraphViewProps) {
               ))}
             </div>
             <div className="gv-legend-row">
+              <span className="gv-legend-key">Liens</span>
+              <span className="gv-legend-note">épaisseur constante · aucun poids dans la donnée</span>
               {Object.entries(LINK_TYPES).map(([type, label]) => (
                 <span key={type} className="gv-legend-item">
                   <span className="gv-link-sample" />{label}

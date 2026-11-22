@@ -10,11 +10,14 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
 import { correlateEvents } from "./collectors/correlate.js";
+import { correlaterIndicateursCertfrMisp } from "./collectors/certfr-misp-correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
 import { runScheduledDiscovery } from "./discovery/discover.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
+import { prechaufferIndexRevue } from "./quarantine/review-index.js";
+import { reviewQueue } from "./quarantine/review.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
 import { chargerCadencesValeur } from "./collectors/valeur-plan.js";
@@ -30,6 +33,7 @@ import {
 	verifierOrientationCollectivites,
 } from "./orientation/verification.js";
 import { runRetention } from "./maintenance/retention.js";
+import { instruireDemandesDroitReponse } from "./domain/rectification-delais.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
@@ -310,7 +314,7 @@ if (COLLECT) {
 	// Fast lane: opted-in Nouvelle-Aquitaine sources, polled independently of
 	// the 60-second cycle. The DB trigger records publication-to-record latency.
 	startLiveStream(log);
-	void guarded("corrélation", () => correlateEvents(log));
+	void guarded("corrélation", correler);
 	void guarded("hermes", () => runHermesCollector(log));
 	void guarded("détection", async () => {
 		const pass = await runDetectionPass();
@@ -341,7 +345,7 @@ if (COLLECT) {
 			);
 	setInterval(() => {
 		void guarded("cycle de collecte", executerCycleCollecte);
-		void guarded("corrélation", () => correlateEvents(log));
+		void guarded("corrélation", correler);
 		void guarded("détection", detect);
 		void guarded("silent sources", () => runSilentSourceCheck().then(() => undefined));
 		void guarded("ruptures", () =>
@@ -381,22 +385,6 @@ void guarded("mesure organisations reliées", mesurerOrgsLiees);
 setInterval(() => {
   void guarded("mesure organisations reliées", mesurerOrgsLiees);
 }, MESURE_ORGS_LIEES_MS);
- * Ancrage quotidien du journal de vérité : la veille est scellée une fois par
- * jour (racine Merkle recomputable + jeton RFC 3161), même quand la collecte
- * est coupée. Sans cet ancrage, corriger une projection effacerait la preuve
- * de ce qu'on croyait la veille. Un rattrapage borné comble les jours laissés
- * nus par un arrêt de l'API ; `RADAR_ANCRAGE_JOURNAL=0` coupe le déclenchement.
-const ANCRAGE_JOURNAL_MS = 24 * 3600 * 1000;
-async function ancrerJournal(): Promise<void> {
-	const resultat = await ancrerJournalDuJour({ rattrapage: 7 });
-	if (resultat.ancres.length > 0) {
-		log(`ancrage journal : ${resultat.ancres.map((a) => `${a.ancrage.jour} (${a.statut})`).join(", ")}`);
-	for (const echec of resultat.echecs) {
-		log(`ancrage journal ${echec.jour} : échec — ${echec.erreur}`);
-if (process.env.RADAR_ANCRAGE_JOURNAL !== "0") {
-	void guarded("ancrage journal", ancrerJournal);
-		void guarded("ancrage journal", ancrerJournal);
-	}, ANCRAGE_JOURNAL_MS);
  * Guichet d'orientation des collectivités : contrôle HTTP réel du lien 17Cyber
  * au démarrage puis chaque jour, rejoué seulement si la dernière date vérifiée
  * a plus de 7 jours (cadence hebdomadaire). Indépendant de la collecte : un
@@ -412,7 +400,48 @@ async function verifierOrientation() {
       `orientation collectivités : contrôle NON conforme (${r.ok}/${r.alertes} en 200, cible ${r.cible}) — date non modifiée`,
   }
 void guarded("orientation collectivités", verifierOrientation);
+/** Corrélations : organisationnelle puis CERT-FR MISP. Les deux sont lancées
+ *  ensemble ; un échec de l'une ne prive pas l'autre de son passage, et la
+ *  corrélation MISP ne rafraîchit jamais `source.last_ok_at` (c'est l'ingestion
+ *  qui prouve la fraîcheur du flux). */
+async function correler(): Promise<void> {
+	const [organisationnelle, misp] = await Promise.allSettled([
+		correlateEvents(log),
+		correlaterIndicateursCertfrMisp({ log }),
+	]);
+	if (organisationnelle.status === "rejected") throw organisationnelle.reason;
+	if (misp.status === "rejected") log(`certfr_misp : corrélation non écrite — ${messageErreur(misp.reason)}`);
+/** Ancrage quotidien du journal de vérité : la veille est scellée une fois par
+ *  jour (racine Merkle recomputable + jeton RFC 3161), même quand la collecte
+ *  est coupée. Sans cet ancrage, corriger une projection effacerait la preuve
+ *  de ce qu'on croyait la veille. Un rattrapage borné comble les jours laissés
+ *  nus par un arrêt de l'API ; `RADAR_ANCRAGE_JOURNAL=0` coupe le déclenchement. */
+const ANCRAGE_JOURNAL_MS = 24 * 3600 * 1000;
+async function ancrerJournal(): Promise<void> {
+	const resultat = await ancrerJournalDuJour({ rattrapage: 7 });
+	if (resultat.ancres.length > 0) {
+		log(`ancrage journal : ${resultat.ancres.map((a) => `${a.ancrage.jour} (${a.statut})`).join(", ")}`);
+	for (const echec of resultat.echecs) {
+		log(`ancrage journal ${echec.jour} : échec — ${echec.erreur}`);
+if (process.env.RADAR_ANCRAGE_JOURNAL !== "0") {
+	void guarded("ancrage journal", ancrerJournal);
+		void guarded("ancrage journal", ancrerJournal);
+	}, ANCRAGE_JOURNAL_MS);
 setInterval(() => void guarded("orientation collectivités", verifierOrientation), ORIENTATION_TICK_MS);
+ * Droit de réponse : instruction puis clôture dans le délai d'un mois.
+ * Indépendant de la collecte : un déploiement `RADAR_COLLECT=0` doit aussi
+ * tenir l'échéance. Le trigger SQL couvre l'insertion ; ce tick couvre le
+ * vieillissement des demandes déjà en base. Six heures de cadence laissent
+ * une marge d'un jour sous le seuil de 30 jours.
+const DROIT_REPONSE_TICK_MS = Number(process.env.RADAR_DROIT_REPONSE_TICK_MS ?? 6 * 3600 * 1000);
+async function instruireDroitReponse() {
+  const r = await instruireDemandesDroitReponse();
+  if (r.reconstituees || r.instruites || r.closes) {
+    log(
+      `droit de réponse : ${r.instruites} instruction(s), ${r.closes} clôture(s), ` +
+      `${r.reconstituees} histoire(s) reconstituée(s) (délai ${r.delaiJours} j)`,
+void guarded("droit de réponse", instruireDroitReponse);
+setInterval(() => void guarded("droit de réponse", instruireDroitReponse), DROIT_REPONSE_TICK_MS);
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {
 		app.log.info(`${signal} reçu : arrêt propre`);
@@ -421,4 +450,15 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
 // (vite proxifie /api en localhost). Pour l'exposer sciemment — tailnet, LAN —
 // lancer avec HOST=0.0.0.0.
 const host = process.env.HOST ?? "127.0.0.1";
+// Index de la file de revue : chargé une seule fois, avant d'accepter du trafic.
+// Page par page et en rendant la main, donc sans figer la boucle ; aucune
+// requête ne paiera ensuite les balayages `org` / `org_alias`.
+{
+	const debut = performance.now();
+		await prechaufferIndexRevue();
+		// Un premier passage à vide : la première requête réelle ne paie ni le
+		// JIT ni l'échauffement des requêtes SQL de la file.
+		await reviewQueue({ limit: 1 });
+		log(`index de revue : chargé en ${Math.round(performance.now() - debut)} ms (org + org_alias)`);
+		app.log.error(e, "index de revue indisponible au démarrage");
 await app.listen({ port, host });

@@ -18,6 +18,8 @@
     "mesure:priorite-sources": "apps/api/node_modules/.bin/tsx scripts/mesure-priorite-sources.mts",
     "mesure:crise": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-communications.mts",
     "verifie:crise": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-communications-objective.mts",
+    "verifie:droit-reponse": "apps/api/node_modules/.bin/tsx scripts/verifie-droit-reponse.mts",
+    "verifie:shadow-it": "apps/api/node_modules/.bin/tsx scripts/verifie-shadow-it.mts",
     "verif:orientation": "apps/api/node_modules/.bin/tsx scripts/verif-orientation-collectivites.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
     "mesure:scenarios": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-scenarios.mts",

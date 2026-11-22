@@ -145,5 +145,21 @@ const firstRow = html.indexOf("Jamais tentée");
 const lastRow = html.indexOf("CERT-FR");
 check("le registre ouvre sur ce qui ne rend rien", firstRow !== -1 && lastRow !== -1 && firstRow < lastRow);
 
+// Le vrai registre porte ~2 506 sources : une seule page de 50 lignes doit
+// être montée, et le compteur doit annoncer le total filtré, pas la page.
+const registre: Source[] = Array.from({ length: 2506 }, (_, index) => ({
+	...base,
+	id: `flux-${index}`,
+	name: `Flux ${String(index).padStart(4, "0")}`,
+}));
+const htmlRegistre = renderToStaticMarkup(
+	<SourcesView sources={registre} loading={false} error={null} />,
+);
+const lignesMontees = (htmlRegistre.match(/class="sources-table__name"/g) ?? []).length;
+check("2 506 sources ne montent que 50 lignes", lignesMontees === 50, `${lignesMontees} lignes DOM`);
+const compteur = (htmlRegistre.match(/class="sources-view__count"[^>]*>([^<]*)</) ?? [])[1]?.replace(/\u202f|\u00a0/g, " ").trim();
+check("compteur paginé sur le total filtré", compteur === "1–50 sur 2 506", compteur);
+check("pagination annoncée", htmlRegistre.includes("page 1 sur 51"));
+
 console.log(failures === 0 ? "\nsources: tout est vert" : `\nsources: ${failures} échec(s)`);
 process.exit(failures === 0 ? 0 : 1);

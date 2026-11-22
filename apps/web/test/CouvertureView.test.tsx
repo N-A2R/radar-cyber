@@ -9,7 +9,6 @@ import { createRoot, type Root } from "react-dom/client";
 import { describe, expect, it } from "vitest";
 import CouvertureView, {
   trierDepartements,
-  trierParMois,
   type CouvertureProps,
 } from "../src/components/CouvertureView";
 import type { CouvertureResponse } from "../src/api";
@@ -34,13 +33,9 @@ const fakeResponse: CouvertureResponse = {
     { departement: "86", vus: 5, total: 9, taux: 55.6 },
     { departement: "non renseigné", vus: 0, total: 1, taux: 0 },
   ],
-  parSecteur: [
-    { secteur: "sante", vus: 10, total: 14, taux: 71.4 },
-    { secteur: "collectivite", vus: 7, total: 12, taux: 58.3 },
-  ],
-  parMois: [
-    { mois: "2026-10", vus: 17, total: 26, taux: 65.4 },
-    { mois: "2026-09", vus: 10, total: 16, taux: 62.5 },
+  parType: [
+    { type: "sante", vus: 10, total: 14, taux: 71.4 },
+    { type: "collectivite", vus: 7, total: 12, taux: 58.3 },
   ],
   stale: false,
 };
@@ -100,9 +95,9 @@ describe("CouvertureView", () => {
       expect(sectorRows[0].textContent).toContain("sante");
       expect(sectorRows[0].textContent).toContain("71.4 %");
 
-      const months = [...host.querySelectorAll(".coverage__month-label")]
-        .map((node) => node.textContent);
-      expect(months).toEqual(["2026-09", "2026-10"]);
+      // La mesure figée ne publie aucune série mensuelle : l'écran ne doit pas
+      // en afficher une qui laisserait croire à un suivi dans le temps.
+      expect(host.querySelector('[aria-labelledby="coverage-mois"]')).toBeNull();
 
       expect(host.textContent).toContain(fakeResponse.hashCorpus);
     } finally {
@@ -195,8 +190,7 @@ describe("CouvertureView", () => {
         global: { vus: 0, total: 0, taux: 0 },
         parMotif: [],
         parDepartement: [],
-        parSecteur: [],
-        parMois: [],
+        parType: [],
       },
       loading: false,
       error: null,
@@ -204,14 +198,13 @@ describe("CouvertureView", () => {
     try {
       expect(host.textContent).toContain("Aucun incident dans la fenêtre de mesure");
       expect(host.textContent).toContain("Aucune donnée départementale publiée");
-      expect(host.textContent).toContain("Aucune série mensuelle publiée");
       expect(host.querySelector(".coverage__hero-number")?.textContent).toBe("—%");
     } finally {
       await unmount(host, root);
     }
   });
 
-  it("départage les taux égaux par département et range les mois", () => {
+  it("départage les taux égaux par département", () => {
     const lignes = [
       { departement: "B", vus: 1, total: 2, taux: 50 },
       { departement: "A", vus: 1, total: 2, taux: 50 },
@@ -222,8 +215,6 @@ describe("CouvertureView", () => {
     expect(trierDepartements(lignes, "taux", "asc").map((l) => l.departement))
       .toEqual(["C", "A", "B"]);
     expect(lignes[0].departement).toBe("B"); // la fonction ne mute pas la réponse
-    expect(trierParMois(fakeResponse.parMois).map((l) => l.mois))
-      .toEqual(["2026-09", "2026-10"]);
   });
 
   it("expose Couverture et Corpus comme routes partageables", () => {

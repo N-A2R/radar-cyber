@@ -88,6 +88,21 @@ export interface GraphData {
   links: GraphLink[];
 }
 
+/** Smallest drawn radius, so an isolated node stays visible and clickable. */
+export const NODE_RADIUS_MIN = 4;
+/** Largest drawn radius, so a hub cannot swallow the canvas. */
+export const NODE_RADIUS_MAX = 16;
+
+/**
+ * Radius encoding the real number of links of a node.
+ * The area — not the radius — grows with degree: `r = min + sqrt(degree) * 2`,
+ * clamped between a readable minimum and a maximum that keeps labels usable.
+ */
+export function nodeRadius(degree: number | null | undefined): number {
+  const value = typeof degree === 'number' && Number.isFinite(degree) && degree > 0 ? degree : 0;
+  return Math.min(NODE_RADIUS_MAX, NODE_RADIUS_MIN + Math.sqrt(value) * 2);
+}
+
 /** Link labels shown in the legend and in the detail panel. */
 export const LINK_TYPES: Record<string, string> = {
   rattache: 'rattaché à',

@@ -20,6 +20,7 @@
  */
 import { query, withClient } from "../db.js";
 import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
+import { resetReviewIndexes } from "../quarantine/review-index.js";
 import type { PlannedOrg, ReferentielPlan } from "./plan.js";
 
 export type LoadOptions = {
@@ -245,6 +246,9 @@ export async function loadReferentiel(
 				if (done % 500 === 0) log(`  ${done}/${plan.orgs.length} organisations`);
 			}
 			await client.query("COMMIT");
+			// Le référentiel a changé : la file de revue doit voir les nouvelles
+			// organisations. Reconstruction faite en fond, sans vider le snapshot.
+			resetReviewIndexes();
 		} catch (error) {
 			await client.query("ROLLBACK");
 			throw error;

@@ -52,6 +52,9 @@ const SPOTTER_URL = "https://api.certspotter.com/v1/issuances";
 /** Au-delà de ce délai, un `Retry-After` est un quota épuisé : on le mesure, on ne l'attend pas. */
 const ATTENTE_MAX_MS = 5_000;
 
+/** L'edge de Cert Spotter renvoie `429` sur une rafale : on espace les appels. */
+const ECART_SPOTTER_MS = 7_000;
+
 /** Normalise les dates des deux fournisseurs en ISO-8601 (UTC). */
 function isoDate(valeur: string | undefined): string {
 	if (!valeur) return new Date(0).toISOString();
@@ -219,12 +222,15 @@ export class ClientCT {
 	async interroger(domaines: string[]): Promise<ResultatInterrogation> {
 		const certificats: CertificatCT[] = [];
 		const tentatives: Tentative[] = [];
+		let premierSpotter = true;
 		for (const domaine of domaines) {
 			if (this.utiliserCrtSh) {
 				const crt = await this.interrogerFournisseur(domaine, "crt.sh");
 				certificats.push(...crt.certificats);
 				tentatives.push(crt.tentative);
 			}
+			if (!premierSpotter) await this.dormir(ECART_SPOTTER_MS);
+			premierSpotter = false;
 			const spotter = await this.interrogerFournisseur(domaine, "certspotter");
 			certificats.push(...spotter.certificats);
 			tentatives.push(spotter.tentative);
