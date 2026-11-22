@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-11-21T23:25:53.557Z",
+  "method": {
+    "scope": "Nouvelle-Aquitaine (regional flag; department attachments accepted when supplied)",
+    "departments": [
+      "16",
+      "17",
+      "19",
+      "23",
+      "24",
+      "33",
+      "40",
+      "47",
+      "64",
+      "79",
+      "86",
+      "87"
+    ],
+    "assertions": [
+      "confirmed_incident",
+      "third_party_claim"
+    ],
+    "matching": "same victim domain and claimant within the claim window, regardless of event family",
+    "independence": "distinct publisher host from the source URL (feeds of one publisher are one source)",
+    "claimWindowHours": 72,
+    "privacy": "victim identities are SHA-256 truncated hashes; no title, summary or personal data exported"
+  },
+  "dataset": {
+    "organisations": 1678195,
+    "organisationsExact": true,
+    "sources": 463,
+    "events": 27899,
+    "eventsLoaded": 27899
+  },
+  "baseline": {
+    "source": "bench/results/confidence-scores-2026-11-21.json",
+    "incidents": 1739,
+    "corroborated": 0,
+    "ratePercent": 0
+  },
+  "result": {
+    "incidents": 36,
+    "corroborated": 2,
+    "singleSource": 34,
+    "ratePercent": 5.56
+  },
+  "corroboratedClusters": [
+    {
+      "incidentKey": "axiscades com|incransom",
+      "victimHash": "05a900393c01",
+      "eventIds": [
+        892,
+        126789
+      ],
+      "sourceIds": [
+        "leak:ransomware-live:recent-rss",
+        "ransomlook"
+      ],
+      "publishers": [
+        "ransomlook.io",
+        "ransomware.live"
+      ],
+      "incidentEvents": 1,
+      "firstClaimAt": "2026-11-12T21:45:05.000Z",
+      "lastClaimAt": "2026-11-12T21:45:05.518Z",
+      "corroborated": true
+    },
+    {
+      "incidentKey": "benchmarkseniorliving com|curious worm",
+      "victimHash": "dcd9ead308cb",
+      "eventIds": [
+        896,
+        126784
+      ],
+      "sourceIds": [
+        "leak:ransomware-live:recent-rss",
+        "ransomlook"
+      ],
+      "publishers": [
+        "ransomlook.io",
+        "ransomware.live"
+      ],
+      "incidentEvents": 1,
+      "firstClaimAt": "2026-11-12T19:55:02.000Z",
+      "lastClaimAt": "2026-11-12T19:55:02.258Z",
+      "corroborated": true
+    }
+  ]
+}
