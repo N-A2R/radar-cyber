@@ -1,0 +1,153 @@
+{
+  "objective": "twelve-month trend series and their breaks on real Nouvelle-Aquitaine events",
+  "command": "DATABASE_URL=$DATABASE_URL apps/api/node_modules/.bin/tsx scripts/measure-trend-12m.mts --json=bench/results/trend-12m-2026-11-22.json --check",
+  "window": {
+    "from": "2025-12",
+    "to": "2026-11",
+    "months": 12,
+    "asOf": "2026-11-21T15:53:03.000Z"
+  },
+  "base": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26394,
+    "naEvents": 63,
+    "naSources": 28,
+    "naOrganisations": 45
+  },
+  "settings": {
+    "months": 12,
+    "axes": [
+      "all",
+      "source",
+      "sector",
+      "org"
+    ],
+    "breakOptions": {
+      "history": 6,
+      "minHistory": 3,
+      "minAfterMonths": 2,
+      "minDelta": 3,
+      "zThreshold": 3,
+      "maxEvidence": 10
+    }
+  },
+  "series": {
+    "count": 88,
+    "byAxis": {
+      "all": {
+        "series": 1,
+        "breaks": 1
+      },
+      "source": {
+        "series": 28,
+        "breaks": 0
+      },
+      "sector": {
+        "series": 15,
+        "breaks": 0
+      },
+      "org": {
+        "series": 44,
+        "breaks": 0
+      }
+    },
+    "monthBuckets": 1056,
+    "emptyMonthBuckets": 964,
+    "globalMonths": [
+      {
+        "month": "2025-12",
+        "events": 0
+      },
+      {
+        "month": "2026-01",
+        "events": 0
+      },
+      {
+        "month": "2026-02",
+        "events": 0
+      },
+      {
+        "month": "2026-03",
+        "events": 0
+      },
+      {
+        "month": "2026-04",
+        "events": 0
+      },
+      {
+        "month": "2026-05",
+        "events": 0
+      },
+      {
+        "month": "2026-06",
+        "events": 0
+      },
+      {
+        "month": "2026-07",
+        "events": 0
+      },
+      {
+        "month": "2026-08",
+        "events": 0
+      },
+      {
+        "month": "2026-09",
+        "events": 0
+      },
+      {
+        "month": "2026-10",
+        "events": 6
+      },
+      {
+        "month": "2026-11",
+        "events": 56
+      }
+    ]
+  },
+  "breaks": {
+    "count": 1,
+    "byAxis": {
+      "all": 1,
+      "source": 0,
+      "sector": 0,
+      "org": 0
+    },
+    "up": 1,
+    "down": 0,
+    "explained": 1,
+    "details": [
+      {
+        "axis": "all",
+        "group": "all",
+        "month": "2026-10",
+        "direction": "up",
+        "baseline": 0,
+        "level": 31,
+        "z": 31,
+        "afterMonths": 2,
+        "eventIds": [
+          "23224",
+          "24266",
+          "24236",
+          "829",
+          "24195",
+          "127938",
+          "52865",
+          "24781",
+          "51960",
+          "3728"
+        ],
+        "explanation": "all all: level rose from 0 to 31 events/month at 2026-10 (z=31.0 over 6 preceding months, 2 following months)"
+      }
+    ]
+  },
+  "checks": {
+    "naOnly": true,
+    "allSeriesHave12Months": true,
+    "allSeriesHaveEvents": true,
+    "everyBreakHasEvidence": true,
+    "atLeastOneBreak": true
+  },
+  "fingerprint": "f8d81aa9f241e1a7"
+}
