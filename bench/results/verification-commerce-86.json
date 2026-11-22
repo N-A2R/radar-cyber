@@ -1,0 +1,630 @@
+{
+  "secteur": "commerce",
+  "departement": "86",
+  "date": "2026-11-22",
+  "sources": 15,
+  "urls_verifiees": 51,
+  "urls_http_200": 51,
+  "urls_uniques": 50,
+  "urls": [
+    {
+      "url": "https://www.poitiers.cci.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.poitiers.cci.fr/",
+      "ms": 543,
+      "bytes": 147898
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.poitiers.cci.fr/actualites/",
+      "ms": 552,
+      "bytes": 121286
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/actualites/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "final": "https://www.poitiers.cci.fr/actualites/feed/",
+      "ms": 748,
+      "bytes": 67920,
+      "items": 10,
+      "titres": [
+        "Élections de votre CCI en 2027 : je vérifie mon inscription",
+        "Créer sa micro-entreprise : il est encore possible de se former en 2026",
+        "Journée nationale de la reconversion"
+      ]
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://cma-nouvelleaquitaine.fr/",
+      "ms": 225,
+      "bytes": 324235
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "ms": 540,
+      "bytes": 280274
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CMA%20Nouvelle-Aquitaine%22%20artisan%20OR%20cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "final": "https://news.google.com/rss/search?q=%22CMA%20Nouvelle-Aquitaine%22%20artisan%20OR%20cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "ms": 510,
+      "bytes": 36546,
+      "items": 29,
+      "titres": [
+        "Les aides financières à la création d'une entreprise artisanale - CMA Nouvelle-Aquitaine",
+        "Vous êtes artisan ? Financez le remplacement de vos équipements grâce à DECARB FLASH - CMA Nouvelle-Aquitaine",
+        "Les RDV de l’Artisanat : une journée pour faire avancer votre entreprise - CMA Nouvelle-Aquitaine"
+      ]
+    },
+    {
+      "url": "https://www.medef-vienne.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.medef-vienne.fr/",
+      "ms": 606,
+      "bytes": 124135
+    },
+    {
+      "url": "https://www.medef-vienne.fr/actualite-de-lentreprise/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.medef-vienne.fr/actualite-de-lentreprise/",
+      "ms": 593,
+      "bytes": 86106
+    },
+    {
+      "url": "https://www.medef-vienne.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "final": "https://www.medef-vienne.fr/feed/",
+      "ms": 852,
+      "bytes": 51895,
+      "items": 10,
+      "titres": [
+        "Augmentation de la gratification versée aux stagiaires",
+        "Revalorisation du barème des saisies sur salaires",
+        "Énergie : Quelles aides mobilisables par les entreprises en 2023 ?"
+      ]
+    },
+    {
+      "url": "https://u2p-france.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://u2p-france.fr/",
+      "ms": 3944,
+      "bytes": 1768038
+    },
+    {
+      "url": "https://u2p-france.fr/articles",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://u2p-france.fr/",
+      "ms": 1729,
+      "bytes": 1768038
+    },
+    {
+      "url": "https://u2p-france.fr/rss.xml",
+      "code": 200,
+      "ct": "application/rss+xml; charset=utf-8",
+      "final": "https://u2p-france.fr/rss.xml",
+      "ms": 260,
+      "bytes": 139206,
+      "items": 162,
+      "titres": [
+        "L’U2P au Salon des Maires et des Collectivités locales du 24 au 26 novembre 2026",
+        "Gabriel Attal face aux petits patrons : une première rencontre au plus près des réalités du terrain",
+        "Budget 2027 : l’U2P appelle à remettre le travail au cœur des priorités"
+      ]
+    },
+    {
+      "url": "https://www.poitierslecentre.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.poitierslecentre.fr/fr/",
+      "ms": 2289,
+      "bytes": 67590
+    },
+    {
+      "url": "https://www.poitierslecentre.fr/fr/actualite",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.poitierslecentre.fr/fr/actualite",
+      "ms": 1013,
+      "bytes": 38289
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Poitiers%20le%20Centre%22%20commercants&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "final": "https://news.google.com/rss/search?q=%22Poitiers%20le%20Centre%22%20commercants&hl=fr&gl=FR&ceid=FR:fr",
+      "ms": 365,
+      "bytes": 76917,
+      "items": 51,
+      "titres": [
+        "Marché de Noël de Poitiers : \"un événement fait pour redonner le sourire aux commerçants\" pour Poitiers Le Centre - ici.fr",
+        "Comment faire revenir les Poitevins dans le centre-ville ? - lanouvellerepublique.fr",
+        "Les attentes des commerçants, les priorités de la Ville - Le7.info"
+      ]
+    },
+    {
+      "url": "https://chatelleraultcabouge.org/",
+      "code": 200,
+      "ct": "text/html",
+      "final": "https://chatelleraultcabouge.org/",
+      "ms": 101,
+      "bytes": 542
+    },
+    {
+      "url": "https://chatelleraultcabouge.org/actualites/",
+      "code": 200,
+      "ct": "text/html",
+      "final": "https://chatelleraultcabouge.org/actualites/",
+      "ms": 90,
+      "bytes": 542
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Chatellerault%20Ca%20Bouge%22%20commerce&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "final": "https://news.google.com/rss/search?q=%22Chatellerault%20Ca%20Bouge%22%20commerce&hl=fr&gl=FR&ceid=FR:fr",
+      "ms": 213,
+      "bytes": 3878,
+      "items": 2,
+      "titres": [
+        "Éric Bouniot, président de « Châtellerault ça bouge ! », l’association relancée - lanouvellerepublique.fr",
+        "Un clic pour découvrir \" Châtellerault ça bouge \" - lanouvellerepublique.fr"
+      ]
+    },
+    {
+      "url": "https://faeloudun.com/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://faeloudun.com/",
+      "ms": 231,
+      "bytes": 69291
+    },
+    {
+      "url": "https://faeloudun.com/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://faeloudun.com/",
+      "ms": 318,
+      "bytes": 69291
+    },
+    {
+      "url": "https://faeloudun.com/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "final": "https://faeloudun.com/feed/",
+      "ms": 186,
+      "bytes": 42061,
+      "items": 7,
+      "titres": [
+        "Le secret de Noël à Loudun",
+        "Déballe tout dans le centre ville de Loudun",
+        "FAE – Fête des Mères à Loudun"
+      ]
+    },
+    {
+      "url": "https://www.economie-pays-loudunais.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.economie-pays-loudunais.fr/",
+      "ms": 132,
+      "bytes": 37744
+    },
+    {
+      "url": "https://www.economie-pays-loudunais.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.economie-pays-loudunais.fr/actualites",
+      "ms": 93,
+      "bytes": 23329
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Pays%20Loudunais%22%20commerce%20OR%20economie&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "final": "https://news.google.com/rss/search?q=%22Pays%20Loudunais%22%20commerce%20OR%20economie&hl=fr&gl=FR&ceid=FR:fr",
+      "ms": 217,
+      "bytes": 14662,
+      "items": 10,
+      "titres": [
+        "\"Un cheminement politique pour une vision commune\" : les élus du Pays loudunais dessinent l’avenir du territoire - lanouvellerepublique.fr",
+        "Pays du Loudunais : première pierre posée pour la pépinière d’entreprises - lanouvellerepublique.fr",
+        "Le Pays loudunais veut accompagner les entrepreneurs avec le Pôle entreprendre - lanouvellerepublique.fr"
+      ]
+    },
+    {
+      "url": "https://www.reseau-propuls.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.reseau-propuls.fr/",
+      "ms": 586,
+      "bytes": 195177
+    },
+    {
+      "url": "https://www.reseau-propuls.fr/blog/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.reseau-propuls.fr/blog/",
+      "ms": 333,
+      "bytes": 164637
+    },
+    {
+      "url": "https://www.reseau-propuls.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "final": "https://www.reseau-propuls.fr/feed/",
+      "ms": 447,
+      "bytes": 50325,
+      "items": 10,
+      "titres": [
+        "Portrait Adhérent : Aurélie BENCINI – HANDI INTÉRIM & RECRUTEMENT",
+        "Portrait Adhérent : Florent GAUTRON – Poitiers Informatique",
+        "Portrait Adhérent : Maud Guillon-Triquard – IAD"
+      ]
+    },
+    {
+      "url": "https://www.lavienne86.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.lavienne86.fr/",
+      "ms": 426,
+      "bytes": 337326
+    },
+    {
+      "url": "https://www.lavienne86.fr/fil-infos/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.lavienne86.fr/fil-infos/actualites",
+      "ms": 341,
+      "bytes": 251477
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Vienne%22%20commerce%20cyberattaque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "final": "https://news.google.com/rss/search?q=%22Vienne%22%20commerce%20cyberattaque&hl=fr&gl=FR&ceid=FR:fr",
+      "ms": 236,
+      "bytes": 18072,
+      "items": 10,
+      "titres": [
+        "Cyberattaque contre des supermarchés : des établissements touchés dans la Vienne - lanouvellerepublique.fr",
+        "\"Mon supermarché a été touché aussi et on a dû jeter tout le surgelé à la poubelle\" : la colère du patron d’un Auchan près de Châtellerault après la cyberattaque nationale - lanouvellerepublique.fr",
+        "La cyberattaque fait périr tout le frais et le congelé d’Intermarché à Saint-Savin - lanouvellerepublique.fr"
+      ]
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.lanouvellerepublique.fr/",
+      "ms": 933,
+      "bytes": 1486026
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/vienne/economie",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.lanouvellerepublique.fr/vienne/economie",
+      "ms": 151,
+      "bytes": 587652
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "final": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+      "ms": 61,
+      "bytes": 35987,
+      "items": 40,
+      "titres": [
+        "Un poids lourd se couche en travers de l’autoroute A10, la circulation a été coupée cette nuit près d’Antran",
+        "« Pour faire du spectacle, il faut deux belles équipes » : Grand Poitiers et Saint-Cyr dos à dos en Nationale 1 fédérale",
+        "« Sans ce break, je ne suis pas sûr que ça se termine comme ça » : à Chauvigny, Avoine-Chinon a marqué au bon moment"
+      ]
+    },
+    {
+      "url": "https://www.ici.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.ici.fr/",
+      "ms": 274,
+      "bytes": 1015881
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+      "ms": 180,
+      "bytes": 291796
+    },
+    {
+      "url": "https://www.ici.fr/rss/poitou/a-la-une.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "final": "https://www.ici.fr/rss/poitou/a-la-une.xml",
+      "ms": 122,
+      "bytes": 37624,
+      "items": 40,
+      "titres": [
+        "Climat : le texte proposé par la présidence de la COP31 est \"un recul inacceptable\", dénonce la France",
+        "L'A10 a rouvert entre Sainte-Maure-de-Touraine et Châtellerault après une coupure pour relever un poids lourd",
+        "Poitiers : une cellule mobile pour sensibiliser à la réalité de la prison "
+      ]
+    },
+    {
+      "url": "https://www.le7.info/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.le7.info/",
+      "ms": 1734,
+      "bytes": 51887
+    },
+    {
+      "url": "https://www.le7.info/actus",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.le7.info/actus",
+      "ms": 1998,
+      "bytes": 81363
+    },
+    {
+      "url": "https://www.le7.info/rss.xml",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.le7.info/rss.xml",
+      "ms": 1404,
+      "bytes": 49860,
+      "items": 10,
+      "titres": [
+        "La vaccination en pharmacie s’installe",
+        "La vaccination en pharmacie s’installe",
+        "La vaccination en pharmacie s’installe"
+      ]
+    },
+    {
+      "url": "https://www.lejournaldesentreprises.com/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.lejournaldesentreprises.com/",
+      "ms": 683,
+      "bytes": 510499
+    },
+    {
+      "url": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+      "ms": 600,
+      "bytes": 508711
+    },
+    {
+      "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+      "code": 200,
+      "ct": "text/xml; charset=UTF-8",
+      "final": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+      "ms": 305,
+      "bytes": 16311,
+      "items": 20,
+      "titres": [
+        "Plus que jamais, l’entrepreneur doit tenir la barre",
+        "Bpifrance, la Région Nouvelle-Aquitaine et l’État renforcent la garantie des prêts aux entreprises sinistrées",
+        "Parenthèse Administrateurs Judiciaires Associés annonce son implantation dans cinq villes"
+      ]
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+      "ms": 639,
+      "bytes": 813635
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+      "ms": 206,
+      "bytes": 612600
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+      "code": 200,
+      "ct": "text/xml; charset=UTF-8",
+      "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+      "ms": 111,
+      "bytes": 76293,
+      "items": 30,
+      "titres": [
+        "\"Pour anéantir le petit commerce, on ne s'y prendrait pas mieux !\" Des artisans dénoncent un racket fiscal, leur taxe double, voire quadruple",
+        "\"C’est bien mieux qu’une aide de l’IA\" : le soutien scolaire gratuit aux lycéens est de plus en plus sollicité",
+        "TEMOIGNAGE. \"J'ai peur de ne pas avoir mon année\" : le blocage des universités et la désorganisation des cours inquiètent les étudiants"
+      ]
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/evenements/comment-proteger-votre-entreprise-face-aux-nouvelles-menaces/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.poitiers.cci.fr/evenements/comment-proteger-votre-entreprise-face-aux-nouvelles-menaces/",
+      "ms": 411,
+      "bytes": 130528
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels",
+      "ms": 264,
+      "bytes": 295093
+    },
+    {
+      "url": "https://u2p-france.fr/articles/cybersecurite-l-u2-p-plaide-pour-un-accompagnement-adapte-aux-realites-des-tpe",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://u2p-france.fr/articles/cybersecurite-l-u2-p-plaide-pour-un-accompagnement-adapte-aux-realites-des-tpe",
+      "ms": 156,
+      "bytes": 102895
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/poitiers/cyberattaque-contre-des-supermarches-des-etablissements-touches-dans-la-vienne-1791810880",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "final": "https://www.lanouvellerepublique.fr/poitiers/cyberattaque-contre-des-supermarches-des-etablissements-touches-dans-la-vienne-1791810880",
+      "ms": 159,
+      "bytes": 385376
+    },
+    {
+      "url": "https://www.ici.fr/emissions/l-eco-d-ici-en-poitou/un-dispositif-cyber-au-service-des-entreprises-de-la-vienne-8323344",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.ici.fr/emissions/l-eco-d-ici-en-poitou/un-dispositif-cyber-au-service-des-entreprises-de-la-vienne-8323344",
+      "ms": 168,
+      "bytes": 198666
+    },
+    {
+      "url": "https://www.le7.info/article/25958-cyberattaque-les-services-retablis-progressivement",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "final": "https://www.le7.info/article/25958-cyberattaque-les-services-retablis-progressivement",
+      "ms": 1007,
+      "bytes": 47403
+    }
+  ],
+  "sources_retenues": [
+    {
+      "nom": "CCI de la Vienne",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — antenne de Poitiers (Vienne)",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "MEDEF Vienne",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "U2P France — réseau des entreprises de proximité (Vienne)",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Poitiers le Centre — association des commerçants",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Châtellerault Ça Bouge — fédération des commerçants",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "FAE Loudun — commerçants du centre-ville",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Portail économique du Pays Loudunais",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Réseau Propuls — réseau d'entreprises de Poitiers",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Département de la Vienne — développement économique",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "La Nouvelle République — économie Vienne",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "ICI Poitou — Vienne (ex-France Bleu Poitou)",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Le7.info — actualités de Poitiers et de la Vienne",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "Le Journal des Entreprises — Nouvelle-Aquitaine",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Vienne",
+      "codes": [
+        200,
+        200,
+        200
+      ]
+    }
+  ]
+}
