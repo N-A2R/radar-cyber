@@ -146,7 +146,9 @@ const SCHEMAS = {
     db: objet, sources: objet, events24h: z.number(), orgs7j: z.number(),
     queues: objet, families: objets,
   }),
-  "/api/journal/review": z.strictObject({ rows: objets, limite: z.number(), avant: nombreNullable }),
+  "/api/journal/review": z.strictObject({
+    rows: objets, total: z.number(), limite: z.number(), offset: z.number(), avant: nombreNullable,
+  }),
   "/api/na/overview": z.strictObject({ depts: objets, derniereCollecte: chaineNullable, total: objet }),
   "/api/na/events": z.strictObject({ dept: z.string(), events: objets }),
   "/api/orgs/liees/historique": z.strictObject({ jours: z.number(), points: objets }),

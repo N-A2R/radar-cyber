@@ -1003,8 +1003,14 @@ export type JournalDecision = {
 };
 
 export type JournalReviewParams = {
+  /** Nom historique de la taille de page, encore accepté par l'API. */
   limite?: number;
+  /** Taille de page demandée (plafonnée à 100 par l'API). */
+  limit?: number;
+  /** Curseur : id de la dernière ligne de la page précédente. */
   avant?: number | null;
+  /** Décalage, pour ouvrir directement une page précise. */
+  offset?: number;
   /** "all" (default), "review", "publication", "correction" or an exact kind. */
   kind?: string;
   actor?: string;
@@ -1013,16 +1019,12 @@ export type JournalReviewParams = {
   au?: string;
 };
 
-type JournalReviewResponseRaw = {
-  rows: JournalDecision[];
-  limite: number;
-  /** Next-page cursor; null = last page. */
-  avant: number | null;
-};
-
 export type JournalReviewResponse = {
   rows: JournalDecision[];
+  /** Nombre total d'entrées correspondant aux filtres, toutes pages confondues. */
+  total: number;
   limite: number;
+  offset: number;
   /** Next-page cursor; null = last page. */
   avant: number | null;
 };
@@ -1054,10 +1056,12 @@ export type CouvertureResponse = {
   stale: boolean;
 };
 /** Query string shared by the JSON journal and its CSV export. */
-function journalQuery(params: JournalReviewParams, withCursor = true): string {
+function journalQuery(params: JournalReviewParams, withPagination = true): string {
   const qs = new URLSearchParams();
-  if (withCursor && params.limite !== undefined) qs.set("limite", String(params.limite));
-  if (withCursor && params.avant !== undefined && params.avant !== null) qs.set("avant", String(params.avant));
+  const taille = params.limit ?? params.limite;
+  if (withPagination && taille !== undefined) qs.set("limit", String(taille));
+  if (withPagination && params.offset !== undefined) qs.set("offset", String(params.offset));
+  if (withPagination && params.avant !== undefined && params.avant !== null) qs.set("avant", String(params.avant));
   if (params.kind && params.kind !== "all") qs.set("kind", params.kind);
   if (params.actor) qs.set("acteur", params.actor);
   if (params.q) qs.set("q", params.q);
