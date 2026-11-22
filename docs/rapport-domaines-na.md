@@ -38,7 +38,9 @@ Un domaine présent dans `org.domain` sans preuve HTTP n'est donc pas compté.
 
 6. Tranche suivante — extension de la route racine à tout le réservoir exploitable : 1 032 paires examinées au lieu de 500, en excluant les QID déjà attribués par une route vérifiée (`excludeAttributedCandidates`) et en réutilisant, avec `--labels-from`, les libellés enregistrés par le dry-run quand l'API Wikidata répond 429 (limite de débit atteinte après la première passe). 115 nouveaux domaines vérifiés HTTP et tracés. 2 tests. Détail : `bench/results/domains-from-root-match-p2-dry.json` et `bench/results/domains-from-root-match-p2.json`.
 
-`apps/api/test/domain-coverage.test.ts`, `apps/api/test/expand-domains.test.ts` et `apps/api/test/expand-domains-racine.test.ts` : 19 tests réussis, un comportement par test. Typecheck `tsc --noEmit` des paquets : OK (`pnpm -r typecheck` refuse le `node_modules` symlinké du worktree). `apps/api/src/server.ts` : 0 ligne modifiée.
+7. Tranche suivante (t6) — nouvelle route grise géographique : requête SPARQL publique sur Wikidata (`P856`, `P131*` Nouvelle-Aquitaine Q18678082) ramenant 5 693 sites, dont 5 634 QID absents de l'export SIREN. `scripts/expand-domains-geo.mts` apparie le **libellé Wikidata entier** au nom de l'organisation (une seule correspondance acceptée), écarte les QID déjà examinés par les deux routes précédentes, puis exige la même preuve HTTP stricte. Sur 134 paires retenues : 83 domaines vérifiés et tracés `wikidata:P856:geographie:http200` (collèges, lycées, châteaux, clubs et administrations locales). 9 tests. Détail : `bench/results/domains-from-geo.json`, candidats mis en cache dans `bench/domain-candidates/wikidata-na-sites.tsv`.
+
+`apps/api/test/domain-coverage.test.ts`, `apps/api/test/expand-domains.test.ts`, `apps/api/test/expand-domains-racine.test.ts` et `apps/api/test/expand-domains-geo.test.ts` : 28 tests réussis, un comportement par test. Typecheck `tsc --noEmit` des paquets : OK (`pnpm -r typecheck` refuse le `node_modules` symlinké du worktree). `apps/api/src/server.ts` : 0 ligne modifiée.
 
 ## Commande reproductible
 
@@ -46,31 +48,31 @@ Un domaine présent dans `org.domain` sans preuve HTTP n'est donc pas compté.
 DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
 ```
 
-Sortie observée après les trois expansions (`pnpm domaines:etendre -- --limit=1000 --concurrency=48 --apply`, `pnpm domaines:etendre-racine -- --limit=500 --concurrency=32 --apply`, puis `pnpm domaines:etendre-racine -- --limit=2000 --concurrency=24 --labels-from=bench/results/domains-from-root-match-p2-dry.json --apply`) :
+Sortie observée après les quatre expansions (`pnpm domaines:etendre -- --limit=1000 --concurrency=48 --apply`, `pnpm domaines:etendre-racine -- --limit=500 --concurrency=32 --apply`, `pnpm domaines:etendre-racine -- --limit=2000 --concurrency=24 --labels-from=bench/results/domains-from-root-match-p2-dry.json --apply`, puis `pnpm domaines:etendre-geo -- --limit=400 --concurrency=32 --apply`) :
 
 ```
 organisations_total=1673220
 organisations_nouvelle_aquitaine=1671911
-organisations_avec_domaine=1497
-organisations_avec_domaine_verifie_et_provenance=1482
-couverture_pourcent=0.0886
+organisations_avec_domaine=1580
+organisations_avec_domaine_verifie_et_provenance=1565
+couverture_pourcent=0.0936
 
 La commande `pnpm domaines:mesurer` rejouée indépendamment après écriture redonne exactement ces chiffres.
 
 ## Résultat chiffré
 
-**1 482 organisations sur 1 671 911 ont un domaine vérifié et sa provenance, soit 0,0886 % de la Nouvelle-Aquitaine. Objectif 100 % : NON ATTEINT.**
+**1 565 organisations sur 1 671 911 ont un domaine vérifié et sa provenance, soit 0,0936 % de la Nouvelle-Aquitaine. Objectif 100 % : NON ATTEINT.**
 
-Progression due à ce chantier : 932 → 1 270 (`wikidata:P856:http200`, +338) → 1 367 (`wikidata:P856:racine:http200`, +97) → 1 482 (même route, ensemble du réservoir, +115), soit **550 domaines supplémentaires** tous vérifiés HTTP et tracés. Il reste 1 670 429 organisations sans domaine vérifié (99,9114 % du périmètre).
+Progression due à ce chantier : 932 → 1 270 (`wikidata:P856:http200`, +338) → 1 367 (`wikidata:P856:racine:http200`, +97) → 1 482 (même route, ensemble du réservoir, +115) → 1 565 (`wikidata:P856:geographie:http200`, +83), soit **633 domaines supplémentaires** tous vérifiés HTTP et tracés. Il reste 1 670 346 organisations sans domaine vérifié (99,9064 % du périmètre).
 
 ## Limite structurelle — pourquoi 100 % n'est pas atteignable ici
 
 - 1 594 010 organisations viennent de SIRENE (dont 429 025 fermées) et n'ont aucun site dans les jeux publics consultés ; l'API recherche-entreprises renvoie 0 champ site web sur 100 SIREN testés en #300.
-- L'export Wikidata exploité ne contient que 14 458 lignes exploitables : la route SIREN a accepté 338 domaines, la route racine confirmée par libellé 97 puis 115 de plus sur 1 032 paires examinées. Même en élargissant, le réservoir public restant ne peut couvrir 1,67 M d'organisations ; les appariements sans confirmation de libellé produisent des attributions fausses et ont été rejetés. Le réservoir de paires uniques de la route racine est désormais épuisé (1 032 paires, toutes examinées).
+- L'export Wikidata SIREN ne contient que 14 458 lignes exploitables : la route SIREN a accepté 338 domaines, la route racine confirmée par libellé 97 puis 115 de plus sur 1 032 paires examinées. Le réservoir de paires uniques de cette route est épuisé. La route géographique interroge 5 693 autres sites (5 634 QID hors export SIREN) mais le libellé complet ne nomme sans ambiguïté qu'une organisation dans 134 cas, dont 83 vérifiés HTTP. Même en élargissant, le réservoir public restant ne peut couvrir 1,67 M d'organisations ; les appariements sans confirmation de libellé produisent des attributions fausses et ont été rejetés.
 - Les autres corpus publics (articles, santé, communes, institutions) plafonnent à ~1 700 candidats au total et sont déjà exploités par #300 et #297.
 - Attribuer un domaine deviné, loué ou acheté à une organisation sans preuve publique gonflerait le chiffre mais détruirait la garantie « vérifié avec provenance ». Aucun domaine n'a été fabriqué.
 
 ## Conformité
 
-Nouvelle-Aquitaine uniquement ; sources publiques/grises uniquement (Wikidata P856, libellés Wikidata, preuve HTTP) ; aucun service payant ; aucune donnée personnelle de victime ; code et interface en anglais ; rapport en français ; `server.ts` inchangé ; chaque commande exécutée en moins de 60 s.
-OBJECTIF : partiel — 1 482 / 1 671 911 organisations (0,0886 %), manque 1 670 429 organisations vérifiées (99,9114 %) pour atteindre 100 %
+Nouvelle-Aquitaine uniquement ; sources publiques/grises uniquement (requête SPARQL Wikidata régionale, P856, libellés Wikidata, preuve HTTP) ; aucun service payant ; aucune donnée personnelle de victime ; code et interface en anglais ; rapport en français ; `server.ts` inchangé ; chaque commande exécutée en moins de 60 s (mesure 26,4 s, expansion géographique 26,4 s).
+OBJECTIF : partiel — 1 565 / 1 671 911 organisations (0,0936 %), manque 1 670 346 organisations vérifiées (99,9064 %) pour atteindre 100 %
