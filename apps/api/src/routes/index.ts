@@ -75,6 +75,7 @@ import c2ServersRoute from "./c2-servers.js";
 import contagionRoute from "./contagion.js";
 import dnsPassiveRoute from "./dns-passive.js";
 import providersRoute from "./providers.js";
+import prestatairesQualifiesRoute from "./prestataires-qualifies.js";
 import newExposedServicesRoute from "./exposition-new-services.js";
 import earlyWarningRoute from "./early-warning.js";
 import siretEstablishmentsRoute from "./siret-establishments.js";
@@ -99,6 +100,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     liveMapRoute,
     publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
+    prestatairesQualifiesRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
