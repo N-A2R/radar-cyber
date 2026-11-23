@@ -42,6 +42,7 @@ import quarantineRoute from "./quarantine.js";
 import cyberContractsRoute from "./cyber-contracts.js";
 import reviewRoute from "./review.js";
 import journalRoute from "./journal.js";
+import registreTraitementsRoute from "./registre-traitements.js";
 import orgsLieesRoute from "./orgs-liees.js";
 import orgsLieesHistoriqueRoute from "./orgs-liees-historique.js";
 import ingestRoute from "./ingest.js";
@@ -88,6 +89,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     orgsRoute, orgReportRoute, directoryRoute, naRoute, reconnaissanceRoute, graphRoute, graphTemporalRoute, graphAsOfRoute,
     streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute, scanCampaignsRoute, enrichRoute, authRoute,
     alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, journalRoute,
+    registreTraitementsRoute,
     orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, rectificationRoute, auditRoute,
     confidenceRoute, actorAttributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,
     technicalCoverageRoute, naDepartmentsRoute, onionIndexRoute, thehiveRoute, custodyRoute, insuranceScoreRoute,

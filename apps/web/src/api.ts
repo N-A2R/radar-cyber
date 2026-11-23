@@ -1330,6 +1330,28 @@ export type ActorAttributionsResponse = {
   }>;
 };
 
+/** Nom annoncé par le dernier export CSV du registre des traitements. */
+let registreTraitementsNomFichier: string | null = null;
+
+/** Le Blob seul ne porte pas d'en-têtes : l'UI lit ce nom après l'export. */
+export function registreTraitementsExportFilename(): string | null {
+  return registreTraitementsNomFichier;
+}
+
+/** Nom de fichier d'un Content-Disposition, sans jamais accepter de chemin. */
+function nomFichierDisposition(header: string | null): string | null {
+  if (!header) return null;
+  const brut = /filename\*\s*=\s*UTF-8''([^;]+)/i.exec(header)?.[1]
+    ?? /filename\s*=\s*(?:"([^"]+)"|([^;\s]+))/i.exec(header)?.slice(1).find((part) => part !== undefined);
+  if (!brut) return null;
+  try {
+    const nom = decodeURIComponent(brut).split(/[\\/]/).pop();
+    return nom && /^[\w.-]+$/.test(nom) ? nom : null;
+  } catch {
+    return null;
+  }
+}
+
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   /** Relance manuelle d'une collecte : le serveur répond avant la fin du run. */
@@ -1369,6 +1391,16 @@ export const api = {
       headers: authHeaders(), signal,
     });
     if (!res.ok) throw apiError("/journal/review/export.csv", res.status);
+    return res.blob();
+  },
+  /**
+   * Registre des traitements : export public, le nom du CSV vient du serveur.
+   */
+  registreTraitementsExport: async (signal?: AbortSignal): Promise<Blob> => {
+    const path = "/registre-traitements/export.csv";
+    const res = await fetch(`${BASE}${path}`, { headers: authHeaders(), signal });
+    if (!res.ok) throw apiError(path, res.status);
+    registreTraitementsNomFichier = nomFichierDisposition(res.headers.get("content-disposition"));
     return res.blob();
   },
   directory: (params: DirectoryQuery = {}, signal?: AbortSignal) => {

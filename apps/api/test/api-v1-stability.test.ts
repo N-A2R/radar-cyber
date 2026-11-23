@@ -38,8 +38,8 @@ test("la politique interdit les changements cassants dans 1.x", () => {
 
 test("toutes les opérations publiées sont figées sans divergence", () => {
   const report = checkCompatibility(V1_CONTRACT, OPERATIONS);
-  // 56 opérations depuis la republication qui a ajouté GET /sources/verification.
-  assert.equal(report.frozen, 56);
+  // 57 opérations depuis la republication avec GET /registre-traitements/export.csv.
+  assert.equal(report.frozen, 57);
   assert.equal(report.live, OPERATIONS.length);
   assert.equal(report.frozen, report.live);
   assert.deepEqual(report.breaking, []);

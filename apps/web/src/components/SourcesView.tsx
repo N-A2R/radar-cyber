@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { api, motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
+import { api, registreTraitementsExportFilename, motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
+import { downloadBlob } from "../export";
 import type { SourcesViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./sources.css";
@@ -254,6 +255,10 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
   const [sortKey, setSortKey] = useState<SortKey>("lastProduction");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [page, setPage] = useState(1);
+  // Export du registre RGPD : une seule action dans la toolbar, sans droit
+  // particulier (la route est publique) et sans bloquer le tri des sources.
+  const [exportEnCours, setExportEnCours] = useState(false);
+  const [exportErreur, setExportErreur] = useState<string | null>(null);
 
   const rows = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("fr");
@@ -298,6 +303,23 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
     setSortDir(key === "lastProduction" || key === "lastErrorAt" || key === "itemsTotal" ? "desc" : "asc");
   }
 
+  async function exporterRegistre() {
+    setExportEnCours(true);
+    setExportErreur(null);
+    try {
+      const blob = await api.registreTraitementsExport();
+      const nom = registreTraitementsExportFilename()
+        ?? `registre_traitements_${new Date().toISOString().slice(0, 10)}.csv`;
+      downloadBlob(blob, nom);
+    } catch (err: unknown) {
+      setExportErreur(
+        `Export du registre des traitements impossible : ${err instanceof Error ? err.message : "indisponible"}`,
+      );
+    } finally {
+      setExportEnCours(false);
+    }
+  }
+
   return (
     <section className="sources-view" aria-label="Sources">
       <header className="sources-view__head">
@@ -331,6 +353,15 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       </header>
 
       <div className="sources-view__toolbar">
+        <button
+          type="button"
+          className="ds-button"
+          onClick={() => void exporterRegistre()}
+          disabled={exportEnCours}
+          aria-busy={exportEnCours}
+        >
+          {exportEnCours ? "Export en cours…" : "Registre des traitements (CSV)"}
+        </button>
         <label className="sources-view__search">
           <span className="sources-view__search-label">recherche</span>
           <input
@@ -350,6 +381,11 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
         </span>
       </div>
 
+      {exportErreur ? (
+        <p role="alert" className="sources-view__summary" style={{ color: "#b42318" }}>
+          {exportErreur}
+        </p>
+      ) : null}
       <div className="sources-view__scroll">
         <table className="sources-table">
           <caption className="sources-view__caption">

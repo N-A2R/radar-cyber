@@ -1,5 +1,5 @@
 // Généré par scripts/generate-api-client.mts — ne pas éditer à la main.
-// API v1.0.0 — 56 opérations.
+// API v1.0.0 — 57 opérations.
 import type { z } from "zod";
 import type * as Schemas from "./schemas.js";
 import type * as Catalog from "./catalog.js";
@@ -209,6 +209,8 @@ export function createRadarClient(options?: RequestOptions) {
       request<Journal>(withQuery("/journal/review", args?.query), "GET", undefined, { ...options, ...call }),
     exportReviewJournal: (args?: Record<string, never>, call?: RequestOptions) =>
       request<Csv>("/journal/review/export.csv", "GET", undefined, { ...options, ...call }),
+    exportRegistreTraitements: (args?: Record<string, never>, call?: RequestOptions) =>
+      request<Csv>("/registre-traitements/export.csv", "GET", undefined, { ...options, ...call }),
     register: (args: { body: RegisterBody }, call?: RequestOptions) =>
       request<AuthUser>("/auth/register", "POST", args.body, { ...options, ...call }),
     login: (args: { body: LoginBody }, call?: RequestOptions) =>

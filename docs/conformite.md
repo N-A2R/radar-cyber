@@ -34,6 +34,19 @@ Références de code : `apps/api/src/security/rbac.ts` (matrice d'accès),
 | Événements publiés | faits issus de sources ouvertes, parfois associés à une organisation | Intérêt légitime : observatoire de la cybermenace (art. 6.1.f), avec mise en balance | 90 jours en table chaude, résumé archivé |
 | Données brutes de collecte (`quarantine_raw`) | contenu source non structuré, parfois porteur d'un indice d'organisation | Intérêt légitime : pouvoir vérifier et rejouer une admission (art. 6.1.f), durée limitée à la revue | 90 jours par défaut ; durée déclarée **par source** dans `registre_traitement.duree_jours`, purge appliquée par `runRetention` et consignée au journal (`event.purge`, sujet = source) |
 
+Depuis la migration 214, chaque source active possède une ligne complète dans
+`registre_traitement` (`base_legale`, `duree_jours`, `finalite`, `id`) ; un
+trigger sur `source` déclare immédiatement toute source qui devient active.
+`GET /api/registre-traitements/export.csv` est public (aucune donnée
+personnelle dans le fichier) et télécharge, en un clic depuis le registre des
+sources de l'interface, `registre_traitements_AAAA-MM-JJ.csv` : une ligne par
+source active, avec sa finalité, sa base légale et sa durée de rétention. La
+portée affichée est calculée depuis `region`/`department` : `nationale` pour
+`region='national'`, `locale` avec un département, `regionale` avec une
+région, `internationale` sinon. Une source nationale n'est donc jamais
+présentée comme locale. `pnpm verifie:registre-traitements` rejoue le contrôle
+de complétude sur la base courante.
+
 Les sources externes sont des données publiques ou diffusées sous licence ; le
 radar n'ajoute pas de catégorie particulière de données au sens de l'article 9
 sans justification préalable. En cas de doute sur une donnée sensible, la
@@ -238,7 +251,7 @@ existants.
 | Rectification (art. 16) | Le mécanisme de droit de réponse décrit au §7, avec décision humaine et publication sur la fiche. |
 | Effacement (art. 17) | Suppression du compte (`app_user`, sessions en cascade) ; `anonymiser_acces_utilisateur('humain:<email>')` retire l'identité des accès historiques tout en gardant les faits de sécurité ; suppression d'une demande et de son historique par cascade. Les faits déjà publiés dans le journal de vérité ne sont pas réécrits : ils sont pseudonymisés, pas effacés. |
 | Limitation (art. 18) | Les sources peuvent être désactivées sans suppression (`/api/sources/:id/morte`) ; l'accès à un compte peut être retiré en changeant son rôle en `lecteur`. |
-| Portabilité (art. 20) | Export CSV du journal de revue (`GET /api/journal/review/export.csv`) et lecture JSON paginée des autres traitements. |
+| Portabilité (art. 20) | Export CSV du journal de revue (`GET /api/journal/review/export.csv`), registre daté des traitements (`GET /api/registre-traitements/export.csv`, bouton du registre des sources) et lecture JSON paginée des autres traitements. |
 | Opposition (art. 21) | Le droit de réponse est le canal prévu pour les informations publiées sur une organisation ; une opposition au traitement des journaux de sécurité est appréciée au cas par cas, la sécurité étant un intérêt légitime. |
 | Décision automatisée (art. 22) | Aucune décision produisant un effet juridique sur une personne n'est automatisée : les rattachements et alertes sont des signaux, la publication d'une rectification est toujours une décision humaine. Seule la clôture pour délai dépassé est automatique : elle constate le silence gardé prévu par l'article 12.3, sans publier ni trancher le fond. |
 
@@ -287,10 +300,11 @@ Commandes de référence, depuis la racine du worktree :
 
 ```bash
 pnpm -F @radar/api typecheck
-pnpm -F @radar/api test -- test/securite-couverture.test.ts  # 207 / 207 routes API couvertes
+pnpm -F @radar/api test -- test/securite-couverture.test.ts  # 209 / 209 routes API couvertes
 pnpm -F @radar/api test -- test/droit-reponse.test.ts \
   test/securite-rbac.test.ts test/securite-headers.test.ts \
   test/securite-couverture.test.ts
+pnpm verifie:registre-traitements  # 0 source active sans registre complet
 pnpm -F @radar/web typecheck
 pnpm -F @radar/web run test:droit-reponse
 pnpm -F @radar/web run test:orgsheet
@@ -302,4 +316,6 @@ jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
 
-OBJECTIF : atteint — 207 / 207 routes API avec une décision d'accès explicite (HEAD inclus ; 114 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
+OBJECTIF : atteint — 209 / 209 routes API avec une décision d'accès explicite (HEAD inclus ; 115 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
+
+OBJECTIF : atteint — 0 source active sans registre complet / 0 attendu ; 1 ligne par source active dans `registre_traitements_AAAA-MM-JJ.csv`.
