@@ -84,6 +84,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/search/ask", niveau: "public" },
   { methode: "GET", route: "/api/na/overview", niveau: "public" },
   { methode: "GET", route: "/api/na/events", niveau: "public" },
+  { methode: "GET", route: "/api/na/hosting-outage", niveau: "public", motif: "simulation agrégée : noms et identifiants d'organisations jamais exposés" },
   { methode: "GET", route: "/api/enrich/indicator/:id", niveau: "public" },
   { methode: "GET", route: "/api/enrich/domain/:value", niveau: "public" },
   { methode: "GET", route: "/api/enrich/events/:id", niveau: "public" },

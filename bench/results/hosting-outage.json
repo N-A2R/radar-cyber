@@ -1,0 +1,57 @@
+{
+  "command": "pnpm measure:hosting-outage",
+  "scope": "nouvelle-aquitaine",
+  "outageSize": 5,
+  "providers": [
+    {
+      "name": "OVHcloud",
+      "organizations": 318,
+      "domains": 259
+    },
+    {
+      "name": "Microsoft 365",
+      "organizations": 125,
+      "domains": 98
+    },
+    {
+      "name": "Google Workspace",
+      "organizations": 75,
+      "domains": 57
+    },
+    {
+      "name": "o2switch",
+      "organizations": 60,
+      "domains": 49
+    },
+    {
+      "name": "Gandi",
+      "organizations": 41,
+      "domains": 35
+    }
+  ],
+  "organizationsAffected": 500,
+  "totals": {
+    "organizationsObserved": 809,
+    "domainsObserved": 569,
+    "attributedDomains": 507,
+    "unknownHosts": 375,
+    "sumProviderOrganizations": 619,
+    "overlappingOrganizations": 119
+  },
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "corpus": {
+    "institutions": 1442,
+    "domains": 866,
+    "organizationsWithDomain": 1178
+  },
+  "sources": [
+    "bench/corpus/institutions-complet.jsonl (public institutional corpus, ids and URLs only)",
+    "dns_passive_resolution (public NS/MX observations)",
+    "HOSTING_CATALOGUE (public provider suffix facts)"
+  ],
+  "measuredAt": "2026-11-22T04:01:33.415Z"
+}
