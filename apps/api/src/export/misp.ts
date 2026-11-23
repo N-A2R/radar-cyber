@@ -49,6 +49,7 @@ export type MispEventRow = {
 export type MispExportOptions = {
 	limit?: number;
 	since?: Date | null;
+	until?: Date | null;
 	source?: string | null;
 	regional?: boolean | null;
 };
@@ -80,7 +81,8 @@ const DIFFUSABLE_SQL = `coalesce(public.tlp_canonical(e.tlp), 'CLEAR') IN ('CLEA
 const OCCURRED_SQL = `coalesce(e.observed_at, e.valid_at, e.at, e.created_at)`;
 const FILTER_SQL = `($1::timestamptz IS NULL OR ${OCCURRED_SQL} >= $1)
   AND ($2::text IS NULL OR e.source_id = $2)
-  AND ($3::boolean IS NULL OR e.regional = $3)`;
+  AND ($3::boolean IS NULL OR e.regional = $3)
+  AND ($4::timestamptz IS NULL OR ${OCCURRED_SQL} < $4)`;
 
 const ORG = {
 	id: "1",
@@ -230,9 +232,10 @@ function bornerLimit(limit: number | undefined): number {
 export async function exportMisp(options: MispExportOptions = {}): Promise<MispExportResult> {
 	const limit = bornerLimit(options.limit);
 	const since = options.since ?? null;
+	const until = options.until ?? null;
 	const source = options.source?.trim() || null;
 	const regional = options.regional ?? null;
-	const params = [since, source, regional, limit];
+	const params = [since, source, regional, until, limit];
 
 	const lignes = await query<MispEventRow>(
 		`SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
@@ -243,7 +246,7 @@ export async function exportMisp(options: MispExportOptions = {}): Promise<MispE
 		  WHERE ${DIFFUSABLE_SQL}
 		    AND ${FILTER_SQL}
 		  ORDER BY ${OCCURRED_SQL} DESC, e.id DESC
-		  LIMIT $4`,
+		  LIMIT $5`,
 		params,
 	);
 
@@ -256,7 +259,7 @@ export async function exportMisp(options: MispExportOptions = {}): Promise<MispE
 		   FROM public.event e
 		  WHERE NOT (${DIFFUSABLE_SQL})
 		    AND ${FILTER_SQL}`,
-		[since, source, regional],
+		[since, source, regional, until],
 	);
 
 	// Un fait que le SQL croyait diffusable mais que le normaliseur rejette
@@ -266,7 +269,7 @@ export async function exportMisp(options: MispExportOptions = {}): Promise<MispE
 	const body = JSON.stringify(payload);
 	const sha256 = createHash("sha256").update(body, "utf8").digest("hex");
 	const payloadBytes = Buffer.byteLength(body, "utf8");
-	const filters = { limit, since: since?.toISOString() ?? null, source, regional };
+	const filters = { limit, since: since?.toISOString() ?? null, until: until?.toISOString() ?? null, source, regional };
 
 	const run = await query<{ id: number }>(
 		`INSERT INTO public.export_run

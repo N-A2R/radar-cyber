@@ -17,10 +17,10 @@
  *   DATABASE_URL=... tsx scripts/export-public-provenance.mts --with-sample
  *   DATABASE_URL=... tsx scripts/export-public-provenance.mts --check
  */
-import { mkdirSync, readFileSync, existsSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { closePools, query } from "../apps/api/src/db.js";
+import { ecrireDossierScelle } from "../apps/api/src/export/scellement.js";
 
 const argv = process.argv.slice(2);
 const CHECK = argv.includes("--check");
@@ -137,7 +137,7 @@ function csvCell(value: unknown): string {
   return `"${text.replaceAll('"', '""')}"`;
 }
 
-async function writeDatedCsv(batchAt: Date): Promise<{ path: string; lines: number }> {
+async function writeDatedCsv(batchAt: Date): Promise<{ path: string; lines: number; scellementId: number; jeton: string }> {
   const r = await query<ProvenanceRow>(
     `SELECT event_id, exported_at, title, observed_at, source_url, at, collected_at, license
        FROM export_public_event_provenance
@@ -151,10 +151,18 @@ async function writeDatedCsv(batchAt: Date): Promise<{ path: string; lines: numb
       .join(","),
   );
   const day = batchAt.toISOString().slice(0, 10);
-  const path = fileURLToPath(new URL(`../bench/results/export-public-provenance-${day}.csv`, import.meta.url));
-  mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, [header, ...rows, ""].join("\n"), "utf8");
-  return { path, lines: rows.length };
+  const relatif = `bench/results/export-public-provenance-${day}.csv`;
+  const path = fileURLToPath(new URL(`../${relatif}`, import.meta.url));
+  const csv = [header, ...rows, ""].join("\n");
+  // Le jeton couvre les octets du CSV écrit, pas une date de fichier : le
+  // dossier téléchargé et son jeton sont inséparables.
+  const scellement = await ecrireDossierScelle({
+    chemin: path,
+    contenu: csv,
+    reference: relatif,
+    format: "csv-provenance",
+  });
+  return { path, lines: rows.length, scellementId: scellement.id, jeton: scellement.tsaGenTime };
 }
 
 async function verify(csvPath: string | null, cvLines: number): Promise<boolean> {
@@ -195,10 +203,11 @@ async function main(): Promise<void> {
   }
   const batchAt = new Date();
   const published = await publish(batchAt);
-  const { path, lines } = await writeDatedCsv(batchAt);
+  const { path, lines, scellementId, jeton } = await writeDatedCsv(batchAt);
   console.log(`faits promus depuis l'échantillon : ${promoted}`);
   console.log(`lignes publiées : ${published}`);
   console.log(`export daté : ${path} (${lines} lignes)`);
+  console.log(`scellement : ${scellementId} — jeton TSA ${jeton} (fichier .scellement.json joint)`);
   const ok = await verify(path, lines);
   if (!ok) process.exitCode = 1;
 }

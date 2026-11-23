@@ -33,6 +33,8 @@
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
     "mesure:scenarios": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-scenarios.mts",
     "verify:scenarios": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-scenarios-objective.mts",
+    "scelle:exports": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts",
+    "scelle:exports:check": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts --check",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",

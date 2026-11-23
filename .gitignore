@@ -32,6 +32,9 @@ nohup.out
 coverage/
 out/
 
+# Dossiers exportés et jetons joints : régénérables par `pnpm scelle:exports`.
+exports/scelles/
+
 # Journaux générés par le service (données locales)
 journal/journal_root_*.json
 apps/api/journal/
