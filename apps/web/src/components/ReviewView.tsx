@@ -5,6 +5,7 @@ import { keepFocusInDialog } from "../a11y/dialog-focus";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./review.css";
+import { Badge } from "@astryxdesign/core/Badge";
 import { type ReviewUrlState, type RevueBucket } from "../url-state";
 export type { RevueBucket } from "../url-state";
 
@@ -486,6 +487,7 @@ export default function ReviewView({
       <header className="revue__head">
         <div>
           <h1>File de revue</h1>
+          <Badge label="file" className="revue__badge" />
           <p className="revue__count" role="status">
             {loading
               ? "Chargement de la file…"

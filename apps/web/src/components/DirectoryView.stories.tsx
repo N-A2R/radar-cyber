@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import DirectoryView from "./DirectoryView";
 import { orgs } from "../storybook/fixtures";
 
@@ -15,6 +17,13 @@ const meta = {
     onUrlStateChange: () => {},
     onCopyLink: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof DirectoryView>;
 
 export default meta;

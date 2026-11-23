@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 
 const meta = {
@@ -6,6 +8,13 @@ const meta = {
   component: LoadingSkeleton,
   parameters: { docs: { description: { component: "Shared loading and empty states for every screen." } } },
   args: { label: "Loading events" },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof LoadingSkeleton>;
 
 export default meta;

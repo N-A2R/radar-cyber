@@ -10,6 +10,7 @@ import ForceGraph2D, { type ForceGraphMethods, type LinkObject, type NodeObject 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import GraphMatrix from '../components/GraphMatrix';
 import { LoadingSkeleton } from '../components/Skeleton';
+import { Badge } from '@astryxdesign/core/Badge';
 import {
   buildGraph,
   canonicalFamily,
@@ -607,6 +608,7 @@ export default function GraphView(props: GraphViewProps) {
         <button type="button" className="gv-collapse" onClick={() => persistFiltersOpen(!filtersOpen)} aria-expanded={filtersOpen}>
           Filtres {filtersOpen ? '▾' : '▸'}
         </button>
+        <Badge label={`${visible.nodes.length} nœuds`} className="gv-count-badge" />
         {filtersOpen && (
           <>
             <label className="gv-search-label" htmlFor="gv-search">Recherche</label>

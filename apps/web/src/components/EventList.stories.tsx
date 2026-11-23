@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import EventList from "./EventList";
 import { events, stats } from "../storybook/fixtures";
 
@@ -17,6 +19,13 @@ const meta = {
     error: null,
     onRetry: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof EventList>;
 
 export default meta;

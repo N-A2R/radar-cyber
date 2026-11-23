@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import CouvertureView from "./CouvertureView";
 import { coverage } from "../storybook/fixtures";
 
@@ -7,6 +9,13 @@ const meta = {
   component: CouvertureView,
   parameters: { docs: { description: { component: "Frozen coverage measurement with department and sector breakdowns." } } },
   args: { data: coverage, loading: false, error: null },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof CouvertureView>;
 
 export default meta;

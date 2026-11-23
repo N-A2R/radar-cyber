@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import Map3D from "./Map3D";
 import { events, orgs } from "../storybook/fixtures";
 
@@ -14,6 +16,13 @@ const meta = {
     events,
     basemap: "plan",
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof Map3D>;
 
 export default meta;

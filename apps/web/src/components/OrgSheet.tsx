@@ -5,6 +5,7 @@ import { mockOrgDetail } from "../mock";
 import { DroitReponseBloc } from "./DroitReponseSection";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./orgsheet.css";
+import { Badge } from "@astryxdesign/core/Badge";
 
 type LoadState =
   | { status: "loading" }
@@ -113,6 +114,7 @@ export function OrgSheetContenu({
     <aside className="orgsheet" aria-label="Fiche organisation">
       <header className="orgsheet__header">
         <h2 className="orgsheet__title">{title}</h2>
+        <Badge label="fiche" className="orgsheet__badge" />
         {state.status === "ready" && (
           <button type="button" className="orgsheet__report" onClick={() => onDownload(state.data.org.id)}>
             Download 10-page report (PDF)

@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import HealthView from "./HealthView";
 import { sources } from "../storybook/fixtures";
 
@@ -7,6 +9,13 @@ const meta = {
   component: HealthView,
   parameters: { docs: { description: { component: "Health overview with source sortable table and counters." } } },
   args: { sources, loading: false, onRetry: () => {} },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof HealthView>;
 
 export default meta;

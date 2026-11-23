@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import JournalList from "./JournalListe";
 import { journalRows } from "../storybook/fixtures";
 
@@ -26,6 +28,13 @@ const meta = {
     exportError: null,
     onRetry: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof JournalList>;
 
 export default meta;

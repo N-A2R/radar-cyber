@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import FamilyFilter from "./FamilyFilter";
 import { stats } from "../storybook/fixtures";
 
@@ -7,6 +9,13 @@ const meta = {
   component: FamilyFilter,
   parameters: { docs: { description: { component: "Family chips shared by the feed and timeline." } } },
   args: { byFamily: stats.byFamily, family: null, onFamily: () => {} },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof FamilyFilter>;
 
 export default meta;

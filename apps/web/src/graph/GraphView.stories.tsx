@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import GraphView from "./GraphView";
 import { graph } from "../storybook/fixtures";
 
@@ -11,6 +13,13 @@ const meta = {
     links: graph.links,
     now: Date.parse("2026-11-21T12:00:00Z"),
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof GraphView>;
 
 export default meta;

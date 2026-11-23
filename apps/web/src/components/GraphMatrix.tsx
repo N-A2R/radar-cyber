@@ -2,6 +2,8 @@ import { useMemo, type CSSProperties } from "react";
 import type { GraphLink, GraphNode } from "../graph/graphModel";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./graphmatrix.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 type Props = {
   nodes: readonly GraphNode[];
@@ -134,7 +136,7 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
   }
 
   return (
-    <div className="gm-root">
+    <Card variant="transparent" padding={0} className="gm-root">
       {summary}
       <div className="gm-legend" aria-label="Lecture de la matrice">
         <span className="gm-legend-title">Lecture</span>
@@ -195,6 +197,6 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
           </tbody>
         </table>
       </div>
-    </div>
+    </Card>
   );
 }

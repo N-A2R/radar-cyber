@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import MapTimeline from "./MapTimeline";
 import { buildBuckets } from "./timeline.js";
 import { events } from "../storybook/fixtures";
@@ -18,6 +20,13 @@ const meta = {
     total: buckets.length,
     onSelect: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof MapTimeline>;
 
 export default meta;

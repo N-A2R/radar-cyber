@@ -7,6 +7,8 @@
  */
 import { useEffect, useState } from "react";
 import { api, type CustodyChain } from "../api";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
@@ -26,7 +28,8 @@ export function CustodyDetails({ chain }: { chain: CustodyChain }) {
         <dd className="inspector__meta-value">{formatDate(chain.observedAt)}</dd>
         <dt className="inspector__meta-label">Statut</dt>
         <dd className="inspector__meta-value">
-          {chain.complete ? "Complète" : `Incomplète : ${chain.missing.join(", ")}`}
+          <Badge label={chain.complete ? "Complète" : `Incomplète : ${chain.missing.join(", ")}`}
+            variant={chain.complete ? "success" : "warning"} />
         </dd>
       </dl>
       <ol className="inspector__text">

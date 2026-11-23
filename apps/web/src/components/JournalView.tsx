@@ -15,6 +15,8 @@ import JournalList, {
   DECISION_UNSPECIFIED, KIND_CATEGORIES, KIND_LABEL, DECISION_LABEL,
   type JournalFilters,
 } from "./JournalListe";
+import { Card } from "@astryxdesign/core/Card";
+
 
 export { DECISION_UNSPECIFIED, KIND_CATEGORIES, KIND_LABEL, DECISION_LABEL } from "./JournalListe";
 export type { JournalFilters } from "./JournalListe";
@@ -194,6 +196,7 @@ export default function JournalView({ onUnauthorized }: Props) {
   }, [applied, onUnauthorized]);
 
   return (
+    <Card variant="transparent" padding={0}>
     <JournalList
       rows={rows}
       total={total}
@@ -214,5 +217,6 @@ export default function JournalView({ onUnauthorized }: Props) {
       exportError={exportError}
       onRetry={() => setReloadSignal((n) => n + 1)}
     />
+    </Card>
   );
 }

@@ -5,6 +5,8 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { FAMILY_LABEL } from "./SourcesView";
 import { useScreenExport } from "./ExportMenu";
 import "./alerts.css";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 /** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
 type AlertDetail = {
@@ -359,9 +361,12 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                   {confidenceWord(alert.confidence.score)} · {alert.confidence.score}
                 </span>
               ) : null}
-              <span className="alerts__state" data-state={alert.status}>
-                {STATE_LABEL[alert.status]}
-              </span>
+              <Badge
+                className="alerts__state"
+                data-state={alert.status}
+                variant={alert.status === "open" ? "warning" : alert.status === "ack" ? "info" : "success"}
+                label={STATE_LABEL[alert.status]}
+              />
             </button>
 
             <span className="alerts__actions">

@@ -6,6 +6,8 @@
  */
 import type { CorpusDepartment, CorpusIncident, CorpusStats, PressOnlySummary, UnconfirmedClaimsSummary, ConfirmedIncidentsSummary } from "../api";
 import "./corpus.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 export type CorpusViewProps = {
   data: CorpusStats | null;
@@ -357,7 +359,7 @@ export default function CorpusView({
   confirmedIncidentsError = null,
 }: CorpusViewProps) {
   return (
-    <div className="corpus">
+    <Card variant="transparent" padding={0} className="corpus">
       <header className="corpus__header">
         <span className="micro">Corpus / vue d'ensemble</span>
         <h1>Corpus</h1>
@@ -442,6 +444,6 @@ export default function CorpusView({
           </footer>
         </>
       )}
-    </div>
+    </Card>
   );
 }

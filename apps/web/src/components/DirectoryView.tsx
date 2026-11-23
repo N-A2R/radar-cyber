@@ -6,6 +6,8 @@ import type { DirectoryProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./directory.css";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 /**
  * Annuaire des organisations — pagination, facettes et recherche côté serveur.
@@ -470,9 +472,12 @@ export default function DirectoryView({
 									<td><span className="directory__mono">{row.dept || "—"}</span></td>
 									<td><span className="directory__count" data-zero={row.eventCount === 0}>{row.eventCount}</span></td>
 									<td>
-										<span className="directory__flag" data-on={row.lat !== null && row.lon !== null}>
-											{row.lat !== null && row.lon !== null ? "géolocalisée" : "non située"}
-										</span>
+										<Badge
+											className="directory__flag"
+											data-on={String(row.lat !== null && row.lon !== null)}
+											variant={row.lat !== null && row.lon !== null ? "success" : "neutral"}
+											label={row.lat !== null && row.lon !== null ? "géolocalisée" : "non située"}
+										/>
 									</td>
 								</tr>
 							))}

@@ -4,6 +4,8 @@ import type { CommandPaletteProps, SearchHit } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { keepFocusInDialog } from "../a11y/dialog-focus";
 import "./palette.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 /**
  * Recherche globale (⌘K / Ctrl+K) — organisations, événements, indicateurs.
@@ -168,8 +170,10 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 
 	return (
 		<div className="palette__scrim" onClick={onClose}>
-			<div
+			<Card
 				className="palette"
+				padding={0}
+				variant="transparent"
 				role="dialog"
 				aria-modal="true"
 				aria-label="Recherche globale"
@@ -218,7 +222,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 					/>
 				) : null}
 				<footer className="palette__foot">↑ ↓ parcourir · Entrée ouvrir · Échap fermer</footer>
-			</div>
+			</Card>
 		</div>
 	);
 }

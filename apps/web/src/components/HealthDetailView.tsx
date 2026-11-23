@@ -3,6 +3,8 @@ import { ErrorRetry } from "./ErrorRetry";
 import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./SourcesView";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./health-detail.css";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 export type HealthDetailViewProps = {
   detail: HealthDetail | null;
@@ -153,9 +155,9 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
                 <td className="mono" title={formatDate(f.lastEventAt)}>{formatRelative(f.lastEventAt)}</td>
                 <td className="num">{ageLabel(f.ageHours)}</td>
                 <td>
-                  <span className="health-detail__tone" data-tone={f.tone}>
-                    {f.ageHours === null ? "jamais de fait" : TONE_LABEL[f.tone]}
-                  </span>
+                  <Badge className="health-detail__tone" data-tone={f.tone}
+                    variant={f.tone === "green" ? "success" : f.tone === "orange" ? "warning" : "error"}
+                    label={f.ageHours === null ? "jamais de fait" : TONE_LABEL[f.tone]} />
                 </td>
               </tr>
             ))}

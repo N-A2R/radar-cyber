@@ -7,6 +7,8 @@
 import type { JournalDecision } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./journal.css";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 /** Select value for facts with no recorded decision. */
 export const DECISION_UNSPECIFIED = "unspecified";
@@ -345,9 +347,12 @@ export default function JournalList({
                 </td>
                 <td>{row.acteur}</td>
                 <td>
-                  <span className="journal__decision" data-decision={row.decision ?? DECISION_UNSPECIFIED}>
-                    {row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
-                  </span>
+                  <Badge
+                    className="journal__decision"
+                    data-decision={row.decision ?? DECISION_UNSPECIFIED}
+                    variant={row.decision === "accepter" ? "success" : row.decision === "refuser" ? "error" : row.decision === "creer" ? "info" : "neutral"}
+                    label={row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
+                  />
                 </td>
                 <td title={row.resume ?? row.raison ?? row.indice ?? "—"}>
                   {row.resume ?? row.raison ?? row.indice ?? "—"}
