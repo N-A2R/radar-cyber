@@ -1,4 +1,5 @@
-# Dépendances
+# Dépendances (le motif sans slash attrape aussi les liens symboliques nus)
+node_modules
 node_modules/
 .pnpm-store/
 
