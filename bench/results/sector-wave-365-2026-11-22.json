@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-11-23T23:16:28.854Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "lookbackDays": 365,
+  "victims": 16,
+  "sources": 3,
+  "pairs": 48,
+  "priorSignalPairs": 42,
+  "victimsWithAnyPriorSignal": 16,
+  "coverage": 1,
+  "claimsRead": 77,
+  "perSource": [
+    {
+      "scope": "departement",
+      "victims": 16,
+      "pairs": 16,
+      "victimsWithPriorSignal": 15,
+      "priorSignals": 77
+    },
+    {
+      "scope": "secteur",
+      "victims": 16,
+      "pairs": 16,
+      "victimsWithPriorSignal": 12,
+      "priorSignals": 37
+    },
+    {
+      "scope": "secteur_groupe",
+      "victims": 16,
+      "pairs": 16,
+      "victimsWithPriorSignal": 15,
+      "priorSignals": 198
+    }
+  ],
+  "activeSectorGroupsAtAsOf": [
+    {
+      "key": "services",
+      "count": 22
+    },
+    {
+      "key": "commerce",
+      "count": 5
+    },
+    {
+      "key": "autre",
+      "count": 3
+    },
+    {
+      "key": "construction",
+      "count": 2
+    },
+    {
+      "key": "enseignement",
+      "count": 2
+    },
+    {
+      "key": "industrie",
+      "count": 1
+    },
+    {
+      "key": "public",
+      "count": 1
+    }
+  ],
+  "baseline": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 16
+  },
+  "injected": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 16
+  },
+  "dataset": {
+    "organisationsNA": 1671936,
+    "sources": 3140,
+    "events": 27218
+  },
+  "caveat": "A wave signal is a claim by another NA organisation in the same scope within 365 days, strictly before the victim's claim. No group label of the future claim is used. The injected ranking adds a bounded sector-group bonus to the published score; it is an audit, not a change to the published forecast."
+}
