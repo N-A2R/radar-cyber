@@ -1,0 +1,136 @@
+{
+  "generatedAt": "2026-11-23T20:16:40.100Z",
+  "command": "pnpm index:incidents",
+  "model": {
+    "name": "tfidf-hash-cube@3",
+    "dimensions": 100,
+    "index": "cube GiST + <-> (L2)"
+  },
+  "annotation": {
+    "rule": "ransomware-actor@1",
+    "queries": 100,
+    "groups": [
+      "akira",
+      "aurora",
+      "cactus",
+      "curious worm",
+      "everest",
+      "inc ransom",
+      "lockbit3",
+      "n0n",
+      "pixelleaks",
+      "qilin",
+      "rhysida",
+      "safepay",
+      "the gentlemen"
+    ],
+    "source": "event.evidence->>'group' (fait déclaré, indépendant du modèle)",
+    "metric": "recall_at_10 = 1 si un incident de la classe d'analogues (même acteur) est dans le top-10"
+  },
+  "retrieval": {
+    "k": 10,
+    "recallAt10": 1,
+    "hitsAt1": 93,
+    "hitsAt5": 100,
+    "hitsAt10": 100,
+    "samples": [
+      {
+        "queryId": "RQ0001",
+        "actor": "akira",
+        "analogueRank": 1,
+        "topEventIds": [
+          23039,
+          3710,
+          51207,
+          142081,
+          3675,
+          3709,
+          3708,
+          46625,
+          70754,
+          9754
+        ]
+      },
+      {
+        "queryId": "RQ0002",
+        "actor": "akira",
+        "analogueRank": 1,
+        "topEventIds": [
+          142081,
+          51207,
+          23039,
+          3674,
+          3709,
+          3708,
+          3710,
+          46625,
+          15760,
+          15181
+        ]
+      },
+      {
+        "queryId": "RQ0003",
+        "actor": "akira",
+        "analogueRank": 1,
+        "topEventIds": [
+          46625,
+          142081,
+          3675,
+          51207,
+          3710,
+          3709,
+          3674,
+          23039,
+          15181,
+          9754
+        ]
+      },
+      {
+        "queryId": "RQ0004",
+        "actor": "akira",
+        "analogueRank": 1,
+        "topEventIds": [
+          23039,
+          51207,
+          142081,
+          3674,
+          3675,
+          46625,
+          3710,
+          3708,
+          15181,
+          70754
+        ]
+      },
+      {
+        "queryId": "RQ0005",
+        "actor": "akira",
+        "analogueRank": 1,
+        "topEventIds": [
+          3674,
+          23039,
+          142081,
+          51207,
+          3675,
+          3709,
+          3708,
+          46625,
+          9754,
+          15760
+        ]
+      }
+    ]
+  },
+  "coverage": {
+    "events": 26774,
+    "embeddedEvents": 26774,
+    "missingEmbeddings": 0
+  },
+  "criterion": {
+    "avgRecallAt10": 1,
+    "targetRecallAt10": 0.85,
+    "missingEmbeddings": 0,
+    "targetMissingEmbeddings": 267
+  },
+  "privacy": "no personal data, no secret, no national-source claim: only public cyber-event metadata"
+}
