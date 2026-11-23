@@ -53,6 +53,7 @@ import attestationsNegativesRoute from "./routes/attestations-negatives.js";
 import actorAttributionsRoute from "./routes/actor-attributions.js";
 import ransomwareGroupsRoute from "./routes/ransomware-groups.js";
 import contagionRoute from "./routes/contagion.js";
+import orgReportRoute from "./routes/org-report.js";
 
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
@@ -61,6 +62,7 @@ const ROUTES = [
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
   custodyRoute, exportMispRoute,
+  orgReportRoute,
   // Les mêmes routes que le serveur : une application de test qui en ignore
   // certaines valide une API qui n'existe pas.
   reconnaissanceRoute, scanCampaignsRoute, attestationsNegativesRoute,
