@@ -152,7 +152,7 @@ export async function runCollectors(options: OptionsCycle = {}): Promise<void> {
 				}
 			}
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(result.cursor ?? cursor), c.id]);
-			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)", [c.id, itemsIn, itemsNew]);
+			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, $2, 'ok', $3, $4)", [c.id, new Date().toISOString(), itemsIn, itemsNew]);
 			log(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)${langueSkipped > 0 ? `, ${langueSkipped} langue(s) exclue(s)` : ""}`);
 			const contractLine = contract.logLine();
 			if (contractLine) log(`collecteur ${c.id} : contrat — ${contractLine}`);
@@ -160,7 +160,7 @@ export async function runCollectors(options: OptionsCycle = {}): Promise<void> {
 			const err = messageErreur(e);
 			log(`collecteur ${c.id} en échec : ${err}`);
 			await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, c.id]).catch(() => {});
-			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', $2, $3, $4)", [c.id, itemsIn, itemsNew, err]).catch(() => {});
+			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, $2, 'error', $3, $4, $5)", [c.id, new Date().toISOString(), itemsIn, itemsNew, err]).catch(() => {});
 		}
 	}, { log });
 
