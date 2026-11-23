@@ -10,6 +10,7 @@ import { eligibleFacts, pendingFacts } from "../src/warc/eligibility.js";
 
 const TAG = `warc${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const ids: Record<string, number> = {};
+let runId: number;
 
 async function fact(key: string, fields: {
 	dept?: string;
@@ -29,10 +30,11 @@ async function fact(key: string, fields: {
 	const inserted = await query<{ id: number }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url,
 		                    evidence, tlp, regional, org_id)
-		 VALUES ($1,$2,'confirmed_incident',$3,'ransomlook',$4,'{}'::jsonb,$5,$6,$7)
+		 VALUES ($1,$2,'confirmed_incident',$3,'ransomlook',$4,$8::jsonb,$5,$6,$7)
 		 RETURNING id`,
 		[`${TAG}-${key}`, fields.family ?? "cti", `Fait ${key}`, fields.url,
-		 fields.tlp ?? "CLEAR", fields.regional ?? false, orgId],
+		 fields.tlp ?? "CLEAR", fields.regional ?? false, orgId,
+		 JSON.stringify({ run_id: runId })],
 	);
 	ids[key] = Number(inserted.rows[0]!.id);
 }
@@ -42,10 +44,20 @@ function tagSlug(): string {
 }
 
 before(async () => {
+	const sourceId = `src-${TAG}`;
+	await query(
+		`INSERT INTO source (id, name, family, url) VALUES ($1,$2,'cti',$3)`,
+		[sourceId, `Source ${TAG}`, "https://exemple.invalid/source"],
+	);
+	const run = await query<{ id: number }>(
+		`INSERT INTO collector_run (source_id, finished_at, status) VALUES ($1, now(), 'ok') RETURNING id`,
+		[sourceId],
+	);
+	runId = Number(run.rows[0]!.id);
 	await fact("na", { dept: "33", url: "https://presse.example.org/avis" });
 	await fact("regional", { url: "https://cert.example.org/avis", regional: true });
 	await fact("outside", { dept: "75", url: "https://presse.example.org/paris" });
-	await fact("nourl", { dept: "16", url: null });
+	await fact("noncapturable", { dept: "16", url: "ftp://presse.example.org/avis" });
 	await fact("red", { dept: "17", url: "https://forum.example.org/victime", tlp: "RED" });
 	await fact("leaks", { dept: "19", url: "https://leaks.example.org/victime", family: "leaks" });
 });
@@ -53,8 +65,9 @@ before(async () => {
 after(async () => {
 	await query("DELETE FROM warc_proof WHERE event_id = ANY($1::bigint[])", [Object.values(ids)]);
 	await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [Object.values(ids)]);
+	await query("DELETE FROM collector_run WHERE id = $1", [runId]);
+	await query("DELETE FROM source WHERE id LIKE $1", [`src-${TAG}%`]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${tagSlug()}%`]);
-	await closePools();
 });
 
 test("the scope keeps NA and regional facts, drops the rest", async () => {
@@ -63,7 +76,7 @@ test("the scope keeps NA and regional facts, drops the rest", async () => {
 	const found = new Set(rows.map((r) => Number(r.id)));
 	assert.equal(found.has(ids.na!), true);
 	assert.equal(found.has(ids.regional!), true);
-	for (const excluded of ["outside", "nourl", "red", "leaks"]) {
+	for (const excluded of ["outside", "noncapturable", "red", "leaks"]) {
 		assert.equal(found.has(ids[excluded]!), false, `${excluded} must stay out of scope`);
 	}
 });
