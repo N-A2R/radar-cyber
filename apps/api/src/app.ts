@@ -32,6 +32,7 @@ import historyRoute from "./routes/history.js";
 import ingestRoute from "./routes/ingest.js";
 import journalRoute from "./routes/journal.js";
 import registreTraitementsRoute from "./routes/registre-traitements.js";
+import violationsRgpdRoute from "./routes/violations-rgpd.js";
 import keysRoute from "./routes/keys.js";
 import naRoute from "./routes/na.js";
 import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
@@ -62,6 +63,7 @@ const ROUTES = [
   naRoute, graphRoute, streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   registreTraitementsRoute,
+  violationsRgpdRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
   custodyRoute, exportMispRoute,
   orgReportRoute,
@@ -70,7 +72,7 @@ const ROUTES = [
   reconnaissanceRoute, scanCampaignsRoute, attestationsNegativesRoute,
   actorAttributionsRoute, ransomwareGroupsRoute, contagionRoute,
 ];
-const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|registre-traitements|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth|reconnaissance|scan|attestations-negatives|actor-attributions|c2|dns|contagion)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|registre-traitements|violations-rgpd|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth|reconnaissance|scan|attestations-negatives|actor-attributions|c2|dns|contagion)(\/|$|\?)/;
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });

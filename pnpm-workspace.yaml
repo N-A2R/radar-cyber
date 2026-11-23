@@ -2,6 +2,7 @@ packages:
   - "apps/*"
   - "packages/*"
 allowBuilds:
+  '@astryxdesign/core': true
   '@embedded-postgres/linux-x64': true
   esbuild: true
 minimumReleaseAgeExclude:
