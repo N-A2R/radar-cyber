@@ -1,0 +1,412 @@
+{
+  "corpus": "/mnt/data/jolt-home/relocated/tmp/wt-CorpusTechniqueRepare/bench/corpus/technique.jsonl",
+  "date": "2026-11-21T19:58:18.902Z",
+  "totaux": {
+    "valide": 40,
+    "incoherente": 0,
+    "morte": 10
+  },
+  "taux_validite": 0.8,
+  "resultats": [
+    {
+      "ligne": 1,
+      "organisation": "crt.sh — flux Atom de certificats",
+      "url": "https://crt.sh/?q=%.gironde.fr&output=atom",
+      "etat": "valide",
+      "detail": "HTTP 200, 764994 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 2,
+      "organisation": "crt.sh — sortie JSON (output=json)",
+      "url": "https://crt.sh/?q=bordeaux.fr&output=json",
+      "etat": "valide",
+      "detail": "HTTP 200, 822649 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 3,
+      "organisation": "crt.sh — fiche certificat par identifiant",
+      "url": "https://crt.sh/?id=13087006258",
+      "etat": "valide",
+      "detail": "HTTP 200, 37640 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 4,
+      "organisation": "crt.sh — recherche HTML grand public",
+      "url": "https://crt.sh/?q=%.gironde.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 155112 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 5,
+      "organisation": "Google — liste officielle des journaux CT (v3)",
+      "url": "https://www.gstatic.com/ct/log_list/v3/log_list.json",
+      "etat": "valide",
+      "detail": "HTTP 200, 69865 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 6,
+      "organisation": "Google Argon2026h2 — get-sth",
+      "url": "https://ct.googleapis.com/logs/us1/argon2026h2/ct/v1/get-sth",
+      "etat": "valide",
+      "detail": "HTTP 200, 241 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 7,
+      "organisation": "Google Xenon2026h2 — get-sth",
+      "url": "https://ct.googleapis.com/logs/eu1/xenon2026h2/ct/v1/get-sth",
+      "etat": "valide",
+      "detail": "HTTP 200, 241 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 8,
+      "organisation": "Cloudflare Nimbus2026 — get-sth",
+      "url": "https://ct.cloudflare.com/logs/nimbus2026/ct/v1/get-sth",
+      "etat": "valide",
+      "detail": "HTTP 200, 245 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 9,
+      "organisation": "Cloudflare Nimbus2025 — get-sth",
+      "url": "https://ct.cloudflare.com/logs/nimbus2025/ct/v1/get-sth",
+      "etat": "valide",
+      "detail": "HTTP 200, 245 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 10,
+      "organisation": "SSLMate Cert Spotter — émissions pour gironde.fr",
+      "url": "https://api.certspotter.com/v1/issuances?domain=gironde.fr&include_subdomains=true&expand=dns_names",
+      "etat": "morte",
+      "detail": "HTTP 429, 253 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 11,
+      "organisation": "SSLMate Cert Spotter — émissions pour bordeaux.fr",
+      "url": "https://api.certspotter.com/v1/issuances?domain=bordeaux.fr&include_subdomains=true&expand=dns_names",
+      "etat": "morte",
+      "detail": "HTTP 429, 253 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 12,
+      "organisation": "Chromium — configuration des journaux CT (config.json)",
+      "url": "https://chromium.googlesource.com/certificate-transparency-go/+/main/trillian/ctfe/config.json?format=TEXT",
+      "etat": "morte",
+      "detail": "HTTP 404, 247 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 13,
+      "organisation": "certificate.transparency.dev — annuaire des journaux",
+      "url": "https://certificate.transparency.dev/logs/",
+      "etat": "valide",
+      "detail": "HTTP 200, 11973 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 14,
+      "organisation": "Censys Search — recherche de certificats",
+      "url": "https://search.censys.io/certificates?q=gironde.fr",
+      "etat": "morte",
+      "detail": "HTTP 403, 5827 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 15,
+      "organisation": "DigiCert Wyvern2026h2 — get-sth",
+      "url": "https://wyvern.ct.digicert.com/2026h2/ct/v1/get-sth",
+      "etat": "valide",
+      "detail": "HTTP 200, 241 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 16,
+      "organisation": "Sectigo Mammoth2026h2 — get-sth",
+      "url": "https://mammoth2026h2.ct.sectigo.com/ct/v1/get-sth",
+      "etat": "valide",
+      "detail": "HTTP 200, 239 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 17,
+      "organisation": "Google DNS-over-HTTPS — gironde.fr A",
+      "url": "https://dns.google/resolve?name=gironde.fr&type=A",
+      "etat": "valide",
+      "detail": "HTTP 200, 229 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 18,
+      "organisation": "Cloudflare DNS-over-HTTPS — bordeaux.fr MX",
+      "url": "https://cloudflare-dns.com/dns-query?name=bordeaux.fr&type=MX",
+      "etat": "valide",
+      "detail": "HTTP 200, 218 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 19,
+      "organisation": "RIPEstat — chaîne de délégation DNS (dns-chain)",
+      "url": "https://stat.ripe.net/data/dns-chain/data.json?resource=gironde.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 696 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 20,
+      "organisation": "RIPEstat — chaîne de délégation DNS (dns-chain, bordeaux.fr)",
+      "url": "https://stat.ripe.net/data/dns-chain/data.json?resource=bordeaux.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 694 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 21,
+      "organisation": "AFNIC — RDAP du domaine gironde.fr",
+      "url": "https://rdap.nic.fr/domain/gironde.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 7968 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 22,
+      "organisation": "IANA — fichier d'amorçage RDAP (dns.json)",
+      "url": "https://data.iana.org/rdap/dns.json",
+      "etat": "valide",
+      "detail": "HTTP 200, 71324 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 23,
+      "organisation": "AFNIC — RDAP direct pour gironde.fr",
+      "url": "https://rdap.nic.fr/domain/gironde.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 7968 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 24,
+      "organisation": "CIRCL — passive DNS",
+      "url": "https://pdns.circl.lu/v2pdns/gironde.fr",
+      "etat": "morte",
+      "detail": "lecture impossible (fetch failed)",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 25,
+      "organisation": "Farsight DNSDB — passive DNS",
+      "url": "https://api.dnsdb.info/dnsdb/v2/lookup/rrset/name/gironde.fr",
+      "etat": "morte",
+      "detail": "HTTP 403, 36 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 26,
+      "organisation": "SecurityTrails — API DNS historique",
+      "url": "https://api.securitytrails.com/v1/domain/gironde.fr/subdomains",
+      "etat": "morte",
+      "detail": "HTTP 401, 29 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 27,
+      "organisation": "ViewDNS.info — recherche d'enregistrements",
+      "url": "https://www.viewdns.info/dnsrecord/?domain=bordeaux.fr&recordtype=A&output=json",
+      "etat": "valide",
+      "detail": "HTTP 200, 46816 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 28,
+      "organisation": "Robtex — DNS lookup public",
+      "url": "https://api.robtex.com/dns-lookup/bordeaux.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 44062 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 29,
+      "organisation": "Quad9 — DNS-over-HTTPS (port 443, bordeaux.fr A)",
+      "url": "https://dns.quad9.net/dns-query?dns=EjQBAAABAAAAAAAACGJvcmRlYXV4AmZyAAABAAE",
+      "etat": "valide",
+      "detail": "HTTP 200, 45 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 30,
+      "organisation": "OpenINTEL — mesures DNS académiques",
+      "url": "https://www.openintel.nl/",
+      "etat": "valide",
+      "detail": "HTTP 200, 14274 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 31,
+      "organisation": "Have I Been Pwned — Pwned Passwords (k-anonymat)",
+      "url": "https://api.pwnedpasswords.com/range/5BAA6",
+      "etat": "valide",
+      "detail": "HTTP 200, 77639 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 32,
+      "organisation": "Have I Been Pwned — registre public des violations",
+      "url": "https://haveibeenpwned.com/PwnedWebsites",
+      "etat": "valide",
+      "detail": "HTTP 200, 1033833 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 33,
+      "organisation": "Have I Been Pwned — API /api/v3/breaches",
+      "url": "https://haveibeenpwned.com/api/v3/breaches",
+      "etat": "valide",
+      "detail": "HTTP 200, 1136074 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 34,
+      "organisation": "GreyNoise — API communautaire",
+      "url": "https://api.greynoise.io/v3/community/8.8.8.8",
+      "etat": "morte",
+      "detail": "HTTP 429, 215 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 35,
+      "organisation": "LeakIX — recherche web d'expositions publiques",
+      "url": "https://leakix.net/search?q=gironde.fr",
+      "etat": "valide",
+      "detail": "HTTP 200, 43826 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 36,
+      "organisation": "Shodan — API de recherche d'hôtes",
+      "url": "https://api.shodan.io/shodan/host/search?key=&query=hostname:gironde.fr",
+      "etat": "morte",
+      "detail": "HTTP 403, 5897 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 37,
+      "organisation": "Censys — recherche d'hôtes exposés",
+      "url": "https://search.censys.io/hosts?q=gironde.fr",
+      "etat": "morte",
+      "detail": "HTTP 403, 5784 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 38,
+      "organisation": "CERT-FR — flux RSS national (veille des fuites documentées)",
+      "url": "https://www.cert.cyber.gouv.fr/feed/",
+      "etat": "valide",
+      "detail": "HTTP 200, 23182 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 39,
+      "organisation": "CNIL — violations de données personnelles",
+      "url": "https://www.cnil.fr/fr/les-violations-de-donnees-personnelles",
+      "etat": "valide",
+      "detail": "HTTP 200, 137512 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 40,
+      "organisation": "PublicWWW — recherche de code source public",
+      "url": "https://publicwww.com/websites/%22gironde.fr%22/",
+      "etat": "valide",
+      "detail": "HTTP 200, 14592 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 41,
+      "organisation": "ransomware.live — fiche victime Cité internationale de la bande dessinée",
+      "url": "https://www.ransomware.live/id/d3d3LmNpdGViZC5vcmdAcmFuc29taHVi",
+      "etat": "valide",
+      "detail": "HTTP 200, 58714 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 42,
+      "organisation": "ransomware.live — fiche victime Vignobles Toutigeac",
+      "url": "https://www.ransomware.live/id/Vmlnbm9ibGVzIFRvdXRpZ2VhY0B0aGVnZW50bGVtZW4=",
+      "etat": "valide",
+      "detail": "HTTP 200, 58596 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 43,
+      "organisation": "ransomware.live — sitemap des fiches",
+      "url": "https://www.ransomware.live/sitemap.xml",
+      "etat": "valide",
+      "detail": "HTTP 200, 4869240 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 44,
+      "organisation": "ransomware.live — accueil (victimes récentes)",
+      "url": "https://www.ransomware.live/",
+      "etat": "valide",
+      "detail": "HTTP 200, 134210 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 45,
+      "organisation": "ransomware.live — carte par pays",
+      "url": "https://www.ransomware.live/countrymap",
+      "etat": "valide",
+      "detail": "HTTP 200, 82521 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 46,
+      "organisation": "ransomware.live — page de groupe (ex. ransomhub)",
+      "url": "https://www.ransomware.live/group/ransomhub",
+      "etat": "valide",
+      "detail": "HTTP 200, 3381935 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 47,
+      "organisation": "ransomware.live — liste HTML des revendications récentes (remplace l'API JSON)",
+      "url": "https://www.ransomware.live/recent",
+      "etat": "valide",
+      "detail": "HTTP 200, 414205 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 48,
+      "organisation": "Corpus interne — revendications nommant des organisations de Nouvelle-Aquitaine",
+      "url": "bench/corpus/ransomware-na.jsonl (fichier local versionné)",
+      "etat": "valide",
+      "detail": "fichier local versionné présent",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 49,
+      "organisation": "Numerama — article de presse sur la revendication Monti (Pau)",
+      "url": "https://www.numerama.com/cyberguerre/1749362-cyberattaque-les-donnees-de-laeroport-et-de-lecole-de-commerce-de-pau-publiees-par-les-hackers.html",
+      "etat": "valide",
+      "detail": "HTTP 200, 387876 octets",
+      "source_contenu": "aucune"
+    },
+    {
+      "ligne": 50,
+      "organisation": "Charente Libre — article sur la revendication Lockbit 3.0 (SPSTI 16)",
+      "url": "https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+      "etat": "valide",
+      "detail": "HTTP 200, 79694 octets",
+      "source_contenu": "aucune"
+    }
+  ]
+}
