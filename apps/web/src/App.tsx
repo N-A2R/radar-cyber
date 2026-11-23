@@ -22,6 +22,7 @@ const DossierView = lazy(() => import("./components/DossierView"));
 const NaView = lazy(() => import("./components/NaView"));
 const TodayView = lazy(() => import("./components/TodayView"));
 const CouvertureView = lazy(() => import("./components/CouvertureView"));
+const WarcProofCard = lazy(() => import("./components/WarcProofCard"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
@@ -924,7 +925,10 @@ export default function App() {
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
           {view === "corpus" ? (
-            <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
+            <>
+              <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
+              {MOCK_MODE ? null : <WarcProofCard />}
+            </>
           ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
           {view === "sources-dashboard" ? (

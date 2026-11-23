@@ -6,6 +6,7 @@ node_modules/
 apps/api/pgdata/
 pgdata/
 pgdata-*/
+data/warc/
 *.sqlite
 *.db
 *.db-wal

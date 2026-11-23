@@ -49,6 +49,7 @@ import dossierRoute from "./dossier.js";
 import rectificationRoute from "./rectification.js";
 import auditRoute from "./audit.js";
 import onionIndexRoute from "./onion-index.js";
+import warcProofsRoute from "./warc-proofs.js";
 import confidenceRoute from "./confidence.js";
 import actorAttributionsRoute from "./actor-attributions.js";
 import ransomwareGroupsRoute from "./ransomware-groups.js";
@@ -87,6 +88,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, rectificationRoute, auditRoute,
     confidenceRoute, actorAttributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,
     technicalCoverageRoute, naDepartmentsRoute, onionIndexRoute, thehiveRoute, custodyRoute, insuranceScoreRoute,
+    warcProofsRoute,
     publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,

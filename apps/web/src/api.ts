@@ -545,6 +545,26 @@ export type CorpusStats = {
   };
   recentIncidents: CorpusIncident[];
 };
+/** Compteurs de preuve WARC exposés par GET /api/warc/proofs (métadonnées seulement). */
+export type WarcProofStats = {
+  scope: string;
+  definition: string;
+  eligibleFacts: number;
+  factsWithArchivableProof: number;
+  target: number;
+  coveragePercent: number;
+  warcFiles: number;
+  warcBytes: number;
+  invalidProofs: number;
+  recent: Array<{
+    eventId: string;
+    sourceUrl: string;
+    recordId: string;
+    sha256: string;
+    capturedAt: string;
+  }>;
+  generatedAt: string;
+};
 
 /** Nature d'un nœud du graphe relationnel (GET /api/graph). */
 export type GraphNodeKind =
@@ -1450,6 +1470,8 @@ export const api = {
   resolveAlert: (id: number) => post<{ ok: boolean }>(`/alerts/${id}/resolve`),
   enrichIndicator: (id: number) => get<IndicatorEnrichment>(`/enrich/indicator/${id}`),
   enrichEvent: (id: number) => get<EventEnrichment>(`/enrich/events/${id}`),
+  /** Compteurs de preuve WARC vérifiée ; aucun corps d'archive n'est exposé. */
+  warcProofs: (signal?: AbortSignal) => get<WarcProofStats>("/warc/proofs", signal),
 };
 
 /** Public evidence-first report for one organization (name, id or domain). */

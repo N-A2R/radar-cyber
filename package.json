@@ -83,6 +83,8 @@
     "sources:measure": "node scripts/measure-active-sources.mts",
     "sources:verifier": "apps/api/node_modules/.bin/tsx scripts/verifier-sources-http.mts",
     "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
+    "warc:measure": "apps/api/node_modules/.bin/tsx scripts/measure-warc-proofs.mts",
+    "warc:archive": "apps/api/node_modules/.bin/tsx scripts/archive-warc-proofs.mts --max-seconds 45",
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts",
     "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts",
     "collect:na-containers": "apps/api/node_modules/.bin/tsx scripts/collect-public-containers.mts",
