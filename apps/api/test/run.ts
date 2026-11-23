@@ -71,9 +71,9 @@ try {
 		// le step de CI attend 20 minutes pour rien (692 tests verts, aucune
 		// sortie), et le job est annulé.
 		["--test", "--test-concurrency=1", "--test-timeout=120000", "--test-force-exit", ...flags, ...files],
-		// Les tests créent des organisations entre deux appels : le snapshot de la
-		// file de revue doit rester frais, donc jamais mis en cache ici.
-		{ ...process.env, DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off" }
+		// Les tests d'intégration ne dépendent pas d'une TSA en ligne : le
+		// scellement est couvert par son propre test avec fournisseur injecté.
+		{ ...process.env, DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off", RADAR_EXPORT_SCELLEMENT: "0" }
 	);
 } catch (err) {
 	console.error(err);
