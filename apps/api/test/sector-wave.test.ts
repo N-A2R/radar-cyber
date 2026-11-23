@@ -165,3 +165,24 @@ test("the ranking bonus is bounded and deterministic", () => {
 	assert.equal(waveBonus(2, groups, counts), 0);
 	assert.equal(waveBonus(1, groups, counts, 10), 30);
 });
+
+test("a 365-day lookback includes a prior claim 200 days earlier", () => {
+	const signals = priorWaveSignals(
+		subject(1, "2026-11-22"),
+		[subject(2, "2026-05-06")],
+		"secteur_groupe",
+		365,
+	);
+	assert.equal(signals.length, 1);
+	assert.equal(signals[0]!.observedAt, "2026-05-06");
+});
+
+test("cutoff counts honour an explicit 365-day lookback", () => {
+	const counts = waveCountsAtCutoff(
+		[subject(2, "2025-12-01"), subject(3, "2026-05-26")],
+		"2026-11-22",
+		"secteur_groupe",
+		365,
+	);
+	assert.deepEqual([...counts.entries()], [["commerce", 2]]);
+});

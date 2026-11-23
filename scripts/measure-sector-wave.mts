@@ -59,6 +59,11 @@ async function main(): Promise<void> {
 	if (!/^\d{4}-\d{2}-\d{2}$/.test(asOf) || Number.isNaN(Date.parse(asOf))) {
 		throw new Error(`Invalid --as-of date: ${asOf}`);
 	}
+	const lookbackArg = arg("lookback");
+	const lookbackDays = lookbackArg === undefined ? HORIZON_DAYS : Number(lookbackArg);
+	if (!Number.isInteger(lookbackDays) || lookbackDays <= 0) {
+		throw new Error(`Invalid --lookback: ${lookbackArg}`);
+	}
 
 	const cutoffs = walkForwardCutoffs(asOf, BACKTEST_MONTHS, HORIZON_DAYS);
 	const windowStart = cutoffs[0]!;
@@ -120,7 +125,7 @@ async function main(): Promise<void> {
 	);
 	const scopes: readonly WaveScope[] = ["secteur_groupe", "secteur", "departement"];
 	const coverage = summariseWaveCoverage(
-		scopes.map((scope) => measureWaveSource(scope, victims, subjects)),
+		scopes.map((scope) => measureWaveSource(scope, victims, subjects, lookbackDays)),
 	);
 
 	const groups = new Map<number, string | null>(
@@ -134,7 +139,7 @@ async function main(): Promise<void> {
 		),
 	);
 	const injectedWindows = cutoffs.map((cutoff) => {
-		const counts = waveCountsAtCutoff(subjects, cutoff, "secteur_groupe");
+		const counts = waveCountsAtCutoff(subjects, cutoff, "secteur_groupe", lookbackDays);
 		const ranked = buildCandidates(orgs, claims, events, cutoff)
 			.map((candidate) => ({
 				orgId: candidate.orgId,
@@ -147,7 +152,7 @@ async function main(): Promise<void> {
 	});
 	const baseline = summariseBacktest(baselineWindows);
 	const injected = summariseBacktest(injectedWindows);
-	const lastCounts = waveCountsAtCutoff(subjects, asOf, "secteur_groupe");
+	const lastCounts = waveCountsAtCutoff(subjects, asOf, "secteur_groupe", lookbackDays);
 	const activeGroups = [...lastCounts.entries()].sort(
 		(a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
 	);
@@ -159,7 +164,7 @@ async function main(): Promise<void> {
 		windowEnd,
 		windows: cutoffs.length,
 		horizonDays: HORIZON_DAYS,
-		lookbackDays: HORIZON_DAYS,
+		lookbackDays,
 		victims: coverage.victims,
 		sources: coverage.sources,
 		pairs: coverage.pairs,
@@ -177,10 +182,11 @@ async function main(): Promise<void> {
 			events: scaleRows[0]?.events ?? 0,
 		},
 		caveat:
-			"A wave signal is a claim by another NA organisation in the same scope within 30 days, strictly before the victim's claim. No group label of the future claim is used. The injected ranking adds a bounded sector-group bonus to the published score; it is an audit, not a change to the published forecast.",
+			`A wave signal is a claim by another NA organisation in the same scope within ${lookbackDays} days, strictly before the victim's claim. No group label of the future claim is used. The injected ranking adds a bounded sector-group bonus to the published score; it is an audit, not a change to the published forecast.`,
 	};
 
 	console.log(`Sector-wave precursors — ${cutoffs.length} windows ${windowStart} → ${windowEnd}`);
+	console.log(`Lookback: ${lookbackDays} days`);
 	console.log(
 		`Victims: ${coverage.victims} NA organisations x ${coverage.sources} scopes = ${coverage.pairs} pairs (${subjects.length} NA claims read)`,
 	);
