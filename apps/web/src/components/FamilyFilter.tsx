@@ -5,15 +5,15 @@ type FamilyFilterProps = Pick<FeedProps, "byFamily" | "family" | "onFamily">;
 
 export default function FamilyFilter({ byFamily, family, onFamily }: FamilyFilterProps) {
   return (
-    <div className="family-filter" role="group" aria-label="Filtrer par famille">
-      <span className="family-filter__label">famille</span>
+    <div className="family-filter" role="group" aria-label="Filter by family">
+      <span className="family-filter__label">family</span>
       <button
         type="button"
         className="family-filter__btn"
         aria-pressed={family === null}
         onClick={() => onFamily(null)}
       >
-        <span>tout</span>
+        <span>All</span>
       </button>
       {byFamily.map(({ family: name, n }) => (
         <button
