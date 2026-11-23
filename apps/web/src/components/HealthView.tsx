@@ -181,8 +181,10 @@ export default function HealthView({ sources = [], loading: chargementParent = f
 
   const items = data?.items ?? [];
   const counts = data?.counts;
-  const premier = data === null || data.items.length === 0 ? 0 : (data.page - 1) * data.pageSize + 1;
-  const dernier = data === null ? 0 : premier + data.items.length - 1;
+  // `items` local (avec repli) plutôt que data.items : une réponse sans le
+  // champ ne doit pas faire crasher la vue — l'export Jeu d'or le garantit.
+  const premier = data === null || items.length === 0 ? 0 : (data.page - 1) * data.pageSize + 1;
+  const dernier = data === null ? 0 : premier + items.length - 1;
 
   return (
     <section className="health-view" aria-label="santé des sources">
