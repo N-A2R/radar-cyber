@@ -86,7 +86,10 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 		assert.ok(resume.dureeMs > 0, "la durée du cycle est mesurée");
 		assert.ok(dureeMur < LIMITE_CYCLE_MS, `cycle trop long : ${dureeMur} ms`);
 		assert.equal(resume.cycle.statut, "ok");
-		assert.equal(resume.collecte.reussis, 2, "les deux sources dues ont été collectées");
+		const collectes = await query<{ dedup_key: string }>(
+			`SELECT dedup_key FROM event WHERE dedup_key LIKE $1`, [`${TAG}-%`],
+		);
+		assert.equal(collectes.rows.length, 2, "les deux sources dues ont été collectées (effet en base)");
 		assert.equal(resume.collecte.echecs, 0);
 		assert.ok(resume.evenements >= 2, `événements du jour : ${resume.evenements}`);
 		assert.ok(resume.nouvellesOrganisations >= 1, "l'organisation créée pour le test est comptée");
