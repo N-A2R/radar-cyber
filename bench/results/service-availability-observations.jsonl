@@ -28,7 +28,7 @@
 {"serviceId":"na-edu-0160031X","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
 {"serviceId":"na-edu-0160031X","day":"2026-11-23","ok":true,"status":200,"latencyMs":1546,"observedAt":"2026-11-23T23:08:03.197Z","failure":null}
 {"serviceId":"na-edu-0160032Y","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0160032Y","day":"2026-11-23","ok":false,"status":null,"latencyMs":6002,"observedAt":"2026-11-23T23:08:03.178Z","failure":"timeout"}
+{"serviceId":"na-edu-0160032Y","day":"2026-11-23","ok":true,"status":200,"latencyMs":1095,"observedAt":"2026-11-23T23:26:18.174Z","failure":null}
 {"serviceId":"na-edu-0160039F","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
 {"serviceId":"na-edu-0160039F","day":"2026-11-22","ok":false,"status":null,"latencyMs":6001,"observedAt":"2026-11-22T03:24:58.487Z","failure":"timeout"}
 {"serviceId":"na-edu-0160039F","day":"2026-11-23","ok":true,"status":200,"latencyMs":577,"observedAt":"2026-11-23T23:07:22.341Z","failure":null}
