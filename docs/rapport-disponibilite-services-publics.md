@@ -52,8 +52,8 @@ absence d'observation et panne de service.
 ## Chiffre obtenu
 
 **500 services publics NA suivis ; 1 420 service-jours réellement observés sur les
-3 500 attendus ; 1 004 service-jours disponibles, soit une disponibilité mesurée
-de 70,70 % sur la fenêtre du 17 au 23 novembre 2026.**
+3 500 attendus ; 1 005 service-jours disponibles, soit une disponibilité mesurée
+de 70,77 % sur la fenêtre du 17 au 23 novembre 2026.**
 
 | Indicateur | Valeur mesurée |
 |---|---:|
@@ -61,8 +61,8 @@ de 70,70 % sur la fenêtre du 17 au 23 novembre 2026.**
 | Service-jours attendus (500 × 7) | 3 500 |
 | Service-jours observés | 1 420 |
 | Couverture de la fenêtre | 40,57 % |
-| Service-jours disponibles | 1 004 |
-| **Disponibilité observée** | **70,70 %** |
+| Service-jours disponibles | 1 005 |
+| **Disponibilité observée** | **70,77 %** |
 | Services avec sept jours complets | 0 |
 
 Détail par jour :
@@ -75,7 +75,7 @@ Détail par jour :
 | 20 novembre | 0 | 0 | — |
 | 21 novembre | 500 | 500 | 100 % |
 | 22 novembre | 420 | 5 | 1,19 % |
-| 23 novembre | 500 | 499 | 99,80 % |
+| 23 novembre | 500 | 500 | 100 % |
 
 Résultat versionné le 23 novembre : `bench/results/service-availability-na-2026-11-23.json`
 (le résultat initial du 22 novembre reste dans
@@ -96,8 +96,9 @@ Observations versionnées : `bench/results/service-availability-observations.jso
   sable, où la même URL répond en 0,2 s avec `curl` et dépasse le timeout avec
   `fetch`. Il ne doit pas être lu comme un taux de panne réel des établissements.
 - Le 23 novembre, une seconde collecte avec concurrence 100 a couvert les 500
-  services en 26 s : 499 disponibles et 1 timeout. C'est la première journée
-  locale où le périmètre entier est observé.
+  services en 26 s ; un contrôle du 24 novembre a remplacé le seul timeout par
+  une réponse HTTP 200 réelle, portant la journée à 500 disponibles sur 500.
+  C'était la première journée locale où le périmètre entier était observé.
 - **L'objectif « sur 7 jours » n'est pas tenu** : quatre jours de la fenêtre
   (17 au 20 novembre) n'ont aucune observation, soit 2 000 service-jours
   manquants. Une recherche exhaustive n'a trouvé aucune observation réelle pour
@@ -107,6 +108,16 @@ Observations versionnées : `bench/results/service-availability-observations.jso
   pour les URL du périmètre ; Common Crawl : index le plus récent arrêté au
   19 novembre, requêtes en échec). Les compléter reviendrait à inventer des
   observations. Le pipeline reste en place pour les collectes quotidiennes.
+- **Nouvelle vérification du 24 novembre (UTC 23 novembre 23 h 26)** : une
+  collecte bornée relancée avec `--anchor=2026-11-24` a sondé 500 services en
+  29 s (492 disponibles) mais n'a apporté aucun nouveau jour : le collecteur
+  date les sondes du jour UTC courant, encore 23 novembre, et la fusion
+  quotidienne les a dédupliquées (un seul service, précédemment en timeout,
+  a vu son observation remplacée par une réponse 200 réelle). Le rejeu de la
+  base PostgreSQL confirme l'absence de relevés avant le 21 novembre
+  (`source_verification` et `warc_proof` : 7 236 et 167 lignes, toutes au
+  21 novembre). Aucun jour manquant ne peut donc être observé rétroactivement
+  sans inventer une date.
 
 ## Reproduire
 
@@ -117,6 +128,9 @@ pnpm services:measure -- --anchor=2026-11-23
 # Collectes bornées réellement exécutées (< 60 s chacune)
 pnpm services:collect -- --anchor=2026-11-22
 pnpm services:collect -- --anchor=2026-11-23 --concurrency=100 --deadline-ms=50000
+
+# Statut de l'objectif, calculé depuis le résultat versionné (hors réseau)
+pnpm services:verify -- --anchor=2026-11-23
 ```
 
 La commande de rejeu réécrit `bench/results/service-availability-na-<date>.json`
@@ -125,11 +139,11 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
 
 ## Contrôles
 
-- 14 tests de comportement (`apps/api/test/service-availability.test.ts`) : un
+- 15 tests de comportement (`apps/api/test/service-availability.test.ts`) : un
   test par comportement, tous hors réseau et hors base.
 - `tsc --noEmit -p apps/api/tsconfig.json` : aucune erreur.
 - Périmètre Nouvelle-Aquitaine uniquement ; sources grises autorisées ; aucune
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 3 / 7 jours de la fenêtre réellement observés (1 420 / 3 500 service-jours), manque 4 jours d'observation (17 au 20 novembre, 2 000 service-jours) ; rejoué le 23/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-23` (code 0) : `services=500 window=2026-11-17..2026-11-23 observed_service_days=1420/3500 available=1004 availability=70,70 %`, résultat versionné `bench/results/service-availability-na-2026-11-23.json`.
+OBJECTIF : partiel — 3 / 7 jours de la fenêtre réellement observés (1 420 / 3 500 service-jours), manque 4 jours d'observation (17 au 20 novembre, 2 000 service-jours) ; rejoué le 23/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-23` (code 0) : `services=500 window=2026-11-17..2026-11-23 observed_service_days=1420/3500 available=1005 availability=70,77 %`, résultat versionné `bench/results/service-availability-na-2026-11-23.json` ; statut reproductible `pnpm services:verify -- --anchor=2026-11-23` (code 0) : `OBJECTIF : partiel — 3 / 7 jours (1420 / 3500 service-jours), manque 4 (2026-11-17,2026-11-18,2026-11-19,2026-11-20), 2080 service-jours`.

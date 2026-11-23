@@ -13,6 +13,7 @@ import {
 import { dayKeys, mergeDaily, parseObservations, serializeObservations } from "../src/serviceAvailability/observations.js";
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
+import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -166,4 +167,19 @@ test("full seven-day coverage is reported separately from partial coverage", () 
 	assert.equal(summary.servicesFullyObserved, 1);
 	assert.equal(summary.coveragePct, 100);
 	assert.equal(summary.perDay.length, 7);
+});
+
+test("coverage status counts unobserved days and service-days without extrapolating", () => {
+	const rows = [
+		observation("a", "2026-11-21", true),
+		observation("a", "2026-11-22", false),
+		observation("a", "2026-11-23", true),
+	];
+	const summary = measureAvailability(rows, [service("a")], "2026-11-23");
+	const status = evaluateCoverage(summary);
+	assert.equal(status.label, "partiel");
+	assert.equal(status.daysObserved, 3);
+	assert.equal(status.missingDays.length, 4);
+	assert.equal(status.observedServiceDays, 3);
+	assert.equal(status.missingServiceDays, 4);
 });
