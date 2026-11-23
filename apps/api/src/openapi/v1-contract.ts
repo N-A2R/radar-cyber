@@ -6,8 +6,8 @@ import type { FrozenContract } from "./contract.js";
 
 export const V1_CONTRACT: FrozenContract = {
   "version": "1.0.0",
-  "frozenAt": "2026-11-22",
-  "digest": "fdb85c4c1615593d906760670ec8d1ecf9728ecd4243aead54f4649efa0a1cdb",
+  "frozenAt": "2026-11-23",
+  "digest": "11f92c5965864769183dead3f58c4c4d1910c386d2536fd737228445f59b627f",
   "operations": [
     {
       "method": "delete",
@@ -163,6 +163,11 @@ export const V1_CONTRACT: FrozenContract = {
       "method": "get",
       "path": "/quarantine/stats",
       "signature": "1c0e0de311b6221e"
+    },
+    {
+      "method": "get",
+      "path": "/registre-traitements/export.csv",
+      "signature": "be735e54bb741359"
     },
     {
       "method": "get",
