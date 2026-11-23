@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
+import { lastOfflineFallback, offlineStatus, onOfflineFallback } from "./offline/pwa";
 import { type DataRow } from "./export";
 import ExportMenu, { ExportProvider, useScreenExport } from "./components/ExportMenu";
 import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
@@ -205,6 +206,26 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
   const instantaneData = useMemo(() => etatDonnees(instantane, horloge), [instantane, horloge]);
+  // Offline is a first-class state: the network can drop between two renders.
+  // The timestamp comes from the last replayed response, or from the map
+  // snapshot when the current view made no API call.
+  const [offline, setOffline] = useState(() => typeof navigator !== "undefined" ? !navigator.onLine : false);
+  const [offlineAt, setOfflineAt] = useState<number | null>(() => lastOfflineFallback()?.at ?? null);
+  useEffect(() => {
+    const down = () => setOffline(true);
+    const up = () => { setOffline(false); setOfflineAt(null); };
+    const unsubscribe = onOfflineFallback((info) => {
+      setOffline(true);
+      setOfflineAt(info.at);
+    });
+    window.addEventListener("offline", down);
+    window.addEventListener("online", up);
+    return () => {
+      window.removeEventListener("offline", down);
+      window.removeEventListener("online", up);
+      unsubscribe();
+    };
+  }, []);
   const [loading, setLoading] = useState(!MOCK_MODE);
   const [reloadSignal, setReloadSignal] = useState(0);
   const recharger = useCallback(() => setReloadSignal((n) => n + 1), []);
@@ -910,9 +931,13 @@ export default function App() {
       </Suspense>
 
       {error ? <p className="shell__error" role="alert" aria-live="assertive">API : {error}</p> : null}
-      {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
-          croire à un temps réel qu'on n'a plus. */}
-      {error && instantaneData ? (
+      {/* Offline first: the cache age replaces the live claim; an API error
+          with no offline event still reports stale snapshot data. */}
+      {offline ? (() => {
+        const statut = offlineStatus(offlineAt ?? instantane?.at ?? null, horloge);
+        return <p className="shell__offline" data-etat={statut.state} role="status" aria-live="polite">{statut.label}</p>;
+      })() : null}
+      {!offline && error && instantaneData ? (
         <p className="shell__offline" data-etat={instantaneData.etat} role="status" aria-live="polite">
           {instantaneData.libelle}
           {instantaneData.etat === "perime" ? " — map frozen on the last response received" : null}
