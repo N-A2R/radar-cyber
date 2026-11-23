@@ -35,6 +35,9 @@ out/
 # Dossiers exportés et jetons joints : régénérables par `pnpm scelle:exports`.
 exports/scelles/
 
+# Rapports NIS2 générés par `pnpm nis2:rapports` (reproductibles depuis la base).
+exports/nis2/
+
 # Journaux générés par le service (données locales)
 journal/journal_root_*.json
 apps/api/journal/
