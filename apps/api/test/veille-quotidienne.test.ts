@@ -37,7 +37,7 @@ function evenement(id: string, numero: number, runId: number): NormalizedEvent {
 			? "Une attaque par rançongiciel vise une mairie de Gironde."
 			: "Des documents médicaux ont été exfiltrés d'un hôpital de Charente-Maritime.",
 		observedAt: new Date().toISOString(),
-		sourceUrl: `https://${TAG}-${numero}.fr/${numero}`,
+		sourceUrl: `https://${TAG}.fr/${numero}`,
 		confidence: "A1",
 		sourceId: id,
 		evidence: { group: groupe, run_id: "1" },
