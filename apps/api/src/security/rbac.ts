@@ -78,6 +78,8 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/graph/temporal", niveau: "public", motif: "observatoire : lecture du graphe temporel" },
   { methode: "GET", route: "/api/graph/as-of", niveau: "public", motif: "observatoire : graphe interrogeable à toute date, sans donnée personnelle" },
   { methode: "GET", route: "/api/stream", niveau: "public", motif: "flux SSE des alertes en direct, sans donnée personnelle" },
+  { methode: "GET", route: "/api/map/timeline/buckets", niveau: "public", motif: "map timeline : comptages agrégés" },
+  { methode: "GET", route: "/api/map/timeline/events", niveau: "public", motif: "map timeline : points géolocalisés publics" },
   { methode: "GET", route: "/api/search", niveau: "public" },
   { methode: "GET", route: "/api/search/ask", niveau: "public" },
   { methode: "GET", route: "/api/na/overview", niveau: "public" },

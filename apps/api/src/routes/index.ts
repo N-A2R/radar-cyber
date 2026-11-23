@@ -77,6 +77,7 @@ import providersRoute from "./providers.js";
 import newExposedServicesRoute from "./exposition-new-services.js";
 import earlyWarningRoute from "./early-warning.js";
 import siretEstablishmentsRoute from "./siret-establishments.js";
+import mapTimelineRoute from "./map-timeline.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -89,6 +90,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     confidenceRoute, actorAttributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,
     technicalCoverageRoute, naDepartmentsRoute, onionIndexRoute, thehiveRoute, custodyRoute, insuranceScoreRoute,
     warcProofsRoute,
+    mapTimelineRoute,
     publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,
