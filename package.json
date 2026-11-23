@@ -50,6 +50,8 @@
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
+    "mesure:injection": "apps/api/node_modules/.bin/tsx scripts/mesure-injection.mts",
+    "verifie:injection": "apps/api/node_modules/.bin/tsx scripts/verifie-injection.mts",
     "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
