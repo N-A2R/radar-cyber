@@ -40,6 +40,7 @@ import quarantineRoute from "../routes/quarantine.js";
 import reviewRoute from "../routes/review.js";
 import searchRoute from "../routes/search.js";
 import sourcesRoute from "../routes/sources.js";
+import sourcesDashboardRoute from "../routes/sources-dashboard.js";
 import statsDepartementsRoute from "../routes/stats-departements.js";
 import statsRoute from "../routes/stats.js";
 import streamRoute from "../routes/stream.js";
@@ -50,7 +51,7 @@ import exportMispRoute from "../routes/export-misp.js";
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
   statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute, directoryRoute,
-  naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
+  naRoute, graphRoute, streamRoute, sourcesRoute, sourcesDashboardRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
   custodyRoute, exportMispRoute,

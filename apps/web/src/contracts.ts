@@ -1,8 +1,8 @@
-import type { Alert, CouverturePublique, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
+import type { Alert, CouverturePublique, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, SourcesDashboard, Stats, TodayResponse } from "./api";
 import type { DirectoryUrlState } from "./url-state";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "today" | "coverage" | "review" | "journal" | "corpus" | "sources" | "map" | "directory" | "graph" | "health" | "alerts" | "dossier" | "na" | "affected";
+export type ViewKey = "today" | "coverage" | "review" | "journal" | "corpus" | "sources" | "sources-dashboard" | "map" | "directory" | "graph" | "health" | "alerts" | "dossier" | "na" | "affected";
 
 
 /** Contrat de l'écran d'accueil « Aujourd'hui ». */
@@ -93,6 +93,13 @@ export type SourcesViewProps = {
   error: string | null;
   /** Relance le chargement derrière l'état vide (sinon, action locale). */
   onRetry?: () => void;
+};
+
+/** Contrat de l'écran tableau de bord des sources (GET /api/sources/dashboard). */
+export type SourcesDashboardViewProps = {
+  data: SourcesDashboard | null;
+  loading: boolean;
+  error: string | null;
 };
 
 /** Contrat de la vue santé. */

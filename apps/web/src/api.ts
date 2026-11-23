@@ -246,6 +246,32 @@ export type Source = {
   primeurs?: number;
 };
 
+/** Une ligne des classements de GET /api/sources/dashboard. */
+export type SourceRendement = {
+  id: string;
+  name: string;
+  family: string;
+  entrees: number;
+  evenements: number;
+  /** Ratio événements / entrées sur 30 jours ; null si rien n'a été lu. */
+  rendement: number | null;
+};
+
+/** Réponse de GET /api/sources/dashboard : tous les nombres sont calculés en base à l'appel. */
+export type SourcesDashboard = {
+  generatedAt: string;
+  fenetreJours: number;
+  fenetreRendementJours: number;
+  seuilLenteMs: number;
+  limiteClassement: number;
+  totalSources: number;
+  etats: { ok200: number; muette: number; morte: number; lente: number; dormante: number };
+  meilleures: SourceRendement[];
+  pires: SourceRendement[];
+  evolution: { date: string; evenements: number; entrees: number; sourcesActives: number }[];
+  collecte: { dureeTotaleMs: number; runs: number };
+};
+
 /**
  * Ce que vaut une source, au-delà de « elle répond ».
  *
@@ -1275,6 +1301,8 @@ export const api = {
   /** Graphe temporel : période de validité des entités et des relations. */
   graphTemporal: () => get<Graph>("/graph/temporal"),
   sources: () => get<Source[]>("/sources"),
+  /** Tableau de bord des sources : états, rendements, évolution et collecte en direct. */
+  sourcesDashboard: (signal?: AbortSignal) => get<SourcesDashboard>("/sources/dashboard", signal),
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   /** Écran Corpus : volumes, couverture des domaines et croissance. */
   corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),

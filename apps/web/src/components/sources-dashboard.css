@@ -1,0 +1,224 @@
+/* Sources dashboard — écran de mesures, même système visuel que Corpus.
+   Les chiffres portent toujours leur libellé : la couleur n'est qu'un repère
+   secondaire, jamais le seul signal d'un état. */
+
+.sdb {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sdb__header h1 {
+  margin: var(--space-1) 0;
+  font: 500 var(--text-title)/1.2 var(--font-mono);
+  color: var(--text);
+}
+
+.sdb__header p {
+  margin: 0;
+  max-width: 72ch;
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.sdb__error,
+.sdb__state,
+.sdb__stale {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.sdb__error { color: var(--sev-5); border-color: var(--sev-5); }
+.sdb__stale { color: var(--sev-3); }
+
+.sdb__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-2);
+}
+
+.sdb__kpi {
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sdb__kpi strong {
+  font: 500 26px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.sdb__panel {
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.sdb__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.sdb__panel h2 {
+  margin: 0;
+  font: 500 var(--text-title)/1.3 var(--font-mono);
+  color: var(--text);
+}
+
+.sdb__meta {
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.sdb__note,
+.sdb__empty {
+  margin: var(--space-3) 0 0;
+  max-width: 90ch;
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--faint);
+}
+
+.sdb__states {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.sdb__state {
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.sdb__state dt {
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.sdb__state dd {
+  margin: var(--space-1) 0;
+  font: 500 24px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.sdb__state[data-etat="morte"] dd { color: var(--sev-5); }
+.sdb__state[data-etat="muette"] dd,
+.sdb__state[data-etat="dormante"] dd { color: var(--sev-3); }
+.sdb__state[data-etat="lente"] dd { color: var(--sev-4); }
+
+.sdb__state p {
+  margin: 0;
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--faint);
+}
+
+.sdb__duration {
+  font: 500 30px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.sdb__duration-caption {
+  margin: var(--space-2) 0 0;
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.sdb__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.sdb__table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--text);
+}
+
+.sdb__table th {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--line-strong);
+  text-align: left;
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.sdb__table td {
+  min-width: 0;
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.sdb__num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sdb__rank {
+  margin-right: var(--space-2);
+  color: var(--faint);
+  font-family: var(--font-mono);
+}
+
+.sdb__source-name { color: var(--text); }
+.sdb__source-family { display: block; color: var(--faint); }
+.sdb__yield { color: var(--accent); }
+
+.sdb__bar {
+  display: block;
+  min-width: 40px;
+  height: 8px;
+  border-radius: var(--radius);
+  background: var(--surface-3);
+}
+
+.sdb__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius);
+  background: var(--data-teal);
+}
+
+.sdb__footer {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--faint);
+}
+
+.sdb__footer code {
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
