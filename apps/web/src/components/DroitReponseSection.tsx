@@ -10,6 +10,7 @@
  */
 import { useState, type FormEvent } from "react";
 import { api, type ApiError, type DemandeRectification, type MotifRectification, type RectificationsOrg, type RectificationPubliee } from "../api";
+import { Card } from "@astryxdesign/core/Card";
 
 export type EtatDroitReponse = "ferme" | "ouvert" | "envoi" | "succes" | "erreur";
 
@@ -113,6 +114,7 @@ export function DroitReponseSection({
       ) : null}
 
       {etat === "ouvert" || etat === "envoi" || etat === "erreur" ? (
+          <Card variant="transparent" className="droit-reponse__form-card">
         <form className="droit-reponse__form" onSubmit={onEnvoyer} noValidate>
           <p className="orgsheet__note">
             Demande au nom de <strong>{organisation}</strong>
@@ -191,6 +193,7 @@ export function DroitReponseSection({
             un administrateur décide, et sa décision est tracée.
           </p>
         </form>
+          </Card>
       ) : null}
     </section>
   );
