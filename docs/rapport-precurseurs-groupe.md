@@ -1,6 +1,6 @@
 # Signaux collectifs antérieurs des victimes NA : revendications par groupe
 
-OBJECTIF : partiel — 16/16 victimes couvertes par un signal collectif antérieur group-agnostique calculable à la coupure / 15/15 cible, et 0 hit / 60 prédictions / 1 hit attendu ; manque 1 hit sur 60, aucun signal individuel antérieur n'étant assez sélectif pour entrer dans le top 10.
+OBJECTIF : partiel — 16/16 victimes couvertes par un signal collectif antérieur group-agnostique calculable à la coupure / 15/15 cible, et 0 hit / 60 prédictions / 1 hit attendu ; manque 1 hit sur 60, aucun signal antérieur group-agnostique mesuré n'y parvenant.
 
 ## Ce qui est livré
 
@@ -72,10 +72,39 @@ Le second écart chiffré reste ouvert : **0 hit sur 60 prédictions**, contre 1
 
 Deux tests supplémentaires, un par comportement, couvrent la fenêtre explicite de 365 jours : 18 tests verts dans `sector-wave.test.ts`, typecheck API vert. `apps/api/src/server.ts` reste inchangé (0 ligne de diff).
 
+## Plafond mesuré des signaux antérieurs (24 novembre 2026)
+
+Pour ne pas laisser croire qu'un simple réglage de poids comble le dernier écart, six classements **prédéfinis** — portées et poids documentés, non ajustés après la mesure — sont rejoués sur les mêmes six fenêtres. Tous lisent uniquement des revendications publiées strictement avant la coupure, dans une fenêtre de 365 jours, et aucun libellé de groupe de la revendication future. Le module pur `apps/api/src/prediction/sector-wave.ts` fournit les comptages par clé composée (`secteur_groupe × département`, `secteur × département`, `secteur_groupe × secteur × département`) ; le script `scripts/measure-prior-signal-ceiling.mts` applique un bonus plafonné à trois signaux par organisation et rejoue aussi un classement réservé aux organisations sans revendication ni événement antérieur.
+
+```bash
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  npm run measure:signal-ceiling -- --as-of=2026-11-22 \
+  --json=bench/results/prior-signal-ceiling-2026-11-22.json
+```
+
+Sortie observée (base locale réelle) :
+
+```
+Prior-signal ceiling — 6 windows 2026-05-26 → 2026-10-23
+Lookback: 365 days; signals: 6 (fixed, group-agnostic, strictly prior)
+Victims: 16; predictions per signal: 60
+  baseline               0/60 hits
+  groupe_365             0/60 hits
+  departement_365        0/60 hits
+  grp_dept_365           0/60 hits
+  grp_secteur_dept_365   0/60 hits
+  nouveaux_grp_dept_365  0/60 hits
+No fixed prior-only signal reaches a hit: the 1-hit target remains open.
+```
+
+Le détail est figé dans `bench/results/prior-signal-ceiling-2026-11-22.json`. Aucune des six variantes n'atteint un hit : sur 1,67 million d'organisations candidates, les seize victimes du rétro-test n'ont **aucune revendication ni événement antérieur à leur propre coupure**. Tous les signaux collectifs disponibles sont des grandeurs agrégées, partagées par des milliers d'organisations d'un même département ou d'un même secteur : ils portent la couverture à 16/16 mais ne peuvent départager ces organisations sans intégrer l'issue dans les caractéristiques. Le classement publié reste donc inchangé et ne doit toujours pas être présenté comme une alerte fiable ; le manque d'un hit sur 60 n'est pas comblé.
+
+Cinq tests supplémentaires, un par comportement, couvrent les clés composées et l'exclusion stricte des revendications à la coupure ou hors fenêtre : 23 tests verts au total sur ces trois fichiers, typecheck API vert.
+
 ## Conformité
 
 - Nouvelle-Aquitaine uniquement : victimes et revendications sources filtrées sur les 12 départements de la région.
 - Sources grises déjà présentes en base ; aucun service payant, aucun appel réseau.
 - Aucune donnée personnelle : la mesure ne lit que des identifiants d'organisation, des libellés de groupe, des codes secteur/département et des dates ; ni nom de victime, ni description de revendication, ni URL de preuve ne sont exposés.
 - `apps/api/src/server.ts` inchangé : **0 ligne de diff**.
-- 14 tests pour la mesure initiale, 18 avec le rattrapage, un par comportement, verts ; typecheck API vert ; mesure initiale en 7,6 s, mesure 365 j en 86 s.
+- 14 tests pour la mesure initiale, 18 avec le rattrapage, 23 avec le plafond des signaux antérieurs, un par comportement, verts ; typecheck API vert ; mesure initiale en 7,6 s, mesure 365 j en 86 s, plafond rejoué sur la base locale.

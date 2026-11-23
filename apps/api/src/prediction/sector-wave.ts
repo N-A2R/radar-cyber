@@ -184,3 +184,43 @@ export function waveBonus(
 	const key = normaliseWaveKey(groups.get(orgId) ?? null);
 	return key === null ? 0 : weight * Math.min(counts.get(key) ?? 0, 3);
 }
+
+export type CompositeWaveScope = "grp_dept" | "secteur_dept" | "grp_secteur_dept";
+
+/** Composite scope key; a blank component makes the whole key unusable. */
+export function compositeWaveKey(
+	subject: Pick<WaveSubject, "sectorGroup" | "sector" | "dept">,
+	scope: CompositeWaveScope,
+): string | null {
+	const raw =
+		scope === "grp_dept"
+			? [subject.sectorGroup, subject.dept]
+			: scope === "secteur_dept"
+				? [subject.sector, subject.dept]
+				: [subject.sectorGroup, subject.sector, subject.dept];
+	const parts = raw.map(normaliseWaveKey);
+	return parts.some((part) => part === null) ? null : parts.join("|");
+}
+
+/**
+ * Prior claim counts per composite scope key at a cutoff. Only claims strictly
+ * before the cutoff and inside the lookback are read; no future group label is
+ * needed. Pure module, organisation-level keys only.
+ */
+export function compositeWaveCounts(
+	claims: readonly WaveSubject[],
+	cutoff: string,
+	scope: CompositeWaveScope,
+	lookbackDays = 365,
+): Map<string, number> {
+	const boundary = dayNumber(cutoff);
+	const counts = new Map<string, number>();
+	for (const claim of claims) {
+		const day = dayNumber(claim.publishedAt);
+		if (day >= boundary || day < boundary - lookbackDays) continue;
+		const key = compositeWaveKey(claim, scope);
+		if (key === null) continue;
+		counts.set(key, (counts.get(key) ?? 0) + 1);
+	}
+	return counts;
+}
