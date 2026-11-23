@@ -1,4 +1,5 @@
-# Dépendances
+# Dépendances (le motif sans slash attrape aussi les liens symboliques nus)
+node_modules
 node_modules/
 .pnpm-store/
 
@@ -35,8 +36,8 @@ out/
 # Dossiers exportés et jetons joints : régénérables par `pnpm scelle:exports`.
 exports/scelles/
 
-# Rapports NIS2 générés par `pnpm nis2:rapports` (reproductibles depuis la base).
-exports/nis2/
+# Exports mensuels régénérables par `pnpm export:violations-rgpd`.
+exports/violations/
 
 # Journaux générés par le service (données locales)
 journal/journal_root_*.json
