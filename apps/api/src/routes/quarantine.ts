@@ -88,7 +88,9 @@ export default async function (app: FastifyInstance) {
       // Le rattachement se calcule sur `org_hint`, jamais sur le contenu extrait.
       const m = matchOrgInIndex(String(row.org_hint ?? ""), index);
       out.push({
-        id: row.id,
+        // `bigint` arrive en chaîne de pg ; le contrat /api/quarantine expose
+        // un nombre, comme les autres identifiants de l'API.
+        id: Number(row.id),
         source: row.source,
         sourceUrl: row.source_url,
         groupe: row.groupe,
