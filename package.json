@@ -123,7 +123,8 @@
     "verifie:leak-site-freshness": "apps/api/node_modules/.bin/tsx scripts/verifie-leak-site-freshness.mts",
     "measure:hosting-outage": "apps/api/node_modules/.bin/tsx scripts/measure-hosting-outage.mts",
     "verifie:objectif-enrich-job": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-enrich-job.mts",
-    "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts"
+    "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
+    "verifie:rec": "apps/api/node_modules/.bin/tsx scripts/verifie-rec.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
