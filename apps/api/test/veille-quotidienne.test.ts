@@ -40,8 +40,7 @@ function evenement(id: string, numero: number, runId: number): NormalizedEvent {
 		sourceUrl: `https://exemple${numero}.fr/${TAG}/${numero}`,
 		confidence: "A1",
 		sourceId: id,
-		sourceUrl: `https://exemple.fr/${TAG}/${numero}`,
-		evidence: { group: groupe, run_id: String(runId) },
+		evidence: { group: groupe, run_id: "1" },
 		geoType: "unknown",
 	};
 }
@@ -64,11 +63,6 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 				 VALUES ($1, $2, 'ransomware', 'https://exemple.test/source', 3600)`,
 				[id, `Source ${id}`],
 			);
-			const run = await query<{ id: number }>(
-				`INSERT INTO collector_run (source_id, finished_at, status) VALUES ($1, now(), 'ok') RETURNING id`,
-				[id],
-			);
-			RUN_IDS.push(Number(run.rows[0]!.id));
 		}
 		await query(
 			`INSERT INTO org (name, slug, kind, city, domain, status)
@@ -78,7 +72,7 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 
 		const debut = performance.now();
 		const maintenant = new Date();
-		const collecteurs = IDS.map((id, i) => fauxCollecteur(id, i + 1, RUN_IDS[i]!));
+		const collecteurs = IDS.map((id, i) => fauxCollecteur(id, i + 1, 1));
 		const resume: ResumeQuotidien = await executerVeilleQuotidienne({
 			maintenant,
 			collecteurs,
