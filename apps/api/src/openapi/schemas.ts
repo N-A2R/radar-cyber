@@ -38,6 +38,30 @@ export const Directory = z.object({
   facets: z.record(z.string(), z.array(z.object({ value: z.string(), count: z.number().int() }))),
 }).passthrough();
 export const SourceList = z.array(z.object({ id: z.string(), name: z.string(), family: z.string() }).passthrough());
+const ADebrancher = z.object({
+  id: z.string(), nom: z.string(), url: z.string(),
+  etat: z.enum(["ok200", "muette", "morte", "lente"]).nullable(), motif: nullableString,
+  code_http: z.number().int().nullable(), items: z.number().int(), ms: z.number().int().nullable(),
+}).passthrough();
+const VerificationLigne = z.object({
+  id: z.string(), nom: z.string(), url: z.string(), format: z.string(),
+  code_http: z.number().int().nullable(), content_type: nullableString,
+  items: z.number().int(), derniere_item_at: nullableString,
+  ms: z.number().int().nullable(), verifie_at: nullableString,
+  etat: z.enum(["ok200", "muette", "morte", "lente"]).nullable(), motif: nullableString,
+}).passthrough();
+export const SourceVerification = z.object({
+  verifie_at: nullableString,
+  total_sources: z.number().int(),
+  verifiees: z.number().int(),
+  couverture_pct: z.number(),
+  resume: z.object({
+    "200": z.number().int(), muettes: z.number().int(),
+    mortes: z.number().int(), lentes: z.number().int(),
+  }),
+  a_debrancher: z.array(ADebrancher),
+  sources: z.array(VerificationLigne),
+}).passthrough();
 export const Stats = z.object({}).passthrough();
 export const Flows = z.object({ arcs: z.array(z.object({}).passthrough()), total: z.number().int(), truncated: z.boolean() }).passthrough();
 export const Graph = z.object({ nodes: z.array(z.object({}).passthrough()), links: z.array(z.object({}).passthrough()) }).passthrough();
@@ -71,7 +95,7 @@ export const AuthUser = z.object({ id: z.number().int(), email: z.string(), role
 /** Carte des composants réutilisables : chaque entrée devient un $ref OpenAPI. */
 export const SCHEMAS = {
   ErrorBody, Ok, Health, Event, EventList, EventRows, Org, OrgList, OrgDetail, Directory,
-  SourceList, Stats, Flows, Graph, SearchResults, Today, Alerts, Quarantine,
+  SourceList, SourceVerification, Stats, Flows, Graph, SearchResults, Today, Alerts, Quarantine,
   Journal, ReviewQueue, Coverage, HealthDetail, HealthSources, Enrichment, Dossier, Stream, Csv,
   KeyRow, KeyList, KeyCreated, DecisionResult, AuthLogin, AuthUser,
 } as const;

@@ -29,6 +29,7 @@ import graphAsOfRoute from "./graph-as-of.js";
 import streamRoute from "./stream.js";
 import sourcesRoute from "./sources.js";
 import sourcesDashboardRoute from "./sources-dashboard.js";
+import sourcesVerificationRoute from "./sources-verification.js";
 import statsRoute from "./stats.js";
 import searchRoute from "./search.js";
 import scanCampaignsRoute from "./scan-campaigns.js";
@@ -81,7 +82,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     healthRoute, eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, collecteMetricsRoute,
     corpusStatsRoute, collectePlanRoute, todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute,
     orgsRoute, orgReportRoute, directoryRoute, naRoute, reconnaissanceRoute, graphRoute, graphTemporalRoute, graphAsOfRoute,
-    streamRoute, sourcesRoute, sourcesDashboardRoute, statsRoute, searchRoute, scanCampaignsRoute, enrichRoute, authRoute,
+    streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute, scanCampaignsRoute, enrichRoute, authRoute,
     alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, journalRoute,
     orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, rectificationRoute, auditRoute,
     confidenceRoute, actorAttributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,

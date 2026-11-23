@@ -1,5 +1,5 @@
 // Généré par scripts/generate-api-client.mts — ne pas éditer à la main.
-// API v1.0.0 — 55 opérations.
+// API v1.0.0 — 56 opérations.
 import type { z } from "zod";
 import type * as Schemas from "./schemas.js";
 import type * as Catalog from "./catalog.js";
@@ -15,6 +15,7 @@ export type OrgList = z.infer<typeof Schemas.OrgList>;
 export type OrgDetail = z.infer<typeof Schemas.OrgDetail>;
 export type Directory = z.infer<typeof Schemas.Directory>;
 export type SourceList = z.infer<typeof Schemas.SourceList>;
+export type SourceVerification = z.infer<typeof Schemas.SourceVerification>;
 export type Stats = z.infer<typeof Schemas.Stats>;
 export type Flows = z.infer<typeof Schemas.Flows>;
 export type Graph = z.infer<typeof Schemas.Graph>;
@@ -160,6 +161,8 @@ export function createRadarClient(options?: RequestOptions) {
       request<Flows>(withQuery("/flows", args?.query), "GET", undefined, { ...options, ...call }),
     getSources: (args?: Record<string, never>, call?: RequestOptions) =>
       request<SourceList>("/sources", "GET", undefined, { ...options, ...call }),
+    getSourcesVerification: (args?: Record<string, never>, call?: RequestOptions) =>
+      request<SourceVerification>("/sources/verification", "GET", undefined, { ...options, ...call }),
     recollectSource: (args: { params: { id: string | number } }, call?: RequestOptions) =>
       request<Ok>(pathOf("/sources/{id}/collecte", args.params), "POST", undefined, { ...options, ...call }),
     markSourceDead: (args: { params: { id: string | number }; body: MorteBody }, call?: RequestOptions) =>
