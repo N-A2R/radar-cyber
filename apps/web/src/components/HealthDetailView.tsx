@@ -1,4 +1,5 @@
 import type { HealthCauses, HealthDetail } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./SourcesView";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./health-detail.css";
@@ -36,7 +37,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
     return <section className="health-detail"><LoadingSkeleton label="lecture de l’état du système…" /></section>;
   }
   if (error && detail === null) {
-    return <section className="health-detail"><p role="alert" aria-live="assertive">état indisponible : {error}</p></section>;
+    return <section className="health-detail" aria-live="assertive"><ErrorRetry message={`état indisponible : ${error}`} onRetry={onRetry} /></section>;
   }
   if (detail === null || !detail.ok) {
     return (

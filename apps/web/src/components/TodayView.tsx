@@ -7,6 +7,7 @@
  */
 import { useState } from "react";
 import type { DeptStat, TodayEvent } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import type { TodayViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./today.css";
@@ -234,7 +235,7 @@ export default function TodayView({
       ) : null}
 
       {loading ? <LoadingSkeleton label="chargement des événements…" /> : null}
-      {error ? <p className="today__statut today__statut--erreur" role="alert">API : {error}</p> : null}
+      {error ? <ErrorRetry message={`API : ${error}`} onRetry={onRetry} className="today__statut today__statut--erreur" /> : null}
 
       {vide ? (
         <EmptyState
