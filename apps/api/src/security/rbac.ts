@@ -80,6 +80,8 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/stream", niveau: "public", motif: "flux SSE des alertes en direct, sans donnée personnelle" },
   { methode: "GET", route: "/api/map/timeline/buckets", niveau: "public", motif: "map timeline : comptages agrégés" },
   { methode: "GET", route: "/api/map/timeline/events", niveau: "public", motif: "map timeline : points géolocalisés publics" },
+  { methode: "GET", route: "/api/live-map", niveau: "public", motif: "3D map: ongoing attacks, no personal data" },
+  { methode: "GET", route: "/api/live-map/stream", niveau: "public", motif: "3D map: attack feed, no personal data" },
   { methode: "GET", route: "/api/search", niveau: "public" },
   { methode: "GET", route: "/api/search/ask", niveau: "public" },
   { methode: "GET", route: "/api/na/overview", niveau: "public" },

@@ -1048,6 +1048,7 @@ export default function App() {
                 events={mapEvents}
                 families={family ? [family] : undefined}
                 flows={flows}
+                live
                 basemap={basemap}
                 onSelect={handleSelectOrg}
                 onSelectEvent={(id) => {

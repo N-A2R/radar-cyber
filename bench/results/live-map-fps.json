@@ -1,0 +1,31 @@
+{
+  "command": "pnpm measure:3d",
+  "measuredAt": "2026-11-22T04:40:26.962Z",
+  "source": "live database: 372 ongoing Nouvelle-Aquitaine attacks",
+  "database": {
+    "orgs": 1673151,
+    "sources": 315,
+    "events": 26240
+  },
+  "browser": "Chromium headless, WebGL2 (SwiftShader), 1280x720",
+  "durationMsPerPass": 2000,
+  "passes": [
+    {
+      "frames": 122,
+      "ms": 2009.6,
+      "fps": 60.71,
+      "p95FrameMs": 16.7,
+      "draws": 122
+    },
+    {
+      "frames": 121,
+      "ms": 2002,
+      "fps": 60.44,
+      "p95FrameMs": 16.8,
+      "draws": 121
+    }
+  ],
+  "fps": 60.71,
+  "targetFps": 60,
+  "targetReached": true
+}

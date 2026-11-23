@@ -79,6 +79,7 @@ import earlyWarningRoute from "./early-warning.js";
 import siretEstablishmentsRoute from "./siret-establishments.js";
 import mapTimelineRoute from "./map-timeline.js";
 import hostingOutageRoute from "./hosting-outage.js";
+import liveMapRoute from "./live-map.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -93,6 +94,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     warcProofsRoute,
     mapTimelineRoute,
     hostingOutageRoute,
+    liveMapRoute,
     publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,

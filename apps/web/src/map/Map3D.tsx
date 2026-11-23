@@ -27,10 +27,11 @@
 // Le worker MapLibre n'est utile qu'à cette vue : le configurer ici garde la
 // bibliothèque hors du chunk initial.
 import '../maplibre-worker'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import type { ExpressionSpecification } from 'maplibre-gl'
 import { FAMILY_HEX, FAMILY_HEX_FALLBACK, arcHex, type FlowArc } from './arcs.js'
+import { connectAttackStream, fetchLiveAttacks, LiveAttackLayer, mergeAttacks, type LiveAttack } from './live3d.js'
 import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
 import { styleSecours } from '../offline'
 import { FAMILY_LABELS, ORG_KIND_LABELS } from './libelles'
@@ -80,6 +81,8 @@ export interface Map3DProps {
   onSelectEvent?: (id: string) => void
   /** Arcs animés (flux temps réel) ; vide = pas d'overlay. */
   flows?: FlowArc[]
+  /** Live WebGL layer: ongoing Nouvelle-Aquitaine attacks, redrawn at 60 fps. */
+  live?: boolean
   /** Fond de carte : imagerie satellite (IGN) ou plan vectoriel sombre. */
   basemap?: 'sat' | 'plan'
 }
@@ -605,6 +608,7 @@ export default function Map3D(props: Map3DProps) {
   const mapRef = useRef<maplibregl.Map | null>(null)
   const flowsRef = useRef<FlowArc[]>(props.flows ?? [])
   flowsRef.current = props.flows ?? []
+  const [liveStatus, setLiveStatus] = useState<{ count: number; fps: number } | null>(null)
 
 
   // Création unique de la carte.
@@ -615,6 +619,52 @@ export default function Map3D(props: Map3DProps) {
     let popup: maplibregl.Popup | null = null
     let raf = 0
     let themeObserver: MutationObserver | null = null
+    let liveLayer: LiveAttackLayer | null = null
+    let liveRaf = 0
+    let liveCloseFeed: (() => void) | null = null
+    let liveAttacks: LiveAttack[] = []
+
+    /** One WebGL2 layer, one draw call per frame, a single rAF loop. */
+    const startLive = (target: maplibregl.Map) => {
+      if (!propsRef.current.live || disposed || liveLayer) return
+      try {
+        liveLayer = new LiveAttackLayer()
+        target.addLayer(liveLayer as unknown as maplibregl.CustomLayerInterface)
+        liveLayer.setAttacks(liveAttacks)
+        let lastTick = 0
+        let statusAt = 0
+        let lastFrames = 0
+        const tick = (now: number) => {
+          if (disposed) return
+          if (now - lastTick >= 16) {
+            lastTick = now
+            target.triggerRepaint()
+          }
+          if (now - statusAt >= 1000) {
+            const frames = liveLayer?.frames ?? 0
+            setLiveStatus({
+              count: liveAttacks.length,
+              fps: statusAt === 0 ? 0 : Math.round((frames - lastFrames) * 1000 / (now - statusAt)),
+            })
+            statusAt = now
+            lastFrames = frames
+          }
+          liveRaf = requestAnimationFrame(tick)
+        }
+        liveRaf = requestAnimationFrame(tick)
+      } catch {
+        // WebGL2 unavailable: the map stays readable, the live layer is optional.
+        liveLayer = null
+      }
+      void fetchLiveAttacks('/api/live-map').then((list) => {
+        liveAttacks = list
+        liveLayer?.setAttacks(list)
+      }).catch(() => {})
+      liveCloseFeed = connectAttackStream('/api/live-map/stream', (attack) => {
+        liveAttacks = mergeAttacks(liveAttacks, [attack])
+        liveLayer?.setAttacks(liveAttacks)
+      })
+    }
     let zoomTimer: ReturnType<typeof setTimeout> | undefined
 
     const cityFeatures = {
@@ -822,6 +872,7 @@ export default function Map3D(props: Map3DProps) {
       })
 
       debugWindow.__radarMap = map
+      if (propsRef.current.live) map.once('load', () => startLive(map!))
       popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true, closeOnMove: false, maxWidth: '300px', className: 'radar-popup' })
 
       const showPopup = (lngLat: maplibregl.LngLatLike, content: HTMLElement) => {
@@ -1020,6 +1071,7 @@ export default function Map3D(props: Map3DProps) {
         center: [0.6, 45.2],
         zoom: 5.4,
       })
+      if (propsRef.current.live) map.once('load', () => startLive(map!))
     }
 
     fetch(OFM_TILEJSON)
@@ -1037,6 +1089,8 @@ export default function Map3D(props: Map3DProps) {
     return () => {
       disposed = true
       cancelAnimationFrame(raf)
+      cancelAnimationFrame(liveRaf)
+      liveCloseFeed?.()
       observer.disconnect()
       themeObserver?.disconnect()
       clearTimeout(zoomTimer)
@@ -1061,5 +1115,7 @@ export default function Map3D(props: Map3DProps) {
     renderRef.current?.()
   }, [props.orgs, props.events, props.families, props.flows])
 
-  return <div ref={ref} style={{ width: '100%', height: '100%' }} />
+  return <div ref={ref} style={{ width: '100%', height: '100%', position: 'relative' }}>
+    {props.live ? <div className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</div> : null}
+  </div>
 }

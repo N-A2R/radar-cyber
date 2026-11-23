@@ -46,7 +46,8 @@
     "test:confirmed-incidents": "vite build --ssr test/confirmed-incidents-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/confirmed-incidents-verif.js",
     "test:api": "vite build --ssr test/api-retry-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/api-retry-verif.js",
     "test:erreur": "vite build --ssr test/erreur-retry-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/erreur-retry-verif.js",
-    "test:export": "vitest run test/export.test.tsx --environment jsdom --reporter=verbose"
+    "test:export": "vitest run test/export.test.tsx --environment jsdom --reporter=verbose",
+    "test:live3d": "vitest run test/live3d.test.ts --environment jsdom"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

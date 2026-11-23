@@ -1755,3 +1755,19 @@ body {
 }
 .export__format:hover { border-color: var(--focus); }
 .export__status { font-size: 10px; color: var(--muted); }
+
+/* Live 3D attack layer status (English UI, same vocabulary as the benchmark). */
+.live-map-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong, #3d4a5c);
+  border-radius: var(--radius, 6px);
+  background: rgb(9 14 20 / 78%);
+  color: var(--text, #e7edf5);
+  font: 600 11px/1.4 ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
