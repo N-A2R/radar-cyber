@@ -14,7 +14,7 @@ derniers sont parallélisables et peuvent attendre.
 | # | Chantier | Débloque | Taille |
 |---|---|---|---|
 | 1 | ~~**Journal de vérité**~~ ✅ **livré** | tout le reste | ~3 semaines |
-| 2 | **Mémoire longue** (archive + datation + rejeu) | la mesure | ~1 semaine |
+| 2 | ~~**Mémoire longue**~~ ✅ **livrée** (archive + datation + rejeu) | la mesure | ~1 semaine |
 | 3 | **Couverture mesurée** (étage 2) | les agents | ~1 semaine |
 | 4 | **Agents CPU** (étage 3) | l'anticipation | ~2 semaines |
 | 5 | **Anticipation** (étage 4) | — | ~2 semaines |
@@ -69,7 +69,7 @@ réconciliation périodique détecte la dérive. L'event sourcing complet (rien 
 fait autorité hors journal) coûterait une latence de lecture et une complexité
 dont on n'a pas besoin.
 
-## 2. Mémoire longue
+## 2. Mémoire longue — ✅ LIVRÉE
 
 Aujourd'hui : `runRetention` supprime le brut de plus de 90 jours **après** avoir
 archivé chaque fait dans `event_archive` (résumé) et `archive_event` (copie
@@ -83,6 +83,14 @@ corrigés (`docs/rejeu.md`).
 **Critère de sortie.** Une requête répond sur 12 mois glissants alors que le
 brut est purgé à 90 jours ; le rejeu d'une période donne le même résultat qu'à
 l'époque (au moteur près).
+
+**Mesure du 21 novembre 2026.** `apps/api/test/memoire-longue.test.ts`, six tests nommés sur la base de test isolée, six verts — dont les trois preuves du critère :
+
+- `1 — le fait de 100 jours est archivé, pas supprimé` : 0 ligne dans `event`, 1 dans `event_archive`, 1 dans `archive_event`, `valid_at` et `at` conservés à l'identique ;
+- `2 — /api/history retrouve le fait sur 12 mois glissants` : 12 mois de réponse, total 1, archive 1, brut 0 ;
+- `3 — le rejeu de la période redonne le même rattachement` : 1 archive lue, 0 rattachement changé, 1 insertion, 0 écriture à la seconde passe et même empreinte de projection.
+
+Les trois autres tests couvrent le diff nominatif d'un rattachement corrigé, une période vide et le refus d'une période invalide.
 
 ## 3. Couverture mesurée — étage 2
 
