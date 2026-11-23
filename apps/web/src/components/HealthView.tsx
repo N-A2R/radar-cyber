@@ -1,3 +1,4 @@
+import { Badge } from "@astryxdesign/core/Badge";
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import {
   api,
@@ -35,6 +36,12 @@ const COLUMNS: { key: SortKey; label: string; num?: boolean }[] = [
 const BADGE_TONE: Record<SourceStatus, string> = {
   ok: "success",
   error: "danger",
+  pending: "info",
+};
+
+const BADGE_VARIANT: Record<SourceStatus, "success" | "error" | "info"> = {
+  ok: "success",
+  error: "error",
   pending: "info",
 };
 
@@ -289,9 +296,12 @@ export default function HealthView({ sources = [], loading: chargementParent = f
               {items.map((s) => (
                 <tr key={s.id}>
                   <td>
-                    <span className="badge" data-tone={BADGE_TONE[s.status]}>
-                      {SOURCE_STATUS_LABEL[s.status]}
-                    </span>
+                    <Badge
+                      label={SOURCE_STATUS_LABEL[s.status]}
+                      variant={BADGE_VARIANT[s.status]}
+                      className="badge"
+                      data-tone={BADGE_TONE[s.status]}
+                    />
                   </td>
                   <td>
                     <div>
