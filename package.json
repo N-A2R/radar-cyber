@@ -45,6 +45,7 @@
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
     "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
+    "verifie:fatigue": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-fatigue.mts",
     "mesure:stl-pics": "apps/api/node_modules/.bin/tsx scripts/mesure-stl-pics.mts",
     "verifie:stl-pics": "apps/api/node_modules/.bin/tsx scripts/verifie-stl-pics.mts",
     "genere:iforest": "apps/api/node_modules/.bin/tsx scripts/build-iforest-fixture.mts",
