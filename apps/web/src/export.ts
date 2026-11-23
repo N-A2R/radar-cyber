@@ -92,6 +92,16 @@ export const EXPORT_COLUMNS: Record<ViewKey, Column[]> = {
     { field: "organisation", label: "Organisation" }, { field: "department", label: "Department" },
     { field: "statement", label: "Statement" }, { field: "status", label: "Status" },
   ],
+  "sources-dashboard": [
+    { field: "date", label: "Date" }, { field: "sourcesActives", label: "Active sources" },
+    { field: "evenements", label: "Events" }, { field: "entrees", label: "Entries" },
+  ],
+  attributions: [
+    { field: "actor", label: "Actor" }, { field: "groupName", label: "Group" },
+    { field: "confidence", label: "Confidence" }, { field: "level", label: "Level" },
+    { field: "method", label: "Method" }, { field: "sources", label: "Sources" },
+    { field: "claims", label: "Claims" },
+  ],
 };
 
 export const EXPORT_TITLES: Record<ViewKey, string> = {
@@ -99,8 +109,8 @@ export const EXPORT_TITLES: Record<ViewKey, string> = {
   corpus: "Corpus", sources: "Sources", map: "Map", directory: "Directory",
   graph: "Graph", health: "Health", alerts: "Alerts", dossier: "Dossier",
   na: "Nouvelle-Aquitaine", affected: "Am I affected?",
+  "sources-dashboard": "Sources dashboard", attributions: "Actor attributions",
 };
-
 function departmentCode(row: DataRow): string | null {
   for (const key of ["department", "dept", "departement"]) {
     const value = row[key];
