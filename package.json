@@ -97,6 +97,7 @@
     "measure:map-timeline": "apps/api/node_modules/.bin/tsx scripts/measure-map-timeline.mts",
     "measure:3d": "apps/api/node_modules/.bin/tsx scripts/measure-live-map-fps.mts",
     "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts",
+    "measure:familles": "apps/api/node_modules/.bin/tsx scripts/measure-incident-families.mts",
     "collect:na-containers": "apps/api/node_modules/.bin/tsx scripts/collect-public-containers.mts",
     "measure:na-containers": "apps/api/node_modules/.bin/tsx scripts/measure-public-containers.mts",
     "measure:affected": "apps/api/node_modules/.bin/tsx scripts/measure-affected.mts",
