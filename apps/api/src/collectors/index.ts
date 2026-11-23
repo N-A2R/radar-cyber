@@ -164,9 +164,11 @@ export async function planifierCycle(options: {
 	maintenant?: number;
 	log?: (msg: string) => void;
 	intervalles?: Readonly<Record<string, number>>;
+	/** Registre injecté pour un cycle de test sans réseau ; défaut : le registre global. */
+	collecteurs?: readonly Collector[];
 } = {}): Promise<PlanCycle> {
 	const maintenant = options.maintenant ?? Date.now();
-	const candidats = collectors.filter((c) => !options.onlyId || c.id === options.onlyId);
+	const candidats = (options.collecteurs ?? collectors).filter((c) => !options.onlyId || c.id === options.onlyId);
 	const etats = await Promise.all(candidats.map(async (c) => {
 		try {
 			return await lireSanteSource(c.id);
