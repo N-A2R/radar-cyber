@@ -60,6 +60,8 @@ type SourceRow = {
   relevance: string;
   /** Code INSEE du département éditeur, pour la veille `presse_locale`. */
   department: string | null;
+  /** Mode de lecture déclaré (migration 036). NULL = `auto`, historique. */
+  reader?: string | null;
 };
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
@@ -255,6 +257,7 @@ export type DetectionStrategy =
   | "csv"
   | "html-article"
   | "html-links"
+  | "html-content"
   | "claim-cards"
   | "telegram-channel"
   | "embedded-json"
@@ -385,9 +388,15 @@ function parseHtmlLinks(body: string): { items: Record<string, unknown>[]; path:
  * Détection automatique du format d'un corps de flux. Pure et sans effet de
  * bord : le diagnostic (`scripts/diagnose-parsers.mts`) l'appelle tel quel.
  */
-export function detectItems(body: string, contentType: string | null): DetectionResult {
+export function detectItems(body: string, contentType: string | null, mode: "auto" | "html-page" = "auto"): DetectionResult {
   const text = body.trim();
   const declared = (contentType ?? "").toLowerCase();
+  // Un mode déclaré prime sur la détection : une page de fuite doit être lue
+  // comme du contenu, pas comme une liste de liens de navigation.
+  if (mode === "html-page") {
+    const contenu = parseHtmlContent(text);
+    if (contenu) return { strategy: "html-content", items: contenu.items, path: contenu.path };
+  }
   const parsed = parseSource(text, { contentType: declared });
   if (parsed.items.length > 0) {
     return {
@@ -483,12 +492,44 @@ export function detectItems(body: string, contentType: string | null): Detection
   const links = parseHtmlLinks(text);
   if (links) return { strategy: "html-links", items: links.items, path: links.path };
 
+  // Une page structurée avec titres est du contenu, pas une bannière
+  // d'atterrissage : on ne l'extrait qu'après les liens significatifs.
+  if (/<h[1-3][^>]*>/i.test(text)) {
+    const contenu = parseHtmlContent(text);
+    if (contenu) return { strategy: "html-content", items: contenu.items, path: contenu.path };
+  }
   const notice = parseLandingNotice(text);
   if (notice) return { strategy: "landing-notice", items: notice, path: "notice" };
   const malformed = parseMalformedOnion(text);
   if (malformed) return { strategy: "malformed-html", items: malformed, path: "repaired" };
 
   return { strategy: "none", items: [], path: null };
+}
+
+/**
+ * Lecture d'une page web en tant que **contenu**, pas comme une liste de liens.
+ * Retourne null si la page ne contient rien de lisible (page d'erreur, JS seul).
+ */
+export function parseHtmlContent(body: string): { items: Record<string, unknown>[]; path: string } | null {
+  const blocs: { titre: string; texte: string }[] = [];
+  const re = /<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>([\s\S]*?)(?=<h[1-3][^>]*>|$)/gi;
+  for (const m of body.matchAll(re)) {
+    const titre = decodeEntities(m[1].replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
+    const texte = decodeEntities(m[2].replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
+    if (texte.length >= 40) blocs.push({ titre: titre.slice(0, 200), texte: texte.slice(0, 4000) });
+  }
+  if (blocs.length === 0) {
+    for (const m of body.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)) {
+      const texte = decodeEntities(m[1].replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
+      if (texte.length >= 60) blocs.push({ titre: texte.slice(0, 80), texte: texte.slice(0, 4000) });
+      if (blocs.length >= MAX_HTML_LINKS) break;
+    }
+  }
+  if (blocs.length === 0) return null;
+  return {
+    items: blocs.map((b) => ({ title: b.titre, summary: b.texte })),
+    path: "html-content",
+  };
 }
 
 /** Champs d'objet portant une valeur d'indicateur dans un flux structuré. */
@@ -720,6 +761,8 @@ async function ingestNarrative(
 ): Promise<IngestResult> {
   const parser = source.parser ?? {};
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
+  /** Le mode déclaré par la source (migration 036) prime sur la détection. */
+  const reader = typeof source.reader === "string" ? source.reader : "auto";
   // A misdecoded body is repaired before parsing so the declared reader sees
   // the text the publisher sent, not its latin-1 interpretation.
   let bodyToParse = body;
@@ -732,7 +775,7 @@ async function ingestNarrative(
   }
   let items = parseNarrativeItems(bodyToParse, parser, source.format);
   if (items.length === 0) {
-    const detected = detectItems(bodyToParse, null);
+    const detected = detectItems(bodyToParse, null, reader === "html-page" ? "html-page" : "auto");
     items = detected.items;
     if (detected.strategy === "none") {
       // Structural repairs run only after every reader has failed: they
@@ -1078,7 +1121,8 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       await closeRun(runId, { itemsIn: 0, itemsNew: 0 });
       return;
     }
-    const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body));
+    const reader = typeof source.reader === "string" ? source.reader : "auto";
+    const asIndicator = reader === "indicator-list" || (reader === "auto" && (source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body))));
     // Filtre anti-bruit : les blocklists mondiales (réputation, phishing) ne
     // gardent que les indicateurs actionnables pour nos actifs (voir filter.ts).
     const filterIdx = asIndicator && (looksLikeBlocklist(source.url, body) || source.family === "reputation" || source.family === "phishing")
@@ -1149,7 +1193,7 @@ export async function runGenericSources(
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, department FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, department, reader FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
 		sql += ` AND id = ANY($${params.length})`;
