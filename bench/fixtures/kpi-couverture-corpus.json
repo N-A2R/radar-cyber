@@ -1,0 +1,8 @@
+{
+  "titre": "Corpus fixe du tableau de bord de couverture",
+  "description": "Corpus synthétique chargé par db/fixtures/kpi-couverture-corpus.sql. Aucune donnée personnelle, aucune portée géographique déclarée.",
+  "sources": 1808,
+  "organisations": 10261,
+  "indicateurs": 8,
+  "rétention_jours": 90
+}
