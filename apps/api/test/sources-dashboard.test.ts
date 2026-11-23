@@ -85,11 +85,13 @@ async function ajouterRun(
 
 async function ajouterEvenement(sourceId: string, suffixe: string, ageSecondes: number): Promise<void> {
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, collected_at, severity)
-     VALUES ($1,'cti','ambient_signal',$2,$3,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, evidence,
+                        observed_at, collected_at, severity)
+     VALUES ($1,'cti','ambient_signal',$2,$3,$5,'{"run_id":"1"}'::jsonb,
              now() - ($4::numeric * interval '1 second'),
              now() - ($4::numeric * interval '1 second'), 2)`,
-    [`${TAG}:${suffixe}`, `Événement de test ${suffixe}`, sourceId, ageSecondes],
+    [`${TAG}:${suffixe}`, `Événement de test ${suffixe}`, sourceId, ageSecondes,
+     `https://exemple.invalid/${suffixe}`],
   );
 }
 

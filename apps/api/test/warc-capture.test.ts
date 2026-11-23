@@ -26,7 +26,7 @@ async function insertFact(key: string, url: string, evidence: Record<string, unk
 		                    evidence, tlp, org_id)
 		 VALUES ($1,'cti','confirmed_incident',$2,'ransomlook',$3,$4::jsonb,'CLEAR',$5)
 		 RETURNING id`,
-		[`${TAG}-${key}`, `Fait ${key}`, url, JSON.stringify(evidence), org.rows[0]!.id],
+		[`${TAG}-${key}`, `Fait ${key}`, url, JSON.stringify({ run_id: "1", ...evidence }), org.rows[0]!.id],
 	);
 	ids[key] = event.rows[0]!.id;
 }
