@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
+import type { ActorAttributionsResponse } from "./api";
 import { mockData } from "./mock";
 import MapLegend from "./components/MapLegend";
 const Map3D = lazy(() => import("./map/Map3D"));
@@ -26,6 +27,7 @@ const WarcProofCard = lazy(() => import("./components/WarcProofCard"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
+const ActorAttributionsView = lazy(() => import("./components/ActorAttributionsView"));
 const AffectedView = lazy(() => import("./components/AffectedView"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
@@ -60,6 +62,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "alerts", label: "Alertes" },
   { id: "na", label: "Nouvelle-Aquitaine" },
   { id: "affected", label: "Suis-je concerné ?" },
+  { id: "attributions", label: "Attributions" },
 ];
 
 const FEED_LIMIT = 300;
@@ -89,6 +92,9 @@ export default function App() {
   const [sourcesDashboardData, setSourcesDashboardData] = useState<SourcesDashboard | null>(null);
   const [sourcesDashboardLoading, setSourcesDashboardLoading] = useState(false);
   const [sourcesDashboardError, setSourcesDashboardError] = useState<string | null>(null);
+  const [attributionsData, setAttributionsData] = useState<ActorAttributionsResponse | null>(null);
+  const [attributionsLoading, setAttributionsLoading] = useState(false);
+  const [attributionsError, setAttributionsError] = useState<string | null>(null);
   // "Am I affected?" is a user action: one request per Check, never on view load.
   const [affectedReport, setAffectedReport] = useState<AffectedReport | null>(null);
   const [affectedLoading, setAffectedLoading] = useState(false);
@@ -491,6 +497,25 @@ export default function App() {
       })
       .finally(() => {
         if (!controller.signal.aborted) setCouvertureLoading(false);
+      });
+    return () => controller.abort();
+  }, [view]);
+
+  // Attribution figures are a published measurement: fetched on view open.
+  useEffect(() => {
+    if (view !== "attributions" || MOCK_MODE) return;
+    const controller = new AbortController();
+    setAttributionsLoading(true);
+    setAttributionsError(null);
+    api.actorAttributions(controller.signal)
+      .then(setAttributionsData)
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) {
+          setAttributionsError(err instanceof Error ? err.message : "unavailable");
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setAttributionsLoading(false);
       });
     return () => controller.abort();
   }, [view]);
@@ -929,6 +954,9 @@ export default function App() {
               <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
               {MOCK_MODE ? null : <WarcProofCard />}
             </>
+          ) : null}
+          {view === "attributions" ? (
+            <ActorAttributionsView data={attributionsData} loading={attributionsLoading} error={attributionsError} />
           ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
           {view === "sources-dashboard" ? (
