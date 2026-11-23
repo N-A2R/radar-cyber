@@ -7,6 +7,8 @@
     "setup": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --with-sample",
     "setup:check": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --check",
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
+    "campagnes:build": "apps/api/node_modules/.bin/tsx scripts/build-campagnes.mts",
+    "mesure:campagnes": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-quality.mts",
     "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
     "test": "pnpm -F @radar/api test",
     "provenance:check": "apps/api/node_modules/.bin/tsx scripts/provenance.mts check --json=bench/results/provenance-na.json",
