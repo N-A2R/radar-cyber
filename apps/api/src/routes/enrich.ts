@@ -6,6 +6,13 @@ import { enrichDomain } from "../enrich/whois.js";
 import { resolveDomain } from "../enrich/dns.js";
 import { certificatesFor } from "../enrich/certs.js";
 import { scoreIndicator } from "../enrich/score.js";
+import {
+  findEnrichJob,
+  listEnrichJobs,
+  recordEnrichmentFailure,
+  replayEnrichJob,
+  type EnrichJob,
+} from "../enrich/jobs.js";
 import { depuisEvidence, estIndisponible, libelleMotif } from "../journal/rattachement.js";
 import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
 import { evenementPublicSql, indicateurPublicSql } from "../security/tlp.js";
@@ -18,6 +25,30 @@ async function cacheSet(key: string, value: unknown, ttlHours = 24) {
   await query("INSERT INTO enrich_cache (key, value, expires_at) VALUES ($1,$2, now() + ($3 || ' hours')::interval) ON CONFLICT (key) DO UPDATE SET value=EXCLUDED.value, expires_at=EXCLUDED.expires_at", [key, JSON.stringify(value), String(ttlHours)]);
 }
 
+function errorsOf(value: unknown): string[] {
+  if (value && typeof value === "object" && "errors" in value) {
+    const errors = value.errors;
+    return Array.isArray(errors) ? errors.filter((e): e is string => typeof e === "string") : [];
+  }
+  return [];
+}
+
+function asPayload(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" ? { ...value } : {};
+}
+
+function jobSummary(job: EnrichJob | null) {
+  return job
+    ? {
+        id: job.id,
+        state: job.state,
+        attempts: job.attempts,
+        next_try_at: job.next_try_at,
+        last_error: job.last_error,
+      }
+    : null;
+}
+
 export default async function (app: FastifyInstance) {
   app.get<{ Params: { id: string } }>("/enrich/indicator/:id", async (req) => {
     const id = Number(req.params.id);
@@ -25,10 +56,24 @@ export default async function (app: FastifyInstance) {
     const ind = ir.rows[0];
     if (!ind) throw notFound();
     const key = `ind:${id}`;
+    const target = { type: ind.type, value: ind.value };
     let enrichment = await cacheGet(key);
     if (!enrichment) {
-      enrichment = await enrichIndicator({ type: ind.type, value: ind.value });
-      await cacheSet(key, enrichment);
+      const fresh = await enrichIndicator(target);
+      const errors = errorsOf(fresh);
+      if (errors.length > 0) {
+        // Un échec n'est jamais mis en cache : il devient un job visible,
+        // avec tentative, prochaine échéance et rejeu possible.
+        const job = await recordEnrichmentFailure(target, errors.join("; "));
+        enrichment = { ...fresh, job: jobSummary(job) };
+      } else {
+        enrichment = fresh;
+        await cacheSet(key, enrichment);
+      }
+    } else if (errorsOf(enrichment).length > 0) {
+      // Ancien cache d'échec : on affiche l'état du job sans compter une
+      // nouvelle tentative à chaque lecture.
+      enrichment = { ...asPayload(enrichment), job: jobSummary(await findEnrichJob(target)) };
     }
     return { indicator: ind, enrichment, score: scoreIndicator({ type: ind.type, first_seen: ind.first_seen, sources: [ind.source_id], sourceConfidence: ind.confidence }) };
   });
@@ -88,5 +133,19 @@ export default async function (app: FastifyInstance) {
       if (!enrichment) { enrichment = await enrichIndicator({ type: inds.rows[0].type, value: inds.rows[0].value }); await cacheSet(key, enrichment); }
     }
     return { event: enrichedEvent, indicators: inds.rows, org, enrichment, rattachement };
+  });
+
+  /** File d'attente des enrichissements en échec, visible sans journalisation opaque. */
+  app.get<{ Querystring: { state?: string } }>("/enrich/jobs", async (req) => {
+    const state = typeof req.query.state === "string" ? req.query.state : undefined;
+    const jobs = await listEnrichJobs({ state, limit: 100 });
+    return { count: jobs.length, jobs };
+  });
+
+  /** Rejoue un job non terminal après correction de la cible ou du fournisseur. */
+  app.post<{ Params: { id: string } }>("/enrich/jobs/:id/replay", async (req) => {
+    const attempt = await replayEnrichJob(Number(req.params.id));
+    if (!attempt) throw notFound();
+    return { job: attempt.job };
   });
 }

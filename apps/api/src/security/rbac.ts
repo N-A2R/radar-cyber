@@ -90,6 +90,8 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/enrich/indicator/:id", niveau: "public" },
   { methode: "GET", route: "/api/enrich/domain/:value", niveau: "public" },
   { methode: "GET", route: "/api/enrich/events/:id", niveau: "public" },
+  { methode: "GET", route: "/api/enrich/jobs", niveau: "analyste", motif: "file des enrichissements en échec : indicateurs techniques uniquement" },
+  { methode: "POST", route: "/api/enrich/jobs/:id/replay", niveau: "admin", motif: "rejeu explicite et borné d'un enrichissement" },
   { methode: "GET", route: "/api/alerts", niveau: "public" },
   { methode: "GET", route: "/api/alerts/stats", niveau: "public" },
   { methode: "GET", route: "/api/alerts/rss.xml", niveau: "public", motif: "public privacy-safe RSS feed" },
