@@ -1,3 +1,10 @@
+// Design system Astryx : la cascade doit s'exécuter avant le graphe de
+// modules de l'app — les feuilles des composants s'injectent après ces
+// déclarations, jamais avant le reset ni les variables du thème.
+import "@astryxdesign/core/reset.css";
+import "@astryxdesign/core/astryx.css";
+import "@astryxdesign/theme-gothic/fonts.css";
+import "@astryxdesign/theme-gothic/theme.css";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./styles.css";
@@ -19,12 +26,12 @@ function enregistrerServiceWorker(): void {
 			.map((entree) => entree.name)
 			.filter((nom) => {
 				try {
-					const url = new URL(nom, window.location.href);
-					return url.origin === window.location.origin && !url.pathname.startsWith("/api/");
-				} catch {
-					return false;
-				}
-			});
+				const url = new URL(nom, window.location.href);
+				return url.origin === window.location.origin && !url.pathname.startsWith("/api/");
+			} catch {
+				return false;
+			}
+		});
 
 	const attendreControle = (): Promise<ServiceWorker | null> => {
 		if (navigator.serviceWorker.controller) return Promise.resolve(navigator.serviceWorker.controller);
@@ -33,9 +40,9 @@ function enregistrerServiceWorker(): void {
 			navigator.serviceWorker.addEventListener(
 				"controllerchange",
 				() => {
-					clearTimeout(fin);
-					resolve(navigator.serviceWorker.controller);
-				},
+				clearTimeout(fin);
+				resolve(navigator.serviceWorker.controller);
+			},
 				{ once: true },
 			);
 		});
@@ -59,10 +66,10 @@ function enregistrerServiceWorker(): void {
 							{ once: true },
 						);
 					});
-				}
-				const contrôleur = (await attendreControle()) ?? enregistrement.active;
-				contrôleur?.postMessage({ type: "RADAR_PRECACHE_URLS", urls: urlSet() });
-			})
+			}
+			const contrôleur = (await attendreControle()) ?? enregistrement.active;
+			contrôleur?.postMessage({ type: "RADAR_PRECACHE_URLS", urls: urlSet() });
+		})
 			.catch(() => {});
 	};
 

@@ -1,56 +1,79 @@
-/* Hallmark · shape: app screen · genre: modern-minimal · theme: observatory (existing system) · posture: restrained · surface: absolute · hero: kept · nav: shell rail · footer: none · signature: rack plates, hairlines, tabular figures
- * axes: AA contrast · visible focus · 24px targets · v2.0.0 */
-/* Pre-emit critique: P_ H_ E_ S_ R_ V_ · weakest: R_, one token source and one component per role. */
-/* Radar Cyber design system. Existing selectors stay intact; new screens use the ds-* components below. */
+/* Hallmark · shape: app screen · genre: modern-minimal · theme: astryx gothic (design system externe) · posture: restrained · surface: absolute · hero: kept · nav: shell rail · footer: none · signature: serif display gothic, focus/motion Astryx, tabular figures
+ * axes: AA contrast · visible focus · 24px targets · v2.1.0 */
+/* Pre-emit critique: P_ H_ E_ S_ R_ V_ · weakest: R_, une seule source de jetons (Astryx) et un composant par rôle. */
+
+/* ═══════════════════════════════════════════════════════════════════
+   Radar Cyber sur Astryx.
+
+   Le front consomme le design system Astryx (@astryxdesign/core,
+   thème gothic). La cascade (voir main.tsx) est :
+
+     reset.css → astryx.css → theme-gothic (fonts + theme) → ce fichier
+
+   Ce fichier est un PONT DE JETONS : chaque jeton radar alias une
+   variable Astryx (--color-background-surface, --color-text-primary,
+   --radius-inner, --spacing-*, --font-family-*...). Les 24 feuilles de
+   composants (login.css, sources.css, na.css...) ne référencent QUE
+   ces jetons : l'app entière re-présente quand le thème change, sans
+   y toucher.
+
+   Règle (voir apps/web/AGENTS.md) : aucune couleur, police, rayon,
+   espacement ou ombre de chrome ne s'écrit en dur ici. Seules les
+   couleurs de DONNÉES (sévérités, familles, natures d'organisation)
+   restent locales : elles n'existent pas dans un design system
+   générique.
+   ═══════════════════════════════════════════════════════════════════ */
 
 
-/* ── Jetons : thème par défaut (observatoire) ─────────────────── */
+/* ── Jetons : le thème gothic d'Astryx possède le chrome ──────── */
 :root {
   color-scheme: dark;
 
-  --bg: #060a0c;
-  --surface: #0e1014;
-  --surface-2: #12151a;
-  --surface-3: #171b21;
-  --overlay-surface: rgba(14, 16, 20, 0.86);
+  --bg: var(--color-background-body);
+  --surface: var(--color-background-surface);
+  --surface-2: var(--color-background-card);
+  --surface-3: var(--color-background-muted);
+  --overlay-surface: var(--color-overlay);
 
-  --line: rgba(255, 255, 255, 0.07);
-  --line-strong: rgba(255, 255, 255, 0.14);
+  --line: var(--color-border);
+  --line-strong: var(--color-border-emphasized);
 
   /* Alias consommés par les feuilles de composants (graphe, carte 3D,
-     légende) qui n'avaient jamais été déclarés : sans eux `border: 1px
-     solid var(--border)` est invalide et rend 0 px. Les alias pointent vers
-     les jetons réels — donc ils suivent les quatre thèmes, sans valeur figée. */
+     légende) : sans eux `border: 1px solid var(--border)` rend 0 px. Les
+     alias pointent vers les jetons réels — donc ils suivent le thème
+     actif, sans valeur figée. */
   --border: var(--line);
   --border-strong: var(--line-strong);
   --fg: var(--text);
 
-  --text: #e6e9ef;
-  --muted: #8b93a1;
-  /* Chaque couleur de texte est mesuree AA (4,5:1 au minimum) sur les quatre
-     surfaces de chaque theme, y compris --surface-3. */
-  --faint: #7c8594;
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --faint: var(--color-text-disabled);
 
-  --accent: #3ddbd9;
-  --accent-ink: #05080a;
+  --accent: var(--color-accent);
+  --accent-ink: var(--color-on-accent);
   --focus: var(--accent);
-  --focus-offset: 2px;
-  --surface-hover: var(--surface-2);
-  --surface-active: var(--surface-3);
+  --focus-offset: var(--focus-outline-offset, 2px);
+  --surface-hover: var(--color-tint-hover);
+  --surface-active: var(--color-overlay-pressed);
+
+  /* ── Palette de données : locale au domaine ──────────────────────
+     Sévérités, familles d'événements et natures d'organisation n'ont
+     pas d'équivalent dans un design system générique : elles restent
+     définies ici, au-dessus du pont. */
 
   /* Sévérité 1 → 5 */
-  --sev-1: #808996;
+  --sev-1: #808896;
   --sev-2: #4a90d9;
   --sev-3: #e0b341;
   --sev-4: #e8833a;
   --sev-5: #ea5548;
 
-  /* Palette des données : une teinte par famille, dérivées de l'accent teal
-     et des sévérités existantes. Contraste >= 4,5:1 sur --surface dans les
-     quatre thèmes (terminal et souverain héritent des valeurs sombres). */
-  --data-teal: #3ddbd9;  /* accent teal du système */
-  --data-steel: #6b8fb5; /* entre --sev-2 et --muted */
-  --data-green: #5fbf87; /* vert désaturé dérivé du teal */
+  /* Palette des données : une teinte par famille, dérivées de l'accent
+     et des sévérités. Contraste >= 4,5:1 sur les surfaces sombres. */
+  --data-teal: #3ddbd9;
+  --data-steel: #6b8fb5;
+  --data-green: #5fbf87;
 
   /* Familles d'événement */
   --family-ransomware: #ea5548;
@@ -73,26 +96,28 @@
   --org-recherche: var(--data-green);
   --org-operateur: #ea5548;
 
-  --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "JetBrains Mono", Menlo, monospace;
+  /* ── Typographie : les trois voix du thème gothic ──────────────── */
+  --font-sans: var(--font-family-body);
+  --font-mono: var(--font-family-code);
+  --font-display: var(--font-family-heading);
   --font-body: var(--font-sans);
   --font-label: var(--font-sans);
 
-  --radius: 2px;
+  /* ── Géométrie : échelles Astryx ───────────────────────────────── */
+  --radius: var(--radius-inner);
   --radius-full: 999px;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
+  --space-1: var(--spacing-1);
+  --space-2: var(--spacing-2);
+  --space-3: var(--spacing-3);
+  --space-4: var(--spacing-4);
+  --space-5: var(--spacing-5);
+  --space-6: var(--spacing-6);
   --control-min-size: 24px;
   --control-pad-x: var(--space-2);
   --control-pad-y: var(--space-1);
 
-  /* Une voix pour les libelles, une pour la donnee, une pour la lecture.
-     Echelle relevée : 10 px était illisible, et le corps de texte d'un
-     tableau de veille ne descend pas sous 13 px. */
+  /* Densité d'observatoire de veille : l'échelle reste celle du produit
+     (le corps d'un tableau de veille ne descend pas sous 13 px). */
   --text-micro: 11px;
   --text-label: 12px;
   --text-xs: 13px;
@@ -104,9 +129,9 @@
   --leading-tight: 1.25;
   --leading-body: 1.5;
   --leading-relaxed: 1.65;
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
+  --weight-regular: var(--font-weight-normal);
+  --weight-medium: var(--font-weight-medium);
+  --weight-semibold: var(--font-weight-semibold);
 }
 
 /* ── Base ────────────────────────────────────────────────────── */
@@ -539,7 +564,11 @@ table.data a:hover { text-decoration: underline; }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
 .maplibregl-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-/* ── Variantes de design ─────────────────────────────────────── */
+/* ── Variantes locales : surcharges au-dessus du pont Astryx ────
+   Le défaut (sans attribut data-theme) est le thème gothic d'Astryx,
+   posé par theme-gothic/theme.css. Ces variantes redéfinissent les
+   jetons radar en dur : elles court-circuitent le pont localement,
+   sans casser les autres feuilles — elles suivent les mêmes alias. */
 html[data-theme="terminal"] {
   color-scheme: dark;
   --bg: #000000;
@@ -638,12 +667,10 @@ html[data-theme="clair"] {
 /* ═══════════════════════════════════════════════════════════════════
    Coquille « rack » — plaques surélevées, hairlines, aucun cadre.
 
-   Unification des jetons (chantier C) : les noms --color-* ne sont plus
-   un second thème parallèle mais des ALIAS des jetons historiques
-   (--surface, --text, --line…), qui sont la seule source de vérité.
-   Conséquence : les quatre thèmes (observatoire, terminal, souverain,
-   clair) s'appliquent désormais aussi au fil, aux sources et à
-   l'annuaire — avant, ces vues restaient sombres en thème clair.
+   Les jetons --color-* restent des ALIAS des jetons radar (--surface,
+   --text, --line...), eux-mêmes alias du thème Astryx actif : une
+   seule chaîne de vérité, du design system jusqu'aux feuilles de
+   composants. Les variantes data-theme s'intercalent dans la chaîne.
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
@@ -662,14 +689,15 @@ html[data-theme="clair"] {
   --color-accent-ink: var(--accent-ink);
   --color-accent-2: var(--accent);
   --color-alarm: var(--sev-5);
-  --font-display: var(--font-sans);
+  --font-display: var(--font-family-heading);
 
-  /* Ombres de relief : une couleur d'ombre par thème, pas de noir en clair. */
-  --shadow-ink: oklch(4% 0 0 / 0.6);
-  --shadow-ink-soft: oklch(4% 0 0 / 0.5);
-  --raise: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 2px 6px var(--shadow-ink);
-  --raise-sm: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 1px 2px var(--shadow-ink-soft);
-  --sink: 0 3px 10px var(--shadow-ink) inset, 0 1px 0 var(--color-edge-lo) inset, 0 1px 0 var(--color-edge-hi);
+  /* Relief : la profondeur vient d'Astryx (--shadow-low / --shadow-med,
+   couleur d'ombre --color-shadow). */
+  --shadow-ink: var(--color-shadow);
+  --shadow-ink-soft: var(--color-shadow);
+  --raise: var(--shadow-low);
+  --raise-sm: var(--shadow-low);
+  --sink: var(--shadow-med);
 }
 
 html[data-theme="clair"] {
@@ -699,16 +727,6 @@ body {
   padding: var(--space-3) var(--space-3) var(--space-3);
   gap: 0;
   box-sizing: border-box;
-}
-
-.shell__mock {
-  flex: 0 0 auto;
-  margin-bottom: var(--space-2);
-  padding: var(--space-1) var(--space-3);
-  border-radius: 4px;
-  font-size: 12px;
-  color: var(--color-accent-ink);
-  background: var(--color-accent);
 }
 
 /* Hors ligne : neutre, pas alarmant. L'incident n'est pas la panne réseau. */
@@ -1330,10 +1348,13 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Composants partages. Les ecrans existants gardent leurs selecteurs;
-   les nouveaux ecrans utilisent ces classes. Aucune couleur, police,
-   espacement ou rayon n'est ecrit ici en dur : tout vient des jetons.
-   Chaque component couvre ses etats, y compris vide, invalide et occupe.
+   Composants partagés — EN COURS DE MIGRATION vers les composants
+   Astryx (voir la carte de migration dans apps/web/AGENTS.md).
+
+   Ces classes restent consommées par des écrans existants ; elles
+   n'écrivent aucune valeur en dur et héritent donc du thème via le
+   pont. Chaque bloc disparaît quand l'écran correspondant passe au
+   composant Astryx (ds-button → Button, ds-modal → Dialog, etc.).
    ═══════════════════════════════════════════════════════════════════ */
 
 /* Carte : une seule couche de containment, pas de cadre dans un cadre. */
@@ -1424,7 +1445,8 @@ body {
 }
 
 /* Bouton : une seule forme, quatre variantes, etats hover, actif, occupe,
-   desactive et pressed. .ds-badge est defini plus haut avec .badge. */
+   desactive et pressed. Remplacé par le composant Astryx Button au fil de
+   la migration — le sélecteur reste pour les écrans non migrés. */
 .ds-button {
   display: inline-flex;
   align-items: center;
