@@ -494,8 +494,17 @@ export async function enregistrer(rapport: RapportMoisson): Promise<{ sites: num
   }
   // Une annonce n'entre en diffusion publique qu'une fois corroborée : le
   // score est recalculé après écriture, jamais laissé au hasard d'une colonne
-  // par défaut. Le calcul est ensembliste (moins d'une seconde sur 35 k
-  // revendications) et sans appel réseau.
+  // par défaut. Le calcul est ensembliste et sans appel réseau.
   await ingestQuery("SELECT public.recompute_leak_claim_corroboration()");
+  // Un incident confirmé déjà admis couvre parfois la même victime : on
+  // relie (sans créer d'événement) pour ne pas compter deux fois le fait.
+  if (rapport.claims.length > 0) {
+    await ingestQuery(
+      `SELECT public.link_leak_claims_to_events(
+         (SELECT array_agg(id) FROM leak_claim WHERE fingerprint = ANY($1::text[]))
+       )`,
+      [rapport.claims.map((claim) => claim.fingerprint)],
+    );
+  }
   return { sites: rapport.sites.length, claims: written };
 }
