@@ -9,6 +9,7 @@ import {
   downloadBlob, exportFilename, EXPORT_TITLES, prepareRows, toCsv, toPdfBlob,
   type DataRow, type ExportFormat,
 } from "../export";
+import { Button } from "@astryxdesign/core/Button";
 
 type Snapshot = { view: ViewKey; title: string; rows: DataRow[] };
 const PublishContext = createContext<((snapshot: Snapshot) => void) | null>(null);
@@ -64,8 +65,8 @@ export default function ExportMenu() {
   return (
     <div className="export" role="group" aria-label="Export current screen">
       <span className="export__label">Export</span>
-      <button type="button" className="export__format" onClick={() => save("csv")}>CSV</button>
-      <button type="button" className="export__format" onClick={() => save("pdf")}>PDF</button>
+      <Button label="CSV" className="export__format" onClick={() => save("csv")} />
+      <Button label="PDF" className="export__format" onClick={() => save("pdf")} />
       {status ? <span className="export__status" role="status">{status}</span> : null}
     </div>
   );

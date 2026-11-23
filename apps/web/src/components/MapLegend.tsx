@@ -1,5 +1,7 @@
 import { FAMILY_HEX, FAMILY_HEX_FALLBACK } from "../map/arcs";
 import { FAMILY_LABELS } from "../map/libelles";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 
 /**
  * Légende de la carte : sans elle, une couleur ne se décode pas et la carte
@@ -17,7 +19,7 @@ const SEVERITES: { n: number; label: string }[] = [
 export function MapLegend({ families }: { families: readonly string[] }) {
   const visibles = [...new Set(families)].filter(Boolean);
   return (
-    <div className="map-legend" aria-label="Légende de la carte">
+    <Card variant="transparent" className="map-legend" aria-label="Légende de la carte">
       <p className="map-legend__title">Sévérité</p>
       <ul className="map-legend__sev">
         {SEVERITES.map(({ n, label }) => (
@@ -39,13 +41,13 @@ export function MapLegend({ families }: { families: readonly string[] }) {
                   style={{ background: FAMILY_HEX[f] ?? FAMILY_HEX_FALLBACK }}
                   aria-hidden="true"
                 />
-                {FAMILY_LABELS[f] ?? f}
+                <Badge label={FAMILY_LABELS[f] ?? f} variant="neutral" />
               </li>
             ))}
           </ul>
         </>
       ) : null}
-    </div>
+    </Card>
   );
 }
 
