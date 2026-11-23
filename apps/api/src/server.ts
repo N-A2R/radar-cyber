@@ -475,6 +475,22 @@ setInterval(() => {
 }, MESURE_ORGS_LIEES_MS);
 
 /**
+ * Relevé nocturne des huit indicateurs du tableau de bord de couverture.
+ * Même logique que `orgs_liees_historique` : un appel au démarrage, puis
+ * toutes les 24 h ; la fonction SQL remplace le point du jour et purge les
+ * relevés au-delà de 90 jours.
+ */
+const MESURE_KPI_COUVERTURE_MS = 24 * 3600 * 1000;
+async function mesurerKpiCouverture(): Promise<void> {
+  const releve = await query<{ indicateur: string }>("SELECT * FROM enregistrer_kpi_couverture()");
+  log(`kpi couverture : ${releve.rows.length} indicateur(s) relevé(s)`);
+}
+void guarded("mesure kpi couverture", mesurerKpiCouverture);
+setInterval(() => {
+  void guarded("mesure kpi couverture", mesurerKpiCouverture);
+}, MESURE_KPI_COUVERTURE_MS);
+
+/**
  * Guichet d'orientation des collectivités : contrôle HTTP réel du lien 17Cyber
  * au démarrage puis chaque jour, rejoué seulement si la dernière date vérifiée
  * a plus de 7 jours (cadence hebdomadaire). Indépendant de la collecte : un

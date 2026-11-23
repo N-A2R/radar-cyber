@@ -38,6 +38,22 @@ actives reviendrait à compter des portes ouvertes sur un couloir vide.
 
 Répartition des événements par famille (mesurée le 2026-11-10) : `cti` 747, `vuln` 665, `ransomware` 276, `cert_fr` 239, `cert` 76, `leaks` 18. La table `event` ne contient pas de colonne `is_press`.
 
+## Tableau de bord de couverture
+
+Huit indicateurs sont calculés en SQL et relevés chaque nuit dans
+`kpi_couverture_releve` (rétention glissante de 90 jours). La vue
+`kpi_couverture` publie les relevés et, avant le premier passage, calcule les
+huit valeurs à la volée :
+
+```sql
+SELECT * FROM kpi_couverture WHERE date_jour = CURRENT_DATE;
+```
+
+`enregistrer_kpi_couverture()` remplace le relevé du jour et purge les points
+plus anciens que 90 jours ; l'API l'appelle au démarrage puis toutes les 24 h.
+Le test `apps/api/test/kpi-couverture.test.ts` rejoue un corpus synthétique
+figé de 1808 sources et 10261 organisations sans données personnelles.
+
 ## Démarrage
 
 ```bash
