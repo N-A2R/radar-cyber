@@ -76,6 +76,7 @@
     "mesure:doublons-semantiques": "apps/api/node_modules/.bin/tsx scripts/semantic-duplicates.mts",
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
     "measure:victims": "apps/api/node_modules/.bin/tsx scripts/measure-victim-forecast.mts",
+    "measure:second-victim": "apps/api/node_modules/.bin/tsx scripts/measure-second-victim.mts",
     "leak-proofs:archive": "apps/api/node_modules/.bin/tsx scripts/archive-leak-victim-proofs.mts",
     "leak-proofs:measure": "apps/api/node_modules/.bin/tsx scripts/measure-leak-victim-proofs.mts",
     "measure:resale-na": "apps/api/node_modules/.bin/tsx scripts/measure-resale-na.mts",
