@@ -44,6 +44,8 @@
     "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
     "mesure:stl-pics": "apps/api/node_modules/.bin/tsx scripts/mesure-stl-pics.mts",
     "verifie:stl-pics": "apps/api/node_modules/.bin/tsx scripts/verifie-stl-pics.mts",
+    "genere:iforest": "apps/api/node_modules/.bin/tsx scripts/build-iforest-fixture.mts",
+    "verifie:iforest": "apps/api/node_modules/.bin/tsx scripts/verifie-iforest.mts",
     "mesure:risk-decay": "apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts",
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
