@@ -37,7 +37,7 @@ function evenement(id: string, numero: number, runId: number): NormalizedEvent {
 			? "Une attaque par rançongiciel vise une mairie de Gironde."
 			: "Des documents médicaux ont été exfiltrés d'un hôpital de Charente-Maritime.",
 		observedAt: new Date().toISOString(),
-		sourceUrl: `https://exemple${numero}.fr/${TAG}/${numero}`,
+		sourceUrl: `https://${TAG}-${numero}.fr/${numero}`,
 		confidence: "A1",
 		sourceId: id,
 		evidence: { group: groupe, run_id: "1" },
@@ -66,8 +66,8 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 		}
 		await query(
 			`INSERT INTO org (name, slug, kind, city, domain, status)
-			VALUES ($1, $2, 'entreprise', 'Bordeaux', 'exemple.fr', 'confirme')`,
-			[`Organisation ${TAG}`, `${TAG}-org`],
+			VALUES ($1, $2, 'entreprise', 'Bordeaux', $3, 'confirme')`,
+			[`Organisation ${TAG}`, `${TAG}-org`, `${TAG}.fr`],
 		);
 
 		const debut = performance.now();
