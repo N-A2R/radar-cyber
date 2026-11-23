@@ -155,7 +155,8 @@
     "dora:exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts",
     "verifie:dora-exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts --check",
     "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts",
-    "verifie:rec": "apps/api/node_modules/.bin/tsx scripts/verifie-rec.mts"
+    "verifie:rec": "apps/api/node_modules/.bin/tsx scripts/verifie-rec.mts",
+    "measure:brand-family-precursors": "apps/api/node_modules/.bin/tsx scripts/measure-brand-family-precursors.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
