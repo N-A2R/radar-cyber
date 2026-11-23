@@ -8,6 +8,7 @@
     "setup:check": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --check",
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
     "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
+    "verifie:stix-projection": "apps/api/node_modules/.bin/tsx scripts/verifie-stix-projection.mts",
     "test": "pnpm -F @radar/api test",
     "org-report:measure": "apps/api/node_modules/.bin/tsx scripts/measure-org-reports.mts",
     "api:client": "apps/api/node_modules/.bin/tsx scripts/generate-api-client.mts",
