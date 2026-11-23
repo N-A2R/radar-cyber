@@ -38,6 +38,7 @@
     "scelle:exports:check": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts --check",
     "nis2:rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts",
     "verifie:nis2-rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts --check",
+    "verifie:nis2-classement": "apps/api/node_modules/.bin/tsx scripts/verifie-nis2-classement.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
