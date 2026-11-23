@@ -13,7 +13,7 @@
 
 .revue h1 { margin: 0; font: 500 17px/1.2 var(--font-display); color: var(--color-ink); }
 .revue__count { margin: 4px 0 0; font: 400 12px/1 var(--font-mono); color: var(--color-muted); }
-.revue__label { display: block; margin-bottom: 4px; font: 500 var(--text-xs)/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
+.revue__label { display: block; margin-bottom: 4px; font: 500 var(--text-xs)/1 var(--font-mono); letter-spacing: 0; text-transform: none; color: var(--color-faint); }
 
 .revue__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .revue__tools { display: flex; gap: 6px; flex-wrap: wrap; }

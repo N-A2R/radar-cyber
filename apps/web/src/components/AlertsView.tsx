@@ -307,7 +307,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
         ))}
       </div>
 
-      {error ? <p className="alerts__error" role="alert">{error}</p> : null}
+      {error ? <p className="alerts__error" role="alert" aria-live="assertive">{error}</p> : null}
       {loading ? <LoadingSkeleton label="chargement des alertes" /> : null}
       {!loading && stats && totalCount > rows.length ? (
         <p className="alerts__status">

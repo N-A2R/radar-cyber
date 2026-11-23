@@ -310,7 +310,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 
 				<aside className="review__detail" aria-label="Détail du fait">
 					{current === null ? (
-						<p className="review__state">Sélectionnez un fait.</p>
+						<p className="review__state" role="status" aria-live="polite">Sélectionnez un fait.</p>
 					) : (
 						<>
 							<h2>{current.orgHint || "(sans indice)"}</h2>

@@ -32,8 +32,8 @@
   margin: 0;
   color: var(--faint);
   font: 600 12px/1.5 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .liees__statut,
@@ -58,8 +58,8 @@
   margin: 0;
   color: var(--faint);
   font: 600 12px/1.5 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .liees__chiffres {
@@ -78,8 +78,8 @@
 .liees__chiffre dt {
   color: var(--faint);
   font: 600 12px/1.5 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .liees__chiffre dd {
@@ -93,8 +93,8 @@
   margin: var(--space-2) 0 0;
   color: var(--faint);
   font: 600 12px/1.5 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .liees__depts {
@@ -136,8 +136,8 @@
   margin: 0;
   color: var(--faint);
   font: 600 12px/1.5 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .liees__courbe {

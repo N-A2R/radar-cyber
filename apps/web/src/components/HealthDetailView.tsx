@@ -36,7 +36,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
     return <section className="health-detail"><LoadingSkeleton label="lecture de l’état du système…" /></section>;
   }
   if (error && detail === null) {
-    return <section className="health-detail"><p role="alert">état indisponible : {error}</p></section>;
+    return <section className="health-detail"><p role="alert" aria-live="assertive">état indisponible : {error}</p></section>;
   }
   if (detail === null || !detail.ok) {
     return (

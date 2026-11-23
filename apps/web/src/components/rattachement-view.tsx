@@ -55,7 +55,7 @@ export function renduRattachement(
         </div>
       </dl>
       {explication.indecis && (
-        <p className="inspector__muted">
+        <p className="inspector__muted" role="status" aria-live="polite">
           référentiel indisponible au moment du rattachement : l'absence de rattachement n'est pas un
           verdict, il faudra rejouer.
         </p>

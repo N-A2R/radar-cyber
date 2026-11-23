@@ -39,8 +39,8 @@
 .health-detail__metric dt {
   color: var(--muted);
   font-size: var(--text-label);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .health-detail__metric dd {

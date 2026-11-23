@@ -58,7 +58,7 @@ export default function SourcesRougesView({
     return <section className="sources-rouges"><LoadingSkeleton label="lecture des sources rouges…" /></section>;
   }
   if (error && detail === null) {
-    return <section className="sources-rouges"><p role="alert">sources indisponibles : {error}</p></section>;
+    return <section className="sources-rouges"><p role="alert" aria-live="assertive">sources indisponibles : {error}</p></section>;
   }
   if (detail === null || !detail.ok) {
     return (

@@ -198,7 +198,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
     <section className="na-view">
       <header className="na-header">
         <h2>Nouvelle-Aquitaine</h2>
-        <p className="na-totaux">
+        <p className="na-totaux" role="status" aria-live="polite">
           {total.orgs.toLocaleString("fr-FR")} organisations · {total.orgsAvecEvenement} touchées · {total.evenements}{" "}
           événements
           {total.deptsSansEvenement.length > 0 && (

@@ -24,7 +24,7 @@ export default function FamilyFilter({ byFamily, family, onFamily }: FamilyFilte
           onClick={() => onFamily(name)}
         >
           <span>{name}</span>
-          <span className="family-filter__count">{n}</span>
+          <span className="family-filter__count" role="status" aria-live="polite">{n}</span>
         </button>
       ))}
     </div>

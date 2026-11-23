@@ -266,16 +266,18 @@ export default function HealthView({ sources = [], loading: chargementParent = f
                     aria-sort={
                       sortKey === col.key ? (sortDir === "asc" ? "ascending" : "descending") : "none"
                     }
-                    style={{
-                      cursor: "pointer",
-                      userSelect: "none",
-                      textAlign: col.num ? "right" : undefined,
-                    }}
-                    title={sortKey === col.key ? "inverser le tri" : "trier"}
-                    onClick={() => toggleSort(col.key)}
+                    style={{ textAlign: col.num ? "right" : undefined }}
                   >
-                    {col.label}
-                    {sortKey === col.key ? (sortDir === "asc" ? " ↑" : " ↓") : ""}
+                    <button
+                      type="button"
+                      className="data__sort"
+                      title={sortKey === col.key ? "inverser le tri" : "trier"}
+                      aria-label={`Trier par ${col.label}`}
+                      onClick={() => toggleSort(col.key)}
+                    >
+                      {col.label}
+                      {sortKey === col.key ? (sortDir === "asc" ? " ↑" : " ↓") : ""}
+                    </button>
                   </th>
                 ))}
               </tr>

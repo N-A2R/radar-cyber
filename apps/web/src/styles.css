@@ -135,6 +135,16 @@ button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
   outline: var(--focus-offset) solid var(--focus);
   outline-offset: var(--focus-offset);
 }
+table.data th button {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
 .skip-link {
   position: absolute;
   z-index: 1000;
@@ -216,8 +226,8 @@ body { caret-color: var(--accent); }
 }
 .wordmark span {
   font: 400 12px/1 var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
 }
 

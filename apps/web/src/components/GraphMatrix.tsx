@@ -102,7 +102,7 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
 
   const { counts, columns, rows, max, contributingOrgs } = matrix;
   const summary = (
-    <p className="gm-summary">
+    <p className="gm-summary" role="status" aria-live="polite">
       <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> départements ·{" "}
       <b>{rows.length}</b> familles
     </p>

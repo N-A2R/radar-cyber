@@ -484,11 +484,11 @@ export default function DirectoryView({
 					<select id="directory-size" value={size} onChange={(e) => { setSize(Number(e.target.value)); resetPage(); }}>
 						{SIZES.map((value) => <option key={value} value={value}>{value} / page</option>)}
 					</select>
-					<button type="button" onClick={() => setPage(0)} disabled={page === 0}>«</button>
+					<button type="button" aria-label="Première page" onClick={() => setPage(0)} disabled={page === 0}>«</button>
 					<button type="button" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}>Précédent</button>
 					<span className="directory__mono">{page + 1} / {pageCount}</span>
 					<button type="button" onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))} disabled={page >= pageCount - 1}>Suivant</button>
-					<button type="button" onClick={() => setPage(pageCount - 1)} disabled={page >= pageCount - 1}>»</button>
+					<button type="button" aria-label="Dernière page" onClick={() => setPage(pageCount - 1)} disabled={page >= pageCount - 1}>»</button>
 				</div>
 			</footer>
 		</section>

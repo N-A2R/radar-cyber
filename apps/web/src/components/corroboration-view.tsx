@@ -47,10 +47,10 @@ export function renduCorroboration(corr: Corroboration | null, onAction?: () => 
         faits <span className="orgsheet__count">{resume.faits}</span>
       </h3>
       <p className="orgsheet__breakdown">
-        <span className="orgsheet__chip">
+        <span className="orgsheet__chip" role="status" aria-live="polite">
           corroborés <b>{resume.corrobores}</b>
         </span>
-        <span className="orgsheet__chip">
+        <span className="orgsheet__chip" role="status" aria-live="polite">
           isolés <b>{resume.isoles}</b>
         </span>
         {resume.desaccords > 0 && (
