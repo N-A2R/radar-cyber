@@ -9,6 +9,7 @@
  * quand les filtres, la page ou l'écran changent.
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useScreenExport } from "./ExportMenu";
 import { api, type JournalDecision, type JournalReviewParams, type JournalReviewResponse } from "../api";
 import JournalList, {
   DECISION_UNSPECIFIED, KIND_CATEGORIES, KIND_LABEL, DECISION_LABEL,
@@ -90,6 +91,10 @@ export default function JournalView({ onUnauthorized }: Props) {
   const [applied, setApplied] = useState<JournalFilters>({});
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<JournalReviewResponse | null>(null);
+  useScreenExport("journal", (result?.rows ?? []).map((entry) => ({
+    date: entry.horodatage, kind: entry.kind, actor: entry.acteur,
+    target: entry.sujet, decision: entry.decision,
+  })));
   const [selected, setSelected] = useState<JournalDecision | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

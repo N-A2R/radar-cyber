@@ -3,6 +3,7 @@ import { api, type Alert, type AlertConfidence, type AlertStatRow, type AlertSta
 import type { AlertsViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { FAMILY_LABEL } from "./SourcesView";
+import { useScreenExport } from "./ExportMenu";
 import "./alerts.css";
 
 /** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
@@ -161,6 +162,11 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
   const [severity, setSeverity] = useState<number | null>(null);
   const [kind, setKind] = useState<AlertKind | "all">("all");
   const [rows, setRows] = useState<Alert[]>([]);
+  useScreenExport("alerts", rows.map((alert) => ({
+    id: alert.id, date: alert.created_at, kind: alert.rule_id,
+    severity: alert.severity, status: alert.status, scope: alert.scope,
+    organisation: alert.org_name, title: alert.event_title ?? alert.title,
+  })));
   const [stats, setStats] = useState<AlertStatRow[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

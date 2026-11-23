@@ -3,6 +3,7 @@ import { authHeaders } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
 import { keepFocusInDialog } from "../a11y/dialog-focus";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { useScreenExport } from "./ExportMenu";
 import "./review.css";
 import { type ReviewUrlState, type RevueBucket } from "../url-state";
 export type { RevueBucket } from "../url-state";
@@ -102,6 +103,12 @@ export default function ReviewView({
   onUrlStateChange,
 }: Props) {
   const [rows, setRows] = useState<RevueRow[]>([]);
+  useScreenExport("review", rows.map((row) => ({
+    id: row.id, title: row.orgHint ?? row.source,
+    organisation: row.candidates[0]?.name ?? row.orgHint,
+    department: row.dept, family: row.groupe, source: row.source,
+    status: row.triage.suggested, bucket: row.triage.bucket,
+  })));
   const [total, setTotal] = useState(0);
   const [bucket, setBucket] = useState<RevueBucket | "">(urlState?.bucket ?? "");
   // `groupe` est la famille de la revendication (par exemple l'opérateur de

@@ -4,6 +4,7 @@ import { api, type DirectoryFacet, type DirectoryResponse, type DirectoryRow } f
 import { DEFAULT_DIRECTORY, type DirectoryUrlState } from "../url-state";
 import type { DirectoryProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { useScreenExport } from "./ExportMenu";
 import "./directory.css";
 
 /**
@@ -227,6 +228,10 @@ export default function DirectoryView({
 	}, [server, orgs, debouncedQuery, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size]);
 
 	const rows = server ? remote?.rows ?? [] : local?.rows ?? [];
+	useScreenExport("directory", rows.map((row) => ({
+		id: row.id, organisation: row.name, department: row.dept, sector: row.sector,
+		kind: row.kind, city: row.city, events: row.eventCount,
+	})));
 	const total = server ? remote?.total ?? 0 : local?.total ?? 0;
 	const facets = server ? remote?.facets : local?.facets;
 	const truncated = server ? remote?.truncated ?? false : false;

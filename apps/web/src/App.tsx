@@ -1,5 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
+import { type DataRow } from "./export";
+import ExportMenu, { ExportProvider, useScreenExport } from "./components/ExportMenu";
 import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
 import type { ActorAttributionsResponse } from "./api";
 import type { MapTimelineBucket, MapTimelineEvent } from "./api";
@@ -73,6 +75,70 @@ const FEED_LIMIT = 300;
 const LIVE_ALERT_LIMIT = 50;
 const SOUND_KEY = "radar.alertSound";
 
+/** Screens whose data is owned by the shell; the others publish themselves. */
+const APP_EXPORT_VIEWS: Record<string, true> = {
+  today: true, coverage: true, corpus: true, sources: true,
+  map: true, graph: true, health: true, na: true,
+};
+
+type AppExportInput = {
+  view: ViewKey;
+  today: TodayResponse | null;
+  coverage: CouvertureResponse | null;
+  corpus: CorpusStats | null;
+  sources: Source[];
+  orgs: Org[];
+  graph: Graph;
+  na: NaOverview | null;
+  naFil: NaFil | null;
+};
+
+function rowsForAppScreen(input: AppExportInput): DataRow[] {
+  const { view } = input;
+  if (view === "today") {
+    return (input.today?.evenements ?? []).map((event) => ({
+      date: event.date, family: event.famille, title: event.titre,
+      organisation: event.organisation, department: event.dept,
+      source: event.source, severity: event.severite,
+    }));
+  }
+  if (view === "coverage") {
+    return (input.coverage?.parDepartement ?? []).map((line) => ({
+      department: line.departement, seen: line.vus, total: line.total, rate: line.taux,
+    }));
+  }
+  if (view === "corpus") {
+    return (input.corpus?.byDepartment ?? []).map((line) => ({
+      department: line.department, label: line.label, total: line.total,
+    }));
+  }
+  if (view === "map") {
+    return input.orgs.map((org) => ({
+      id: org.id, organisation: org.name, department: org.dept, family: org.kind,
+      latitude: org.lat, longitude: org.lon, events: org.eventCount,
+    }));
+  }
+  if (view === "graph") {
+    return input.graph.nodes.map((node) => ({
+      id: node.id, label: node.label, kind: node.kind, department: node.dept,
+    }));
+  }
+  if (view === "na") {
+    return (input.na?.depts ?? []).map((dept) => ({
+      department: dept.dept, organisations: dept.orgs,
+      withEvents: dept.orgsAvecEvenement, events: dept.evenements,
+    }));
+  }
+  if (view === "sources" || view === "health") {
+    return input.sources.map((source) => ({
+      id: source.id, name: source.name, family: source.family, kind: source.kind,
+      status: source.ok ? "ok" : "unverified", lastSeen: source.lastOkAt,
+      items: source.itemsTotal, events: source.evenements30j,
+    }));
+  }
+  return [];
+}
+
 export default function App() {
   const [orgs, setOrgs] = useState<Org[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
@@ -115,6 +181,11 @@ export default function App() {
       : parseHash(window.location.hash),
   );
   const view = urlState.view as ViewKey;
+  const appExportRows = useMemo(() => rowsForAppScreen({
+    view, today: todayData, coverage: couvertureData, corpus: corpusData,
+    sources, orgs, graph, na: naOverview, naFil,
+  }), [view, todayData, couvertureData, corpusData, sources, orgs, graph, naOverview, naFil]);
+  useScreenExport(view, appExportRows, APP_EXPORT_VIEWS[view] === true);
   const setView = useCallback((next: ViewKey) => {
     setUrlState((prev) => (prev.view === next ? prev : { ...prev, view: next }));
   }, []);
@@ -756,6 +827,7 @@ export default function App() {
   );
 
   return (
+    <ExportProvider>
     <div className="shell">
       <a className="skip-link" href="#main">Skip to content</a>
       {MOCK_MODE ? <div className="shell__mock">Demo mode, simulated data</div> : null}
@@ -795,6 +867,7 @@ export default function App() {
         >
           Rechercher ⌘K
         </button>
+        <ExportMenu />
 
         {view === "map" ? (
           <button
@@ -1119,5 +1192,6 @@ export default function App() {
       />
       </Suspense>
     </div>
+    </ExportProvider>
   );
 }
