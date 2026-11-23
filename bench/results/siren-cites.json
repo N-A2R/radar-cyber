@@ -1,0 +1,794 @@
+{
+  "genereLe": "2026-11-23T20:33:01.339Z",
+  "sourceOfficielle": "https://recherche-entreprises.api.gouv.fr/search",
+  "mode": "application",
+  "organisationsCitees": 80,
+  "dejaVerifiees": 12,
+  "ajoutees": 8,
+  "corrigees": 33,
+  "fusionnees": 0,
+  "detachrees": 27,
+  "evenementsDeclies": 40,
+  "nonVerifieesApres": 0,
+  "echantillon": {
+    "taille": 100,
+    "conformes": 61,
+    "nomsDifferents": 39,
+    "introuvables": 0,
+    "erreurs": 0,
+    "exemplesNonConformes": [
+      {
+        "id": 1938449,
+        "siren": "993663558",
+        "nom": "BODIN CHARLES",
+        "officiel": "CHARLES BODIN"
+      },
+      {
+        "id": 1652410,
+        "siren": "530008077",
+        "nom": "DUBECH GUY",
+        "officiel": "GUY DUBECH"
+      },
+      {
+        "id": 1819616,
+        "siren": "898650155",
+        "nom": "GELAS ARNAUD",
+        "officiel": "ARNAUD GELAS"
+      },
+      {
+        "id": 1751282,
+        "siren": "832449151",
+        "nom": "ARVESEN SUSSIE",
+        "officiel": "SUSSIE ARVESEN"
+      },
+      {
+        "id": 1499742,
+        "siren": "349608026",
+        "nom": "MERCIER BENEDICTE",
+        "officiel": "BENEDICTE THORPE (MERCIER)"
+      },
+      {
+        "id": 1541281,
+        "siren": "413413071",
+        "nom": "LAFOREST DANIEL",
+        "officiel": "DANIEL LAFOREST"
+      },
+      {
+        "id": 1858602,
+        "siren": "921580734",
+        "nom": "JENNER VICTORIA",
+        "officiel": "VICTORIA JENNER (JENNER VICTORIA)"
+      },
+      {
+        "id": 1603292,
+        "siren": "490431004",
+        "nom": "COURNIL ALEXANDRA",
+        "officiel": "ALEXANDRA COURNIL"
+      },
+      {
+        "id": 1804365,
+        "siren": "889104006",
+        "nom": "MILLAR LAURA",
+        "officiel": "LAURA MILLAR"
+      },
+      {
+        "id": 1644134,
+        "siren": "523207736",
+        "nom": "BOUTIN BERTRAND",
+        "officiel": "BERTRAND BOUTIN"
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "orgId": 1918,
+      "nom": "Commune de Bordeaux",
+      "sirenActuel": "213300635",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 4180,
+      "nom": "Commune de Limoges",
+      "sirenActuel": "218708501",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 4369,
+      "nom": "GRAND POITIERS COMMUNAUTE URBAINE",
+      "sirenActuel": "200069854",
+      "evenements": 7,
+      "action": "deja"
+    },
+    {
+      "orgId": 21297,
+      "nom": "SERVICE DE PREVENTION ET DE SANTE AU TRAVAIL INTERENTREPRISES 16 (SPSTI 16)",
+      "sirenActuel": "781172150",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "781172150",
+      "nomOfficiel": "SERVICE DE PREVENTION ET DE SANTE AU TRAVAIL INTERENTREPRISES 16",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 34354,
+      "nom": "SCHNEIDER ELECTRIC FRANCE",
+      "sirenActuel": "421106709",
+      "evenements": 4,
+      "action": "deja"
+    },
+    {
+      "orgId": 34382,
+      "nom": "Études Réalisations Négoce Assistance Technique (ERNAT)",
+      "sirenActuel": "339293086",
+      "evenements": 2,
+      "action": "deja"
+    },
+    {
+      "orgId": 34388,
+      "nom": "Fédération Nationale des Chasseurs",
+      "sirenActuel": "439220153",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 35134,
+      "nom": "MECA PRECIS",
+      "sirenActuel": "349323618",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 51430,
+      "nom": "CONTROLE TECHNIQUE",
+      "sirenActuel": "101857530",
+      "evenements": 3,
+      "action": "deja"
+    },
+    {
+      "orgId": 77376,
+      "nom": "TRANSPORTS VERLHAC ET FILS",
+      "sirenActuel": "303861017",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 93140,
+      "nom": "ROBIN VOYAGES",
+      "sirenActuel": "333399921",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 117568,
+      "nom": "BOULAZAC BASKET DORDOGNE",
+      "sirenActuel": "379910359",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 129865,
+      "nom": "LE GAIN DE TEMPS",
+      "sirenActuel": "388168106",
+      "evenements": 1,
+      "action": "deja"
+    },
+    {
+      "orgId": 131600,
+      "nom": "EN VUE",
+      "sirenActuel": "389013160",
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 151753,
+      "nom": "SOCIETE DE PRESSE ET D'INFORMATION",
+      "sirenActuel": "401418868",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "401418868",
+      "nomOfficiel": "SOCIETE DE PRESSE ET D'INFORMATION",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 166577,
+      "nom": "ETS VIVIER LEGRAND",
+      "sirenActuel": "411244288",
+      "evenements": 2,
+      "action": "corrige",
+      "sirenRetenu": "411244288",
+      "nomOfficiel": "ETS VIVIER LEGRAND",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 193878,
+      "nom": "GRAPHIC DESIGN",
+      "sirenActuel": "428603575",
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 204209,
+      "nom": "FONTAINEBLEAU",
+      "sirenActuel": "433846250",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "433846250",
+      "nomOfficiel": "FONTAINEBLEAU",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 295426,
+      "nom": "CITE INTERNATIONALE DE LA BANDE DESSINEE ET DE L' IMAGE",
+      "sirenActuel": "501577951",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "501577951",
+      "nomOfficiel": "CITE INTERNATIONALE DE LA BANDE DESSINEE ET DE L' IMAGE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 311824,
+      "nom": "THIRTY-THREE",
+      "sirenActuel": "510253248",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "510253248",
+      "nomOfficiel": "THIRTY-THREE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 336636,
+      "nom": "MCP SERVICES",
+      "sirenActuel": "527662589",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "527662589",
+      "nomOfficiel": "MCP SERVICES",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 362979,
+      "nom": "DU GRAND LARGE",
+      "sirenActuel": "751470816",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "751470816",
+      "nomOfficiel": "DU GRAND LARGE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 367844,
+      "nom": "PROLUM NEW GEN",
+      "sirenActuel": "753727031",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "753727031",
+      "nomOfficiel": "PROLUM NEW GEN",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 368452,
+      "nom": "P.A CONSTRUCTION",
+      "sirenActuel": "754006310",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "754006310",
+      "nomOfficiel": "P.A CONSTRUCTION",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 442133,
+      "nom": "PAYS BASQUE",
+      "sirenActuel": "821145869",
+      "evenements": 2,
+      "action": "corrige",
+      "sirenRetenu": "821145869",
+      "nomOfficiel": "PAYS BASQUE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 482872,
+      "nom": "OPEN SOURCE",
+      "sirenActuel": "840294409",
+      "evenements": 67,
+      "action": "corrige",
+      "sirenRetenu": "840294409",
+      "nomOfficiel": "OPEN SOURCE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 483916,
+      "nom": "FAMILY TRUST",
+      "sirenActuel": "840682645",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "840682645",
+      "nomOfficiel": "FAMILY TRUST",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 490736,
+      "nom": "PARK AVENUE",
+      "sirenActuel": "843379082",
+      "evenements": 3,
+      "action": "corrige",
+      "sirenRetenu": "843379082",
+      "nomOfficiel": "PARK AVENUE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 522762,
+      "nom": "GOOD JOB",
+      "sirenActuel": "881321384",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "881321384",
+      "nomOfficiel": "GOOD JOB",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 547031,
+      "nom": "VALLEE D'ASPE",
+      "sirenActuel": "893603969",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "893603969",
+      "nomOfficiel": "VALLEE D'ASPE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 558683,
+      "nom": "REAL ESTATE SERVICES",
+      "sirenActuel": "900147893",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "900147893",
+      "nomOfficiel": "REAL ESTATE SERVICES",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 571661,
+      "nom": "LA FABRICA",
+      "sirenActuel": "905170924",
+      "evenements": 2,
+      "action": "corrige",
+      "sirenRetenu": "905170924",
+      "nomOfficiel": "LA FABRICA",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 604869,
+      "nom": "23 NOT' FOLLES",
+      "sirenActuel": "921467312",
+      "evenements": 3,
+      "action": "corrige",
+      "sirenRetenu": "921467312",
+      "nomOfficiel": "23 NOT' FOLLES",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 712530,
+      "nom": "MAJOR CONSTRUCTION",
+      "sirenActuel": "999841828",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "999841828",
+      "nomOfficiel": "MAJOR CONSTRUCTION",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 1472498,
+      "nom": "FAHAD ABDUL",
+      "sirenActuel": "131355240",
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 1994804,
+      "nom": "ADVEO FRANCE",
+      "sirenActuel": null,
+      "evenements": 4,
+      "action": "ajoute",
+      "sirenRetenu": "538851205",
+      "nomOfficiel": "ADVEO FRANCE",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 1994805,
+      "nom": "DEMOS (DEMOS TRAINING)",
+      "sirenActuel": null,
+      "evenements": 4,
+      "action": "ajoute",
+      "sirenRetenu": "722030277",
+      "nomOfficiel": "DEMOS",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 1994806,
+      "nom": "LUMIPLAN",
+      "sirenActuel": null,
+      "evenements": 4,
+      "action": "ajoute",
+      "sirenRetenu": "951323997",
+      "nomOfficiel": "LUMIPLAN",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 1994807,
+      "nom": "MILLIMAGES",
+      "sirenActuel": null,
+      "evenements": 4,
+      "action": "ajoute",
+      "sirenRetenu": "382954279",
+      "nomOfficiel": "MILLIMAGES",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 1994846,
+      "nom": "NATURE ET PROGRES ILE DE FRANCE",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "ajoute",
+      "sirenRetenu": "411305956",
+      "nomOfficiel": "NATURE ET PROGRES ILE DE FRANCE",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 1994884,
+      "nom": "ODALYS VACANCES",
+      "sirenActuel": null,
+      "evenements": 3,
+      "action": "ajoute",
+      "sirenRetenu": "414684308",
+      "nomOfficiel": "ODALYS VACANCES",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 2004735,
+      "nom": "SOCIETE DE CAUTION MUTUELLE ARTISANALE",
+      "sirenActuel": "308952258",
+      "evenements": 4,
+      "action": "corrige",
+      "sirenRetenu": "308952258",
+      "nomOfficiel": "SOCIETE DE CAUTION MUTUELLE ARTISANALE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2021977,
+      "nom": "LOS ANGELES",
+      "sirenActuel": "322007766",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "322007766",
+      "nomOfficiel": "LOS ANGELES",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2022369,
+      "nom": "VIDEO PRODUCTION",
+      "sirenActuel": "322249178",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "322249178",
+      "nomOfficiel": "VIDEO PRODUCTION",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2042884,
+      "nom": "ESC PAU ETUDES CONSEILS",
+      "sirenActuel": "332467240",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "332467240",
+      "nomOfficiel": "ESC PAU ETUDES CONSEILS",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2105974,
+      "nom": "GITES DE FRANCE",
+      "sirenActuel": "387991805",
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 2123591,
+      "nom": "A BORD ..",
+      "sirenActuel": "395382617",
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 2175692,
+      "nom": "DATA STORAGE",
+      "sirenActuel": "429770811",
+      "evenements": 2,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 2190093,
+      "nom": "AGENCE NATIONALE",
+      "sirenActuel": "439055609",
+      "evenements": 5,
+      "action": "corrige",
+      "sirenRetenu": "439055609",
+      "nomOfficiel": "AGENCE NATIONALE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2195838,
+      "nom": "MADE IN B",
+      "sirenActuel": "441549706",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "441549706",
+      "nomOfficiel": "MADE IN B",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2204976,
+      "nom": "FRANCE TERRE D ASILE",
+      "sirenActuel": "447619081",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "447619081",
+      "nomOfficiel": "FRANCE TERRE D ASILE",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2273120,
+      "nom": "DIAGNOSTIC IMMOBILIER",
+      "sirenActuel": "503569469",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "503569469",
+      "nomOfficiel": "DIAGNOSTIC IMMOBILIER",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2287157,
+      "nom": "INSPECTION SERVICES",
+      "sirenActuel": "513531848",
+      "evenements": 2,
+      "action": "corrige",
+      "sirenRetenu": "513531848",
+      "nomOfficiel": "INSPECTION SERVICES",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2307978,
+      "nom": "SPORT MANAGEMENT",
+      "sirenActuel": "533553962",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "533553962",
+      "nomOfficiel": "SPORT MANAGEMENT",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2328508,
+      "nom": "SYNDICAT D EAU",
+      "sirenActuel": "781539382",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "781539382",
+      "nomOfficiel": "SYNDICAT D EAU",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2360843,
+      "nom": "COM NEWS",
+      "sirenActuel": "814316717",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "814316717",
+      "nomOfficiel": "COM NEWS",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2414137,
+      "nom": "GREEN ENERGY",
+      "sirenActuel": "922691910",
+      "evenements": 1,
+      "action": "corrige",
+      "sirenRetenu": "922691910",
+      "nomOfficiel": "GREEN ENERGY",
+      "motif": "SIREN confirmé par la source officielle"
+    },
+    {
+      "orgId": 2423925,
+      "nom": "eivp-paris.fr",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423926,
+      "nom": "lyonhealy.com",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423927,
+      "nom": "ibafrance.fr",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423928,
+      "nom": "nicecloud.nl",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423929,
+      "nom": "hotel-ampere-paris.com",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423930,
+      "nom": "lyonshipyard.com",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423931,
+      "nom": "lyon.co.uk",
+      "sirenActuel": null,
+      "evenements": 3,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423932,
+      "nom": "coteg-toulouse",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    },
+    {
+      "orgId": 2423933,
+      "nom": "aev-iledefrance.fr",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423934,
+      "nom": "agapefrance.org",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423935,
+      "nom": "graphiquedefrance.com",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423936,
+      "nom": "worldwidefittings.com",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423937,
+      "nom": "ccmcnet.com",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423938,
+      "nom": "toyokiki-thailand.com",
+      "sirenActuel": null,
+      "evenements": 3,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423939,
+      "nom": "benchmarkseniorliving.com",
+      "sirenActuel": null,
+      "evenements": 4,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423940,
+      "nom": "upperweb.com.br",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423941,
+      "nom": "osiiminppal.com",
+      "sirenActuel": null,
+      "evenements": 3,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423942,
+      "nom": "franc-oiloffshore.com.ng",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423943,
+      "nom": "cey-tech.com",
+      "sirenActuel": null,
+      "evenements": 3,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423944,
+      "nom": "axiscades.com",
+      "sirenActuel": null,
+      "evenements": 2,
+      "action": "detache",
+      "motif": "domaine : aucune personnalité morale"
+    },
+    {
+      "orgId": 2423978,
+      "nom": "Conseil départemental de Lot-et-Garonne — La présidente",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "ajoute",
+      "sirenRetenu": "224700013",
+      "nomOfficiel": "DEPARTEMENT DU LOT ET GARONNE",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 2423989,
+      "nom": "Université de Limoges — [...]",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "ajoute",
+      "sirenRetenu": "198706699",
+      "nomOfficiel": "UNIVERSITE DE LIMOGES",
+      "motif": "SIREN corrigé"
+    },
+    {
+      "orgId": 2423995,
+      "nom": "INSTITUT UNIVERSITAIRE DE TECHNOLOGIE BORDEAUX MONTESQUIEU",
+      "sirenActuel": null,
+      "evenements": 1,
+      "action": "detache",
+      "motif": "aucune fiche officielle confirmée"
+    }
+  ]
+}
