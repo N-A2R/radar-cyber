@@ -1,0 +1,98 @@
+[
+  {
+    "code": "PIR-01",
+    "question": "Quelles campagnes de rançongiciel visent les collectivités ?",
+    "owner": "Cellule rançongiciel",
+    "rendu_le": "2026-10-02T09:00:00.000Z",
+    "signaux_30d": 1,
+    "statut": "couvert"
+  },
+  {
+    "code": "PIR-02",
+    "question": "Quels kits de phishing ciblent les établissements de santé ?",
+    "owner": "Pôle phishing",
+    "rendu_le": "2026-10-04T09:00:00.000Z",
+    "signaux_30d": 1,
+    "statut": "couvert"
+  },
+  {
+    "code": "PIR-03",
+    "question": "Quelles vulnérabilités critiques sont exploitées ?",
+    "owner": "Pôle vulnérabilités",
+    "rendu_le": "2026-10-06T09:00:00.000Z",
+    "signaux_30d": 1,
+    "statut": "couvert"
+  },
+  {
+    "code": "PIR-04",
+    "question": "Quels groupes revendiquent des intrusions industrielles ?",
+    "owner": "Cellule intrusion",
+    "rendu_le": "2026-10-08T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-05",
+    "question": "Quelles fuites de données touchent l'enseignement supérieur ?",
+    "owner": "Pôle fuite de données",
+    "rendu_le": "2026-10-10T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-06",
+    "question": "Quels indicateurs d'attaque concernent les opérateurs critiques ?",
+    "owner": "Cellule opérateurs",
+    "rendu_le": "2026-10-12T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-07",
+    "question": "Quelles campagnes de fraude au président circulent ?",
+    "owner": "Pôle fraude",
+    "rendu_le": "2026-10-14T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-08",
+    "question": "Quels avis de sécurité affectent la messagerie ?",
+    "owner": "Cellule avis de sécurité",
+    "rendu_le": "2026-10-16T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-09",
+    "question": "Quels domaines malveillants imitent des services publics ?",
+    "owner": "Pôle usurpation",
+    "rendu_le": "2026-10-18T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-10",
+    "question": "Quelles attaques par déni de service touchent les collectivités ?",
+    "owner": "Cellule disponibilité",
+    "rendu_le": "2026-10-20T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-11",
+    "question": "Quels acteurs menacent le secteur du transport ?",
+    "owner": "Pôle transport",
+    "rendu_le": "2026-10-22T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  },
+  {
+    "code": "PIR-12",
+    "question": "Quels défauts de sécurité sont signalés dans l'énergie ?",
+    "owner": "Cellule énergie",
+    "rendu_le": "2026-10-24T09:00:00.000Z",
+    "signaux_30d": 0,
+    "statut": "sans_reponse"
+  }
+]
