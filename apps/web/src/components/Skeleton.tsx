@@ -6,6 +6,8 @@
  */
 import type { ReactNode } from "react";
 import "./skeleton.css";
+import { Button } from "@astryxdesign/core/Button";
+import { Skeleton as AstryxSkeleton } from "@astryxdesign/core/Skeleton";
 
 type SkeletonProps = {
   label?: string;
@@ -19,9 +21,9 @@ export function LoadingSkeleton({ label = "Chargement…", className }: Skeleton
       role="status"
       aria-live="polite"
     >
-      <span className="skeleton__line" aria-hidden="true" />
-      <span className="skeleton__line" aria-hidden="true" />
-      <span className="skeleton__line" aria-hidden="true" />
+      {[0, 1, 2].map((i) => (
+        <AstryxSkeleton key={i} className="skeleton__line" aria-hidden="true" />
+      ))}
       <span className="skeleton__label">{label}</span>
     </div>
   );
@@ -42,9 +44,7 @@ export function EmptyState({ message, actionLabel, onAction, className, role = "
       role={role}
     >
       <p className="empty-state__message">{message}</p>
-      <button type="button" className="empty-state__action" onClick={onAction}>
-        {actionLabel}
-      </button>
+      <Button label={actionLabel} className="empty-state__action" onClick={onAction} />
     </div>
   );
 }
