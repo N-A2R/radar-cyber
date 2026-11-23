@@ -191,6 +191,47 @@ async function main(): Promise<void> {
 			}
 		}
 
+		// --- Certificat d'ignorance (champs inconnus par organisation) -------
+		// Un score de couverture ne dit pas ce qui manque : ce registre rend
+		// chaque absence de preuve datée et nommée, y compris pour les orgs
+		// qui n'ont jamais eu d'événement rattaché.
+		const unknownTable = await client.query<{ present: boolean }>(
+			"SELECT to_regclass('public.org_unknown') IS NOT NULL AS present",
+		);
+		const unknownCount = async () => {
+			const r = await client.query<{ n: string }>(
+				`SELECT count(*)::text AS n FROM org_unknown
+				 WHERE unknown_field IS NOT NULL AND checked_at IS NOT NULL`,
+			);
+			const min = await client.query<{ champs: string }>(
+				`SELECT min(champs)::text AS champs FROM (
+				   SELECT count(DISTINCT unknown_field) AS champs
+				     FROM org_unknown
+				    WHERE unknown_field IS NOT NULL AND checked_at IS NOT NULL
+				    GROUP BY org_id
+				 ) s`,
+			);
+			return {
+				total: Number(r.rows[0].n),
+				min: Number(min.rows[0].champs ?? 0),
+			};
+		};
+		if (!unknownTable.rows[0]?.present) {
+			report("certificat d'ignorance", false, "table absente — appliquez la migration 217");
+		} else {
+			const avant = await unknownCount();
+			if (avant.total >= 10261 && avant.min >= 3) {
+				report("certificat d'ignorance", true, `${avant.total} champs inconnus, ${avant.min} champs/org minimum`);
+			} else if (CHECK) {
+				report("certificat d'ignorance", false, `${avant.total}/10261 et ${avant.min}/3 — lancez scripts/certificat-ignorance.mts --apply`);
+			} else {
+				await runScript("scripts/certificat-ignorance.mts", ["--apply"]);
+				const apres = await unknownCount();
+				report("certificat d'ignorance", apres.total >= 10261 && apres.min >= 3,
+					`${apres.total} champs inconnus, ${apres.min} champs/org minimum`);
+			}
+		}
+
 		// --- Échantillon de démonstration (optionnel) -------------------------
 		if (WITH_SAMPLE) {
 			const q = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM quarantine_raw");

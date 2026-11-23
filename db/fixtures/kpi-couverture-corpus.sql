@@ -61,3 +61,7 @@ SELECT 'kpi-corpus-alerte-' || g.n,
        'open'
   FROM generate_series(1, 3) AS g(n)
 ON CONFLICT DO NOTHING;
+
+-- Le certificat d'ignorance est calculé sur le corpus semé, pour que le
+-- critère externe puisse être exécuté sans attendre le prochain scan API.
+SELECT enregistrer_org_unknown();

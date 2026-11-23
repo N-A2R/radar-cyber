@@ -117,6 +117,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/risk/organisations", niveau: "public", motif: "courbe ROC, AUC et agrégats numériques du modèle de risque" },
   { methode: "GET", route: "/api/risk/organisations/:id", niveau: "public", motif: "score numérique d'une organisation NA, sans donnée de victime" },
   { methode: "GET", route: "/api/attestations-negatives", niveau: "public", motif: "registre public des absences signées, vérifiable sans secret" },
+  { methode: "GET", route: "/api/certificat-ignorance", niveau: "public", motif: "champs explicitement inconnus du radar par organisation, sans donnée personnelle" },
   { methode: "GET", route: "/api/registre-traitements/export.csv", niveau: "public", motif: "registre des traitements : identifiants et noms de sources publiques, sans donnée personnelle" },
 
   // --- Lectures authentifiées ----------------------------------------------
