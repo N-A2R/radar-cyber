@@ -161,6 +161,7 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/journal/review", operationId: "getReviewJournal", summary: "Journal des décisions de revue", tag: "Revue", response: "Journal", security: "session", query: JournalQuery },
   { method: "get", path: "/journal/review/export.csv", operationId: "exportReviewJournal", summary: "Exporter le journal en CSV", tag: "Revue", response: "Csv", security: "session", contentType: "text/csv" },
   { method: "get", path: "/registre-traitements/export.csv", operationId: "exportRegistreTraitements", summary: "Exporter le registre des traitements du corpus en CSV", tag: "Sources", response: "Csv", security: "public", contentType: "text/csv" },
+  { method: "get", path: "/violations-rgpd/export.csv", operationId: "exportViolationsRgpd", summary: "Exporter le registre des violations suspectées en CSV", tag: "Sources", response: "Csv", security: "public", contentType: "text/csv" },
 
   { method: "post", path: "/auth/register", operationId: "register", summary: "Créer un compte (admin requis après le bootstrap)", tag: "Authentification", response: "AuthUser", security: "public", status: 201, body: RegisterBody },
   { method: "post", path: "/auth/login", operationId: "login", summary: "Obtenir un jeton de session", tag: "Authentification", response: "AuthLogin", security: "public", body: LoginBody },

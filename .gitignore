@@ -35,6 +35,9 @@ out/
 # Dossiers exportés et jetons joints : régénérables par `pnpm scelle:exports`.
 exports/scelles/
 
+# Exports mensuels régénérables par `pnpm export:violations-rgpd`.
+exports/violations/
+
 # Journaux générés par le service (données locales)
 journal/journal_root_*.json
 apps/api/journal/
