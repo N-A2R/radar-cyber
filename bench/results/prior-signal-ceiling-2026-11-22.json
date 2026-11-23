@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-11-23T23:52:44.215Z",
+  "asOf": "2026-11-22",
+  "lookbackDays": 365,
+  "windows": 6,
+  "signals": [
+    "baseline",
+    "groupe_365",
+    "departement_365",
+    "grp_dept_365",
+    "grp_secteur_dept_365",
+    "nouveaux_grp_dept_365"
+  ],
+  "perSignal": [
+    {
+      "name": "baseline",
+      "predictions": 60,
+      "hits": 0,
+      "victims": 16,
+      "hitOrgIds": []
+    },
+    {
+      "name": "groupe_365",
+      "predictions": 60,
+      "hits": 0,
+      "victims": 16,
+      "hitOrgIds": []
+    },
+    {
+      "name": "departement_365",
+      "predictions": 60,
+      "hits": 0,
+      "victims": 16,
+      "hitOrgIds": []
+    },
+    {
+      "name": "grp_dept_365",
+      "predictions": 60,
+      "hits": 0,
+      "victims": 16,
+      "hitOrgIds": []
+    },
+    {
+      "name": "grp_secteur_dept_365",
+      "predictions": 60,
+      "hits": 0,
+      "victims": 16,
+      "hitOrgIds": []
+    },
+    {
+      "name": "nouveaux_grp_dept_365",
+      "predictions": 60,
+      "hits": 0,
+      "victims": 16,
+      "hitOrgIds": []
+    }
+  ],
+  "maxHits": 0,
+  "caveat": "Every ranking uses only claims published strictly before the cutoff and no group label of the future claim. Organisation ids, scope codes and dates only."
+}
