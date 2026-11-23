@@ -1,0 +1,175 @@
+{
+  "candidates": 7105,
+  "labels": 6764,
+  "selected": 48,
+  "verified": 19,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 1649,
+    "withVerifiedProvenance": 1604,
+    "coveragePercent": 0.0959
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 1668,
+    "withVerifiedProvenance": 1623,
+    "coveragePercent": 0.0971
+  },
+  "domains": [
+    {
+      "orgId": 515158,
+      "siren": "878324615",
+      "domain": "saintsulpicedefaleyrens.com",
+      "qid": "Q1005035",
+      "label": "Saint-Sulpice-de-Faleyrens",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 455306,
+      "siren": "827878786",
+      "domain": "lignandebazas.fr",
+      "qid": "Q1007140",
+      "label": "Lignan-de-Bazas",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 404854,
+      "siren": "802713925",
+      "domain": "la-chapelle-aubareil.fr",
+      "qid": "Q1070273",
+      "label": "La Chapelle-Aubareil",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 76768,
+      "siren": "301271961",
+      "domain": "magnac-bourg.fr",
+      "qid": "Q1076040",
+      "label": "Magnac-Bourg",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 461907,
+      "siren": "830191912",
+      "domain": "lamonzie-saint-martin.fr",
+      "qid": "Q1078880",
+      "label": "Lamonzie-Saint-Martin",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 244006,
+      "siren": "453668030",
+      "domain": "saint-xandre.com",
+      "qid": "Q1079078",
+      "label": "Saint-Xandre",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 504966,
+      "siren": "850874298",
+      "domain": "saint-sulpice-lauriere.fr",
+      "qid": "Q1088246",
+      "label": "Saint-Sulpice-Laurière",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 463195,
+      "siren": "830645826",
+      "domain": "aussac-vadalle.fr",
+      "qid": "Q1613619",
+      "label": "Aussac-Vadalle",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2213752,
+      "siren": "451325559",
+      "domain": "lespeintures.fr",
+      "qid": "Q187577",
+      "label": "Les Peintures",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 479609,
+      "siren": "839050382",
+      "domain": "ville-lacoquille.fr",
+      "qid": "Q191520",
+      "label": "La Coquille",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 373921,
+      "siren": "781971312",
+      "domain": "saint-emilion.org",
+      "qid": "Q192548",
+      "label": "Saint-Émilion",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1978618,
+      "siren": null,
+      "domain": "ville-lasouterraine.fr",
+      "qid": "Q193349",
+      "label": "La Souterraine",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2209408,
+      "siren": "449446038",
+      "domain": "la-coccinelle.fr",
+      "qid": "Q20669794",
+      "label": "La Coccinelle",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 270876,
+      "siren": "489705285",
+      "domain": "arthez-de-bearn.fr",
+      "qid": "Q269390",
+      "label": "Arthez-de-Béarn",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1946316,
+      "siren": null,
+      "domain": "saint-junien.fr",
+      "qid": "Q472922",
+      "label": "Saint-Junien",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 499560,
+      "siren": "848868931",
+      "domain": "saintetiennedefougeres.fr",
+      "qid": "Q538699",
+      "label": "Saint-Étienne-de-Fougères",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1452140,
+      "siren": "100450139",
+      "domain": "moulinneuf.fr",
+      "qid": "Q626923",
+      "label": "Moulin-Neuf",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1945349,
+      "siren": null,
+      "domain": "sarlat.fr",
+      "qid": "Q6381",
+      "label": "Sarlat-la-Canéda",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 295729,
+      "siren": "501691075",
+      "domain": "saintciersdabzac.fr",
+      "qid": "Q720309",
+      "label": "Saint-Ciers-d'Abzac",
+      "confidence": 0.85
+    }
+  ]
+}
