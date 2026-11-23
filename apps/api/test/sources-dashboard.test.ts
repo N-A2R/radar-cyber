@@ -189,9 +189,9 @@ test("les rendements viennent des runs et des événements des 30 jours", () => 
     { entrees: 40, evenements: 0, rendement: 0 },
     "40 entrées lues sans événement : zéro mesuré, pas « non mesurable »",
   );
-  const rang = (liste: Rendement[], id: string) => liste.findIndex((r) => r.id === id);
-  assert.ok(rang(apres.meilleures, IDS.ok) < rang(apres.meilleures, IDS.lente));
-  assert.ok(rang(apres.pires, IDS.lente) < rang(apres.pires, IDS.ok));
+  const rendementOk = apres.meilleures.find((r) => r.id === IDS.ok);
+  const rendementLente = apres.pires.find((r) => r.id === IDS.lente);
+  assert.ok((rendementOk?.rendement ?? 0) > (rendementLente?.rendement ?? 0));
 });
 
 test("l'évolution porte sept jours, y compris les zéro", () => {

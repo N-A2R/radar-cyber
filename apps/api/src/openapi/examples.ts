@@ -152,6 +152,15 @@ const RESPONSE_EXAMPLES: Partial<Record<SchemaName, unknown>> = {
     facets: { dept: [{ value: "33", count: 12 }] },
   },
   SourceList: [{ id: "src-1", name: "Example public bulletin", family: "institution" }],
+  SourceVerification: {
+    verifie_at: "2026-11-22T00:00:00.000Z",
+    total_sources: BASELINE.sources,
+    verifiees: BASELINE.sources,
+    couverture_pct: 100,
+    resume: { "200": BASELINE.sources, muettes: 0, mortes: 0, lentes: 0 },
+    a_debrancher: [],
+    sources: [],
+  },
   Coverage: {
     hashCorpus: SAMPLES.hashCorpus,
     publiable: true,

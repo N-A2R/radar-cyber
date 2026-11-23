@@ -287,7 +287,7 @@ Commandes de référence, depuis la racine du worktree :
 
 ```bash
 pnpm -F @radar/api typecheck
-pnpm -F @radar/api test -- test/securite-couverture.test.ts  # 185 / 185 routes API couvertes
+pnpm -F @radar/api test -- test/securite-couverture.test.ts  # 207 / 207 routes API couvertes
 pnpm -F @radar/api test -- test/droit-reponse.test.ts \
   test/securite-rbac.test.ts test/securite-headers.test.ts \
   test/securite-couverture.test.ts
@@ -302,4 +302,4 @@ jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
 
-OBJECTIF : atteint — 191 / 191 routes API avec une décision d'accès explicite (HEAD inclus ; 106 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
+OBJECTIF : atteint — 207 / 207 routes API avec une décision d'accès explicite (HEAD inclus ; 114 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.

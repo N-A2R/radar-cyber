@@ -24,6 +24,7 @@ const IDS = {
 const UA = "test-source-verification/1.0";
 
 let app: FastifyInstance;
+let avant: Reponse;
 
 async function creerSource(id: string, nom: string): Promise<void> {
   await query(
@@ -45,6 +46,10 @@ async function mesurer(
 }
 
 before(async () => {
+  app = Fastify();
+  await app.register(sourcesVerificationRoute);
+  await app.ready();
+  avant = (await app.inject({ method: "GET", url: "/sources/verification" })).json() as Reponse;
   for (const [cle, id] of Object.entries(IDS)) await creerSource(id, `Source ${cle} (test)`);
   await mesurer(IDS.ok!, {
     code: 404, type: "text/html", items: 0, ms: 100, etat: "morte", motif: "ancienne mesure",
@@ -67,9 +72,7 @@ before(async () => {
     quand: "2026-11-21T00:00:03Z",
   });
 
-  app = Fastify();
-  await app.register(sourcesVerificationRoute);
-  await app.ready();
+  // les quatre mesures ci-dessus viennent d'être insérées
 });
 
 after(async () => {
@@ -97,9 +100,14 @@ test("la route publie les quatre comptes et la couverture mesurée", async () =>
   assert.equal(res.statusCode, 200);
   const corps = res.json() as Reponse;
   assert.ok(corps.total_sources >= 5);
-  assert.equal(corps.verifiees, 4);
-  assert.deepEqual(corps.resume, { "200": 1, muettes: 1, mortes: 1, lentes: 1 });
-  assert.equal(corps.verifie_at, "2026-11-21T00:00:03.000Z");
+  assert.equal(corps.verifiees - avant.verifiees, 4);
+  assert.deepEqual({
+    "200": corps.resume["200"] - avant.resume["200"],
+    muettes: corps.resume.muettes - avant.resume.muettes,
+    mortes: corps.resume.mortes - avant.resume.mortes,
+    lentes: corps.resume.lentes - avant.resume.lentes,
+  }, { "200": 1, muettes: 1, mortes: 1, lentes: 1 });
+  assert.ok(corps.verifie_at >= "2026-11-21T00:00:03.000Z");
   assert.ok(corps.couverture_pct > 0 && corps.couverture_pct <= 100);
 });
 

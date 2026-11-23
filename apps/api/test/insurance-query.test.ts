@@ -8,7 +8,7 @@ import { ingestQuery } from "../src/db.js";
 import { inputFromRow, loadInsuranceCorpus, loadInsuranceGroups, loadOrganizationInputs } from "../src/insurance/query.js";
 import { sirenUnique } from "./helpers/siren.js";
 
-const REFERENCE = "2026-11-22";
+const REFERENCE = new Date().toISOString().slice(0, 10);
 const SIREN = sirenUnique("insurance-query");
 
 async function prepare(): Promise<{ naId: number; otherId: number }> {

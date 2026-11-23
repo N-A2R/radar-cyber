@@ -3,7 +3,8 @@
   "compilerOptions": {
     "lib": ["ES2024"],
     "noEmit": true,
-    "types": ["node"]
+    "types": ["node"],
+    "paths": { "@radar/shared": ["../../packages/shared/src/index.ts"] },
   },
   "include": ["src"]
 }

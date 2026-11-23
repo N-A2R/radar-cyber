@@ -21,30 +21,37 @@ import {
 
 const TAG = `veille${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const IDS = [`${TAG}-a`, `${TAG}-b`];
+const RUN_IDS: number[] = [];
 
-function evenement(id: string, numero: number): NormalizedEvent {
+function evenement(id: string, numero: number, runId: number): NormalizedEvent {
+	const groupe = "Dark Project";
+	const lieu = numero === 1 ? "en Gironde" : "en Charente-Maritime";
 	return {
 		family: "ransomware",
 		assertionType: "third_party_claim",
 		dedupKey: `${TAG}-${numero}`,
-		title: `Revendication ${numero} en Gironde — campagne ${TAG} revendiquée par Dark Project`,
-		summary: "Deux indications convergent vers la même campagne de rançongiciel en Gironde.",
+		title: numero === 1
+			? "Rançongiciel : une collectivité girondine paralysée"
+			: "Vol de données : un hôpital charentais visé",
+		summary: numero === 1
+			? "Une attaque par rançongiciel vise une mairie de Gironde."
+			: "Des documents médicaux ont été exfiltrés d'un hôpital de Charente-Maritime.",
 		observedAt: new Date().toISOString(),
-		severity: 4,
+		sourceUrl: `https://exemple${numero}.fr/${TAG}/${numero}`,
 		confidence: "A1",
 		sourceId: id,
 		sourceUrl: `https://exemple.fr/${TAG}/${numero}`,
-		evidence: { group: "Dark Project" },
+		evidence: { group: groupe, run_id: String(runId) },
 		geoType: "unknown",
 	};
 }
 
-function fauxCollecteur(id: string, numero: number): Collector {
+function fauxCollecteur(id: string, numero: number, runId: number): Collector {
 	return {
 		id,
 		family: "ransomware",
 		intervalSec: 3600,
-		run: async () => ({ events: [evenement(id, numero)] }),
+		run: async () => ({ events: [evenement(id, numero, runId)] }),
 	};
 }
 
@@ -57,6 +64,11 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 				 VALUES ($1, $2, 'ransomware', 'https://exemple.test/source', 3600)`,
 				[id, `Source ${id}`],
 			);
+			const run = await query<{ id: number }>(
+				`INSERT INTO collector_run (source_id, finished_at, status) VALUES ($1, now(), 'ok') RETURNING id`,
+				[id],
+			);
+			RUN_IDS.push(Number(run.rows[0]!.id));
 		}
 		await query(
 			`INSERT INTO org (name, slug, kind, city, domain, status)
@@ -66,13 +78,15 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 
 		const debut = performance.now();
 		const maintenant = new Date();
+		const collecteurs = IDS.map((id, i) => fauxCollecteur(id, i + 1, RUN_IDS[i]!));
 		const resume: ResumeQuotidien = await executerVeilleQuotidienne({
 			maintenant,
-			collecteurs: IDS.map((id, i) => fauxCollecteur(id, i + 1)),
+			collecteurs,
 			log: console.log,
 			etapesSupplementaires: false,
 			rapportDir: dossier,
 		});
+
 		const dureeMur = Math.round(performance.now() - debut);
 
 		assert.ok(resume.dureeMs > 0, "la durée du cycle est mesurée");
