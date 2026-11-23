@@ -48,6 +48,8 @@
     "verifie:iforest": "apps/api/node_modules/.bin/tsx scripts/verifie-iforest.mts",
     "mesure:risk-decay": "apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts",
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
+    "mesure:bandit-sources": "apps/api/node_modules/.bin/tsx scripts/verifie-bandit-sources.mts",
+    "verifie:bandit-sources": "apps/api/node_modules/.bin/tsx scripts/verifie-bandit-sources.mts",
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
     "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
