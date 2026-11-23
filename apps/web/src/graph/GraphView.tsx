@@ -569,6 +569,15 @@ export default function GraphView(props: GraphViewProps) {
     () => visible.nodes.filter((node) => node.kind !== 'event' && node.kind !== 'source'),
     [visible.nodes],
   );
+  function onTabKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>) {
+    const next = event.key === 'Home' || event.key === 'ArrowLeft' ? 'network'
+      : event.key === 'End' || event.key === 'ArrowRight' ? 'matrix'
+      : null;
+    if (next === null) return;
+    event.preventDefault();
+    setMode(next);
+    document.getElementById(next === 'network' ? 'gv-network-tab' : 'gv-matrix-tab')?.focus();
+  }
 
   return (
     <div className="gv-root" style={{ backgroundColor: bg, fontFamily: 'var(--font-body)' }}>
@@ -577,16 +586,18 @@ export default function GraphView(props: GraphViewProps) {
       ) : null}
       <div className="gv-mode-bar" role="tablist" aria-label="Affichage du graphe">
         <button
-          type="button" role="tab" aria-selected={mode === 'network'} aria-current={mode === 'network' ? 'true' : undefined}
+          type="button" role="tab" id="gv-network-tab" aria-controls="gv-panel" aria-selected={mode === 'network'} tabIndex={mode === 'network' ? 0 : -1}
           className={mode === 'network' ? 'is-active' : undefined}
           onClick={() => setMode('network')}
+          onKeyDown={onTabKeyDown}
         >
           Réseau
         </button>
         <button
-          type="button" role="tab" aria-selected={mode === 'matrix'} aria-current={mode === 'matrix' ? 'true' : undefined}
+          type="button" role="tab" id="gv-matrix-tab" aria-controls="gv-panel" aria-selected={mode === 'matrix'} tabIndex={mode === 'matrix' ? 0 : -1}
           className={mode === 'matrix' ? 'is-active' : undefined}
           onClick={() => setMode('matrix')}
+          onKeyDown={onTabKeyDown}
         >
           Matrice
         </button>
@@ -679,7 +690,7 @@ export default function GraphView(props: GraphViewProps) {
       </div>
 
       {enriched.nodes.length <= 5 ? (
-        <div className="gv-empty">
+        <div className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby="gv-network-tab">
           <p className="gv-empty-title">Le graphe ne dessine que les liens enregistrés</p>
           <p className="gv-empty-text">
             {enriched.nodes.length === 0
@@ -692,13 +703,13 @@ export default function GraphView(props: GraphViewProps) {
           </p>
         </div>
       ) : visible.nodes.length === 0 ? (
-        <div className="gv-empty">
+        <div className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby={mode === 'matrix' ? 'gv-matrix-tab' : 'gv-network-tab'}>
           <p className="gv-empty-title">Aucun nœud ne correspond à ces filtres</p>
           <p className="gv-empty-text">Essayez une autre famille, période ou recherche.</p>
           <button type="button" onClick={resetFilters} className="gv-reset">Réinitialiser les filtres</button>
         </div>
       ) : mode === 'matrix' ? (
-        <div className="gv-matrix">
+        <div className="gv-matrix" id="gv-panel" role="tabpanel" aria-labelledby="gv-matrix-tab">
           <GraphMatrix nodes={matrixNodes} links={visible.links} />
         </div>
       ) : (
@@ -706,8 +717,10 @@ export default function GraphView(props: GraphViewProps) {
           <div
             ref={setContainerEl}
             className="gv-canvas"
+            id="gv-panel"
+            role="tabpanel"
+            aria-labelledby="gv-network-tab"
             tabIndex={0}
-            role="group"
             aria-label="Graphe relationnel. Flèches pour parcourir les nœuds, Entrée pour sélectionner."
             onKeyDown={handleCanvasKeyDown}
             onFocus={handleCanvasFocus}

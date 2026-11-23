@@ -271,6 +271,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
                     <button
                       type="button"
                       className="data__sort"
+                      data-sort={col.key}
                       title={sortKey === col.key ? "inverser le tri" : "trier"}
                       aria-label={`Trier par ${col.label}`}
                       onClick={() => toggleSort(col.key)}
