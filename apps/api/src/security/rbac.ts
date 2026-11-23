@@ -118,6 +118,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/risk/organisations/:id", niveau: "public", motif: "score numérique d'une organisation NA, sans donnée de victime" },
   { methode: "GET", route: "/api/attestations-negatives", niveau: "public", motif: "registre public des absences signées, vérifiable sans secret" },
   { methode: "GET", route: "/api/registre-traitements/export.csv", niveau: "public", motif: "registre des traitements : identifiants et noms de sources publiques, sans donnée personnelle" },
+  { methode: "GET", route: "/api/violations-rgpd/export.csv", niveau: "public", motif: "registre des violations suspectées : identifiants publics, dates et statut, aucune donnée personnelle" },
 
   // --- Lectures authentifiées ----------------------------------------------
   { methode: "GET", route: "/api/alerts/:id", niveau: "lecteur" },
