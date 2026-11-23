@@ -119,6 +119,7 @@
     "verifie:changepoints": "apps/api/node_modules/.bin/tsx scripts/verifie-changements-regime.mts",
     "dns:detection": "apps/api/node_modules/.bin/tsx scripts/dns-detection.mts",
     "verifie:fuite-timeline": "apps/api/node_modules/.bin/tsx scripts/verifie-fuite-timeline.mts",
+    "verifie:leak-site-freshness": "apps/api/node_modules/.bin/tsx scripts/verifie-leak-site-freshness.mts",
     "measure:hosting-outage": "apps/api/node_modules/.bin/tsx scripts/measure-hosting-outage.mts",
     "verifie:objectif-enrich-job": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-enrich-job.mts",
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts"
