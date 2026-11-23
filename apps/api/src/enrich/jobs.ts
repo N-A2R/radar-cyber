@@ -1,0 +1,243 @@
+/**
+ * File d'attente des enrichissements en échec.
+ *
+ * Un enrichisseur externe (WHOIS, DNS, certificats, réputation) peut échouer
+ * sans faire échouer la requête : l'échec est désormais une ligne `enrich_job`
+ * avec un état, un compteur de tentatives et une prochaine échéance. Le rejeu
+ * est explicite (`replayEnrichJob`) ou planifié (`processDueEnrichJobs`).
+ *
+ * Bornes : `MAX_ATTEMPTS` tentatives par cible, un lot fini par passage, et
+ * une transition `running` conditionnelle. Aucun appel récursif ni boucle
+ * sans limite : un job abandonné n'est plus jamais sélectionné.
+ */
+import { ingestQuery } from "../db.js";
+import { enrichIndicator } from "./index.js";
+
+export const MAX_ATTEMPTS = 5;
+export const BATCH_LIMIT = 20;
+const BASE_DELAY_MS = 60_000;
+const MAX_DELAY_MS = 24 * 60 * 60_000;
+
+export type EnrichJobState = "pending" | "running" | "failed" | "done" | "abandoned";
+
+export interface EnrichTarget {
+  type: string;
+  value: string;
+}
+
+export interface EnrichJob {
+  id: number;
+  target_kind: string;
+  target_value: string;
+  state: EnrichJobState;
+  attempts: number;
+  next_try_at: Date | string | null;
+  last_error: string | null;
+  last_result: unknown;
+  created_at: Date | string;
+  updated_at: Date | string;
+}
+
+export type Enricher = (target: EnrichTarget) => Promise<{ errors?: string[] }>;
+
+export interface JobAttempt {
+  job: EnrichJob;
+  ok: boolean;
+}
+
+/** Délai de reprise exponentiel : 1, 2, 4, 8… minutes, plafonné à 24 h. */
+export function backoffDelayMs(attempts: number): number {
+  if (!Number.isFinite(attempts)) return MAX_DELAY_MS;
+  const step = Math.max(1, Math.floor(attempts));
+  return Math.min(MAX_DELAY_MS, BASE_DELAY_MS * 2 ** Math.min(step - 1, 30));
+}
+
+function truncateError(error: unknown): string {
+  const message = error instanceof Error ? error.message : String(error);
+  return message.slice(0, 1000);
+}
+
+/** Seuls les indicateurs techniques entrent dans la file : jamais de donnée personnelle. */
+function normalizeTarget(target: EnrichTarget): { kind: string; value: string } | null {
+  const kind = (target.type ?? "").toLowerCase();
+  if (!["domain", "url", "ip", "hash"].includes(kind)) return null;
+  const value = typeof target.value === "string" ? target.value.trim() : "";
+  if (!value || value.length > 512) return null;
+  return { kind, value };
+}
+
+export async function findEnrichJob(target: EnrichTarget): Promise<EnrichJob | null> {
+  const normalized = normalizeTarget(target);
+  if (!normalized) return null;
+  const r = await ingestQuery<EnrichJob>(
+    "SELECT * FROM enrich_job WHERE target_kind=$1 AND target_value=$2",
+    [normalized.kind, normalized.value],
+  );
+  return r.rows[0] ?? null;
+}
+
+/** Crée ou réarme un job (un état terminal repart à zéro après correction de la cible). */
+export async function enqueueEnrichment(target: EnrichTarget): Promise<EnrichJob | null> {
+  const normalized = normalizeTarget(target);
+  if (!normalized) return null;
+  const r = await ingestQuery<EnrichJob>(
+    `INSERT INTO enrich_job (target_kind, target_value, state)
+     VALUES ($1, $2, 'pending')
+     ON CONFLICT (target_kind, target_value) DO UPDATE SET
+       state = CASE WHEN enrich_job.state IN ('done', 'abandoned') THEN 'pending' ELSE enrich_job.state END,
+       attempts = CASE WHEN enrich_job.state IN ('done', 'abandoned') THEN 0 ELSE enrich_job.attempts END,
+       next_try_at = CASE WHEN enrich_job.state IN ('done', 'abandoned') THEN now() ELSE enrich_job.next_try_at END,
+       updated_at = now()
+     RETURNING *`,
+    [normalized.kind, normalized.value],
+  );
+  return r.rows[0] ?? null;
+}
+
+/** Enregistre un échec : incrémente `attempts` et repousse `next_try_at`. */
+export async function recordEnrichmentFailure(
+  target: EnrichTarget,
+  error: unknown,
+): Promise<EnrichJob | null> {
+  const normalized = normalizeTarget(target);
+  if (!normalized) return null;
+  const next = new Date(Date.now() + backoffDelayMs(1)).toISOString();
+  const r = await ingestQuery<EnrichJob>(
+    `INSERT INTO enrich_job (target_kind, target_value, state, attempts, next_try_at, last_error)
+     VALUES ($1, $2, 'failed', 1, $3, $4)
+     ON CONFLICT (target_kind, target_value) DO UPDATE SET
+       attempts = enrich_job.attempts + 1,
+       state = CASE WHEN enrich_job.attempts + 1 >= $5 THEN 'abandoned' ELSE 'failed' END,
+       next_try_at = CASE WHEN enrich_job.attempts + 1 >= $5 THEN NULL
+                          ELSE now() + make_interval(secs => LEAST(86400, 60 * POWER(2, LEAST(enrich_job.attempts, 20)))::integer) END,
+       last_error = EXCLUDED.last_error,
+       updated_at = now()
+     RETURNING *`,
+    [normalized.kind, normalized.value, next, truncateError(error), MAX_ATTEMPTS],
+  );
+  return r.rows[0] ?? null;
+}
+
+/** Ferme un job réussi : plus de nouvelle tentative, résultat conservé en jsonb. */
+export async function markEnrichJobDone(id: number, result: unknown): Promise<EnrichJob | null> {
+  const r = await ingestQuery<EnrichJob>(
+    `UPDATE enrich_job
+        SET state='done', next_try_at=NULL, last_error=NULL,
+            last_result=$2::jsonb, updated_at=now()
+      WHERE id=$1 RETURNING *`,
+    [id, JSON.stringify(result ?? {})],
+  );
+  return r.rows[0] ?? null;
+}
+
+async function markEnrichJobRunning(id: number): Promise<EnrichJob | null> {
+  const r = await ingestQuery<EnrichJob>(
+    `UPDATE enrich_job SET state='running', updated_at=now()
+      WHERE id=$1 AND state IN ('pending', 'failed') RETURNING *`,
+    [id],
+  );
+  return r.rows[0] ?? null;
+}
+
+async function recordFailureById(id: number, error: unknown): Promise<EnrichJob | null> {
+  const r = await ingestQuery<EnrichJob>(
+    `UPDATE enrich_job
+        SET attempts=attempts+1,
+            state=CASE WHEN attempts+1 >= $2 THEN 'abandoned' ELSE 'failed' END,
+            next_try_at=CASE WHEN attempts+1 >= $2 THEN NULL
+                             ELSE now() + make_interval(secs => LEAST(86400, 60 * POWER(2, LEAST(attempts, 20)))::integer) END,
+            last_error=$3, updated_at=now()
+      WHERE id=$1 RETURNING *`,
+    [id, MAX_ATTEMPTS, truncateError(error)],
+  );
+  return r.rows[0] ?? null;
+}
+
+async function runJob(job: EnrichJob, enricher: Enricher): Promise<JobAttempt | null> {
+  // Transition conditionnelle : deux passages concurrents ne traitent jamais
+  // deux fois la même ligne.
+  const claimed = await markEnrichJobRunning(job.id);
+  if (!claimed) return null;
+  const target = { type: claimed.target_kind, value: claimed.target_value };
+  try {
+    const result = await enricher(target);
+    const errors = Array.isArray(result?.errors) ? result.errors.filter(Boolean) : [];
+    if (errors.length > 0) {
+      const failed = await recordFailureById(claimed.id, errors.join("; "));
+      return failed ? { job: failed, ok: false } : null;
+    }
+    const done = await markEnrichJobDone(claimed.id, result);
+    return done ? { job: done, ok: true } : null;
+  } catch (error) {
+    const failed = await recordFailureById(claimed.id, error);
+    return failed ? { job: failed, ok: false } : null;
+  }
+}
+
+/**
+ * Rejoue un job non terminal après correction de sa cible (fixture, fournisseur,
+ * règle). Les états `done` et `abandoned` sont terminaux : un rejeu manuel ne
+ * peut pas relancer indéfiniment une tâche épuisée.
+ */
+export async function replayEnrichJob(
+  id: number | string,
+  enricher: Enricher = enrichIndicator,
+): Promise<JobAttempt | null> {
+  // bigserial : `pg` restitue l'identifiant sous forme de chaîne.
+  const jobId = Number(id);
+  if (!Number.isInteger(jobId) || jobId <= 0) return null;
+  const r = await ingestQuery<EnrichJob>("SELECT * FROM enrich_job WHERE id=$1", [jobId]);
+  const job = r.rows[0];
+  if (!job || (job.state !== "failed" && job.state !== "pending")) return null;
+  return runJob(job, enricher);
+}
+
+export async function listEnrichJobs(options: { state?: string; limit?: number } = {}): Promise<EnrichJob[]> {
+  const limit = Math.min(200, Math.max(1, Math.floor(options.limit ?? 100)));
+  const r = await ingestQuery<EnrichJob>(
+    `SELECT * FROM enrich_job
+      WHERE ($1::text IS NULL OR state = $1)
+      ORDER BY created_at DESC, id DESC LIMIT $2`,
+    [options.state ?? null, limit],
+  );
+  return r.rows;
+}
+
+export interface ProcessResult {
+  scanned: number;
+  succeeded: number;
+  failed: number;
+}
+
+/**
+ * Traite au plus `limit` jobs échus, une seule fois chacun. `now` est
+ * injectable pour tester les échéances sans attendre le backoff réel.
+ */
+export async function processDueEnrichJobs(options: {
+  enricher?: Enricher;
+  limit?: number;
+  now?: number;
+  target?: EnrichTarget;
+} = {}): Promise<ProcessResult> {
+  const limit = Math.min(100, Math.max(1, Math.floor(options.limit ?? BATCH_LIMIT)));
+  const enricher = options.enricher ?? enrichIndicator;
+  const now = new Date(options.now ?? Date.now()).toISOString();
+  const targetValue = options.target ? normalizeTarget(options.target)?.value ?? null : null;
+  const due = await ingestQuery<EnrichJob>(
+    `SELECT * FROM enrich_job
+      WHERE state IN ('pending', 'failed')
+        AND attempts < $1
+        AND (next_try_at IS NULL OR next_try_at <= $2::timestamptz)
+        AND ($4::text IS NULL OR target_value = $4)
+      ORDER BY created_at ASC, id ASC LIMIT $3`,
+    [MAX_ATTEMPTS, now, limit, targetValue],
+  );
+  const result: ProcessResult = { scanned: due.rows.length, succeeded: 0, failed: 0 };
+  for (const job of due.rows) {
+    const attempt = await runJob(job, enricher);
+    if (!attempt) continue;
+    if (attempt.ok) result.succeeded++;
+    else result.failed++;
+  }
+  return result;
+}
