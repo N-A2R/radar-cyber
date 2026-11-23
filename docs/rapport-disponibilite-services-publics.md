@@ -1,6 +1,6 @@
 # Rapport — Disponibilité des services publics de Nouvelle-Aquitaine
 
-Date de mesure : 22 novembre 2026. Branche : `ext/chantier-p5`.
+Date de mesure : 23 novembre 2026 (UTC). Branche : `ext/rattrapage-rapport-disponibilite-services-publics`.
 
 ## Question
 
@@ -34,7 +34,9 @@ L'état de départ est celui de la base réelle : 1 673 151 organisations,
    sont importées telles quelles, sans extrapolation (500 services, 21 novembre).
 2. **Observation live bornée** : `services:collect` interroge les 500 URL avec
    `fetch`, un timeout par requête, une concurrence bornée et un délai global
-   inférieur à une minute. Seuls le code HTTP, le temps de réponse, le jour UTC
+   inférieur à une minute. Deux collectes réelles ont versé des observations :
+   le 22 novembre (concurrence 50, 420 sondes) et le 23 novembre (concurrence
+   100, 500 sondes). Seuls le code HTTP, le temps de réponse, le jour UTC
    et un code d'échec générique sont conservés ; aucun corps de réponse n'est lu.
 3. **Rejeu** : `services:measure` recombine les observations, garde une ligne par
    couple (service, jour) — succès prioritaire, puis observation la plus
@@ -49,63 +51,72 @@ absence d'observation et panne de service.
 
 ## Chiffre obtenu
 
-**500 services publics NA suivis ; 920 service-jours réellement observés sur les
-3 500 attendus ; 505 service-jours disponibles, soit une disponibilité mesurée
-de 54,89 % sur la fenêtre du 16 au 22 novembre 2026.**
+**500 services publics NA suivis ; 1 420 service-jours réellement observés sur les
+3 500 attendus ; 1 004 service-jours disponibles, soit une disponibilité mesurée
+de 70,70 % sur la fenêtre du 17 au 23 novembre 2026.**
 
 | Indicateur | Valeur mesurée |
 |---|---:|
 | Services du périmètre | 500 |
 | Service-jours attendus (500 × 7) | 3 500 |
-| Service-jours observés | 920 |
-| Couverture de la fenêtre | 26,29 % |
-| Service-jours disponibles | 505 |
-| **Disponibilité observée** | **54,89 %** |
+| Service-jours observés | 1 420 |
+| Couverture de la fenêtre | 40,57 % |
+| Service-jours disponibles | 1 004 |
+| **Disponibilité observée** | **70,70 %** |
 | Services avec sept jours complets | 0 |
 
 Détail par jour :
 
 | Jour | Observés | Disponibles | Disponibilité |
 |---|---:|---:|---:|
-| 16 novembre | 0 | 0 | — |
 | 17 novembre | 0 | 0 | — |
 | 18 novembre | 0 | 0 | — |
 | 19 novembre | 0 | 0 | — |
 | 20 novembre | 0 | 0 | — |
 | 21 novembre | 500 | 500 | 100 % |
 | 22 novembre | 420 | 5 | 1,19 % |
+| 23 novembre | 500 | 499 | 99,80 % |
 
-Résultat versionné : `bench/results/service-availability-na-2026-11-22.json`.
-Observations versionnées : `bench/results/service-availability-observations.jsonl`.
+Résultat versionné le 23 novembre : `bench/results/service-availability-na-2026-11-23.json`
+(le résultat initial du 22 novembre reste dans
+`bench/results/service-availability-na-2026-11-22.json`).
+Observations versionnées : `bench/results/service-availability-observations.jsonl`
+(1 420 lignes).
 
 ## Ce que ce chiffre mesure, et ce qu'il ne mesure pas
 
 - Il mesure une **disponibilité observée**, pas une disponibilité continue : les
   jours sans observation ne sont pas comptés comme disponibles ni comme en
-  panne. La couverture de 26,29 % est donc aussi importante que le pourcentage.
+  panne. La couverture de 40,57 % est donc aussi importante que le pourcentage.
 - La journée du 21 novembre vient d'une vérification HTTP réelle déjà versée au
-  corpus ; la journée du 22 novembre vient d'une sonde locale. Les deux protocoles
-  ne sont pas identiques (la sonde locale impose un timeout court).
-- Sur la journée locale, 413 des 420 sondes ont expiré et deux ont échoué avant
-  connexion. Ce résultat reflète en grande partie les limites de sortie réseau
-  de l'environnement de mesure, où une même URL répond en 1,9 s avec `curl` et
-  dépasse le timeout avec `fetch`. Il ne doit pas être lu comme un taux de panne
-  réel des établissements.
-- **L'objectif « sur 7 jours » n'est pas tenu** : cinq jours de la fenêtre n'ont
-  aucune observation. Une mesure de disponibilité continue sur sept jours
-  exige sept collectes quotidiennes réelles ; aucune donnée historique locale
-  ne permet de la reconstituer rétroactivement sans inventer des observations.
-  Le pipeline est en place pour les jours suivants, mais le chiffre définitif
-  ne pourra être publié qu'après la septième collecte.
+  corpus ; les journées des 22 et 23 novembre viennent de sondes locales. Les
+  protocoles ne sont pas identiques (la sonde locale impose un timeout court).
+- Le 22 novembre, 413 des 420 sondes ont expiré et deux ont échoué avant
+  connexion : ce résultat reflète surtout les limites de sortie réseau du bac à
+  sable, où la même URL répond en 0,2 s avec `curl` et dépasse le timeout avec
+  `fetch`. Il ne doit pas être lu comme un taux de panne réel des établissements.
+- Le 23 novembre, une seconde collecte avec concurrence 100 a couvert les 500
+  services en 26 s : 499 disponibles et 1 timeout. C'est la première journée
+  locale où le périmètre entier est observé.
+- **L'objectif « sur 7 jours » n'est pas tenu** : quatre jours de la fenêtre
+  (17 au 20 novembre) n'ont aucune observation, soit 2 000 service-jours
+  manquants. Une recherche exhaustive n'a trouvé aucune observation réelle pour
+  ces dates : ni dans l'arbre ou l'historique Git, ni dans la base PostgreSQL
+  (`source_verification`, `warc_proof` : premiers relevés les 21 et 22 novembre),
+  ni dans les sources grises testées (Wayback CDX : 0 capture sur la fenêtre
+  pour les URL du périmètre ; Common Crawl : index le plus récent arrêté au
+  19 novembre, requêtes en échec). Les compléter reviendrait à inventer des
+  observations. Le pipeline reste en place pour les collectes quotidiennes.
 
 ## Reproduire
 
 ```bash
 # Rejeu du chiffre publié (hors réseau, < 1 s)
-pnpm measure:service-availability -- --anchor=2026-11-22
+pnpm services:measure -- --anchor=2026-11-23
 
-# Nouvelle collecte bornée (une fois par jour, < 60 s)
-pnpm services:collect -- --anchor=YYYY-MM-DD
+# Collectes bornées réellement exécutées (< 60 s chacune)
+pnpm services:collect -- --anchor=2026-11-22
+pnpm services:collect -- --anchor=2026-11-23 --concurrency=100 --deadline-ms=50000
 ```
 
 La commande de rejeu réécrit `bench/results/service-availability-na-<date>.json`
@@ -121,4 +132,4 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 2 / 7 jours de la fenêtre réellement observés (920 / 3 500 service-jours), manque 5 jours d'observation (16 au 20 novembre, 2 580 service-jours) ; rejoué le 22/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-22` (code 0) : `services=500 observed_service_days=920/3500 available=505 availability=54,89 %`, résultat versionné inchangé.
+OBJECTIF : partiel — 3 / 7 jours de la fenêtre réellement observés (1 420 / 3 500 service-jours), manque 4 jours d'observation (17 au 20 novembre, 2 000 service-jours) ; rejoué le 23/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-23` (code 0) : `services=500 window=2026-11-17..2026-11-23 observed_service_days=1420/3500 available=1004 availability=70,70 %`, résultat versionné `bench/results/service-availability-na-2026-11-23.json`.

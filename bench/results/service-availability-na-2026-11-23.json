@@ -1,0 +1,64 @@
+{
+  "anchor": "2026-11-23",
+  "window": [
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-22",
+    "2026-11-23"
+  ],
+  "perimeterSize": 500,
+  "servicesObserved": 500,
+  "servicesFullyObserved": 0,
+  "servicesNeverAvailable": 0,
+  "observedServiceDays": 1420,
+  "availableServiceDays": 1004,
+  "availabilityPct": 70.7,
+  "coveragePct": 40.57,
+  "perDay": [
+    {
+      "day": "2026-11-17",
+      "observed": 0,
+      "available": 0,
+      "availabilityPct": 0
+    },
+    {
+      "day": "2026-11-18",
+      "observed": 0,
+      "available": 0,
+      "availabilityPct": 0
+    },
+    {
+      "day": "2026-11-19",
+      "observed": 0,
+      "available": 0,
+      "availabilityPct": 0
+    },
+    {
+      "day": "2026-11-20",
+      "observed": 0,
+      "available": 0,
+      "availabilityPct": 0
+    },
+    {
+      "day": "2026-11-21",
+      "observed": 500,
+      "available": 500,
+      "availabilityPct": 100
+    },
+    {
+      "day": "2026-11-22",
+      "observed": 420,
+      "available": 5,
+      "availabilityPct": 1.19
+    },
+    {
+      "day": "2026-11-23",
+      "observed": 500,
+      "available": 499,
+      "availabilityPct": 99.8
+    }
+  ]
+}
