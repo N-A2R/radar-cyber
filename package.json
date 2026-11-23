@@ -26,6 +26,8 @@
     "verifie:droit-reponse": "apps/api/node_modules/.bin/tsx scripts/verifie-droit-reponse.mts",
     "verifie:shadow-it": "apps/api/node_modules/.bin/tsx scripts/verifie-shadow-it.mts",
     "verifie:ct-anomalies": "apps/api/node_modules/.bin/tsx scripts/verifie-ct-anomalies.mts",
+    "genere:actor-alias": "apps/api/node_modules/.bin/tsx scripts/generate-actor-alias-seed.mts",
+    "verifie:actor-alias": "apps/api/node_modules/.bin/tsx scripts/verifie-actor-alias.mts",
     "verifie:preuve": "apps/api/node_modules/.bin/tsx scripts/verifie-chaine-preuve.mts",
     "verif:orientation": "apps/api/node_modules/.bin/tsx scripts/verif-orientation-collectivites.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
