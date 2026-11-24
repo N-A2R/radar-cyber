@@ -952,10 +952,10 @@ body {
   }
 }
 
-/* Sous 1600 px : les six groupes et les actions du rail ne tiennent plus sur
+/* Sous 1800 px : les six groupes et les actions du rail ne tiennent plus sur
    une seule ligne. La navigation passe donc dessous plutôt que de tronquer
    « Rechercher » ou « Déconnexion ». */
-@media (min-width: 481px) and (max-width: 1600px) {
+@media (min-width: 481px) and (max-width: 1800px) {
   .rail {
     flex-wrap: wrap;
     height: auto;
