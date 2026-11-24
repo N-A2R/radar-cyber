@@ -1,4 +1,5 @@
 # Chaînes d'affirmations répétées sans source primaire
+OBJECTIF : atteint — 82 / ≥1
 
 Une affirmation est une revendication de victime enregistrée dans
 `leak_claim`. La migration `225` crée `claim_chain` : une ligne par victime
@@ -42,6 +43,10 @@ quel, vérifie qu'il concorde avec la projection TypeScript, puis écrit
 `bench/results/claim-chain-2026-11-23.json`. Rapport : empreintes, compteurs,
 dates, verdicts — jamais de nom de victime. Aucun appel réseau, aucune écriture
 hors de `claim_chain`.
+
+La ligne OBJECTIF ci-dessus est calculée par `apps/api/src/analyse/objectif-claim-chains.ts`
+depuis la mesure ci-dessus ; `pnpm mesure:claim-chains` échoue si le rapport ne la
+déclare pas exactement une fois.
 
 ## Limites
 

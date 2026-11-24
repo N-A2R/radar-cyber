@@ -7,6 +7,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { query } from "../src/db.js";
 import {
   estRumeur,
@@ -14,9 +15,12 @@ import {
   summarizeClaimChains,
   type ClaimChainRow,
 } from "../src/analyse/claim-chains.js";
+import { ligneObjectifClaimChains, verifierDeclarationObjectifClaimChains } from "../src/analyse/objectif-claim-chains.js";
 
 const MAINTENANT = new Date("2026-11-23T12:00:00.000Z");
 const CRITERE = `SELECT count(*) FROM claim_chain WHERE repetitions>=3 AND primary_source_count=0 AND first_seen_at IS NOT NULL >=30;`;
+
+const LIGNE_OBJECTIF = "OBJECTIF : atteint — 82 / ≥1";
 
 function chaine(surcharge: Partial<ClaimChainRow> = {}): ClaimChainRow {
   return {
@@ -106,4 +110,21 @@ test("le rafraîchissement regroupe trois affirmations sans document de premièr
     await query("DELETE FROM leak_claim WHERE fingerprint LIKE $1", [`${empreinte}-%`]);
     await query("SELECT public.refresh_claim_chains()");
   }
+});
+
+test("objectif : la mesure produit la ligne déclarée", () => {
+  assert.equal(ligneObjectifClaimChains({ rumeurs: 82 }), LIGNE_OBJECTIF);
+});
+
+test("objectif : zéro chaîne produit une ligne partielle chiffrée", () => {
+  assert.equal(
+    ligneObjectifClaimChains({ rumeurs: 0 }),
+    "OBJECTIF : partiel — 0 / ≥1, manque 1 chaîne d'affirmations répétées sans source primaire",
+  );
+});
+
+test("rapport : la ligne OBJECTIF mesurée est déclarée une seule fois", () => {
+  const rapport = readFileSync(new URL("../../../docs/claim-chain.md", import.meta.url), "utf8");
+  assert.equal(verifierDeclarationObjectifClaimChains(rapport, LIGNE_OBJECTIF), true);
+  assert.equal(verifierDeclarationObjectifClaimChains(rapport, "OBJECTIF : atteint — 81 / ≥1"), false);
 });
