@@ -640,4 +640,47 @@ qui n'existent pas encore ; la première fenêtre complète reste ancrée au
 27 novembre, après les collectes réelles des 25, 26 et 27 novembre. Aucune
 date ni aucun statut n'a été inventé pour combler l'écart.
 
+## Épreuve d'atteignabilité au 24 novembre (03 h 35 UTC)
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main`. Quatre balayages
+indépendants, tous en lecture seule, n'ont retrouvé aucune observation réelle
+supplémentaire :
+
+- **Base** : 152 tables et 19 vues du seul schéma `public` ; 0 ligne HTTP
+  exploitable datée des 18, 19 ou 20 novembre UTC. Les 10 366 preuves
+  `exposition_risque` du 22 novembre concernent des services déjà observés ce
+  jour-là ; les quatre services en échec du 22 n'ont aucune preuve sur leur URL
+  ni leur URL finale. Gain : 0 service-jour.
+- **Artefacts** : 98 copies du jeu d'observations (94 worktrees et 4 sous
+  `/tmp`), 2 000 lignes chacune sur les 21-24 novembre, 0 ligne sur les trois
+  jours manquants ; les autres dates du 19 et du 20 novembre dans l'arbre
+  appartiennent à des incidents de presse, pas à des sondes HTTP.
+- **Sources grises inédites** : `wayback.archive.org/web/20261118/...` renvoie
+  une capture réelle du 12 octobre, `api.archive.org/wayback/available` un
+  corps vide, `transparencyreport.google.com` un statut de sécurité daté du
+  27 avril (sans code HTTP), `status.education.gouv.fr` et `status.renater.fr`
+  une réponse vide, les moteurs de recherche un CAPTCHA. Aucune capture
+  2xx/3xx du 18 au 20 novembre : 0 service-jour.
+- **Code** : jours UTC, statuts 2xx/3xx acceptés, déduplication par
+  (service, jour) avec priorité au succès ; aucun bug de comptage ne restitue
+  une observation absente. Gain : 0 service-jour.
+
+L'audit distingue désormais une ancre « collectable plus tard » d'un objectif
+atteignable à la date d'exécution :
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+apps/api/node_modules/.bin/tsx --test apps/api/test/service-availability.test.ts
+# 28 tests, 28 réussis
+```
+
+`attainable_as_of=false` et `real_collections_required=3` prouvent qu'aucune
+fenêtre de sept jours ne peut être complétée avec les seules observations
+réelles disponibles le 24 novembre : il faut encore trois collectes réelles
+les 25, 26 et 27 novembre. Aucune date ni aucun statut n'a été inventé.
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours

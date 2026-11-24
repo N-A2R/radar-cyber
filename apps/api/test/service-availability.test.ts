@@ -14,7 +14,7 @@ import { dayKeys, mergeDaily, parseObservations, serializeObservations } from ".
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
 import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
-import { auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
+import { attainableBy, auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
 import {
 	normalizeProofUrl,
 	observationsFromDbProofs,
@@ -233,6 +233,20 @@ test("earliest attainable anchor waits for incomplete past days to leave the win
 		observation("a", "2026-11-24", true), observation("b", "2026-11-24", true),
 	];
 	assert.equal(earliestAttainableAnchor(rows, services, "2026-11-24"), "2026-11-29");
+});
+
+test("attainability excludes an anchor that still needs real future collections", () => {
+	const services = [service("a"), service("b")];
+	const rows = dayKeys("2026-11-24", 4).flatMap((day) =>
+		services.map((item) => observation(item.id, day, true))
+	);
+	assert.equal(attainableBy(rows, services, "2026-11-24", "2026-11-24"), false);
+	assert.equal(attainableBy(rows, services, "2026-11-24", "2026-11-26"), false);
+	assert.equal(attainableBy(rows, services, "2026-11-24", "2026-11-27"), true);
+	assert.throws(
+		() => attainableBy(rows, services, "2026-11-24", "not-a-day"),
+		RangeError
+	);
 });
 
 test("a real database proof becomes a dated observation for the matching service", () => {

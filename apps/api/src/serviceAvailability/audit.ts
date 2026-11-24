@@ -80,3 +80,21 @@ export function earliestAttainableAnchor(
 	}
 	return null;
 }
+
+/**
+ * Whether a complete seven-day window exists using only observations already
+ * available by `asOfDay`. A later anchor still needs real future collections,
+ * so it must not be reported as attainable today.
+ */
+export function attainableBy(
+	observations: DailyObservation[],
+	services: PublicService[],
+	fromDay: string,
+	asOfDay: string
+): boolean {
+	if (!Number.isFinite(Date.parse(`${asOfDay}T00:00:00.000Z`))) {
+		throw new RangeError(`Invalid as-of day: ${asOfDay}`);
+	}
+	const earliest = earliestAttainableAnchor(observations, services, fromDay);
+	return earliest !== null && earliest <= asOfDay;
+}
