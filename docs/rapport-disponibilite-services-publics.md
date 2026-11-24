@@ -1004,4 +1004,47 @@ fenêtre entièrement réelle reste ancrée au 27 novembre, après trois collect
 réelles ; inventer les 18, 19 et 20 novembre reste la seule autre issue, ce que
 la méthode interdit.
 
-OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 20 UTC : 0 service-jour récupéré lors de la quatrième vérification croisée, `feasible_windows=0`, `max_observed=2000/3500` sur 92 ancres, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24`.
+## Reprise du 24 novembre (05 h 22 UTC) — borne exhaustive reproductible
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main` : **0 service-jour réel
+supplémentaire**, l'écart reste de 1 500. Deux balayages inédits confirment
+l'absence d'observation réelle les 18, 19 et 20 novembre :
+
+- **PostgreSQL (piste métadonnées)** : `collector_run` (1 372 lignes),
+  `quarantine_raw` (102), `journal` (13 561), `export_public_event_provenance`
+  (361), `event`, `source_score_snapshot` et la vue `v_event_all` ; aucun
+  schéma métier hors `public`. Sur la fenêtre UTC, 35 lignes `event` et
+  provenance le 19, 326 le 20, 102 `quarantine_raw` le 20 : URL d'articles,
+  d'onions ou de messagerie, jamais une URL du périmètre. Les deux hôtes du
+  corpus présents (`grandpoitiers.fr`, `nouvelle-aquitaine.gouv.fr`) portent
+  des URL d'articles profonds et leurs identifiants (`na-epci-200069854`,
+  `na-etat-prefecture-75`) sont hors des 2 000 observations versionnées :
+  **0 ligne pour le périmètre** les 18, 19 et 20 novembre.
+- **Sources grises (trois axes inédits, 10 requêtes bornées)** : memgator ODU
+  (4 appels : 400/404, API non opérationnelle), Wayback `timemap/json` (`[]`
+  pour deux URL exactes du périmètre : `lgtguezdebalzac.fr` et
+  `etab.ac-poitiers.fr/coll-blanzac/`), DNS passif `dns.bufferover.run`
+  (domaine éteint) et `hackertarget` (1 enregistrement A, aucune date), miroir
+  Common Crawl `cc-index` (domaine inexistant). **0 capture HTTP datée** sur
+  les six URL-jours testées.
+
+Le balayage exhaustif des 92 ancres (1er octobre au 31 décembre 2026), déjà
+décrit sans commande dédiée, est désormais reproductible :
+`maxObservedInRange` rejoue les seules observations versionnées et l'audit
+affiche `scanned_anchors` et `full_windows`. Aucune date ni statut n'est
+inventé ; `server.ts`, le manifeste et le jeu d'observations sont inchangés.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+# scan=2026-10-01..2026-12-31 scanned_anchors=92 max_observed_service_days=2000/3500 full_windows=0
+cd apps/api && DATABASE_URL=postgres://radar:radar@localhost:5433/radar node_modules/.bin/tsx test/run.ts test/service-availability.test.ts
+# ℹ tests 29 · pass 29 · fail 0
+node_modules/.bin/tsc --noEmit -p tsconfig.json
+# 0 erreur
+```
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 22 UTC : 0 service-jour récupéré lors de la cinquième vérification croisée, `full_windows=0` sur 92 ancres reproductibles, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31`.

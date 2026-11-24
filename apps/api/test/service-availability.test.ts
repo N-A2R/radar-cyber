@@ -14,7 +14,7 @@ import { dayKeys, mergeDaily, parseObservations, serializeObservations } from ".
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
 import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
-import { attainableBy, auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
+import { attainableBy, auditWindows, candidateAnchors, earliestAttainableAnchor, maxObservedInRange } from "../src/serviceAvailability/audit.js";
 import {
 	normalizeProofUrl,
 	observationsFromDbProofs,
@@ -247,6 +247,23 @@ test("attainability excludes an anchor that still needs real future collections"
 		() => attainableBy(rows, services, "2026-11-24", "not-a-day"),
 		RangeError
 	);
+});
+
+test("an anchor scan reports the real ceiling and never invents a complete window", () => {
+	const services = [service("a"), service("b")];
+	const partial = dayKeys("2026-11-24", 4).flatMap((day) =>
+		services.map((item) => observation(item.id, day, true))
+	);
+	assert.deepEqual(maxObservedInRange(partial, services, "2026-11-21", "2026-11-30"), {
+		scannedAnchors: 10,
+		maxObservedServiceDays: 8,
+		targetServiceDays: 14,
+		fullWindows: 0,
+	});
+	const complete = dayKeys("2026-11-27").flatMap((day) =>
+		services.map((item) => observation(item.id, day, true))
+	);
+	assert.equal(maxObservedInRange(complete, services, "2026-11-27", "2026-11-27").fullWindows, 1);
 });
 
 test("a real database proof becomes a dated observation for the matching service", () => {

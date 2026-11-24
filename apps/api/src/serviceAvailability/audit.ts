@@ -51,6 +51,35 @@ export function auditWindows(
 }
 
 /**
+ * Widest coverage reachable by any anchor in an inclusive UTC day range.
+ * Only committed observations count: unobserved future days stay missing.
+ */
+export function maxObservedInRange(
+	observations: DailyObservation[],
+	services: PublicService[],
+	fromDay: string,
+	toDay: string
+): { scannedAnchors: number; maxObservedServiceDays: number; targetServiceDays: number; fullWindows: number } {
+	const start = Date.parse(`${fromDay}T00:00:00.000Z`);
+	const end = Date.parse(`${toDay}T00:00:00.000Z`);
+	if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) {
+		throw new RangeError(`Invalid scan range: ${fromDay}..${toDay}`);
+	}
+	const targetServiceDays = services.length * 7;
+	let scannedAnchors = 0;
+	let maxObservedServiceDays = 0;
+	let fullWindows = 0;
+	for (let time = start; time <= end; time += DAY_MS) {
+		const anchor = new Date(time).toISOString().slice(0, 10);
+		const { observedServiceDays } = measureAvailability(observations, services, anchor);
+		scannedAnchors += 1;
+		maxObservedServiceDays = Math.max(maxObservedServiceDays, observedServiceDays);
+		if (observedServiceDays === targetServiceDays) fullWindows += 1;
+	}
+	return { scannedAnchors, maxObservedServiceDays, targetServiceDays, fullWindows };
+}
+
+/**
  * First anchor from `fromDay` whose seven-day window can still be complete:
  * every earlier day must already hold one observation per service, while days
  * from `fromDay` onward remain collectable. Nothing is fabricated or carried
