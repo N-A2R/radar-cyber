@@ -1,0 +1,346 @@
+{
+  "generatedAt": "2026-11-24T22:00:53.270Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "lookbackDays": 365,
+  "weight": 30,
+  "cap": 3,
+  "claimsRead": 77,
+  "organisationsNA": 1671936,
+  "baseline": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 16
+  },
+  "injected": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 16
+  },
+  "sweep": [
+    {
+      "weight": 0,
+      "predictions": 60,
+      "hits": 0,
+      "hitOrgIds": []
+    },
+    {
+      "weight": 10,
+      "predictions": 60,
+      "hits": 0,
+      "hitOrgIds": []
+    },
+    {
+      "weight": 30,
+      "predictions": 60,
+      "hits": 0,
+      "hitOrgIds": []
+    },
+    {
+      "weight": 100,
+      "predictions": 60,
+      "hits": 0,
+      "hitOrgIds": []
+    }
+  ],
+  "coverage": {
+    "victimPairs": 16,
+    "coveredPairs": 7,
+    "ratio": 0.4375
+  },
+  "activeNafKeysAtAsOf": [
+    {
+      "key": "68",
+      "claims": 4
+    },
+    {
+      "key": "70",
+      "claims": 4
+    },
+    {
+      "key": "47",
+      "claims": 3
+    },
+    {
+      "key": "46",
+      "claims": 2
+    },
+    {
+      "key": "79",
+      "claims": 2
+    },
+    {
+      "key": "85",
+      "claims": 2
+    },
+    {
+      "key": "25",
+      "claims": 1
+    },
+    {
+      "key": "43",
+      "claims": 1
+    },
+    {
+      "key": "49",
+      "claims": 1
+    },
+    {
+      "key": "51",
+      "claims": 1
+    },
+    {
+      "key": "55",
+      "claims": 1
+    },
+    {
+      "key": "58",
+      "claims": 1
+    },
+    {
+      "key": "59",
+      "claims": 1
+    },
+    {
+      "key": "61",
+      "claims": 1
+    },
+    {
+      "key": "62",
+      "claims": 1
+    },
+    {
+      "key": "66",
+      "claims": 1
+    },
+    {
+      "key": "74",
+      "claims": 1
+    },
+    {
+      "key": "90",
+      "claims": 1
+    },
+    {
+      "key": "96",
+      "claims": 1
+    },
+    {
+      "key": "97",
+      "claims": 1
+    }
+  ],
+  "perWindow": [
+    {
+      "cutoff": "2026-05-26",
+      "boostedAt100": 902525,
+      "closestAt100": {
+        "orgId": 457351,
+        "rank": 113706,
+        "gapToTop10": 8.5
+      },
+      "horizonEnd": "2026-06-25",
+      "actual": [
+        457351,
+        1963510
+      ],
+      "coveredVictims": [
+        457351,
+        1963510
+      ],
+      "missedVictims": [
+        {
+          "orgId": 457351,
+          "rank": 113706,
+          "gapToTop10": 8.5,
+          "pressure": 3
+        },
+        {
+          "orgId": 1963510,
+          "rank": 729143,
+          "gapToTop10": 69.5,
+          "pressure": 1
+        }
+      ]
+    },
+    {
+      "cutoff": "2026-06-25",
+      "boostedAt100": 902525,
+      "closestAt100": {
+        "orgId": 195075,
+        "rank": 212779,
+        "gapToTop10": 106
+      },
+      "horizonEnd": "2026-07-25",
+      "actual": [
+        34384,
+        195075,
+        368452
+      ],
+      "coveredVictims": [
+        195075,
+        368452
+      ],
+      "missedVictims": [
+        {
+          "orgId": 34384,
+          "rank": 1197230,
+          "gapToTop10": 102,
+          "pressure": 0
+        },
+        {
+          "orgId": 195075,
+          "rank": 212779,
+          "gapToTop10": 36,
+          "pressure": 2
+        },
+        {
+          "orgId": 368452,
+          "rank": 719085,
+          "gapToTop10": 68,
+          "pressure": 1
+        }
+      ]
+    },
+    {
+      "cutoff": "2026-07-25",
+      "boostedAt100": 891331,
+      "closestAt100": {
+        "orgId": 688670,
+        "rank": 187455,
+        "gapToTop10": 5
+      },
+      "horizonEnd": "2026-08-24",
+      "actual": [
+        25675,
+        34382,
+        275378,
+        510241,
+        688670,
+        2285568
+      ],
+      "coveredVictims": [
+        688670,
+        2285568
+      ],
+      "missedVictims": [
+        {
+          "orgId": 25675,
+          "rank": 1105635,
+          "gapToTop10": 99,
+          "pressure": 0
+        },
+        {
+          "orgId": 34382,
+          "rank": 1494301,
+          "gapToTop10": 106.5,
+          "pressure": 0
+        },
+        {
+          "orgId": 275378,
+          "rank": 977122,
+          "gapToTop10": 94.5,
+          "pressure": 0
+        },
+        {
+          "orgId": 510241,
+          "rank": 1318220,
+          "gapToTop10": 102,
+          "pressure": 0
+        },
+        {
+          "orgId": 688670,
+          "rank": 187455,
+          "gapToTop10": 5,
+          "pressure": 3
+        },
+        {
+          "orgId": 2285568,
+          "rank": 515152,
+          "gapToTop10": 30.5,
+          "pressure": 2
+        }
+      ]
+    },
+    {
+      "cutoff": "2026-08-24",
+      "boostedAt100": 924691,
+      "closestAt100": null,
+      "horizonEnd": "2026-09-23",
+      "actual": [],
+      "coveredVictims": [],
+      "missedVictims": []
+    },
+    {
+      "cutoff": "2026-09-23",
+      "boostedAt100": 879471,
+      "closestAt100": {
+        "orgId": 2230758,
+        "rank": 27816,
+        "gapToTop10": 3
+      },
+      "horizonEnd": "2026-10-23",
+      "actual": [
+        35134,
+        2230758,
+        2420547
+      ],
+      "coveredVictims": [
+        2230758
+      ],
+      "missedVictims": [
+        {
+          "orgId": 35134,
+          "rank": 1494455,
+          "gapToTop10": 109.5,
+          "pressure": 0
+        },
+        {
+          "orgId": 2230758,
+          "rank": 27816,
+          "gapToTop10": 3,
+          "pressure": 3
+        },
+        {
+          "orgId": 2420547,
+          "rank": 1330384,
+          "gapToTop10": 105,
+          "pressure": 0
+        }
+      ]
+    },
+    {
+      "cutoff": "2026-10-23",
+      "boostedAt100": 927417,
+      "closestAt100": {
+        "orgId": 313584,
+        "rank": 1089479,
+        "gapToTop10": 311.5
+      },
+      "horizonEnd": "2026-11-22",
+      "actual": [
+        313584,
+        490736
+      ],
+      "coveredVictims": [],
+      "missedVictims": [
+        {
+          "orgId": 313584,
+          "rank": 1089479,
+          "gapToTop10": 101.5,
+          "pressure": 0
+        },
+        {
+          "orgId": 490736,
+          "rank": 1105939,
+          "gapToTop10": 102,
+          "pressure": 0
+        }
+      ]
+    }
+  ],
+  "caveat": "NAF2 pressure counts claims published before the cutoff, in the last 365 days, against other organisations sharing the claimant's exact two-character NAF code. The signal never reads the future claim's group, text or date, and the published forecast is unchanged: injection is an audit only. Weights are pre-registered, not fitted to hits."
+}

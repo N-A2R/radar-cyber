@@ -49,3 +49,26 @@ La suite utile est de rendre ce signal **inconditionnel** : mesurer, à chaque d
 - Aucune donnée personnelle : la mesure ne lit que des identifiants d'organisation, des libellés de groupe, des codes secteur/département et des dates ; ni nom de victime, ni description de revendication, ni URL de preuve ne sont exposés.
 - `apps/api/src/server.ts` inchangé : **0 ligne de diff**.
 - 14 tests, un par comportement, verts ; typecheck API vert ; mesure en 7,6 s (< 60 s).
+
+## Plafond complémentaire : pression NAF2 (24/11)
+
+Signal testé, group-agnostique et strictement as-of : nombre de revendications
+publiées dans les 365 jours **avant** chaque coupure contre d'autres
+organisations de Nouvelle-Aquitaine partageant le même code NAF à deux
+caractères que le candidat. Les revendications du jour de coupure, celles du
+candidat lui-même, les lignes dupliquées et tout libellé de groupe futur sont
+exclus. Bonus plafonné à trois revendications, poids fixé à 30.
+
+```bash
+DATABASE_URL=... npm run measure:naf-pressure -- --as-of=2026-11-22 \
+  --json=bench/results/naf-pressure-2026-11-22.json
+```
+
+Sortie observée sur la base locale réelle : 77 revendications NA lues,
+7/16 paires victime-fenêtre couvertes ; **0 hit/60** avant comme après
+injection. La balance pré-enregistrée des poids 0, 10, 30 et 100 donne
+0/60 à chaque fois : avec le poids 100, entre 879 471 et 927 417 candidats
+reçoivent le même bonus à chaque coupure, et la victime la mieux classée
+reste au rang 27 816 (écart 3 points au dixième). Ce signal n'apporte donc
+aucun hit audité ; le classement publié n'est pas modifié. Détail figé dans
+`bench/results/naf-pressure-2026-11-22.json`.
