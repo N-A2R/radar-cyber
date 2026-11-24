@@ -1,0 +1,246 @@
+{
+  "selected": 134,
+  "verified": 25,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8342,
+    "withVerifiedProvenance": 8284,
+    "coveragePercent": 0.4955
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8367,
+    "withVerifiedProvenance": 8309,
+    "coveragePercent": 0.497
+  },
+  "domains": [
+    {
+      "orgId": 10434,
+      "siren": null,
+      "name": "HOPITAL DE JOUR ADULTES - CH DE DAX",
+      "domain": "ch-dax.fr",
+      "page": "https://www.ch-dax.fr/l-offre-de-soins/les-services-de-l-hopital/hopital-de-jour-psychiatrie-adulte-tyrosse",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20994,
+      "siren": null,
+      "name": "Lycée professionnel Jean-Baptiste Darnet",
+      "domain": "etablissement.ac-limoges.fr",
+      "page": "https://etablissement.ac-limoges.fr/lyc-darnet",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17521,
+      "siren": null,
+      "name": "Lycée professionnel Odilon Redon",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "page": "https://blogpeda.ac-bordeaux.fr/lyceeodilonredon",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20855,
+      "siren": null,
+      "name": "Lycée professionnel Raoul Dautry",
+      "domain": "etablissement.ac-limoges.fr",
+      "page": "https://etablissement.ac-limoges.fr/lyc-dautry",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17968,
+      "siren": null,
+      "name": "Collège Gaston Crampe",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "page": "https://blogpeda.ac-bordeaux.fr/citescolaireairesurladour40",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15831,
+      "siren": null,
+      "name": "Lycée Bernart de Ventadour",
+      "domain": "etablissement.ac-limoges.fr",
+      "page": "https://etablissement.ac-limoges.fr/lyc-ventadour",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20843,
+      "siren": null,
+      "name": "Lycée Auguste Renoir",
+      "domain": "etablissement.ac-limoges.fr",
+      "page": "https://etablissement.ac-limoges.fr/cite-renoir",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20967,
+      "siren": null,
+      "name": "Lycée Bernard Palissy",
+      "domain": "etablissement.ac-limoges.fr",
+      "page": "https://etablissement.ac-limoges.fr/lyc-palissy-stleo",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20984,
+      "siren": null,
+      "name": "Collège Fabre d'Églantine",
+      "domain": "etab.ac-poitiers.fr",
+      "page": "https://etab.ac-poitiers.fr/coll-feglantine-la-rochelle",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1715421,
+      "siren": "811914498",
+      "name": "BINDER PAULINE",
+      "domain": "medecins-saintporchaire.mspcoeurdesaintonge.fr",
+      "page": "https://medecins-saintporchaire.mspcoeurdesaintonge.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 8543,
+      "siren": null,
+      "name": "EHPAD RESIDENCE BELLEVUE",
+      "domain": "groupe-mieuxvivre.fr",
+      "page": "https://groupe-mieuxvivre.fr/nos-etablissements/residence-les-jardins-bellevue",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12776,
+      "siren": null,
+      "name": "LABORATOIRE MEDILAB GROUP (8)",
+      "domain": "medilab-group.eu",
+      "page": "https://medilab-group.eu/medilab-group/nos-laboratoires",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13398,
+      "siren": null,
+      "name": "USLD DE LUSIGNAN - CHU DE POITIERS",
+      "domain": "chu-poitiers.fr",
+      "page": "https://chu-poitiers.fr/les-plans-des-sites-de-lusignan",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 14356,
+      "siren": null,
+      "name": "PHARMACIE DES OMBRAGES",
+      "domain": "sante.fr",
+      "page": "https://sante.fr/pharmacie-dofficine/panazol/pharmacie-des-ombrages",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6315,
+      "siren": null,
+      "name": "EHPAD DU PAYS DE BRIVE",
+      "domain": "ch-brive.fr",
+      "page": "https://ch-brive.fr/service/direction-deleguee-ehpad-pays-brive",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1959058,
+      "siren": null,
+      "name": "MAISON DEPART SOLIDARITES ANGOULEME CENTRE SOYAUX (SOYAUX)",
+      "domain": "lacharente.fr",
+      "page": "https://lacharente.fr/en-charente/les-actions-du-departement",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 147515,
+      "siren": "399367036",
+      "name": "COLIGNY AUTOMOBILES",
+      "domain": "concessionnaire.renault.fr",
+      "page": "https://concessionnaire.renault.fr/la-rochelle.html",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 497494,
+      "siren": "848027439",
+      "name": "SISA DE LA HAUTE LANDE",
+      "domain": "coeurhautelande.fr",
+      "page": "https://www.coeurhautelande.fr/Communaute-de-communes/Services/La-maison-de-Sante-Pluridisciplinaire-de-Labouheyre",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 218331,
+      "siren": "441872124",
+      "name": "PHARMACIE JOUY",
+      "domain": "sante.fr",
+      "page": "https://sante.fr/pharmacie-dofficine/peyrilhac/pharmacie-jouy",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 269437,
+      "siren": "489114496",
+      "name": "PHARMACIE DU PARC",
+      "domain": "pharmanity.com",
+      "page": "https://www.pharmanity.com/pharmacie/pharmacie-du-parc-le-palais-sur-vienne-ph13012",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 285698,
+      "siren": "497635888",
+      "name": "SELARL PHARMACIE GONCALVES",
+      "domain": "pharmanity.com",
+      "page": "https://www.pharmanity.com/pharmacie/pharmacie-goncalves-le-palais-sur-vienne-ph13013",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 230057,
+      "siren": "448229807",
+      "name": "RIBRAY AUTOMOBILES",
+      "domain": "concessionnaire.renault.fr",
+      "page": "https://concessionnaire.renault.fr/niort.html",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 682239,
+      "siren": "982213290",
+      "name": "COOKIE FAMILY",
+      "domain": "lamiecaline.com",
+      "page": "https://lamiecaline.com/boutiques/bordeaux-sainte-catherine",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 372274,
+      "siren": "781543434",
+      "name": "OGEC INSTITUTION ST MARTIAL",
+      "domain": "etab.ac-poitiers.fr",
+      "page": "https://etab.ac-poitiers.fr/coll-pr-montmorillon",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 17645,
+      "siren": null,
+      "name": "Section d'enseignement général et technologique du lycée polyvalent Philippe Cousteau",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "page": "https://blogpeda.ac-bordeaux.fr/lyceesphilippecousteau",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    }
+  ]
+}

@@ -284,6 +284,15 @@ export type DetectionResult = {
 const MAX_DETECT_DEPTH = 4;
 const MAX_HTML_LINKS = 2000;
 
+/** Les six modes annoncés par `docs/architecture-collecte.md` et migrate-036. */
+export const READER_MODES = ["auto", "feed", "html-page", "html-links", "indicator-list", "quarantine-first"] as const;
+export type ReaderMode = (typeof READER_MODES)[number];
+
+/** NULL est historiquement `auto` ; une valeur inconnue ne doit rien inventer. */
+export function readerMode(reader: string | null | undefined): ReaderMode {
+  return READER_MODES.find((mode) => mode === reader) ?? "auto";
+}
+
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -388,7 +397,7 @@ function parseHtmlLinks(body: string): { items: Record<string, unknown>[]; path:
  * Détection automatique du format d'un corps de flux. Pure et sans effet de
  * bord : le diagnostic (`scripts/diagnose-parsers.mts`) l'appelle tel quel.
  */
-export function detectItems(body: string, contentType: string | null, mode: "auto" | "html-page" = "auto"): DetectionResult {
+export function detectItems(body: string, contentType: string | null, mode: "auto" | "html-page" | "html-links" = "auto"): DetectionResult {
   const text = body.trim();
   const declared = (contentType ?? "").toLowerCase();
   // Un mode déclaré prime sur la détection : une page de fuite doit être lue
@@ -396,6 +405,14 @@ export function detectItems(body: string, contentType: string | null, mode: "aut
   if (mode === "html-page") {
     const contenu = parseHtmlContent(text);
     if (contenu) return { strategy: "html-content", items: contenu.items, path: contenu.path };
+  }
+  if (mode === "html-links") {
+    const liens = parseHtmlLinks(text);
+    // Un mode déclaré ne retombe pas sur un autre extracteur : « donnez-moi
+    // les liens » ne doit pas ramener des cartes de victimes ou du contenu.
+    return liens
+      ? { strategy: "html-links", items: liens.items, path: liens.path }
+      : { strategy: "none", items: [], path: null };
   }
   const parsed = parseSource(text, { contentType: declared });
   if (parsed.items.length > 0) {
@@ -693,6 +710,15 @@ export function parseNarrativeItems(body: string, parser: Record<string, unknown
   });
 }
 
+/** `feed` : le chemin déclaré fait foi, sans repli sur un autre extracteur. */
+export function parseDeclaredFeed(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
+  const parsed = parseSource(body, {
+    itemsPath: typeof parser.itemsPath === "string" ? parser.itemsPath : undefined,
+  });
+  if (parsed.items.length > 0) return parsed.items.map((item) => ({ ...item }));
+  return declaredFormat === "rss" ? parseRss(body, parser) : parseJsonItems(body, parser);
+}
+
 function legacyNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
   const trimmed = body.trimStart();
   const looksFeed = /^<\?xml|^<(?:rss|feed|rdf:RDF)\b|^<rdf:RDF\b/i.test(trimmed) || /<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(trimmed.slice(0, 20000));
@@ -762,7 +788,7 @@ async function ingestNarrative(
   const parser = source.parser ?? {};
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
   /** Le mode déclaré par la source (migration 036) prime sur la détection. */
-  const reader = typeof source.reader === "string" ? source.reader : "auto";
+  const mode = readerMode(source.reader);
   // A misdecoded body is repaired before parsing so the declared reader sees
   // the text the publisher sent, not its latin-1 interpretation.
   let bodyToParse = body;
@@ -773,9 +799,9 @@ async function ingestNarrative(
       runLog?.(`[collect] ${source.id} : auto-repair ${fixed.repairs.join("+")} → ${fixed.strategy} → ${fixed.itemCount} item(s)`);
     }
   }
-  let items = parseNarrativeItems(bodyToParse, parser, source.format);
+  let items = mode === "feed" ? parseDeclaredFeed(bodyToParse, parser, source.format) : parseNarrativeItems(bodyToParse, parser, source.format);
   if (items.length === 0) {
-    const detected = detectItems(bodyToParse, null, reader === "html-page" ? "html-page" : "auto");
+    const detected = detectItems(bodyToParse, null, mode === "html-page" || mode === "html-links" ? mode : "auto");
     items = detected.items;
     if (detected.strategy === "none") {
       // Structural repairs run only after every reader has failed: they
@@ -1097,6 +1123,21 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
   return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
+type ReaderDecisionSource = { reader?: string | null; kind: string; format: string; url: string };
+
+/** `indicator-list` force la lecture ligne à ligne, même sur un corps HTML. */
+export function doitLireIndicateurs(source: ReaderDecisionSource, body: string): boolean {
+  const mode = readerMode(source.reader);
+  if (mode === "indicator-list") return true;
+  if (mode !== "auto") return false;
+  return source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body));
+}
+
+/** `quarantine-first` conserve le corps brut avant toute extraction. */
+export function doitMettreEnQuarantaine(source: { reader?: string | null }): boolean {
+  return readerMode(source.reader) === "quarantine-first";
+}
+
 async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, pertinenceConfig: RelevanceConfig, force = false, intervalles: Readonly<Record<string, number>> = {}): Promise<void> {
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
@@ -1121,8 +1162,10 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       await closeRun(runId, { itemsIn: 0, itemsNew: 0 });
       return;
     }
-    const reader = typeof source.reader === "string" ? source.reader : "auto";
-    const asIndicator = reader === "indicator-list" || (reader === "auto" && (source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body))));
+    if (doitMettreEnQuarantaine(source)) {
+      await quarantineUnparsedBody(source, body);
+    }
+    const asIndicator = doitLireIndicateurs(source, body);
     // Filtre anti-bruit : les blocklists mondiales (réputation, phishing) ne
     // gardent que les indicateurs actionnables pour nos actifs (voir filter.ts).
     const filterIdx = asIndicator && (looksLikeBlocklist(source.url, body) || source.family === "reputation" || source.family === "phishing")

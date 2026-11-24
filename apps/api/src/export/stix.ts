@@ -35,6 +35,9 @@ export type StixEventRow = {
 	confidence?: string | null;
 	evidence?: Record<string, unknown> | null;
 	created_at?: string | Date | null;
+	valid_at?: string | Date | null;
+	at?: string | Date | null;
+	observed_at?: string | Date | null;
 };
 
 export type StixExport = {
@@ -42,6 +45,7 @@ export type StixExport = {
 	tlp: Tlp;
 	pap: Pap;
 	confidence: string;
+	validFrom: string | Date;
 	object: Record<string, unknown>;
 	sourceEventId: number;
 };
@@ -78,19 +82,25 @@ export function buildStixObject(row: StixEventRow): StixExport | null {
 	const reference = row.dedup_key ?? String(row.id);
 	const id = `indicator--${stixUuid("event", reference)}`;
 	const date = row.created_at ?? new Date(0);
+	// `at` = date d'apprentissage par le radar ; `valid_at` = date à laquelle
+	// le fait est vrai. Les deux restent distincts dans l'objet exporté.
+	const created = row.at ?? row.observed_at ?? date;
+	const validFrom = row.valid_at ?? row.observed_at ?? created;
 	const tlpRef = `marking-definition--${stixUuid("tlp", tags.tlp)}`;
 	const papRef = `marking-definition--${stixUuid("pap", tags.pap)}`;
 
 	return {
 		id,
 		...tags,
+		validFrom,
 		sourceEventId: row.id,
 		object: {
 			type: "indicator",
 			spec_version: "2.1",
 			id,
-			created: date,
-			modified: date,
+			created,
+			modified: created,
+			valid_from: validFrom,
 			name: `${row.family} / ${row.assertion_type}`,
 			pattern_type: "radar-event-id",
 			pattern: `[x-radar:event-id = ${row.id}]`,
@@ -108,13 +118,14 @@ export function buildStixObject(row: StixEventRow): StixExport | null {
 }
 
 export const UPSERT_STIX_OBJECT = `
-  INSERT INTO stix_object (id, stix_type, tlp, pap, confidence, object, source_event_id)
-  VALUES ($1, 'indicator', $2, $3, $4, $5::jsonb, $6)
+  INSERT INTO stix_object (id, stix_type, tlp, pap, confidence, object, valid_from, source_event_id)
+  VALUES ($1, 'indicator', $2, $3, $4, $5::jsonb, $6::timestamptz, $7)
   ON CONFLICT (id) DO UPDATE SET
     tlp = EXCLUDED.tlp,
     pap = EXCLUDED.pap,
     confidence = EXCLUDED.confidence,
     object = EXCLUDED.object,
+    valid_from = EXCLUDED.valid_from,
     source_event_id = EXCLUDED.source_event_id,
     exported_at = now()
 `;
@@ -124,7 +135,8 @@ export const UPSERT_STIX_OBJECT = `
  * (migration 200). Lire autre chose que cette liste serait un export inattentif.
  */
 export const PUBLIC_EVENTS_SQL = `
-  SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.tlp, e.confidence, e.evidence, e.created_at
+  SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.tlp, e.confidence, e.evidence,
+         e.created_at, e.valid_at, e.at, e.observed_at
     FROM event e
     JOIN export_public_event x ON x.event_id = e.id
    ORDER BY e.id
@@ -171,6 +183,7 @@ export async function persistStixObjects(
 			built.pap,
 			built.confidence,
 			JSON.stringify(built.object),
+			built.validFrom,
 			built.sourceEventId,
 		]);
 		exported++;

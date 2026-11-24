@@ -105,6 +105,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/export/misp", niveau: "public", motif: "flux MISP des faits TLP:CLEAR/GREEN, sans donnée personnelle" },
   { methode: "GET", route: "/api/na/provider-spof", niveau: "public" },
   { methode: "GET", route: "/api/na/providers", niveau: "public" },
+  { methode: "GET", route: "/api/na/prestataires-qualifies", niveau: "public", motif: "fiches ANSSI : référence de décision, dates et extrait daté publiés, source nationale" },
   { methode: "GET", route: "/api/attack-path", niveau: "public", motif: "plus court chemin d'attaque entre deux organisations" },
   { methode: "GET", route: "/api/early-warning/global-to-regional", niveau: "public" },
   { methode: "GET", route: "/api/siret/establishments/count", niveau: "public", motif: "compteur public : établissements SIRET rattachés aux sièges" },

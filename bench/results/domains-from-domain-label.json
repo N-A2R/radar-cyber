@@ -1,0 +1,4251 @@
+{
+  "selected": 819,
+  "verified": 470,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8367,
+    "withVerifiedProvenance": 8309,
+    "coveragePercent": 0.497
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8837,
+    "withVerifiedProvenance": 8779,
+    "coveragePercent": 0.5251
+  },
+  "domains": [
+    {
+      "orgId": 5693,
+      "siren": null,
+      "name": "HOPITAL DE JOUR PEDO-PSY LA ROCHELLE",
+      "domain": "ch-larochelle.fr",
+      "page": "https://ch-larochelle.fr/etablissement/notre-organisation/marius-lacroix",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5978,
+      "siren": null,
+      "name": "CH ROCHEFORT - SITE ST PIERRE OLERON",
+      "domain": "ch-rochefort.fr",
+      "page": "https://www.ch-rochefort.fr/",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5783,
+      "siren": null,
+      "name": "SISA",
+      "domain": "ch-larochelle.fr",
+      "page": "https://ch-larochelle.fr/service/les-services-de-soins/psychiatrie/addictologie",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5789,
+      "siren": null,
+      "name": "SSR CH LA ROCHELLE",
+      "domain": "ch-larochelle.fr",
+      "page": "https://ch-larochelle.fr/service/les-services-de-soins/consultations-et-medecine/soins-de-suite-et-de-readaptation",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5574,
+      "siren": null,
+      "name": "EHPAD - CH ROCHEFORT",
+      "domain": "ch-rochefort.fr",
+      "page": "https://www.ch-rochefort.fr/service/les-services-de-soins/gerontologie/ehpad",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5508,
+      "siren": null,
+      "name": "EHPAD - RESIDENCE LA POMMERAIE",
+      "domain": "perigny.fr",
+      "page": "https://perigny.fr/infos-pratiques-et-demarches/seniors/ehpad",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6759,
+      "siren": null,
+      "name": "EHPAD LE MONT",
+      "domain": "ch-aubusson.fr",
+      "page": "https://ch-aubusson.fr/site/le-mont",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6760,
+      "siren": null,
+      "name": "EHPAD SAINT-JEAN",
+      "domain": "ch-aubusson.fr",
+      "page": "https://ch-aubusson.fr/site/saint-jean",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7063,
+      "siren": null,
+      "name": "EHPAD LA MADELEINE",
+      "domain": "ehpad-maison-retraite-madeleine.fr",
+      "page": "https://ehpad-maison-retraite-madeleine.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 10969,
+      "siren": null,
+      "name": "EHPAD DE NERAC",
+      "domain": "ch-agen-nerac.fr",
+      "page": "https://ch-agen-nerac.fr/les-patients-visiteurs/ehpad-de-nerac-76-66.html",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 10966,
+      "siren": null,
+      "name": "CH AGEN NERAC - ANTENNE SMUR DE NERAC",
+      "domain": "ch-agen-nerac.fr",
+      "page": "https://ch-agen-nerac.fr/les-patients-visiteurs/smur-76-66.html",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11369,
+      "siren": null,
+      "name": "CH COTE BASQUE",
+      "domain": "ch-cote-basque.fr",
+      "page": "https://ch-cote-basque.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12348,
+      "siren": null,
+      "name": "EHPAD LE LUY DE BEARN",
+      "domain": "sauvagnon.fr",
+      "page": "https://sauvagnon.fr/social-et-sante/maison-de-retraite",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12083,
+      "siren": null,
+      "name": "EHPAD LES JARDINS D'IROISE DE PAU",
+      "domain": "lesjardinsiroise.fr",
+      "page": "https://lesjardinsiroise.fr/etablissements/ehpad-pau-64",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12411,
+      "siren": null,
+      "name": "EHPAD LES JARDINS D'IROISE D'UZOS",
+      "domain": "lesjardinsiroise.fr",
+      "page": "https://lesjardinsiroise.fr/etablissements/ehpad-uzos-64",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12537,
+      "siren": null,
+      "name": "CTRE HOSPITALIER DE MAULEON",
+      "domain": "hopital-mauleon.fr",
+      "page": "https://hopital-mauleon.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 12538,
+      "siren": null,
+      "name": "EHPAD - CH DE MAULEON",
+      "domain": "mauleon.fr",
+      "page": "https://mauleon.fr/au-quotidien/sante/ehpad",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12693,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LES BLEUETS",
+      "domain": "moncoutantsursevre.fr",
+      "page": "https://moncoutantsursevre.fr/ephad-1",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12735,
+      "siren": null,
+      "name": "CH NIORT- HAD SUD DEUX SEVRES",
+      "domain": "ch-niort.fr",
+      "page": "https://ch-niort.fr/patients-residents-et-accompagnants/nos-services/hospitalisation-domicile-had",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13491,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LOUIS ARAGON",
+      "domain": "naintre.fr",
+      "page": "https://www.naintre.fr/residences",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14391,
+      "siren": null,
+      "name": "CTRE HOSPITAL MOYEN SEJOUR ST JUNIEN",
+      "domain": "ch-stjunien.fr",
+      "page": "https://www.ch-stjunien.fr/",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 14388,
+      "siren": null,
+      "name": "CHU LIMOGES - ANTENNE SMUR ST JUNIEN",
+      "domain": "ch-stjunien.fr",
+      "page": "https://www.ch-stjunien.fr/urgences-r-animation",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8093,
+      "siren": null,
+      "name": "EHPAD LA CLAIRIERE DE LUSSY",
+      "domain": "bordeaux.fr",
+      "page": "https://bordeaux.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 3155,
+      "siren": "216401232",
+      "name": "Commune de Bidache",
+      "domain": "bidache.fr",
+      "page": "https://www.bidache.fr/",
+      "registry": "administration-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1960,
+      "siren": "213301088",
+      "name": "Commune de Castillon-la-Bataille",
+      "domain": "castillonpujols.fr",
+      "page": "https://www.castillonpujols.fr/",
+      "registry": "administration-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 16771,
+      "siren": null,
+      "name": "Collège privé Notre-Dame",
+      "domain": "notredamebordeaux.com",
+      "page": "https://notredamebordeaux.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18599,
+      "siren": null,
+      "name": "Collège Jean Monnet",
+      "domain": "citescolairedefumel.fr",
+      "page": "https://citescolairedefumel.fr",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 19170,
+      "siren": null,
+      "name": "Collège privé Piarres Larzabal",
+      "domain": "larzabalkolegioa.net",
+      "page": "https://larzabalkolegioa.net/eh",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 20298,
+      "siren": null,
+      "name": "Collège privé La Salle Saint-Martin",
+      "domain": "lasalle-saint-martin-couhe.fr",
+      "page": "https://lasalle-saint-martin-couhe.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20464,
+      "siren": null,
+      "name": "Collège privé Isaac de l'Étoile",
+      "domain": "isaac-etoile.fr",
+      "page": "https://isaac-etoile.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14645,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "saintjoseph-cognac.fr",
+      "page": "https://saintjoseph-cognac.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17860,
+      "siren": null,
+      "name": "Collège privé Notre-Dame-Sévigné",
+      "domain": "notredamesevigne.com",
+      "page": "https://notredamesevigne.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18482,
+      "siren": null,
+      "name": "Lycée agricole privé l'Ermitage",
+      "domain": "campusermitage.fr",
+      "page": "https://campusermitage.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15615,
+      "siren": null,
+      "name": "Lycée d'Arsonval",
+      "domain": "cite-scolaire-arsonval.fr",
+      "page": "https://cite-scolaire-arsonval.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16932,
+      "siren": null,
+      "name": "Lycée privé Assomption Sainte-Clotilde",
+      "domain": "assomption-bordeaux.com",
+      "page": "https://assomption-bordeaux.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16937,
+      "siren": null,
+      "name": "Lycée privé Saint-Genès La Salle",
+      "domain": "saint-genes.com",
+      "page": "https://saint-genes.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14639,
+      "siren": null,
+      "name": "Lycée agricole privé institut de Richemont",
+      "domain": "institut-richemont.fr",
+      "page": "https://institut-richemont.fr",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 17281,
+      "siren": null,
+      "name": "Lycée privé de la Sauque",
+      "domain": "lasauque.com",
+      "page": "https://lasauque.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19449,
+      "siren": null,
+      "name": "Lycée privé Saint-Joseph",
+      "domain": "saint-joseph-oloron.fr",
+      "page": "https://saint-joseph-oloron.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18483,
+      "siren": null,
+      "name": "Lycée privé Saint-Caprais",
+      "domain": "lycee-saintcaprais.fr",
+      "page": "https://lycee-saintcaprais.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14543,
+      "siren": null,
+      "name": "Lycée Marguerite de Valois",
+      "domain": "citescolairevaloisrostand.fr",
+      "page": "https://citescolairevaloisrostand.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18326,
+      "siren": null,
+      "name": "Lycée professionnel agricole privé Sainte-Élisabeth",
+      "domain": "lycee-sainte-elisabeth.com",
+      "page": "https://lycee-sainte-elisabeth.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19613,
+      "siren": null,
+      "name": "Lycée privé Saint-Thomas d'Aquin",
+      "domain": "stthomasdaquin.fr",
+      "page": "https://stthomasdaquin.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20771,
+      "siren": null,
+      "name": "Collège privé Beaupeyrat",
+      "domain": "beaupeyrat.fr",
+      "page": "https://beaupeyrat.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20528,
+      "siren": null,
+      "name": "Lycée privé l'Union Chrétienne",
+      "domain": "union-chretienne-poitiers.fr",
+      "page": "https://union-chretienne-poitiers.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19465,
+      "siren": null,
+      "name": "Collège privé Moncade",
+      "domain": "moncade.fr",
+      "page": "https://moncade.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18086,
+      "siren": null,
+      "name": "Collège privé Saint-Jean Bosco",
+      "domain": "saintjeanboscogabarret.fr",
+      "page": "https://www.saintjeanboscogabarret.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18894,
+      "siren": null,
+      "name": "Collège privé Stella Maris",
+      "domain": "stellamarisanglet.fr",
+      "page": "https://stellamarisanglet.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15858,
+      "siren": null,
+      "name": "Lycée professionnel Jean Jaurès",
+      "domain": "cite-scolaire-aubusson.fr",
+      "page": "https://cite-scolaire-aubusson.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15113,
+      "siren": null,
+      "name": "Collège privé Marie Eustelle",
+      "domain": "marie-eustelle.fr",
+      "page": "https://marie-eustelle.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16774,
+      "siren": null,
+      "name": "Collège privé Saint-Louis Sainte-Thérèse",
+      "domain": "saintlouissaintetherese.com",
+      "page": "https://saintlouissaintetherese.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19655,
+      "siren": null,
+      "name": "Collège privé Saint-Martin",
+      "domain": "enseignementprivesalies.fr",
+      "page": "https://enseignementprivesalies.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19634,
+      "siren": null,
+      "name": "Collège privé Etchecopar",
+      "domain": "college-etchecopar.fr",
+      "page": "https://college-etchecopar.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19591,
+      "siren": null,
+      "name": "Collège privé Donostei",
+      "domain": "donostei.eus",
+      "page": "https://donostei.eus",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18419,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "saint-joseph-tartas.com",
+      "page": "https://saint-joseph-tartas.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17331,
+      "siren": null,
+      "name": "Collège privé Notre-Dame",
+      "domain": "notredame-medoc.org",
+      "page": "https://notredame-medoc.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16768,
+      "siren": null,
+      "name": "Collège privé Albert Le Grand",
+      "domain": "albert-le-grand.com",
+      "page": "https://albert-le-grand.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18819,
+      "siren": null,
+      "name": "Collège privé Saint-Jean",
+      "domain": "college-saint-jean-tonneins.fr",
+      "page": "https://college-saint-jean-tonneins.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19511,
+      "siren": null,
+      "name": "Collège privé Sainte-Ursule",
+      "domain": "sainte-ursule-pau.fr",
+      "page": "https://sainte-ursule-pau.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17366,
+      "siren": null,
+      "name": "Lycée privé Montesquieu",
+      "domain": "lyceemontesquieulibourne.com",
+      "page": "https://lyceemontesquieulibourne.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15473,
+      "siren": null,
+      "name": "Lycée Bernard Palissy",
+      "domain": "palissy.fr",
+      "page": "https://palissy.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19802,
+      "siren": null,
+      "name": "Lycée professionnel Léonard de Vinci",
+      "domain": "lycees-vinci-signoret.fr",
+      "page": "https://lycees-vinci-signoret.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18671,
+      "siren": null,
+      "name": "Lycée professionnel privé Notre-Dame de la Compassion",
+      "domain": "lycee-lacompassion.fr",
+      "page": "https://lycee-lacompassion.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20031,
+      "siren": null,
+      "name": "Lycée polyvalent privé Saint-André",
+      "domain": "lycee-saintandre-niort.com",
+      "page": "https://lycee-saintandre-niort.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16484,
+      "siren": null,
+      "name": "Lycée professionnel privé Saint-Joseph",
+      "domain": "saint-joseph-sarlat.org",
+      "page": "https://saint-joseph-sarlat.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19862,
+      "siren": null,
+      "name": "Lycée professionnel Jean-François Cail",
+      "domain": "lycee-jf-cail.fr",
+      "page": "https://lycee-jf-cail.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19416,
+      "siren": null,
+      "name": "Lycée Albert Camus",
+      "domain": "citescolairemourenx.fr",
+      "page": "http://citescolairemourenx.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19555,
+      "siren": null,
+      "name": "Lycée Saint-John-Perse",
+      "domain": "lycee-saint-john-perse.fr",
+      "page": "https://lycee-saint-john-perse.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19268,
+      "siren": null,
+      "name": "Collège privé Le Beau Rameau",
+      "domain": "beau-rameau.org",
+      "page": "https://beau-rameau.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15583,
+      "siren": null,
+      "name": "Collège privé Notre-Dame Jeanne-d'Arc - ensemble scolaire Edmond Michelet",
+      "domain": "edmichelet-brive.fr",
+      "page": "https://edmichelet-brive.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16773,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph de Tivoli",
+      "domain": "tivoli-33.org",
+      "page": "https://tivoli-33.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18999,
+      "siren": null,
+      "name": "Collège privé Largenté",
+      "domain": "largente.eu",
+      "page": "https://largente.eu",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17009,
+      "siren": null,
+      "name": "Collège privé Jean-Joseph Lataste",
+      "domain": "jjlataste.fr",
+      "page": "https://jjlataste.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15317,
+      "siren": null,
+      "name": "Collège privé Sainte-Marie Saint-Jean-Baptiste",
+      "domain": "ste-marie-royan.fr",
+      "page": "https://ste-marie-royan.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14714,
+      "siren": null,
+      "name": "Collège privé Saint-Pierre",
+      "domain": "ensemblesaintpierre.fr",
+      "page": "https://ensemblesaintpierre.fr",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 15617,
+      "siren": null,
+      "name": "Lycée polyvalent privé Bahuet",
+      "domain": "bahuet.fr",
+      "page": "https://bahuet.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17569,
+      "siren": null,
+      "name": "Lycée professionnel Philadelphe de Gerde",
+      "domain": "lyceepro-pessac.fr",
+      "page": "https://lyceepro-pessac.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16940,
+      "siren": null,
+      "name": "Lycée privé Sainte-Famille Saintonge",
+      "domain": "lyceesaintefamille.com",
+      "page": "https://lyceesaintefamille.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20527,
+      "siren": null,
+      "name": "Lycée polyvalent privé Saint-Jacques de Compostelle",
+      "domain": "stjacquesdecompostelle.com",
+      "page": "https://www.stjacquesdecompostelle.com/",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 19060,
+      "siren": null,
+      "name": "Lycée agricole privé de Soule - Mauléon",
+      "domain": "larps-mauleon.fr",
+      "page": "https://larps-mauleon.fr/fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17531,
+      "siren": null,
+      "name": "Collège Gérard Philipe",
+      "domain": "collegegerardphilipe.fr",
+      "page": "https://www.collegegerardphilipe.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18713,
+      "siren": null,
+      "name": "Collège privé Sainte-Claire",
+      "domain": "collegesainteclairenerac.fr",
+      "page": "https://collegesainteclairenerac.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15200,
+      "siren": null,
+      "name": "Lycée privé La Salle Saint-Louis",
+      "domain": "lasallesaintlouis.fr",
+      "page": "https://lasallesaintlouis.fr",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 15304,
+      "siren": null,
+      "name": "Lycée polyvalent privé Fénelon Notre-Dame",
+      "domain": "fenelon-notredame.com",
+      "page": "https://fenelon-notredame.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17520,
+      "siren": null,
+      "name": "Lycée privé Saint-Jean",
+      "domain": "stjean-pauillac.fr",
+      "page": "https://stjean-pauillac.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15298,
+      "siren": null,
+      "name": "Lycée Antoine de Saint-Exupéry",
+      "domain": "lycee-saintexupery-larochelle.fr",
+      "page": "https://lycee-saintexupery-larochelle.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17752,
+      "siren": null,
+      "name": "Lycée professionnel privé Jeanne d'Arc",
+      "domain": "etablissement-jeannedarc.fr",
+      "page": "https://etablissement-jeannedarc.fr",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 18380,
+      "siren": null,
+      "name": "Lycée agricole privé de Saubrigues",
+      "domain": "lyceedesaubrigues.fr",
+      "page": "https://lyceedesaubrigues.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16493,
+      "siren": null,
+      "name": "Lycée agricole privé le Cluzeau",
+      "domain": "lecluzeau.com",
+      "page": "https://lecluzeau.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16715,
+      "siren": null,
+      "name": "Lycée professionnel privé Saint-Michel",
+      "domain": "lycee-saint-michel33.fr",
+      "page": "https://lycee-saint-michel33.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19041,
+      "siren": null,
+      "name": "Lycée privé Saint-Louis Villa Pia",
+      "domain": "villapia.fr",
+      "page": "https://villapia.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18349,
+      "siren": null,
+      "name": "Lycée privé Jean Cassaigne",
+      "domain": "gs-cassaigne.fr",
+      "page": "https://gs-cassaigne.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16102,
+      "siren": null,
+      "name": "Lycée privé Sainte-Marthe Saint-Front",
+      "domain": "smsf-bergerac.com",
+      "page": "https://smsf-bergerac.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19638,
+      "siren": null,
+      "name": "Lycée agricole privé Jean Errecart",
+      "domain": "lycee-errecart.com",
+      "page": "https://www.lycee-errecart.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20556,
+      "siren": null,
+      "name": "Lycée agricole Xavier Bernard - Venours",
+      "domain": "venours.fr",
+      "page": "https://venours.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14850,
+      "siren": null,
+      "name": "Lycée professionnel agricole privé Claire Champagne",
+      "domain": "lycee-clairechampagne.org",
+      "page": "https://lycee-clairechampagne.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19675,
+      "siren": null,
+      "name": "Lycée agricole privé Notre-Dame",
+      "domain": "lycee-prive-64.fr",
+      "page": "https://lycee-prive-64.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17128,
+      "siren": null,
+      "name": "Lycée agricole privé Saint-Clément",
+      "domain": "saintclement.com",
+      "page": "https://saintclement.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14545,
+      "siren": null,
+      "name": "Lycée privé Saint-Paul",
+      "domain": "saint-paul-angouleme.fr",
+      "page": "https://saint-paul-angouleme.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18669,
+      "siren": null,
+      "name": "Lycée polyvalent Val de Garonne",
+      "domain": "citescolairedemarmande.fr",
+      "page": "https://citescolairedemarmande.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19743,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "collegestjoseph.fr",
+      "page": "http://collegestjoseph.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14784,
+      "siren": null,
+      "name": "Collège privé Anne-Marie Martel",
+      "domain": "am-martel.fr",
+      "page": "https://am-martel.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15023,
+      "siren": null,
+      "name": "Collège privé Notre-Dame de Nazareth",
+      "domain": "nd-nazareth-cozes.fr",
+      "page": "https://nd-nazareth-cozes.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20651,
+      "siren": null,
+      "name": "Collège privé du Sauveur",
+      "domain": "lesauveur.org",
+      "page": "https://lesauveur.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19953,
+      "siren": null,
+      "name": "Collège privé Charles Peguy",
+      "domain": "ecole-college-catholique-moncoutant.fr",
+      "page": "https://ecole-college-catholique-moncoutant.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20466,
+      "siren": null,
+      "name": "Collège privé la Providence - La Salle",
+      "domain": "laprovidence-poitiers.fr",
+      "page": "https://laprovidence-poitiers.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19145,
+      "siren": null,
+      "name": "Collège privé Ikastola Xalbador",
+      "domain": "xalbador-kolegioa.eus",
+      "page": "https://xalbador-kolegioa.eus",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 20414,
+      "siren": null,
+      "name": "Collège Jean Moulin",
+      "domain": "jeanmoulin-montmorillon.fr",
+      "page": "https://jeanmoulin-montmorillon.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19777,
+      "siren": null,
+      "name": "Collège privé Notre-Dame",
+      "domain": "clgnotredame.fr",
+      "page": "https://clgnotredame.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19249,
+      "siren": null,
+      "name": "Collège privé Saint-Vincent",
+      "domain": "stvincent.eus",
+      "page": "https://stvincent.eus",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19426,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "stjoseph-nay.com",
+      "page": "https://stjoseph-nay.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19509,
+      "siren": null,
+      "name": "Collège privé Saint-Dominique",
+      "domain": "saintdominique.fr",
+      "page": "https://saintdominique.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19570,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "stjosephdepontacq.com",
+      "page": "http://stjosephdepontacq.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17683,
+      "siren": null,
+      "name": "Collège François Mauriac",
+      "domain": "collegefrancoismauriac.fr",
+      "page": "https://www.collegefrancoismauriac.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18712,
+      "siren": null,
+      "name": "Collège Henri de Navarre",
+      "domain": "cite-scolaire-nerac.fr",
+      "page": "https://cite-scolaire-nerac.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18027,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "college-st-joseph-capbreton.fr",
+      "page": "https://college-st-joseph-capbreton.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14560,
+      "siren": null,
+      "name": "Collège privé catholique Sainte-Marie",
+      "domain": "sainte-marie-barbezieux.fr",
+      "page": "https://sainte-marie-barbezieux.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17688,
+      "siren": null,
+      "name": "Collège privé Anglade Langalerie",
+      "domain": "college-anglade.com",
+      "page": "https://college-anglade.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14841,
+      "siren": null,
+      "name": "Lycée polyvalent privé Saint-Joseph L'Amandier",
+      "domain": "lamandier.fr",
+      "page": "https://lamandier.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20163,
+      "siren": null,
+      "name": "Lycée Jean Moulin",
+      "domain": "jeanmoulinthouars.fr",
+      "page": "https://jeanmoulinthouars.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20294,
+      "siren": null,
+      "name": "Lycée technique agricole privé La Perrière",
+      "domain": "lycee-la-perriere.fr",
+      "page": "https://lycee-la-perriere.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20522,
+      "siren": null,
+      "name": "Lycée du Bois d'Amour",
+      "domain": "lycee-boisdamour.fr",
+      "page": "https://lycee-boisdamour.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18866,
+      "siren": null,
+      "name": "Lycée agricole privé l'Oustal",
+      "domain": "lycee-oustal.fr",
+      "page": "https://lycee-oustal.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14950,
+      "siren": null,
+      "name": "Lycée agricole privé La Salle Saint-Antoine",
+      "domain": "lasallesaintantoine.fr",
+      "page": "https://lasallesaintantoine.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19043,
+      "siren": null,
+      "name": "Lycée professionnel privé le Guichot",
+      "domain": "lyceeleguichot.fr",
+      "page": "https://lyceeleguichot.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19478,
+      "siren": null,
+      "name": "Lycée professionnel Francis Jammes",
+      "domain": "lycee-metiers-orthez.fr",
+      "page": "https://lycee-metiers-orthez.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16942,
+      "siren": null,
+      "name": "Lycée privé Sainte-Marie Grand Lebrun",
+      "domain": "grandlebrun.com",
+      "page": "https://grandlebrun.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20155,
+      "siren": null,
+      "name": "Collège privé Saint-Charles",
+      "domain": "st-charles-thouars.net",
+      "page": "https://st-charles-thouars.net",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16935,
+      "siren": null,
+      "name": "Lycée privé Le Mirail - le lycée du matin",
+      "domain": "le-mirail.fr",
+      "page": "https://le-mirail.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20989,
+      "siren": null,
+      "name": "Collège Jean-Baptiste Darnet",
+      "domain": "etablissement.ac-limoges.fr",
+      "page": "https://etablissement.ac-limoges.fr/lyc-darnet",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19001,
+      "siren": null,
+      "name": "Collège privé Saint-Amand",
+      "domain": "saintamandbayonne.fr",
+      "page": "https://saintamandbayonne.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19640,
+      "siren": null,
+      "name": "Collège privé Arretxea",
+      "domain": "collegearretxea.eus",
+      "page": "https://collegearretxea.eus",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17169,
+      "siren": null,
+      "name": "Collège privé Sainte-Claire",
+      "domain": "steclaire.org",
+      "page": "https://steclaire.org",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19822,
+      "siren": null,
+      "name": "Collège privé François d'Assise",
+      "domain": "francois-d-assise.fr",
+      "page": "https://francois-d-assise.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20040,
+      "siren": null,
+      "name": "Collège privé Sainte-Émilie de Rodat",
+      "domain": "collegesainteemiliederodat.fr",
+      "page": "https://collegesainteemiliederodat.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20310,
+      "siren": null,
+      "name": "Collège privé Saint-Pierre",
+      "domain": "collegesaintpierre.fr",
+      "page": "https://www.collegesaintpierre.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18534,
+      "siren": null,
+      "name": "Collège privé Saint-Pierre",
+      "domain": "stpierre47.fr",
+      "page": "https://stpierre47.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19237,
+      "siren": null,
+      "name": "Collège privé Ursuya",
+      "domain": "collegeursuya.fr",
+      "page": "https://collegeursuya.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18998,
+      "siren": null,
+      "name": "Collège privé La Salle Saint-Bernard",
+      "domain": "saintbernard-bayonne.fr",
+      "page": "https://saintbernard-bayonne.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16375,
+      "siren": null,
+      "name": "Collège privé Notre-Dame",
+      "domain": "notredame-riberac.fr",
+      "page": "https://notredame-riberac.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16392,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "stjoseph-sab.fr",
+      "page": "https://stjoseph-sab.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16954,
+      "siren": null,
+      "name": "Lycée professionnel privé la Ruche",
+      "domain": "lpplaruche.fr",
+      "page": "https://lpplaruche.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20851,
+      "siren": null,
+      "name": "Lycée polyvalent privé Polaris Formation",
+      "domain": "polaris-formation.fr",
+      "page": "https://polaris-formation.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16482,
+      "siren": null,
+      "name": "Lycée Joséphine Baker",
+      "domain": "lycee-predecordy-sarlat.com",
+      "page": "https://lycee-predecordy-sarlat.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16300,
+      "siren": null,
+      "name": "Lycée polyvalent Alcide Dusolier",
+      "domain": "adusolier-nontron.com",
+      "page": "https://adusolier-nontron.com",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18544,
+      "siren": null,
+      "name": "Collège privé La Salle Sainte-Marie",
+      "domain": "saintemarie-casteljaloux.fr",
+      "page": "https://saintemarie-casteljaloux.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 442127,
+      "siren": "821143088",
+      "name": "HOLDING MINITAUX",
+      "domain": "minitaux.fr",
+      "page": "https://minitaux.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2255,
+      "siren": "213304157",
+      "name": "Commune de Saint-Gervais",
+      "domain": "mairiesaintgervais33.fr",
+      "page": "https://mairiesaintgervais33.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2858,
+      "siren": "214701427",
+      "name": "Commune de Lauzun",
+      "domain": "ville-lauzun.fr",
+      "page": "https://ville-lauzun.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2150,
+      "siren": "213303035",
+      "name": "Commune de Nérigean",
+      "domain": "nerigean.fr",
+      "page": "http://nerigean.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2520,
+      "siren": "214001356",
+      "name": "Commune de Labrit",
+      "domain": "labrit.fr",
+      "page": "https://labrit.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1758,
+      "siren": "212404792",
+      "name": "Commune de Saint-Pardoux-la-Rivière",
+      "domain": "saint-pardoux-la-riviere.fr",
+      "page": "https://saint-pardoux-la-riviere.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1502,
+      "siren": "212401756",
+      "name": "Commune de Les Farges",
+      "domain": "les-farges-en-perigord-noir.fr",
+      "page": "https://les-farges-en-perigord-noir.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1850,
+      "siren": "212405807",
+      "name": "Commune de Villac",
+      "domain": "mairie-villac.fr",
+      "page": "https://mairie-villac.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2317,
+      "siren": "213304801",
+      "name": "Commune de Saint-Sulpice-de-Faleyrens",
+      "domain": "saintsulpicedefaleyrens.com",
+      "page": "https://saintsulpicedefaleyrens.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2836,
+      "siren": "214701203",
+      "name": "Commune de Jusix",
+      "domain": "jusix-47.fr",
+      "page": "https://jusix-47.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 561258,
+      "siren": "901091132",
+      "name": "SARL GLASS MONKEY",
+      "domain": "aplusglass.com",
+      "page": "https://aplusglass.com/centre-bergerac-24100",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2713,
+      "siren": "214003303",
+      "name": "Commune de Villenave",
+      "domain": "villenave.fr",
+      "page": "https://villenave.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1442,
+      "siren": "212401061",
+      "name": "Commune de La Chapelle-Aubareil",
+      "domain": "la-chapelle-aubareil.fr",
+      "page": "https://la-chapelle-aubareil.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1026,
+      "siren": "211921101",
+      "name": "Commune de Saint-Hilaire-Peyroux",
+      "domain": "mairie-saint-hilaire-peyroux.fr",
+      "page": "http://mairie-saint-hilaire-peyroux.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2389,
+      "siren": "213305543",
+      "name": "Commune de Yvrac",
+      "domain": "yvrac.fr",
+      "page": "https://yvrac.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 766,
+      "siren": "211704291",
+      "name": "Commune de Soubise",
+      "domain": "soubise.fr",
+      "page": "https://soubise.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 84273,
+      "siren": "321512394",
+      "name": "CREDIT MUTUEL AGEN PIN - NERAC",
+      "domain": "creditmutuel.fr",
+      "page": "https://creditmutuel.fr/fr/caisse/nouvelle-aquitaine/lot-et-garonne/10278-02255-00",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2853,
+      "siren": "214701377",
+      "name": "Commune de Laplume",
+      "domain": "laplume.fr",
+      "page": "https://laplume.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2923,
+      "siren": "214702102",
+      "name": "Commune de Port-Sainte-Marie",
+      "domain": "portsaintemarie.fr",
+      "page": "https://portsaintemarie.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3868,
+      "siren": "218600385",
+      "name": "Commune de Brion",
+      "domain": "brion86.fr",
+      "page": "https://brion86.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 623,
+      "siren": "211702782",
+      "name": "Commune de Pisany",
+      "domain": "mairie-pisany17.com",
+      "page": "https://mairie-pisany17.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 18,
+      "siren": "211600242",
+      "name": "Commune de Aussac-Vadalle",
+      "domain": "aussac-vadalle.fr",
+      "page": "https://aussac-vadalle.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2965,
+      "siren": "214702532",
+      "name": "Commune de Sainte-Marthe",
+      "domain": "mairie-saintemarthe.fr",
+      "page": "https://mairie-saintemarthe.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 505,
+      "siren": "211701545",
+      "name": "Commune de Les Essards",
+      "domain": "les-essards.fr",
+      "page": "https://les-essards.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 57,
+      "siren": "211600663",
+      "name": "Commune de Brossac",
+      "domain": "brossac.fr",
+      "page": "https://brossac.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 451892,
+      "siren": "824649719",
+      "name": "DELFAU",
+      "domain": "ansac-sur-vienne.fr",
+      "page": "https://ansac-sur-vienne.fr/vie-locale/la-garchoise",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 463,
+      "siren": "211701107",
+      "name": "Commune de Clérac",
+      "domain": "ville-clerac.fr",
+      "page": "https://ville-clerac.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2972,
+      "siren": "214702607",
+      "name": "Commune de Saint-Maurin",
+      "domain": "saint-maurin.fr",
+      "page": "https://www.saint-maurin.fr/",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2084,
+      "siren": "213302342",
+      "name": "Commune de Latresne",
+      "domain": "mairie-latresne.fr",
+      "page": "https://www.mairie-latresne.fr/",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2237,
+      "siren": "213303951",
+      "name": "Commune de Saint-Estèphe",
+      "domain": "mairie-saint-estephe.fr",
+      "page": "https://mairie-saint-estephe.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3887,
+      "siren": "218600617",
+      "name": "Commune de Charroux",
+      "domain": "charroux86.fr",
+      "page": "https://charroux86.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2854,
+      "siren": "214701385",
+      "name": "Commune de Laroque-Timbaut",
+      "domain": "laroque-timbaut.fr",
+      "page": "https://laroque-timbaut.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 372,
+      "siren": "211700158",
+      "name": "Commune de Arces",
+      "domain": "commune-arces-sur-gironde.fr",
+      "page": "https://commune-arces-sur-gironde.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4286,
+      "siren": "218719904",
+      "name": "Commune de Vayres",
+      "domain": "vayres.fr",
+      "page": "https://vayres.fr/fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4212,
+      "siren": "218711901",
+      "name": "Commune de Pierre-Buffière",
+      "domain": "pierre-buffiere.com",
+      "page": "https://pierre-buffiere.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 758,
+      "siren": "211704218",
+      "name": "Commune de Saujon",
+      "domain": "saujon.fr",
+      "page": "https://saujon.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 510731,
+      "siren": "853100949",
+      "name": "CAISSE LOCALE DE CREDIT AGRICOLE MUTUEL DE ST VIVIEN",
+      "domain": "credit-agricole.fr",
+      "page": "https://credit-agricole.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 364562,
+      "siren": "752224964",
+      "name": "DIGITAL BAY",
+      "domain": "digitalbay.fr",
+      "page": "https://www.digitalbay.fr/",
+      "registry": "rna-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 542680,
+      "siren": "891884959",
+      "name": "MAISON DES LYCEENS DU LYCEE KASTLER",
+      "domain": "lyceekastler.fr",
+      "page": "https://www.lyceekastler.fr",
+      "registry": "rna-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 395712,
+      "siren": "798868725",
+      "name": "ASSOCIATION PARENTS ELEVES DE L ENSEIGNEMENT LIBREAPEL DE JEANNE D ARC",
+      "domain": "jeannedarc-ecole-college-prive-surgeres.com",
+      "page": "https://www.jeannedarc-ecole-college-prive-surgeres.com",
+      "registry": "rna-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2536,
+      "siren": "214001513",
+      "name": "Commune de Lesgor",
+      "domain": "lesgor.fr",
+      "page": "https://lesgor.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2274,
+      "siren": "213304355",
+      "name": "Commune de Saint-Macaire",
+      "domain": "saintmacaire.fr",
+      "page": "https://saintmacaire.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3402,
+      "siren": "216403766",
+      "name": "Commune de Meillon",
+      "domain": "meillon.fr",
+      "page": "https://meillon.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3256,
+      "siren": "216402271",
+      "name": "Commune de Gabaston",
+      "domain": "gabaston.fr",
+      "page": "https://gabaston.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1833,
+      "siren": "212406037",
+      "name": "Commune de Urval",
+      "domain": "urval.fr",
+      "page": "https://urval.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2456,
+      "siren": "214000705",
+      "name": "Commune de Castandet",
+      "domain": "castandet.fr",
+      "page": "https://castandet.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1877,
+      "siren": "213300213",
+      "name": "Commune de Auros",
+      "domain": "auros.fr",
+      "page": "https://auros.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1653,
+      "siren": "212403547",
+      "name": "Commune de La Roche-Chalais",
+      "domain": "larochechalais.fr",
+      "page": "https://larochechalais.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2161,
+      "siren": "213303159",
+      "name": "Commune de Les Peintures",
+      "domain": "lespeintures.fr",
+      "page": "https://lespeintures.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 844,
+      "siren": "211902309",
+      "name": "Commune de Beynat",
+      "domain": "beynat.fr",
+      "page": "https://beynat.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1106,
+      "siren": "212300800",
+      "name": "Commune de Aubusson",
+      "domain": "aubusson.fr",
+      "page": "https://aubusson.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3962,
+      "siren": "218601391",
+      "name": "Commune de Lusignan",
+      "domain": "lusignan.fr",
+      "page": "https://lusignan.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2768,
+      "siren": "214700510",
+      "name": "Commune de Castelculier",
+      "domain": "ville-de-castelculier.fr",
+      "page": "https://ville-de-castelculier.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3035,
+      "siren": "214703274",
+      "name": "Commune de Xaintrailles",
+      "domain": "xaintrailles.fr",
+      "page": "https://xaintrailles.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3926,
+      "siren": "218601037",
+      "name": "Commune de Gençay",
+      "domain": "gencay.fr",
+      "page": "https://gencay.fr/fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3170,
+      "siren": "216401380",
+      "name": "Commune de Bordes",
+      "domain": "bordes64.fr",
+      "page": "https://bordes64.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 937,
+      "siren": "211911805",
+      "name": "Commune de Le Lonzac",
+      "domain": "lelonzac.fr",
+      "page": "https://lelonzac.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2167,
+      "siren": "213303217",
+      "name": "Commune de Peujard",
+      "domain": "peujard.com",
+      "page": "https://peujard.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1332,
+      "siren": "212324404",
+      "name": "Commune de Saint-Sulpice-le-Dunois",
+      "domain": "paysdunois.fr",
+      "page": "https://paysdunois.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3162,
+      "siren": "216401307",
+      "name": "Commune de Biriatou",
+      "domain": "biriatou.fr",
+      "page": "https://biriatou.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1127,
+      "siren": "212303002",
+      "name": "Commune de Bourganeuf",
+      "domain": "bourganeuf.fr",
+      "page": "https://bourganeuf.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3437,
+      "siren": "216404137",
+      "name": "Commune de Narcastet",
+      "domain": "narcastet.fr",
+      "page": "https://narcastet.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1057,
+      "siren": "211924600",
+      "name": "Commune de Saint-Viance",
+      "domain": "saintviance.fr",
+      "page": "https://saintviance.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1990,
+      "siren": "213301393",
+      "name": "Commune de Coutures",
+      "domain": "coutures-sur-drot.fr",
+      "page": "https://coutures-sur-drot.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3065,
+      "siren": "216405878",
+      "name": "Commune de Arancou",
+      "domain": "arancou.fr",
+      "page": "https://arancou.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3132,
+      "siren": "216401000",
+      "name": "Commune de Bassussarry",
+      "domain": "bassussarry.fr",
+      "page": "https://bassussarry.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4183,
+      "siren": "218708808",
+      "name": "Commune de Magnac-Bourg",
+      "domain": "magnac-bourg.fr",
+      "page": "https://magnac-bourg.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2651,
+      "siren": "214002677",
+      "name": "Commune de Saint-Justin",
+      "domain": "saint-justin.fr",
+      "page": "https://saint-justin.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2696,
+      "siren": "214003139",
+      "name": "Commune de Tartas",
+      "domain": "tartas.fr",
+      "page": "https://tartas.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2553,
+      "siren": "214001687",
+      "name": "Commune de Magescq",
+      "domain": "mairie-magescq.fr",
+      "page": "https://mairie-magescq.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2062,
+      "siren": "213302110",
+      "name": "Commune de Labarde",
+      "domain": "labarde.fr",
+      "page": "https://labarde.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3126,
+      "siren": "216400945",
+      "name": "Commune de Bardos",
+      "domain": "bardos.fr",
+      "page": "https://bardos.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2410498,
+      "siren": "913374435",
+      "name": "BUREAU DES ETUDIANTS LA ROCHELLE UNIVERSITE",
+      "domain": "univ-larochelle.fr",
+      "page": "https://univ-larochelle.fr/orientation-et-reussite",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1922,
+      "siren": "213300676",
+      "name": "Commune de Bourg",
+      "domain": "bourg-gironde.fr",
+      "page": "https://bourg-gironde.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 381,
+      "siren": "211700240",
+      "name": "Commune de Aulnay",
+      "domain": "aulnay-de-saintonge.fr",
+      "page": "https://aulnay-de-saintonge.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4026,
+      "siren": "218602134",
+      "name": "Commune de Rouillé",
+      "domain": "rouille.fr",
+      "page": "https://rouille.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2700,
+      "siren": "214003170",
+      "name": "Commune de Tosse",
+      "domain": "tosse.fr",
+      "page": "https://tosse.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3142,
+      "siren": "216401109",
+      "name": "Commune de Béost",
+      "domain": "mairie-beost.fr",
+      "page": "https://mairie-beost.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2481,
+      "siren": "214000952",
+      "name": "Commune de Estibeaux",
+      "domain": "estibeaux.fr",
+      "page": "https://estibeaux.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1931,
+      "siren": "213300767",
+      "name": "Commune de Budos",
+      "domain": "budos.fr",
+      "page": "https://budos.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2369,
+      "siren": "213305345",
+      "name": "Commune de Le Tourne",
+      "domain": "letourne.fr",
+      "page": "https://letourne.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1927,
+      "siren": "213300726",
+      "name": "Commune de Brannens",
+      "domain": "brannens33.fr",
+      "page": "https://brannens33.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 671,
+      "siren": "211703269",
+      "name": "Commune de Saint-Eugène",
+      "domain": "sainteugene.fr",
+      "page": "https://sainteugene.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2675,
+      "siren": "214002917",
+      "name": "Commune de Saubion",
+      "domain": "saubion.fr",
+      "page": "https://saubion.fr/index.php/fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2565,
+      "siren": "214001802",
+      "name": "Commune de Meilhan",
+      "domain": "meilhan40.fr",
+      "page": "https://meilhan40.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1926,
+      "siren": "213300718",
+      "name": "Commune de Branne",
+      "domain": "mairie-branne.fr",
+      "page": "https://mairie-branne.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3625,
+      "siren": "217900695",
+      "name": "Commune de Chanteloup",
+      "domain": "chanteloup.fr",
+      "page": "https://chanteloup.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3242,
+      "siren": "216402131",
+      "name": "Commune de Espelette",
+      "domain": "mairie-espelette.fr",
+      "page": "https://mairie-espelette.fr/fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2616,
+      "siren": "214002313",
+      "name": "Commune de Port-de-Lanne",
+      "domain": "port-de-lanne.fr",
+      "page": "https://port-de-lanne.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 56,
+      "siren": "211600655",
+      "name": "Commune de Brillac",
+      "domain": "brillac-16.com",
+      "page": "https://brillac-16.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1965,
+      "siren": "213301146",
+      "name": "Commune de Cavignac",
+      "domain": "cavignac.fr",
+      "page": "https://www.cavignac.fr/",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3588,
+      "siren": "217900091",
+      "name": "Commune de Amuré",
+      "domain": "amure79.fr",
+      "page": "https://amure79.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 688,
+      "siren": "200085074",
+      "name": "Commune de Saint-Hilaire-de-Villefranche",
+      "domain": "sainthilairedevillefranche.fr",
+      "page": "https://www.sainthilairedevillefranche.fr/",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 438,
+      "siren": "211700828",
+      "name": "Commune de Champagnac",
+      "domain": "champagnac17.fr",
+      "page": "https://champagnac17.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2510,
+      "siren": "214001257",
+      "name": "Commune de Heugas",
+      "domain": "heugas.fr",
+      "page": "https://www.heugas.fr/",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3651,
+      "siren": "217901032",
+      "name": "Commune de Courlay",
+      "domain": "courlay.fr",
+      "page": "https://courlay.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2094,
+      "siren": "213302441",
+      "name": "Commune de Lignan-de-Bazas",
+      "domain": "lignandebazas.fr",
+      "page": "https://lignandebazas.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2465,
+      "siren": "214000796",
+      "name": "Commune de Cazalis",
+      "domain": "cazalis40.fr",
+      "page": "https://cazalis40.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3164,
+      "siren": "216401323",
+      "name": "Commune de Bizanos",
+      "domain": "ville-bizanos.fr",
+      "page": "https://ville-bizanos.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1956,
+      "siren": "213301039",
+      "name": "Commune de Castelmoron-d'Albret",
+      "domain": "castelmorondalbret.fr",
+      "page": "https://castelmorondalbret.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1465,
+      "siren": "212401335",
+      "name": "Commune de La Coquille",
+      "domain": "ville-lacoquille.fr",
+      "page": "https://ville-lacoquille.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2111,
+      "siren": "213302615",
+      "name": "Commune de Lussac",
+      "domain": "lussac-gironde.fr",
+      "page": "https://lussac-gironde.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1866,
+      "siren": "213300106",
+      "name": "Commune de Arcins",
+      "domain": "mairie-arcins.fr",
+      "page": "https://mairie-arcins.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2667,
+      "siren": "214002834",
+      "name": "Commune de Saint-Vincent-de-Paul",
+      "domain": "saintvincentdepaul.fr",
+      "page": "https://saintvincentdepaul.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2670,
+      "siren": "214002867",
+      "name": "Commune de Samadet",
+      "domain": "samadet.com",
+      "page": "https://samadet.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 550131,
+      "siren": "894926591",
+      "name": "APPUI ET VOUS EN DEUX SEVRES",
+      "domain": "deux-sevres.fr",
+      "page": "https://deux-sevres.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2490,
+      "siren": "214001042",
+      "name": "Commune de Gamarde-les-Bains",
+      "domain": "gamarde-les-bains.com",
+      "page": "https://gamarde-les-bains.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 253,
+      "siren": "211602925",
+      "name": "Commune de Ruffec",
+      "domain": "mairie-ruffec.fr",
+      "page": "https://mairie-ruffec.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1189,
+      "siren": "212309306",
+      "name": "Commune de Gouzon",
+      "domain": "gouzon23.com",
+      "page": "https://gouzon23.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2378,
+      "siren": "213305436",
+      "name": "Commune de Verdelais",
+      "domain": "verdelais.fr",
+      "page": "https://verdelais.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2413,
+      "siren": "214000259",
+      "name": "Commune de Bascons",
+      "domain": "bascons.fr",
+      "page": "https://bascons.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4165,
+      "siren": "218707008",
+      "name": "Commune de La Geneytouse",
+      "domain": "lageneytouse.fr",
+      "page": "https://lageneytouse.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3105,
+      "siren": "216400721",
+      "name": "Commune de Aubertin",
+      "domain": "aubertin.fr",
+      "page": "https://aubertin.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3802,
+      "siren": "217903111",
+      "name": "Commune de Secondigny",
+      "domain": "secondigny.fr",
+      "page": "https://secondigny.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 706,
+      "siren": "211703632",
+      "name": "Commune de Saint-Martial-de-Vitaterne",
+      "domain": "st-martial-de-vitaterne.fr",
+      "page": "https://st-martial-de-vitaterne.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3090,
+      "siren": "216400572",
+      "name": "Commune de Arthez-de-Béarn",
+      "domain": "arthez-de-bearn.fr",
+      "page": "https://arthez-de-bearn.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3534,
+      "siren": "216405118",
+      "name": "Commune de Sauvagnon",
+      "domain": "sauvagnon.fr",
+      "page": "https://sauvagnon.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3425,
+      "siren": "216404004",
+      "name": "Commune de Montaut",
+      "domain": "montaut64.fr",
+      "page": "https://montaut64.fr/fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1497,
+      "siren": "212401673",
+      "name": "Commune de Eymet",
+      "domain": "eymet-dordogne.fr",
+      "page": "https://eymet-dordogne.fr/fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2461,
+      "siren": "214000754",
+      "name": "Commune de Castets",
+      "domain": "castets.fr",
+      "page": "https://castets.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1543,
+      "siren": "212402259",
+      "name": "Commune de Lamonzie-Saint-Martin",
+      "domain": "lamonzie-saint-martin.fr",
+      "page": "https://lamonzie-saint-martin.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2952,
+      "siren": "214702391",
+      "name": "Commune de Saint-Étienne-de-Fougères",
+      "domain": "saintetiennedefougeres.fr",
+      "page": "https://saintetiennedefougeres.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 10967,
+      "siren": null,
+      "name": "CH AGEN NERAC - SITE DE NERAC",
+      "domain": "ch-agen-nerac.fr",
+      "page": "https://ch-agen-nerac.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14075,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER  ESQUIROL",
+      "domain": "ch-esquirol-limoges.fr",
+      "page": "https://ch-esquirol-limoges.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5800,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER ROYAN-ATLANTIQUE",
+      "domain": "ch-royan.fr",
+      "page": "https://ch-royan.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5741,
+      "siren": null,
+      "name": "PHARMACIE DU MARCHE",
+      "domain": "pharmaciedumarche17.fr",
+      "page": "https://pharmaciedumarche17.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 14215,
+      "siren": null,
+      "name": "PHARMACIE SEAUX - POMMIER",
+      "domain": "pharmacieseaux.fr",
+      "page": "https://www.pharmacieseaux.fr/",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8934,
+      "siren": null,
+      "name": "CH SUD GIRONDE - SITE LANGON",
+      "domain": "ch-sudgironde.fr",
+      "page": "https://ch-sudgironde.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7134,
+      "siren": null,
+      "name": "PHARMACIE AGORA",
+      "domain": "pharmacieagora-boulazac.fr",
+      "page": "https://pharmacieagora-boulazac.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4567,
+      "siren": null,
+      "name": "PHARMACIE DE LUNESSE",
+      "domain": "pharmacie-de-lunesse-angouleme.fr",
+      "page": "https://pharmacie-de-lunesse-angouleme.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8910,
+      "siren": null,
+      "name": "EHPAD LE BOIS DE SEMIGNAN",
+      "domain": "lacanau.fr",
+      "page": "https://lacanau.fr/vivre-ensemble/seniors/ehpad",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8468,
+      "siren": null,
+      "name": "PHARMACIE ATLANTIS BOUSCAT",
+      "domain": "pharmacie-atlantis-bouscat.com",
+      "page": "https://pharmacie-atlantis-bouscat.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14184,
+      "siren": null,
+      "name": "PHARMACIE COIFFE",
+      "domain": "pharmaciecoiffe.fr",
+      "page": "https://pharmaciecoiffe.fr/fr/maintenance/info",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13961,
+      "siren": null,
+      "name": "PHARMACIE DE LA MAIRIE",
+      "domain": "pharmacie-condat.fr",
+      "page": "https://pharmacie-condat.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12793,
+      "siren": null,
+      "name": "PHARMACIE DE L'OLIVIER",
+      "domain": "pharmaciedelolivier-niort.com",
+      "page": "https://pharmaciedelolivier-niort.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12733,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER DE NIORT",
+      "domain": "ch-niort.fr",
+      "page": "https://ch-niort.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14197,
+      "siren": null,
+      "name": "PHARMACIE DU VIGENAL",
+      "domain": "pharmacie-du-vigenal-limoges.fr",
+      "page": "https://pharmacie-du-vigenal-limoges.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14192,
+      "siren": null,
+      "name": "PHARMACIE DU MONTEVERT",
+      "domain": "pharmacie-de-landouge-limoges.fr",
+      "page": "https://pharmacie-de-landouge-limoges.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11159,
+      "siren": null,
+      "name": "LBM NOVABIO - VILLENEUVE SUR LOT - FUM",
+      "domain": "novabio.fr",
+      "page": "https://www.novabio.fr/",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12774,
+      "siren": null,
+      "name": "LABORATOIRE MEDILAB GROUP (2)",
+      "domain": "medilab-group.eu",
+      "page": "https://medilab-group.eu/medilab-group/nos-laboratoires",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4957,
+      "siren": null,
+      "name": "PHARMACIE DE NERCILLAC",
+      "domain": "pharmacie-nercillac.fr",
+      "page": "https://pharmacie-nercillac.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13554,
+      "siren": null,
+      "name": "CH HENRI LABORIT",
+      "domain": "ch-laborit.fr",
+      "page": "https://ch-laborit.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 14042,
+      "siren": null,
+      "name": "ALAIR & AVD",
+      "domain": "alair-avd.com",
+      "page": "https://alair-avd.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13390,
+      "siren": null,
+      "name": "EHPAD DE LUSIGNAN - CHU",
+      "domain": "chu-poitiers.fr",
+      "page": "https://chu-poitiers.fr/les-plans-des-sites-de-lusignan",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 5731,
+      "siren": null,
+      "name": "PHARMACIE DE LA PAIX",
+      "domain": "pharmacie-de-la-paix-la-rochelle.fr",
+      "page": "https://pharmacie-de-la-paix-la-rochelle.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6877,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER GUERET",
+      "domain": "ch-gueret.fr",
+      "page": "https://ch-gueret.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12792,
+      "siren": null,
+      "name": "PHARMACIE CASSAR",
+      "domain": "pharmacie-blanchart-niort.com",
+      "page": "https://pharmacie-blanchart-niort.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 10142,
+      "siren": null,
+      "name": "CH MONT DE MARSAN - SITE DE STE ANNE",
+      "domain": "ch-mt-marsan.fr",
+      "page": "https://ch-mt-marsan.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1959525,
+      "siren": null,
+      "name": "MSD SUD HTE VIENNE ANTENNE DE NEXON (NEXON)",
+      "domain": "haute-vienne.fr",
+      "page": "https://haute-vienne.fr/accueil",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5696,
+      "siren": null,
+      "name": "HOPITAL SAINT-LOUIS - LA ROCHELLE",
+      "domain": "ch-larochelle.fr",
+      "page": "https://ch-larochelle.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14190,
+      "siren": null,
+      "name": "PHARMACIE DES PORTES FERREES",
+      "domain": "pharmaciedesportesferrees-87.fr",
+      "page": "https://pharmaciedesportesferrees-87.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9000,
+      "siren": null,
+      "name": "PHARMACIE DES SABLES",
+      "domain": "pharmacie-des-sables.fr",
+      "page": "https://pharmacie-des-sables.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 629491,
+      "siren": "932003569",
+      "name": "SAINT FIACRE INSERTION",
+      "domain": "saint-fiacre17.fr",
+      "page": "https://saint-fiacre17.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 368844,
+      "siren": "775586662",
+      "name": "ASSOCIATION LAIQUE LE PRADO",
+      "domain": "alprado.fr",
+      "page": "https://alprado.fr/dispositif_parcours",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1958173,
+      "siren": null,
+      "name": "SERVICE ASSAINISSEMENT (SAINT-JEAN-DE-SAUVES)",
+      "domain": "saint-jean-de-sauves.fr",
+      "page": "https://saint-jean-de-sauves.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1982887,
+      "siren": null,
+      "name": "ADAPEI 79 - LES ATELIERS THOUARSAIS (SAINTE VERGE)",
+      "domain": "adapei79.org",
+      "page": "https://adapei79.org/etablissement/esat-de-thouars",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1947234,
+      "siren": null,
+      "name": "AAGV (GUERET)",
+      "domain": "agglo-grandgueret.fr",
+      "page": "https://agglo-grandgueret.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 120777,
+      "siren": "381561901",
+      "name": "LES RESTAURANTS DU COEUR DES DEUX-SEVRES",
+      "domain": "restosducoeur.org",
+      "page": "https://restosducoeur.org",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1961390,
+      "siren": null,
+      "name": "SERVICE AUTONOMIE A DOMICILE MIXTE-ACTIVITE AIDE (MONT-DE-MARSAN)",
+      "domain": "montdemarsan.fr",
+      "page": "https://montdemarsan.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1965452,
+      "siren": null,
+      "name": "BGE PYRENEES-ATLANTIQUES TECGECOOP (PAU)",
+      "domain": "tecgecoop.fr",
+      "page": "https://www.tecgecoop.fr/",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1961732,
+      "siren": null,
+      "name": "MAISON DE RETRAITE STE FAMILLE EHPAD (NUEIL-LES-AUBIERS)",
+      "domain": "ville-nueil-les-aubiers.fr",
+      "page": "https://ville-nueil-les-aubiers.fr/la-ville/la-mairie/actes-administratifs/ccas",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1961794,
+      "siren": null,
+      "name": "RESIDENCE AUTONOMIE L'OASIS (MONTMORILLON)",
+      "domain": "montmorillon.fr",
+      "page": "https://montmorillon.fr/contacts/centre-communal-daction-sociale-ccas",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1959034,
+      "siren": null,
+      "name": "CTRE MEDICO-SOCIAL CHATEAUNEUF (CHATEAUNEUF-SUR-CHARENTE)",
+      "domain": "lacharente.fr",
+      "page": "https://lacharente.fr/en-charente/les-actions-du-departement",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 21234,
+      "siren": "497862797",
+      "name": "ENTREPRISE NOUVELLE VERS UNE INSERTION ECONOMIQUE ENVIRONNEMENT ET EMPLOI (ENVIE 2E POITOU CHARENTES) (ENVIE 2 E)",
+      "domain": "charente.envie.org",
+      "page": "https://charente.envie.org",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 178633,
+      "siren": "419317946",
+      "name": "INSERT NET",
+      "domain": "insert-nettoyage-bordeaux.fr",
+      "page": "https://www.insert-nettoyage-bordeaux.fr/",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2346,
+      "siren": "213305113",
+      "name": "Commune de Sendets",
+      "domain": "sendets.fr",
+      "page": "https://sendets.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4077,
+      "siren": "218602753",
+      "name": "Commune de Usseau",
+      "domain": "usseau86.fr",
+      "page": "http://usseau86.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3610,
+      "siren": "217900463",
+      "name": "Commune de Le Bourdet",
+      "domain": "lebourdet.fr",
+      "page": "https://lebourdet.fr/fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1902,
+      "siren": "213300478",
+      "name": "Commune de Berson",
+      "domain": "mairieberson.fr",
+      "page": "https://mairieberson.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1540,
+      "siren": "212402226",
+      "name": "Commune de La Force",
+      "domain": "laforce-dordogne.fr",
+      "page": "http://laforce-dordogne.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1671,
+      "siren": "200059152",
+      "name": "Commune de Saint Aulaye-Puymangou",
+      "domain": "saint-aulaye.com",
+      "page": "http://saint-aulaye.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3361,
+      "siren": "216403352",
+      "name": "Commune de Lescar",
+      "domain": "lescar.fr",
+      "page": "https://lescar.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2428,
+      "siren": "214000408",
+      "name": "Commune de Beylongue",
+      "domain": "beylongue.fr",
+      "page": "https://beylongue.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1889,
+      "siren": "213300338",
+      "name": "Commune de Baurech",
+      "domain": "baurech.fr",
+      "page": "https://baurech.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 85,
+      "siren": "200102226",
+      "name": "Commune de Val-de-Cognac",
+      "domain": "val-de-cognac.com",
+      "page": "https://val-de-cognac.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1688,
+      "siren": "212403968",
+      "name": "Commune de Saint-Cyprien",
+      "domain": "saintcyprien24.fr",
+      "page": "https://saintcyprien24.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2430,
+      "siren": "214000424",
+      "name": "Commune de Biarrotte",
+      "domain": "biarrotte.fr",
+      "page": "https://biarrotte.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1048,
+      "siren": "211923701",
+      "name": "Commune de Saint-Privat",
+      "domain": "saint-privat-19.fr",
+      "page": "https://saint-privat-19.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1896,
+      "siren": "213300403",
+      "name": "Commune de Béguey",
+      "domain": "mairie-beguey.fr",
+      "page": "http://mairie-beguey.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1178,
+      "siren": "212308100",
+      "name": "Commune de Flayat",
+      "domain": "flayat.fr",
+      "page": "https://flayat.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 37,
+      "siren": "211600457",
+      "name": "Commune de Birac",
+      "domain": "mairiebirac16.fr",
+      "page": "https://mairiebirac16.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3905,
+      "siren": "218600815",
+      "name": "Commune de Colombiers",
+      "domain": "colombiers86.fr",
+      "page": "https://colombiers86.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2493,
+      "siren": "214001083",
+      "name": "Commune de Gastes",
+      "domain": "gastes.fr",
+      "page": "https://gastes.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 262,
+      "siren": "211603048",
+      "name": "Commune de Saint-Brice",
+      "domain": "saint-brice16.fr",
+      "page": "https://www.saint-brice16.fr/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 881,
+      "siren": "211906102",
+      "name": "Commune de Cornil",
+      "domain": "cornil19.fr",
+      "page": "https://cornil19.fr/fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4163,
+      "siren": "218706802",
+      "name": "Commune de Fromental",
+      "domain": "fromental.fr",
+      "page": "http://fromental.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2586,
+      "siren": "214002016",
+      "name": "Commune de Mugron",
+      "domain": "mugron.fr",
+      "page": "https://mugron.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1176,
+      "siren": "212307904",
+      "name": "Commune de Felletin",
+      "domain": "felletin.fr",
+      "page": "http://felletin.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2222,
+      "siren": "200083830",
+      "name": "Commune de Val-de-Livenne",
+      "domain": "valdelivenne.fr",
+      "page": "http://valdelivenne.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4177,
+      "siren": "218708204",
+      "name": "Commune de Ladignac-le-Long",
+      "domain": "ladignac-le-long.fr",
+      "page": "https://ladignac-le-long.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4289,
+      "siren": "218720209",
+      "name": "Commune de Veyrac",
+      "domain": "veyrac.fr",
+      "page": "https://veyrac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 180,
+      "siren": "200062941",
+      "name": "Commune de Bellevigne",
+      "domain": "bellevigne16.fr",
+      "page": "https://www.bellevigne16.fr/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3344,
+      "siren": "216403170",
+      "name": "Commune de Larressore",
+      "domain": "larressore.fr",
+      "page": "https://larressore.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3071,
+      "siren": "216400374",
+      "name": "Commune de Arbus",
+      "domain": "arbus.fr",
+      "page": "https://arbus.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1950,
+      "siren": "213300973",
+      "name": "Commune de Carcans",
+      "domain": "carcans.fr",
+      "page": "https://carcans.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 20,
+      "siren": "211600267",
+      "name": "Commune de Balzac",
+      "domain": "balzac.fr",
+      "page": "https://balzac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3328,
+      "siren": "216403014",
+      "name": "Commune de Lagor",
+      "domain": "lagor.fr",
+      "page": "https://lagor.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2885,
+      "siren": "214701724",
+      "name": "Commune de Moncaut",
+      "domain": "moncaut-albret.fr",
+      "page": "https://moncaut-albret.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2552,
+      "siren": "214001679",
+      "name": "Commune de Luxey",
+      "domain": "luxey.fr",
+      "page": "https://luxey.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1605,
+      "siren": "212402978",
+      "name": "Commune de Moulin-Neuf",
+      "domain": "moulinneuf.fr",
+      "page": "https://www.moulinneuf.fr/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3653,
+      "siren": "200084481",
+      "name": "Commune de Les Châteliers",
+      "domain": "mairiedeschateliers.fr",
+      "page": "https://mairiedeschateliers.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 64,
+      "siren": "211600739",
+      "name": "Commune de Chalais",
+      "domain": "chalais.net",
+      "page": "http://chalais.net",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4168,
+      "siren": "218707305",
+      "name": "Commune de Gorre",
+      "domain": "mairiedegorre.fr",
+      "page": "https://mairiedegorre.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2661,
+      "siren": "214002776",
+      "name": "Commune de Saint-Pandelon",
+      "domain": "saint-pandelon.fr",
+      "page": "https://saint-pandelon.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1495,
+      "siren": "212401640",
+      "name": "Commune de Excideuil",
+      "domain": "excideuil.fr",
+      "page": "http://excideuil.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1265,
+      "siren": "212317606",
+      "name": "Commune de La Souterraine",
+      "domain": "ville-lasouterraine.fr",
+      "page": "https://ville-lasouterraine.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3358,
+      "siren": "216403311",
+      "name": "Commune de Lembeye",
+      "domain": "mairie-lembeye.fr",
+      "page": "https://mairie-lembeye.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3232,
+      "siren": "216402032",
+      "name": "Commune de Doumy",
+      "domain": "mairiededoumy.fr",
+      "page": "http://mairiededoumy.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4270,
+      "siren": "218718104",
+      "name": "Commune de Saint-Sulpice-Laurière",
+      "domain": "saint-sulpice-lauriere.fr",
+      "page": "http://saint-sulpice-lauriere.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4134,
+      "siren": "218703809",
+      "name": "Commune de Chaptelat",
+      "domain": "mairie-chaptelat.fr",
+      "page": "http://mairie-chaptelat.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2758,
+      "siren": "214700411",
+      "name": "Commune de Bruch",
+      "domain": "bruch.fr",
+      "page": "https://bruch.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 189,
+      "siren": "211602131",
+      "name": "Commune de Mazerolles",
+      "domain": "mazerolles16.fr",
+      "page": "https://mazerolles16.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 981,
+      "siren": "211916309",
+      "name": "Commune de Le Pescher",
+      "domain": "lepescher.fr",
+      "page": "https://lepescher.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1218,
+      "siren": "212312409",
+      "name": "Commune de Marsac",
+      "domain": "marsac-creuse.fr",
+      "page": "https://marsac-creuse.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1939,
+      "siren": "213300841",
+      "name": "Commune de Cambes",
+      "domain": "cambes33.fr",
+      "page": "https://cambes33.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1940,
+      "siren": "213300858",
+      "name": "Commune de Camblanes-et-Meynac",
+      "domain": "camblanes-et-meynac.fr",
+      "page": "https://camblanes-et-meynac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2229,
+      "siren": "213303878",
+      "name": "Commune de Saint-Ciers-d'Abzac",
+      "domain": "saintciersdabzac.fr",
+      "page": "https://www.saintciersdabzac.fr/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3755,
+      "siren": "217902493",
+      "name": "Commune de Saint-Gelais",
+      "domain": "saintgelais.fr",
+      "page": "https://saintgelais.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2823,
+      "siren": "214701062",
+      "name": "Commune de Fumel",
+      "domain": "mairiedefumel.fr",
+      "page": "http://mairiedefumel.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 982,
+      "siren": "211916408",
+      "name": "Commune de Peyrelevade",
+      "domain": "peyrelevade.fr",
+      "page": "https://peyrelevade.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 445,
+      "siren": "211700919",
+      "name": "Commune de Charron",
+      "domain": "charron17.fr",
+      "page": "https://charron17.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 82,
+      "siren": "211600937",
+      "name": "Commune de Chazelles",
+      "domain": "chazelles.fr",
+      "page": "https://chazelles.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2037,
+      "siren": "213301864",
+      "name": "Commune de Gensac",
+      "domain": "gensac.fr",
+      "page": "https://gensac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 966,
+      "siren": "211914809",
+      "name": "Commune de Neuvic",
+      "domain": "neuvic-correze.net",
+      "page": "https://neuvic-correze.net",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 142460,
+      "siren": "394756605",
+      "name": "SARL PIZZA GIOVANNI",
+      "domain": "pizza-giovanni.fr",
+      "page": "https://pizza-giovanni.fr/index.php",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 466774,
+      "siren": "832045199",
+      "name": "PHARMACIE SAINT JEAN",
+      "domain": "pharmacie-saintjean.fr",
+      "page": "https://pharmacie-saintjean.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 208430,
+      "siren": "437750235",
+      "name": "L'ATELIER REMUMENAGE",
+      "domain": "atelier-remumenage.org",
+      "page": "https://atelier-remumenage.org",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 320180,
+      "siren": "514716190",
+      "name": "PHARMACIE DU PRIEURE",
+      "domain": "pharmacie-du-prieure.fr",
+      "page": "https://pharmacie-du-prieure.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 663150,
+      "siren": "949943377",
+      "name": "PHARMACIE BAROU",
+      "domain": "pharmacie-saint-bruno.fr",
+      "page": "https://pharmacie-saint-bruno.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 283144,
+      "siren": "494595556",
+      "name": "PHARMACIE DE MA CAMPAGNE",
+      "domain": "pharmaciedemacampagne.fr",
+      "page": "https://pharmaciedemacampagne.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 266102,
+      "siren": "487709941",
+      "name": "SOCIETE D'EXERCICE LIBERAL PAR ACTIONS SIMPLIFIEE DE PHARMACIENS - MA PHARMACIE BASTIDE",
+      "domain": "mapharmaciebastide.fr",
+      "page": "https://mapharmaciebastide.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 527026,
+      "siren": "882936495",
+      "name": "PHARMACIE LE BIHAN",
+      "domain": "pharmacie-bastidienne.fr",
+      "page": "https://pharmacie-bastidienne.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 271159,
+      "siren": "489818286",
+      "name": "PHARMACIE DES ESSARTS",
+      "domain": "pharmaciedesessarts.fr",
+      "page": "https://pharmaciedesessarts.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 379268,
+      "siren": "789826369",
+      "name": "PASTA LAFORET",
+      "domain": "mezzodipasta.fr",
+      "page": "https://mezzodipasta.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 367434,
+      "siren": "753503002",
+      "name": "ALIZE SANTE",
+      "domain": "alize-sante.fr",
+      "page": "https://alize-sante.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 442088,
+      "siren": "821126471",
+      "name": "LES JARDINS DES HAUTS DE THENAC",
+      "domain": "ljdh-thenac.fr",
+      "page": "https://ljdh-thenac.fr/fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 778,
+      "siren": "211704416",
+      "name": "Commune de Tesson",
+      "domain": "mairie-tesson.fr",
+      "page": "https://mairie-tesson.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2738,
+      "siren": "214700213",
+      "name": "Commune de Barbaste",
+      "domain": "barbaste.fr",
+      "page": "https://barbaste.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 108627,
+      "siren": "351341763",
+      "name": "PHARMACIE DUMONT",
+      "domain": "pharmaciemaraispoitevin.com",
+      "page": "https://pharmaciemaraispoitevin.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 133386,
+      "siren": "389931767",
+      "name": "ALLARD OPTIQUE",
+      "domain": "generale-optique.com",
+      "page": "https://generale-optique.com/opticien/puilboreau/96",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 323654,
+      "siren": "518597364",
+      "name": "SELARL PHARMACIE DU CHATEAU",
+      "domain": "pharmacie-du-chateau-jarnac.fr",
+      "page": "https://pharmacie-du-chateau-jarnac.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 608781,
+      "siren": "922537725",
+      "name": "CENTRE ACCES VISION AGEN",
+      "domain": "acces-vision.com",
+      "page": "https://acces-vision.com/centres/centre-agen",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 402908,
+      "siren": "801869850",
+      "name": "PHARMACIE BOSSIS - LAUNAY",
+      "domain": "pharmacie-stjeandangely.com",
+      "page": "http://pharmacie-stjeandangely.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 3706,
+      "siren": "217901669",
+      "name": "Commune de Marigny",
+      "domain": "marigny79.fr",
+      "page": "https://marigny79.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 499881,
+      "siren": "848973400",
+      "name": "SPFPL PAPAYE",
+      "domain": "pharmaciedelacanau.fr",
+      "page": "https://pharmaciedelacanau.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 111398,
+      "siren": "353212848",
+      "name": "NOUVELLE CLINIQUE BORDEAUX TONDU",
+      "domain": "bordeauxtondu.fr",
+      "page": "https://bordeauxtondu.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 509323,
+      "siren": "852598044",
+      "name": "FAURIE AXESS PREMIUM LANDES",
+      "domain": "faurie.fr",
+      "page": "https://faurie.fr/skoda/concessions/skoda-agen",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 79021,
+      "siren": "310337464",
+      "name": "EHPAD DU BEQUET",
+      "domain": "ehpaddubequet.fr",
+      "page": "https://ehpaddubequet.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 316675,
+      "siren": "513001214",
+      "name": "PHARMACIE SAINT CYBARD",
+      "domain": "pharmaciesaintcybard.fr",
+      "page": "https://pharmaciesaintcybard.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 532306,
+      "siren": "885268938",
+      "name": "AUDIOPROXI",
+      "domain": "audioproxi.com",
+      "page": "https://audioproxi.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21257,
+      "siren": "524232154",
+      "name": "LABOFFICE",
+      "domain": "laboffice.fr",
+      "page": "https://laboffice.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 155572,
+      "siren": "403133952",
+      "name": "SELARL PHARMACIE MAZIERES-LABARTHE",
+      "domain": "pharmacie-mazieres-labarthe.fr",
+      "page": "https://pharmacie-mazieres-labarthe.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 262619,
+      "siren": "484324371",
+      "name": "ALPHA SECOURS SERVICE AMBULANCES",
+      "domain": "jussieu-secours-limoges.fr",
+      "page": "https://www.jussieu-secours-limoges.fr/",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 75,
+      "siren": "211600853",
+      "name": "Commune de Chasseneuil-sur-Bonnieure",
+      "domain": "chasseneuilsurbonnieure.fr",
+      "page": "https://chasseneuilsurbonnieure.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4292,
+      "siren": "218720506",
+      "name": "Commune de Le Vigen",
+      "domain": "le-vigen.fr",
+      "page": "https://le-vigen.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2028236,
+      "siren": "325579696",
+      "name": "ASSOCIATION DE SOUTIEN ET D'ACCOMPAGNEMENT AUX PERSONNES HANDICAPEES",
+      "domain": "asaph-saintjunien.fr",
+      "page": "https://asaph-saintjunien.fr/fr/r7-esat-les-seilles.html",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2236,
+      "siren": "213303944",
+      "name": "Commune de Saint-Émilion",
+      "domain": "saint-emilion.org",
+      "page": "https://saint-emilion.org",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 505413,
+      "siren": "851067058",
+      "name": "OPTIQUE DE LA CLINIQUE",
+      "domain": "optiquelafayette.com",
+      "page": "https://optiquelafayette.com/opticien/agen-boe",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 534218,
+      "siren": "888081312",
+      "name": "S.E.L.A.R.L. PHARMACIE SAINT MARTIAL",
+      "domain": "pharmacie-stmartial.com",
+      "page": "https://pharmacie-stmartial.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 312891,
+      "siren": "510798374",
+      "name": "PLAISIRS FERMIERS",
+      "domain": "plaisirs-fermiers.fr",
+      "page": "https://plaisirs-fermiers.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 3832,
+      "siren": "217903558",
+      "name": "Commune de Vouillé",
+      "domain": "vouille.fr",
+      "page": "https://vouille.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 158596,
+      "siren": "404726226",
+      "name": "ASSOCIATION DES SITES TOURISTIQUES DU PAYS DE BELVES",
+      "domain": "belves-en-perigord.com",
+      "page": "https://belves-en-perigord.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 263701,
+      "siren": "484759493",
+      "name": "LE CLOS DES ACACIAS",
+      "domain": "leclosdesacacias.fr",
+      "page": "https://leclosdesacacias.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 55,
+      "siren": "211600648",
+      "name": "Commune de Brigueuil",
+      "domain": "brigueuil.fr",
+      "page": "http://brigueuil.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 373200,
+      "siren": "781837554",
+      "name": "MAISON DE RETRAITE TERRE NEGRE",
+      "domain": "terre-negre.fr",
+      "page": "https://terre-negre.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 401,
+      "siren": "211700455",
+      "name": "Commune de Beurlay",
+      "domain": "commune-de-beurlay.com",
+      "page": "https://www.commune-de-beurlay.com/",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3799,
+      "siren": "217903087",
+      "name": "Commune de Sciecq",
+      "domain": "sciecq.fr",
+      "page": "https://sciecq.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 80,
+      "siren": "211600903",
+      "name": "Commune de Châteauneuf-sur-Charente",
+      "domain": "chateauneufsurcharente.fr",
+      "page": "https://chateauneufsurcharente.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 94566,
+      "siren": "334941135",
+      "name": "YVES ROCHER",
+      "domain": "yves-rocher.fr",
+      "page": "https://yves-rocher.fr/all-about-our-stores/SL",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 34385,
+      "siren": "248600157",
+      "name": "Grand Poitiers (communauté urbaine)",
+      "domain": "grandpoitiers.fr",
+      "page": "https://grandpoitiers.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2089131,
+      "siren": "379459522",
+      "name": "BIOGROUP ASTRALAB",
+      "domain": "laboratoires.biogroup.fr",
+      "page": "https://laboratoires.biogroup.fr/charente/confolens/18-rue-emile-roux",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 442114,
+      "siren": "821134079",
+      "name": "LES JARDINS DES HAUTS DE SAINTE-ALVERE",
+      "domain": "ljdh-alvere.fr",
+      "page": "https://ljdh-alvere.fr/fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1474983,
+      "siren": "304648850",
+      "name": "MEYER JEAN",
+      "domain": "materiel-medical-landes-meyer.fr",
+      "page": "https://www.materiel-medical-landes-meyer.fr/",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 87071,
+      "siren": "325719797",
+      "name": "SECOURS POPULAIRE FRANCAIS",
+      "domain": "secourspopulaire.fr",
+      "page": "https://secourspopulaire.fr/33",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 258306,
+      "siren": "482550076",
+      "name": "PHARMACIE VICTOR HUGO",
+      "domain": "alphega-pharmacie.fr",
+      "page": "https://alphega-pharmacie.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 101686,
+      "siren": "344109707",
+      "name": "LE JEUNE ENTREPRISE",
+      "domain": "lejeuneentreprise.fr",
+      "page": "https://lejeuneentreprise.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 542313,
+      "siren": "891733875",
+      "name": "MARIE CURRY",
+      "domain": "mariecurry.fr",
+      "page": "https://mariecurry.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 438624,
+      "siren": "819831355",
+      "name": "LES COURTIERS BORDELAIS",
+      "domain": "lescourtiersbordelais.com",
+      "page": "https://www.lescourtiersbordelais.com/nos-agences/cauderan",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 598041,
+      "siren": "918633231",
+      "name": "LES COURTIERS CHARENTAIS",
+      "domain": "lescourtiersbordelais.com",
+      "page": "https://www.lescourtiersbordelais.com/nos-agences/angouleme",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 245561,
+      "siren": "471201806",
+      "name": "DBF BORDEAUX RIVE DROITE",
+      "domain": "audi-bordeaux.fr",
+      "page": "https://audi-bordeaux.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 456624,
+      "siren": "828342691",
+      "name": "LMDLR MENUISERIES DE LA ROCHE",
+      "domain": "menuiseries-la-rochefoucauld.fr",
+      "page": "https://menuiseries-la-rochefoucauld.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 115367,
+      "siren": "378925150",
+      "name": "ADGESSA",
+      "domain": "adgessa.com",
+      "page": "https://adgessa.com/mecs-ermitage-lamourous",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 332963,
+      "siren": "523636413",
+      "name": "PHARMACIE LA FLECHE",
+      "domain": "pharmacie-lafleche.fr",
+      "page": "https://pharmacie-lafleche.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 379657,
+      "siren": "789978251",
+      "name": "PIZZA POMMIER",
+      "domain": "le-kiosque-a-pizzas.com",
+      "page": "https://www.le-kiosque-a-pizzas.com/fiche-camblanes--30",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 606513,
+      "siren": "921956371",
+      "name": "SERENITY CONCEPT",
+      "domain": "serenity-institut.com",
+      "page": "https://serenity-institut.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 445870,
+      "siren": "822506861",
+      "name": "PHARMACIE DE SAINT-SELVE",
+      "domain": "pharmaciesaintselve.com",
+      "page": "https://pharmaciesaintselve.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 557448,
+      "siren": "899723746",
+      "name": "AASGARD SAINTE-EULALIE",
+      "domain": "aasgard.fr",
+      "page": "https://aasgard.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 390233,
+      "siren": "794519231",
+      "name": "COMPTOIRS DE MAGELLAN ARCAWATT",
+      "domain": "comptoirsdemagellan.com",
+      "page": "https://comptoirsdemagellan.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 366,
+      "siren": "211700083",
+      "name": "Commune de Andilly",
+      "domain": "andillylesmarais.fr",
+      "page": "https://andillylesmarais.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2406655,
+      "siren": "904690484",
+      "name": "BISTROT LE FRANCAIS",
+      "domain": "hotellefrancais.com",
+      "page": "https://hotellefrancais.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 802,
+      "siren": "211704663",
+      "name": "Commune de Vérines",
+      "domain": "verines.fr",
+      "page": "https://verines.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 653,
+      "siren": "211703087",
+      "name": "Commune de Saint-Agnant",
+      "domain": "saint-agnant.fr",
+      "page": "https://saint-agnant.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 652,
+      "siren": "211703079",
+      "name": "Commune de Sablonceaux",
+      "domain": "sablonceaux.fr",
+      "page": "https://sablonceaux.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 280079,
+      "siren": "493361182",
+      "name": "MAXICOFFEE ONLINE",
+      "domain": "maxicoffee.com",
+      "page": "https://maxicoffee.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 355746,
+      "siren": "538803610",
+      "name": "POMPES FUNEBRES PUBLIQUES LA ROCHELLE - RE - AUNIS",
+      "domain": "pfpubliques.fr",
+      "page": "https://pfpubliques.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 492,
+      "siren": "211701404",
+      "name": "Commune de Dolus-d'Oléron",
+      "domain": "cdc-oleron.com",
+      "page": "https://cdc-oleron.com/vivre-et-habiter/enfance-et-jeunesse/0-3-ans-petite-enfance",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4150,
+      "siren": "218705408",
+      "name": "Commune de Cussac",
+      "domain": "cussac87.com",
+      "page": "https://cussac87.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1925,
+      "siren": "213300700",
+      "name": "Commune de Brach",
+      "domain": "mairie-brach.fr",
+      "page": "https://mairie-brach.fr/fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 471317,
+      "siren": "833857774",
+      "name": "PHARMACIE DE L'IMAGINAIRE",
+      "domain": "pharmaciedelimaginaire-terrasson.fr",
+      "page": "https://pharmaciedelimaginaire-terrasson.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 124962,
+      "siren": "383803251",
+      "name": "SECOURS POPULAIRE FRANCAIS",
+      "domain": "secourspopulaire.fr",
+      "page": "https://secourspopulaire.fr/79",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 337791,
+      "siren": "528308810",
+      "name": "PHARMACIE MAPPA",
+      "domain": "pharmacie-ludon-medoc.fr",
+      "page": "https://pharmacie-ludon-medoc.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2650,
+      "siren": "214002669",
+      "name": "Commune de Saint-Julien-en-Born",
+      "domain": "saint-julien-en-born.fr",
+      "page": "https://saint-julien-en-born.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 389,
+      "siren": "211700323",
+      "name": "Commune de Ballon",
+      "domain": "mairie-ballon.fr",
+      "page": "https://mairie-ballon.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 434323,
+      "siren": "818208209",
+      "name": "SANFRAN BIO",
+      "domain": "biocoop-royan.com",
+      "page": "https://www.biocoop-royan.com/",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 462,
+      "siren": "211701099",
+      "name": "Commune de Clavette",
+      "domain": "clavette.fr",
+      "page": "https://clavette.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 88615,
+      "siren": "327843546",
+      "name": "CABINET BEDIN",
+      "domain": "cabinet-bedin.com",
+      "page": "https://cabinet-bedin.com/agence-immobiliere/andernos",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17885,
+      "siren": null,
+      "name": "Section d'enseignement professionnel du Lycée polyvalent Victor Louis",
+      "domain": "lycee-victor-louis.fr",
+      "page": "https://lycee-victor-louis.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 89144,
+      "siren": "328491170",
+      "name": "GURE IKASTOLA HENDAIA",
+      "domain": "gureikastola.eus",
+      "page": "https://gureikastola.eus",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 163332,
+      "siren": "409684263",
+      "name": "ORG GESTION STE MARIE ST JOSEPH",
+      "domain": "stjo-secondigny.fr",
+      "page": "http://stjo-secondigny.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 94217,
+      "siren": "334608700",
+      "name": "OGEC ST JOSEPH",
+      "domain": "stjosteagnesbayonne.com",
+      "page": "https://stjosteagnesbayonne.com",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 376156,
+      "siren": "782382139",
+      "name": "PETIT SEMINAIRE ST FRANCOIS",
+      "domain": "sfxustaritz.fr",
+      "page": "https://sfxustaritz.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 372164,
+      "siren": "781519475",
+      "name": "OGEC JEANNE D'ARC",
+      "domain": "jdacivray.fr",
+      "page": "https://jdacivray.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 373779,
+      "siren": "781931076",
+      "name": "OGEC SAINT JOSEPH",
+      "domain": "stjo-libourne.com",
+      "page": "https://stjo-libourne.com",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 371186,
+      "siren": "781422167",
+      "name": "OGEC COLLEGE PRIVE MIXTE",
+      "domain": "steannemauleon.com",
+      "page": "https://steannemauleon.com",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 370873,
+      "siren": "781388913",
+      "name": "ASSOC D EDUCATION POPULAIRE",
+      "domain": "jeannedarc-ecole-college-prive-surgeres.com",
+      "page": "https://jeannedarc-ecole-college-prive-surgeres.com",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 373260,
+      "siren": "781842760",
+      "name": "OGEC SAINT VINCENT DE PAUL",
+      "domain": "svpbordeaux.fr",
+      "page": "https://svpbordeaux.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2333643,
+      "siren": "782247290",
+      "name": "INST RURALE NOTRE-DAME DE LA PLAINE",
+      "domain": "ltp-naybaudreix.com",
+      "page": "https://ltp-naybaudreix.com",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2422541,
+      "siren": "985620137",
+      "name": "BANQUE PELLETIER",
+      "domain": "agences.banquepopulaire.fr",
+      "page": "https://agences.banquepopulaire.fr/fr/agence/ag-dax-clients-particuliers-1090700020",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21022,
+      "siren": "200037547",
+      "name": "CENTRE HOSPITALIER DE SAINT-PALAIS",
+      "domain": "ch-saintpalais.fr",
+      "page": "https://ch-saintpalais.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19088,
+      "siren": null,
+      "name": "BIDART UHABIA IKASTOLA",
+      "domain": "uhabia-ikastola.eus",
+      "page": "https://uhabia-ikastola.eus/eu",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14713,
+      "siren": null,
+      "name": "Collège Jean Lartaut",
+      "domain": "jean-lartaut.fr",
+      "page": "http://jean-lartaut.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17692,
+      "siren": null,
+      "name": "Lycée professionnel Paul Broca",
+      "domain": "app.lycee-foyen.fr",
+      "page": "https://app.lycee-foyen.fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18959,
+      "siren": null,
+      "name": "ECOLE PRIMAIRE PRIVEE IKASTOLA",
+      "domain": "azkaingoikastola.eus",
+      "page": "https://azkaingoikastola.eus",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19629,
+      "siren": null,
+      "name": "Ecole primaire privée Arberoa ikastola",
+      "domain": "arberoaikastola.org",
+      "page": "http://arberoaikastola.org",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    }
+  ]
+}
