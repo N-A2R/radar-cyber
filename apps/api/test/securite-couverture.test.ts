@@ -13,6 +13,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { installErrorHandler } from "../src/errors.js";
 import { installAccessControl, reglePour, POLITIQUE_ACCES } from "../src/security/rbac.js";
 import { registerApiRoutes } from "../src/routes/index.js";
+import { installPublicApi } from "../src/openapi/install.js";
 
 type RouteDeclaree = { method: string; url: string };
 
@@ -29,6 +30,7 @@ before(async () => {
     for (const methode of methodes) routes.push({ method: String(methode).toUpperCase(), url });
   });
   installAccessControl(app);
+  await installPublicApi(app);
   await registerApiRoutes(app);
   await app.ready();
 });
@@ -50,6 +52,10 @@ test("les routes les plus spécifiques ne sont pas interceptées", () => {
     { route: "/api/alerts/stats", niveau: "public" },
     { route: "/api/journal/review/export.csv", niveau: "admin" },
     { route: "/api/review/refuser-sans-indice", niveau: "admin" },
+    { route: "/api/v1/events", niveau: "public" },
+    { route: "/api/v1/openapi.json", niveau: "public" },
+    { route: "/api/docs/static/swagger-ui.css", niveau: "public" },
+    { route: "/api/v1/keys", niveau: "lecteur" },
   ] as const;
   for (const { route, niveau } of cas) {
     assert.equal(reglePour("GET", route)?.niveau ?? reglePour("POST", route)?.niveau, niveau, route);
@@ -58,7 +64,7 @@ test("les routes les plus spécifiques ne sont pas interceptées", () => {
 
 test("chaque règle déclarée correspond à une route réellement enregistrée", () => {
   const orphelines = POLITIQUE_ACCES.filter(
-    (r) => !routes.some((route) => route.method === r.methode && route.url === r.route),
+    (r) => !routes.some((route) => reglePour(route.method, route.url) === r),
   );
   // /api/health est enregistrée par le registre ; aucune règle ne doit rester
   // sans route, sinon la matrice donne une fausse impression de couverture.
@@ -74,7 +80,7 @@ test("la déclaration OBJECTIF du rapport suit la couverture réelle", async () 
   const groupes = objectif.groups!;
   const sansRegle = routes.filter((r) => reglePour(r.method, r.url) === null);
   const orphelines = POLITIQUE_ACCES.filter(
-    (r) => !routes.some((route) => route.method === r.methode && route.url === r.route),
+    (r) => !routes.some((route) => reglePour(route.method, route.url) === r),
   );
   assert.equal(groupes.etat, "atteint");
   assert.equal(Number(groupes.valeur), routes.length, "valeur déclarée ≠ routes enregistrées");
