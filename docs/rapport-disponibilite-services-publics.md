@@ -225,6 +225,41 @@ Insights (429) et recherche de code GitHub sur deux URL exactes (0 résultat).
 Aucune observation HTTP réelle datée du 18, 19 ou 20 novembre n'a été trouvée :
 0 service-jour gagné, l'écart reste de 1 580.
 
+## Preuve d'accessibilité et contrôle final (24 novembre, 01 h 45 UTC)
+
+Une quatrième passe indépendante n'a retrouvé aucune observation réelle
+supplémentaire :
+
+- **Données locales** : 1 920 lignes versionnées (500 les 21, 420 le 22,
+  500 les 23 et 24), 0 ligne pour les 18, 19 et 20 novembre ; corpus de 1 442
+  preuves toutes datées du 21 ; refs, reflog, worktrees locaux et `/tmp` : 0.
+- **Base PostgreSQL, dates UTC** : `source_verification` (44 lignes le 21,
+  7 192 le 22) et `warc_proof` (145 et 22) ; une seule URL du périmètre
+  (`terres-et-paysages.fr`, HTTP 200 le 22 à 11 h 40 UTC) recoupe la table,
+  mais son service-day était déjà observé à 03 h 24 UTC (timeout) : 0
+  service-jour nouveau.
+- **Sources grises** : 19 requêtes gratuites bornées vers de nouveaux
+  endpoints. `collinfo.json` confirme le dernier index Common Crawl arrêté le
+  19 novembre, CDX 504 ; Wayback CDX, `available`, timemap et `sparkline` :
+  0 capture (dernier `last_ts` au 12 octobre) ; arquivo.pt 0, OTX 0,
+  timegate 404. Aucune observation HTTP datée des 18, 19 ou 20 novembre.
+
+L'audit calcule désormais la première ancre encore atteignable sans inventer
+de jour : un jour passé doit déjà contenir 500 observations, un jour futur
+reste seulement collectable.
+
+```
+services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48%
+OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours
+windows=10 max_observed_service_days=1920/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-29
+```
+
+`feasible_windows=0` prouve qu'aucune fenêtre ancrable aujourd'hui n'atteint
+3 500 service-jours ; `earliest_attainable_anchor=2026-11-29` nomme la première
+fenêtre complète possible (23 au 29 novembre), après cinq collectes réelles
+les 25, 26, 27, 28 et 29 novembre. L'écart reste de 1 580 service-jours :
+aucune date ni aucun statut n'a été inventé pour le combler.
+
 ## Reproduire
 
 ```bash
@@ -241,7 +276,7 @@ pnpm services:collect -- --anchor=2026-11-24 --concurrency=100 --deadline-ms=500
 pnpm services:verify -- --anchor=2026-11-24
 
 # Audit reproductible de toutes les fenêtres de sept jours encore ancrables
-apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
 ```
 
 La commande de rejeu réécrit `bench/results/service-availability-na-<date>.json`
@@ -250,12 +285,12 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
 
 ## Contrôles
 
-- 18 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
-  trois pour l'audit des fenêtres : un test par comportement, tous hors réseau
+- 19 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
+  quatre pour l'audit des fenêtres : un test par comportement, tous hors réseau
   et hors base.
 - `tsc --noEmit -p apps/api/tsconfig.json` : aucune erreur.
 - Périmètre Nouvelle-Aquitaine uniquement ; sources grises autorisées ; aucune
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 1920 / 3500 service-jours (4 / 7 jours), manque 1580 service-jours (18, 19, 20 novembre et 80 sondes du 22 novembre).
+OBJECTIF : partiel — 1920 / 3500 service-jours (4 / 7 jours), manque 1580 service-jours (18, 19, 20 novembre et 80 sondes du 22 novembre) ; reproductible le 24/11/2026 : `pnpm services:verify -- --anchor=2026-11-24` renvoie `1920 / 3500`, `1580 service-jours`, et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24` renvoie `feasible_windows=0 earliest_attainable_anchor=2026-11-29`.

@@ -6,9 +6,12 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { auditWindows, candidateAnchors } from "../apps/api/src/serviceAvailability/audit.js";
+import { auditWindows, candidateAnchors, earliestAttainableAnchor } from "../apps/api/src/serviceAvailability/audit.js";
 import { parseObservations } from "../apps/api/src/serviceAvailability/observations.js";
 import { readCorpusPerimeter } from "../apps/api/src/serviceAvailability/perimeter.js";
+
+const from = process.argv.find((arg) => arg.startsWith("--from="))?.slice(7)
+	?? new Date().toISOString().slice(0, 10);
 
 const observationsPath = resolve("bench/results/service-availability-observations.jsonl");
 const services = readCorpusPerimeter(resolve("bench/corpus/institutions-complet.jsonl"));
@@ -22,6 +25,7 @@ const target = audits[0]?.targetServiceDays ?? services.length * 7;
 
 console.log(
 	`windows=${audits.length} max_observed_service_days=${maxObserved}/${target} ` +
-	`feasible_windows=${feasible.length}`
+	`feasible_windows=${feasible.length} from=${from} ` +
+	`earliest_attainable_anchor=${earliestAttainableAnchor(observations, services, from) ?? "none"}`
 );
 if (feasible.length > 0) console.log(`feasible=${feasible.map((window) => window.anchor).join(",")}`);

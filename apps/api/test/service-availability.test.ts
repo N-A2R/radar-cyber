@@ -14,7 +14,7 @@ import { dayKeys, mergeDaily, parseObservations, serializeObservations } from ".
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
 import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
-import { auditWindows, candidateAnchors } from "../src/serviceAvailability/audit.js";
+import { auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -212,4 +212,15 @@ test("seven observed days produce one fully covered candidate window", () => {
 	const attained = auditWindows(rows, services).filter((window) => window.status === "atteint");
 	assert.deepEqual(attained.map((window) => window.anchor), ["2026-11-28"]);
 	assert.equal(attained[0]?.observedServiceDays, 14);
+});
+
+test("earliest attainable anchor waits for incomplete past days to leave the window", () => {
+	const services = [service("a"), service("b")];
+	const rows = [
+		observation("a", "2026-11-21", true), observation("b", "2026-11-21", true),
+		observation("a", "2026-11-22", true),
+		observation("a", "2026-11-23", true), observation("b", "2026-11-23", true),
+		observation("a", "2026-11-24", true), observation("b", "2026-11-24", true),
+	];
+	assert.equal(earliestAttainableAnchor(rows, services, "2026-11-24"), "2026-11-29");
 });

@@ -7,6 +7,7 @@ import type { PublicService } from "./perimeter.js";
 import { measureAvailability } from "./measure.js";
 import { evaluateCoverage } from "./objective.js";
 import type { DailyObservation } from "./probe.js";
+import { dayKeys } from "./observations.js";
 
 const DAY_MS = 86_400_000;
 
@@ -47,4 +48,35 @@ export function auditWindows(
 			status: coverage.label,
 		};
 	});
+}
+
+/**
+ * First anchor from `fromDay` whose seven-day window can still be complete:
+ * every earlier day must already hold one observation per service, while days
+ * from `fromDay` onward remain collectable. Nothing is fabricated or carried
+ * forward: future days are only candidates for a real future collection.
+ */
+export function earliestAttainableAnchor(
+	observations: DailyObservation[],
+	services: PublicService[],
+	fromDay: string,
+	maxAnchors = 366
+): string | null {
+	const start = Date.parse(`${fromDay}T00:00:00.000Z`);
+	if (!Number.isFinite(start)) throw new RangeError(`Invalid anchor day: ${fromDay}`);
+	const perimeter = new Set(services.map((service) => service.id));
+	const counts = new Map<string, number>();
+	for (const observation of observations) {
+		if (!perimeter.has(observation.serviceId)) continue;
+		if (!/^\d{4}-\d{2}-\d{2}$/.test(observation.day)) continue;
+		counts.set(observation.day, (counts.get(observation.day) ?? 0) + 1);
+	}
+	for (let offset = 0; offset < maxAnchors; offset += 1) {
+		const anchor = new Date(start + offset * DAY_MS).toISOString().slice(0, 10);
+		const complete = dayKeys(anchor).every(
+			(day) => day >= fromDay || (counts.get(day) ?? 0) >= services.length
+		);
+		if (complete) return anchor;
+	}
+	return null;
 }
