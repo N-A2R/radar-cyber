@@ -87,6 +87,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/live-map/stream", niveau: "public", motif: "3D map: attack feed, no personal data" },
   { methode: "GET", route: "/api/search", niveau: "public" },
   { methode: "GET", route: "/api/search/ask", niveau: "public" },
+  { methode: "GET", route: "/api/search/ask-fr", niveau: "public", motif: "réponses françaises ancrées : identifiants d'événements, URL de source et run de collecte" },
   { methode: "GET", route: "/api/na/overview", niveau: "public" },
   { methode: "GET", route: "/api/na/events", niveau: "public" },
   { methode: "GET", route: "/api/na/hosting-outage", niveau: "public", motif: "simulation agrégée : noms et identifiants d'organisations jamais exposés" },

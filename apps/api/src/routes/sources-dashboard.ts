@@ -193,8 +193,8 @@ export default async function (app: FastifyInstance) {
       ),
       query<EvolutionRow>(
         `WITH jours AS (
-           SELECT generate_series((current_date - interval '6 days')::date,
-                                  current_date::date,
+           SELECT generate_series(((now() AT TIME ZONE 'UTC')::date - interval '6 days')::date,
+                                  (now() AT TIME ZONE 'UTC')::date,
                                   interval '1 day')::date AS jour
          ),
          evenements AS (
@@ -202,14 +202,14 @@ export default async function (app: FastifyInstance) {
                   count(*)::int AS n,
                   count(DISTINCT source_id)::int AS sources
              FROM event
-            WHERE COALESCE(observed_at, collected_at) >= (current_date - interval '6 days')
+            WHERE COALESCE(observed_at, collected_at) >= ((now() AT TIME ZONE 'UTC')::date - interval '6 days')
             GROUP BY 1
          ),
          runs AS (
            SELECT (finished_at AT TIME ZONE 'UTC')::date AS jour,
                   sum(items_in)::int AS entrees
              FROM collector_run
-            WHERE status = 'ok' AND finished_at >= (current_date - interval '6 days')
+            WHERE status = 'ok' AND finished_at >= ((now() AT TIME ZONE 'UTC')::date - interval '6 days')
             GROUP BY 1
          )
          SELECT to_char(j.jour, 'YYYY-MM-DD') AS date,

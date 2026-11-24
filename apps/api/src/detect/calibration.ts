@@ -97,3 +97,72 @@ export function chooseThreshold(
 export function noObservationPoint(threshold = DEFAULT_THRESHOLD): CalibrationPoint {
 	return { threshold, precision: 1, recall: 1, alerts: 0, tp: 0, fp: 0, fn: 0 };
 }
+
+/**
+ * Objectif déclaré du chantier, mesuré depuis l'artefact publié (aucune base,
+ * aucun réseau) : moins de 1 457 alertes conservées avec au plus 40 % des
+ * alertes vraies supprimées, les 8 règles actives restant qualifiantes.
+ */
+export const HOLDOUT_INITIAL_ALERTES = 1457;
+export const REGLES_ACTIVES = 8;
+export const PERTE_MAXIMALE = 0.4;
+
+export type MesureRegleObjectif = {
+	ruleId: string;
+	precision: number;
+	recall: number;
+	alerts: number;
+	positives: number;
+};
+
+export type ObjectifCalibration = {
+	alertes: number;
+	holdout: number;
+	qualifiantes: number;
+	regles: number;
+	positifs: number;
+	conserves: number;
+	perte: number;
+	partPerte: number;
+	atteint: boolean;
+	ligne: string;
+};
+
+const grouper = (n: number): string => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+const pourcent = (n: number): string => `${(n * 100).toFixed(2).replace(".", ",")} %`;
+
+/** Mesure l'objectif réel : alertes conservées et rappel global sur les vraies alertes. */
+export function mesurerObjectifCalibration(
+	mesures: readonly MesureRegleObjectif[],
+	holdout = HOLDOUT_INITIAL_ALERTES,
+): ObjectifCalibration {
+	const alertes = mesures.reduce((n, m) => n + m.alerts, 0);
+	const qualifiantes = mesures.filter(
+		(m) => m.precision >= MIN_PRECISION && m.recall >= MIN_RECALL,
+	).length;
+	const positifs = mesures.reduce((n, m) => n + m.positives, 0);
+	const conserves = mesures.reduce((n, m) => n + Math.round(m.positives * m.recall), 0);
+	const perte = positifs - conserves;
+	const partPerte = positifs === 0 ? 0 : perte / positifs;
+	const regles = mesures.length;
+	const atteint = regles === REGLES_ACTIVES && qualifiantes === REGLES_ACTIVES
+		&& alertes < holdout && partPerte <= PERTE_MAXIMALE;
+	const valeur = `${grouper(alertes)} alertes conservées sur ${grouper(holdout)}, ` +
+		`${grouper(perte)}/${grouper(positifs)} alertes vraies supprimées (${pourcent(partPerte)})`;
+	const cible = `< ${grouper(holdout)} alertes et ≤ 40 % de perte, avec ` +
+		`${REGLES_ACTIVES}/${REGLES_ACTIVES} règles qualifiant (précision ≥ 0,85, rappel ≥ 0,60)`;
+	const manques: string[] = [];
+	if (qualifiantes < REGLES_ACTIVES) manques.push(`${REGLES_ACTIVES - qualifiantes} règles qualifiantes`);
+	if (alertes >= holdout) manques.push(`${grouper(alertes - holdout + 1)} alertes à retirer`);
+	if (partPerte > PERTE_MAXIMALE) manques.push(`${pourcent(partPerte - PERTE_MAXIMALE)} de perte superflue`);
+	if (manques.length === 0) manques.push("mesure incomplète");
+	const ligne = atteint
+		? `OBJECTIF : atteint — ${valeur} / ${cible}`
+		: `OBJECTIF : partiel — ${valeur} / ${cible}, manque ${manques.join(", ")}`;
+	return { alertes, holdout, qualifiantes, regles, positifs, conserves, perte, partPerte, atteint, ligne };
+}
+
+/** La déclaration publiée doit être exacte et unique, jamais une variante périmée. */
+export function verifierDeclarationObjectifCalibration(rapport: string, ligne: string): boolean {
+	return rapport.split(/\r?\n/).filter((publiee) => publiee === ligne).length === 1;
+}
