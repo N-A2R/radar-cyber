@@ -10,6 +10,8 @@ export type Health = z.infer<typeof Schemas.Health>;
 export type Event = z.infer<typeof Schemas.Event>;
 export type EventList = z.infer<typeof Schemas.EventList>;
 export type EventRows = z.infer<typeof Schemas.EventRows>;
+export type NaEventRow = z.infer<typeof Schemas.NaEventRow>;
+export type NaEventFeed = z.infer<typeof Schemas.NaEventFeed>;
 export type Org = z.infer<typeof Schemas.Org>;
 export type OrgList = z.infer<typeof Schemas.OrgList>;
 export type OrgDetail = z.infer<typeof Schemas.OrgDetail>;
@@ -42,7 +44,7 @@ export type EventsQuery = z.infer<typeof Catalog.EventsQuery>;
 export type HistoryQuery = z.infer<typeof Catalog.HistoryQuery>;
 export type TodayQuery = z.infer<typeof Catalog.TodayQuery>;
 export type StreamQuery = z.infer<typeof Catalog.StreamQuery>;
-export type DeptQuery = z.infer<typeof Catalog.DeptQuery>;
+export type NaEventsQuery = z.infer<typeof Catalog.NaEventsQuery>;
 export type OrgsQuery = z.infer<typeof Catalog.OrgsQuery>;
 export type IdParam = z.infer<typeof Catalog.IdParam>;
 export type DirectoryQuery = z.infer<typeof Catalog.DirectoryQuery>;
@@ -131,8 +133,8 @@ export function createRadarClient(options?: RequestOptions) {
       request<Stream>(withQuery("/stream", args?.query), "GET", undefined, { ...options, ...call }),
     getNaOverview: (args?: Record<string, never>, call?: RequestOptions) =>
       request<Stats>("/na/overview", "GET", undefined, { ...options, ...call }),
-    getNaEvents: (args: { query?: DeptQuery }, call?: RequestOptions) =>
-      request<EventList>(withQuery("/na/events", args?.query), "GET", undefined, { ...options, ...call }),
+    getNaEvents: (args: { query?: NaEventsQuery }, call?: RequestOptions) =>
+      request<NaEventFeed>(withQuery("/na/events", args?.query), "GET", undefined, { ...options, ...call }),
     getOrgs: (args: { query?: OrgsQuery }, call?: RequestOptions) =>
       request<OrgList>(withQuery("/orgs", args?.query), "GET", undefined, { ...options, ...call }),
     getOrg: (args: { params: { id: string | number } }, call?: RequestOptions) =>

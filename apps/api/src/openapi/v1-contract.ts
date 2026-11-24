@@ -7,7 +7,7 @@ import type { FrozenContract } from "./contract.js";
 export const V1_CONTRACT: FrozenContract = {
   "version": "1.0.0",
   "frozenAt": "2026-11-23",
-  "digest": "7f5eb33b9b03709af9885c48710e1cc7e288930227879bf3ebde530a6139cc1d",
+  "digest": "d9f7b3f80b7d0a21874f5f6d17cfd3b7a68f4d43ca19f8368d3301706450f82a",
   "operations": [
     {
       "method": "delete",
@@ -122,7 +122,7 @@ export const V1_CONTRACT: FrozenContract = {
     {
       "method": "get",
       "path": "/na/events",
-      "signature": "62e260ea183befad"
+      "signature": "f9c1bdc53595c7eb"
     },
     {
       "method": "get",

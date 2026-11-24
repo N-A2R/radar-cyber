@@ -27,6 +27,18 @@ export const Health = z.object({ ok: z.boolean(), sources: z.number().int() });
 export const Event = z.object({ id: Id, title: z.string(), family: z.string() }).passthrough();
 export const EventList = z.object({ events: z.array(Event) }).passthrough();
 export const EventRows = z.array(Event);
+/** Fil /na/events : la route publie des clés camelCase, pas les clés SQL snake_case. */
+export const NaEventRow = z.object({
+  id: z.number().int(),
+  title: z.string(),
+  family: z.string(),
+  observedAt: nullableString,
+  collectedAt: z.string(),
+  source: z.string(),
+  orgId: z.number().int(),
+  orgName: z.string(),
+}).passthrough();
+export const NaEventFeed = z.object({ dept: z.string(), events: z.array(NaEventRow) }).passthrough();
 export const Org = z.object({ id: Id, name: z.string(), slug: nullableString.optional() }).passthrough();
 export const OrgList = z.object({ rows: z.array(Org), total: z.number().int() }).passthrough();
 export const OrgDetail = z.object({ org: Org }).passthrough();
@@ -94,7 +106,7 @@ export const AuthUser = z.object({ id: z.number().int(), email: z.string(), role
 
 /** Carte des composants réutilisables : chaque entrée devient un $ref OpenAPI. */
 export const SCHEMAS = {
-  ErrorBody, Ok, Health, Event, EventList, EventRows, Org, OrgList, OrgDetail, Directory,
+  ErrorBody, Ok, Health, Event, EventList, EventRows, NaEventRow, NaEventFeed, Org, OrgList, OrgDetail, Directory,
   SourceList, SourceVerification, Stats, Flows, Graph, SearchResults, Today, Alerts, Quarantine,
   Journal, ReviewQueue, Coverage, HealthDetail, HealthSources, Enrichment, Dossier, Stream, Csv,
   KeyRow, KeyList, KeyCreated, DecisionResult, AuthLogin, AuthUser,

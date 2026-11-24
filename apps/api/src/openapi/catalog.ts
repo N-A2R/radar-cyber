@@ -85,7 +85,10 @@ export const QuarantineQuery = z.object({
 });
 export const StreamQuery = z.object({ token: z.string().optional(), sinceId: z.coerce.number().int().optional() });
 export const TodayQuery = z.object({ jours: intQuery(365), dept: z.string().optional() });
-export const DeptQuery = z.object({ jours: intQuery(365) });
+/** La route /na/events lit `dept` ; `jours` n'existe pas sur cette route. */
+export const NaEventsQuery = z.object({
+  dept: z.string().optional().describe("Code INSEE du département ; hors Nouvelle-Aquitaine, events est vide."),
+});
 export const IdParam = z.object({ id: z.string().min(1) });
 export const ValueParam = z.object({ value: z.string().min(1) });
 export const IngestBody = z.object({ events: z.array(z.object({}).passthrough()) });
@@ -113,7 +116,7 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/today/departements", operationId: "getTodayDepartements", summary: "Activité par département aujourd'hui", tag: "Territoire", response: "Stats", security: "public" },
   { method: "get", path: "/stream", operationId: "streamEvents", summary: "Flux SSE des nouveaux événements", tag: "Événements", response: "Stream", security: "public-or-session", query: StreamQuery, contentType: "text/event-stream" },
   { method: "get", path: "/na/overview", operationId: "getNaOverview", summary: "Vue d'ensemble Nouvelle-Aquitaine", tag: "Territoire", response: "Stats", security: "public" },
-  { method: "get", path: "/na/events", operationId: "getNaEvents", summary: "Événements régionaux", tag: "Territoire", response: "EventList", security: "public", query: DeptQuery },
+  { method: "get", path: "/na/events", operationId: "getNaEvents", summary: "Fil d'événements d'un département de Nouvelle-Aquitaine", tag: "Territoire", response: "NaEventFeed", security: "public", query: NaEventsQuery },
 
   { method: "get", path: "/orgs", operationId: "getOrgs", summary: "Organisations du référentiel", tag: "Organisations", response: "OrgList", security: "public", query: OrgsQuery },
   { method: "get", path: "/orgs/:id", operationId: "getOrg", summary: "Fiche d'une organisation", tag: "Organisations", response: "OrgDetail", security: "public-or-session", params: IdParam },

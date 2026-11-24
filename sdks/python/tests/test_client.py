@@ -88,8 +88,8 @@ class RadarClientTest(unittest.TestCase):
                 "title": "Victim name appears here",
                 "summary": "Personal details",
                 "family": "leaks",
-                "observed_at": "2026-11-21T10:00:00Z",
-                "collected_at": "2026-11-21T10:01:00Z",
+                "observedAt": "2026-11-21T10:00:00Z",
+                "collectedAt": "2026-11-21T10:01:00Z",
                 "source": "gray-source",
                 "orgId": 42,
                 "orgName": "Example Org",
@@ -100,6 +100,8 @@ class RadarClientTest(unittest.TestCase):
             set(vars(event)),
             {"id", "family", "observed_at", "collected_at", "source", "org_id"},
         )
+        self.assertEqual(event.observed_at, "2026-11-21T10:00:00Z")
+        self.assertEqual(event.collected_at, "2026-11-21T10:01:00Z")
         self.assertNotIn("Victim", repr(event))
 
     def test_keeps_gray_sources_without_an_origin_allowlist(self) -> None:

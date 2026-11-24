@@ -80,12 +80,13 @@ type RawNaOverview = {
   };
 };
 
+/** Wire shape of GET /na/events: the route serialises observedAt/collectedAt. */
 type RawNaEvent = {
   id: number;
   title: string;
   family: string;
-  observed_at: string | null;
-  collected_at: string;
+  observedAt: string | null;
+  collectedAt: string;
   source: string;
   orgId: number;
   orgName: string;
@@ -173,8 +174,8 @@ export class RadarClient {
     return raw.events.map((event) => ({
       id: event.id,
       family: event.family,
-      observedAt: event.observed_at,
-      collectedAt: event.collected_at,
+      observedAt: event.observedAt,
+      collectedAt: event.collectedAt,
       source: event.source,
       orgId: event.orgId,
     }));

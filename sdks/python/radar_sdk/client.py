@@ -139,8 +139,8 @@ class RadarClient:
             NaEvent(
                 id=int(row["id"]),
                 family=row["family"],
-                observed_at=row["observed_at"],
-                collected_at=row["collected_at"],
+                observed_at=row["observedAt"],
+                collected_at=row["collectedAt"],
                 source=row["source"],
                 org_id=int(row["orgId"]),
             )

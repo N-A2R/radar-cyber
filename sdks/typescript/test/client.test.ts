@@ -73,8 +73,8 @@ test("drops free-text fields that could name a victim", async () => {
         title: "Victim name appears here",
         summary: "Personal details",
         family: "leaks",
-        observed_at: "2026-11-21T10:00:00Z",
-        collected_at: "2026-11-21T10:01:00Z",
+        observedAt: "2026-11-21T10:00:00Z",
+        collectedAt: "2026-11-21T10:01:00Z",
         source: "gray-source",
         orgId: 42,
         orgName: "Example Org",
@@ -86,6 +86,8 @@ test("drops free-text fields that could name a victim", async () => {
     "collectedAt", "family", "id", "observedAt", "orgId", "source",
   ]);
   assert.ok(!JSON.stringify(event).includes("Victim"));
+  assert.equal(event.observedAt, "2026-11-21T10:00:00Z");
+  assert.equal(event.collectedAt, "2026-11-21T10:01:00Z");
 });
 
 test("keeps gray sources without an origin allowlist", async () => {
