@@ -18,9 +18,11 @@ import { keepFocusInDialog } from "../src/a11y/dialog-focus";
 // the environment before the stub is installed.
 import type AppType from "../src/App";
 
+// Libellés du rail (App.tsx, VIEWS) — l'UI est en français : le test a été
+// écrit avec des libellés anglais avant la traduction et échouait depuis.
 const SCREEN_LABELS = [
-  "Today", "Coverage", "Review", "Journal", "Corpus",
-  "Sources", "Map", "Graph", "Health", "Alerts", "Nouvelle-Aquitaine",
+  "Aujourd'hui", "Couverture", "Revue", "Journal", "Corpus",
+  "Sources", "Carte", "Graphe", "Santé", "Alertes", "Nouvelle-Aquitaine",
 ] as const;
 
 const AA_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
@@ -122,7 +124,7 @@ describe("WCAG AA audit", () => {
 
   it("gives feed rows a valid pressed state instead of aria-selected", async () => {
     await mountApp();
-    await selectScreen("Coverage");
+    await selectScreen("Couverture");
     const rows = host.querySelectorAll<HTMLButtonElement>("button.feed__row");
     expect(rows.length).toBeGreaterThan(0);
     for (const row of rows) {
@@ -158,10 +160,12 @@ describe("WCAG AA audit", () => {
 
   it("makes every health sort header keyboard operable", async () => {
     await mountApp();
-    await selectScreen("Health");
+    await selectScreen("Santé");
     const buttons = host.querySelectorAll<HTMLButtonElement>("th button[data-sort]");
     expect(buttons.length).toBeGreaterThan(0);
-    for (const button of buttons) expect(button.getAttribute("aria-label")).toMatch(/^Sort by /);
+    // Les aria-labels de tri sont en français (« Trier par … ») depuis la
+    // traduction de l'interface.
+    for (const button of buttons) expect(button.getAttribute("aria-label")).toMatch(/^Trier par /);
     const firstHeader = buttons[0].closest("th")!;
     const before = firstHeader.getAttribute("aria-sort");
     await act(async () => { buttons[0].click(); });
@@ -170,7 +174,7 @@ describe("WCAG AA audit", () => {
 
   it("follows the tabs pattern with arrow keys and a labelled panel", async () => {
     await mountApp();
-    await selectScreen("Graph");
+    await selectScreen("Graphe");
     const tabs = host.querySelectorAll<HTMLButtonElement>("[role='tab']");
     expect([...tabs].map((tab) => tab.id)).toEqual(["gv-network-tab", "gv-matrix-tab"]);
     for (const tab of tabs) expect(tab.getAttribute("aria-controls")).toBe("gv-panel");
@@ -186,7 +190,7 @@ describe("WCAG AA audit", () => {
 
   it("moves focus into the review keyboard help dialog", async () => {
     await mountApp();
-    await selectScreen("Review");
+    await selectScreen("Revue");
     const section = host.querySelector<HTMLElement>("section.revue")!;
     await act(async () => {
       section.dispatchEvent(new KeyboardEvent("keydown", { key: "?", bubbles: true }));

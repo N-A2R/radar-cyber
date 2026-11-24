@@ -6,13 +6,16 @@
  *      le même groupe de ransomware (evidence.group, source de groupe dédiée
  *      `onion:ccw:*` ou groupe explicitement nommé dans le titre), la même
  *      infrastructure (domaine/IP/certificat explicite, ou hôte .onion d'une
- *      source de groupe), ou le même organisation **avec** même secteur et
- *      même vecteur. Secteur et vecteur seuls ne suffisent jamais : 23 000
- *      événements de vulnérabilités partagent un vecteur CVSS sans former une
- *      campagne.
+ *      source de groupe), le même acteur revendiqué dans le même mois civil
+ *      (`evidence.claimed_at`, avec au moins deux victimes distinctes), ou la
+ *      même organisation **avec** même secteur et même vecteur. Secteur et
+ *      vecteur seuls ne suffisent jamais : 23 000 événements de
+ *      vulnérabilités partagent un vecteur CVSS sans former une campagne.
  *   2. fenêtre temporelle : 14 jours pour une ancre de groupe ou
- *      d'infrastructure, 30 jours pour une ancre d'organisation ; durée
- *      maximale d'une campagne : 45 jours (pas de chaînage sans fin).
+ *      d'infrastructure, 30 jours pour une ancre d'organisation, 31 pour le
+ *      mois civil de revendication ; durée maximale d'une campagne : 45 jours
+ *      (pas de chaînage sans fin). Le mois de revendication est une frontière
+ *      dure : deux revendications de mois différents ne sont jamais liées.
  *   3. famille d'événements identique obligatoirement. Deux groupes connus
  *      différents ne sont jamais fusionnés, même sur une infrastructure
  *      partagée.
@@ -35,7 +38,7 @@ import { withTransaction } from "../db.js";
 import { extractScaleSignals } from "./scale-signals.js";
 
 const JOUR_MS = 86_400_000;
-/** Deux revendications du même groupe à plus de 14 jours ne sont pas une campagne. */
+/** Hors du même mois civil de revendication, 14 jours maximum pour une ancre de groupe. */
 export const FENETRE_ANCRE_MS = 14 * JOUR_MS;
 /** Une campagne visant la même organisation peut s'étaler sur un mois. */
 export const FENETRE_ORG_MS = 30 * JOUR_MS;
@@ -43,9 +46,12 @@ export const FENETRE_ORG_MS = 30 * JOUR_MS;
 export const DUREE_MAX_CAMPAGNE_MS = 45 * JOUR_MS;
 /** Shared vulnerability identifiers and syndicated advisories use the wider window. */
 export const FENETRE_SIGNALE_MS = 30 * JOUR_MS;
+/** Deux revendications du même acteur dans le même mois civil peuvent être éloignées de 31 jours. */
+export const FENETRE_MOIS_MS = 31 * JOUR_MS;
 
 export type TypeSignal =
 	| "groupe"
+	| "groupe-mois"
 	| "infrastructure"
 	| "organisation"
 	| "secteur"
@@ -164,6 +170,27 @@ export function groupeDe(evenement: EvenementCampagne): string | null {
 	);
 }
 
+/** Victime normalisée : une campagne multi-organismes porte sur des organisations distinctes. */
+export function victimeDe(evenement: EvenementCampagne): string | null {
+	if (evenement.orgId !== null && Number.isFinite(evenement.orgId)) return `org:${evenement.orgId}`;
+	for (const cle of ["victim", "victime", "organisation", "organization"] as const) {
+		const brut = texte(evenement.evidence?.[cle]);
+		if (brut !== null) return `nom:${brut.toLowerCase().replace(/\s+/g, " ")}`;
+	}
+	return null;
+}
+
+/** Mois civil de la revendication : jamais le mois de collecte de l'événement. */
+export function moisRevendication(evenement: EvenementCampagne): string | null {
+	const brut =
+		texte(evenement.evidence?.claimed_at) ??
+		texte(evenement.evidence?.claimedAt) ??
+		texte(evenement.evidence?.claim_date);
+	if (brut === null) return null;
+	const date = new Date(brut);
+	return Number.isFinite(date.getTime()) ? date.toISOString().slice(0, 7) : null;
+}
+
 function ajouterInfra(cible: Set<string>, brut: string): void {
 	const valeur = brut.trim().toLowerCase();
 	if (valeur.length < 6 || ["unknown", "aucun"].includes(valeur)) return;
@@ -214,6 +241,10 @@ export function signauxDe(evenement: EvenementCampagne): Signal[] {
 	const signaux: Signal[] = [];
 	const groupe = groupeDe(evenement);
 	if (groupe !== null) signaux.push({ type: "groupe", valeur: groupe });
+	const mois = moisRevendication(evenement);
+	if (groupe !== null && mois !== null) {
+		signaux.push({ type: "groupe-mois", valeur: `${groupe}:${mois}` });
+	}
 	for (const valeur of infrastructuresDe(evenement)) {
 		signaux.push({ type: "infrastructure", valeur });
 	}
@@ -328,7 +359,7 @@ function raisonIsolement(
 ): RaisonIsole {
 	if (!Number.isFinite(new Date(evenement.observedAt ?? "").getTime())) return "date_invalide";
 	const ancres = signauxDe(evenement).filter((s) =>
-		["groupe", "infrastructure", "organisation", "cve"].includes(s.type),
+		["groupe", "groupe-mois", "infrastructure", "organisation", "cve"].includes(s.type),
 	);
 	if (ancres.length === 0) return "sans_ancre";
 	for (const ancre of ancres) {
@@ -346,6 +377,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 		.sort((a, b) => instant(a) - instant(b) || a.id - b.id);
 
 	const groupes = new Map<string, number[]>();
+	const groupesMois = new Map<string, number[]>();
 	const infrastructures = new Map<string, number[]>();
 	const organisations = new Map<string, number[]>();
 	const cves = new Map<string, number[]>();
@@ -359,7 +391,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 
 	for (const e of evenements) {
 		for (const signal of signauxDe(e)) {
-			if (!["groupe", "infrastructure", "organisation", "cve"].includes(signal.type)) continue;
+			if (!["groupe", "groupe-mois", "infrastructure", "organisation", "cve"].includes(signal.type)) continue;
 			const cle = cleSignal(signal);
 			const liste = indexAncrage.get(cle) ?? [];
 			liste.push({ id: e.id, family: e.family });
@@ -372,9 +404,13 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 
 	for (const evenement of tries) {
 		const signaux = signauxDe(evenement);
+		const mois = moisRevendication(evenement);
 		const candidats = new Set<number>();
 		for (const signal of signaux) {
 			if (signal.type === "groupe") for (const i of groupes.get(signal.valeur) ?? []) candidats.add(i);
+			if (signal.type === "groupe-mois") {
+				for (const i of groupesMois.get(signal.valeur) ?? []) candidats.add(i);
+			}
 			if (signal.type === "infrastructure") {
 				for (const i of infrastructures.get(signal.valeur) ?? []) candidats.add(i);
 			}
@@ -393,9 +429,34 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 		for (const position of [...candidats].sort((a, b) => a - b)) {
 			const cluster = clusters[position];
 			if (!cluster || cluster.membres[0]?.family !== evenement.family) continue;
+			// Le mois de revendication est une frontière dure entre deux campagnes du même acteur.
+			if (mois !== null && cluster.membres.some((m) => {
+				const moisMembre = moisRevendication(m);
+				return moisMembre !== null && moisMembre !== mois;
+			})) continue;
 			const communs = signaux.filter((signal) => cluster.signaux.get(signal.type)?.has(signal.valeur));
-			const ancre = ancreDe(communs, cluster.sources.size + (cluster.sources.has(evenement.sourceId) ? 0 : 1));
+			const t = instant(evenement);
+			let reference: EvenementCampagne | null = null;
+			let delta = Infinity;
+			for (const membre of cluster.membres) {
+				const ecart = Math.abs(t - instant(membre));
+				if (ecart < delta) {
+					delta = ecart;
+					reference = membre;
+				}
+			}
+			let ancre = ancreDe(communs, cluster.sources.size + (cluster.sources.has(evenement.sourceId) ? 0 : 1));
 			if (ancre === null) continue;
+			// Au-delà de la fenêtre courte, le mois civil de revendication prend le relais.
+			const moisAncre = communs.find((s) => s.type === "groupe-mois");
+			if (delta > FENETRE_ANCRE_MS && moisAncre !== undefined) ancre = moisAncre;
+			if (ancre.type === "groupe-mois") {
+				const victime = victimeDe(evenement);
+				const distinctes = new Set(
+					cluster.membres.map((m) => victimeDe(m)).filter((v): v is string => v !== null),
+				);
+				if (victime === null || (distinctes.size < 2 && distinctes.has(victime))) continue;
+			}
 
 			// Un même domaine ne transforme pas deux acteurs connus différents en une campagne.
 			const groupe = signaux.find((s) => s.type === "groupe");
@@ -407,17 +468,9 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 			const fenetre =
 				ancre.type === "organisation" || ancre.type === "cve" || ancre.type === "headline"
 					? FENETRE_SIGNALE_MS
-					: FENETRE_ANCRE_MS;
-			const t = instant(evenement);
-			let reference: EvenementCampagne | null = null;
-			let delta = Infinity;
-			for (const membre of cluster.membres) {
-				const ecart = Math.abs(t - instant(membre));
-				if (ecart < delta) {
-					delta = ecart;
-					reference = membre;
-				}
-			}
+					: ancre.type === "groupe-mois"
+						? FENETRE_MOIS_MS
+						: FENETRE_ANCRE_MS;
 			if (reference === null || delta > fenetre) continue;
 			if (Math.max(cluster.fin, t) - Math.min(cluster.debut, t) > DUREE_MAX_CAMPAGNE_MS) continue;
 
@@ -428,6 +481,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 			ajouterSignaux(cluster.signaux, signaux, evenement.id);
 			for (const signal of signaux) {
 				if (signal.type === "groupe") indexer(groupes, signal.valeur, position);
+				if (signal.type === "groupe-mois") indexer(groupesMois, signal.valeur, position);
 				if (signal.type === "infrastructure") indexer(infrastructures, signal.valeur, position);
 				if (signal.type === "organisation") indexer(organisations, signal.valeur, position);
 				if (signal.type === "cve") indexer(cves, signal.valeur, position);
@@ -458,6 +512,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 			});
 			for (const signal of signaux) {
 				if (signal.type === "groupe") indexer(groupes, signal.valeur, position);
+				if (signal.type === "groupe-mois") indexer(groupesMois, signal.valeur, position);
 				if (signal.type === "infrastructure") indexer(infrastructures, signal.valeur, position);
 				if (signal.type === "organisation") indexer(organisations, signal.valeur, position);
 				if (signal.type === "cve") indexer(cves, signal.valeur, position);

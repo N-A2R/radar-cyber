@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "count": 20,
+    "source": "bench/gold/incidents-na-500.jsonl",
+    "reviewedAt": "2026-11-22",
+    "rule": "Même acteur revendiqué, même mois civil, au moins deux organisations distinctes (jeu d'or d'incidents annotés).",
+    "selection": "20 premiers groupes triés par (mois, acteur) sur 21 éligibles."
+  },
+  "campaigns": [
+    { "acteur": "pysa", "mois": "2021-09", "incidents": [4, 5, 80, 85, 446, 494], "organisations": 5, "famille": "ransomware" },
+    { "acteur": "quantum", "mois": "2021-12", "incidents": [36, 37, 489], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "conti", "mois": "2022-02", "incidents": [39, 437, 484], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "lockbit2", "mois": "2022-02", "incidents": [447, 476], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "blackbasta", "mois": "2022-05", "incidents": [44, 404], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "hiveleak", "mois": "2022-07", "incidents": [443, 488], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "sparta", "mois": "2022-09", "incidents": [51, 52], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "cuba", "mois": "2022-11", "incidents": [54, 55, 460], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "karakurt", "mois": "2022-12", "incidents": [57, 439, 471], "organisations": 3, "famille": "ransomware" },
+    { "acteur": "play", "mois": "2023-03", "incidents": [61, 63, 427, 480], "organisations": 3, "famille": "ransomware" },
+    { "acteur": "nokoyawa", "mois": "2023-05", "incidents": [70, 485, 493], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "stormous", "mois": "2023-05", "incidents": [69, 400, 433], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "rhysida", "mois": "2023-06", "incidents": [72, 421, 428], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "akira", "mois": "2023-08", "incidents": [75, 498], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "alphv", "mois": "2023-10", "incidents": [434, 451], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "blackbasta", "mois": "2024-02", "incidents": [408, 450], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "hunters", "mois": "2024-03", "incidents": [7, 414, 466, 492], "organisations": 4, "famille": "ransomware" },
+    { "acteur": "hunters", "mois": "2024-06", "incidents": [18, 465], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "hunters", "mois": "2024-10", "incidents": [22, 462], "organisations": 2, "famille": "ransomware" },
+    { "acteur": "killsecurity", "mois": "2024-11", "incidents": [24, 481], "organisations": 2, "famille": "ransomware" }
+  ]
+}
