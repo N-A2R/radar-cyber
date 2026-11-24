@@ -38,7 +38,9 @@ function selection(overrides: Partial<OfficialSelection> = {}): OfficialSelectio
 
 const validHtml = "<html><head><title>Boulazac — accueil</title></head><body>"
 	+ "La commune de Boulazac accueille ses habitants toute l'année"
-	+ " avec ses services municipaux et ses actualités locales.</body></html>";
+	+ " avec ses services municipaux et ses actualités locales."
+	+ " Le site présente les démarches administratives, les horaires d'ouverture"
+	+ " et les événements de la ville.</body></html>";
 
 describe("official Wikidata candidate route", () => {
 	it("accepts an RFC-shaped public hostname only", () => {
@@ -77,7 +79,7 @@ describe("official Wikidata candidate route", () => {
 	});
 
 	it("records the real final URL and hop count after a safe redirect", async () => {
-		const fetcher = (async (url: string | URL) => url.toString().includes("ville-boulazac")
+		const fetcher = (async (url: string | URL) => url.toString() === "http://ville-boulazac.fr"
 			? page("", 301, { location: "https://www.ville-boulazac.fr/" })
 			: page(validHtml)) as unknown as typeof fetch;
 		const result = await fetchOfficialPage("http://ville-boulazac.fr", {
@@ -118,8 +120,10 @@ describe("official Wikidata candidate route", () => {
 		assert.equal(result.verdict.status, 200);
 		const proof = provenanceFor(selection(), result.verdict, result.hops);
 		assert.equal(proof.source, "wikidata:P856:candidats-officiels:http200");
-		assert.equal(proof.preuve.qid, "Q1000796");
-		assert.equal(proof.preuve.urlFinale, selection().candidate.url);
+		assert.equal(proof.preuve.urlWikidata, "https://www.wikidata.org/wiki/Q1000796");
+		assert.equal(proof.preuve.urlP856, "http://www.ville-boulazac.fr");
+		assert.equal(proof.preuve.titre, "Boulazac — accueil");
+		assert.match(proof.preuve.verifieLe, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
 		assert.ok(proof.confiance >= 0.8);
 	});
 
