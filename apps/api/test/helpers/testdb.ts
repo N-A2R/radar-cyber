@@ -145,3 +145,31 @@ export async function dropTestDatabase(db: TestDb): Promise<void> {
 		await admin.query(`DROP DATABASE IF EXISTS ${db.name}`);
 	});
 }
+
+/**
+ * Filet de sécurité pour le mode shardié : supprime les bases jetables d'un
+ * worker déjà sorti, même si son `finally` n'a pas pu s'exécuter (SIGKILL, crash).
+ * Le préfixe contient le pid du worker, donc aucune autre base n'est visée.
+ */
+export async function dropTestDatabasesForPid(pid: number): Promise<string[]> {
+	if (!Number.isInteger(pid) || pid < 1) throw new Error(`pid de test invalide: ${pid}`);
+	const prefix = `radar_test_${pid}_`;
+	return withAdmin(async (admin) => {
+		const { rows } = await admin.query<{ datname: string }>(
+			"SELECT datname FROM pg_database WHERE datname LIKE $1",
+			[`${prefix}%`]
+		);
+		const dropped: string[] = [];
+		for (const { datname } of rows) {
+			assertSafeName(datname);
+			if (!datname.startsWith(prefix)) continue;
+			await admin.query(
+				"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid <> pg_backend_pid()",
+				[datname]
+			);
+			await admin.query(`DROP DATABASE IF EXISTS ${datname}`);
+			dropped.push(datname);
+		}
+		return dropped;
+	});
+}

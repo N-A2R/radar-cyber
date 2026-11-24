@@ -148,6 +148,27 @@ BASE_URL=http://localhost:8080 DATABASE_URL=postgres://radar:radar@localhost:543
 
 > `db/checks.sql` et `scripts/smoke.sh` existent ; `bash -n scripts/smoke.sh` OK ; `db/checks.sql` exécuté avec succès sur la base live le 2026-11-10.
 
+### Suite API en shards (opt-in)
+
+`pnpm test` reste le mode sûr : une seule base jetable, `--test-concurrency=1`.
+Pour réduire la durée sur une machine disposant de plusieurs connexions
+PostgreSQL, le mode shardié répartit les fichiers de façon déterministe
+(round-robin sur la liste triée) entre N workers, chacun avec sa propre base
+jetable, puis agrège tous les verdicts :
+
+```bash
+pnpm -F @radar/api test:sharded -- --shards=4 --concurrency=2
+pnpm -F @radar/api test:sharded -- --shards=2 --list-shards        # découpage sans exécution
+pnpm -F @radar/api test:sharded -- --shards=2 test/auth.test.ts test/active-sources.test.ts
+```
+
+`--concurrency` borne le nombre de workers simultanés (défaut : `--shards`).
+Chaque worker garde `--test-concurrency=1`, la garde anti-handle de 20 min et
+supprime sa base dans un `finally` ; le contrôleur supprime aussi, par pid, les
+bases qu'un worker tué aurait laissées. `--test-force-exit` et
+`--test-concurrency` sont refusés. Voir `tsx test/run-sharded.ts --help`.
+
+
 Scripts de mesure/revue (fichiers présents) :
 
 ```bash
