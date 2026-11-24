@@ -41,8 +41,11 @@
     "verify:scenarios": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-scenarios-objective.mts",
     "scelle:exports": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts",
     "scelle:exports:check": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts --check",
+    "recyf:export": "apps/api/node_modules/.bin/tsx scripts/export-recyf.mts",
+    "recyf:check": "apps/api/node_modules/.bin/tsx scripts/export-recyf.mts --check",
     "nis2:rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts",
     "verifie:nis2-rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts --check",
+    "verifie:alerte-nis2-24h": "apps/api/node_modules/.bin/tsx scripts/verifie-alerte-nis2-24h.mts",
     "verifie:nis2-classement": "apps/api/node_modules/.bin/tsx scripts/verifie-nis2-classement.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
@@ -93,6 +96,7 @@
     "measure:recruitment-claim": "apps/api/node_modules/.bin/tsx scripts/measure-recruitment-claim.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
     "mesure:graphe-temporal": "apps/api/node_modules/.bin/tsx scripts/mesure-graphe-temporal.mts",
+    "mesure:base-ctem": "apps/api/node_modules/.bin/tsx scripts/mesure-base-ctem.mts",
     "measure:attack-propagation": "apps/api/node_modules/.bin/tsx scripts/measure-attack-propagation.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",
@@ -130,9 +134,10 @@
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
     "validation:active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts --apply",
     "verifie:validation-active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts"
+    "verifie:stealer-domain-stat": "apps/api/node_modules/.bin/tsx scripts/verifie-stealer-domain-stat.mts"
     "dora:exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts",
     "verifie:dora-exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts --check",
-    "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts"
+    "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts",
     "verifie:rec": "apps/api/node_modules/.bin/tsx scripts/verifie-rec.mts"
   },
   "devDependencies": {
