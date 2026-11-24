@@ -51,7 +51,7 @@
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 6px 20px var(--color-overlay-pressed);
 }
 
 .gv-collapse {
@@ -307,7 +307,7 @@
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 6px 20px var(--color-overlay-pressed);
 }
 
 .gv-detail-head {

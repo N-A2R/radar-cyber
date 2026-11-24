@@ -70,6 +70,6 @@
   font-weight: 600;
 }
 
-.attrib__badge--high { background: #d7f2df; color: #14532d; }
-.attrib__badge--medium { background: #fff0c7; color: #713f12; }
-.attrib__badge--low { background: #f2dede; color: #7f1d1d; }
+.attrib__badge--high { background: var(--color-background-green); color: var(--color-on-success); }
+.attrib__badge--medium { background: var(--color-background-yellow); color: var(--color-on-warning); }
+.attrib__badge--low { background: var(--color-background-red); color: var(--color-on-error); }

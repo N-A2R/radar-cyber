@@ -214,7 +214,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
         <label style={FIELD_STYLE}>
           famille
           <select value={family} onChange={(e) => changerFamille(e.target.value)}>
-            <option value="all">toutes{data === null ? "" : ` (${data.families.length})`}</option>
+            <option value="all">toutes{data === null ? "" : ` (${(data.families ?? []).length})`}</option>
             {(data?.families ?? []).map((f) => (
               <option key={f.family} value={f.family}>
                 {FAMILY_LABEL[f.family] ?? f.family} ({formatNumber(f.sources)})
