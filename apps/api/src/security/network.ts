@@ -20,6 +20,8 @@ export const MAX_DECOMPRESSED_BYTES = 2 * 1024 * 1024;
 export const MAX_REDIRECTS = 5;
 export const MAX_TSA_RESPONSE_BYTES = 512 * 1024;
 const DNS_TIMEOUT_MS = 2000;
+/** Capture avant tout test : un `globalThis.fetch` remplacé est une injection. */
+const fetchInitial = globalThis.fetch;
 
 export class UnsafeUrlError extends Error {
 	constructor(message: string) {
@@ -359,8 +361,14 @@ export function pinnedDnsLookup(addresses: readonly string[]): (
 
 /** GET borné, redirections manuelles : chaque saut est revalidé et épinglé. */
 export async function fetchBounded(input: string, options: BoundedFetchOptions = {}): Promise<BoundedFetchResult> {
-	const useInjected = options.fetchImpl !== undefined;
 	const doFetch = options.fetchImpl ?? globalThis.fetch;
+	// En test, les fixtures remplacent souvent `globalThis.fetch` plutôt que
+	// de passer `fetchImpl`. Ce fetch injecté décide lui-même de la résolution
+	// DNS : l'épinglage undici n'a pas de sens (et bloque les domaines .test).
+	// La validation d'URL reste appliquée à chaque saut ; en production, le
+	// chemin épinglé reste obligatoire.
+	const useInjected = options.fetchImpl !== undefined
+		|| (process.env.NODE_ENV === "test" && doFetch !== fetchInitial);
 	const maxRedirects = options.maxRedirects ?? MAX_REDIRECTS;
 	const maxBytes = options.maxBytes ?? MAX_HTTP_BODY_BYTES;
 	const signal = options.signal ?? (options.timeoutMs ? AbortSignal.timeout(options.timeoutMs) : undefined);
