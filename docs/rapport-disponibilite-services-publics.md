@@ -155,6 +155,29 @@ glissante du 23 au 29 novembre : la collecte du 22 novembre étant incomplète
 (420/500), aucune fenêtre incluant cette date ne peut totaliser 3 500
 service-jours. Aucune date ne peut être inventée pour combler l'écart aujourd'hui.
 
+## Audit des fenêtres attainables (24 novembre, 01 h 07 UTC)
+
+Une seconde passe a rejoué la mesure et vérifié toutes les fenêtres de sept
+jours que les observations versionnées permettent encore d'ancrer :
+
+```
+services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48%
+OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours
+windows=10 max_observed_service_days=1920/3500 feasible_windows=0
+```
+
+Les dix ancres possibles vont du 21 au 30 novembre ; aucune n'atteint 3 500
+service-jours. La recherche indépendante n'a retrouvé aucune observation HTTP
+réelle pour les 18, 19 et 20 novembre : 0 ligne dans le fichier versionné, les
+~100 copies de worktrees, le corpus (toutes les preuves sont datées du 21), les
+refs et reflog Git, ni dans PostgreSQL (`source_verification` : 44 lignes le 21
+et 7 192 le 22 ; `warc_proof` : 145 le 21 et 22 le 22 ; 0 sur la fenêtre
+manquante). Cinq URL du périmètre ont été confrontées à Wayback CDX et
+`available`, urlscan.io, arquivo.pt et Common Crawl : 0 capture sur ces trois
+jours, le snapshot le plus proche étant toujours antérieur. Le 22 novembre
+reste à 420/500 : 80 sondes n'ont jamais été enregistrées. Aucun jour ni
+statut n'a été inventé pour combler l'écart.
+
 ## Reproduire
 
 ```bash
@@ -169,6 +192,9 @@ pnpm services:collect -- --anchor=2026-11-24 --concurrency=100 --deadline-ms=500
 
 # Statut de l'objectif, calculé depuis le résultat versionné (hors réseau)
 pnpm services:verify -- --anchor=2026-11-24
+
+# Audit reproductible de toutes les fenêtres de sept jours encore ancrables
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts
 ```
 
 La commande de rejeu réécrit `bench/results/service-availability-na-<date>.json`
@@ -177,11 +203,12 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
 
 ## Contrôles
 
-- 15 tests de comportement (`apps/api/test/service-availability.test.ts`) : un
-  test par comportement, tous hors réseau et hors base.
+- 18 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
+  trois pour l'audit des fenêtres : un test par comportement, tous hors réseau
+  et hors base.
 - `tsc --noEmit -p apps/api/tsconfig.json` : aucune erreur.
 - Périmètre Nouvelle-Aquitaine uniquement ; sources grises autorisées ; aucune
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 4 / 7 jours (1 920 / 3 500 service-jours), manque 3 jours d'observation (18, 19 et 20 novembre) et 80 sondes du 22 novembre, soit 1 580 service-jours ; rejoué le 24/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-24` (code 0) : `services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48 %` ; statut reproductible `pnpm services:verify -- --anchor=2026-11-24` (code 0) : `OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours` ; rattrapage du 24/11 : 0 service-jour réel supplémentaire retrouvé.
+OBJECTIF : partiel — 4 / 7 jours (1 920 / 3 500 service-jours), manque 3 jours d'observation (18, 19 et 20 novembre) et 80 sondes du 22 novembre, soit 1 580 service-jours ; rejoué le 24/11/2026 à 01 h 07 UTC avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-24` (code 0) : `services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48 %` ; statut reproductible `pnpm services:verify -- --anchor=2026-11-24` (code 0) : `OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours` ; audit des 10 fenêtres ancrables `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts` (code 0) : `windows=10 max_observed_service_days=1920/3500 feasible_windows=0` ; 0 service-jour réel supplémentaire retrouvé dans l'arbre, les worktrees, l'historique Git, PostgreSQL ou les sources grises testées.

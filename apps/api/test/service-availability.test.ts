@@ -14,6 +14,7 @@ import { dayKeys, mergeDaily, parseObservations, serializeObservations } from ".
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
 import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
+import { auditWindows, candidateAnchors } from "../src/serviceAvailability/audit.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -182,4 +183,33 @@ test("coverage status counts unobserved days and service-days without extrapolat
 	assert.equal(status.missingDays.length, 4);
 	assert.equal(status.observedServiceDays, 3);
 	assert.equal(status.missingServiceDays, 4);
+});
+
+test("candidate anchors span each observed day and the six following days", () => {
+	const rows = [observation("a", "2026-11-21", true), observation("a", "2026-11-22", true)];
+	assert.deepEqual(candidateAnchors(rows), [
+		"2026-11-21", "2026-11-22", "2026-11-23", "2026-11-24",
+		"2026-11-25", "2026-11-26", "2026-11-27", "2026-11-28",
+	]);
+});
+
+test("partial observations never mark a candidate window as attained", () => {
+	const services = [service("a"), service("b")];
+	const rows = [
+		observation("a", "2026-11-21", true), observation("b", "2026-11-21", true),
+		observation("a", "2026-11-23", true), observation("b", "2026-11-23", true),
+	];
+	const audits = auditWindows(rows, services);
+	assert.equal(audits.length, 9);
+	assert.ok(audits.every((window) => window.status === "partiel"));
+	assert.equal(Math.max(...audits.map((window) => window.observedServiceDays)), 4);
+});
+
+test("seven observed days produce one fully covered candidate window", () => {
+	const services = [service("a"), service("b")];
+	const days = dayKeys("2026-11-28", 7);
+	const rows = days.flatMap((day) => services.map((item) => observation(item.id, day, true)));
+	const attained = auditWindows(rows, services).filter((window) => window.status === "atteint");
+	assert.deepEqual(attained.map((window) => window.anchor), ["2026-11-28"]);
+	assert.equal(attained[0]?.observedServiceDays, 14);
 });
