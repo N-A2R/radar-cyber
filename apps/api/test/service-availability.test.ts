@@ -20,6 +20,11 @@ import {
 	observationsFromDbProofs,
 	observationsFromExpositionProofs,
 } from "../src/serviceAvailability/dbProofs.js";
+import {
+	archiveAuditVerdict,
+	capturableServiceDays,
+	parseArchiveCaptures,
+} from "../src/serviceAvailability/archiveProofs.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -297,4 +302,35 @@ test("an exposition proof on the corpus final URL maps to its service", () => {
 			latencyMs: 0, observedAt: "2026-11-22T03:25:37.499Z", failure: null,
 		},
 	]);
+});
+
+test("a Wayback CDX matrix becomes dated HTTP captures", () => {
+	const rows = [
+		["timestamp", "original", "statuscode"],
+		["20261118123456", "http://example.fr/a", "200"],
+		["invalid", "http://example.fr/b", "200"],
+	];
+	assert.deepEqual(parseArchiveCaptures(rows), [
+		{ timestamp: "20261118123456", original: "http://example.fr/a", status: 200 },
+	]);
+});
+
+test("only successful in-window archive captures yield perimeter service-days", () => {
+	const target = service("na-edu-040");
+	const captures = [
+		{ timestamp: "20261119010203", original: "https://WWW.EXAMPLE.FR/na-edu-040/", status: 301 },
+		{ timestamp: "20261118110203", original: "https://example.fr/na-edu-040/", status: 503 },
+		{ timestamp: "20261117110203", original: "https://example.fr/na-edu-040/", status: 200 },
+		{ timestamp: "20261120110203", original: "https://other.fr/page", status: 200 },
+	];
+	assert.deepEqual(
+		[...capturableServiceDays(captures, [target], "2026-11-18", "2026-11-20")],
+		["na-edu-040\u00002026-11-19"]
+	);
+});
+
+test("an incomplete archive sweep is reported as indeterminate", () => {
+	assert.equal(archiveAuditVerdict(1, 0), "indeterminate");
+	assert.equal(archiveAuditVerdict(0, 0), "no_captures");
+	assert.equal(archiveAuditVerdict(0, 2), "captures_found");
 });

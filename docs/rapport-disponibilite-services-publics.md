@@ -537,7 +537,7 @@ apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --
 jq -r .day bench/results/service-availability-observations.jsonl | sort | uniq -c
 # 500 lignes les 21, 22, 23 et 24 novembre ; 0 ligne les 18, 19 et 20
 apps/api/node_modules/.bin/tsx --test apps/api/test/service-availability.test.ts
-# 24 tests, 24 réussis
+# 27 tests, 27 réussis
 ```
 
 - **Base** : 61 tables du schéma public avec horodatage et URL ou statut HTTP
@@ -563,5 +563,37 @@ apps/api/node_modules/.bin/tsx --test apps/api/test/service-availability.test.ts
 Bilan : 0 service-jour réel supplémentaire. L'écart reste de 1 500
 service-jours ; la première fenêtre complète possible reste ancrée au
 27 novembre, après trois collectes réelles (25, 26, 27 novembre).
+
+## Audit d'archive reproductible (reprise du 24 novembre)
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(`PR #799` : 2 000 / 3 500), sans repartir de `main`. Un audit borné interroge
+l'index Wayback CDX pour les 308 hôtes distincts du périmètre sur les trois
+jours manquants. Seules les captures HTTP 2xx/3xx dont l'horodatage UTC tombe
+dans la fenêtre peuvent compter ; aucune capture n'est versée dans les
+observations et aucune date n'est déduite :
+
+```
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-archive-captures.mts --from=2026-11-18 --to=2026-11-20
+# hosts=308 window=2026-11-18..2026-11-20 captures=0 capturable_service_days=0 cdx_unavailable=308 verdict=indeterminate
+```
+
+`verdict=indeterminate` est explicite : l'index a répondu HTTP 429 et `fetch`
+a reçu `ECONNREFUSED`, donc cette passe seule ne prouve pas l'absence de
+capture. Les requêtes bornées précédentes, qui renvoyaient `[]` sur les URL du
+périmètre, restent la preuve disponible ; aucun service-jour n'a été gagné.
+
+Contrôle UTC complémentaire (la session PostgreSQL est en Europe/Paris) :
+`source_verification` compte 44 lignes le 21 et 7 192 le 22 ;
+`exposition_service` 768 le 21, 10 328 le 22 et 418 le 23 ; `warc_proof` 145 le
+21 et 22 le 22. Zéro ligne les 18, 19 et 20 novembre dans ces trois tables.
+`quarantine_raw` (102 lignes le 20) ne contient aucune URL du périmètre ni
+statut HTTP. Le 18, le 19 et le 20 novembre restent donc sans observation
+réelle, et la fenêtre du 21 au 27 novembre exigera trois collectes réelles
+les 25, 26 et 27 novembre.
+
+Bilan de la reprise : 0 service-jour réel supplémentaire, écart inchangé à
+1 500 service-jours ; `pnpm services:verify -- --anchor=2026-11-24` rapporte
+toujours 2 000 / 3 500 et `feasible_windows=0`.
 
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
