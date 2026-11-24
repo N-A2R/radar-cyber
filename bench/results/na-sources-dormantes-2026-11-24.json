@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-24",
+  "methode": "curl -sS -L -A 'Mozilla/5.0 (X11; Linux x86_64) Chrome/131' -D <headers> -o <fixture> --max-time 25 <url> ; lecture seule, aucune écriture sur les sites interrogés",
+  "portee": "Sources officielles/régionales de Nouvelle-Aquitaine déclarées actives mais dormantes dans la base de développement au 2026-11-24 (aucune collecte sur 30 j). Les corps bruts sont conservés sous apps/api/test/fixtures/sources-na-dormantes-2026-11-24/.",
+  "sources": [
+    {
+      "id": "corpus:sante-ars-nouvelle-aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+      "http": { "status": 200, "content_type": "application/rss+xml; charset=utf-8", "bytes": 14666, "date_entete": "Tue, 24 Nov 2026 21:55:21 GMT", "url_finale": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite" },
+      "fixture": "apps/api/test/fixtures/sources-na-dormantes-2026-11-24/ars-actualite.xml",
+      "sha256": "19cc5358d661c05b4b44332128718f8c9c71824bc8b1fcd23719dd0554ce6539",
+      "parseur": { "format": "rss", "items": 16, "premier_titre": "Point de situation sur les cas autochtones d'arboviroses dans notre région", "premiere_date": "Mon, 28 Sep 2026 08:00:00 +0200" }
+    },
+    {
+      "id": "corpus:agri64-01-chambre-agriculture-pyrenees-atlantiques",
+      "url": "https://pa.chambres-agriculture.fr/actus-CA64.rss",
+      "http": { "status": 200, "content_type": "text/xml; charset=utf-8", "bytes": 14288, "date_entete": "Tue, 24 Nov 2026 21:56:38 GMT", "url_finale": "https://pa.chambres-agriculture.fr/actus-CA64.rss" },
+      "fixture": "apps/api/test/fixtures/sources-na-dormantes-2026-11-24/ca64-rss.xml",
+      "sha256": "d6e2c5a065e38722dc96c57aba4a3348d3ab325c16578d3b82500fb538cb67de",
+      "parseur": { "format": "rss", "items": 10, "premier_titre": "La semaine de l'agroécologie", "premiere_date": "Tue, 03 Nov 2026 11:56:34 +0000" }
+    },
+    {
+      "id": "corpus:agri64-05-draaf-nouvelle-aquitaine",
+      "url": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/spip.php?page=backend-actu",
+      "http": { "status": 200, "content_type": "text/xml; charset=utf-8", "bytes": 25884, "date_entete": "Tue, 24 Nov 2026 21:56:40 GMT", "url_finale": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/spip.php?page=backend-actu" },
+      "fixture": "apps/api/test/fixtures/sources-na-dormantes-2026-11-24/draaf-rss.xml",
+      "sha256": "2899a71b20070b7f6432d8a97575cd9d9a7cddbce52316824fe71ac120f688f6",
+      "parseur": { "format": "rss", "items": 20, "premier_titre": "Essentiel n° 94 - La récolte forestière et l'activité des scieries en 2025", "premiere_date": "Mon, 23 Nov 2026 10:31:43 +0100" }
+    },
+    {
+      "id": "corpus:agri64-03-chambre-regionale-na-agricultures-64",
+      "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss",
+      "http": { "status": 200, "content_type": "text/xml; charset=utf-8", "bytes": 36188, "date_entete": "Tue, 24 Nov 2026 21:58:53 GMT", "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss" },
+      "fixture": "apps/api/test/fixtures/sources-na-dormantes-2026-11-24/cra64-rss.xml",
+      "sha256": "c41eca06aa721bff1d9a39c76a40c73415ddcc26c0bd9abfc0b967595bf67ba8",
+      "parseur": { "format": "rss", "items": 20, "premier_titre": "Miels de Nouvelle-Aquitaine : 76 médailles pour célébrer l'excellence apicole régionale", "premiere_date": "Fri, 20 Nov 2026 14:31:13 +0000" }
+    },
+    {
+      "id": "corpus:agriculture-23-annuaire-chambres-agriculture",
+      "url": "https://chambres-agriculture.fr/presse.rss",
+      "http": { "status": 200, "content_type": "text/xml; charset=utf-8", "bytes": 35511, "date_entete": "Tue, 24 Nov 2026 21:58:56 GMT", "url_finale": "https://chambres-agriculture.fr/presse.rss" },
+      "fixture": "apps/api/test/fixtures/sources-na-dormantes-2026-11-24/chambres-presse.xml",
+      "sha256": "948d04698e26fae23926b468b1785e33ae2d13e16239b361add158911d582456",
+      "parseur": { "format": "rss", "items": 20, "premier_titre": "Souveraineté alimentaire : après la concertation, place à l’action pour relancer la production agricole française", "premiere_date": "Fri, 13 Nov 2026 16:17:02 +0000" }
+    },
+    {
+      "id": "corpus:agriculture-16-chambre-d-agriculture-de-la-charente",
+      "url": "https://charente.chambres-agriculture.fr/actualites-1",
+      "http": { "status": 500, "content_type": "text/html; charset=UTF-8", "bytes": 4538, "date_entete": "Tue, 24 Nov 2026 21:58:58 GMT", "url_finale": "https://charente.chambres-agriculture.fr/actualites-1", "tentatives": ["500", "000/timeout", "000/timeout", "500"] },
+      "fixture": "apps/api/test/fixtures/sources-na-dormantes-2026-11-24/charente-500.html",
+      "sha256": "ffa5be2469c8fcb3855090369c02bcc394a6dcfc9e973e4dad5468eaed6bf874",
+      "parseur": { "format": "rss", "items": 0, "motif": "corps = page d'erreur TYPO3 « Oops, an error occurred! », aucun item RSS ; variantes /actualites.rss (timeout), /rss.xml et /feed (404) ; aucune URL de flux alternative vérifiée" },
+      "decision": "désactivation avec motif explicite"
+    }
+  ],
+  "limite": "Les événements ne sont pas créés par cette mesure : elle prouve seulement que le lecture `feed` rend des items non vides sur des octets réellement reçus. L'admission et le rattachement restent au collecteur."
+}
