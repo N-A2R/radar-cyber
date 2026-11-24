@@ -381,6 +381,38 @@ dix URL du périmètre interrogées sur de nouveaux endpoints ouverts —
 `advancedsearch` d'Internet Archive, Common Crawl (0 capture aux trois dates).
 Aucun service payant, aucune date ni aucun statut inventé.
 
+## Nouvelle passe de rattrapage (24 novembre, 02 h 30 UTC)
+
+Reprise depuis la branche de la PR #799 (aucun retour à `main`), avec trois
+balayages indépendants inédits : 0 service-jour réel supplémentaire trouvé.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-27
+jq -r .day bench/results/service-availability-observations.jsonl | sort | uniq -c
+# 500 les 21, 22, 23 et 24 novembre ; 0 ligne les 18, 19 et 20
+```
+
+- **Base** : 171 tables et 19 vues du schéma public balayées ; 0 ligne avec
+  statut HTTP sur les 18, 19 et 20 novembre. Les 72 lignes de
+  `source_verification` portant un statut sur la fenêtre concernent des flux
+  `/feed/` ou `/rss/`, aucune URL du périmètre. `source.last_ok_at` : une seule
+  ligne au 20 novembre (`univ-lr.fr/rss`), hors périmètre.
+- **Arbre et artefacts** : ~120 worktrees, refs, reflog, `/tmp`, `/var/log` et
+  artifacts GitHub Actions (`total_count=0`) : 0 observation datée des trois
+  jours manquants.
+- **Sources grises** : plus de 25 endpoints gratuits bornés, dont OONI, RIPE
+  Atlas (deux cibles), arquivo.pt `textsearch`, WebPageTest et les variantes
+  Wayback CDX sur cinq URL exactes du périmètre : 0 capture sur les 18, 19 et
+  20 novembre ; requête témoin d'octobre = 2 captures, ce qui valide la méthode.
+
+L'écart reste donc de 1 500 service-jours. `feasible_windows=0` interdit toute
+fenêtre complète ancrable le 24 novembre ; la première reste ancrée au
+27 novembre, après trois collectes réelles (25, 26 et 27 novembre). Aucune date
+ni aucun statut n'a été inventé pour combler l'écart.
+
 ## Reproduire
 
 ```bash
