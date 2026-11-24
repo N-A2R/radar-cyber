@@ -755,4 +755,32 @@ La première fenêtre entièrement réelle reste ancrée au 27 novembre, après 
 collectes réelles les 25, 26 et 27 novembre. Aucune modification du jeu
 d'observations, d'`server.ts` ou du manifeste n'a été nécessaire.
 
+## Reprise du 24 novembre (04 h UTC) — balayage CDX élargi
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main`. Nouvelle tentative sur les
+sources grises : l'audit CDX a porté sur les 308 hôtes distincts du périmètre,
+avec `url=<hôte>/*` sur la fenêtre du 18 au 20 novembre. Les 308 requêtes ont
+renvoyé HTTP 429 (limite du service) : `verdict=indeterminate`, donc **aucune
+conclusion d'absence** n'est tirée de ce seul passage. Un contrôle complémentaire
+sur 12 hôtes exacts (`url=<hôte>`, même fenêtre) a renvoyé `[]` pour chacun, et
+la base `radar` confirme 0 ligne `exposition_service` sur les trois jours.
+**0 service-jour réel gagné** : l'écart reste de 1 500.
+
+```
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-archive-captures.mts --from=2026-11-18 --to=2026-11-20
+# hosts=308 window=2026-11-18..2026-11-20 captures=0 capturable_service_days=0 cdx_unavailable=308 verdict=indeterminate
+mcp__postgres_query --sql "SELECT count(*) FROM exposition_service WHERE consulted_at >= '2026-11-18' AND consulted_at < '2026-11-21'"
+# rows=0
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+```
+
+L'objectif chiffré n'est donc pas atteint à la date d'exécution : 1 500
+service-jours manquants (18, 19 et 20 novembre) exigeraient trois collectes
+réelles les 25, 26 et 27 novembre. Aucune date ni aucun statut n'a été inventé ;
+le jeu d'observations, `server.ts` et le manifeste sont inchangés.
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
