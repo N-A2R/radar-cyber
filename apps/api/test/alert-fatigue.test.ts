@@ -7,6 +7,7 @@
  * jamais la base de production.
  */
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { after, test } from "node:test";
 import { closePools, query } from "../src/db.js";
 import {
@@ -14,6 +15,8 @@ import {
   ligneObjectifFatigue,
   measureAlertFatigue,
   objectifFatigueAtteint,
+  MESURE_OBJECTIF_FATIGUE_2026_11_24,
+  verifierDeclarationObjectifFatigue,
 } from "../src/maintenance/alert-fatigue.js";
 import { fetchPendingAlerts } from "../src/notify/alert-delivery.js";
 
@@ -143,4 +146,20 @@ test("les seuils de sortie sont appliqués aux valeurs mesurées", () => {
 
   assert.equal(objectifFatigueAtteint({ ...base, loadRatio: 0.899, ackRatio: 0.5 }), false);
   assert.equal(objectifFatigueAtteint({ ...base, loadRatio: 0.95, ackRatio: 0.499 }), false);
+});
+
+test("l'objectif figé est celui de la mesure reproductible publiée", () => {
+  const mesure = MESURE_OBJECTIF_FATIGUE_2026_11_24;
+  assert.equal(objectifFatigueAtteint(mesure), true);
+  assert.equal(
+    ligneObjectifFatigue(mesure),
+    "OBJECTIF : atteint — charge 98,8 % / 90,0 % (83 organisations-jours) ; acquittement 81,8 % / 50,0 % (1652 alertes)",
+  );
+});
+
+test("le rapport déclare une seule fois la ligne OBJECTIF mesurée", () => {
+  const rapport = readFileSync(new URL("../../../docs/alert-fatigue.md", import.meta.url), "utf8");
+  const ligne = ligneObjectifFatigue(MESURE_OBJECTIF_FATIGUE_2026_11_24);
+  assert.equal(verifierDeclarationObjectifFatigue(rapport, ligne), true);
+  assert.equal(verifierDeclarationObjectifFatigue(rapport, "OBJECTIF : atteint — charge 1,0 % / 90,0 %"), false);
 });
