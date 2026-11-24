@@ -745,3 +745,53 @@ Le bloc de 1 661 409 organisations sans aucune URL HTTP 200 dans les sources pub
 8 tests comportement, un par comportement (`apps/api/test/expand-domains-alias-wikidata.test.ts`), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline` après ajout de la commande).
 
 OBJECTIF : partiel — 9 299 / 1 671 941 organisations (0,5562 %), manque 1 662 642 organisations vérifiées (99,4438 %) pour atteindre 100 %
+
+## Rattrapage — tranche t25 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t24 : 9 299 / 1 671 941), seule base autorisée : la PR #797 existe toujours mais son objectif chiffré (100 %) n'est pas atteint. Le travail des tranches t1 à t24 est conservé tel quel. La tranche t25 ajoute deux routes grises distinctes, sans toucher au standard de preuve (statut 200, racine stable après redirection, page réelle, identité publiée par le site lui-même).
+
+**t25a — identité dans les métadonnées de la page.** Sur les 1 187 organisations de Nouvelle-Aquitaine qui disposent d'une URL déjà prouvée HTTP 200 par un registre public mais que la mesure ne comptait pas, 533 candidats passent le filtre de racine non attribuée. `scripts/expand-domains-identite-structuree.mts` lit uniquement les emplacements d'identité explicites (`title`, `og:site_name`, `name`/`legalName` JSON-LD), exige un jeton distinctif du nom **dans la racine du domaine** et dans l'identité publiée, puis revérifie la page en direct. Un seul site passe : la commune de Messanges (`messanges40.fr`, `exposition-service:identite-structuree:http200`). Détail : `bench/results/domains-from-identite-structuree.json`.
+
+**t25b — corpus d'observations TLS/DMARC.** `bench/corpus/security-observations-na.jsonl` (163 lignes, domaines publics observés le 22 novembre par `collect-security-signals.mts`) n'avait jamais été lu par une route d'expansion. Après exclusion des sous-domaines et des racines déjà attribuées, 148 racines restent ; `scripts/expand-domains-securite.mts` n'accepte qu'un appariement sans ambiguïté entre un jeton distinctif de la racine et le nom d'une organisation sans domaine, puis applique la même preuve stricte en direct. Deux sites sont vérifiés : GYRAX (`gyrax.fr`) et MAGENDIE (`magendie.fr`), tracés `corpus:observations-securite:http200`. Détail : `bench/results/domains-from-securite.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-identite-structuree -- --limit=2000 --concurrency=24 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-securite -- --limit=500 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées, puis mesure rejouée indépendamment après écritures :
+
+```
+selected=533 verified=1 applied=true
+verified_domain_coverage=9299 -> 9300
+observations=148 selected=2 verified=2 applied=true
+verified_domain_coverage=9300 -> 9302
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9348
+organisations_avec_domaine_verifie_et_provenance=9302
+couverture_pourcent=0.5564
+```
+
+Décomposition reproductible de l'écart restant (1 662 639 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661407 | 1186 | 9348
+```
+
+Un recoupement exhaustif des tables porteuses d'URL montre 15 974 organisations sans domaine avec une preuve URL ailleurs que dans `exposition_service` HTTP 200 : `parent_evidence` (14 930 URL d'annuaires du parent), `org_alias` (924), `event_archive` (58 avis de sécurité), `leak_claim` (51), `warc_proof` (33) et quelques tables résiduelles. Aucun de ces réservoirs ne contient le site officiel de l'organisation : les compter reviendrait à fabriquer une attribution ou à abaisser le standard de preuve. Il reste donc 1 661 407 organisations sans aucune URL HTTP 200 et 1 186 avec une URL qui échoue à la preuve stricte après dix-neuf passes. La cible de 100 % n'est pas livrable avec des sources publiques/gratuites et une preuve vérifiée ; elle reste mesurée ici sans fabrication. Nouvelle-Aquitaine uniquement, aucune donnée personnelle lue ou écrite, aucun service payant.
+
+17 tests comportement, un par comportement (`apps/api/test/expand-domains-identite-structuree.test.ts` : 9 tests ; `apps/api/test/expand-domains-securite.test.ts` : 8 tests), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline` après ajout des deux commandes).
+
+OBJECTIF : partiel — 9 302 / 1 671 941 organisations (0,5564 %), manque 1 662 639 organisations vérifiées (99,4436 %) pour atteindre 100 %
