@@ -43,6 +43,7 @@
     "scelle:exports:check": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts --check",
     "nis2:rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts",
     "verifie:nis2-rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts --check",
+    "verifie:alerte-nis2-24h": "apps/api/node_modules/.bin/tsx scripts/verifie-alerte-nis2-24h.mts",
     "verifie:nis2-classement": "apps/api/node_modules/.bin/tsx scripts/verifie-nis2-classement.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
@@ -137,7 +138,6 @@
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
-  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
