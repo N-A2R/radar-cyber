@@ -920,4 +920,40 @@ novembre sans inventer trois jours d'observation : le plafond réel mesurable
 reste 2 000 / 3 500 et la première fenêtre complète reste ancrée au 27
 novembre, après trois collectes réelles.
 
-OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 : 0 service-jour récupéré, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24`.
+## Reprise du 24 novembre (05 h 10 UTC) — trois balayages croisés
+
+Nouvelle vérification depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main` : **0 service-jour récupéré**,
+l'écart reste de 1 500. Trois passes indépendantes ont été relancées en
+parallèle (code de mesure, base PostgreSQL, sources grises) :
+
+- **Chaîne de mesure** : `objective.ts`, `measure.ts`, `observations.ts`,
+  `dbProofs.ts`, `archiveProofs.ts` et `audit.ts` relus ; aucun chemin ne crée
+  d'observation. Les 2 000 lignes versionnées couvrent uniquement les 21, 22,
+  23 et 24 novembre. L'import DB ne mappe que des preuves HTTP horodatées réelles.
+- **Base PostgreSQL** : balayage de 316 colonnes `timestamptz`/`date` sur environ
+  200 tables. `source_verification`, `exposition_service` (768 lignes le 21,
+  10 328 le 22, 418 le 23 UTC) et `warc_proof` : 0 ligne les 18, 19 et 20
+  novembre. Les lignes datant de ces jours dans `event` ou `journal` sont des
+  événements OSINT hors périmètre, pas des vérifications HTTP.
+- **Sources grises** : Wayback CDX répond pour un témoin (`example.com` :
+  captures réelles le 18 novembre) mais renvoie `[]` pour les URL du périmètre.
+  Une tentative de balayage des 308 hôtes du périmètre a été limitée par le
+  serveur (429 puis connexion refusée) : le verdict reste `indeterminate`,
+  aucune absence n'est affirmée sur la seule base de cet essai. Common Crawl
+  est injoignable ; la première fenêtre entièrement réelle reste ancrée au
+  27 novembre, après trois collectes réelles.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+grep -cE '"day":"2026-11-(18|19|20)"' bench/results/service-availability-observations.jsonl
+# 0
+```
+
+Aucune date ni statut n'a été inventé ; le jeu d'observations, le manifeste et
+`server.ts` (0 ligne) sont inchangés.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 10 UTC : 0 service-jour récupéré, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24`.
