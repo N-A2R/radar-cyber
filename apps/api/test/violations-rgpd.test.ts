@@ -28,7 +28,7 @@ const PRISE_SUIVANTE = "2026-04-02T08:00:00+00";
 const JUGE = `SELECT count(*) FROM violation_rgpd WHERE date_prise_connaissance IS NULL OR echeance_72h IS NULL OR statut IS NULL OR (statut='notifiee' AND date_notification IS NULL);`;
 const ENTETE = "reference,organisation_id,organisation_type,departement,famille,source_id,date_prise_connaissance,echeance_72h,statut,date_notification,source_url";
 
-let db: DbModule;
+let db: typeof DbModule;
 let app: FastifyInstance;
 let baseJetable: TestDb | null = null;
 let orgId: number;

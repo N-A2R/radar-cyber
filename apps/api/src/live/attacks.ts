@@ -6,7 +6,7 @@
  * URL or victim personal data ever leaves the database. Source trust is not
  * filtered (gray sources are allowed).
  */
-
+import { evenementPublicSql } from "../security/tlp.js";
 /** Nouvelle-Aquitaine bounding box (WGS84 degrees, with margin). */
 export const NA_BBOX = {
   minLat: 43.0,
@@ -34,7 +34,7 @@ export type LiveAttack = {
   dept: string | null;
 };
 
-/** $1 days, $2 types, $3-$4 latitude, $5-$6 longitude, $7 minimum id (SSE). */
+/** $1 days, $2 types, $3-$4 latitude, $5-$6 longitude, $7 minimum id, $8 limit. */
 export const LIVE_ATTACK_SQL = `
 SELECT e.id::text AS id, e.family, e.assertion_type AS "assertionType",
        e.severity, e.observed_at AS "observedAt",
@@ -44,14 +44,14 @@ FROM event e
 LEFT JOIN org o ON o.id = e.org_id
 WHERE e.observed_at >= now() - ($1::int || ' days')::interval
   AND e.assertion_type = ANY($2::text[])
-  AND e.tlp IS DISTINCT FROM 'RED'
+  AND ${evenementPublicSql("e")}
   AND COALESCE(e.lat, o.lat) BETWEEN $3 AND $4
   AND COALESCE(e.lon, o.lon) BETWEEN $5 AND $6
   AND ($7::bigint IS NULL OR e.id > $7::bigint)
-ORDER BY e.observed_at DESC, e.id DESC
+ORDER BY e.observed_at DESC, e.id DESC LIMIT $8::int
 `;
 
-export function liveAttackParams(afterId: number | null = null): unknown[] {
+export function liveAttackParams(afterId: number | null = null, limite = 500): unknown[] {
   return [
     LIVE_WINDOW_DAYS,
     [...LIVE_ASSERTION_TYPES],
@@ -60,6 +60,7 @@ export function liveAttackParams(afterId: number | null = null): unknown[] {
     NA_BBOX.minLon,
     NA_BBOX.maxLon,
     afterId,
+    limite,
   ];
 }
 

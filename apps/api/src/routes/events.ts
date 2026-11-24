@@ -1,8 +1,7 @@
-import { unauthorized } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
-import { resolveUser } from "../middleware/auth.js";
 import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
+import { evenementPublic, evenementPublicSql } from "../security/tlp.js";
 
 /**
  * La portée régionale est une colonne (`migrate-035`), remplie à l'écriture
@@ -23,7 +22,9 @@ function dateObservee(row: Record<string, unknown>): string | null {
 }
 
 function redactEvent(row: Record<string, unknown>) {
-  const summary = row.tlp === "RED" ? null : row.summary;
+  // Défense en profondeur : la requête ne sort que du CLEAR, mais une valeur
+  // restreinte ne doit jamais resurrecter un résumé si le SQL évolue.
+  const summary = evenementPublic(row) ? row.summary : null;
   return {
     id: Number(row.id),
     dedupKey: row.dedup_key,
@@ -68,17 +69,15 @@ function redactEvent(row: Record<string, unknown>) {
 
 export default async function (app: FastifyInstance) {
   app.get("/events", async (req, reply) => {
-    const user = await resolveUser(req);
-    if (!user) {
-      throw unauthorized();
-    }
-
+    // Route publique : la décision d'accès appartient à la matrice RBAC, pas
+    // à un second resolveUser dans le handler (E6/M11).
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
     if (!Number.isFinite(limit)) limit = 100;
     limit = Math.min(Math.max(Math.trunc(limit), 1), 500);
     const params: unknown[] = [];
-    const where: string[] = [];
+    // Périmètre TLP:CLEAR central : aucun fait AMBER/GREEN/RED ne sort ici.
+    const where: string[] = [evenementPublicSql("e")];
     // Colonnes qualifiées : la requête porte désormais une sous-requête
     // corrélée sur `event`, et un `id` nu serait ambigu.
     if (q.family) { params.push(q.family); where.push(`e.family=$${params.length}`); }
@@ -112,6 +111,7 @@ export default async function (app: FastifyInstance) {
              COALESCE((SELECT COUNT(DISTINCT e2.source_id) FROM event e2
                         WHERE e2.org_id = e.org_id
                           AND e.org_id IS NOT NULL
+                          AND ${evenementPublicSql("e2")}
                           AND COALESCE(e2.observed_at, e2.collected_at) >= now() - interval '30 days'), 0)::int AS sources_distinctes
         FROM event e ${where.length ? "WHERE " + where.join(" AND ") : ""} ORDER BY ${orderBy} LIMIT $${limitIdx}`;
     const r = await query<any>(sql, params);

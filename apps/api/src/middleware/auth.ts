@@ -12,6 +12,48 @@ declare module "fastify" {
   }
 }
 
+/** Cookie de session : seul moyen pour un `EventSource` (aucun en-tête possible). */
+export const SESSION_COOKIE = "radar_session";
+export const SESSION_COOKIE_PATH = "/api";
+export const SESSION_TTL_SECONDS = 7 * 24 * 3600;
+
+/**
+ * Jeton de session porté par la requête, sans jamais accepter le paramètre
+ * `?token=` ici : ce dernier reste limité au flux SSE et est journalisé à part.
+ * Le bearer l'emporte sur le cookie, qui l'emporte sur la clé d'API.
+ */
+export function sessionToken(req: FastifyRequest): string | null {
+  const h = req.headers.authorization;
+  if (typeof h === "string" && /^bearer /i.test(h)) {
+    const token = h.slice(7).trim();
+    if (token) return token;
+  }
+  const brut = req.headers.cookie;
+  if (typeof brut === "string") {
+    for (const morceau of brut.split(";")) {
+      const egal = morceau.indexOf("=");
+      if (egal < 0) continue;
+      if (morceau.slice(0, egal).trim() !== SESSION_COOKIE) continue;
+      try {
+        const valeur = decodeURIComponent(morceau.slice(egal + 1).trim());
+        if (valeur) return valeur;
+      } catch { return null; }
+    }
+  }
+  return null;
+}
+
+export function ecrireCookieSession(req: FastifyRequest, reply: FastifyReply, token: string): void {
+  const securise = req.protocol === "https" || process.env.RADAR_COOKIE_SECURE === "1";
+  reply.header("Set-Cookie",
+    `${SESSION_COOKIE}=${encodeURIComponent(token)}; Path=${SESSION_COOKIE_PATH}; Max-Age=${SESSION_TTL_SECONDS}; HttpOnly; SameSite=Strict${securise ? "; Secure" : ""}`);
+}
+
+export function effacerCookieSession(req: FastifyRequest, reply: FastifyReply): void {
+  const securise = req.protocol === "https" || process.env.RADAR_COOKIE_SECURE === "1";
+  reply.header("Set-Cookie",
+    `${SESSION_COOKIE}=; Path=${SESSION_COOKIE_PATH}; Max-Age=0; HttpOnly; SameSite=Strict${securise ? "; Secure" : ""}`);
+}
 async function lookupToken(token: string): Promise<AuthUser | null> {
   // La base ne connaît que le SHA-256 du token : on cherche le hash, jamais
   // le token lui-même.
@@ -35,10 +77,13 @@ async function lookupToken(token: string): Promise<AuthUser | null> {
 const QUERY_TOKEN_PATHS = ["/api/stream"];
 
 export async function resolveUser(req: FastifyRequest): Promise<AuthUser | null> {
-  const h = req.headers.authorization;
-  if (h && h.toLowerCase().startsWith("bearer ")) {
-    const token = h.slice(7).trim();
-    if (token) return lookupToken(token);
+  // Une seule résolution par requête : les hooks et les handlers consomment
+  // la même identité, posée par le hook le plus antérieur (M11).
+  if (req.user) return req.user;
+  const token = sessionToken(req);
+  if (token) {
+    const user = await lookupToken(token);
+    if (user) return user;
   }
   if (req.apiKey) return req.apiKey.owner;
   const path = (req.url ?? "").split("?")[0];

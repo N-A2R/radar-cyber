@@ -15,10 +15,7 @@ import { buildOpenApi, openApiPath } from "./spec.js";
 
 type Doc = Record<string, any>;
 
-/** Production route registered in server.ts rather than in buildApp(). */
-const PRODUCTION_ONLY: Record<string, true> = {
-  "POST /api/v1/sources/:id/collecte": true,
-};
+
 
 export type ReplayResult = {
   operationId: string;
@@ -136,8 +133,8 @@ export async function replayAll(options: ReplayOptions = {}): Promise<ReplayResu
       const expectedStatus = op.status ?? 200;
       if (options.application) {
         const pattern = `/api/v1${op.path}`;
-        const live = options.application.hasRoute({ method: request.method, url: pattern })
-          || PRODUCTION_ONLY[`${request.method} ${pattern}`] === true;
+
+        const live = options.application.hasRoute({ method: request.method, url: pattern });
         if (!live) problems.push("no matching route in the application");
       }
 

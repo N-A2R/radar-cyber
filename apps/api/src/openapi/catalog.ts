@@ -79,11 +79,14 @@ export const HistoryQuery = z.object({
   from: z.string().optional(), to: z.string().optional(),
   org: z.string().optional(), limit: intQuery(500),
 });
+export const AlertQuery = z.object({
+  limit: intQuery(500), status: z.string().max(100).optional(), severity: z.coerce.number().int().min(1).max(5).optional(),
+});
 export const QuarantineQuery = z.object({
   limit: intQuery(200), page: intQuery(1000), q: z.string().max(200).optional(),
   bucket: z.enum(["chaud", "tiede", "froid"]).optional(),
 });
-export const StreamQuery = z.object({ token: z.string().optional(), sinceId: z.coerce.number().int().optional() });
+export const StreamQuery = z.object({ sinceId: z.coerce.number().int().optional(), sinceAlertId: z.coerce.number().int().optional() });
 export const TodayQuery = z.object({ jours: intQuery(365), dept: z.string().optional() });
 export const DeptQuery = z.object({ jours: intQuery(365) });
 export const IdParam = z.object({ id: z.string().min(1) });
@@ -119,12 +122,12 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/orgs/:id", operationId: "getOrg", summary: "Fiche d'une organisation", tag: "Organisations", response: "OrgDetail", security: "public-or-session", params: IdParam },
   { method: "get", path: "/directory", operationId: "getDirectory", summary: "Annuaire paginé et facetté", tag: "Organisations", response: "Directory", security: "public", query: DirectoryQuery },
   { method: "get", path: "/orgs/liees", operationId: "getOrgsLiees", summary: "Organisations reliées entre elles", tag: "Organisations", response: "OrgList", security: "session" },
-  { method: "get", path: "/orgs/liees/historique", operationId: "getOrgsLieesHistorique", summary: "Historique des organisations reliées", tag: "Organisations", response: "Stats", security: "public", query: DaysQuery },
+  { method: "get", path: "/orgs/liees/historique", operationId: "getOrgsLieesHistorique", summary: "Historique des organisations reliées", tag: "Organisations", response: "Stats", security: "session", query: DaysQuery },
   { method: "post", path: "/orgs/from-hint", operationId: "createOrgFromHint", summary: "Créer une organisation depuis un indice", tag: "Organisations", response: "OrgDetail", security: "session", status: 201, body: createOrgFromHintSchema },
 
   { method: "get", path: "/search", operationId: "search", summary: "Recherche organisations, événements, indicateurs", tag: "Recherche", response: "SearchResults", security: "public", query: SearchQuery },
   { method: "get", path: "/graph", operationId: "getGraph", summary: "Graphe des relations", tag: "Recherche", response: "Graph", security: "public", query: DaysQuery },
-  { method: "get", path: "/dossier", operationId: "getDossier", summary: "Dossier de reprise au format JSON", tag: "Recherche", response: "Dossier", security: "public" },
+  { method: "get", path: "/dossier", operationId: "getDossier", summary: "Dossier de reprise au format JSON", tag: "Recherche", response: "Dossier", security: "session" },
   { method: "get", path: "/stats", operationId: "getStats", summary: "Statistiques globales", tag: "Statistiques", response: "Stats", security: "public" },
   { method: "get", path: "/stats/departements", operationId: "getStatsDepartements", summary: "Statistiques par département sur 7 jours", tag: "Statistiques", response: "Stats", security: "public" },
   { method: "get", path: "/couverture", operationId: "getCouverture", summary: "Couverture mesurée du corpus", tag: "Statistiques", response: "Coverage", security: "public" },
@@ -141,15 +144,15 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/enrich/domain/:value", operationId: "getDomainEnrichment", summary: "Enrichissement d'un domaine", tag: "Enrichissement", response: "Enrichment", security: "public", params: ValueParam },
   { method: "get", path: "/enrich/events/:id", operationId: "getEventEnrichment", summary: "Enrichissement d'un événement", tag: "Enrichissement", response: "Enrichment", security: "public", params: IdParam },
 
-  { method: "get", path: "/alerts", operationId: "getAlerts", summary: "Alertes ouvertes", tag: "Alertes", response: "Alerts", security: "public", query: QuarantineQuery },
+  { method: "get", path: "/alerts", operationId: "getAlerts", summary: "Alertes ouvertes", tag: "Alertes", response: "Alerts", security: "public", query: AlertQuery },
   { method: "get", path: "/alerts/stats", operationId: "getAlertStats", summary: "Compteurs d'alertes", tag: "Alertes", response: "Stats", security: "public" },
   { method: "get", path: "/alerts/:id", operationId: "getAlert", summary: "Détail d'une alerte", tag: "Alertes", response: "Stats", security: "session", params: IdParam },
   { method: "post", path: "/alerts/:id/ack", operationId: "ackAlert", summary: "Accuser réception d'une alerte", tag: "Alertes", response: "Ok", security: "session", params: IdParam },
   { method: "post", path: "/alerts/:id/resolve", operationId: "resolveAlert", summary: "Résoudre une alerte", tag: "Alertes", response: "Ok", security: "session", params: IdParam },
 
-  { method: "get", path: "/quarantine", operationId: "getQuarantine", summary: "Faits en quarantaine", tag: "Quarantaine", response: "Quarantine", security: "public", query: QuarantineQuery },
-  { method: "get", path: "/quarantine/stats", operationId: "getQuarantineStats", summary: "Statistiques de la quarantaine", tag: "Quarantaine", response: "Stats", security: "public" },
-  { method: "get", path: "/quarantine/queue", operationId: "getQuarantineQueue", summary: "File de revue de la quarantaine", tag: "Quarantaine", response: "ReviewQueue", security: "public", query: QueueQuery },
+  { method: "get", path: "/quarantine", operationId: "getQuarantine", summary: "Faits en quarantaine", tag: "Quarantaine", response: "Quarantine", security: "session", query: QuarantineQuery },
+  { method: "get", path: "/quarantine/stats", operationId: "getQuarantineStats", summary: "Statistiques de la quarantaine", tag: "Quarantaine", response: "Stats", security: "session" },
+  { method: "get", path: "/quarantine/queue", operationId: "getQuarantineQueue", summary: "File de revue de la quarantaine", tag: "Quarantaine", response: "ReviewQueue", security: "session", query: QueueQuery },
   { method: "post", path: "/quarantine/review", operationId: "reviewQuarantine", summary: "Décider d'un fait en quarantaine", tag: "Quarantaine", response: "DecisionResult", security: "session", body: ReviewBody },
   { method: "post", path: "/quarantine/:id/promote", operationId: "promoteQuarantine", summary: "Promouvoir un fait en événement", tag: "Quarantaine", response: "DecisionResult", security: "session", params: IdParam },
 

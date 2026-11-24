@@ -11,6 +11,7 @@ import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import Fastify from "fastify";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import {
   MIN_CONFIDENCE,
   loadOrgIndex,
@@ -120,7 +121,7 @@ after(async () => {
     const evIds = ev.rows.map((x) => x.id);
     if (evIds.length) {
       await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [evIds]);
-      await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [evIds]);
+      await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evIds]);
     }
   }
   const factIds = createdFacts.map((f) => f.id);
@@ -239,6 +240,10 @@ test("route : lectures protégées par jeton", async () => {
   try {
     const anon = await app.inject({ method: "GET", url: "/api/quarantine?limit=5" });
     assert.equal(anon.statusCode, 401);
+    const anonStats = await app.inject({ method: "GET", url: "/api/quarantine/stats" });
+    assert.equal(anonStats.statusCode, 401);
+    const anonQueue = await app.inject({ method: "GET", url: "/api/quarantine/queue" });
+    assert.equal(anonQueue.statusCode, 401);
 
     const { token } = await createSession("lecteur");
     const auth = { authorization: `Bearer ${token}` };
@@ -259,6 +264,10 @@ test("route : lectures protégées par jeton", async () => {
     assert.equal(typeof body.pendingUnpromoted, "number");
     assert.ok(Array.isArray(body.byStatus));
     assert.ok(Array.isArray(body.byPromoted));
+
+    // La file de revue est réservée aux analystes, pas à tout lecteur authentifié.
+    const queueLecteur = await app.inject({ method: "GET", url: "/api/quarantine/queue", headers: auth });
+    assert.equal(queueLecteur.statusCode, 403);
 
     const post = await app.inject({ method: "POST", url: "/api/quarantine/1/promote" });
     assert.equal(post.statusCode, 401);

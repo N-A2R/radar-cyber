@@ -1,18 +1,18 @@
 /**
  * Surface HTTP publique ajoutée à l'application existante : documentation,
- * versioning, clés d'API et quota. Cette fonction est appelée par `server.ts`
- * avant le garde-fou d'authentification historique, et par `buildApp()` dans
- * les tests : une seule définition pour la production et les tests.
+ * versioning, clés d'API et quota. L'identité (session/clé) est résolue en
+ * amont par `installIdentityResolution`, la décision d'accès par la matrice
+ * RBAC ; ce hook ne fait que le quota, les en-têtes publics et la limitation
+ * des lectures anonymes.
  */
 import type { FastifyInstance } from "fastify";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
-import { query } from "../db.js";
-import { consumeApiKey, resolveApiKey } from "../api-key.js";
-import { forbidden, unauthorized } from "../errors.js";
-import { resolveUser } from "../middleware/auth.js";
+import { consumeApiKey } from "../api-key.js";
+import { forbidden } from "../errors.js";
 import { rateLimit } from "../middleware/rate-limit.js";
-import { buildOpenApi, documentedRouteCount } from "./spec.js";
+import { query } from "../db.js";
+import { buildOpenApi } from "./spec.js";
 import { API_VERSION, CURRENT_PREFIX, withoutVersion } from "./version.js";
 import { STABILITY } from "./stability.js";
 
@@ -63,18 +63,14 @@ const ROUTES = [
 ];
 const OPEN_READ_RPM = Number(process.env.RADAR_PUBLIC_READ_RPM ?? 120);
 const SESSION_READ_RPM = Number(process.env.RADAR_SESSION_READ_RPM ?? 600);
+const anonymousRead = rateLimit({ max: OPEN_READ_RPM, windowMs: 60_000 });
+const sessionRead = rateLimit({ max: SESSION_READ_RPM, windowMs: 60_000 });
 
 export async function installPublicApi(app: FastifyInstance): Promise<void> {
   const spec = buildOpenApi();
-
-  // Sans clé : adresse IP pour le public, utilisateur pour les sessions.
-  // Avec clé : quota atomique persisté en base, partagé entre instances.
-  const anonymousRead = rateLimit({ max: OPEN_READ_RPM, windowMs: 60_000 });
-  const sessionRead = rateLimit({ max: SESSION_READ_RPM, windowMs: 60_000 });
-
   // Ce hook doit précéder l'enregistrement des routes pour s'appliquer à
-  // toutes, y compris aux alias versionnés. `server.ts` ajoute ensuite son
-  // propre garde-fou, qui hérite de `req.user` posé ici.
+  // toutes, y compris aux alias versionnés. Il s'exécute après la décision
+  // RBAC : une requête refusée ne consomme pas le quota de la clé (NET-14).
   app.addHook("onRequest", async (req, reply) => {
     const url = req.url.split("?")[0] ?? "";
     if (!url.startsWith("/api/")) return;
@@ -83,20 +79,17 @@ export async function installPublicApi(app: FastifyInstance): Promise<void> {
     const path = withoutVersion(url);
     if (path.startsWith("/docs") || path === "/openapi.json") return;
 
-    const apiKey = await resolveApiKey(req);
-
+    const estLecture = req.method === "GET" || req.method === "HEAD";
+    const apiKey = req.apiKey;
     if (apiKey) {
-      req.apiKey = apiKey;
+      if (!estLecture && apiKey.scope !== "write") throw forbidden("api key is read-only");
       await consumeApiKey(apiKey, reply);
-      if (req.method !== "GET" && apiKey.scope !== "write") throw forbidden("api key is read-only");
     }
-    const user = await resolveUser(req);
-    if (!user && apiKey) req.user = apiKey.owner;
-    if (!apiKey && req.method === "GET" && path !== "/health" && !path.startsWith("/auth/")) {
-      await (user ? sessionRead : anonymousRead)(req, reply);
+    // HEAD est une lecture : les sondes de disponibilité ne doivent pas être
+    // facturées comme des écritures (M8).
+    if (!apiKey && estLecture && path !== "/health" && !path.startsWith("/auth/")) {
+      await (req.user ? sessionRead : anonymousRead)(req, reply);
     }
-    if (user) req.user = user;
-    if (req.method !== "GET" && !req.user && !path.startsWith("/auth/")) throw unauthorized();
   });
 
   const health = async () => {

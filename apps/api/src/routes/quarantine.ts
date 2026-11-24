@@ -1,7 +1,7 @@
-import { badRequest, notFound, unauthorized } from "../errors.js";
+import { badRequest, notFound } from "../errors.js";
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
-import { requireAuth, resolveUser } from "../middleware/auth.js";
+import { requireAuth, requireRole } from "../middleware/auth.js";
 import { applyReview, reviewQueue } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 import {
@@ -49,11 +49,7 @@ export default async function (app: FastifyInstance) {
    * `raw_body` reste hors API : les données ransomware.live ne sont pas
    * republiées (voir docs/quarantine.md). L'événement public porte le résumé.
    */
-  app.get("/quarantine", async (req: FastifyRequest, reply) => {
-    const user = await resolveUser(req);
-    if (!user) {
-      throw unauthorized();
-    }
+  app.get("/quarantine", { preHandler: requireRole("lecteur") }, async (req: FastifyRequest, reply) => {
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
     if (!Number.isFinite(limit)) limit = 100;
@@ -118,11 +114,7 @@ export default async function (app: FastifyInstance) {
   });
 
   /** Comptes par statut, promotion et source. */
-  app.get("/quarantine/stats", async (req: FastifyRequest, reply) => {
-    const user = await resolveUser(req);
-    if (!user) {
-      throw unauthorized();
-    }
+  app.get("/quarantine/stats", { preHandler: requireRole("lecteur") }, async (req: FastifyRequest, reply) => {
     const total = await query<{ n: string }>("SELECT count(*)::text AS n FROM quarantine_raw");
     const pending = await query<{ n: string }>(
       "SELECT count(*)::text AS n FROM quarantine_raw WHERE status='pending' AND promoted=false"
@@ -150,11 +142,7 @@ export default async function (app: FastifyInstance) {
    * Authentifiée comme le reste de la quarantaine — les métadonnées seules
    * sont exposées, jamais le corps brut.
    */
-  app.get("/quarantine/queue", async (req, reply) => {
-    const user = await resolveUser(req);
-    if (!user) {
-      throw unauthorized();
-    }
+  app.get("/quarantine/queue", { preHandler: requireRole("analyste") }, async (req, reply) => {
     const q = req.query as Record<string, string | undefined>;
     const bucket = q.bucket && ["chaud", "tiede", "froid"].includes(q.bucket)
       ? (q.bucket as TriageBucket)

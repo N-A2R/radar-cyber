@@ -133,8 +133,10 @@ les trois rôles, le jeton invalide, la route inconnue et l'inscription initiale
 Propriétés :
 
 - **Append-only applicatif** : un trigger refuse tout `UPDATE`, sauf
-  l'anonymisation explicite d'un ancien compte. La suppression n'est possible
-  que par `purger_access_log(jours)`, appelée par la rétention.
+  l'anonymisation explicite d'un ancien compte (tous les autres champs doivent
+  rester identiques). Le `DELETE` direct est refusé ; seule
+  `purger_access_log(jours)` peut supprimer, via un jeton transactionnel possédé
+  par un rôle de rétention distinct (migration 239).
 - **Lisible par les administrateurs** : `GET /api/audit/acces`, filtrable par
   période, acteur, décision, route et identifiant de corrélation, paginé et
   borné. Les champs sensibles n'en sortent pas.
@@ -150,7 +152,16 @@ Propriétés :
 `RADAR_AUDIT_PEPPER` est obligatoire en production : sans poivre, l'espace des
 adresses IPv4 serait trop petit pour résister à une recherche exhaustive sur
 les empreintes. Le changer rend les anciennes corrélations illisibles, ce qui
-est aussi un moyen de « coupure » des journaux.
+est aussi un moyen de « coupure » des journaux. Lors de la remédiation du
+24 novembre 2026, les 13 693 lignes produites avant la rotation ont été
+supprimées : leur empreinte était calculée avec l'ancien poivre public et ne
+pouvait pas être rendue sûre rétroactivement.
+
+En production, le poivre est injecté par l'environnement du service (fichier
+protégé en mode 0600) et `NODE_ENV=production` est explicite. Le rôle PostgreSQL
+applicatif est dédié, non superutilisateur, sans privilège de création de base
+ou de rôle; les migrations et sauvegardes utilisent un rôle d'administration
+séparé.
 
 ## 5. Limitation de débit
 
@@ -343,7 +354,7 @@ jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
 
-OBJECTIF : atteint — 350 / 350 routes API avec une décision d'accès explicite (HEAD inclus ; 132 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
+OBJECTIF : atteint — 372 / 372 routes API avec une décision d'accès explicite (HEAD inclus ; 140 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
 
 OBJECTIF : atteint — 0 source active sans registre complet / 0 attendu ; 1 ligne par source active dans `registre_traitements_AAAA-MM-JJ.csv`.
 

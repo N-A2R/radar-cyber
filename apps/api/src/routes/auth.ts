@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { hashPassword, verifyPassword, newToken, hashSessionToken } from "../auth.js";
-import { requireAuth, requireRole } from "../middleware/auth.js";
+import { requireAuth, ecrireCookieSession, effacerCookieSession, sessionToken } from "../middleware/auth.js";
 import { badRequest, conflict, forbidden, unauthorized } from "../errors.js";
 import { z } from "zod";
 import { parseBody, invalidBody } from "./body-validation.js";
@@ -73,15 +73,23 @@ export default async function (app: FastifyInstance) {
     // chez le client.
     await query("INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2,$3)", [hashSessionToken(token), row.id, expires.toISOString()]);
     await query("UPDATE app_user SET last_login_at = now() WHERE id = $1", [row.id]);
+    // Le cookie HttpOnly est la voie du flux SSE : `EventSource` ne peut pas
+    // poser d'en-tête Authorization. Le corps reste renvoyé pour les clients
+    // qui gèrent eux-mêmes leur session.
+    ecrireCookieSession(req, reply, token);
     return reply.send({ token, user: { id: row.id, email, role: row.role, displayName: row.display_name } });
   });
 
   app.post("/auth/logout", { preHandler: requireAuth() }, async (req, reply) => {
     const parsed = parseBody(EmptyBody, req.body);
     if (!parsed.success) return invalidBody(reply, parsed.error);
-    const h = req.headers.authorization as string;
-    const token = h.slice(7).trim();
+    // Une clé d'API n'est pas une session : elle ne peut pas révoquer de
+    // jeton, et accéder à `authorization` ici provoquait un 500 (M14/NET-11).
+    if (req.apiKey) throw forbidden("api key cannot revoke a session");
+    const token = sessionToken(req);
+    if (!token) throw unauthorized("jeton de session absent");
     await query("DELETE FROM app_session WHERE token = $1", [hashSessionToken(token)]);
+    effacerCookieSession(req, reply);
     return reply.send({ ok: true });
   });
 

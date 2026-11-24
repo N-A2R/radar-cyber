@@ -23,15 +23,17 @@ const TOKEN = `tok-${TAG}`;
 const SESSION = { authorization: `Bearer ${TOKEN}` };
 
 const ROUTES = [
+  // Toutes ces lectures sont publiques selon le catalogue OpenAPI ; une
+  // session est facultative ("/events" est "public-or-session").
   { path: "/api/v1/health" },
   { path: "/api/v1/stats" },
   { path: "/api/v1/sources" },
-  { path: "/api/v1/events", auth: true },
+  { path: "/api/v1/events" },
   { path: "/api/v1/orgs" },
   { path: "/api/v1/directory", bad: "?dept=XXX" },
   { path: "/api/v1/search" },
   { path: "/api/v1/flows" },
-  { path: "/api/v1/alerts", auth: true },
+  { path: "/api/v1/alerts" },
   { path: "/api/v1/couverture" },
 ] as const;
 
@@ -140,6 +142,11 @@ test("la spec documente au moins 8 routes avec schéma de réponse et d'erreur",
     assert.ok(doc, `${route.path} absent de la spec`);
     assert.match(doc!.responses["200"]!.content!["application/json"]!.schema!.$ref!, /^#\/components\/schemas\//);
     assert.match(doc!.responses["429"]!.content!["application/json"]!.schema!.$ref!, /ErrorBody/);
+    const operation = OPERATIONS.find((op) => openApiPath(op.path) === route.path.slice("/api/v1".length));
+    assert.ok(
+      operation && (operation.security === "public" || operation.security === "public-or-session"),
+      `${route.path} n'est pas documentée comme lecture publique`,
+    );
   }
   const components = spec.components as { schemas: Record<string, unknown> };
   assert.ok(Object.keys(components.schemas).length >= 20);
@@ -150,27 +157,29 @@ test("la spec documente au moins 8 routes avec schéma de réponse et d'erreur",
 
 test("les 10 routes répondent 200 et une erreur explicite", async () => {
   for (const route of ROUTES) {
-    const headers = "auth" in route && route.auth ? SESSION : {};
-    const ok = await app.inject({ method: "GET", url: route.path, headers });
-    assert.equal(ok.statusCode, 200, `${route.path} : ${ok.body}`);
-    assert.equal(ok.headers["x-api-version"], API_VERSION);
+    const anonymous = await app.inject({ method: "GET", url: route.path });
+    assert.equal(anonymous.statusCode, 200, `${route.path} anonyme : ${anonymous.body}`);
+    assert.equal(anonymous.headers["x-api-version"], API_VERSION);
+
+    const session = await app.inject({ method: "GET", url: route.path, headers: SESSION });
+    assert.equal(session.statusCode, 200, `${route.path} avec session : ${session.body}`);
 
     const quota = await app.inject({ method: "GET", url: route.path, headers: { "x-api-key": zeroKey.key } });
     assert.equal(quota.statusCode, 429, `${route.path} sans quota : ${quota.body}`);
     assertEnvelope(quota.json(), "API_KEY_QUOTA_EXCEEDED");
 
-    if ("auth" in route && route.auth) {
-      const anonymous = await app.inject({ method: "GET", url: route.path });
-      assert.equal(anonymous.statusCode, 401, `${route.path} sans jeton`);
-      assertEnvelope(anonymous.json(), "UNAUTHORIZED");
-    }
-
     if ("bad" in route && route.bad) {
-      const bad = await app.inject({ method: "GET", url: `${route.path}${route.bad}`, headers });
+      const bad = await app.inject({ method: "GET", url: `${route.path}${route.bad}` });
       assert.equal(bad.statusCode, 400, `${route.path}${route.bad} : ${bad.body}`);
       assertEnvelope(bad.json(), "BAD_REQUEST");
     }
   }
+
+  // Une garde réellement privée conserve son 401 explicite : la lecture
+  // publique des dix routes ci-dessus ne doit pas masquer une régression RBAC.
+  const privee = await app.inject({ method: "GET", url: "/api/v1/keys" });
+  assert.equal(privee.statusCode, 401, "/api/v1/keys sans session");
+  assertEnvelope(privee.json(), "UNAUTHORIZED");
 });
 
 test("le quota est atomique et une clé de lecture ne peut pas écrire", async () => {
@@ -232,6 +241,8 @@ test("le client généré est à jour et appelle les routes typées", async () =
   assert.equal(health.ok, true);
   const events = await client.getEvents({ query: { limit: 1 } });
   assert.ok(Array.isArray(events), "GET /events renvoie un tableau d'événements");
+  const alerts = await client.getAlerts({ query: { limit: 1 } });
+  assert.ok(Array.isArray(alerts), "GET /alerts renvoie un tableau d'alertes");
   const org = await client.getOrg({ params: { id: orgId } });
   assert.equal(Number(org.org.id), orgId);
   const writer = createRadarClient({ fetch, token: TOKEN });

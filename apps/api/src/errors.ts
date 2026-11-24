@@ -60,14 +60,20 @@ export function serviceUnavailable(message: string, details?: unknown): ApiError
 
 type PgError = { code?: unknown; constraint?: unknown; detail?: unknown };
 
+/** Détail réservé au journal serveur : jamais sérialisé dans la réponse. */
+const PG_DETAILS = Symbol("pgDetails");
+
 /** 23505 = unicité violée, 23503 = référence absente. */
 function fromPostgres(error: object): ApiError | null {
   const { code, constraint, detail } = error as PgError;
   if (code !== "23505" && code !== "23503") return null;
-  const info = { constraint: constraint ?? null, detail: detail ?? null };
-  return code === "23505"
-    ? conflict("doublon : contrainte d'unicité violée", info, "DUPLICATE_KEY")
-    : unprocessable("référence invalide : clé étrangère violée", info, "FOREIGN_KEY_VIOLATION");
+  const apiError = code === "23505"
+    ? conflict("doublon : contrainte d'unicité violée", undefined, "DUPLICATE_KEY")
+    : unprocessable("référence invalide : clé étrangère violée", undefined, "FOREIGN_KEY_VIOLATION");
+  Object.defineProperty(apiError, PG_DETAILS, {
+    value: { code, constraint: constraint ?? null, detail: detail ?? null },
+  });
+  return apiError;
 }
 
 function toApiError(error: unknown): ApiError {
@@ -93,6 +99,10 @@ function errorBody(error: ApiError): ErrorBody {
 export function installErrorHandler(app: FastifyInstance): void {
   app.setErrorHandler((error, request, reply) => {
     const apiError = toApiError(error);
+    const pgDetails = Object.getOwnPropertyDescriptor(apiError, PG_DETAILS)?.value;
+    if (pgDetails !== undefined) {
+      request.log.warn({ pg: pgDetails }, "détail PostgreSQL consigné côté serveur uniquement");
+    }
     if (apiError.statusCode >= 500) request.log.error({ err: error }, apiError.message);
     reply.code(apiError.statusCode).send(errorBody(apiError));
   });

@@ -7,6 +7,7 @@
  * identifiants et noms de sources publiques, finalités et durées déclarées.
  */
 import type { FastifyInstance } from "fastify";
+import { ligneCsv } from "../security/csv.js";
 import { query } from "../db.js";
 
 const BASE_LEGALE = "Intérêt légitime : observatoire de la cybermenace (art. 6.1.f)";
@@ -47,21 +48,18 @@ const SQL_EXPORT = `
    WHERE s.enabled
    ORDER BY s.id ASC`;
 
-function celluleCsv(valeur: string | number | null | undefined): string {
-  if (valeur === null || valeur === undefined) return "";
-  const texte = String(valeur);
-  return /[",\r\n]/.test(texte) ? `"${texte.replaceAll('"', '""')}"` : texte;
-}
+
 
 export default async function (app: FastifyInstance) {
   /** Registre opposable du corpus : fichier daté, sans authentification. */
   app.get("/registre-traitements/export.csv", async (_req, reply) => {
     const exporteLe = new Date().toISOString().slice(0, 10);
     const result = await query<Ligne>(SQL_EXPORT, [FINALITE_GENERIQUE, BASE_LEGALE, exporteLe]);
-    const corps = result.rows.map((ligne) => [
+    const corps = result.rows.map((ligne) => ligneCsv([
       ligne.source_id, ligne.source_nom, ligne.famille, ligne.portee, ligne.finalite,
       ligne.base_legale, ligne.duree_jours, ligne.declare_at, ligne.exporte_le,
-    ].map(celluleCsv).join(",") + "\r\n").join("");
+    ])).join("");
+
 
     reply.header("Content-Type", "text/csv; charset=utf-8");
     reply.header("Content-Disposition", `attachment; filename="registre_traitements_${exporteLe}.csv"`);

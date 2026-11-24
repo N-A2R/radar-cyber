@@ -15,8 +15,13 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { consigner } from "../journal/index.js";
 import { query } from "../db.js";
 import { roleSuffit, resolveUser, type Role } from "../middleware/auth.js";
+import { API_KEY_HEADER, resolveApiKey } from "../api-key.js";
 import { forbidden, notFound, unauthorized } from "../errors.js";
 import { enregistrerAcces, empreinteAudit, correlationId, type DecisionAcces } from "./access-log.js";
+async function baseSansCompte(): Promise<boolean> {
+  const r = await query<{ n: number }>("SELECT count(*)::int AS n FROM app_user");
+  return (r.rows[0]?.n ?? 0) === 0;
+}
 
 export type NiveauAcces = "public" | Role;
 
@@ -30,6 +35,31 @@ export type RegleAcces = {
   /** Premiers comptes seulement : voir le commentaire d'en-tête. */
   bootstrap?: boolean;
 };
+
+/** Résolution unique de l'identité, avant toute décision d'accès (C1/M11). */
+const IDENTITE_INSTALLEE = new WeakSet<FastifyInstance>();
+
+export function installIdentityResolution(app: FastifyInstance): void {
+  if (IDENTITE_INSTALLEE.has(app)) return;
+  IDENTITE_INSTALLEE.add(app);
+  app.addHook("onRequest", async (req) => {
+    if (!(req.url ?? "").startsWith("/api/")) return;
+    // Une session valide l'emporte sur une clé invalide (NET-14) : un client
+    // portant les deux ne doit pas être refusé à cause d'une clé périmée.
+    const session = await resolveUser(req);
+    let apiKey = null;
+    if (req.headers[API_KEY_HEADER] !== undefined) {
+      try { apiKey = await resolveApiKey(req); }
+      catch (erreur) { if (!session) throw erreur; }
+    }
+    if (apiKey) {
+      req.apiKey = apiKey;
+      req.user ??= apiKey.owner;
+    } else if (session) {
+      req.user = session;
+    }
+  });
+}
 
 /** Les règles les plus spécifiques doivent précéder leurs variantes paramétrées. */
 export const POLITIQUE_ACCES: RegleAcces[] = [
@@ -104,8 +134,8 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/alerts", niveau: "public" },
   { methode: "GET", route: "/api/alerts/stats", niveau: "public" },
   { methode: "GET", route: "/api/alerts/rss.xml", niveau: "public", motif: "public privacy-safe RSS feed" },
-  { methode: "GET", route: "/api/quarantine", niveau: "public" },
-  { methode: "GET", route: "/api/quarantine/stats", niveau: "public" },
+  { methode: "GET", route: "/api/quarantine", niveau: "lecteur", motif: "faits de quarantaine : métadonnées de victimes, lecture authentifiée" },
+  { methode: "GET", route: "/api/quarantine/stats", niveau: "lecteur", motif: "statistiques de quarantaine : lecture authentifiée" },
   { methode: "GET", route: "/api/quarantine/queue", niveau: "analyste" },
   { methode: "GET", route: "/api/review-assistant/suggest", niveau: "analyste", motif: "suggestion de revue : aucune donnée de victime" },
   { methode: "GET", route: "/api/onion-index", niveau: "public" },
@@ -145,6 +175,13 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   // L'observatoire déclare ce qu'il surveille ; la lecture des listes est
   // ouverte aux comptes, leur écriture engage la veille et reste analyste.
   { methode: "GET", route: "/api/watchlists", niveau: "lecteur" },
+  // --- Suivi interne des violations RGPD (SEC-06) ---------------------------
+  { methode: "GET", route: "/api/violations-rgpd", niveau: "analyste", motif: "registre opérationnel : aucune donnée de victime" },
+  { methode: "GET", route: "/api/violations-rgpd/stats", niveau: "analyste", motif: "compteurs d'échéance et de qualification" },
+  { methode: "GET", route: "/api/violations-rgpd/:id", niveau: "analyste", motif: "dossier de violation : métadonnées publiques" },
+  { methode: "POST", route: "/api/violations-rgpd/:id/qualification", niveau: "analyste", motif: "qualification d'une violation suspectée" },
+  { methode: "POST", route: "/api/violations-rgpd/:id/notification", niveau: "analyste", motif: "déclaration de notification à l'autorité" },
+  { methode: "POST", route: "/api/violations-rgpd/:id/cloture", niveau: "admin", motif: "clôture : décision administrative" },
   { methode: "GET", route: "/api/watchlists/:slug", niveau: "lecteur" },
   { methode: "POST", route: "/api/watchlists", niveau: "analyste" },
   { methode: "PUT", route: "/api/watchlists/:slug", niveau: "analyste" },
@@ -155,6 +192,10 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   // --- Travail d'analyse ----------------------------------------------------
   { methode: "GET", route: "/api/review/queue", niveau: "analyste" },
   { methode: "GET", route: "/api/review/stats", niveau: "analyste" },
+  { methode: "GET", route: "/api/journal/review", niveau: "analyste" },
+  { methode: "GET", route: "/api/journal/review/export.csv", niveau: "admin", motif: "export de la revue: décisions et preuves internes" },
+  { methode: "POST", route: "/api/review/:id/rejouer-alertes", niveau: "analyste", motif: "rejeu borné des alertes après promotion" },
+  { methode: "GET", route: "/api/audit/acces", niveau: "admin", motif: "journal des accès: administration uniquement" },
   { methode: "POST", route: "/api/review/refuser-sans-indice", niveau: "admin", motif: "refus groupé : décision administrative" },
   { methode: "POST", route: "/api/review/:id/decision", niveau: "analyste" },
   { methode: "POST", route: "/api/quarantine/review", niveau: "analyste" },
@@ -162,20 +203,15 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "POST", route: "/api/orgs/from-hint", niveau: "analyste" },
   { methode: "POST", route: "/api/alerts/:id/ack", niveau: "analyste" },
   { methode: "POST", route: "/api/alerts/:id/resolve", niveau: "analyste" },
-  { methode: "GET", route: "/api/journal/review/export.csv", niveau: "admin" },
-  { methode: "GET", route: "/api/journal/review", niveau: "analyste" },
-  { methode: "GET", route: "/api/audit/acces", niveau: "admin" },
-
-  // --- Clés d'API : session obligatoire, jamais une clé d'API ----------------
+  { methode: "POST", route: "/api/sources/:id/morte", niveau: "admin" },
+  { methode: "POST", route: "/api/sources/:id/reactiver", niveau: "admin" },
+  { methode: "POST", route: "/api/sources/:id/collecte", niveau: "admin", motif: "relance manuelle d'une collecte" },
+  { methode: "POST", route: "/api/thehive/cases", niveau: "admin", motif: "case creation in an external tool" },
   { methode: "POST", route: "/api/keys", niveau: "lecteur" },
   { methode: "GET", route: "/api/keys", niveau: "lecteur" },
   { methode: "DELETE", route: "/api/keys/:id", niveau: "lecteur" },
-
-  // --- Administration et ingestion ----------------------------------------
   { methode: "POST", route: "/api/ingest", niveau: "admin", motif: "ingestion machine à machine" },
-  { methode: "POST", route: "/api/sources/:id/morte", niveau: "admin" },
-  { methode: "POST", route: "/api/sources/:id/reactiver", niveau: "admin" },
-  { methode: "POST", route: "/api/thehive/cases", niveau: "admin", motif: "case creation in an external tool" },
+
 
   // --- Droit de réponse -----------------------------------------------------
   { methode: "POST", route: "/api/rectifications", niveau: "public", motif: "demande publique, publication décidée ensuite" },
@@ -235,12 +271,52 @@ export function routeEffective(req: FastifyRequest): string {
   return (req.routeOptions?.url ?? req.url).split("?")[0] ?? "";
 }
 
-async function baseSansCompte(): Promise<boolean> {
-  const r = await query<{ n: number }>("SELECT count(*)::int AS n FROM app_user");
-  return (r.rows[0]?.n ?? 0) === 0;
+const CONTROLE_INSTALLE = new WeakSet<FastifyInstance>();
+
+
+/** Écrit la décision d'accès dans le journal des accès (SSE compris). */
+async function tracerDecision(req: FastifyRequest, etat: EtatAcces, statut: number): Promise<void> {
+  const userAgent = req.headers["user-agent"];
+  await enregistrerAcces({
+    methode: req.method,
+    route: etat.route,
+    statut,
+    decision: etat.decision,
+    motif: etat.motif,
+    niveauRequis: etat.niveau,
+    role: etat.utilisateur?.role ?? null,
+    userId: etat.utilisateur?.id ?? null,
+    // Une adresse e-mail n'a rien à faire dans un journal append-only (CMP-01).
+    acteur: etat.utilisateur ? `compte:${empreinteAudit(etat.utilisateur.email).slice(0, 12)}` : "anonyme",
+    ipHash: empreinteAudit(req.ip),
+    userAgentHash: typeof userAgent === "string" ? empreinteAudit(userAgent) : null,
+    correlationId: etat.correlationId,
+    dureeMs: Date.now() - etat.debut,
+  });
 }
 
+/**
+ * Les réponses SSE appellent `reply.hijack()` : les hooks `onSend` ne voient
+ * jamais leur réponse. Le flux doit donc tracer son ouverture explicitement,
+ * avec le même format que les autres accès (E7).
+ */
+export async function auditerFluxSse(req: FastifyRequest): Promise<void> {
+  const etat = etats.get(req);
+  const user = req.user;
+  const route = routeEffective(req);
+  await tracerDecision(req, {
+    debut: etat?.debut ?? Date.now(),
+    route,
+    niveau: etat?.niveau ?? reglePour(req.method, route)?.niveau ?? "public",
+    decision: "autorise",
+    motif: "flux SSE (réponse hijackée, audit explicite)",
+    utilisateur: user ? { id: user.id, email: user.email, role: user.role } : null,
+    correlationId: etat?.correlationId ?? correlationId(req),
+  }, 200);
+}
 export function installAccessControl(app: FastifyInstance): void {
+  if (CONTROLE_INSTALLE.has(app)) return;
+  CONTROLE_INSTALLE.add(app);
   app.addHook("onRequest", async (req, reply) => {
     const brut = routeEffective(req);
     if (!brut.startsWith("/api/")) return;
@@ -268,9 +344,9 @@ export function installAccessControl(app: FastifyInstance): void {
     }
     etat.niveau = regle.niveau;
 
-    // `resolveUser` ne touche la base que si des identifiants sont fournis :
-    // les lectures publiques sans jeton restent gratuites.
-    const user = await resolveUser(req).catch(() => null);
+    // L'identité a déjà été résolue par `installIdentityResolution` : un
+    // second SELECT par requête était purement évitable (M11).
+    const user = req.user ?? await resolveUser(req).catch(() => null);
     if (user) {
       req.user = user;
       etat.utilisateur = { id: user.id, email: user.email, role: user.role };
@@ -295,22 +371,7 @@ export function installAccessControl(app: FastifyInstance): void {
       etat.decision = "refuse";
       etat.motif ??= reply.statusCode === 429 ? "limite de débit atteinte" : `réponse HTTP ${reply.statusCode}`;
     }
-    const userAgent = req.headers["user-agent"];
-    await enregistrerAcces({
-      methode: req.method,
-      route: etat.route,
-      statut: reply.statusCode,
-      decision: etat.decision,
-      motif: etat.motif,
-      niveauRequis: etat.niveau,
-      role: etat.utilisateur?.role ?? null,
-      userId: etat.utilisateur?.id ?? null,
-      acteur: etat.utilisateur ? `humain:${etat.utilisateur.email}` : "anonyme",
-      ipHash: empreinteAudit(req.ip),
-      userAgentHash: typeof userAgent === "string" ? empreinteAudit(userAgent) : null,
-      correlationId: etat.correlationId,
-      dureeMs: Date.now() - etat.debut,
-    });
+    await tracerDecision(req, etat, reply.statusCode);
 
     // Les refus sont aussi des faits de sécurité : ils entrent dans le journal
     // de vérité, qui reste consultable même après la rétention du journal
