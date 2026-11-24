@@ -7,6 +7,7 @@
  * l'émetteur sont fabriqués ici, la liste blanche vient de la migration.
  */
 import { test, after } from "node:test";
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { closePools, query } from "../src/db.js";
@@ -21,10 +22,18 @@ import {
 	versionCouranteWhitelist,
 	type CertificatCT,
 } from "../src/ctlogs/anomalies.js";
+import { ligneObjectifCt, verifierDeclarationObjectifCt } from "../src/ctlogs/objectif.js";
 
 const TAG = `cta${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const EMETTEUR_CONNU = "C=US, O=Let's Encrypt, CN=R3";
 const EMETTEUR_INCONNU = "C=XX, O=Autorité Inconnue, CN=Root Inconnue";
+
+const MESURE_OBJECTIF = {
+	anomalies: 52,
+	versionWhitelist: "2026-11-22",
+	emetteurs: 17,
+	certificatsClasses: 4,
+};
 
 /**
  * Les quatre certificats synthétiques du critère. Leurs identités sont
@@ -159,6 +168,20 @@ test("l'inventaire est regroupé par certificat, pas par nom d'hôte", () => {
 	assert.equal(certificats.length, 1);
 	assert.deepEqual(certificats[0]?.identites, [`a.${TAG}-inv.example`, `b.${TAG}-inv.example`]);
 	assert.equal(certificats[0]?.emetteur, EMETTEUR_CONNU, "le premier émetteur non vide est retenu");
+});
+
+test("objectif : la mesure produit la ligne déclarée", () => {
+	assert.equal(
+		ligneObjectifCt(MESURE_OBJECTIF),
+		"OBJECTIF : atteint — 52 lignes ct_anomalie, liste blanche 2026-11-22 (17 émetteurs), 4 certificats synthétiques classés / ≥ 15 lignes, liste blanche versionnée, 4 certificats synthétiques",
+	);
+});
+
+test("rapport : la ligne OBJECTIF mesurée est déclarée une seule fois", () => {
+	const rapport = readFileSync(new URL("../../../docs/certificats-wildcards.md", import.meta.url), "utf8");
+	const ligne = ligneObjectifCt(MESURE_OBJECTIF);
+	assert.equal(verifierDeclarationObjectifCt(rapport, ligne), true);
+	assert.equal(verifierDeclarationObjectifCt(rapport, "OBJECTIF : atteint — 1 / 1"), false);
 });
 
 after(async () => {

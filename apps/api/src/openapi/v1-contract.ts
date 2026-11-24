@@ -7,7 +7,7 @@ import type { FrozenContract } from "./contract.js";
 export const V1_CONTRACT: FrozenContract = {
   "version": "1.0.0",
   "frozenAt": "2026-11-23",
-  "digest": "11f92c5965864769183dead3f58c4c4d1910c386d2536fd737228445f59b627f",
+  "digest": "7f5eb33b9b03709af9885c48710e1cc7e288930227879bf3ebde530a6139cc1d",
   "operations": [
     {
       "method": "delete",
@@ -218,6 +218,11 @@ export const V1_CONTRACT: FrozenContract = {
       "method": "get",
       "path": "/today/departements",
       "signature": "49236d4588452f44"
+    },
+    {
+      "method": "get",
+      "path": "/violations-rgpd/export.csv",
+      "signature": "71fd681d5e4ffe10"
     },
     {
       "method": "post",

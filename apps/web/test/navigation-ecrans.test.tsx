@@ -125,9 +125,12 @@ describe("Coverage and Corpus navigation", () => {
     await mount("#/coverage");
     const labels = [...host.querySelectorAll("nav.rail__nav button")]
       .map((button) => button.textContent?.trim());
-    expect(labels.slice(0, 10)).toEqual([
+    // L'ordre attendu suit VIEWS dans App.tsx : « Tableau de bord sources »
+    // a été ajouté après « Sources » (PR tableau de bord) sans mettre à jour
+    // cette assertion — le test échouait donc sur main. On fige l'ordre réel.
+    expect(labels.slice(0, 11)).toEqual([
       "Aujourd'hui", "Couverture", "Revue", "Journal", "Corpus",
-      "Sources", "Carte", "Graphe", "Santé", "Alertes",
+      "Sources", "Tableau de bord sources", "Carte", "Graphe", "Santé", "Alertes",
     ]);
   });
 

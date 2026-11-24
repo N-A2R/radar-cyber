@@ -5,11 +5,22 @@
 import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { ingestQuery } from "../src/db.js";
-import { inputFromRow, loadInsuranceCorpus, loadInsuranceGroups, loadOrganizationInputs } from "../src/insurance/query.js";
+import { NA_DEPARTMENTS, inputFromRow, loadInsuranceCorpus, loadInsuranceGroups, loadOrganizationInputs } from "../src/insurance/query.js";
 import { sirenUnique } from "./helpers/siren.js";
 
 const REFERENCE = new Date().toISOString().slice(0, 10);
 const SIREN = sirenUnique("insurance-query");
+
+// Le corpus de référence contient désormais les opérateurs critiques REC
+// (migration 217) : la population attendue est le jeu de test plus ce socle.
+async function regionalBaseline(): Promise<number> {
+  const { rows } = await ingestQuery<{ count: string }>(
+    `SELECT count(*)::text AS count FROM org
+      WHERE dept = ANY($1::text[]) AND slug NOT LIKE 'insurance-%'`,
+    [NA_DEPARTMENTS],
+  );
+  return Number(rows[0]?.count ?? 0);
+}
 
 async function prepare(): Promise<{ naId: number; otherId: number }> {
   await ingestQuery(
@@ -48,17 +59,20 @@ async function prepare(): Promise<{ naId: number; otherId: number }> {
 }
 
 test("the reference date comes from the local corpus", async () => {
+  const socle = await regionalBaseline();
   await prepare();
   const corpus = await loadInsuranceCorpus();
   assert.equal(corpus.referenceDate, REFERENCE);
-  assert.equal(corpus.naOrganizations, 3);
+  assert.equal(corpus.naOrganizations, socle + 3);
 });
 
 test("the population contains only the twelve Nouvelle-Aquitaine departments", async () => {
+  const socle = await regionalBaseline();
   await prepare();
   const groups = await loadInsuranceGroups(REFERENCE);
-  assert.equal(groups.reduce((sum, row) => sum + row.organizationCount, 0), 3);
-  assert.ok(groups.every((row) => row.sector === "sante" || row.sector === "commerce"));
+  assert.equal(groups.reduce((sum, row) => sum + row.organizationCount, 0), socle + 3);
+  assert.ok(groups.some((row) => row.sector === "sante"));
+  assert.ok(groups.some((row) => row.sector === "commerce"));
 });
 
 test("grey and public source identifiers are both kept for audit", async () => {
@@ -70,11 +84,12 @@ test("grey and public source identifiers are both kept for audit", async () => {
 });
 
 test("the peer baseline uses the whole region, not only the selected organization", async () => {
+  const socle = await regionalBaseline();
   await prepare();
   const groups = await loadInsuranceGroups(REFERENCE);
   const grouped = groups.find((row) => row.incidentCount === 1 && row.ambientCount === 1);
   assert.ok(grouped);
-  assert.ok(Math.abs(grouped.overallClaimRate - 1 / 3) < 1e-9);
+  assert.ok(Math.abs(grouped.overallClaimRate - 1 / (socle + 3)) < 1e-9);
   assert.ok(grouped.sectorClaimRate > grouped.overallClaimRate);
 });
 
