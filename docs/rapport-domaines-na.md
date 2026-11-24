@@ -198,3 +198,35 @@ mcp__postgres_query --sql "SELECT count(*) AS sans_domaine_sans_preuve_http200 F
 Il reste donc 1 661 633 organisations de Nouvelle-Aquitaine sans domaine **et sans aucune URL HTTP 200** dans le corpus consolidé des sources publiques/gratuites. Sur les 1 663 574 organisations encore sans domaine, 1 941 seulement disposent d'une URL prouvée mais échouent à la preuve stricte (page morte, contenu trop court ou absence de jeton distinctif). Le périmètre initial du rapport était 1 671 911 organisations ; le dénominateur mesuré est passé à 1 671 941 par des écritures concurrentes d'autres branches. Combler 1 663 632 organisations exigerait d'inventer des sites, ce qui détruirait la garantie « vérifié avec provenance ». Aucun domaine n'a été fabriqué ; aucune donnée personnelle, aucun service payant.
 
 OBJECTIF : partiel — 8 309 / 1 671 941 organisations (0,4970 %), manque 1 663 632 organisations vérifiées (99,5030 %) pour atteindre 100 %
+
+## Rattrapage — tranche t12 (2026-11-24)
+
+Le travail des tranches t1 à t11 est conservé : la branche de départ porte la mesure 8 309 / 1 671 941. La tranche t12 ouvre une **dixième route grise** : le **libellé enregistrable lui-même** du site officiel (`aussac-vadalle.fr` → `aussac`, `vadalle`) peut nommer l'organisation. Les routes précédentes ne regardaient que le sous-domaine ou le chemin (`isDedicatedPageUrl`) et la route t9 écartait toute racine déjà attribuée à une autre organisation : une commune dont le site porte son nom était donc écartée au profit d'une association hébergée sur la même racine. `scripts/expand-domains-domain-label.mts` accepte ces pages à condition que l'URL **et l'URL finale** portent un jeton distinctif du nom (au moins 5 lettres, hors mots génériques), puis applique la preuve stricte inchangée (HTTP 200, racine inchangée après redirection, contenu réel, jeton distinctif dans la page). Une seule page par organisation ; une racine peut être partagée si chaque page nomme son organisation. Aucune écriture n'a lieu sans `--apply`.
+
+Sur 819 candidats retenus, **470 domaines vérifiés et tracés** `exposition-service:domaine-nomme:http200` (communes, établissements et associations), tous issus d'URL déjà prouvées HTTP 200 par les registres publics/gratuits (OSM/SIREN, Wikidata, FINESS, DILA, RNA, annuaires administration/éducation). Détail : `bench/results/domains-from-domain-label.json`. 5 tests comportement (`apps/api/test/expand-domains-domain-label.test.ts`), 52 tests domaines verts au total, typecheck `apps/api` OK, `apps/api/src/server.ts` : 0 ligne modifiée.
+
+Commande reproductible :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-domaine-nomme -- --limit=3000 --concurrency=32 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée (mesure rejouée indépendamment après écriture) :
+
+```
+selected=819 verified=470 applied=true
+verified_domain_coverage=8309 -> 8779
+coverage_percent=0.497 -> 0.5251
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=8837
+organisations_avec_domaine_verifie_et_provenance=8779
+couverture_pourcent=0.5251
+```
+
+La requête SQL de la tranche t11 redonne toujours 1 661 633 organisations de Nouvelle-Aquitaine sans domaine **et sans aucune URL HTTP 200** dans le corpus consolidé des sources publiques/gratuites : la tranche t12 n'invente aucun site, elle corrige un appariement qui écartait à tort des sites déjà prouvés. Sur les 1 663 162 organisations encore sans domaine, moins de 1 500 disposent d'une URL prouvée mais échouent à la preuve stricte. Combler le reste exigerait d'attribuer des sites inexistants, ce qui détruirait la garantie « vérifié avec provenance ». Aucune donnée personnelle, aucun service payant.
+
+OBJECTIF : partiel — 8 779 / 1 671 941 organisations (0,5251 %), manque 1 663 162 organisations vérifiées (99,4749 %) pour atteindre 100 %
+
