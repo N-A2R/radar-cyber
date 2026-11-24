@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { api, type WarcProofStats } from "../api";
 import { formatCount, formatPercent } from "./CorpusView";
 import "./corpus.css";
+import { Card } from "@astryxdesign/core/Card";
 
 export default function WarcProofCard() {
   const [stats, setStats] = useState<WarcProofStats | null>(null);
@@ -22,6 +23,7 @@ export default function WarcProofCard() {
   }, []);
 
   return (
+    <Card variant="transparent" className="corpus__panel-card">
     <section className="corpus__panel" aria-labelledby="warc-proof-title" data-testid="warc-proof-card">
       <div className="corpus__panel-head">
         <h2 id="warc-proof-title">Facts with an archivable proof</h2>
@@ -48,5 +50,6 @@ export default function WarcProofCard() {
         </>
       )}
     </section>
+    </Card>
   );
 }

@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import LiveAlerts from "./LiveAlerts";
 import { liveAlerts } from "../storybook/fixtures";
 
@@ -14,6 +16,13 @@ const meta = {
     onOpenAlerts: () => {},
     onDismiss: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof LiveAlerts>;
 
 export default meta;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { ApiError } from "../api";
 import "./sources-rouges.css";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { Card } from "@astryxdesign/core/Card";
 
 /** Résultat brut d'une relance : le nombre d'événements réellement admis. */
 export type RelanceOutcome = {
@@ -84,6 +85,7 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
   }
 
   return (
+    <Card variant="transparent" className="relance-cellule-card">
     <div className="relance-cellule">
       <button
         type="button"
@@ -96,5 +98,6 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
       </button>
       <RelanceResultat etat={etat} onRelance={() => void relancer()} />
     </div>
+    </Card>
   );
 }

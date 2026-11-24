@@ -5,6 +5,8 @@ import { renduRattachement } from "./rattachement-view";
 import CustodyPanel from "./CustodyPanel";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./inspector.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 type LoadState =
   | { status: "idle" }
@@ -129,7 +131,7 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
         </button>
       </header>
 
-      <div className="inspector__body">
+      <Card variant="transparent" padding={0} className="inspector__body">
         {!hasSelection && (
           <EmptyState
             message="rien de sélectionné"
@@ -157,7 +159,7 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
         )}
 
         {state.status === "ready-org" && <OrgDetail org={state.org} />}
-      </div>
+      </Card>
     </aside>
   );
 }

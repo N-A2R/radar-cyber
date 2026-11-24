@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { orgDetail } from "../storybook/fixtures";
 
@@ -9,6 +11,13 @@ const meta = {
   title: "Design System/CorroborationView",
   component: CorroborationView,
   parameters: { docs: { description: { component: "Facts grouped by source agreement, not one row per event." } } },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof CorroborationView>;
 
 export default meta;

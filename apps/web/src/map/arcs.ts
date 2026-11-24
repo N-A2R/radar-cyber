@@ -6,6 +6,8 @@
  * des arcs est fait directement dans Map3D.
  */
 
+import { tokenVar } from "@astryxdesign/core/theme";
+
 export type FlowArc = {
   id: string
   from: { lat: number; lon: number; label: string }
@@ -19,38 +21,54 @@ export type FlowArc = {
   sourceUrl?: string | null
 }
 
-/** Palette unique des familles, alignée sur la maquette et `FAMILY_COLORS` de Map3D. */
-export const FAMILY_HEX: Record<string, string> = {
-  ransomware: '#e0483c',
-  vuln: '#e8833a',
-  phishing: '#e0b341',
-  malware: '#c964b0',
-  cert: '#4a90d9',
-  cert_fr: '#67e8f9',
-  typosquat: '#a855f7',
-  reputation: '#22c55e',
-  cti: '#3b82f6',
-  presse: '#94a3b8',
-  presse_locale: '#7d8ea3',
+/** MapLibre ne sait pas lire `var(...)` dans une paint property : on résout le
+ * jeton du thème gothic actif via le CSS. Sans DOM (SSR, tests), on garde la
+ * référence `var(...)`, que le CSS sait consommer. */
+function resoudre(jeton: string, styles?: CSSStyleDeclaration): string {
+  const feuilles = styles ?? (typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement));
+  return feuilles?.getPropertyValue(jeton.slice(4, -1)).trim() || jeton;
 }
 
-export const FAMILY_HEX_FALLBACK = '#7dd3fc'
+function palette(jetons: Record<string, string>): Record<string, string> {
+  const styles = typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement);
+  return Object.fromEntries(
+    Object.entries(jetons).map(([nom, jeton]) => [nom, resoudre(jeton, styles)]),
+  );
+}
+
+/** Palette unique des familles : jetons de données du pont gothic (styles.css). */
+export const FAMILY_HEX: Record<string, string> = palette({
+  ransomware: tokenVar("--family-ransomware"),
+  vuln: tokenVar("--family-vuln"),
+  phishing: tokenVar("--family-phishing"),
+  malware: tokenVar("--family-malware"),
+  cert: tokenVar("--family-cert"),
+  cert_fr: tokenVar("--family-cert-fr"),
+  typosquat: tokenVar("--family-typosquat"),
+  reputation: tokenVar("--family-reputation"),
+  cti: tokenVar("--family-cti"),
+  presse: tokenVar("--family-presse"),
+  presse_locale: tokenVar("--family-presse-locale"),
+});
+
+/** Famille inconnue : cyan clair du pont de données. */
+export const FAMILY_HEX_FALLBACK = resoudre(tokenVar("--family-cert-fr"));
 
 /**
- * Palette des natures d'organisation, alignée sur `--org-*` de styles.css /
- * `ORG_KIND_COLORS` de Map3D. `ess` reste neutre. `operateur_critique` est un
- * alias normalisé de la valeur OSM `opérateur critique`.
+ * Palette des natures d'organisation : jetons `--org-*` du pont gothic.
+ * `ess` reste neutre via `--sev-1`. `operateur_critique` est un alias
+ * normalisé de la valeur OSM `opérateur critique`.
  */
-const NATURE_HEX: Record<string, string> = {
-  sante: '#f05545',
-  collectivite: '#4a90d9',
-  entreprise: '#f0a63c',
-  enseignement: '#a855f7',
-  recherche: '#22c55e',
-  'opérateur critique': '#e0483c',
-  operateur_critique: '#e0483c',
-  ess: '#8b93a1',
-}
+const NATURE_HEX: Record<string, string> = palette({
+  sante: tokenVar("--org-sante"),
+  collectivite: tokenVar("--org-collectivite"),
+  entreprise: tokenVar("--org-entreprise"),
+  enseignement: tokenVar("--org-enseignement"),
+  recherche: tokenVar("--org-recherche"),
+  "opérateur critique": tokenVar("--org-operateur"),
+  operateur_critique: tokenVar("--org-operateur"),
+  ess: tokenVar("--sev-1"),
+});
 
 /** Couleur d'un arc : nature d'organisation si connue, sinon famille. */
 export function arcHex(family: string, nature?: string | null): string {

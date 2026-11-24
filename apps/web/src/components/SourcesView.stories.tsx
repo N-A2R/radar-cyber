@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import SourcesView from "./SourcesView";
 import { sources } from "../storybook/fixtures";
 
@@ -7,6 +9,13 @@ const meta = {
   component: SourcesView,
   parameters: { docs: { description: { component: "Source registry with status, yield and rejection reasons." } } },
   args: { sources, loading: false, error: null, onRetry: () => {} },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof SourcesView>;
 
 export default meta;

@@ -225,7 +225,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
         <label style={FIELD_STYLE}>
           état
           <select value={status} onChange={(e) => changerStatut(e.target.value)}>
-            <option value="all">tous{data === null ? "" : ` (${formatNumber(data.total)})`}</option>
+            <option value="all">tous{data === null ? "" : ` (${formatNumber(data.total ?? null)})`}</option>
             <option value="ok">ok{data === null ? "" : ` (${formatNumber(counts?.ok ?? null)})`}</option>
             <option value="error">erreur{data === null ? "" : ` (${formatNumber(counts?.error ?? null)})`}</option>
             <option value="pending">
@@ -244,9 +244,9 @@ export default function HealthView({ sources = [], loading: chargementParent = f
         </label>
         {data === null ? null : (
           <span className="health-view__compte" style={{ fontSize: 12 }}>
-            {data.items.length === 0
+            {items.length === 0
               ? "0 flux affiché"
-              : `${formatNumber(premier)}–${formatNumber(dernier)} sur ${formatNumber(data.matching)} affichés`}
+              : `${formatNumber(premier)}–${formatNumber(dernier)} sur ${formatNumber(data.matching ?? null)} affichés`}
           </span>
         )}
       </div>

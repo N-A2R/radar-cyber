@@ -16,6 +16,8 @@
  * testable hors navigateur, et une panne de quota ne doit pas casser la carte.
  */
 
+import { tokenVar } from "@astryxdesign/core/theme";
+
 /** Style MapLibre sans tuiles : rien à télécharger, rien à perdre. */
 export type StyleSecours = {
 	version: 8;
@@ -35,6 +37,22 @@ type GeoJSONCollection = { type: "FeatureCollection"; features: unknown[] };
  * quota d'un navigateur — d'où le choix du vectoriel embarqué.
  */
 export function styleSecours(contours: GeoJSONCollection, villes: GeoJSONCollection): StyleSecours {
+	// MapLibre ne comprend pas `var(...)` dans une paint property : on résout
+	// les jetons du pont gothic via le CSS du thème actif. Sans DOM (tests,
+	// SSR), la référence CSS reste intacte.
+	const styles = typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement);
+	const jetons = {
+		fond: tokenVar("--bg"),
+		dep: tokenVar("--surface"),
+		contour: tokenVar("--line-strong"),
+		texte: tokenVar("--text"),
+	};
+	const couleurs = Object.fromEntries(
+		Object.entries(jetons).map(([nom, jeton]) => [
+			nom,
+			styles?.getPropertyValue(jeton.slice(4, -1)).trim() || jeton,
+		]),
+	);
 	return {
 		version: 8,
 		sources: {
@@ -44,19 +62,19 @@ export function styleSecours(contours: GeoJSONCollection, villes: GeoJSONCollect
 		layers: [
 			// Fond plein : la mer et le hors-champ, en une couleur qui ne dépend
 			// d'aucune image.
-			{ id: "fond", type: "background", paint: { "background-color": "#080b10" } },
+			{ id: "fond", type: "background", paint: { "background-color": couleurs.fond } },
 			{
 				id: "dep",
 				type: "fill",
 				source: "dep",
-				paint: { "fill-color": "#11161f", "fill-outline-color": "rgba(230,235,242,0.35)" },
+				paint: { "fill-color": couleurs.dep, "fill-outline-color": couleurs.contour },
 			},
 			{
 				id: "cities",
 				type: "symbol",
 				source: "cities",
 				layout: { "text-field": ["get", "name"], "text-size": 12, "text-font": ["Noto Sans Regular"] },
-				paint: { "text-color": "#e6ebf2", "text-halo-color": "#080b10", "text-halo-width": 1.5 },
+				paint: { "text-color": couleurs.texte, "text-halo-color": couleurs.fond, "text-halo-width": 1.5 },
 			},
 		],
 	};

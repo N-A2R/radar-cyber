@@ -4,6 +4,7 @@ import type { ReviewViewProps } from "../contracts";
 import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } from "../review-keys";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./quarantine-review.css";
+import { Badge } from "@astryxdesign/core/Badge";
 
 /**
  * File de revue de la quarantaine — l'écran qui n'existait pas.
@@ -178,6 +179,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 			<header className="review__head">
 				<div>
 					<h1>Revue</h1>
+					<Badge label="quarantaine" className="review__badge" />
 					<p className="review__tally">
 						<b>{data?.counts.pending ?? 0}</b> en attente
 						<span aria-hidden="true"> · </span>{data?.counts.reviewed ?? 0} revus

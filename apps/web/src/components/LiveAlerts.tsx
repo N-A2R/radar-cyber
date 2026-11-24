@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import type { LiveAlert } from "../api";
 import { EmptyState } from "./Skeleton";
 import "./live-alerts.css";
+import { Badge } from "@astryxdesign/core/Badge";
 
 /**
  * Bandeau d'alertes en direct — les alertes « tombent » dans le dashboard
@@ -163,6 +164,7 @@ export default function LiveAlerts({
       )}
 
       <div className="live-alerts__controls">
+        <Badge label="en direct" className="live-alerts__badge" />
         <button
           type="button"
           className="live-alerts__ctl"

@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import { renduRattachement } from "./rattachement-view";
 
 const explanation = {
@@ -17,6 +19,13 @@ const meta = {
   title: "Design System/RattachementView",
   component: RattachementView,
   parameters: { docs: { description: { component: "Attachment decision with its reason, engine and confidence." } } },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof RattachementView>;
 
 export default meta;

@@ -15,6 +15,7 @@ import type { NaOverview, NaFil, Org } from "../api";
 import type { NaViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./na.css";
+import { Badge } from "@astryxdesign/core/Badge";
 /** Les douze départements, dans l'ordre du geojson (props : code, nom). */
 const FEATURES = departementsGeojson.features as {
   properties: { code: string; nom: string };
@@ -198,6 +199,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
     <section className="na-view">
       <header className="na-header">
         <h2>Nouvelle-Aquitaine</h2>
+        <Badge label="12 départements" className="na-badge" />
         <p className="na-totaux" role="status" aria-live="polite">
           {total.orgs.toLocaleString("fr-FR")} organisations · {total.orgsAvecEvenement} touchées · {total.evenements}{" "}
           événements

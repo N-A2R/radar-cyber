@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import RelancerButton, { RelanceResultat } from "./RelancerButton";
 
 const relance = async () => ({ inserted: 2, skipped: 0 });
@@ -13,6 +15,13 @@ const meta = {
     onRelance: relance,
     disabled: false,
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof RelancerButton>;
 
 export default meta;

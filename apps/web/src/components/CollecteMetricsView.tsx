@@ -1,5 +1,7 @@
 import type { AlerteSupervision, CollecteMetrics, CycleCollecte } from "../api";
 import { formatDate, formatNumber, formatRelative } from "./SourcesView";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 export type CollecteMetricsViewProps = {
   metrics: CollecteMetrics | null;
@@ -119,7 +121,9 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
                     <td className="mono">#{cycle.id}</td>
                     <td className="mono" title={formatDate(cycle.finishedAt)}>{formatRelative(cycle.finishedAt)}</td>
                     <td>
-                      <span className="health-detail__tone" data-tone={statut.tone}>{statut.label}</span>
+                      <Badge className="health-detail__tone" data-tone={statut.tone}
+                        variant={statut.tone === "green" ? "success" : statut.tone === "orange" ? "warning" : "error"}
+                        label={statut.label} />
                     </td>
                     <td className="mono">{duree(cycle.dureeMs)}</td>
                     <td className="num">{cycle.sourcesOk} / {cycle.sourcesError}</td>

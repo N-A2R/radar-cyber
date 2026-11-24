@@ -12,6 +12,7 @@ import {
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import RelancerButton, { type RelanceOutcome } from "./RelancerButton";
 import "./sources-rouges.css";
+import { Badge } from "@astryxdesign/core/Badge";
 
 export type SourcesRougesViewProps = {
   detail: HealthDetail | null;
@@ -74,6 +75,7 @@ export default function SourcesRougesView({
     <section className="sources-rouges" aria-label="Sources rouges">
       <header>
         <h2>sources rouges</h2>
+        <Badge label={`${rouges.length} sans fait`} className="sources-rouges__badge" />
         <p>
           {rouges.length} sources sans fait depuis plus de 7 jours sur {detail.sources.declared} déclarées
           {" · "}triées par dernière production, du plus ancien fait au plus récent

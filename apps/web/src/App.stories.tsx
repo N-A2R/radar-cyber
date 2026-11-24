@@ -1,9 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import App from "./App";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 
 const meta = {
   title: "Design System/Application shell",
   component: App,
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
   parameters: {
     docs: { description: { component: "Top-level shell with the view rail, filters and lazy-loaded screens." } },
     layout: "fullscreen",

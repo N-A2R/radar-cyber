@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import NaView from "./NaView";
 import { naFil, naOverview, orgs } from "../storybook/fixtures";
 
@@ -17,6 +19,13 @@ const meta = {
     onOpenOrg: () => {},
     onRetry: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof NaView>;
 
 export default meta;

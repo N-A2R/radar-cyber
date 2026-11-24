@@ -35,6 +35,7 @@ import { connectAttackStream, fetchLiveAttacks, LiveAttackLayer, mergeAttacks, t
 import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
 import { styleSecours } from '../offline'
 import { FAMILY_LABELS, ORG_KIND_LABELS } from './libelles'
+import { Badge } from '@astryxdesign/core/Badge'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -1117,5 +1118,6 @@ export default function Map3D(props: Map3DProps) {
 
   return <div ref={ref} style={{ width: '100%', height: '100%', position: 'relative' }}>
     {props.live ? <div className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</div> : null}
+    <Badge label="Nouvelle-Aquitaine" className="map3d__badge" style={{ position: 'absolute', bottom: 8, left: 8, zIndex: 2, pointerEvents: 'none' }} />
   </div>
 }

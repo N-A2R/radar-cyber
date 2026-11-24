@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import RansomwareGroupsView from "./RansomwareGroupsView";
 
 const meta = {
@@ -8,6 +10,13 @@ const meta = {
     docs: { description: { component: "Tracked ransomware groups and their regional claims." } },
   },
   args: { data: null, loading: false, error: null },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof RansomwareGroupsView>;
 
 export default meta;

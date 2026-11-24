@@ -3,6 +3,8 @@ import type { FeedProps } from "../contracts";
 import FamilyFilter from "./FamilyFilter";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./feed.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 function formatRelative(iso: string | null): string {
   if (!iso) return "—";
@@ -47,6 +49,7 @@ export default function EventList({
   onRetry,
 }: FeedProps) {
   return (
+    <Card variant="transparent" padding={0}>
     <section className="feed" aria-label="Fil d'événements">
       <header className="feed__header">
         <h2 className="feed__title">Fil d'événements</h2>
@@ -108,5 +111,6 @@ export default function EventList({
         />
       ) : null}
     </section>
+    </Card>
   );
 }

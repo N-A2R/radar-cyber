@@ -12,6 +12,7 @@ import type { TodayViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./today.css";
 import LieesCard from "./LieesCard";
+import { Badge } from "@astryxdesign/core/Badge";
 
 /** Date lisible et sans ambiguïté : UTC affichée, jamais une heure locale devinée. */
 export function dateLisible(iso: string | null): string {
@@ -120,7 +121,7 @@ export default function TodayView({
 }: TodayViewProps) {
   const evenements = triRecents(data?.evenements ?? []);
   const familles = options(evenements.map((e) => e.famille), family);
-  const parDept = new Map(departements.map((d: DeptStat) => [d.dept, d.evenements]));
+  const parDept = new Map((departements ?? []).map((d: DeptStat) => [d.dept, d.evenements]));
   const depts = options([...parDept.keys(), ...evenements.map((e) => e.dept)], dept);
   const tranches = aggregerTimeline(evenements, maintenant);
   const maxTranche = Math.max(0, ...tranches.map((t) => t.evenements));
@@ -151,6 +152,7 @@ export default function TodayView({
         <div>
           <p className="today__kicker">veille du jour</p>
           <h1 className="today__titre" id="today-titre">Aujourd'hui</h1>
+          <Badge label="24 h" className="today__badge" />
           <p className="today__sous-titre">Les 24 dernières heures, telles que collectées.</p>
         </div>
         <div className="today__compteurs" aria-label="Compteurs en direct">

@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import SourcesRougesView from "./SourcesRougesView";
 import { healthDetail, sources } from "../storybook/fixtures";
 
@@ -14,6 +16,13 @@ const meta = {
     onRelance: async () => ({ inserted: 1, skipped: 0 }),
     onRetry: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof SourcesRougesView>;
 
 export default meta;

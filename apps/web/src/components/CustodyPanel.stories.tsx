@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import CustodyPanel, { CustodyDetails } from "./CustodyPanel";
 import type { CustodyChain } from "../api";
 
@@ -20,6 +22,13 @@ const meta = {
     docs: { description: { component: "Chain-of-custody panel and its detailed evidence view." } },
   },
   args: { subject: chain.subject },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof CustodyPanel>;
 
 export default meta;

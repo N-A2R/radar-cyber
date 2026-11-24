@@ -10,6 +10,8 @@
 import { useMemo, useState } from "react";
 import type { CouvertureLigne, CouvertureResponse } from "../api";
 import "./couverture.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 export type CouvertureProps = {
   data: CouvertureResponse | null;
@@ -117,6 +119,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
   }
 
   return (
+    <Card variant="transparent" padding={0}>
     <section className="coverage" aria-labelledby="coverage-title">
       <header className="coverage__header">
         <div>
@@ -268,5 +271,6 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
         </>
       )}
     </section>
+    </Card>
   );
 }

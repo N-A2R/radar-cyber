@@ -5,6 +5,9 @@
  * only, gray-listed sources are fine, and no victim-related personal data is
  * present. The base figures quoted in the report come from the live database,
  * not from these fixtures.
+ *
+ * Astryx-compatible : données de démonstration uniquement, sans surface de
+ * design (ni couleur, ni chrome) à tokeniser.
  */
 import type {
   Alert,

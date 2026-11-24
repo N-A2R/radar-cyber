@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import AlertsView from "./AlertsView";
 
 const meta = {
@@ -11,6 +13,13 @@ const meta = {
     onOpenEvent: () => {},
     refreshSignal: 0,
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof AlertsView>;
 
 export default meta;

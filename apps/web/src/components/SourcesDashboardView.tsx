@@ -7,6 +7,7 @@
 import type { SourceRendement, SourcesDashboard } from "../api";
 import type { SourcesDashboardViewProps } from "../contracts";
 import "./sources-dashboard.css";
+import { Badge } from "@astryxdesign/core/Badge";
 
 const countFormat = new Intl.NumberFormat("en-GB");
 
@@ -181,6 +182,7 @@ export default function SourcesDashboardView({ data, loading = false, error = nu
     <div className="sdb">
       <header className="sdb__header">
         <span className="micro">Sources / dashboard</span>
+        <Badge label="mesuré" className="sdb__badge" />
         <h1>Sources dashboard</h1>
         <p>What the collectors actually do — every figure comes from the sources dashboard endpoint.</p>
       </header>

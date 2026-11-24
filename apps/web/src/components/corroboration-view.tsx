@@ -11,6 +11,7 @@
  */
 import type { Corroboration, Historique } from "../api";
 import { EmptyState } from "./Skeleton";
+import { Badge } from "@astryxdesign/core/Badge";
 
 /** « 12 h », « 2 j » : l'écart lisible entre le premier signalement et une reprise. */
 function delai(heures: number): string {
@@ -46,6 +47,7 @@ export function renduCorroboration(corr: Corroboration | null, onAction?: () => 
       <h3 className="orgsheet__section-title">
         faits <span className="orgsheet__count">{resume.faits}</span>
       </h3>
+      <Badge label="multi-sources" className="orgsheet__badge" />
       <p className="orgsheet__breakdown">
         <span className="orgsheet__chip" role="status" aria-live="polite">
           corroborés <b>{resume.corrobores}</b>

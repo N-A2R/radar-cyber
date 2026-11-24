@@ -10,6 +10,7 @@
  */
 import type { RattachementExplication } from "../api";
 import { EmptyState } from "./Skeleton";
+import { Badge } from "@astryxdesign/core/Badge";
 /** Phrase et détails d'un rattachement. `null` = événement d'avant la trace. */
 export function renduRattachement(
   explication: RattachementExplication | null,
@@ -23,6 +24,7 @@ export function renduRattachement(
     return (
       <section className="inspector__section">
         <h3 className="inspector__section-title">Rattachement</h3>
+        <Badge label="décision" className="inspector__badge" />
         {onAction
           ? <EmptyState message={message} actionLabel="Fermer l'inspecteur" onAction={onAction} />
           : <p className="inspector__muted">{message}</p>}
@@ -33,6 +35,7 @@ export function renduRattachement(
   return (
     <section className="inspector__section">
       <h3 className="inspector__section-title">Rattachement</h3>
+      <Badge label="décision" className="inspector__badge" />
       <p className="inspector__why" data-motif={explication.motif}>
         {explication.libelle}
       </p>

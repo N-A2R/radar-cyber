@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import LieesCard, { LieesContenu } from "./LieesCard";
 import { historiqueLiees, orgsLiees } from "../storybook/fixtures";
 
@@ -6,6 +8,13 @@ const meta = {
   title: "Design System/LieesCard",
   component: LieesCard,
   parameters: { docs: { description: { component: "Linked-organisation counter with its weekly history." } } },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof LieesCard>;
 
 export default meta;

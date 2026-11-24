@@ -4,8 +4,10 @@
  * Extraits de `Map3D.tsx` pour que la légende de carte puisse les importer sans
  * tirer tout le module maplibre dans le bundle principal (sinon la carte, qui
  * est chargée en `lazy`, finit dans le même chunk que l'écran d'accueil).
+ *
+ * Astryx-compatible : données de libellé uniquement, aucune surface de design
+ * (ni couleur, ni chrome) à tokeniser.
  */
-
 export const FAMILY_LABELS: Record<string, string> = {
   ransomware: "rançongiciel",
   vuln: "vulnérabilité",

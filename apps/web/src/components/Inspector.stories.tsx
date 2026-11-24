@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import Inspector from "./Inspector";
 import { events } from "../storybook/fixtures";
 
@@ -12,6 +14,13 @@ const meta = {
     onClose: () => {},
     onOpenOrg: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof Inspector>;
 
 export default meta;
