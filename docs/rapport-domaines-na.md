@@ -968,3 +968,41 @@ Il reste 1 661 361 organisations de Nouvelle-Aquitaine sans domaine **et sans au
 
 OBJECTIF : partiel — 9 363 / 1 671 941 organisations (0,5600 %), manque 1 662 578 organisations vérifiées (99,4400 %) pour atteindre 100 %
 
+
+## Rattrapage — tranche t30 (2026-11-24) : mesure de non-atteignabilité
+
+La PR #797 est toujours ouverte et son objectif chiffré (100 %) n'est pas atteint : la tranche t29 livrait 9 363 / 1 671 941. Reprise depuis `origin/ext/rattrapage-rapport-domaines-na`, seule base autorisée ; le travail des tranches t1 à t29 est conservé tel quel. Aucune nouvelle écriture n'a été faite en base : aucune route grise supplémentaire ne peut produire un domaine vérifié sans fabriquer une attribution.
+
+Mesure rejouée sur la base courante, sans modification de code :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9409
+organisations_avec_domaine_verifie_et_provenance=9363
+couverture_pourcent=0.56
+```
+
+Nouvelle route instruite puis écartée : les 11 569 lignes `siret` de l'export Wikidata versionné `bench/results/wikidata-id-sites-2026-11-22.tsv`, appariées exactement au SIREN public d'une organisation de Nouvelle-Aquitaine sans domaine (46 organisations, 34 racines encore libres). La revérification stricte en direct (statut 200, racine stable, contenu réel, SIREN ou SIRET publié par la page) n'a retenu **aucun** site : 30 candidats examinés, 0 vérifié — réponses 403 anti-robot, échecs DNS, pages de parking (contenu sans titre ni identité) et redirections hors racine. Le croisement avec les 66 paires déjà rattachées à un service du même export (`services-wikidata-id-2026-11-22.json`) donne le même résultat : 4 candidats, 0 vérifié. Aucun de ces sites n'a été compté : la route est documentée comme épuisée, sans laisser de code mort.
+
+Décomposition reproductible de l'écart restant (1 662 578 organisations) :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661361 | 1171 | 9409
+```
+
+Les 9 409 organisations avec domaine incluent 46 preuves non comptables : 14 correspondances génériques issues d'articles (`DELL`, `SHELL`, `AIRBUS`, ...) et des enregistrements incomplets ou fictifs (`injection-sc-*.example.invalid`). Les « réparer » reviendrait à fabriquer une attribution : elles restent hors numérateur. Les 1 661 361 organisations sans aucune URL HTTP 200 et les 1 171 dont l'URL échoue à la preuve stricte ne peuvent être couvertes qu'en inventant des sites ou en abaissant le standard de preuve. La cible de 100 % n'est donc pas livrable avec les sources publiques/gratuites autorisées ; aucune donnée personnelle, aucun service payant, `apps/api/src/server.ts` inchangé, aucun test ajouté puisqu'aucun comportement n'a changé.
+
+OBJECTIF : partiel — 9 363 / 1 671 941 organisations (0,5600 %), manque 1 662 578 organisations vérifiées (99,4400 %) pour atteindre 100 %
+
