@@ -6,6 +6,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { ingestQuery, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import {
   analyserCibles,
   enregistrerResultats,
@@ -164,7 +165,7 @@ test("les preuves sont écrites une seule fois et rattachées à une organisatio
     assert.equal(rows.rows[0]?.org_name, cible.orgName);
     assert.equal(rows.rows[0]?.url, "https://univ-tes.fr/");
   } finally {
-    await ingestQuery("DELETE FROM event WHERE dedup_key LIKE $1", ["typosquat:univ-tes.fr:%"]);
+    await supprimerEvenementsArchivees("dedup_key LIKE $1", ["typosquat:univ-tes.fr:%"]);
     await ingestQuery("DELETE FROM org WHERE slug = $1", ["universite-de-test-typosquat"]);
     // Le scan a ouvert un run pour la source : il part avant elle.
     await ingestQuery("DELETE FROM collector_run WHERE source_id = $1", ["typosquat-passif"]);
