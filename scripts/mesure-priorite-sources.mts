@@ -23,6 +23,7 @@ import {
   classerValeurs,
   FENETRE_JOURS,
   LIBELLE_REGLE,
+  MOTIF_SOURCE_MESURE,
 } from "../apps/api/src/collectors/valeur-plan.js";
 import {
   simulerCycleValeur,
@@ -85,6 +86,11 @@ async function main(): Promise<void> {
       fenetreJours: FENETRE_JOURS,
       valeur: "items pertinents NA sur 30 jours / temps de collecte sur la même fenêtre",
       uniteTemps: mesures.uniteTemps,
+      exclusionSourcesMesure: {
+        motif: MOTIF_SOURCE_MESURE,
+        portee: "classement, cadences et simulation ; le registre /api/sources conserve ces sources",
+        ids: mesures.sourcesExclues,
+      },
       coutParCollecteS,
       coutParCollecteSource: {
         fichier: "bench/results/cadence.json",
@@ -109,6 +115,7 @@ async function main(): Promise<void> {
       sourcesProductives: classement.filter((s) => s.rang !== null).length,
       sourcesHebdomadaires: classement.filter((s) => s.regle === "hebdomadaire").length,
       sourcesSansMesure: classement.filter((s) => s.regle === "sans-mesure").length,
+      sourcesMesureExclues: mesures.sourcesExclues.length,
       itemsPertinents: cycle.avant.itemsPertinents,
     },
     avant: cycle.avant,
@@ -120,6 +127,7 @@ async function main(): Promise<void> {
 
   await writeFile(FICHIER_RESULTAT, `${JSON.stringify(rapport, null, 2)}\n`);
   console.log(`sources mesurées : ${rapport.totaux.sourcesMesurees} (${rapport.totaux.sourcesProductives} productives, ${rapport.totaux.sourcesHebdomadaires} en hebdomadaire)`);
+  console.log(`sources de mesure exclues : ${mesures.sourcesExclues.length} (${mesures.sourcesExclues.join(", ") || "aucune"})`);
   console.log(`cycle avant : ${(cycle.avant.tempsMs / 1000).toFixed(1)} s, ${cycle.avant.collectes} collectes, ${cycle.avant.itemsPertinents} items couverts`);
   console.log(`cycle après : ${(cycle.apres.tempsMs / 1000).toFixed(1)} s, ${cycle.apres.collectes} collectes, ${cycle.apres.itemsPertinents} items couverts`);
   console.log(`gain : ${rapport.gainPct} % ; couverture égale : ${cycle.couvertureEgale}`);

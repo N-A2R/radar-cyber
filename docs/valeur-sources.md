@@ -3,6 +3,12 @@
 > Chantier 8. Calculé par `apps/api/src/analyse/valeur-source.ts`, servi par
 > `GET /api/sources`, affiché dans la colonne « unicité » du registre.
 
+> Périmètre : le registre `GET /api/sources` affiche aussi les jeux d'or semés
+> en base (`bench-*`, `precision-eval-*`). Leur unicité y est calculée comme
+> celle des autres sources, mais ils ne sont pas des sources de production :
+> la priorisation des collectes les exclut, motif et nombre publiés dans
+> `bench/results/priorite-sources.json` (voir `docs/priorite-sources.md`).
+
 ## Le problème que le rendement ne voit pas
 
 Le registre savait déjà qu'une source *lit sans rendre* (colonne rendement,

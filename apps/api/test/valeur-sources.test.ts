@@ -101,6 +101,50 @@ test("mesure chargée : un run sans item rend zéro, aucune mesure ne fabrique d
   assert.equal(classes.get("jamais")?.regle, "sans-mesure");
 });
 
+test("mesure chargée : les jeux d'or et sources d'évaluation restent hors classement", async () => {
+  const exec = (async (texte: string) => {
+    if (texte.includes("FROM event")) {
+      return {
+        rows: [
+          { source_id: "reelle", title: "Fait", summary: null, admission_rule: "dept", secondes: "100" },
+          { source_id: "bench-leak-link", title: "Fait", summary: null, admission_rule: "dept", secondes: "5" },
+          { source_id: "precision-eval-01", title: "Fait", summary: null, admission_rule: "dept", secondes: "5" },
+        ],
+        rowCount: 3,
+      };
+    }
+    if (texte.includes("FROM collector_run")) {
+      return {
+        rows: [
+          { source_id: "reelle", runs: "4", secondes: "0" },
+          { source_id: "bench-leak-link", runs: "1", secondes: "0" },
+          { source_id: "precision-eval-01", runs: "1", secondes: "60" },
+        ],
+        rowCount: 3,
+      };
+    }
+    return {
+      rows: [
+        { id: "reelle", interval_sec: 3600 },
+        { id: "bench-leak-link", interval_sec: 3600 },
+        { id: "precision-eval-01", interval_sec: 3600 },
+      ],
+      rowCount: 3,
+    };
+  }) as typeof query;
+
+  const mesures = await chargerValeursSources(exec, Date.UTC(2026, 10, 24));
+  const classes = classerValeurs(mesures.mesures, mesures.intervallesBase);
+  assert.deepEqual(mesures.sourcesExclues, ["bench-leak-link", "precision-eval-01"]);
+  assert.equal(mesures.mesures["bench-leak-link"], undefined);
+  assert.equal(mesures.mesures["precision-eval-01"], undefined);
+  assert.equal(mesures.intervallesBase["precision-eval-01"], undefined);
+  assert.equal(mesures.itemsPertinentsSec["bench-leak-link"], undefined);
+  assert.equal(classes.has("bench-leak-link"), false);
+  assert.equal(classes.has("precision-eval-01"), false);
+  assert.equal(classes.get("reelle")?.regle, "top");
+});
+
 test("cycle avant/après : même couverture, gain supérieur à 20 % à coût égal", () => {
   const taches: TacheCycleValeur[] = [];
   for (let i = 1; i <= 4; i++) {

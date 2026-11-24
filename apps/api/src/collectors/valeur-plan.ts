@@ -21,6 +21,8 @@
  *   - source sans mesure → cadence déclarée, inchangée.
  * Aucune source productive n'est ralentie, aucune source muette n'est coupée :
  * on change la fréquence, pas la couverture.
+ * Les jeux d'or et sources d'évaluation (`bench-*`, `precision-eval-*`) sont
+ * écartés avant comptage : ce ne sont pas des sources de production.
  */
 import { query } from "../db.js";
 import { evaluatePertinence } from "./pertinence.js";
@@ -32,6 +34,15 @@ export const FACTEUR_TOP = 4;
 export const FACTEUR_PRODUCTIF = 2;
 export const PART_TOP = 0.2;
 export const FREQUENCE_DEFAUT_SEC = 3600;
+/**
+ * Jeux d'or et sources d'évaluation semés en base (`bench-*`,
+ * `precision-eval-*`). Ils portent leurs propres runs et événements
+ * synthétiques : les écarter de la mesure évite de leur donner une cadence de
+ * production. Le registre `/api/sources` peut continuer à les afficher.
+ */
+export const MOTIF_SOURCE_MESURE = "^(bench-|precision-eval-)";
+const SOURCE_MESURE = new RegExp(MOTIF_SOURCE_MESURE);
+export const estSourceDeMesure = (id: string): boolean => SOURCE_MESURE.test(id);
 
 export type UniteTemps = "secondes" | "runs";
 
@@ -184,6 +195,8 @@ export type MesuresValeurs = {
   uniteTemps: UniteTemps;
   /** Dates des items pertinents, en secondes depuis le début de la fenêtre. */
   itemsPertinentsSec: Record<string, number[]>;
+  /** Sources de mesure rencontrées en base et écartées du classement, triées. */
+  sourcesExclues: string[];
 };
 const REGLES_COUVERTURE: Readonly<Record<string, true>> = { org: true, epss: true, dept: true };
 /**
@@ -202,9 +215,14 @@ export async function chargerValeursSources(
     exec<LigneBase>(SQL_BASE),
   ]);
 
+  const exclues = new Set<string>();
   const pertinents = new Map<string, number>();
   const itemsPertinentsSec: Record<string, number[]> = {};
   for (const ligne of evenements.rows) {
+    if (estSourceDeMesure(ligne.source_id)) {
+      exclues.add(ligne.source_id);
+      continue;
+    }
     const admission = ligne.admission_rule === null ? null : String(ligne.admission_rule);
     const verdict = evaluatePertinence({ title: ligne.title, summary: ligne.summary });
     if (!verdict.relevant && (admission === null || REGLES_COUVERTURE[admission] !== true)) continue;
@@ -217,6 +235,10 @@ export async function chargerValeursSources(
 
   const temps = new Map<string, { runs: number; secondes: number }>();
   for (const ligne of runs.rows) {
+    if (estSourceDeMesure(ligne.source_id)) {
+      exclues.add(ligne.source_id);
+      continue;
+    }
     temps.set(ligne.source_id, {
       runs: Math.max(1, Number(ligne.runs) || 0),
       secondes: Math.max(0, Number(ligne.secondes) || 0),
@@ -227,6 +249,10 @@ export async function chargerValeursSources(
   const mesures: Record<string, MesureValeurSource> = {};
   const intervallesBase: Record<string, number> = {};
   for (const ligne of bases.rows) {
+    if (estSourceDeMesure(ligne.id)) {
+      exclues.add(ligne.id);
+      continue;
+    }
     const brut = ligne.interval_sec;
     intervallesBase[ligne.id] = typeof brut === "number" && Number.isFinite(brut) && brut > 0
       ? brut
@@ -242,7 +268,7 @@ export async function chargerValeursSources(
       uniteTemps,
     };
   }
-  return { mesures, intervallesBase, uniteTemps, itemsPertinentsSec };
+  return { mesures, intervallesBase, uniteTemps, itemsPertinentsSec, sourcesExclues: [...exclues].sort() };
 }
 /** Cadences à appliquer au planificateur : une mesure, une seule règle, un seul objet. */
 export async function chargerCadencesValeur(
