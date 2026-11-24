@@ -9,6 +9,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { query, closePools } from "../src/db.js";
 import { applyReview, reviewQueue } from "../src/quarantine/review.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rev${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -43,7 +44,7 @@ after(async () => {
 	for (const row of events.rows) createdEvents.push(String(row.id));
 	if (createdEvents.length) {
 		await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [createdEvents]);
-		await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [createdEvents]);
+		await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [createdEvents]);
 	}
 	await query("DELETE FROM quarantine_raw WHERE source = $1", [SOURCE]);
 	await closePools();

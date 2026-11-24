@@ -12,6 +12,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import { installErrorHandler } from "../src/errors.js";
 import thehiveRoute from "../src/routes/thehive.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `th${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -104,7 +105,7 @@ after(async () => {
   }
   if (eventId) {
     await query("DELETE FROM alert WHERE event_id=$1", [eventId]);
-    await query("DELETE FROM event WHERE id=$1", [eventId]);
+    await supprimerEvenementsArchivees("id=$1", [eventId]);
   }
   if (SOURCE) await query("DELETE FROM source WHERE id=$1", [SOURCE]);
   if (previousUrl === undefined) delete process.env.RADAR_THEHIVE_URL;

@@ -16,6 +16,7 @@ import {
   publierScoresReCyF,
   scoreReCyF,
 } from "../src/analyse/recyf.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const MARQUE = `recyf-${Date.now()}`;
 const LOT = new Date("2026-11-23T12:00:00.000Z");
@@ -54,7 +55,7 @@ before(async () => {
 
 after(async () => {
   if (orgId) {
-    await query("DELETE FROM event WHERE org_id = $1", [orgId]);
+    await supprimerEvenementsArchivees("org_id = $1", [orgId]);
     await query("DELETE FROM org_score WHERE org_id = $1", [orgId]);
     await query("DELETE FROM org WHERE id = $1", [orgId]);
   }

@@ -18,6 +18,7 @@ import assert from "node:assert/strict";
 import { query, closePools } from "../src/db.js";
 import { ALERT_SCOPE_RUPTURE_REVUE } from "../src/alert-scope.js";
 import { fetchPendingAlerts } from "../src/notify/alert-delivery.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import {
 	detecterRupturesDepuisBase,
 	capterAlertesRupture,
@@ -38,7 +39,7 @@ after(async () => {
 		await query("DELETE FROM alert WHERE id = ANY($1)", [created.alertes]);
 	}
 	if (created.events.length > 0) {
-		await query("DELETE FROM event WHERE id = ANY($1)", [created.events]);
+		await supprimerEvenementsArchivees("id = ANY($1)", [created.events]);
 	}
 	if (created.orgs.length > 0) {
 		await query("DELETE FROM org WHERE id = ANY($1)", [created.orgs]);

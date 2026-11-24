@@ -9,6 +9,7 @@ import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import searchRoute from "../src/routes/search.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `sch${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -63,7 +64,7 @@ before(async () => {
 
 after(async () => {
 	if (app) await app.close();
-	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+	await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${TAG}-%`]);
 	await query("DELETE FROM indicator WHERE id = $1", [INDICATOR_ID]);
 	await query("DELETE FROM source WHERE id = $1", [SOURCE]);

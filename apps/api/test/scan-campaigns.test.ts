@@ -20,6 +20,7 @@ import {
 import { measureScanCampaigns } from "../src/scan/measure.js";
 import scanCampaignsRoute from "../src/routes/scan-campaigns.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `scan${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const SOURCE_A = `${TAG}-a`;
@@ -101,7 +102,7 @@ before(async () => {
 after(async () => {
   if (app) await app.close();
   if (eventIds.length > 0) {
-    await query("DELETE FROM event WHERE id = ANY($1::int[])", [eventIds]);
+    await supprimerEvenementsArchivees("id = ANY($1::int[])", [eventIds]);
   }
   await query("DELETE FROM quarantine_raw WHERE content_hash = $1", [`${TAG}-claim`]);
   for (const id of [SOURCE_A, SOURCE_B, SOURCE_GREY]) {

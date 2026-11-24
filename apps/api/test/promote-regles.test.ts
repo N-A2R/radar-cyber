@@ -21,6 +21,7 @@ import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
 import { promoteMatches, promoteOne } from "../src/quarantine/promote.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `r${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
@@ -95,7 +96,7 @@ after(async () => {
 		const evIds = ev.rows.map((x) => x.id);
 		if (evIds.length) {
 			await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [evIds]);
-			await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [evIds]);
+			await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evIds]);
 		}
 	}
 	const factIds = createdFacts.map((f) => f.id);

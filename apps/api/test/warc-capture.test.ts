@@ -11,6 +11,7 @@ import { join } from "node:path";
 import { closePools, query } from "../src/db.js";
 import { measureWarcProofs } from "../src/warc/measure.js";
 import { archiveWarcFacts } from "../src/warc/service.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `wp${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 let dir: string;
@@ -40,7 +41,7 @@ before(async () => {
 
 after(async () => {
 	await query("DELETE FROM warc_proof WHERE event_id = ANY($1::bigint[])", [Object.values(ids)]);
-	await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [Object.values(ids)]);
+	await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [Object.values(ids)]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${TAG}-%`]);
 	await closePools();
 	if (dir) await rm(dir, { recursive: true, force: true });

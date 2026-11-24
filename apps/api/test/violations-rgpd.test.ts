@@ -115,7 +115,9 @@ after(async () => {
     await db.query("DELETE FROM fuite_org WHERE fuite_id = $1", [FUITE]);
     await db.query("DELETE FROM fuite_reference WHERE id = $1", [FUITE]);
     if (evenements.length > 0) {
-      await db.query("DELETE FROM event WHERE id = ANY($1::bigint[])", [evenements]);
+      // Import différé : db.ts lit DATABASE_URL au chargement (voir `before`).
+      const { supprimerEvenementsArchivees } = await import("./helpers/archive-delete.js");
+      await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evenements]);
     }
     await db.query("DELETE FROM org WHERE id = $1", [orgId]);
     await db.query("DELETE FROM source WHERE id = $1", [SOURCE]);

@@ -19,6 +19,7 @@ import { randomBytes } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import sourcesRoute from "../src/routes/sources.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `src${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const PRODUCTIVE = `${TAG}-productive`;
@@ -66,10 +67,10 @@ before(async () => {
 });
 
 after(async () => {
-	await query("DELETE FROM event WHERE source_id = ANY($1)", [[PRODUCTIVE, VIDE, JAMAIS]]);
+	if (app) await app.close();
+	await supprimerEvenementsArchivees("source_id = ANY($1)", [[PRODUCTIVE, VIDE, JAMAIS]]);
 	await query("DELETE FROM collector_run WHERE source_id = ANY($1)", [[PRODUCTIVE, VIDE, JAMAIS]]);
 	await query("DELETE FROM source WHERE id = ANY($1)", [[PRODUCTIVE, VIDE, JAMAIS]]);
-	await app.close();
 	await closePools();
 });
 

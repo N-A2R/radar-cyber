@@ -9,6 +9,7 @@
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query, pool, closePools } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 after(async () => { await closePools().catch(() => {}); });
 
@@ -66,7 +67,7 @@ async function drapeaux(fait: string): Promise<Record<string, boolean>> {
 }
 
 async function nettoyage(): Promise<void> {
-	await query("DELETE FROM event WHERE source_id = ANY($1)", [SOURCES]).catch(() => {});
+	await supprimerEvenementsArchivees("source_id = ANY($1)", [SOURCES]).catch(() => {});
 	await query("DELETE FROM source WHERE id = ANY($1)", [SOURCES]).catch(() => {});
 }
 
@@ -104,7 +105,7 @@ test("une source plus tardive ne prend pas l'avantage, une plus ancienne découv
 		);
 
 		// Supprimer le premier signalement promeut le suivant par `at`.
-		await query("DELETE FROM event WHERE dedup_key = $1", [`certfr:${FAIT_BASCULE}`]);
+		await supprimerEvenementsArchivees("dedup_key = $1", [`certfr:${FAIT_BASCULE}`]);
 		assert.deepEqual(
 			await drapeaux(FAIT_BASCULE),
 			{ kev: false, nvd: true },

@@ -10,6 +10,7 @@ import { closePools, query } from "../src/db.js";
 import { correlaterIndicateursCertfrMisp } from "../src/collectors/certfr-misp-correlate.js";
 import { parseObservedAt } from "../src/collectors/dates.js";
 import { fingerprintOf, runGenericSources } from "../src/collectors/generic.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 after(async () => {
   await closePools().catch(() => {});
@@ -162,7 +163,7 @@ test("C1 : pas de corrélation fabriquée hors fenêtre ni sans recoupement", as
     for (const row of evenements.rows) {
       await query("DELETE FROM relation WHERE src_id=$1 OR dst_id=$1", [row.id]);
     }
-    await query("DELETE FROM event WHERE source_id=$1 OR dedup_key LIKE $2", [sourceId, `regional-${sourceId}-%`]);
+    await supprimerEvenementsArchivees("source_id=$1 OR dedup_key LIKE $2", [sourceId, `regional-${sourceId}-%`]);
     await query("DELETE FROM certfr_misp_event WHERE uuid = ANY($1::text[])", [[uuidVieux, uuidRecupere, uuidContexte]]);
     await query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]);
     await query("DELETE FROM source WHERE id=$1", [sourceId]);
