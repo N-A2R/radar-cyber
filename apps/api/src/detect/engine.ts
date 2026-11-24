@@ -141,8 +141,9 @@ export function buildCorroborationContext(rows: readonly CorroborationRow[]): Co
 /**
  * Charge les événements de la fenêtre (30 jours par défaut) et les réduit aux
  * faits distincts. Sans `orgIds`, la passe globale couvre toutes les
- * organisations en une requête ; avec `at`, la fenêtre se termine à cet
- * instant, comme le comptage historique par événement.
+ * organisations en une requête ; avec `at`, la fenêtre est bornée à
+ * `[at - 30 jours, at]` : aucun événement postérieur ne peut corroborer un
+ * rejeu historique.
  */
 export async function loadCorroborationContext(
   orgIds?: readonly number[],
@@ -156,7 +157,11 @@ export async function loadCorroborationContext(
   }
   if (at) {
     params.push(at);
-    where.push(`COALESCE(observed_at, collected_at) >= $${params.length}::timestamptz - interval '30 days'`);
+    const bound = `$${params.length}`;
+    where.push(`COALESCE(observed_at, collected_at) >= ${bound}::timestamptz - interval '30 days'`);
+    // `at` vient d'un Date JS (millisecondes) : les microsecondes du timestamptz
+    // seraient tronquées et l'événement évalué pourrait s'exclure lui-même.
+    where.push(`COALESCE(observed_at, collected_at) < ${bound}::timestamptz + interval '1 millisecond'`);
   } else {
     where.push("COALESCE(observed_at, collected_at) >= now() - interval '30 days'");
   }
