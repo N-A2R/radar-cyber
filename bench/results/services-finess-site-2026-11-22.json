@@ -1,0 +1,3381 @@
+{
+  "consultedAt": "2026-11-23T23:28:45.219Z",
+  "source": "FINESS enrichment site_web; HTTP 200; DNS A",
+  "attribution": "FINESS enrichment published on data.gouv.fr (open data)",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 620,
+  "eligible": 577,
+  "selected": 577,
+  "verified": 418,
+  "matched": 418,
+  "written": 418,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 10250,
+    "organisationsInScope": 1671936,
+    "services": 11145,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "finess-site-http-200": 418,
+      "registry-id-http-200": 797,
+      "wikidata-id-http-200": 86,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-23T23:28:56.877Z"
+  },
+  "candidates": [
+    {
+      "id": "160000527",
+      "dept": "16",
+      "domain": "www.ehpad-montbron.fr",
+      "orgId": 4923,
+      "ip": "81.169.145.143",
+      "sourceUrl": "https://www.ehpad-montbron.fr"
+    },
+    {
+      "id": "160002085",
+      "dept": "16",
+      "domain": "www.ehpad-habrioux-aigre.fr",
+      "orgId": 4481,
+      "ip": "217.109.244.176",
+      "sourceUrl": "https://www.ehpad-habrioux-aigre.fr"
+    },
+    {
+      "id": "160002143",
+      "dept": "16",
+      "domain": "www.mutuelle-mbv.fr",
+      "orgId": 4831,
+      "ip": "92.222.179.23",
+      "sourceUrl": "https://www.mutuelle-mbv.fr/etablissements/clairbois/"
+    },
+    {
+      "id": "160004115",
+      "dept": "16",
+      "domain": "www.fondationcos.org",
+      "orgId": 4918,
+      "ip": "57.128.105.4",
+      "sourceUrl": "https://www.fondationcos.org/residence-medicalisee-cos-les-fins-bois-2"
+    },
+    {
+      "id": "160004123",
+      "dept": "16",
+      "domain": "www.groupesos-seniors.org",
+      "orgId": 4833,
+      "ip": "46.105.52.4",
+      "sourceUrl": "https://www.groupesos-seniors.org/etablissement/ehpad-sainte-marie/"
+    },
+    {
+      "id": "160004131",
+      "dept": "16",
+      "domain": "www.fondationcos.org",
+      "orgId": 4756,
+      "ip": "57.128.105.4",
+      "sourceUrl": "https://www.fondationcos.org/residence-medicalisee-cos-sainte-marthe-cognac"
+    },
+    {
+      "id": "160004172",
+      "dept": "16",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 4482,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-aigre-16/"
+    },
+    {
+      "id": "160004271",
+      "dept": "16",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 4982,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr/ehpad-residence-les-marronniers"
+    },
+    {
+      "id": "160004396",
+      "dept": "16",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 4903,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-mansle/"
+    },
+    {
+      "id": "160004412",
+      "dept": "16",
+      "domain": "www.ardevie.org",
+      "orgId": 4852,
+      "ip": "83.166.155.159",
+      "sourceUrl": "https://www.ardevie.org/ehpad-les-ecureuils/"
+    },
+    {
+      "id": "160004420",
+      "dept": "16",
+      "domain": "www.domainedelachaise.fr",
+      "orgId": 4643,
+      "ip": "81.88.53.86",
+      "sourceUrl": "https://www.domainedelachaise.fr"
+    },
+    {
+      "id": "160007027",
+      "dept": "16",
+      "domain": "www.groupeafp.com",
+      "orgId": 4663,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-les-aures-unite-alzheimer-limoges/"
+    },
+    {
+      "id": "160007332",
+      "dept": "16",
+      "domain": "www.groupeafp.com",
+      "orgId": 4884,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-les-doucets-unite-alzheimer-angouleme/"
+    },
+    {
+      "id": "160007456",
+      "dept": "16",
+      "domain": "www.logement-seniors.com",
+      "orgId": 4755,
+      "ip": "5.39.70.124",
+      "sourceUrl": "https://www.logement-seniors.com/maison-retraite-cognac-16100-ehpad-du-centre-de-gerontologie-8147-0.php"
+    },
+    {
+      "id": "160007472",
+      "dept": "16",
+      "domain": "annuaire.action-sociale.org",
+      "orgId": 4690,
+      "ip": "37.187.143.175",
+      "sourceUrl": "https://annuaire.action-sociale.org"
+    },
+    {
+      "id": "160007480",
+      "dept": "16",
+      "domain": "www.groupeafp.com",
+      "orgId": 5119,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-clos-des-tours-unite-alzheimer-niort-poitiers/"
+    },
+    {
+      "id": "160008280",
+      "dept": "16",
+      "domain": "annuaire.action-sociale.org",
+      "orgId": 5067,
+      "ip": "37.187.143.175",
+      "sourceUrl": "https://annuaire.action-sociale.org"
+    },
+    {
+      "id": "160008322",
+      "dept": "16",
+      "domain": "www.residence-charles-dorleans.com",
+      "orgId": 4753,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-charles-dorleans.com/fr/"
+    },
+    {
+      "id": "160008991",
+      "dept": "16",
+      "domain": "adapei-charente.fr",
+      "orgId": 5092,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://adapei-charente.fr/mas-le-lagon/"
+    },
+    {
+      "id": "160009007",
+      "dept": "16",
+      "domain": "chateaudecresse.fr",
+      "orgId": 4650,
+      "ip": "81.88.53.29",
+      "sourceUrl": "https://chateaudecresse.fr"
+    },
+    {
+      "id": "160009916",
+      "dept": "16",
+      "domain": "www.mutualite16.fr",
+      "orgId": 4527,
+      "ip": "163.172.77.75",
+      "sourceUrl": "https://www.mutualite16.fr/ehpad/les-jardins-de-la-garenne/"
+    },
+    {
+      "id": "160009924",
+      "dept": "16",
+      "domain": "www.emeis.fr",
+      "orgId": 4526,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente/angouleme/maison-retraite-charentes"
+    },
+    {
+      "id": "160011953",
+      "dept": "16",
+      "domain": "www.chasseneuilsurbonnieure.fr",
+      "orgId": 4693,
+      "ip": "54.37.122.17",
+      "sourceUrl": "https://www.chasseneuilsurbonnieure.fr/ehpad-residence-autonomie/"
+    },
+    {
+      "id": "160012001",
+      "dept": "16",
+      "domain": "www.doqi.fr",
+      "orgId": 4848,
+      "ip": "104.26.11.19",
+      "sourceUrl": "https://www.doqi.fr/ehpad-maison-retraite/hiersac-16290"
+    },
+    {
+      "id": "160012142",
+      "dept": "16",
+      "domain": "www.conseildependance.fr",
+      "orgId": 4959,
+      "ip": "13.249.228.56",
+      "sourceUrl": "https://www.conseildependance.fr/maison-retraite/ehpad/les-pins/charente-16/le-logis-du-soudet"
+    },
+    {
+      "id": "160012878",
+      "dept": "16",
+      "domain": "www.emera.fr",
+      "orgId": 4524,
+      "ip": "51.15.185.89",
+      "sourceUrl": "https://www.emera.fr/etablissements/residence-seniors-angouleme/"
+    },
+    {
+      "id": "170000038",
+      "dept": "17",
+      "domain": "www.ch-jonzac.fr",
+      "orgId": 5363,
+      "ip": "217.109.248.26",
+      "sourceUrl": "https://www.ch-jonzac.fr"
+    },
+    {
+      "id": "170000061",
+      "dept": "17",
+      "domain": "www.hopital.fr",
+      "orgId": 5232,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.hopital.fr/annuaire-etablissement/centre-de-soins-de-suite-du-chateau-de-marlonges-chambon,4213"
+    },
+    {
+      "id": "170000079",
+      "dept": "17",
+      "domain": "www.ch-oleron.fr",
+      "orgId": 5982,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-oleron.fr/nos-ehpad/st-pierre-doleron/"
+    },
+    {
+      "id": "170000095",
+      "dept": "17",
+      "domain": "angely.gh-saintesangely.fr",
+      "orgId": 5907,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://angely.gh-saintesangely.fr"
+    },
+    {
+      "id": "170000103",
+      "dept": "17",
+      "domain": "saintes.gh-saintesangely.fr",
+      "orgId": 6048,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://saintes.gh-saintesangely.fr"
+    },
+    {
+      "id": "170000152",
+      "dept": "17",
+      "domain": "www.ch-rochefort.fr",
+      "orgId": 5563,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-rochefort.fr"
+    },
+    {
+      "id": "170009542",
+      "dept": "17",
+      "domain": "logisdemontignac.fr",
+      "orgId": 5322,
+      "ip": "109.234.164.169",
+      "sourceUrl": "https://logisdemontignac.fr"
+    },
+    {
+      "id": "170009674",
+      "dept": "17",
+      "domain": "www.residencedebeaulieu.fr",
+      "orgId": 5544,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.residencedebeaulieu.fr"
+    },
+    {
+      "id": "170009864",
+      "dept": "17",
+      "domain": "www.ordredemaltefrance.org",
+      "orgId": 5603,
+      "ip": "51.159.129.151",
+      "sourceUrl": "https://www.ordredemaltefrance.org/etablissements/maison-saint-jean-de-malte-rochefort-autisme/"
+    },
+    {
+      "id": "170009880",
+      "dept": "17",
+      "domain": "www.sainthilairedevillefranche.fr",
+      "orgId": 5901,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.sainthilairedevillefranche.fr/solidarite-sante/ehpad-les-deux-cedres/"
+    },
+    {
+      "id": "170012702",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 5975,
+      "ip": "15.237.231.151",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/occitanie/haute-garonne/flourens/maison-retraite-lac"
+    },
+    {
+      "id": "170017594",
+      "dept": "17",
+      "domain": "www.retab.fr",
+      "orgId": 5692,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/446/page-de-hdj-lembellie-a-17000-la-rochelle"
+    },
+    {
+      "id": "170017602",
+      "dept": "17",
+      "domain": "www.retab.fr",
+      "orgId": 5591,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/450/page-de-csj-hopital-de-jour-le-vermandois-a-17300-rochefort"
+    },
+    {
+      "id": "170017651",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5694,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/service/les-services-de-soins/personnes-agees/psychogeriatrie/"
+    },
+    {
+      "id": "170017685",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5693,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/etablissement/notre-organisation/marius-lacroix/"
+    },
+    {
+      "id": "170018196",
+      "dept": "17",
+      "domain": "apajh17.fr",
+      "orgId": 5719,
+      "ip": "83.228.239.37",
+      "sourceUrl": "https://apajh17.fr/etablissements-services/mas/"
+    },
+    {
+      "id": "170018501",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 5682,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/rochelle/maison-retraite-claire-fontaine"
+    },
+    {
+      "id": "170019301",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5547,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/service/les-services-de-soins/handicap-et-medico-social/maison-daccueil-specialise/"
+    },
+    {
+      "id": "170019954",
+      "dept": "17",
+      "domain": "www.ch-royan.fr",
+      "orgId": 6203,
+      "ip": "217.109.248.26",
+      "sourceUrl": "https://www.ch-royan.fr/sante-publique-prevention/cegidd"
+    },
+    {
+      "id": "170019962",
+      "dept": "17",
+      "domain": "www.ville-rochefort.fr",
+      "orgId": 5559,
+      "ip": "62.102.249.27",
+      "sourceUrl": "https://www.ville-rochefort.fr/centre-depistage-anonyme-et-gratuit-cdag"
+    },
+    {
+      "id": "170020648",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 6156,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/soubise/maison-retraite-vige"
+    },
+    {
+      "id": "170020804",
+      "dept": "17",
+      "domain": "www.espace-seniors-saintes.fr",
+      "orgId": 6068,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.espace-seniors-saintes.fr/choisir-son-lieu-de-vie/ehpad-recouvrance/"
+    },
+    {
+      "id": "170020986",
+      "dept": "17",
+      "domain": "angely.gh-saintesangely.fr",
+      "orgId": 5918,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://angely.gh-saintesangely.fr/specialite/psychiatrie-de-ladulte/"
+    },
+    {
+      "id": "170021059",
+      "dept": "17",
+      "domain": "www.trema-asso.fr",
+      "orgId": 5970,
+      "ip": "46.105.204.7",
+      "sourceUrl": "https://www.trema-asso.fr/personnes-agees/les-residences-medicalisees-ehpad/residence-de-saint-medard-daunis/"
+    },
+    {
+      "id": "170021364",
+      "dept": "17",
+      "domain": "colisee.fr",
+      "orgId": 5368,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-jonzac-residence-bourg-nouveau/"
+    },
+    {
+      "id": "170021653",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 6022,
+      "ip": "15.237.231.151",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saint-sulpice-royan/maison-retraite-aloes"
+    },
+    {
+      "id": "170021778",
+      "dept": "17",
+      "domain": "saintes.gh-saintesangely.fr",
+      "orgId": 6081,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://saintes.gh-saintesangely.fr/specialite/psychiatrie-infanto-juvenile/"
+    },
+    {
+      "id": "170021943",
+      "dept": "17",
+      "domain": "www.trema-asso.fr",
+      "orgId": 5999,
+      "ip": "46.105.204.7",
+      "sourceUrl": "https://www.trema-asso.fr/personnes-agees/les-residences-medicalisees-ehpad/residence-de-saint-sauveur-daunis/"
+    },
+    {
+      "id": "170022073",
+      "dept": "17",
+      "domain": "apajh17.fr",
+      "orgId": 5720,
+      "ip": "83.228.239.37",
+      "sourceUrl": "https://apajh17.fr/etablissements-services/mas/"
+    },
+    {
+      "id": "170022602",
+      "dept": "17",
+      "domain": "www.villa-florius.fr",
+      "orgId": 5320,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.villa-florius.fr/fr/"
+    },
+    {
+      "id": "170022834",
+      "dept": "17",
+      "domain": "seniors.ancv.com",
+      "orgId": 5679,
+      "ip": "81.252.35.69",
+      "sourceUrl": "https://seniors.ancv.com/group/sev/groupsbytravel"
+    },
+    {
+      "id": "170022966",
+      "dept": "17",
+      "domain": "angely.gh-saintesangely.fr",
+      "orgId": 5911,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://angely.gh-saintesangely.fr/ehpad-sja-2/"
+    },
+    {
+      "id": "170023006",
+      "dept": "17",
+      "domain": "villa-amelie.lna-sante.com",
+      "orgId": 5993,
+      "ip": "217.147.199.224",
+      "sourceUrl": "https://villa-amelie.lna-sante.com"
+    },
+    {
+      "id": "170023014",
+      "dept": "17",
+      "domain": "www.dompierresurmer.fr",
+      "orgId": 5301,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.dompierresurmer.fr/ehpad-rieux-coudreau"
+    },
+    {
+      "id": "170023196",
+      "dept": "17",
+      "domain": "www.groupe-mieuxvivre.fr",
+      "orgId": 5306,
+      "ip": "5.44.161.150",
+      "sourceUrl": "https://www.groupe-mieuxvivre.fr/nos-etablissements/residence-les-jardins-de-lucile"
+    },
+    {
+      "id": "170024590",
+      "dept": "17",
+      "domain": "www.ch-rochefort.fr",
+      "orgId": 5978,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-rochefort.fr"
+    },
+    {
+      "id": "170025266",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5783,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/service/les-services-de-soins/psychiatrie/addictologie/"
+    },
+    {
+      "id": "170782932",
+      "dept": "17",
+      "domain": "www.groupe-mieuxvivre.fr",
+      "orgId": 5229,
+      "ip": "5.44.161.150",
+      "sourceUrl": "https://www.groupe-mieuxvivre.fr/nos-etablissements/residence-de-cande"
+    },
+    {
+      "id": "170782981",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5695,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/etablissement/notre-organisation/marius-lacroix/"
+    },
+    {
+      "id": "170783559",
+      "dept": "17",
+      "domain": "angely.gh-saintesangely.fr",
+      "orgId": 5912,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://angely.gh-saintesangely.fr/ehpad-sja-2/"
+    },
+    {
+      "id": "170783567",
+      "dept": "17",
+      "domain": "www.hopital.fr",
+      "orgId": 5240,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.hopital.fr/annuaire-etablissement/maison-d-accueil-%22les-residences-de-brumenard%22-la-chapelle-des-pots,6729"
+    },
+    {
+      "id": "170783625",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5961,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/service/les-services-de-soins/personnes-agees/ehpad-de-st-martin-de-re/"
+    },
+    {
+      "id": "170784110",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5789,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr/service/les-services-de-soins/consultations-et-medecine/soins-de-suite-et-de-readaptation/"
+    },
+    {
+      "id": "170784169",
+      "dept": "17",
+      "domain": "colisee.fr",
+      "orgId": 6200,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-trizay-les-jardins-des-tilleuls/"
+    },
+    {
+      "id": "170784326",
+      "dept": "17",
+      "domain": "saintes.gh-saintesangely.fr",
+      "orgId": 6065,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://saintes.gh-saintesangely.fr/ehpad-uslda-2/"
+    },
+    {
+      "id": "170784334",
+      "dept": "17",
+      "domain": "www.residence-ombriere.com",
+      "orgId": 5937,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-ombriere.com/fr/"
+    },
+    {
+      "id": "170784409",
+      "dept": "17",
+      "domain": "www.ordredemaltefrance.org",
+      "orgId": 5602,
+      "ip": "51.159.129.151",
+      "sourceUrl": "https://www.ordredemaltefrance.org/etablissements/maison-saint-jean-de-jerusalem/"
+    },
+    {
+      "id": "170791198",
+      "dept": "17",
+      "domain": "www.ch-marennes.fr",
+      "orgId": 5422,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-marennes.fr"
+    },
+    {
+      "id": "170791289",
+      "dept": "17",
+      "domain": "angely.gh-saintesangely.fr",
+      "orgId": 5913,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://angely.gh-saintesangely.fr/ehpad-sja-2/"
+    },
+    {
+      "id": "170791297",
+      "dept": "17",
+      "domain": "www.ch-rochefort.fr",
+      "orgId": 5574,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-rochefort.fr/service/les-services-de-soins/gerontologie/ehpad/"
+    },
+    {
+      "id": "170791347",
+      "dept": "17",
+      "domain": "www.groupeafp.com",
+      "orgId": 5292,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-le-domaine-charente-maritime/"
+    },
+    {
+      "id": "170792220",
+      "dept": "17",
+      "domain": "saintes.gh-saintesangely.fr",
+      "orgId": 6049,
+      "ip": "188.165.52.173",
+      "sourceUrl": "https://saintes.gh-saintesangely.fr"
+    },
+    {
+      "id": "170795017",
+      "dept": "17",
+      "domain": "www.perigny.fr",
+      "orgId": 5508,
+      "ip": "109.234.165.67",
+      "sourceUrl": "https://www.perigny.fr/infos-pratiques-et-demarches/seniors/ehpad/"
+    },
+    {
+      "id": "170795090",
+      "dept": "17",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 5577,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-rochefort-17/"
+    },
+    {
+      "id": "170795355",
+      "dept": "17",
+      "domain": "www.groupeafp.com",
+      "orgId": 5329,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/les-pervenches-cognac-royan-saintes/"
+    },
+    {
+      "id": "170795660",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 5877,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saint-georges-didonne/maison-retraite-loceane"
+    },
+    {
+      "id": "170799753",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 6141,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saujon/maison-retraite-sud-saintonge"
+    },
+    {
+      "id": "170800809",
+      "dept": "17",
+      "domain": "www.ehpadlaube.fr",
+      "orgId": 5859,
+      "ip": "93.90.205.188",
+      "sourceUrl": "https://www.ehpadlaube.fr"
+    },
+    {
+      "id": "170801237",
+      "dept": "17",
+      "domain": "www.maison-retraite-les-tamaris-aytre.fr",
+      "orgId": 5175,
+      "ip": "93.90.205.188",
+      "sourceUrl": "https://www.maison-retraite-les-tamaris-aytre.fr"
+    },
+    {
+      "id": "170801401",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 5154,
+      "ip": "15.237.231.151",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/arvert/maison-retraite-beausejour"
+    },
+    {
+      "id": "170803274",
+      "dept": "17",
+      "domain": "www.residence-roseraie-rochefort.fr",
+      "orgId": 5578,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.residence-roseraie-rochefort.fr"
+    },
+    {
+      "id": "170803654",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 6069,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saintes/maison-retraite-jardins-saintes"
+    },
+    {
+      "id": "170803779",
+      "dept": "17",
+      "domain": "residence-la-tonnelle.com",
+      "orgId": 5952,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://residence-la-tonnelle.com/fr/"
+    },
+    {
+      "id": "170803878",
+      "dept": "17",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 5287,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-cozes-17/"
+    },
+    {
+      "id": "170803951",
+      "dept": "17",
+      "domain": "www.emeis.fr",
+      "orgId": 5218,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/breuillet/maison-retraite-harmonie"
+    },
+    {
+      "id": "170804298",
+      "dept": "17",
+      "domain": "alprado.fr",
+      "orgId": 5453,
+      "ip": "141.94.16.20",
+      "sourceUrl": "https://alprado.fr/ehpad-la-mirambelle"
+    },
+    {
+      "id": "170805642",
+      "dept": "17",
+      "domain": "www.santeenfrance.fr",
+      "orgId": 6025,
+      "ip": "194.51.216.134",
+      "sourceUrl": "https://www.santeenfrance.fr/etablissement/12901-puv-residence-bellevue"
+    },
+    {
+      "id": "170805758",
+      "dept": "17",
+      "domain": "www.residence-du-parc.com",
+      "orgId": 5144,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-du-parc.com/fr/"
+    },
+    {
+      "id": "230000069",
+      "dept": "23",
+      "domain": "www.groupeafp.com",
+      "orgId": 6785,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-las-melaies-limoges-montlucon-chateauroux/"
+    },
+    {
+      "id": "230000200",
+      "dept": "23",
+      "domain": "www.groupeafp.com",
+      "orgId": 6804,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-laulade-montlucon/"
+    },
+    {
+      "id": "230000283",
+      "dept": "23",
+      "domain": "www.ehpad-les-bouquets.fr",
+      "orgId": 6779,
+      "ip": "109.234.162.84",
+      "sourceUrl": "http://www.ehpad-les-bouquets.fr"
+    },
+    {
+      "id": "230000523",
+      "dept": "23",
+      "domain": "www.ehpad-lachapelaude.fr",
+      "orgId": 6816,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://www.ehpad-lachapelaude.fr"
+    },
+    {
+      "id": "230000531",
+      "dept": "23",
+      "domain": "www.marsac-creuse.fr",
+      "orgId": 6941,
+      "ip": "185.31.40.192",
+      "sourceUrl": "https://www.marsac-creuse.fr/marsac-quotidien/sante-solidarite/maison-de-retraite/"
+    },
+    {
+      "id": "230000838",
+      "dept": "23",
+      "domain": "www.ch-aubusson.fr",
+      "orgId": 6756,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.ch-aubusson.fr/site/"
+    },
+    {
+      "id": "230001638",
+      "dept": "23",
+      "domain": "www.santeenfrance.fr",
+      "orgId": 7004,
+      "ip": "194.51.216.134",
+      "sourceUrl": "https://www.santeenfrance.fr/annuaire/10-hebergements-pour-adultes-handicapes-mas-fam/ville:nantes"
+    },
+    {
+      "id": "230004012",
+      "dept": "23",
+      "domain": "www.retab.fr",
+      "orgId": 6823,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/988/page-de-mas-les-chaumes-a-23270-clugnat"
+    },
+    {
+      "id": "230004129",
+      "dept": "23",
+      "domain": "www.ch-aubusson.fr",
+      "orgId": 6759,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.ch-aubusson.fr/site/le-mont/"
+    },
+    {
+      "id": "230004657",
+      "dept": "23",
+      "domain": "fr.mappy.com",
+      "orgId": 6949,
+      "ip": "193.203.32.57",
+      "sourceUrl": "https://fr.mappy.com/poi/62886f4d307ec72cc16e6c7f"
+    },
+    {
+      "id": "230004889",
+      "dept": "23",
+      "domain": "fr.mappy.com",
+      "orgId": 6947,
+      "ip": "193.203.32.57",
+      "sourceUrl": "https://fr.mappy.com/poi/62886f4d307ec72cc16e6c7f"
+    },
+    {
+      "id": "230004897",
+      "dept": "23",
+      "domain": "www.ch-gueret.fr",
+      "orgId": 6881,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.ch-gueret.fr"
+    },
+    {
+      "id": "230780264",
+      "dept": "23",
+      "domain": "ehpadbenevent.fr",
+      "orgId": 6781,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://ehpadbenevent.fr"
+    },
+    {
+      "id": "230780280",
+      "dept": "23",
+      "domain": "ehpad-dun.fr",
+      "orgId": 6833,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://ehpad-dun.fr"
+    },
+    {
+      "id": "230781585",
+      "dept": "23",
+      "domain": "www.ch-aubusson.fr",
+      "orgId": 6760,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.ch-aubusson.fr/site/saint-jean/"
+    },
+    {
+      "id": "230781593",
+      "dept": "23",
+      "domain": "www.retab.fr",
+      "orgId": 6805,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/981/page-de-mas-de-sauzet-a-23170-budeliere"
+    },
+    {
+      "id": "230781650",
+      "dept": "23",
+      "domain": "cemavie.fr",
+      "orgId": 6776,
+      "ip": "185.221.181.41",
+      "sourceUrl": "https://cemavie.fr/solution-vie/azerables-le-monastere/"
+    },
+    {
+      "id": "230782898",
+      "dept": "23",
+      "domain": "www.ch-st-vaury.fr",
+      "orgId": 7002,
+      "ip": "51.91.165.35",
+      "sourceUrl": "https://www.ch-st-vaury.fr/ehpad-uhr/"
+    },
+    {
+      "id": "240000174",
+      "dept": "24",
+      "domain": "etablissements.fhf.fr",
+      "orgId": 7032,
+      "ip": "104.26.15.195",
+      "sourceUrl": "https://etablissements.fhf.fr/annuaire/structure/structure528"
+    },
+    {
+      "id": "240000372",
+      "dept": "24",
+      "domain": "www.ch-bergerac.fr",
+      "orgId": 7043,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.ch-bergerac.fr"
+    },
+    {
+      "id": "240000414",
+      "dept": "24",
+      "domain": "ch-domme.fr",
+      "orgId": 7209,
+      "ip": "109.234.164.235",
+      "sourceUrl": "https://ch-domme.fr"
+    },
+    {
+      "id": "240000471",
+      "dept": "24",
+      "domain": "etablissements.fhf.fr",
+      "orgId": 7343,
+      "ip": "172.67.75.24",
+      "sourceUrl": "https://etablissements.fhf.fr/annuaire/structure/structure536"
+    },
+    {
+      "id": "240000505",
+      "dept": "24",
+      "domain": "www.chicrdd.fr",
+      "orgId": 7487,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://www.chicrdd.fr"
+    },
+    {
+      "id": "240000513",
+      "dept": "24",
+      "domain": "etablissements.fhf.fr",
+      "orgId": 7518,
+      "ip": "172.67.75.24",
+      "sourceUrl": "https://etablissements.fhf.fr/annuaire/structure/structure523"
+    },
+    {
+      "id": "240000521",
+      "dept": "24",
+      "domain": "www.saint-aulaye.com",
+      "orgId": 7531,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://www.saint-aulaye.com/vie-pratique/solidarite-et-sante/maison-de-sante-pluridisciplinaire"
+    },
+    {
+      "id": "240002196",
+      "dept": "24",
+      "domain": "www.maison-retraite-montpon.fr",
+      "orgId": 7306,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.maison-retraite-montpon.fr"
+    },
+    {
+      "id": "240002337",
+      "dept": "24",
+      "domain": "www.ehpad-maison-retraite-madeleine.fr",
+      "orgId": 7062,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.ehpad-maison-retraite-madeleine.fr"
+    },
+    {
+      "id": "240003392",
+      "dept": "24",
+      "domain": "www.retab.fr",
+      "orgId": 7403,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/7008/page-de-hopital-de-jour-enfants-les-nympheas-a-24000-perigueux"
+    },
+    {
+      "id": "240006726",
+      "dept": "24",
+      "domain": "www.johnbost.org",
+      "orgId": 7256,
+      "ip": "194.110.192.75",
+      "sourceUrl": "https://www.johnbost.org"
+    },
+    {
+      "id": "240006973",
+      "dept": "24",
+      "domain": "www.ljdh-alvere.fr",
+      "orgId": 7514,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.ljdh-alvere.fr/fr/"
+    },
+    {
+      "id": "240007450",
+      "dept": "24",
+      "domain": "www.johnbost.org",
+      "orgId": 7252,
+      "ip": "194.110.192.75",
+      "sourceUrl": "https://www.johnbost.org/pavillon/ehpad-tiberiade-2/"
+    },
+    {
+      "id": "240007617",
+      "dept": "24",
+      "domain": "www.ch-bergerac.fr",
+      "orgId": 7061,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.ch-bergerac.fr/services/ehpad-au-jardin-dantan/"
+    },
+    {
+      "id": "240008482",
+      "dept": "24",
+      "domain": "www.retab.fr",
+      "orgId": 7133,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/970/page-de-maison-daccueil-specialisee---mas--heliodore-a-24750-boulazac-isle-manoire"
+    },
+    {
+      "id": "240008631",
+      "dept": "24",
+      "domain": "www.petitgardonne.fr",
+      "orgId": 7294,
+      "ip": "141.94.242.192",
+      "sourceUrl": "https://www.petitgardonne.fr"
+    },
+    {
+      "id": "240008706",
+      "dept": "24",
+      "domain": "www.groupeafp.com",
+      "orgId": 7307,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-clos-saint-roch-unite-alzheimer-perigueux/"
+    },
+    {
+      "id": "240008730",
+      "dept": "24",
+      "domain": "www.ehpad-maison-retraite-madeleine.fr",
+      "orgId": 7063,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.ehpad-maison-retraite-madeleine.fr"
+    },
+    {
+      "id": "240008755",
+      "dept": "24",
+      "domain": "vergerdesbalans.fr",
+      "orgId": 7014,
+      "ip": "213.32.6.168",
+      "sourceUrl": "https://vergerdesbalans.fr"
+    },
+    {
+      "id": "240009449",
+      "dept": "24",
+      "domain": "www.adgessa.com",
+      "orgId": 7471,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-saint-joseph/"
+    },
+    {
+      "id": "240013318",
+      "dept": "24",
+      "domain": "saint-pardoux-la-riviere.fr",
+      "orgId": 7554,
+      "ip": "109.234.164.142",
+      "sourceUrl": "https://saint-pardoux-la-riviere.fr/maison-de-retraite/"
+    },
+    {
+      "id": "240013748",
+      "dept": "24",
+      "domain": "www.dordogne.fr",
+      "orgId": 7255,
+      "ip": "91.232.242.40",
+      "sourceUrl": "https://www.dordogne.fr/information-transversale/annuaire-des-acteurs/mas-handicap-rare-john-bost-22327527"
+    },
+    {
+      "id": "240013896",
+      "dept": "24",
+      "domain": "www.ljdh-thenon.fr",
+      "orgId": 7634,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.ljdh-thenon.fr/fr/"
+    },
+    {
+      "id": "240014506",
+      "dept": "24",
+      "domain": "colisee.fr",
+      "orgId": 7174,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-champagnac-de-belair-les-chaminades/"
+    },
+    {
+      "id": "240015669",
+      "dept": "24",
+      "domain": "www.emeis.fr",
+      "orgId": 7324,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/dordogne/moulin-neuf/maison-retraite-vignes"
+    },
+    {
+      "id": "330000555",
+      "dept": "33",
+      "domain": "www.ch-arcachon.fr",
+      "orgId": 9746,
+      "ip": "51.178.56.196",
+      "sourceUrl": "https://www.ch-arcachon.fr"
+    },
+    {
+      "id": "330000597",
+      "dept": "33",
+      "domain": "www.ch-sudgironde.fr",
+      "orgId": 9458,
+      "ip": "109.234.167.151",
+      "sourceUrl": "https://www.ch-sudgironde.fr"
+    },
+    {
+      "id": "330008087",
+      "dept": "33",
+      "domain": "www.sanitaire-social.com",
+      "orgId": 8595,
+      "ip": "104.26.1.79",
+      "sourceUrl": "https://www.sanitaire-social.com/fiche/hopital-de-jour-pour-adultes-la-margeride-castillon-la-bataille-33350/33-28481"
+    },
+    {
+      "id": "330008095",
+      "dept": "33",
+      "domain": "www.sanitaire-social.com",
+      "orgId": 9060,
+      "ip": "172.67.70.2",
+      "sourceUrl": "https://www.sanitaire-social.com/fiche/hopital-de-jour-pour-adultes-la-cle-des-champs-libourne-33500/33-28480"
+    },
+    {
+      "id": "330008103",
+      "dept": "33",
+      "domain": "www.retab.fr",
+      "orgId": 9489,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/263/page-de-hopital-de-jour-le-magnolia-a-33240-saint-andre-de-cubzac"
+    },
+    {
+      "id": "330012048",
+      "dept": "33",
+      "domain": "www.emera.fr",
+      "orgId": 8823,
+      "ip": "51.15.185.89",
+      "sourceUrl": "https://www.emera.fr/etablissements/douceur-de-france/"
+    },
+    {
+      "id": "330015678",
+      "dept": "33",
+      "domain": "www.adgessa.com",
+      "orgId": 9560,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-bossege/"
+    },
+    {
+      "id": "330017179",
+      "dept": "33",
+      "domain": "www.saint-medard-en-jalles.fr",
+      "orgId": 9591,
+      "ip": "109.234.166.194",
+      "sourceUrl": "https://www.saint-medard-en-jalles.fr/mon-quotidien/logement/ehpad-simone-de-beauvoir/"
+    },
+    {
+      "id": "330019019",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 8902,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-izon-jardins-de-jeanne/"
+    },
+    {
+      "id": "330019118",
+      "dept": "33",
+      "domain": "adef-residences.com",
+      "orgId": 7794,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://adef-residences.com/etablissement/ehpad-maisons-de-retraite/la-maison-des-cotonniers/"
+    },
+    {
+      "id": "330019308",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 8985,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-lege-cap-ferret-les-tchanques/"
+    },
+    {
+      "id": "330020918",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 8565,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/carbon-blanc/maison-retraite-jardins-dombeline"
+    },
+    {
+      "id": "330021049",
+      "dept": "33",
+      "domain": "aeis.fr",
+      "orgId": 9861,
+      "ip": "188.130.25.102",
+      "sourceUrl": "https://aeis.fr/ehpad-la-memoire-des-ailes/"
+    },
+    {
+      "id": "330021668",
+      "dept": "33",
+      "domain": "hapogys.fr",
+      "orgId": 9783,
+      "ip": "54.36.13.224",
+      "sourceUrl": "https://hapogys.fr/etablissement-services/maison-les-jonquilles/"
+    },
+    {
+      "id": "330021718",
+      "dept": "33",
+      "domain": "foyer-monsejour.apf-francehandicap.org",
+      "orgId": 8224,
+      "ip": "151.80.155.205",
+      "sourceUrl": "https://foyer-monsejour.apf-francehandicap.org"
+    },
+    {
+      "id": "330022138",
+      "dept": "33",
+      "domain": "www.adgessa.com",
+      "orgId": 8740,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-bois-gramond/"
+    },
+    {
+      "id": "330023508",
+      "dept": "33",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 8971,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr/maison-d-accueil-specialisee-de-lanton"
+    },
+    {
+      "id": "330025099",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 8450,
+      "ip": "15.237.231.151",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/bouliac/maison-retraite-pastorale"
+    },
+    {
+      "id": "330025628",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 8102,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-bordeaux-aime-cesaire/"
+    },
+    {
+      "id": "330035619",
+      "dept": "33",
+      "domain": "www.residence-du-tertre.com",
+      "orgId": 8803,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-du-tertre.com/fr/"
+    },
+    {
+      "id": "330050758",
+      "dept": "33",
+      "domain": "camblanes-et-meynac.fr",
+      "orgId": 8546,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://camblanes-et-meynac.fr/social-solidarite/handicap/ladapt"
+    },
+    {
+      "id": "330051988",
+      "dept": "33",
+      "domain": "talanssa.lna-sante.com",
+      "orgId": 9688,
+      "ip": "217.147.199.224",
+      "sourceUrl": "https://talanssa.lna-sante.com"
+    },
+    {
+      "id": "330052069",
+      "dept": "33",
+      "domain": "www.adgessa.com",
+      "orgId": 8561,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-airial-de-biron/"
+    },
+    {
+      "id": "330054503",
+      "dept": "33",
+      "domain": "www.residence-gallevent.fr",
+      "orgId": 9736,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.residence-gallevent.fr"
+    },
+    {
+      "id": "330057845",
+      "dept": "33",
+      "domain": "www.ch-perrens.fr",
+      "orgId": 9594,
+      "ip": "217.109.248.26",
+      "sourceUrl": "https://www.ch-perrens.fr/maison-daccueil-specialisee-mas"
+    },
+    {
+      "id": "330064098",
+      "dept": "33",
+      "domain": "www.johnbost.org",
+      "orgId": 9703,
+      "ip": "194.110.192.75",
+      "sourceUrl": "https://www.johnbost.org/pavillon/esap-mas-la-rencontre/"
+    },
+    {
+      "id": "330781337",
+      "dept": "33",
+      "domain": "www.chu-bordeaux.fr",
+      "orgId": 9350,
+      "ip": "194.167.180.68",
+      "sourceUrl": "https://www.chu-bordeaux.fr/CHU-de-Bordeaux/H%C3%B4pitaux-et-sites-du-CHU/H%C3%B4pital-Haut-L%C3%A9v%C3%AAque/H%C3%B4pital-Xavier-Arnozan/"
+    },
+    {
+      "id": "330781659",
+      "dept": "33",
+      "domain": "www.adgessa.com",
+      "orgId": 9508,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-bon-pasteur/"
+    },
+    {
+      "id": "330781766",
+      "dept": "33",
+      "domain": "www.espass-podensac.fr",
+      "orgId": 9422,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.espass-podensac.fr"
+    },
+    {
+      "id": "330782483",
+      "dept": "33",
+      "domain": "www.ch-perrens.fr",
+      "orgId": 7717,
+      "ip": "217.109.248.26",
+      "sourceUrl": "https://www.ch-perrens.fr/ehpad-dambes"
+    },
+    {
+      "id": "330782509",
+      "dept": "33",
+      "domain": "www.ehpad-manon-cormier.fr",
+      "orgId": 7849,
+      "ip": "217.160.0.127",
+      "sourceUrl": "https://www.ehpad-manon-cormier.fr"
+    },
+    {
+      "id": "330782558",
+      "dept": "33",
+      "domain": "ehpad-creon.fr",
+      "orgId": 8709,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://ehpad-creon.fr"
+    },
+    {
+      "id": "330782707",
+      "dept": "33",
+      "domain": "saint-dominique33.fr",
+      "orgId": 7740,
+      "ip": "155.133.142.10",
+      "sourceUrl": "https://saint-dominique33.fr"
+    },
+    {
+      "id": "330782756",
+      "dept": "33",
+      "domain": "www.adgessa.com",
+      "orgId": 8101,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-nd-bonne-esperance/"
+    },
+    {
+      "id": "330782798",
+      "dept": "33",
+      "domain": "www.adgessa.com",
+      "orgId": 8088,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-grand-bon-pasteur/"
+    },
+    {
+      "id": "330782830",
+      "dept": "33",
+      "domain": "www.maisons-retraite-afa.fr",
+      "orgId": 8742,
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://www.maisons-retraite-afa.fr"
+    },
+    {
+      "id": "330782855",
+      "dept": "33",
+      "domain": "www.bordeaux.fr",
+      "orgId": 8093,
+      "ip": "159.60.67.104",
+      "sourceUrl": "https://www.bordeaux.fr"
+    },
+    {
+      "id": "330782863",
+      "dept": "33",
+      "domain": "btprms.probtp.com",
+      "orgId": 8825,
+      "ip": "185.145.76.206",
+      "sourceUrl": "https://btprms.probtp.com/les-fontaines-de-monjous"
+    },
+    {
+      "id": "330782889",
+      "dept": "33",
+      "domain": "www.groupe-ugecam.fr",
+      "orgId": 9115,
+      "ip": "194.2.42.14",
+      "sourceUrl": "https://www.groupe-ugecam.fr/ehpad-les-coteaux"
+    },
+    {
+      "id": "330783333",
+      "dept": "33",
+      "domain": "www.ehpadseguin.fr",
+      "orgId": 8675,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.ehpadseguin.fr"
+    },
+    {
+      "id": "330783481",
+      "dept": "33",
+      "domain": "www.maison-retraite-blaye.fr",
+      "orgId": 7951,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.maison-retraite-blaye.fr"
+    },
+    {
+      "id": "330783580",
+      "dept": "33",
+      "domain": "villabourgailh.lna-sante.com",
+      "orgId": 9338,
+      "ip": "217.147.199.224",
+      "sourceUrl": "https://villabourgailh.lna-sante.com"
+    },
+    {
+      "id": "330783721",
+      "dept": "33",
+      "domain": "www.retab.fr",
+      "orgId": 9062,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/202/page-de-centre-hospitalier-de-libourne---garderose-a-33500-libourne"
+    },
+    {
+      "id": "330786161",
+      "dept": "33",
+      "domain": "proximite.mgen.fr",
+      "orgId": 7760,
+      "ip": "172.64.151.87",
+      "sourceUrl": "https://proximite.mgen.fr/202-ehpad-d-ares"
+    },
+    {
+      "id": "330786203",
+      "dept": "33",
+      "domain": "www.fondationcos.org",
+      "orgId": 8087,
+      "ip": "57.128.105.4",
+      "sourceUrl": "https://www.fondationcos.org/residence-medicalisee-cos-villa-pia"
+    },
+    {
+      "id": "330786229",
+      "dept": "33",
+      "domain": "residence-les-muriers.com",
+      "orgId": 8574,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://residence-les-muriers.com/fr/"
+    },
+    {
+      "id": "330786237",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 7771,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-arsac-le-home-medocain/"
+    },
+    {
+      "id": "330786302",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 8917,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-lamarque-residence-le-retou/"
+    },
+    {
+      "id": "330790031",
+      "dept": "33",
+      "domain": "www.capretraite.fr",
+      "orgId": 7761,
+      "ip": "35.227.233.170",
+      "sourceUrl": "https://www.capretraite.fr/maisons-de-retraite/gironde-33/ares/ehpad-paul-louis-weiller/"
+    },
+    {
+      "id": "330790882",
+      "dept": "33",
+      "domain": "www.retab.fr",
+      "orgId": 9490,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/7083/page-de-hopital-de-jour-enfants-rochereau-a-33240-sainte-andre-de-cubzac"
+    },
+    {
+      "id": "330791021",
+      "dept": "33",
+      "domain": "btprms.probtp.com",
+      "orgId": 8086,
+      "ip": "185.145.76.206",
+      "sourceUrl": "https://btprms.probtp.com/accueil/EHPAD/la-berge-du-lac.html"
+    },
+    {
+      "id": "330791054",
+      "dept": "33",
+      "domain": "www.leclosdesacacias.fr",
+      "orgId": 8610,
+      "ip": "141.94.242.192",
+      "sourceUrl": "https://www.leclosdesacacias.fr"
+    },
+    {
+      "id": "330791062",
+      "dept": "33",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 9046,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-libourne-33/"
+    },
+    {
+      "id": "330791112",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 9737,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/teich/maison-retraite-loasis"
+    },
+    {
+      "id": "330791757",
+      "dept": "33",
+      "domain": "maresidence.fr",
+      "orgId": 9858,
+      "ip": "155.133.142.13",
+      "sourceUrl": "https://maresidence.fr"
+    },
+    {
+      "id": "330792177",
+      "dept": "33",
+      "domain": "www.maison-de-retraite-gironde.fr",
+      "orgId": 9510,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.maison-de-retraite-gironde.fr"
+    },
+    {
+      "id": "330792201",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 9687,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/talence/maison-retraite-relais-sens"
+    },
+    {
+      "id": "330792573",
+      "dept": "33",
+      "domain": "www.chu-bordeaux.fr",
+      "orgId": 9335,
+      "ip": "194.167.180.68",
+      "sourceUrl": "https://www.chu-bordeaux.fr/CHU-de-Bordeaux/H%C3%B4pitaux-et-sites-du-CHU/H%C3%B4pital-Haut-L%C3%A9v%C3%AAque/EHPAD-Les-Jardins-de-L-Alouette-(Pessac)/"
+    },
+    {
+      "id": "330793159",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 9284,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-monsegur-les-jardins-deleonore/"
+    },
+    {
+      "id": "330793175",
+      "dept": "33",
+      "domain": "www.groupe-ugecam.fr",
+      "orgId": 9116,
+      "ip": "194.2.42.14",
+      "sourceUrl": "https://www.groupe-ugecam.fr/ehpad-les-coteaux"
+    },
+    {
+      "id": "330793639",
+      "dept": "33",
+      "domain": "www.adapei33.com",
+      "orgId": 7900,
+      "ip": "91.134.59.165",
+      "sourceUrl": "https://www.adapei33.com/etablissement/mas-biganos/"
+    },
+    {
+      "id": "330794009",
+      "dept": "33",
+      "domain": "www.retab.fr",
+      "orgId": 9523,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/617/page-de-mas-les-quatre-vents-a-33910-saint-denis-de-pile"
+    },
+    {
+      "id": "330795352",
+      "dept": "33",
+      "domain": "www.pavonis.fr",
+      "orgId": 8807,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.pavonis.fr"
+    },
+    {
+      "id": "330798026",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 8458,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/bouscat/maison-retraite-clos-dalienor"
+    },
+    {
+      "id": "330798216",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 9190,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/merignac/maison-retraite-chardons-bleus"
+    },
+    {
+      "id": "330798224",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 9194,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-merignac-residence-jean-monnet/"
+    },
+    {
+      "id": "330798273",
+      "dept": "33",
+      "domain": "www.clairiere-de-bel-air.com",
+      "orgId": 8887,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.clairiere-de-bel-air.com/fr/"
+    },
+    {
+      "id": "330798281",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 9499,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-saint-aubin-de-medoc-maison-de-saint-aubin/"
+    },
+    {
+      "id": "330798497",
+      "dept": "33",
+      "domain": "www.chblaye.fr",
+      "orgId": 7953,
+      "ip": "109.234.166.116",
+      "sourceUrl": "https://www.chblaye.fr/personnes-agees/la-geriatrie/"
+    },
+    {
+      "id": "330798554",
+      "dept": "33",
+      "domain": "tempsdevivre-grignols.fr",
+      "orgId": 8856,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://tempsdevivre-grignols.fr"
+    },
+    {
+      "id": "330798612",
+      "dept": "33",
+      "domain": "www.groupe-mieuxvivre.fr",
+      "orgId": 9818,
+      "ip": "5.44.161.150",
+      "sourceUrl": "https://www.groupe-mieuxvivre.fr/nos-etablissements/residence-chambery"
+    },
+    {
+      "id": "330798646",
+      "dept": "33",
+      "domain": "residence-la-savane.com",
+      "orgId": 8868,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://residence-la-savane.com/fr/"
+    },
+    {
+      "id": "330798711",
+      "dept": "33",
+      "domain": "lesgraves-illats.fr",
+      "orgId": 8900,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://lesgraves-illats.fr"
+    },
+    {
+      "id": "330798794",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 9667,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-soula-sur-mer-residence-repos-marin/"
+    },
+    {
+      "id": "330799032",
+      "dept": "33",
+      "domain": "ehpadclairefontaine.com",
+      "orgId": 9590,
+      "ip": "109.234.166.116",
+      "sourceUrl": "https://ehpadclairefontaine.com/accueil/"
+    },
+    {
+      "id": "330799040",
+      "dept": "33",
+      "domain": "residencedubourg.fr",
+      "orgId": 9166,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://residencedubourg.fr"
+    },
+    {
+      "id": "330799057",
+      "dept": "33",
+      "domain": "www.paul-claudel.com",
+      "orgId": 9196,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.paul-claudel.com/fr/"
+    },
+    {
+      "id": "330799073",
+      "dept": "33",
+      "domain": "fbocke.com",
+      "orgId": 9192,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://fbocke.com/lieu-de-vie/ehpad-pagneau/"
+    },
+    {
+      "id": "330799263",
+      "dept": "33",
+      "domain": "www.emeis.fr",
+      "orgId": 8092,
+      "ip": "15.237.231.151",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/bordeaux/maison-retraite-cheneraie"
+    },
+    {
+      "id": "330799297",
+      "dept": "33",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 8089,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr/ehpad-henry-dunant-bordeaux"
+    },
+    {
+      "id": "330799388",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 8098,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-bordeaux-jardins-de-cauderan/"
+    },
+    {
+      "id": "330799412",
+      "dept": "33",
+      "domain": "www.ehpad-bordeaux.fr",
+      "orgId": 8103,
+      "ip": "149.202.84.165",
+      "sourceUrl": "https://www.ehpad-bordeaux.fr"
+    },
+    {
+      "id": "330799925",
+      "dept": "33",
+      "domain": "colisee.fr",
+      "orgId": 8914,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-lande-de-fronsac-bois-de-landecotte/"
+    },
+    {
+      "id": "330800087",
+      "dept": "33",
+      "domain": "www.residence-lescharmilles.fr",
+      "orgId": 9047,
+      "ip": "141.94.242.192",
+      "sourceUrl": "https://www.residence-lescharmilles.fr"
+    },
+    {
+      "id": "330800228",
+      "dept": "33",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 7952,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-blaye-33/"
+    },
+    {
+      "id": "330800327",
+      "dept": "33",
+      "domain": "www.leclossaintmartin33.com",
+      "orgId": 9403,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.leclossaintmartin33.com"
+    },
+    {
+      "id": "330802752",
+      "dept": "33",
+      "domain": "www.chu-bordeaux.fr",
+      "orgId": 8027,
+      "ip": "194.167.180.68",
+      "sourceUrl": "https://www.chu-bordeaux.fr/CHU-de-Bordeaux/H%C3%B4pitaux-et-sites-du-CHU/Groupe-hospitalier-Saint-Andr%C3%A9/Centre-Jean-Abadie/"
+    },
+    {
+      "id": "400000105",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 9950,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr"
+    },
+    {
+      "id": "400000139",
+      "dept": "40",
+      "domain": "www.ch-mt-marsan.fr",
+      "orgId": 10143,
+      "ip": "46.105.35.245",
+      "sourceUrl": "https://www.ch-mt-marsan.fr"
+    },
+    {
+      "id": "400000147",
+      "dept": "40",
+      "domain": "ch-saint-sever.fr",
+      "orgId": 10406,
+      "ip": "104.21.57.70",
+      "sourceUrl": "https://ch-saint-sever.fr"
+    },
+    {
+      "id": "400007084",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 10099,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/le-centre-hospitalier/nos-differents-sites-et-leur-accessibilite/maison-d-accueil-specialisee-l-arcolan"
+    },
+    {
+      "id": "400008819",
+      "dept": "40",
+      "domain": "www.retab.fr",
+      "orgId": 10363,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/636/page-de-mas-mosaiques-a-40990-saint-paul-les-dax"
+    },
+    {
+      "id": "400010559",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 9969,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/l-offre-de-soins/la-filiere-geriatrique/hebergement"
+    },
+    {
+      "id": "400011045",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 9972,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/le-centre-hospitalier/nos-differents-sites-et-leur-accessibilite/les-albizzias"
+    },
+    {
+      "id": "400013090",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 10433,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/l-offre-de-soins/les-services-de-l-hopital/hopital-de-jour-psychiatrie-adulte-tyrosse"
+    },
+    {
+      "id": "400013108",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 10434,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/l-offre-de-soins/les-services-de-l-hopital/hopital-de-jour-psychiatrie-adulte-tyrosse"
+    },
+    {
+      "id": "400013371",
+      "dept": "40",
+      "domain": "www.retab.fr",
+      "orgId": 10239,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/701/page-de-hopital-de-jour---montfort-a-40380-montfort-en-chalosse"
+    },
+    {
+      "id": "400013389",
+      "dept": "40",
+      "domain": "www.retab.fr",
+      "orgId": 9875,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/702/page-de-hopital-de-jour---aire-sur-ladour-a-40800-aire-sur-l-adour"
+    },
+    {
+      "id": "400013397",
+      "dept": "40",
+      "domain": "www.retab.fr",
+      "orgId": 10389,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/703/page-de-hopital-de-jour-enfants---saint-pierre-du-mont-a-40280-saint-pierre-du-mont"
+    },
+    {
+      "id": "400780250",
+      "dept": "40",
+      "domain": "www.ch-mt-marsan.fr",
+      "orgId": 9917,
+      "ip": "46.105.35.245",
+      "sourceUrl": "https://www.ch-mt-marsan.fr/le-chi/nos-differents-sites/le-site-de-nouvielle/"
+    },
+    {
+      "id": "400780714",
+      "dept": "40",
+      "domain": "www.ehpad-biscarrosse.fr",
+      "orgId": 9905,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.ehpad-biscarrosse.fr"
+    },
+    {
+      "id": "400780789",
+      "dept": "40",
+      "domain": "www.mugron.fr",
+      "orgId": 10262,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.mugron.fr/Action-sociale/Les-EHPAD"
+    },
+    {
+      "id": "400780995",
+      "dept": "40",
+      "domain": "cias.coeurhautelande.fr",
+      "orgId": 10327,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://cias.coeurhautelande.fr/CIAS/Les-EHPAD-du-Coeur-Haute-Lande/L-EHPAD-de-SABRES"
+    },
+    {
+      "id": "400781050",
+      "dept": "40",
+      "domain": "lechantdespins.fr",
+      "orgId": 10113,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://lechantdespins.fr"
+    },
+    {
+      "id": "400781159",
+      "dept": "40",
+      "domain": "www.adgessa.com",
+      "orgId": 10422,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-le-berceau/"
+    },
+    {
+      "id": "400781217",
+      "dept": "40",
+      "domain": "lamartiniere.hospitalieres.org",
+      "orgId": 10339,
+      "ip": "213.186.33.2",
+      "sourceUrl": "http://lamartiniere.hospitalieres.org"
+    },
+    {
+      "id": "400781233",
+      "dept": "40",
+      "domain": "maison-retraite-selection.fr",
+      "orgId": 10408,
+      "ip": "31.97.156.106",
+      "sourceUrl": "https://maison-retraite-selection.fr/landes/saint-sever/ehpad-du-cap-de-gascogne"
+    },
+    {
+      "id": "400782777",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 9976,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/l-offre-de-soins/les-services-de-l-hopital/reeducation-en-milieu-thermal"
+    },
+    {
+      "id": "400782967",
+      "dept": "40",
+      "domain": "www.castets.fr",
+      "orgId": 9933,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.castets.fr/vie-pratique/centre-communal-d-action-sociale/ehpad/l-ehpad-du-marensin"
+    },
+    {
+      "id": "400783346",
+      "dept": "40",
+      "domain": "www.cdcaire.org",
+      "orgId": 9870,
+      "ip": "109.234.160.156",
+      "sourceUrl": "https://www.cdcaire.org/au-quotidien/bien-vieillir/ehpad-olivier-darblade/"
+    },
+    {
+      "id": "400785689",
+      "dept": "40",
+      "domain": "gamarde-les-bains.com",
+      "orgId": 10033,
+      "ip": "109.234.165.62",
+      "sourceUrl": "https://gamarde-les-bains.com/ehpad-gamarde-maison-retraite/"
+    },
+    {
+      "id": "400785820",
+      "dept": "40",
+      "domain": "www.samadet.com",
+      "orgId": 10442,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.samadet.com/Infos-pratiques/EHPAD-DARBINS"
+    },
+    {
+      "id": "400786455",
+      "dept": "40",
+      "domain": "www.adgessa.com",
+      "orgId": 10307,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-le-conte/"
+    },
+    {
+      "id": "400787354",
+      "dept": "40",
+      "domain": "www.ch-dax.fr",
+      "orgId": 9955,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-dax.fr/le-centre-hospitalier/nos-differents-sites-et-leur-accessibilite/le-lanot"
+    },
+    {
+      "id": "400787735",
+      "dept": "40",
+      "domain": "www.terresdechalosse.fr",
+      "orgId": 10238,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.terresdechalosse.fr/Communaute-de-communes/Action-sociale/Les-EHPAD/L-EHPAD-des-Cent-marches"
+    },
+    {
+      "id": "400789756",
+      "dept": "40",
+      "domain": "www.loucoqhardit.fr",
+      "orgId": 10341,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.loucoqhardit.fr"
+    },
+    {
+      "id": "400789798",
+      "dept": "40",
+      "domain": "cias.coeurhautelande.fr",
+      "orgId": 10304,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://cias.coeurhautelande.fr/CIAS/Les-EHPAD-du-Coeur-Haute-Lande/L-EHPAD-de-PISSOS"
+    },
+    {
+      "id": "400791190",
+      "dept": "40",
+      "domain": "www.retab.fr",
+      "orgId": 10191,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/677/page-de-mas-simone-signoret-a-40000-mont-de-marsan"
+    },
+    {
+      "id": "470000423",
+      "dept": "47",
+      "domain": "www.ch-agen-nerac.fr",
+      "orgId": 10536,
+      "ip": "90.83.53.4",
+      "sourceUrl": "https://www.ch-agen-nerac.fr"
+    },
+    {
+      "id": "470000555",
+      "dept": "47",
+      "domain": "fr.mappy.com",
+      "orgId": 11103,
+      "ip": "193.203.32.57",
+      "sourceUrl": "https://fr.mappy.com/poi/50acb7bd84aec85bd0b87a34"
+    },
+    {
+      "id": "470000571",
+      "dept": "47",
+      "domain": "www.fumelvalleedulot.com",
+      "orgId": 10806,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/295/centre-hospitalier-de-fumel"
+    },
+    {
+      "id": "470001702",
+      "dept": "47",
+      "domain": "www.ehpad-agen.fr",
+      "orgId": 10557,
+      "ip": "149.202.84.165",
+      "sourceUrl": "https://www.ehpad-agen.fr"
+    },
+    {
+      "id": "470002106",
+      "dept": "47",
+      "domain": "ehpad-mezin.fr",
+      "orgId": 10915,
+      "ip": "213.186.33.3",
+      "sourceUrl": "https://ehpad-mezin.fr"
+    },
+    {
+      "id": "470002148",
+      "dept": "47",
+      "domain": "www.portsaintemarie.fr",
+      "orgId": 11022,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://www.portsaintemarie.fr/mon-quotidien/sante/"
+    },
+    {
+      "id": "470004102",
+      "dept": "47",
+      "domain": "www.retraiteplus.fr",
+      "orgId": 11110,
+      "ip": "137.74.229.210",
+      "sourceUrl": "https://www.retraiteplus.fr/maison-de-retraite/nouvelle-aquitaine/lot-et-garonne-47/tonneins,residence-zoppola/"
+    },
+    {
+      "id": "470005398",
+      "dept": "47",
+      "domain": "www.ch-agen-nerac.fr",
+      "orgId": 10559,
+      "ip": "90.83.53.4",
+      "sourceUrl": "https://www.ch-agen-nerac.fr/les-patients-visiteurs/centre-de-gerontologie-de-pompeyrie-76-66.html"
+    },
+    {
+      "id": "470005448",
+      "dept": "47",
+      "domain": "www.armeedusalut.fr",
+      "orgId": 11109,
+      "ip": "83.228.208.67",
+      "sourceUrl": "https://www.armeedusalut.fr/etablissements/le-soleil-dautomne/"
+    },
+    {
+      "id": "470008640",
+      "dept": "47",
+      "domain": "andapei47.fr",
+      "orgId": 11117,
+      "ip": "162.19.78.202",
+      "sourceUrl": "https://andapei47.fr/etablissements/mas-les-quatre-saisons/"
+    },
+    {
+      "id": "470008699",
+      "dept": "47",
+      "domain": "www.ch-agen-nerac.fr",
+      "orgId": 10969,
+      "ip": "90.83.53.4",
+      "sourceUrl": "https://www.ch-agen-nerac.fr/les-patients-visiteurs/ehpad-de-nerac-76-66.html"
+    },
+    {
+      "id": "470008723",
+      "dept": "47",
+      "domain": "www.poledesanteduvilleneuvois.fr",
+      "orgId": 11149,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.poledesanteduvilleneuvois.fr/etablissement-dhebergement-pour-personnes-agees-dependantes-ehpad-31.html"
+    },
+    {
+      "id": "470009754",
+      "dept": "47",
+      "domain": "www.groupe-mieuxvivre.fr",
+      "orgId": 10970,
+      "ip": "5.44.161.150",
+      "sourceUrl": "https://www.groupe-mieuxvivre.fr/nos-etablissements/residence-du-chateau"
+    },
+    {
+      "id": "470010984",
+      "dept": "47",
+      "domain": "www.retab.fr",
+      "orgId": 11163,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/1061/page-de-mas------centre-d--accueil-de-jour-a-47300-villeneuve-sur-lot"
+    },
+    {
+      "id": "470013566",
+      "dept": "47",
+      "domain": "www.emeis.fr",
+      "orgId": 10556,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/biganos/maison-retraite-magnolias"
+    },
+    {
+      "id": "470013616",
+      "dept": "47",
+      "domain": "www.groupe-ugecam.fr",
+      "orgId": 10854,
+      "ip": "194.2.42.14",
+      "sourceUrl": "https://www.groupe-ugecam.fr/mas-de-lapeyre"
+    },
+    {
+      "id": "470014119",
+      "dept": "47",
+      "domain": "www.accueil-temporaire-leshirondelles.fr",
+      "orgId": 10780,
+      "ip": "151.80.24.4",
+      "sourceUrl": "https://www.accueil-temporaire-leshirondelles.fr"
+    },
+    {
+      "id": "470014283",
+      "dept": "47",
+      "domain": "www.residence-louis-ix.com",
+      "orgId": 10829,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-louis-ix.com/fr/"
+    },
+    {
+      "id": "470016205",
+      "dept": "47",
+      "domain": "www.ch-agen-nerac.fr",
+      "orgId": 10966,
+      "ip": "90.83.53.4",
+      "sourceUrl": "https://www.ch-agen-nerac.fr/les-patients-visiteurs/smur-76-66.html"
+    },
+    {
+      "id": "640000162",
+      "dept": "64",
+      "domain": "www.ch-cote-basque.fr",
+      "orgId": 11369,
+      "ip": "83.173.94.228",
+      "sourceUrl": "https://www.ch-cote-basque.fr"
+    },
+    {
+      "id": "640000402",
+      "dept": "64",
+      "domain": "www.ch-orthez.fr",
+      "orgId": 11983,
+      "ip": "83.173.89.106",
+      "sourceUrl": "https://www.ch-orthez.fr"
+    },
+    {
+      "id": "640000410",
+      "dept": "64",
+      "domain": "www.ch-oloron.fr",
+      "orgId": 11940,
+      "ip": "51.178.56.196",
+      "sourceUrl": "https://www.ch-oloron.fr"
+    },
+    {
+      "id": "640005526",
+      "dept": "64",
+      "domain": "www.biarritz.fr",
+      "orgId": 11505,
+      "ip": "176.31.192.146",
+      "sourceUrl": "https://www.biarritz.fr/a-tout-age-adin-orotan/seniors/ehpad-notre-maison-64200-biarritz"
+    },
+    {
+      "id": "640006458",
+      "dept": "64",
+      "domain": "colisee.fr",
+      "orgId": 12260,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-saint-jean-de-luz-residence-urtaburu/"
+    },
+    {
+      "id": "640007308",
+      "dept": "64",
+      "domain": "colisee.fr",
+      "orgId": 11287,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-arbonne-herri-burua/"
+    },
+    {
+      "id": "640008918",
+      "dept": "64",
+      "domain": "sauvagnon.fr",
+      "orgId": 12348,
+      "ip": "87.98.251.225",
+      "sourceUrl": "https://sauvagnon.fr/social-et-sante/maison-de-retraite/"
+    },
+    {
+      "id": "640009049",
+      "dept": "64",
+      "domain": "www.residence-albodi.fr",
+      "orgId": 11343,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-albodi.fr/fr/"
+    },
+    {
+      "id": "640009528",
+      "dept": "64",
+      "domain": "www.adapei64.fr",
+      "orgId": 12137,
+      "ip": "46.105.75.210",
+      "sourceUrl": "https://www.adapei64.fr/site/adapei/les-etablissements-et-services/accompagnement-medicalise/mas-lou-caminot/"
+    },
+    {
+      "id": "640012118",
+      "dept": "64",
+      "domain": "aapava.fr",
+      "orgId": 11756,
+      "ip": "104.21.81.215",
+      "sourceUrl": "https://aapava.fr/goxa-leku/"
+    },
+    {
+      "id": "640017646",
+      "dept": "64",
+      "domain": "www.ch-saintpalais.fr",
+      "orgId": 12296,
+      "ip": "83.173.94.228",
+      "sourceUrl": "https://www.ch-saintpalais.fr"
+    },
+    {
+      "id": "640018412",
+      "dept": "64",
+      "domain": "www.retab.fr",
+      "orgId": 11371,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/857/page-de-centre-hospitalier-de-la-cote-basque---site-lormand-a-64100-bayonne"
+    },
+    {
+      "id": "640019485",
+      "dept": "64",
+      "domain": "polyclinique-cotebasquesud.fr",
+      "orgId": 12252,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://polyclinique-cotebasquesud.fr"
+    },
+    {
+      "id": "640019816",
+      "dept": "64",
+      "domain": "www.adgessa.com",
+      "orgId": 11747,
+      "ip": "135.125.91.139",
+      "sourceUrl": "https://www.adgessa.com/ehpad-les-arriouets/"
+    },
+    {
+      "id": "640019907",
+      "dept": "64",
+      "domain": "www.retab.fr",
+      "orgId": 11887,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/8841/page-de-maison-daccueil-specialisee--mas--laccueil--appartements-a-64160-morlaas"
+    },
+    {
+      "id": "640020715",
+      "dept": "64",
+      "domain": "www.eps-garazi.fr",
+      "orgId": 11760,
+      "ip": "83.173.94.228",
+      "sourceUrl": "https://www.eps-garazi.fr"
+    },
+    {
+      "id": "640781472",
+      "dept": "64",
+      "domain": "www.adapei64.fr",
+      "orgId": 12237,
+      "ip": "46.105.75.210",
+      "sourceUrl": "https://www.adapei64.fr/site/adapei/les-etablissements-et-services/accompagnement-medicalise/mas-du-domaine-des-roses/"
+    },
+    {
+      "id": "640781696",
+      "dept": "64",
+      "domain": "ehpad-ecureuil-pau.fr",
+      "orgId": 12088,
+      "ip": "213.186.33.16",
+      "sourceUrl": "https://ehpad-ecureuil-pau.fr"
+    },
+    {
+      "id": "640781787",
+      "dept": "64",
+      "domain": "www.johnbost.org",
+      "orgId": 11831,
+      "ip": "194.110.192.75",
+      "sourceUrl": "https://www.johnbost.org/pavillon/ehpad-les-foyers/"
+    },
+    {
+      "id": "640781985",
+      "dept": "64",
+      "domain": "www.laroussane.fr",
+      "orgId": 11874,
+      "ip": "51.77.134.73",
+      "sourceUrl": "https://www.laroussane.fr"
+    },
+    {
+      "id": "640782124",
+      "dept": "64",
+      "domain": "association-saint-joseph.fr",
+      "orgId": 12091,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://association-saint-joseph.fr/maison-sainte-marie-a-pau-ehpad/"
+    },
+    {
+      "id": "640782363",
+      "dept": "64",
+      "domain": "fedes.fr",
+      "orgId": 11572,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://fedes.fr/les-etablissements/la-maison-lavigerie-a-billere/"
+    },
+    {
+      "id": "640784229",
+      "dept": "64",
+      "domain": "aapava.fr",
+      "orgId": 11762,
+      "ip": "104.21.81.215",
+      "sourceUrl": "https://aapava.fr/pausa-lekua/"
+    },
+    {
+      "id": "640784245",
+      "dept": "64",
+      "domain": "www.labastideclairence.com",
+      "orgId": 11782,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.labastideclairence.com/vie-pratique/action-sociale/maison-de-retraite-berebiste/"
+    },
+    {
+      "id": "640785416",
+      "dept": "64",
+      "domain": "www.oscarsante.org",
+      "orgId": 11950,
+      "ip": "37.59.112.16",
+      "sourceUrl": "https://www.oscarsante.org/nouvelle-aquitaine"
+    },
+    {
+      "id": "640785556",
+      "dept": "64",
+      "domain": "www.cheminsdesperance.org",
+      "orgId": 12084,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.cheminsdesperance.org/nos-etablissements/les-pyrenees/"
+    },
+    {
+      "id": "640785655",
+      "dept": "64",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 11308,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-artix-64/"
+    },
+    {
+      "id": "640785663",
+      "dept": "64",
+      "domain": "www.pau.fr",
+      "orgId": 12087,
+      "ip": "23.220.72.85",
+      "sourceUrl": "https://www.pau.fr/la-residence-noustesoureilh"
+    },
+    {
+      "id": "640785713",
+      "dept": "64",
+      "domain": "stelisa.com",
+      "orgId": 12299,
+      "ip": "146.88.233.138",
+      "sourceUrl": "https://stelisa.com"
+    },
+    {
+      "id": "640785770",
+      "dept": "64",
+      "domain": "www.bayonne.fr",
+      "orgId": 11399,
+      "ip": "5.135.94.100",
+      "sourceUrl": "https://www.bayonne.fr/jhabite-a-bayonne/sante-et-solidarite/logement/ehpad-harambillet"
+    },
+    {
+      "id": "640785911",
+      "dept": "64",
+      "domain": "association-saint-joseph.fr",
+      "orgId": 11919,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://association-saint-joseph.fr/maison-saint-joseph-a-nay-ehpad/"
+    },
+    {
+      "id": "640785929",
+      "dept": "64",
+      "domain": "maison-retraite-selection.fr",
+      "orgId": 12086,
+      "ip": "31.97.156.106",
+      "sourceUrl": "https://maison-retraite-selection.fr/pyrenees-atlantiques/pau/ehpad-merici"
+    },
+    {
+      "id": "640785986",
+      "dept": "64",
+      "domain": "www.hendaye.fr",
+      "orgId": 11730,
+      "ip": "54.38.246.65",
+      "sourceUrl": "https://www.hendaye.fr/fr/hendaye-pratique/solidarite-sante/seniors/lehpad-haizpean/"
+    },
+    {
+      "id": "640791851",
+      "dept": "64",
+      "domain": "www.retab.fr",
+      "orgId": 11624,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/850/page-de-mas-biarritzenia-a-64240-briscous"
+    },
+    {
+      "id": "640792271",
+      "dept": "64",
+      "domain": "annuaire.action-sociale.org",
+      "orgId": 12244,
+      "ip": "37.187.143.175",
+      "sourceUrl": "https://annuaire.action-sociale.org"
+    },
+    {
+      "id": "640792859",
+      "dept": "64",
+      "domain": "www.santeenfrance.fr",
+      "orgId": 11902,
+      "ip": "194.51.216.134",
+      "sourceUrl": "https://www.santeenfrance.fr/etablissement/57617-consultation-de-pmi-d-orthez"
+    },
+    {
+      "id": "640794517",
+      "dept": "64",
+      "domain": "les-colchiques.fr",
+      "orgId": 11606,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://les-colchiques.fr/fr"
+    },
+    {
+      "id": "640794871",
+      "dept": "64",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 12083,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-pau-64/"
+    },
+    {
+      "id": "640795753",
+      "dept": "64",
+      "domain": "www.bidart.fr",
+      "orgId": 11549,
+      "ip": "176.31.192.220",
+      "sourceUrl": "https://www.bidart.fr/vivre-a-bidart/seniors/maison-de-retraite-ramuntcho"
+    },
+    {
+      "id": "640795761",
+      "dept": "64",
+      "domain": "www.hortensias.com",
+      "orgId": 12396,
+      "ip": "109.234.164.46",
+      "sourceUrl": "https://www.hortensias.com/index.html"
+    },
+    {
+      "id": "640795837",
+      "dept": "64",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 12411,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-uzos-64/"
+    },
+    {
+      "id": "640795845",
+      "dept": "64",
+      "domain": "www.emeis.fr",
+      "orgId": 11990,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/pyrenees-atlantiques/orthez/maison-retraite-orthezia"
+    },
+    {
+      "id": "640795860",
+      "dept": "64",
+      "domain": "colisee.fr",
+      "orgId": 11684,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-gan-clos-saint-jean/"
+    },
+    {
+      "id": "640795878",
+      "dept": "64",
+      "domain": "www.emera.fr",
+      "orgId": 11571,
+      "ip": "51.15.185.89",
+      "sourceUrl": "https://www.emera.fr/etablissements/antoine-de-bourbon/"
+    },
+    {
+      "id": "640795894",
+      "dept": "64",
+      "domain": "www.ehpad-biarritz.com",
+      "orgId": 11501,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://www.ehpad-biarritz.com"
+    },
+    {
+      "id": "640795936",
+      "dept": "64",
+      "domain": "www.lesjardinsiroise.fr",
+      "orgId": 11748,
+      "ip": "158.255.101.114",
+      "sourceUrl": "https://www.lesjardinsiroise.fr/etablissements/ehpad-idron-64/"
+    },
+    {
+      "id": "640796041",
+      "dept": "64",
+      "domain": "etxetoa.fr",
+      "orgId": 12373,
+      "ip": "104.21.87.29",
+      "sourceUrl": "https://etxetoa.fr"
+    },
+    {
+      "id": "640796926",
+      "dept": "64",
+      "domain": "www.groupe-ugecam.fr",
+      "orgId": 12406,
+      "ip": "194.2.42.14",
+      "sourceUrl": "https://www.groupe-ugecam.fr/centre-herauritz"
+    },
+    {
+      "id": "790000103",
+      "dept": "79",
+      "domain": "www.parthenay.fr",
+      "orgId": 12924,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.parthenay.fr/utile/sante-social-et-solidarites/offre-de-soins/site-parthenay-du-centre-hospitalier-nord-deux-sevres-chnds"
+    },
+    {
+      "id": "790000111",
+      "dept": "79",
+      "domain": "ch-hvsm.fr",
+      "orgId": 12967,
+      "ip": "109.234.164.238",
+      "sourceUrl": "https://ch-hvsm.fr"
+    },
+    {
+      "id": "790000137",
+      "dept": "79",
+      "domain": "ch-hvsm.fr",
+      "orgId": 12668,
+      "ip": "109.234.164.238",
+      "sourceUrl": "https://ch-hvsm.fr"
+    },
+    {
+      "id": "790000145",
+      "dept": "79",
+      "domain": "www.hopital-mauleon.fr",
+      "orgId": 12537,
+      "ip": "217.109.108.181",
+      "sourceUrl": "https://www.hopital-mauleon.fr"
+    },
+    {
+      "id": "790000277",
+      "dept": "79",
+      "domain": "lesresidencesduthouet.fr",
+      "orgId": 12425,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://lesresidencesduthouet.fr/ehpad-airvault.html"
+    },
+    {
+      "id": "790000319",
+      "dept": "79",
+      "domain": "ehpadfaye.e-monsite.com",
+      "orgId": 12628,
+      "ip": "104.26.12.166",
+      "sourceUrl": "https://ehpadfaye.e-monsite.com"
+    },
+    {
+      "id": "790000327",
+      "dept": "79",
+      "domain": "www.fondationbrothier.fr",
+      "orgId": 12656,
+      "ip": "155.133.142.6",
+      "sourceUrl": "https://www.fondationbrothier.fr"
+    },
+    {
+      "id": "790000350",
+      "dept": "79",
+      "domain": "ehpad-magnolias-moncoutant.fr",
+      "orgId": 12694,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://ehpad-magnolias-moncoutant.fr"
+    },
+    {
+      "id": "790000384",
+      "dept": "79",
+      "domain": "lesresidencesduthouet.fr",
+      "orgId": 12961,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://lesresidencesduthouet.fr/ehpad-saint-loup.html"
+    },
+    {
+      "id": "790000418",
+      "dept": "79",
+      "domain": "gcsmsdelasevre.fr",
+      "orgId": 12535,
+      "ip": "146.88.232.74",
+      "sourceUrl": "https://gcsmsdelasevre.fr/au-bon-accueil/"
+    },
+    {
+      "id": "790000459",
+      "dept": "79",
+      "domain": "ehpad-courlay.com",
+      "orgId": 12607,
+      "ip": "92.222.139.190",
+      "sourceUrl": "https://ehpad-courlay.com"
+    },
+    {
+      "id": "790000475",
+      "dept": "79",
+      "domain": "www.ehpad-secondigny.fr",
+      "orgId": 13010,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.ehpad-secondigny.fr"
+    },
+    {
+      "id": "790003537",
+      "dept": "79",
+      "domain": "www.chnds.fr",
+      "orgId": 13056,
+      "ip": "217.109.108.181",
+      "sourceUrl": "https://www.chnds.fr"
+    },
+    {
+      "id": "790003545",
+      "dept": "79",
+      "domain": "ehpadlacressonniere.fr",
+      "orgId": 12515,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://ehpadlacressonniere.fr"
+    },
+    {
+      "id": "790003776",
+      "dept": "79",
+      "domain": "www.emeis.fr",
+      "orgId": 12751,
+      "ip": "15.237.231.151",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/deux-sevres/niort/maison-retraite-sevret"
+    },
+    {
+      "id": "790006118",
+      "dept": "79",
+      "domain": "www.mauleon.fr",
+      "orgId": 12538,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://www.mauleon.fr/au-quotidien/sante/ehpad/"
+    },
+    {
+      "id": "790006308",
+      "dept": "79",
+      "domain": "www.cc-parthenay-gatine.fr",
+      "orgId": 12933,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/annuaire-equipements/maison-daccueil-specialisee-mas-les-peupliers-la-peyratte-2062"
+    },
+    {
+      "id": "790006589",
+      "dept": "79",
+      "domain": "annuaire.action-sociale.org",
+      "orgId": 12681,
+      "ip": "37.187.143.175",
+      "sourceUrl": "https://annuaire.action-sociale.org"
+    },
+    {
+      "id": "790008023",
+      "dept": "79",
+      "domain": "www.chnds.fr",
+      "orgId": 13032,
+      "ip": "217.109.108.181",
+      "sourceUrl": "https://www.chnds.fr/Pedo-psychiatrie/5/13/5"
+    },
+    {
+      "id": "790008791",
+      "dept": "79",
+      "domain": "www.moncoutantsursevre.fr",
+      "orgId": 12693,
+      "ip": "5.135.243.245",
+      "sourceUrl": "https://www.moncoutantsursevre.fr/ephad-1/"
+    },
+    {
+      "id": "790009898",
+      "dept": "79",
+      "domain": "www.ehpad-emilienbouin.fr",
+      "orgId": 12556,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.ehpad-emilienbouin.fr"
+    },
+    {
+      "id": "790011878",
+      "dept": "79",
+      "domain": "www.melioris-lelogisdesfrancs.fr",
+      "orgId": 12581,
+      "ip": "83.166.155.157",
+      "sourceUrl": "https://www.melioris-lelogisdesfrancs.fr"
+    },
+    {
+      "id": "790012074",
+      "dept": "79",
+      "domain": "www.retab.fr",
+      "orgId": 12969,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/1420/page-de-cmp-st-maixent-a-79400-saint-maixent-l-ecole"
+    },
+    {
+      "id": "790012157",
+      "dept": "79",
+      "domain": "www.ch-niort.fr",
+      "orgId": 12903,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-niort.fr/patients-residents-et-accompagnants/nos-services/cmp-cattg-de-parthenay"
+    },
+    {
+      "id": "790012355",
+      "dept": "79",
+      "domain": "www.ch-niort.fr",
+      "orgId": 12729,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-niort.fr/patients-residents-et-accompagnants/nos-services/centre-dexpertise-autisme-adultes-ceaa"
+    },
+    {
+      "id": "790012876",
+      "dept": "79",
+      "domain": "adapei79.org",
+      "orgId": 12561,
+      "ip": "185.177.61.106",
+      "sourceUrl": "https://adapei79.org/etablissement/residence-les-cyclades/"
+    },
+    {
+      "id": "790012926",
+      "dept": "79",
+      "domain": "www.emeis.fr",
+      "orgId": 12752,
+      "ip": "15.224.70.186",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/deux-sevres/niort/maison-retraite-langelique"
+    },
+    {
+      "id": "790014385",
+      "dept": "79",
+      "domain": "www.masdufiefjoly.org",
+      "orgId": 12785,
+      "ip": "172.67.132.213",
+      "sourceUrl": "https://www.masdufiefjoly.org"
+    },
+    {
+      "id": "790016034",
+      "dept": "79",
+      "domain": "gcsmsdelasevre.fr",
+      "orgId": 12414,
+      "ip": "146.88.232.74",
+      "sourceUrl": "https://gcsmsdelasevre.fr/les-abies/"
+    },
+    {
+      "id": "790016182",
+      "dept": "79",
+      "domain": "www.ch-niort.fr",
+      "orgId": 12731,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-niort.fr/patients-residents-et-accompagnants/nos-services/cegidd-centre-de-depistage-des-ist"
+    },
+    {
+      "id": "790017958",
+      "dept": "79",
+      "domain": "adapei79.org",
+      "orgId": 12939,
+      "ip": "185.177.61.106",
+      "sourceUrl": "https://adapei79.org/etablissement/les-maisons-de-canopee-2/"
+    },
+    {
+      "id": "790018568",
+      "dept": "79",
+      "domain": "www.emeis.fr",
+      "orgId": 13068,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/deux-sevres/vouille/maison-retraite-jardins-jeanne"
+    },
+    {
+      "id": "790019848",
+      "dept": "79",
+      "domain": "www.chnds.fr",
+      "orgId": 12631,
+      "ip": "217.109.108.181",
+      "sourceUrl": "https://www.chnds.fr"
+    },
+    {
+      "id": "790020960",
+      "dept": "79",
+      "domain": "www.ch-niort.fr",
+      "orgId": 12735,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.ch-niort.fr/patients-residents-et-accompagnants/nos-services/hospitalisation-domicile-had"
+    },
+    {
+      "id": "860000025",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13159,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr/specialites/site-chatellerault/"
+    },
+    {
+      "id": "860000033",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13360,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr/specialites/site-loudun/"
+    },
+    {
+      "id": "860005800",
+      "dept": "86",
+      "domain": "ch-laborit.fr",
+      "orgId": 13875,
+      "ip": "37.58.163.74",
+      "sourceUrl": "https://ch-laborit.fr/services-de-soins/adultes/structures-medico-sociales/maison-accueil-specialisee/"
+    },
+    {
+      "id": "860006428",
+      "dept": "86",
+      "domain": "www.residence-santa-monica.fr",
+      "orgId": 13253,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.residence-santa-monica.fr/fr/"
+    },
+    {
+      "id": "860007038",
+      "dept": "86",
+      "domain": "www.emeis.fr",
+      "orgId": 13746,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/vienne/saint-benoit/maison-retraite-jardins-camille"
+    },
+    {
+      "id": "860008549",
+      "dept": "86",
+      "domain": "www.logisvaldeboivre.fr",
+      "orgId": 13880,
+      "ip": "85.255.84.120",
+      "sourceUrl": "https://www.logisvaldeboivre.fr"
+    },
+    {
+      "id": "860009679",
+      "dept": "86",
+      "domain": "residence-medicalisee-maison-de-retraite.les-jardins-deden.com",
+      "orgId": 13722,
+      "ip": "217.160.0.16",
+      "sourceUrl": "http://residence-medicalisee-maison-de-retraite.les-jardins-deden.com"
+    },
+    {
+      "id": "860009919",
+      "dept": "86",
+      "domain": "www.pierre-meuliere.com",
+      "orgId": 13884,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://www.pierre-meuliere.com/fr/"
+    },
+    {
+      "id": "860010388",
+      "dept": "86",
+      "domain": "www.naintre.fr",
+      "orgId": 13491,
+      "ip": "154.50.5.47",
+      "sourceUrl": "https://www.naintre.fr/residences"
+    },
+    {
+      "id": "860010537",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13542,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr/specialites/cegidd/"
+    },
+    {
+      "id": "860010636",
+      "dept": "86",
+      "domain": "adef-residences.com",
+      "orgId": 13781,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://adef-residences.com/etablissement/residence-handicap/la-maison-de-la-foret-des-charmes/"
+    },
+    {
+      "id": "860010784",
+      "dept": "86",
+      "domain": "www.emeis.fr",
+      "orgId": 13501,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/vienne/neuville-poitou/maison-retraite-jardins-charlotte"
+    },
+    {
+      "id": "860010958",
+      "dept": "86",
+      "domain": "unapei86.fr",
+      "orgId": 13753,
+      "ip": "185.177.61.106",
+      "sourceUrl": "https://unapei86.fr/etablissement/mas-port-dattache/"
+    },
+    {
+      "id": "860010966",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13776,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-le-pre-saint-jean-unite-alzheimer-poitiers/"
+    },
+    {
+      "id": "860010974",
+      "dept": "86",
+      "domain": "www.mutuelle-mbv.fr",
+      "orgId": 13765,
+      "ip": "92.222.179.23",
+      "sourceUrl": "https://www.mutuelle-mbv.fr/etablissements/villa-les-varennes/"
+    },
+    {
+      "id": "860010982",
+      "dept": "86",
+      "domain": "www.emera.fr",
+      "orgId": 13231,
+      "ip": "51.15.185.89",
+      "sourceUrl": "https://www.emera.fr/etablissements/ehpad-chauvigny/"
+    },
+    {
+      "id": "860011014",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13388,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr/les-plans-des-sites-de-lusignan/"
+    },
+    {
+      "id": "860011162",
+      "dept": "86",
+      "domain": "www.pep86.fr",
+      "orgId": 13094,
+      "ip": "34.149.87.45",
+      "sourceUrl": "https://www.pep86.fr/domaines-dactivites/social-et-medico-social/terra-nova"
+    },
+    {
+      "id": "860011170",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13285,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-saint-thibault-unite-alzheimer-poitiers/"
+    },
+    {
+      "id": "860011378",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13246,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-pierre-pericard-unite-alzheimer-poitiers/"
+    },
+    {
+      "id": "860012079",
+      "dept": "86",
+      "domain": "colisee.fr",
+      "orgId": 13583,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-poitiers-residence-pasteur/"
+    },
+    {
+      "id": "860012319",
+      "dept": "86",
+      "domain": "www.poitiers.fr",
+      "orgId": 13584,
+      "ip": "85.255.84.37",
+      "sourceUrl": "https://www.poitiers.fr/residence-rene-crozet"
+    },
+    {
+      "id": "860012848",
+      "dept": "86",
+      "domain": "www.poitiers.fr",
+      "orgId": 13580,
+      "ip": "85.255.84.37",
+      "sourceUrl": "https://www.poitiers.fr/ehpad-marguerite-le-tillier"
+    },
+    {
+      "id": "860013515",
+      "dept": "86",
+      "domain": "www.logisdescours.fr",
+      "orgId": 13085,
+      "ip": "85.255.84.120",
+      "sourceUrl": "https://www.logisdescours.fr"
+    },
+    {
+      "id": "860013564",
+      "dept": "86",
+      "domain": "www.emeis.fr",
+      "orgId": 13287,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/vienne/fontaine-comte/maison-retraite-jardins-salome"
+    },
+    {
+      "id": "860015528",
+      "dept": "86",
+      "domain": "www.apajhvienne.fr",
+      "orgId": 13351,
+      "ip": "155.133.138.6",
+      "sourceUrl": "https://www.apajhvienne.fr"
+    },
+    {
+      "id": "860780501",
+      "dept": "86",
+      "domain": "ehpadlescapucines.fr",
+      "orgId": 13252,
+      "ip": "213.246.56.161",
+      "sourceUrl": "https://ehpadlescapucines.fr"
+    },
+    {
+      "id": "860780675",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13500,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-arc-en-ciel-unite-alzheimer-poitiers/"
+    },
+    {
+      "id": "860780709",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13343,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/le-pontreau-saint-lucien-unite-alzheimer-chatellerault-poitiers/"
+    },
+    {
+      "id": "860784438",
+      "dept": "86",
+      "domain": "www.apajhvienne.fr",
+      "orgId": 13186,
+      "ip": "155.133.138.6",
+      "sourceUrl": "https://www.apajhvienne.fr"
+    },
+    {
+      "id": "860784487",
+      "dept": "86",
+      "domain": "residence-lescedres.com",
+      "orgId": 13518,
+      "ip": "54.36.20.105",
+      "sourceUrl": "https://residence-lescedres.com"
+    },
+    {
+      "id": "860784917",
+      "dept": "86",
+      "domain": "theodore-arnault.org",
+      "orgId": 13440,
+      "ip": "109.234.162.228",
+      "sourceUrl": "https://theodore-arnault.org"
+    },
+    {
+      "id": "860789650",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13874,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-le-belvedere-sainte-clothilde-unite-azheimer-poitiers/"
+    },
+    {
+      "id": "860789734",
+      "dept": "86",
+      "domain": "www.emera.fr",
+      "orgId": 13770,
+      "ip": "51.15.185.89",
+      "sourceUrl": "https://www.emera.fr/etablissements/ceres/"
+    },
+    {
+      "id": "860789965",
+      "dept": "86",
+      "domain": "colisee.fr",
+      "orgId": 13480,
+      "ip": "57.128.113.175",
+      "sourceUrl": "https://colisee.fr/residences/maison-medicalisee-monts-sur-guesnes-les-scevolles/"
+    },
+    {
+      "id": "860790476",
+      "dept": "86",
+      "domain": "www.groupeafp.com",
+      "orgId": 13511,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.groupeafp.com/residence-retraite/ehpad-la-genolliere-poitiers-limoges/"
+    },
+    {
+      "id": "860790641",
+      "dept": "86",
+      "domain": "www.ehpad.fr",
+      "orgId": 13167,
+      "ip": "91.121.62.75",
+      "sourceUrl": "https://www.ehpad.fr/residence-ehpad/ehpad-le-village-gh-nv/"
+    },
+    {
+      "id": "860791474",
+      "dept": "86",
+      "domain": "www.apajhvienne.fr",
+      "orgId": 13317,
+      "ip": "155.133.138.6",
+      "sourceUrl": "https://www.apajhvienne.fr"
+    },
+    {
+      "id": "870000064",
+      "dept": "87",
+      "domain": "www.chu-limoges.fr",
+      "orgId": 14080,
+      "ip": "212.234.203.203",
+      "sourceUrl": "https://www.chu-limoges.fr"
+    },
+    {
+      "id": "870000098",
+      "dept": "87",
+      "domain": "www.ch-stjunien.fr",
+      "orgId": 14387,
+      "ip": "46.218.212.14",
+      "sourceUrl": "https://www.ch-stjunien.fr"
+    },
+    {
+      "id": "870000270",
+      "dept": "87",
+      "domain": "www.hopital.fr",
+      "orgId": 14455,
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://www.hopital.fr/annuaire-etablissement/centre-hospitalier-jacques-boutard-saint-yrieix-la-perche,6121"
+    },
+    {
+      "id": "870000601",
+      "dept": "87",
+      "domain": "chimb.fr",
+      "orgId": 14432,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://chimb.fr"
+    },
+    {
+      "id": "870002516",
+      "dept": "87",
+      "domain": "www.ch-stjunien.fr",
+      "orgId": 14391,
+      "ip": "46.218.212.14",
+      "sourceUrl": "https://www.ch-stjunien.fr"
+    },
+    {
+      "id": "870003621",
+      "dept": "87",
+      "domain": "www.emeis.fr",
+      "orgId": 14229,
+      "ip": "15.224.50.190",
+      "sourceUrl": "https://www.emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/haute-vienne/limoges/maison-retraite-saint-martial"
+    },
+    {
+      "id": "870003746",
+      "dept": "87",
+      "domain": "mairie-ambazac.fr",
+      "orgId": 13899,
+      "ip": "109.234.160.112",
+      "sourceUrl": "https://mairie-ambazac.fr/carte/centre-de-cure-medicale-et-dhebergement-pour-personnes-agees-du-muret/"
+    },
+    {
+      "id": "870003787",
+      "dept": "87",
+      "domain": "ehpad-chalus.fr",
+      "orgId": 13944,
+      "ip": "164.132.235.17",
+      "sourceUrl": "http://ehpad-chalus.fr"
+    },
+    {
+      "id": "870005535",
+      "dept": "87",
+      "domain": "ladignac-le-long.fr",
+      "orgId": 14034,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://ladignac-le-long.fr/residence-les-terrasses-ehpad/"
+    },
+    {
+      "id": "870005675",
+      "dept": "87",
+      "domain": "www.johnbost.org",
+      "orgId": 13920,
+      "ip": "194.110.192.75",
+      "sourceUrl": "https://www.johnbost.org/pavillon/mas-villagedesgatines/"
+    },
+    {
+      "id": "870005782",
+      "dept": "87",
+      "domain": "www.ehpad-nantiat.fr",
+      "orgId": 14327,
+      "ip": "51.91.165.35",
+      "sourceUrl": "https://www.ehpad-nantiat.fr"
+    },
+    {
+      "id": "870005857",
+      "dept": "87",
+      "domain": "www.ehpadchateauponsac.fr",
+      "orgId": 13952,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.ehpadchateauponsac.fr"
+    },
+    {
+      "id": "870005949",
+      "dept": "87",
+      "domain": "www.ehpad-cussac.fr",
+      "orgId": 13975,
+      "ip": "91.244.246.160",
+      "sourceUrl": "https://www.ehpad-cussac.fr"
+    },
+    {
+      "id": "870006012",
+      "dept": "87",
+      "domain": "www.retab.fr",
+      "orgId": 14367,
+      "ip": "51.91.52.36",
+      "sourceUrl": "https://www.retab.fr/1027/page-de-mas-cassepierre----fondation-delta-plus-a-87570-rilhac-rancon"
+    },
+    {
+      "id": "870006251",
+      "dept": "87",
+      "domain": "feytiat.ehpad-lepalais-feytiat.fr",
+      "orgId": 13997,
+      "ip": "172.67.143.64",
+      "sourceUrl": "https://feytiat.ehpad-lepalais-feytiat.fr"
+    },
+    {
+      "id": "870006277",
+      "dept": "87",
+      "domain": "ehpad-nexon.fr",
+      "orgId": 14332,
+      "ip": "164.132.235.17",
+      "sourceUrl": "http://ehpad-nexon.fr"
+    },
+    {
+      "id": "870006913",
+      "dept": "87",
+      "domain": "www.ehpad-bessines.fr",
+      "orgId": 13928,
+      "ip": "51.91.165.35",
+      "sourceUrl": "https://www.ehpad-bessines.fr"
+    },
+    {
+      "id": "870007663",
+      "dept": "87",
+      "domain": "le-palais.ehpad-lepalais-feytiat.fr",
+      "orgId": 14345,
+      "ip": "104.21.27.163",
+      "sourceUrl": "https://le-palais.ehpad-lepalais-feytiat.fr"
+    },
+    {
+      "id": "870007911",
+      "dept": "87",
+      "domain": "www.apajh87.fr",
+      "orgId": 13893,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.apajh87.fr/service/mas/"
+    },
+    {
+      "id": "870008554",
+      "dept": "87",
+      "domain": "annuaire.action-sociale.org",
+      "orgId": 14016,
+      "ip": "37.187.143.175",
+      "sourceUrl": "https://annuaire.action-sociale.org"
+    },
+    {
+      "id": "870010758",
+      "dept": "87",
+      "domain": "www.ehpad-couzeix.fr",
+      "orgId": 13965,
+      "ip": "188.34.160.86",
+      "sourceUrl": "https://www.ehpad-couzeix.fr"
+    },
+    {
+      "id": "870014487",
+      "dept": "87",
+      "domain": "www.ch-stjunien.fr",
+      "orgId": 14392,
+      "ip": "46.218.212.14",
+      "sourceUrl": "https://www.ch-stjunien.fr/p-le-g-riatrie/ehpad-chantemerle"
+    },
+    {
+      "id": "870015468",
+      "dept": "87",
+      "domain": "www.groupe-ugecam.fr",
+      "orgId": 14481,
+      "ip": "194.2.42.14",
+      "sourceUrl": "https://www.groupe-ugecam.fr/ehpad-la-chenaie"
+    },
+    {
+      "id": "870017647",
+      "dept": "87",
+      "domain": "www.ch-stjunien.fr",
+      "orgId": 14388,
+      "ip": "46.218.212.14",
+      "sourceUrl": "https://www.ch-stjunien.fr/urgences-r-animation"
+    }
+  ]
+}

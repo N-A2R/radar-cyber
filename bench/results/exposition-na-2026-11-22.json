@@ -1,8 +1,8 @@
 {
   "scope": "nouvelle-aquitaine",
-  "organisationsWithService": 9832,
-  "organisationsInScope": 1671906,
-  "services": 10727,
+  "organisationsWithService": 10250,
+  "organisationsInScope": 1671936,
+  "services": 11145,
   "bySource": {
     "http-200": 1256,
     "osm-http-200": 2941,
@@ -13,9 +13,10 @@
     "education-http-200": 733,
     "osm-siret-http-200": 1677,
     "site-zone-http-200": 381,
+    "finess-site-http-200": 418,
     "registry-id-http-200": 797,
     "wikidata-id-http-200": 86,
     "administration-http-200": 40
   },
-  "measuredAt": "2026-11-22T04:01:47.380Z"
+  "measuredAt": "2026-11-23T23:29:01.918Z"
 }

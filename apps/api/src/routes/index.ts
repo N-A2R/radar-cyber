@@ -34,6 +34,7 @@ import statsRoute from "./stats.js";
 import searchRoute from "./search.js";
 import scanCampaignsRoute from "./scan-campaigns.js";
 import askRoute from "./ask.js";
+import askFrRoute from "./ask-fr.js";
 import enrichRoute from "./enrich.js";
 import authRoute from "./auth.js";
 import alertsRoute from "./alerts.js";
@@ -53,6 +54,7 @@ import auditRoute from "./audit.js";
 import onionIndexRoute from "./onion-index.js";
 import warcProofsRoute from "./warc-proofs.js";
 import confidenceRoute from "./confidence.js";
+import attributionsRoute from "./attributions.js";
 import actorAttributionsRoute from "./actor-attributions.js";
 import ransomwareGroupsRoute from "./ransomware-groups.js";
 import organisationRiskRoute from "./organisation-risk.js";
@@ -67,6 +69,7 @@ import insuranceScoreRoute from "./insurance-score.js";
 import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
 import attestationsNegativesRoute from "./attestations-negatives.js";
+import certificatIgnoranceRoute from "./certificat-ignorance.js";
 import watchlistsRoute from "./watchlists.js";
 import exportMispRoute from "./export-misp.js";
 import reviewAssistantRoute from "./review-assistant.js";
@@ -90,17 +93,17 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     corpusStatsRoute, collectePlanRoute, todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute,
     orgsRoute, orgReportRoute, directoryRoute, naRoute, reconnaissanceRoute, graphRoute, graphTemporalRoute, graphAsOfRoute,
     streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute, scanCampaignsRoute, enrichRoute, authRoute,
-    alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, journalRoute,
+    alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, askFrRoute, journalRoute,
     registreTraitementsRoute,
     violationsRgpdRoute,
     orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, rectificationRoute, auditRoute,
-    confidenceRoute, actorAttributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,
+    confidenceRoute, actorAttributionsRoute, attributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,
     technicalCoverageRoute, naDepartmentsRoute, onionIndexRoute, thehiveRoute, custodyRoute, insuranceScoreRoute,
     warcProofsRoute,
     mapTimelineRoute,
     hostingOutageRoute,
     liveMapRoute,
-    publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
+    publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, certificatIgnoranceRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
     prestatairesQualifiesRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,

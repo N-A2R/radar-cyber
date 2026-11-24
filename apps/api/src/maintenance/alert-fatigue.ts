@@ -104,3 +104,20 @@ export function ligneObjectifFatigue(mesure: AlertFatigueMeasure): string {
     `${pourcentage(mesure.ackRatio)} / 50,0 % (${mesure.alertRows} alertes)`
   );
 }
+
+/** Mesure figée du 24 novembre 2026, base de veille, `pnpm verifie:fatigue`. */
+export const MESURE_OBJECTIF_FATIGUE_2026_11_24: AlertFatigueMeasure = {
+  loadRatio: 0.9879518072289156,
+  ackRatio: 0.8177966101694916,
+  dailyRows: 83,
+  alertRows: 1652,
+  openAlerts: 301,
+  systemAcked: 1303,
+  humanAcked: 0,
+  resolved: 48,
+};
+
+/** La déclaration publiée doit être exacte et unique, jamais une variante périmée. */
+export function verifierDeclarationObjectifFatigue(rapport: string, ligne: string): boolean {
+  return rapport.split(/\r?\n/).filter((publiee) => publiee === ligne).length === 1;
+}

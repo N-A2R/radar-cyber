@@ -1,5 +1,7 @@
 # Fatigue d'alerte par organisation
 
+OBJECTIF : atteint — charge 98,8 % / 90,0 % (83 organisations-jours) ; acquittement 81,8 % / 50,0 % (1652 alertes)
+
 ## Objectif
 
 Quantifier la charge d'alerte réelle pour éviter que l'observatoire noie ses
@@ -65,6 +67,21 @@ la mesure — supprimer la charge qui n'aurait jamais dû exister — et la tabl
 
 Une seule organisation-jour dépasse 2 alertes présentées : 3 règles distinctes
 le 13 novembre 2026.
+
+## Mesure reproductible (24 novembre 2026)
+
+Rejouée avec `pnpm verifie:fatigue` (lecture seule, base de veille port 5433) :
+
+| Critère | Valeur | Seuil |
+| --- | --- | --- |
+| Organisations-jours à ≤ 2 alertes | 0,9879518072289156 (82 / 83) | ≥ 0,90 |
+| Alertes non `open` | 0,8177966101694916 (1 351 / 1 652) | ≥ 0,50 |
+
+Le taux d'acquittement est passé de 92,7 % à 81,8 % depuis le 22 novembre :
+195 alertes ouvertes se sont ajoutées au stock. La politique est relancée au
+démarrage de l'API puis toutes les 60 secondes (`RADAR_ALERT_FATIGUE_TICK_MS`)
+pour traiter ces doublons sans attendre la prochaine migration ; la diffusion
+n'envoie que des alertes `open`.
 
 ## Reproduction
 
