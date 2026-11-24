@@ -6,9 +6,17 @@
  *     apps/api/node_modules/.bin/tsx scripts/verifie-attributions-claims.mts
  *
  * Sortie brute : le compte Admiralty exigé (>= 50), la preuve qu'une
- * revendication sans preuve reste « non attribué », et l'audit conservé.
- * Code de sortie 1 si l'un des contrôles échoue.
+ * revendication sans preuve reste « non attribué », l'audit conservé et la
+ * ligne OBJECTIF calculée depuis la mesure. Code de sortie 1 si l'un des
+ * contrôles échoue ou si le rapport ne déclare pas exactement cette ligne.
  */
+import { readFileSync } from "node:fs";
+import {
+  mesurerObjectifAttributions,
+  verifierDeclarationObjectifAttributions,
+} from "../apps/api/src/attribution/objectif.js";
+
+const RAPPORT = new URL("../docs/attribution-revendications-confiance.md", import.meta.url);
 process.env.DATABASE_URL ??= "postgres://radar:radar@localhost:5433/radar";
 
 const { closePools, query, withClient } = await import("../apps/api/src/db.js");
@@ -27,6 +35,7 @@ try {
   const critere = await query<{ count: string }>(
     "SELECT count(*)::text AS count FROM attribution WHERE code_admiralty ~ '^[A-F][1-6]$'",
   );
+  const objectif = mesurerObjectifAttributions(Number(critere.rows[0]?.count ?? 0));
   const reelles = await query<{ count: string }>(`
     SELECT count(*)::text AS count FROM attribution
      WHERE code_admiralty ~ '^[A-F][1-6]$' AND groupe <> 'non attribué' AND evidence_url IS NOT NULL
@@ -82,14 +91,18 @@ try {
   console.log("lignes dans attribution_audit :", audit.rows[0]?.total ?? "0",
     "(dont contestations :", audit.rows[0]?.contestations ?? "0", ")");
 
-  const atteint = Number(critere.rows[0]?.count ?? 0) >= 50 && manquantes.length === 0;
+  const atteint = objectif.atteint && manquantes.length === 0;
   const preuveOK = groupeSansPreuve.startsWith("non attribué / F6") && refusModification.startsWith("refusée");
   const auditOK = Number(audit.rows[0]?.total ?? 0) > 0;
   console.log(manquantes.length === 0 ? "colonnes : OK" : `colonnes manquantes : ${manquantes.join(", ")}`);
-  console.log(atteint ? "cible >= 50 : ATTEINTE" : "cible >= 50 : NON ATTEINTE");
+  console.log(atteint ? `cible >= ${objectif.cible} : ATTEINTE` : `cible >= ${objectif.cible} : NON ATTEINTE`);
   console.log(preuveOK ? "sans preuve = non attribué : OK" : "sans preuve = non attribué : ECHEC");
   console.log(auditOK ? "audit conservé : OK" : "audit conservé : ECHEC");
-  if (!atteint || !preuveOK || !auditOK) process.exitCode = 1;
+  const declaree = verifierDeclarationObjectifAttributions(readFileSync(RAPPORT, "utf8"), objectif.ligne);
+  console.log("");
+  console.log(objectif.ligne);
+  console.log(`report declaration : ${declaree ? "ok" : "missing"}`);
+  if (!atteint || !preuveOK || !auditOK || !declaree) process.exitCode = 1;
 } finally {
   await closePools();
 }

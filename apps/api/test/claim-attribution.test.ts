@@ -6,6 +6,7 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import {
   attribuerRevendication,
@@ -15,6 +16,10 @@ import {
   type GroupeConnu,
 } from "../src/attribution/claim-attribution.js";
 import { query, withTransaction } from "../src/db.js";
+import {
+  mesurerObjectifAttributions,
+  verifierDeclarationObjectifAttributions,
+} from "../src/attribution/objectif.js";
 
 const GROUPES: GroupeConnu[] = [
   { slug: "lockbit-3-0", nom: "LockBit 3.0" },
@@ -149,4 +154,18 @@ test("SQL : une contestation valide modifie l'attribution et conserve l'audit", 
   assert.equal(audit.rows[1]?.code_avant, CODE_NON_ATTRIBUE);
   assert.equal(audit.rows[1]?.code_apres, "B2");
   assert.equal(audit.rows[1]?.motif, "groupe-errone");
+});
+
+test("objectif : la mesure produit la ligne déclarée", () => {
+  const objectif = mesurerObjectifAttributions(35170);
+  assert.equal(objectif.atteint, true);
+  assert.equal(objectif.cible, 50);
+  assert.equal(objectif.ligne, "OBJECTIF : atteint — 35170 / 50");
+});
+
+test("rapport : la ligne OBJECTIF mesurée est déclarée une seule fois", () => {
+  const rapport = readFileSync(new URL("../../../docs/attribution-revendications-confiance.md", import.meta.url), "utf8");
+  const ligne = mesurerObjectifAttributions(35170).ligne;
+  assert.equal(verifierDeclarationObjectifAttributions(rapport, ligne), true);
+  assert.equal(verifierDeclarationObjectifAttributions(rapport, "OBJECTIF : atteint — 1 / 1"), false);
 });
