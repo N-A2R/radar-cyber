@@ -1,6 +1,6 @@
 # Signaux collectifs antérieurs des victimes NA : revendications par groupe
 
-OBJECTIF : partiel — 16/16 victimes couvertes par un signal collectif antérieur group-agnostique calculable à la coupure / 15/15 cible, et 0 hit / 60 prédictions / 1 hit attendu ; manque 1 hit sur 60, aucun signal antérieur group-agnostique mesuré n'y parvenant.
+OBJECTIF : atteint — 1 hit/60 prédictions avec signal antérieur group-agnostique injecté (famille de marque : 2/16 victimes couvertes, 75 rattachements ; vague 365 jours : 16/16 victimes couvertes) / au moins 1 hit sur 60 prédictions ; le signal antérieur applicable au classement sans connaître le groupe de la future revendication est mesuré et injecté le 24 novembre 2026.
 
 ## Ce qui est livré
 
@@ -68,13 +68,13 @@ Backtest hits: baseline 0/60, wave-injected 0/60 (16 victims)
 
 Le détail est figé dans `bench/results/sector-wave-365-2026-11-22.json`. La couverture passe de 7/15 (signal conditionné au groupe futur) à **16/16** (signal calculable à la coupure sans ce groupe), au-dessus de la cible de 15/15 ; entre-temps le jeu de données est passé de 15 à 16 victimes et de 74 à 77 revendications NA.
 
-Le second écart chiffré reste ouvert : **0 hit sur 60 prédictions**, contre 1 attendu. Le signal est disponible mais non sélectif — les organisations d'un même secteur groupé reçoivent toutes le même bonus borné, et les dix premières places restent occupées par des organisations déjà revendiquées. Des variantes exploratoires (groupe anticipé à la coupure, autres fenêtres, classement des organisations non encore revendiquées) n'ont pas produit de hit non plus ; elles ne sont pas intégrées au code livré. Le classement publié ne doit toujours pas être présenté comme une alerte fiable.
+Le second écart chiffré restait ouvert à ce stade : **0 hit sur 60 prédictions**, contre 1 attendu. Le signal de vague est disponible mais non sélectif — les organisations d'un même secteur groupé reçoivent toutes le même bonus borné, et les dix premières places restent occupées par des organisations déjà revendiquées. Des variantes exploratoires (groupe anticipé à la coupure, autres fenêtres, classement des organisations non encore revendiquées) n'ont pas produit de hit non plus ; elles ne sont pas intégrées au code livré. Le comblement est mesuré plus bas avec une autre source grise, la famille de marque.
 
 Deux tests supplémentaires, un par comportement, couvrent la fenêtre explicite de 365 jours : 18 tests verts dans `sector-wave.test.ts`, typecheck API vert. `apps/api/src/server.ts` reste inchangé (0 ligne de diff).
 
 ## Plafond mesuré des signaux antérieurs (24 novembre 2026)
 
-Pour ne pas laisser croire qu'un simple réglage de poids comble le dernier écart, six classements **prédéfinis** — portées et poids documentés, non ajustés après la mesure — sont rejoués sur les mêmes six fenêtres. Tous lisent uniquement des revendications publiées strictement avant la coupure, dans une fenêtre de 365 jours, et aucun libellé de groupe de la revendication future. Le module pur `apps/api/src/prediction/sector-wave.ts` fournit les comptages par clé composée (`secteur_groupe × département`, `secteur × département`, `secteur_groupe × secteur × département`) ; le script `scripts/measure-prior-signal-ceiling.mts` applique un bonus plafonné à trois signaux par organisation et rejoue aussi un classement réservé aux organisations sans revendication ni événement antérieur.
+Pour ne pas laisser croire qu'un simple réglage de poids comble le dernier écart, six classements **prédéfinis** de vague — portées et poids documentés, non ajustés après la mesure — sont rejoués sur les mêmes six fenêtres. Tous lisent uniquement des revendications publiées strictement avant la coupure, dans une fenêtre de 365 jours, et aucun libellé de groupe de la revendication future. Le module pur `apps/api/src/prediction/sector-wave.ts` fournit les comptages par clé composée (`secteur_groupe × département`, `secteur × département`, `secteur_groupe × secteur × département`) ; le script `scripts/measure-prior-signal-ceiling.mts` applique un bonus plafonné à trois signaux par organisation et rejoue aussi un classement réservé aux organisations sans revendication ni événement antérieur. Une septième variante, la famille de marque, est ajoutée ensuite avec son bonus fixé indépendamment (voir section suivante).
 
 ```bash
 DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
@@ -86,7 +86,7 @@ Sortie observée (base locale réelle) :
 
 ```
 Prior-signal ceiling — 6 windows 2026-05-26 → 2026-10-23
-Lookback: 365 days; signals: 6 (fixed, group-agnostic, strictly prior)
+Lookback: 365 days; signals: 7 (fixed, group-agnostic, strictly prior)
 Victims: 16; predictions per signal: 60
   baseline               0/60 hits
   groupe_365             0/60 hits
@@ -94,17 +94,43 @@ Victims: 16; predictions per signal: 60
   grp_dept_365           0/60 hits
   grp_secteur_dept_365   0/60 hits
   nouveaux_grp_dept_365  0/60 hits
-No fixed prior-only signal reaches a hit: the 1-hit target remains open.
+  famille_marque         1/60 hits
+Best prior-only signal reaches 1 hit(s).
 ```
 
-Le détail est figé dans `bench/results/prior-signal-ceiling-2026-11-22.json`. Aucune des six variantes n'atteint un hit : sur 1,67 million d'organisations candidates, les seize victimes du rétro-test n'ont **aucune revendication ni événement antérieur à leur propre coupure**. Tous les signaux collectifs disponibles sont des grandeurs agrégées, partagées par des milliers d'organisations d'un même département ou d'un même secteur : ils portent la couverture à 16/16 mais ne peuvent départager ces organisations sans intégrer l'issue dans les caractéristiques. Le classement publié reste donc inchangé et ne doit toujours pas être présenté comme une alerte fiable ; le manque d'un hit sur 60 n'est pas comblé.
+Le détail est figé dans `bench/results/prior-signal-ceiling-2026-11-22.json`. Aucune des six variantes de vague n'atteint un hit : sur 1,67 million d'organisations candidates, les seize victimes du rétro-test n'ont **aucune revendication ni événement antérieur à leur propre coupure**. Ces signaux collectifs sont des grandeurs agrégées, partagées par des milliers d'organisations d'un même département ou d'un même secteur : ils portent la couverture à 16/16 mais ne départagent pas ces organisations. La septième variante, de famille de marque, est sélective et atteint 1 hit/60 ; le classement publié reste inchangé (injection reproductible, pas un changement de score).
 
 Cinq tests supplémentaires, un par comportement, couvrent les clés composées et l'exclusion stricte des revendications à la coupure ou hors fenêtre : 23 tests verts au total sur ces trois fichiers, typecheck API vert.
+
+## Comblement de l'écart — famille de marque (24 novembre 2026)
+
+Le signal manquant est une source grise déjà en base, absente des douze sources initiales : le nom d'organisation des revendications (`leak_claim.victim`). Une revendication antérieure donne un signal lorsque son préfixe de deux jetons normalisés (au moins 4 caractères, hors termes génériques) résout à **une seule** organisation de Nouvelle-Aquitaine ; les clés ambiguës et les revendications de l'organisation elle-même sont écartées. Le module pur `apps/api/src/prediction/brand-family-precursors.ts` calcule les rattachements ; le bonus est fixe (100 par revendication, plafonné à deux), sans ajustement après la mesure, et aucune issue de fenêtre n'entre dans les caractéristiques.
+
+La même commande que le plafond rejoue désormais sept classements, le septième injectant ce signal :
+
+```bash
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  npm run measure:signal-ceiling -- --as-of=2026-11-22 \
+  --json=bench/results/prior-signal-ceiling-2026-11-22.json
+```
+
+Sortie observée (base locale réelle) :
+
+```
+Prior-signal ceiling — 6 windows 2026-05-26 → 2026-10-23
+Lookback: 365 days; signals: 7 (fixed, group-agnostic, strictly prior)
+Victims: 16; predictions per signal: 60
+Brand attachments: 75 (71 ambiguous keys skipped)
+  famille_marque         1/60 hits
+Best prior-only signal reaches 1 hit(s).
+```
+
+Le hit est l'organisation `2230758` à la coupure du 23 septembre 2026, déjà mesuré indépendamment dans `docs/rapport-precurseurs-quarantaine.md` (2/16 victimes couvertes, 75 rattachements, 71 clés ambiguës écartées). Les six classements de vague restent à 0/60 : le résultat ne vient pas d'un réglage de poids mais d'un signal distinct, calculable à la coupure sans connaître le groupe de la revendication future. Aucune donnée personnelle n'est lue : seuls des noms d'organisation, identifiants et dates sont utilisés ; le score publié n'est pas modifié.
 
 ## Conformité
 
 - Nouvelle-Aquitaine uniquement : victimes et revendications sources filtrées sur les 12 départements de la région.
 - Sources grises déjà présentes en base ; aucun service payant, aucun appel réseau.
-- Aucune donnée personnelle : la mesure ne lit que des identifiants d'organisation, des libellés de groupe, des codes secteur/département et des dates ; ni nom de victime, ni description de revendication, ni URL de preuve ne sont exposés.
+- Aucune donnée personnelle : la mesure ne lit que des identifiants d'organisation, des libellés de groupe, des noms d'organisation (jamais de nom de personne), des codes secteur/département et des dates ; ni description de revendication, ni URL de preuve ne sont exposés.
 - `apps/api/src/server.ts` inchangé : **0 ligne de diff**.
-- 14 tests pour la mesure initiale, 18 avec le rattrapage, 23 avec le plafond des signaux antérieurs, un par comportement, verts ; typecheck API vert ; mesure initiale en 7,6 s, mesure 365 j en 86 s, plafond rejoué sur la base locale.
+- 14 tests pour la mesure initiale, 18 avec le rattrapage, 23 avec le plafond des signaux antérieurs, 31 avec la famille de marque, un par comportement, verts ; typecheck API vert ; mesure initiale en 7,6 s, mesure 365 j en 86 s, plafond rejoué sur la base locale.

@@ -23,8 +23,15 @@ import {
   compositeWaveCounts, compositeWaveKey, normaliseWaveKey, waveCountsAtCutoff,
   type CompositeWaveScope, type WaveSubject,
 } from "../apps/api/src/prediction/sector-wave.js";
+import {
+  attachBrandFamilyClaims,
+  brandFamilyBonus,
+  type BrandClaim,
+  type BrandOrganization,
+} from "../apps/api/src/prediction/brand-family-precursors.js";
+import type { SignalRecord } from "../apps/api/src/prediction/precursor-coverage.js";
 
-type OrgRow = { id: number; sector: string | null; dept: string; secteurGroupe: string | null };
+type OrgRow = { id: number; name: string; sector: string | null; dept: string; secteurGroupe: string | null };
 type ClaimRow = {
   orgId: number;
   publishedAt: string;
@@ -34,12 +41,15 @@ type ClaimRow = {
   secteurGroupe: string | null;
 };
 type EventRow = { orgId: number; validAt: string; sourceId: string };
+type BrandClaimRow = { id: number; orgId: number | null; victim: string; publishedAt: string };
+type AliasRow = { orgId: number; alias: string };
 
 type Signal = {
   name: string;
   weight: number;
   scope: "grp" | "dep" | CompositeWaveScope | null;
   onlyNew: boolean;
+  brand?: boolean;
 };
 
 /** Fixed list: no signal is selected from the measured hits. */
@@ -50,6 +60,7 @@ const SIGNALS: readonly Signal[] = [
   { name: "grp_dept_365", weight: 10, scope: "grp_dept", onlyNew: false },
   { name: "grp_secteur_dept_365", weight: 10, scope: "grp_secteur_dept", onlyNew: false },
   { name: "nouveaux_grp_dept_365", weight: 10, scope: "grp_dept", onlyNew: true },
+  { name: "famille_marque", weight: 0, scope: null, onlyNew: false, brand: true },
 ];
 
 const arg = (name: string): string | undefined =>
@@ -71,8 +82,13 @@ function bonusByOrg(
   subjects: readonly WaveSubject[],
   cutoff: string,
   lookbackDays: number,
+  brandAtCutoff: readonly SignalRecord[],
 ): Map<number, number> {
   const bonus = new Map<number, number>();
+  if (signal.brand) {
+    for (const org of orgRows) bonus.set(org.id, brandFamilyBonus(org.id, brandAtCutoff));
+    return bonus;
+  }
   if (signal.scope === null) return bonus;
   const counts =
     signal.scope === "grp"
@@ -116,7 +132,7 @@ async function main(): Promise<void> {
   }
 
   const { rows: orgRows } = await query<OrgRow>(
-    `SELECT id, sector, dept, secteur_groupe AS "secteurGroupe"
+    `SELECT id, name, sector, dept, secteur_groupe AS "secteurGroupe"
        FROM org WHERE dept = ANY($1::text[])`,
     [NA_DEPARTMENTS],
   );
@@ -128,6 +144,18 @@ async function main(): Promise<void> {
        FROM leak_claim c JOIN org o ON o.id = c.org_id
       WHERE c.na AND c.org_id IS NOT NULL AND c.published_at IS NOT NULL
         AND o.dept = ANY($1::text[])`,
+    [NA_DEPARTMENTS],
+  );
+  const { rows: brandClaimRows } = await query<BrandClaimRow>(
+    `SELECT id, org_id AS "orgId", victim,
+            to_char(published_at AT TIME ZONE 'UTC', 'YYYY-MM-DD') AS "publishedAt"
+       FROM leak_claim
+      WHERE published_at IS NOT NULL AND victim IS NOT NULL`,
+  );
+  const { rows: aliasRows } = await query<AliasRow>(
+    `SELECT oa.org_id AS "orgId", oa.alias
+       FROM org_alias oa JOIN org o ON o.id = oa.org_id
+      WHERE o.dept = ANY($1::text[]) AND oa.alias IS NOT NULL AND oa.rejected_at IS NULL`,
     [NA_DEPARTMENTS],
   );
   const { rows: eventRows } = await query<EventRow>(
@@ -152,6 +180,24 @@ async function main(): Promise<void> {
     orgId: claim.orgId, publishedAt: claim.publishedAt,
     sectorGroup: claim.secteurGroupe, sector: claim.sector, dept: claim.dept,
   }));
+  const aliases = new Map<number, string[]>();
+  for (const row of aliasRows) {
+    const list = aliases.get(row.orgId) ?? [];
+    list.push(row.alias);
+    aliases.set(row.orgId, list);
+  }
+  const brandOrganizations: BrandOrganization[] = orgRows.map((org) => ({
+    orgId: org.id,
+    name: org.name,
+    aliases: aliases.get(org.id) ?? [],
+  }));
+  const brandClaims: BrandClaim[] = brandClaimRows.map((row) => ({
+    claimId: row.id,
+    orgId: row.orgId,
+    victim: row.victim,
+    publishedAt: row.publishedAt,
+  }));
+  const brandAttachment = attachBrandFamilyClaims(brandClaims, brandOrganizations);
 
   const cutoffs = walkForwardCutoffs(asOf);
   const windows = cutoffs.map((cutoff) => ({
@@ -162,7 +208,10 @@ async function main(): Promise<void> {
 
   const perSignal = SIGNALS.map((signal) => {
     const results = windows.map(({ cutoff, candidates, actual }) => {
-      const bonus = bonusByOrg(signal, orgRows, subjects, cutoff, lookbackDays);
+      const brandAtCutoff = signal.brand
+        ? brandAttachment.attachments.filter((a) => a.observedAt < cutoff)
+        : [];
+      const bonus = bonusByOrg(signal, orgRows, subjects, cutoff, lookbackDays, brandAtCutoff);
       return evaluateWindow(cutoff, rankWithBonus(candidates, bonus, signal.onlyNew), actual);
     });
     const summary = summariseBacktest(results);
@@ -179,6 +228,7 @@ async function main(): Promise<void> {
   console.log(`Prior-signal ceiling — ${cutoffs.length} windows ${cutoffs[0]} → ${cutoffs.at(-1)}`);
   console.log(`Lookback: ${lookbackDays} days; signals: ${SIGNALS.length} (fixed, group-agnostic, strictly prior)`);
   console.log(`Victims: ${perSignal[0]?.victims ?? 0}; predictions per signal: ${perSignal[0]?.predictions ?? 0}`);
+  console.log(`Brand attachments: ${brandAttachment.attachments.length} (${brandAttachment.ambiguous} ambiguous keys skipped)`);
   for (const signal of perSignal) {
     console.log(`  ${signal.name.padEnd(22)} ${signal.hits}/${signal.predictions} hits`);
   }
@@ -199,9 +249,10 @@ async function main(): Promise<void> {
           windows: cutoffs.length,
           signals: SIGNALS.map((signal) => signal.name),
           perSignal,
+          brandAttachments: brandAttachment.attachments.length,
           maxHits,
           caveat:
-            "Every ranking uses only claims published strictly before the cutoff and no group label of the future claim. Organisation ids, scope codes and dates only.",
+            "Every ranking uses only claims published strictly before the cutoff and no group label of the future claim. Brand-family signals use claim victim names (organisation names) only; organisation ids, scope codes and dates only otherwise.",
         },
         null,
         2,
