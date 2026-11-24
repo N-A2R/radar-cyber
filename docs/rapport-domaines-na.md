@@ -261,3 +261,46 @@ La requête SQL de la tranche t11 redonne toujours 1 661 633 organisations de No
 
 OBJECTIF : partiel — 8 832 / 1 671 941 organisations (0,5282 %), manque 1 663 109 organisations vérifiées (99,4718 %) pour atteindre 100 %
 
+## Rattrapage — tranche t14 (2026-11-24)
+
+Le travail des tranches t1 à t13 est conservé : la branche de départ porte la mesure 8 832 / 1 671 941. La tranche t14 répare sept preuves HTTP 200 déjà collectées mais incomplètes : le statut, le titre et le jeton distinctif étaient enregistrés, mais le champ `urlFinale` manquait, ce qui empêchait la mesure de les compter. Ces URL venaient de l'ancienne règle `nom:mairie-<slug>.fr` ; elles ne sont comptées qu'après une **nouvelle vérification en direct** de la page avec la preuve stricte inchangée (statut 200, racine inchangée après redirection, contenu réel, jeton du nom de la commune dans la page et l'URL finale). La provenance est tracée `domaine:reverification-http200`, avec l'URL revérifiée et la date. Aucun domaine n'est deviné ici, aucune donnée personnelle n'est lue ou écrite, aucun service payant n'est utilisé.
+
+Une seule écriture est nécessaire : `scripts/expand-domains-preuve.mts`, 7 candidats retenus, **7 preuves réparées et comptées** (8 832 → 8 839). Détail : `bench/results/domains-from-preuve-reparee.json`. 4 tests comportement (un par comportement) dans `apps/api/test/expand-domains-preuve.test.ts` ; typecheck `tsc --noEmit` de `apps/api` : OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Les autres réservoirs locaux ont été instruits et écartés : `bench/corpus/institutions-complet.jsonl` ne laisse que 8 organisations sans URL prouvée, les alias publics `org_alias` (enseignes, FINESS, éducation) ne nomment que 6 URL supplémentaires, et `bench/corpus/presse-communale.jsonl` recouvre les sites déjà réemployés.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar apps/api/node_modules/.bin/tsx scripts/expand-domains-preuve.mts --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée (mesure rejouée indépendamment après écriture) :
+
+```
+selected=7 verified=7 applied=true
+verified_domain_coverage=8832 -> 8839
+coverage_percent=0.5282 -> 0.5287
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=8890
+organisations_avec_domaine_verifie_et_provenance=8839
+couverture_pourcent=0.5287
+```
+
+Décomposition reproductible de l'écart restant (1 663 102 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661633 | 1418 | 8890
+```
+
+Les deux premiers seaux totalisent 1 662 051 organisations : 1 661 633 n'ont **aucune URL HTTP 200** dans le corpus consolidé des registres publics/gratuits, et les 1 418 restantes ont une URL mais échouent à la preuve stricte après cinq passes de réemploi. Le troisième seau contient 8 890 organisations avec domaine dont 8 839 seulement portent une preuve comptable. Combler 1 663 102 organisations exigerait d'attribuer des sites inexistants ou de baisser le standard de preuve, ce qui détruirait la garantie « vérifié avec provenance ». La cible chiffrée de 100 % n'est donc pas livrable avec les sources autorisées ; elle est mesurée et documentée ici sans fabrication.
+
+OBJECTIF : partiel — 8 839 / 1 671 941 organisations (0,5287 %), manque 1 663 102 organisations vérifiées (99,4713 %) pour atteindre 100 %
