@@ -49,9 +49,12 @@ test("chaque objet projeté porte un horodatage et une fenêtre de validité", a
 		at: new Date("2026-03-05T08:00:00.000Z"),
 	});
 	assert.ok(objet);
-	assert.deepEqual(objet.object.created, new Date("2026-03-05T08:00:00.000Z"));
-	assert.deepEqual(objet.object.modified, new Date("2026-03-05T08:00:00.000Z"));
-	assert.deepEqual(objet.object.valid_from, date);
+	// Le bundle STIX circule en JSON : les timestamps y sont des chaînes RFC 3339,
+	// quel que soit leur type JS en mémoire (Date ou chaîne déjà normalisée).
+	const serialise = JSON.parse(JSON.stringify(objet.object)) as Record<string, unknown>;
+	assert.equal(serialise.created, "2026-03-05T08:00:00.000Z");
+	assert.equal(serialise.modified, "2026-03-05T08:00:00.000Z");
+	assert.equal(serialise.valid_from, date.toISOString());
 });
 
 test("aller-retour : deux imports gardent exactement les mêmes identifiants", async () => {

@@ -169,7 +169,16 @@ test("l'échéance et la notification ne peuvent pas être écrites à la main",
   );
   assert.equal(apres.rows[0]!.echeance.getTime() - avant.rows[0]!.prise.getTime(), 72 * 60 * 60 * 1000);
 
-  await db.query("UPDATE violation_rgpd SET statut = 'notifiee' WHERE reference = $1", [ref]);
+  // Une notification sans preuve est refusée par la contrainte ajoutée en 236.
+  await assert.rejects(
+    db.query("UPDATE violation_rgpd SET statut = 'notifiee' WHERE reference = $1", [ref]),
+    /violation_rgpd_notification_preuve_requise/,
+  );
+  // La preuve est une donnée de workflow saisissable ; l'horodatage, lui, reste posé par le trigger.
+  await db.query(
+    "UPDATE violation_rgpd SET statut = 'notifiee', notifie_a = 'cnil:test' WHERE reference = $1",
+    [ref],
+  );
   const notifie = await db.query<{ statut: string; notification: Date | null }>(
     "SELECT statut, date_notification AS notification FROM violation_rgpd WHERE reference = $1", [ref],
   );
@@ -178,8 +187,8 @@ test("l'échéance et la notification ne peuvent pas être écrites à la main",
 
   await db.query(
     `INSERT INTO violation_rgpd (reference, origine, origine_id, org_kind, famille,
-                                 date_prise_connaissance, statut)
-     VALUES ($1, 'event', $2, 'collectivite', 'leaks', $3::timestamptz, 'notifiee')`,
+                                 date_prise_connaissance, statut, notifie_a)
+     VALUES ($1, 'event', $2, 'collectivite', 'leaks', $3::timestamptz, 'notifiee', 'cnil:test')`,
     // Hors des mois de l'export contrôlé, pour ne pas changer ses décomptes.
     [DIRECT, "direct", "2026-06-01T00:00:00+00"],
   );
