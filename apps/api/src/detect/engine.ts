@@ -1,7 +1,7 @@
 import { query, ingestQuery } from "../db.js";
 import { classifyScope, isConfident, isScopeGateEnabled, SCOPE_CONFIDENCE_THRESHOLD } from "./scope.js";
 import { REVIEW_THRESHOLD, scoreAlert } from "./confidence.js";
-import { NA_ANCHOR_BONUS } from "./calibration.js";
+import { calibratedScore } from "./calibration.js";
 import { discardIfFalse } from "./false-events.js";
 import { DEDUP_RULE_VERSION, findCrossFlowDuplicates } from "../dedup/event-pairs.js";
 import { recordDetectionDecision } from "./decision-log.js";
@@ -238,29 +238,31 @@ export async function evaluateEvent(
     distinctSources,
   });
 
-  // Une seule échelle : la note de base est sur 100. La majoration NA ne
-  // concerne que la porte globale ; les seuils calibrés sont mesurés sur la
-  // note de base, sans majoration.
+  // Une seule échelle décisionnelle : la note de confiance non majorée.
+  // L'ancrage Nouvelle-Aquitaine est tracé dans `globalScore`, mais ne doit
+  // ni ouvrir la porte globale ni assouplir un seuil de règle.
   const anchored = orgId != null || e.regional === true;
-  const calibratedScore = confidence.score + (anchored ? NA_ANCHOR_BONUS : 0);
+  const globalScore = calibratedScore(confidence.score, anchored);
   const confidenceEvidence = {
     score: confidence.score,
+    globalScore,
     status: confidence.status,
     threshold: REVIEW_THRESHOLD,
+    anchored,
     components: confidence.components,
     distinct_sources: distinctSources,
   };
 
   // `force` : une promotion de quarantaine est un acte humain explicite.
   // L'analyste a choisi ce fait ; la porte de confiance ne s'applique qu'aux
-  // alertes automatiques, et porte sur la note calibrée.
-  if (!ctx?.force && calibratedScore < REVIEW_THRESHOLD) {
+  // alertes automatiques, sur la note de confiance d'origine.
+  if (!ctx?.force && confidence.score < REVIEW_THRESHOLD) {
     await recordDetectionDecision({
       stage: "global_threshold",
-      reason: `score calibré ${calibratedScore} < ${REVIEW_THRESHOLD}`,
+      reason: `score ${confidence.score} < ${REVIEW_THRESHOLD}`,
       verdict: "refuse",
       eventId: Number(e.id),
-      score: calibratedScore,
+      score: confidence.score,
       threshold: REVIEW_THRESHOLD,
     });
     return 0;
@@ -311,7 +313,7 @@ export async function evaluateEvent(
       ...(factGroup !== null && factGroup.length > 1
         ? { cross_flow: { rule_version: DEDUP_RULE_VERSION, event_ids: factGroup } }
         : {}),
-      ...(threshold != null ? { calibration: { score: confidence.score, calibratedScore, threshold, anchored } } : {}),
+      ...(threshold != null ? { calibration: { score: confidence.score, globalScore, threshold, anchored } } : {}),
       ...(regionalVerdict ? { scope_decision: regionalVerdict } : {}),
     };
     const ins = await ingestQuery(

@@ -32,10 +32,10 @@ mais pas dans `sum(alerts)`. Le vrai total après seuils est donc
 - **Vérité terrain** : verdicts déjà enregistrés, jamais rejugés ici. Une
   alerte est positive si son événement n'est ni dans `false_event` ni marqué
   `evidence.false_event` ; négative sinon.
-- **Score balayé** : note de confiance de l'alerte **non majorée** — c'est
-  l'échelle que le moteur compare aux seuils de règle à l'exécution. La
-  majoration de 30 d'un ancrage Nouvelle-Aquitaine est réservée à la porte
-  globale et n'entre jamais dans la mesure d'un seuil.
+- **Score balayé** : note de confiance **non majorée** — c'est l'échelle
+  comparée aux seuils de règle et à la porte globale `REVIEW_THRESHOLD = 65`.
+  La majoration de 30 d'un ancrage Nouvelle-Aquitaine est tracée dans
+  l'evidence, jamais comparée à un seuil.
 - **Règle de supervision** : score = durée de silence mesurée
   (`evidence.silenceHours`), en heures ; le seuil est lu dans
   `rule_calibration` (14 h dans la table livrée), pas dans la constante
@@ -79,14 +79,14 @@ Le moteur de détection (`apps/api/src/detect/engine.ts`) charge la table dans
 
 - **seuil de règle** : comparé à la note de confiance **non majorée** de
   l'alerte, la même échelle que celle utilisée par la mesure ;
-- **porte globale** : `REVIEW_THRESHOLD = 65` s'applique au score calibré,
-  c'est-à-dire la note de confiance + `30` quand un ancrage Nouvelle-Aquitaine
-  est observable (`org_id` ou `regional`). Les deux échelles ne sont plus
-  mélangées : un seuil calibré ne peut que resserrer, jamais rouvrir une
-  alerte refusée par la porte ;
+- **porte globale** : `REVIEW_THRESHOLD = 65` s'applique à cette même note
+  non majorée ; l'ancrage (`org_id` ou `regional`) n'abaisse ni la porte ni
+  les seuils de règle ;
 - **règle sans mesure** : aucun seuil en table, comportement d'origine ;
-- **preuve** : l'alerte créée porte `evidence.calibration = { score,
-  calibratedScore, threshold, anchored }` pour que la décision soit auditable.
+- **preuve** : l'alerte porte `evidence.calibration = { score,
+  calibratedScore, threshold, anchored }`. `score` est la note comparée aux
+  seuils ; `calibratedScore = score + 30 si ancrage` est une trace, pas un
+  critère.
 
 La règle de supervision lit son seuil dans la même table
 (`silent-source-monitor.ts`, en heures) ; le rejeu
