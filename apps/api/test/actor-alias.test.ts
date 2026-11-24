@@ -34,6 +34,78 @@ test("clé de fusion : les identifiants numériques restent distincts", () => {
 	assert.notEqual(actorAliasKey("GTG-1002"), actorAliasKey("GTG-1007"));
 });
 
+test("clé de fusion : APT-C-36 ne récupère pas les autres désignations APT-C", () => {
+	// MISP Galaxy `clusters/threat-actor.json` décrit cinq grappes distinctes :
+	// APT-C-36 / Blind Eagle (ae1c64ff-5a37-4291-97f8-ea402c63efd0),
+	// APT-C-12 / Blue Mushroom (53771ca5-f1cb-47b6-a92a-53a485307cf7),
+	// APT-C-27 / GoldMouse (ee7f535d-cc3e-40f3-99f3-c97963cfa250),
+	// APT-C-34 / Golden Falcon (feb0cfef-0472-4108-83d7-1a322d8ab86b),
+	// APT-C-60 / APT-Q-12 (6a83b2bf-0c51-4c9b-89b0-35df7cab1dd5).
+	// Le radical `aptc` n'est pas un nom de famille : les numéros comptent.
+	assert.equal(actorAliasKey("APT-C-36"), "aptc36");
+	assert.equal(actorAliasKey("APT-C-12"), "aptc12");
+	assert.equal(actorAliasKey("APT-C-27"), "aptc27");
+	assert.equal(actorAliasKey("APT-C-34"), "aptc34");
+	assert.equal(actorAliasKey("APT-C-60"), "aptc60");
+	// Les vraies versions restent fusionnées.
+	assert.equal(actorAliasKey("LockBit 3.0"), "lockbit");
+	assert.equal(actorAliasKey("Sage 2.0 Ransomware"), "sage");
+});
+
+test("fusion : APT-C-36 et APT-C-12 restent deux grappes distinctes", () => {
+	const source = "misp-galaxy:threat-actor";
+	const sourceUrl = (uuid: string) =>
+		`https://github.com/MISP/misp-galaxy/blob/main/clusters/threat-actor.json#${uuid}`;
+	const components = clusterActorAliases([
+		{
+			value: "APT-C-36",
+			synonyms: ["Blind Eagle"],
+			uuid: "ae1c64ff-5a37-4291-97f8-ea402c63efd0",
+			source,
+			sourceUrl: sourceUrl("ae1c64ff-5a37-4291-97f8-ea402c63efd0"),
+		},
+		{
+			value: "APT-C-12",
+			synonyms: ["Blue Mushroom", "NuclearCrisis", "Sapphire Mushroom"],
+			uuid: "53771ca5-f1cb-47b6-a92a-53a485307cf7",
+			source,
+			sourceUrl: sourceUrl("53771ca5-f1cb-47b6-a92a-53a485307cf7"),
+		},
+	]);
+
+	assert.equal(components.length, 2);
+	assert.deepEqual(components.map((component) => component.canonique), ["APT-C-12", "APT-C-36"]);
+	assert.deepEqual(
+		components.find((component) => component.canonique === "APT-C-36")!.aliases,
+		["APT-C-36", "Blind Eagle"],
+	);
+	assert.deepEqual(
+		components.find((component) => component.canonique === "APT-C-12")!.aliases,
+		["APT-C-12", "Blue Mushroom", "NuclearCrisis", "Sapphire Mushroom"],
+	);
+	for (const row of components.flatMap((component) => component.rows)) {
+		assert.match(row.sourceUrl, /^https:\/\/github\.com\/MISP\/misp-galaxy\/blob\/main\/clusters\/threat-actor\.json#/);
+		assert.ok(row.galaxyUuid);
+	}
+});
+
+test("migration corrective : purge ciblée, idempotente et sourcée", () => {
+	// migrate-211 reste intact ; la correction des bases déjà migrées est
+	// rejouable via migrate-252. On vérifie que la trace MISP est conservée.
+	const sql = readFileSync(new URL("../../db/migrate-252-actor-alias-key.sql", import.meta.url), "utf8");
+	assert.match(sql, /DELETE FROM actor_alias/);
+	assert.match(sql, /ON CONFLICT ON CONSTRAINT actor_alias_alias_source_unique DO NOTHING/);
+	for (const uuid of [
+		"ae1c64ff-5a37-4291-97f8-ea402c63efd0",
+		"53771ca5-f1cb-47b6-a92a-53a485307cf7",
+		"ee7f535d-cc3e-40f3-99f3-c97963cfa250",
+		"feb0cfef-0472-4108-83d7-1a322d8ab86b",
+		"6a83b2bf-0c51-4c9b-89b0-35df7cab1dd5",
+	]) {
+		assert.ok(sql.includes(uuid), `UUID MISP absent de la migration : ${uuid}`);
+	}
+});
+
 test("union-find : 4 alias donnent 2 composantes", () => {
 	const uf = new UnionFind<string>();
 	for (const alias of ["LockBit", "Lockbit3", ".LockBit", "Conti"]) uf.add(alias);

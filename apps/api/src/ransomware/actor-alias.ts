@@ -100,6 +100,24 @@ export function normalizeActorAlias(raw: string): string {
 }
 
 /**
+ * Ne retire une suite de numéros détachés que derrière un radical qui
+ * ressemble à un nom, jamais derrière un code court. `LockBit 3.0` donne
+ * `lockbit`, mais `APT-C-36` garde son numéro : MISP Galaxy décrit
+ * `APT-C-36` (Blind Eagle, UUID ae1c64ff-5a37-4291-97f8-ea402c63efd0) et
+ * `APT-C-12` (Blue Mushroom, UUID 53771ca5-f1cb-47b6-a92a-53a485307cf7)
+ * comme deux grappes distinctes de `clusters/threat-actor.json`.
+ */
+function stripVersionTokens(tokens: readonly string[]): readonly string[] {
+	const base = [...tokens];
+	while (base.length > 1 && /^v?\d{1,2}$/.test(base[base.length - 1]!)) base.pop();
+	const radical = base[base.length - 1] ?? "";
+	if (base.length === tokens.length || !/^\p{L}{4,}$/u.test(radical) || !/\p{Ll}$/u.test(radical)) {
+		return tokens;
+	}
+	return base;
+}
+
+/**
  * Clé de fusion : normalisation + retrait des suffixes génériques et des
  * numéros de version. `LockBit`, `LockBit 3.0` et `Lockbit3` partagent la
  * clé `lockbit`.
@@ -108,7 +126,9 @@ export function normalizeActorAlias(raw: string): string {
  *  - une clé générique (`group`, `ransomware`…) n'est jamais fusionnée ;
  *  - un suffixe numérique collé n'est retiré que si le radical alphabétique
  *    fait au moins 5 lettres et se termine par une minuscule. `APT1` garde
- *    donc sa clé `apt1` et ne fusionne pas avec `APT2`.
+ *    donc sa clé `apt1` et ne fusionne pas avec `APT2` ;
+ *  - un numéro détaché n'est une version que derrière un radical de nom
+ *    d'au moins 4 lettres : `APT-C-36` ne fusionne pas avec `APT-C-12`.
  */
 export function actorAliasKey(raw: string): string {
 	const tokens = normalizeActorAlias(raw).split(" ").filter(Boolean);
@@ -117,11 +137,8 @@ export function actorAliasKey(raw: string): string {
 	while (tokens.length > 1 && GENERIC_SUFFIXES[tokens[tokens.length - 1]!] === true) {
 		tokens.pop();
 	}
-	while (tokens.length > 1 && /^v?\d{1,2}$/.test(tokens[tokens.length - 1]!)) {
-		tokens.pop();
-	}
-
-	let compact = tokens.join("");
+	const base = stripVersionTokens(tokens);
+	let compact = base.join("");
 	// `Lockbit3` -> `lockbit`. Un suffixe de 1 ou 2 chiffres seulement : un
 	// identifiant comme `Storm-0558` ou `GTG-1002` reste distinct.
 	const attached = compact.match(/^(.*\p{L}{5,})(\d{1,2})$/u);
