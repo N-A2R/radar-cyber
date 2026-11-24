@@ -120,7 +120,7 @@ export default function TodayView({
 }: TodayViewProps) {
   const evenements = triRecents(data?.evenements ?? []);
   const familles = options(evenements.map((e) => e.famille), family);
-  const parDept = new Map(departements.map((d: DeptStat) => [d.dept, d.evenements]));
+  const parDept = new Map((departements ?? []).map((d: DeptStat) => [d.dept, d.evenements]));
   const depts = options([...parDept.keys(), ...evenements.map((e) => e.dept)], dept);
   const tranches = aggregerTimeline(evenements, maintenant);
   const maxTranche = Math.max(0, ...tranches.map((t) => t.evenements));
