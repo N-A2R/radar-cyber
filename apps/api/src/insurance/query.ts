@@ -68,7 +68,7 @@ export async function loadInsuranceCorpus(): Promise<InsuranceCorpus> {
     events: string;
     attached_events: string;
   }>(
-    `SELECT to_char(date_trunc('day', coalesce(max(coalesce(at, observed_at, collected_at)), now())),
+    `SELECT to_char(date_trunc('day', coalesce(max(coalesce(at, observed_at, collected_at)), now()) AT TIME ZONE 'UTC'),
                     'YYYY-MM-DD') AS reference_date,
             (SELECT count(*) FROM org) AS organizations,
             (SELECT count(*) FROM org WHERE dept = ANY($1::text[])) AS na_organizations,

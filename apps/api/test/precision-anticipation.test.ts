@@ -136,3 +136,9 @@ test("renderFrenchReport states the measured figure and is byte-stable", () => {
   assert.match(report, /Précision de décision : 100,00 %/);
   assert.equal(report, renderFrenchReport(result));
 });
+
+test("renderFrenchReport declares the measured 100/100 objective", () => {
+  const result = computePrecision({ corpus: corpus(), snapshots: snapshots() });
+  const report = renderFrenchReport(result);
+  assert.match(report, /^OBJECTIF : atteint — 100 \/ 100 incidents mesurés\.$/m);
+});

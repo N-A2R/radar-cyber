@@ -114,6 +114,7 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 | GET | `/api/graph?days=` | nœuds et liens du graphe |
 | GET | `/api/sources` | état détaillé des flux |
 | GET | `/api/stream` | SSE — pousse chaque nouvel événement |
+| GET | `/api/search/ask-fr?q=` | réponses françaises ancrées : chaque affirmation cite un identifiant d'événement, l'URL source et le run de collecte |
 
 
 ### API publique documentée
