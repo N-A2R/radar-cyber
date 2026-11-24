@@ -32,9 +32,11 @@ function jour(offset: number): Date {
 	return new Date(Date.now() + offset * 24 * 3600 * 1000);
 }
 
-const INSERT_EVENT = `INSERT INTO event (dedup_key, family, assertion_type, title, at, source_id,
+// Fait synthétique vrai au moment où le radar l'apprend : valid_at = at,
+// comme l'exige l'invariant temporel vérifié par la contrainte 242/245.
+const INSERT_EVENT = `INSERT INTO event (dedup_key, family, assertion_type, title, at, valid_at, source_id,
 	                                    source_url, evidence)
-	 VALUES ($1,'vuln','confirmed_incident',$2,$3,$4,
+	 VALUES ($1,'vuln','confirmed_incident',$2,$3,$3,$4,
 	         'https://example.invalid/premier-rapport', '{"run_id":"1"}'::jsonb)`;
 
 async function prepareSources(): Promise<void> {
