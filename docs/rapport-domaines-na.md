@@ -617,3 +617,44 @@ Il reste 1 661 457 organisations sans aucune URL HTTP 200 dans le corpus consoli
 
 OBJECTIF : partiel — 9 192 / 1 671 941 organisations (0,5498 %), manque 1 662 749 organisations vérifiées (99,4502 %) pour atteindre 100 %
 
+## Rattrapage — tranche t22 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t21 : 9 192 / 1 671 941), seule base autorisée : la PR #797 existe mais son objectif chiffré (100 %) n'était pas atteint. Le travail des tranches t1 à t21 est conservé tel quel. La tranche t22 ouvre une **quinzième route grise** : les pages d'identité (`/contact`, `/a-propos`, `/qui-sommes-nous`, `/presentation`) publiées sur la racine d'un site déjà prouvé HTTP 200 par un registre public/gratuit. Les passes précédentes ne vérifiaient que la page d'accueil (t9, t10, t13) ou la mention légale des alias SIRENE (t20) : une organisation peut publier son nom sur une page secondaire sans le publier en accueil.
+
+`scripts/expand-domains-pages-identite.mts` reprend les 591 racines d'URL officielles encore sans domaine, construit les chemins d'identité sur la **même racine** (jamais un hôte tiers), puis exige la preuve stricte inchangée (statut 200, racine identique après redirection, contenu réel, jeton distinctif du nom). La provenance est tracée `exposition-service:page-identite:http200` avec l'URL de registre, la page ayant répondu et le nombre de pages tentées. Sur 591 candidats, **44 domaines vérifiés et tracés** (9 192 → 9 236). Détail : `bench/results/domains-from-pages-identite.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-pages-identite -- --limit=2000 --concurrency=32 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée (`selected=591 verified=44 applied=true`, `verified_domain_coverage=9192 -> 9236`), puis mesure rejouée indépendamment après écriture :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9282
+organisations_avec_domaine_verifie_et_provenance=9236
+couverture_pourcent=0.5524
+```
+
+Décomposition reproductible de l'écart restant (1 662 705 organisations), par la requête des tranches précédentes :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661457 | 1202 | 9282
+```
+
+Le bloc de 1 661 457 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites est **inchangé** : la tranche t22 n'invente aucun site, elle exploite uniquement des URL déjà prouvées par les registres. Il reste 1 202 organisations avec une URL qui échoue encore à la preuve stricte après quinze passes, et 46 avec un domaine non comptable. Combler 1 662 705 organisations exigerait d'attribuer des sites inexistants ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+4 tests comportement (un par comportement) dans `apps/api/test/expand-domains-pages-identite.test.ts`, tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`). La suite complète `tsx test/run.ts` exige un PostgreSQL de test sur `127.0.0.1:5432`, absent de cet environnement.
+
+OBJECTIF : partiel — 9 236 / 1 671 941 organisations (0,5524 %), manque 1 662 705 organisations vérifiées (99,4476 %) pour atteindre 100 %

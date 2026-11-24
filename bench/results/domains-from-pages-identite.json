@@ -1,0 +1,417 @@
+{
+  "selected": 591,
+  "verified": 44,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9238,
+    "withVerifiedProvenance": 9192,
+    "coveragePercent": 0.5498
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9282,
+    "withVerifiedProvenance": 9236,
+    "coveragePercent": 0.5524
+  },
+  "domains": [
+    {
+      "orgId": 9590,
+      "siren": null,
+      "name": "EHPAD CLAIREFONTAINE",
+      "domain": "ehpadclairefontaine.com",
+      "registry": "finess-site-http-200",
+      "page": "https://ehpadclairefontaine.com/contact/",
+      "token": "ehpad"
+    },
+    {
+      "orgId": 7953,
+      "siren": null,
+      "name": "EHPAD PAUL ARDOUIN",
+      "domain": "chblaye.fr",
+      "registry": "finess-site-http-200",
+      "page": "https://chblaye.fr/contact/",
+      "token": "blaye"
+    },
+    {
+      "orgId": 13094,
+      "siren": null,
+      "name": "MAS TERRA NOVA - PEP 86",
+      "domain": "pep86.fr",
+      "registry": "finess-site-http-200",
+      "page": "https://pep86.fr/contact",
+      "token": "terra"
+    },
+    {
+      "orgId": 15386,
+      "siren": null,
+      "name": "Lycée professionnel Blaise Pascal",
+      "domain": "lp-blaisepascal.net",
+      "registry": "education-http-200",
+      "page": "https://lp-blaisepascal.net/a-propos",
+      "token": "lycee"
+    },
+    {
+      "orgId": 384589,
+      "siren": "792114027",
+      "name": "CAFE DE LA GARE 1900",
+      "domain": "cafedelagare1900.fr",
+      "registry": "osm-siret-http-200",
+      "page": "https://cafedelagare1900.fr/contact/",
+      "token": "gare"
+    },
+    {
+      "orgId": 403137,
+      "siren": "801968512",
+      "name": "LA FENETRE BORDELAISE",
+      "domain": "lafenetrebordelaise.fr",
+      "registry": "osm-siret-http-200",
+      "page": "https://lafenetrebordelaise.fr/contact/",
+      "token": "fenetre"
+    },
+    {
+      "orgId": 277792,
+      "siren": "492457973",
+      "name": "AUTOUR DU MONDE",
+      "domain": "heth.fr",
+      "registry": "osm-siret-http-200",
+      "page": "https://heth.fr/contact",
+      "token": "niort"
+    },
+    {
+      "orgId": 397463,
+      "siren": "799535448",
+      "name": "JONZAC AUTOMOBILES",
+      "domain": "mj2p.com",
+      "registry": "osm-siret-http-200",
+      "page": "https://mj2p.com/contact/",
+      "token": "automobiles"
+    },
+    {
+      "orgId": 1586114,
+      "siren": "451359756",
+      "name": "PASQUET GAELLE",
+      "domain": "le-panier-royannais.fr",
+      "registry": "osm-siret-http-200",
+      "page": "https://le-panier-royannais.fr/presentation",
+      "token": "gaelle"
+    },
+    {
+      "orgId": 295050,
+      "siren": "501437461",
+      "name": "HOTEL VILLE D'HIVER",
+      "domain": "hotelvilledhiver.com",
+      "registry": "osm-siret-http-200",
+      "page": "https://hotelvilledhiver.com/contact",
+      "token": "hotel"
+    },
+    {
+      "orgId": 234616,
+      "siren": "449935261",
+      "name": "ARTS AUX VILLAGES",
+      "domain": "artsauxvillages.com",
+      "registry": "rna-http-200",
+      "page": "https://artsauxvillages.com/contact",
+      "token": "arts"
+    },
+    {
+      "orgId": 339927,
+      "siren": "529246019",
+      "name": "COMPAGNIE 7EME SOL",
+      "domain": "7emesol.fr",
+      "registry": "rna-http-200",
+      "page": "https://7emesol.fr/contact",
+      "token": "7eme"
+    },
+    {
+      "orgId": 342544,
+      "siren": "530549286",
+      "name": "FAIS ET REVE",
+      "domain": "ledernierstrapontin.fr",
+      "registry": "rna-http-200",
+      "page": "https://ledernierstrapontin.fr/contact",
+      "token": "fais"
+    },
+    {
+      "orgId": 1892,
+      "siren": "213300361",
+      "name": "Commune de Bazas",
+      "domain": "ville-bazas.fr",
+      "registry": "dila-http-200",
+      "page": "https://ville-bazas.fr/contact",
+      "token": "bazas"
+    },
+    {
+      "orgId": 187368,
+      "siren": "423003763",
+      "name": "UNION REGIONALE DES CAUE D AQUITAINE",
+      "domain": "fncaue.com",
+      "registry": "dila-http-200",
+      "page": "https://fncaue.com/contact",
+      "token": "caue"
+    },
+    {
+      "orgId": 190227,
+      "siren": "424275691",
+      "name": "ALLIANCE RIVE GAUCHE",
+      "domain": "alliance-rive-gauche.fr",
+      "registry": "registry-id-http-200",
+      "page": "https://alliance-rive-gauche.fr/contact",
+      "token": "alliance"
+    },
+    {
+      "orgId": 480463,
+      "siren": "839345113",
+      "name": "ARNELO",
+      "domain": "etcaconceptstore.fr",
+      "registry": "osm-http-200",
+      "page": "https://etcaconceptstore.fr/contact",
+      "token": "rochelle"
+    },
+    {
+      "orgId": 2392033,
+      "siren": "853289437",
+      "name": "BE O",
+      "domain": "biomonde.fr",
+      "registry": "osm-http-200",
+      "page": "https://biomonde.fr/contact",
+      "token": "saint"
+    },
+    {
+      "orgId": 83739,
+      "siren": "320686454",
+      "name": "PERICAUD",
+      "domain": "pericaud.com",
+      "registry": "osm-http-200",
+      "page": "https://pericaud.com/contact",
+      "token": "pericaud"
+    },
+    {
+      "orgId": 405295,
+      "siren": "802882522",
+      "name": "SARL GARAGE DE L'ATLANTIQUE",
+      "domain": "garage-autofit.com",
+      "registry": "osm-http-200",
+      "page": "https://garage-autofit.com/contact",
+      "token": "garage"
+    },
+    {
+      "orgId": 331073,
+      "siren": "522714732",
+      "name": "CYCLO-SURF",
+      "domain": "reavelo.fr",
+      "registry": "osm-http-200",
+      "page": "https://reavelo.fr/a-propos",
+      "token": "cyclo"
+    },
+    {
+      "orgId": 254601,
+      "siren": "481055846",
+      "name": "BIERES DE RE",
+      "domain": "bieresdere.fr",
+      "registry": "osm-http-200",
+      "page": "https://bieresdere.fr/contact/",
+      "token": "bieres"
+    },
+    {
+      "orgId": 1664259,
+      "siren": "538686403",
+      "name": "JAMET STEVE",
+      "domain": "arboretsens17.fr",
+      "registry": "osm-http-200",
+      "page": "https://arboretsens17.fr/contact",
+      "token": "ballon"
+    },
+    {
+      "orgId": 548185,
+      "siren": "894099860",
+      "name": "DEUX NOTES SUCREES",
+      "domain": "pralinebergamote.fr",
+      "registry": "osm-http-200",
+      "page": "https://pralinebergamote.fr/contact",
+      "token": "tremblade"
+    },
+    {
+      "orgId": 287147,
+      "siren": "498173988",
+      "name": "SAS HAITZA",
+      "domain": "haaitza.com",
+      "registry": "osm-http-200",
+      "page": "https://haaitza.com/contact/",
+      "token": "teste"
+    },
+    {
+      "orgId": 522388,
+      "siren": "881162226",
+      "name": "PEPINE",
+      "domain": "pepine.fr",
+      "registry": "osm-http-200",
+      "page": "https://pepine.fr/contact",
+      "token": "pepine"
+    },
+    {
+      "orgId": 439136,
+      "siren": "820026714",
+      "name": "SOUFFLE VENT",
+      "domain": "popcornlabyrinthe.fr",
+      "registry": "osm-http-200",
+      "page": "https://popcornlabyrinthe.fr/contact",
+      "token": "saint"
+    },
+    {
+      "orgId": 423868,
+      "siren": "812311405",
+      "name": "ORIU",
+      "domain": "luciole-capricieuse.fr",
+      "registry": "osm-http-200",
+      "page": "https://luciole-capricieuse.fr/contact",
+      "token": "oriu"
+    },
+    {
+      "orgId": 302203,
+      "siren": "504341611",
+      "name": "AL JARO DISTRIBUTION",
+      "domain": "asiashop.fr",
+      "registry": "osm-http-200",
+      "page": "https://asiashop.fr/contact",
+      "token": "bordeaux"
+    },
+    {
+      "orgId": 700798,
+      "siren": "991754458",
+      "name": "SAJU COMPANY",
+      "domain": "escapetime-larochelle.fr",
+      "registry": "osm-http-200",
+      "page": "https://escapetime-larochelle.fr/contact",
+      "token": "aytre"
+    },
+    {
+      "orgId": 1723518,
+      "siren": "817588437",
+      "name": "OBRENOVITCH CHRISTOPHE",
+      "domain": "caroprop.net",
+      "registry": "osm-http-200",
+      "page": "https://caroprop.net/contact",
+      "token": "obrenovitch"
+    },
+    {
+      "orgId": 500384,
+      "siren": "849162334",
+      "name": "D.E.T. SYSTEM",
+      "domain": "glbatimentelec.fr",
+      "registry": "osm-http-200",
+      "page": "https://glbatimentelec.fr/contact",
+      "token": "chatelaillon"
+    },
+    {
+      "orgId": 87986,
+      "siren": "327017034",
+      "name": "MARBRERIE GEOFFROY",
+      "domain": "geoffroy-pompesfunebres.fr",
+      "registry": "osm-http-200",
+      "page": "https://geoffroy-pompesfunebres.fr/contact",
+      "token": "marbrerie"
+    },
+    {
+      "orgId": 492853,
+      "siren": "844226324",
+      "name": "MCN",
+      "domain": "menuiserie-mcn-la-rochelle.fr",
+      "registry": "osm-http-200",
+      "page": "https://menuiserie-mcn-la-rochelle.fr/contact",
+      "token": "aytre"
+    },
+    {
+      "orgId": 1820652,
+      "siren": "899145569",
+      "name": "KIM WOOHYUN",
+      "domain": "kimari.fr",
+      "registry": "osm-http-200",
+      "page": "https://kimari.fr/contact",
+      "token": "angouleme"
+    },
+    {
+      "orgId": 288024,
+      "siren": "498523448",
+      "name": "ZELINDA",
+      "domain": "elle-m-agen.com",
+      "registry": "osm-http-200",
+      "page": "https://elle-m-agen.com/contact",
+      "token": "agen"
+    },
+    {
+      "orgId": 2216,
+      "siren": "213303746",
+      "name": "Commune de Saint-Aubin-de-Blaye",
+      "domain": "saint-aubin-de-blaye.fr",
+      "registry": "osm-http-200",
+      "page": "https://saint-aubin-de-blaye.fr/contact/",
+      "token": "saint"
+    },
+    {
+      "orgId": 546427,
+      "siren": "893383356",
+      "name": "OSER LA RSE",
+      "domain": "oser-la-rse.fr",
+      "registry": "wikidata-id-http-200",
+      "page": "https://oser-la-rse.fr/contact",
+      "token": "oser"
+    },
+    {
+      "orgId": 653324,
+      "siren": "943649418",
+      "name": "ASSOCIATION P'SEA",
+      "domain": "association-psea.fr",
+      "registry": "site-zone-http-200",
+      "page": "https://association-psea.fr/contact",
+      "token": "soussans"
+    },
+    {
+      "orgId": 530235,
+      "siren": "884344672",
+      "name": "LES ZEBRES NOMADES",
+      "domain": "ecoledelatoile.fr",
+      "registry": "site-zone-http-200",
+      "page": "https://ecoledelatoile.fr/contact",
+      "token": "anglet"
+    },
+    {
+      "orgId": 372796,
+      "siren": "781702550",
+      "name": "LOISIRS PERIGUEUX NAUTIQUE",
+      "domain": "perigueuxcanoe.org",
+      "registry": "site-zone-http-200",
+      "page": "https://perigueuxcanoe.org/contact",
+      "token": "perigueux"
+    },
+    {
+      "orgId": 202833,
+      "siren": "433240991",
+      "name": "IMA GIE",
+      "domain": "ima.eu",
+      "registry": "site-zone-http-200",
+      "page": "https://ima.eu/contact",
+      "token": "niort"
+    },
+    {
+      "orgId": 111312,
+      "siren": "353150683",
+      "name": "POLE ALIENOR",
+      "domain": "polealienor.eu",
+      "registry": "site-zone-http-200",
+      "page": "https://polealienor.eu/contact",
+      "token": "pole"
+    },
+    {
+      "orgId": 241378,
+      "siren": "452637200",
+      "name": "CHROMIUM",
+      "domain": "chromium.org",
+      "registry": "site-zone-http-200",
+      "page": "https://chromium.org/contact",
+      "token": "chromium"
+    }
+  ]
+}
