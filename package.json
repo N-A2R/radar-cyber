@@ -130,11 +130,12 @@
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
     "dora:exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts",
     "verifie:dora-exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts --check",
-    "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts"
+    "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts",
     "verifie:rec": "apps/api/node_modules/.bin/tsx scripts/verifie-rec.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
