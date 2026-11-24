@@ -1,4 +1,5 @@
 # Attribution des revendications : hiérarchisée et contestable
+OBJECTIF : atteint — 35170 / 50
 
 ## Objectif
 
