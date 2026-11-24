@@ -480,3 +480,49 @@ Il reste 1 661 629 organisations sans aucune URL HTTP 200 dans le corpus consoli
 16 tests comportement (un par comportement) dans `apps/api/test/expand-domains-identifiant.test.ts` et `apps/api/test/expand-domains-catalogue.test.ts` ; 125 tests domaines verts au total ; typecheck `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
 
 OBJECTIF : partiel — 9 020 / 1 671 941 organisations (0,5395 %), manque 1 662 921 organisations vérifiées (99,4605 %) pour atteindre 100 %
+
+## Rattrapage — tranche t19 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t18 : 9 020 / 1 671 941), seule base autorisée : la PR #797 existe mais son objectif chiffré (100 %) n'était pas atteint. Le travail des tranches t1 à t18 est conservé tel quel. La tranche t19 ouvre une **douzième route grise** : le nom de domaine est parfois déclaré directement dans l'enseigne ou le nom SIRENE public (`org_alias`, sources `sirene`, `sirene-nom`, `sirene-usuelle`, `sirene-enseigne`), alors même que la raison sociale ne contient pas de site. Ce réservoir n'avait pas été exploité : 1 040 organisations de Nouvelle-Aquitaine sans domaine portent un alias qui est lui-même un domaine, sur 984 racines distinctes, toutes sans preuve HTTP 200 dans `exposition_service`.
+
+`scripts/expand-domains-alias-domaine.mts` extrait ces domaines, écarte les racines de plateforme, les libellés courts ou génériques, les racines déjà attribuées et les alias de personnes physiques (aucune donnée personnelle n'est écrite). Chaque domaine est ensuite **revérifié en direct** avec la preuve stricte inchangée : statut 200, racine identique après redirection, page réelle, puis identité publiée par la page elle-même — jeton distinctif du nom ou identifiant légal (SIREN/SIRET) de l'organisation. Sur 823 candidats retenus, **147 domaines vérifiés et tracés** `sirene:alias-domaine:http200` (9 020 → 9 167). Détail avec alias, racine et preuve : `bench/results/domains-from-alias-domaine.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-alias-domaine -- --limit=1200 --concurrency=32 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée, puis mesure rejouée indépendamment après écriture :
+
+```
+selected=823 verified=147 applied=true
+verified_domain_coverage=9020 -> 9167
+coverage_percent=0.5395 -> 0.5483
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9213
+organisations_avec_domaine_verifie_et_provenance=9167
+couverture_pourcent=0.5483
+```
+
+Décomposition reproductible de l'écart restant (1 662 774 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661482 | 1246 | 9213
+```
+
+Il reste 1 661 482 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites, et 1 246 avec une URL mais qui échouent à la preuve stricte après sept passes de réemploi. Les réservoirs sectoriels du corpus (`sources-*.jsonl`) ne portent que 27 organisations appariables ; les autres tables JSONB et les preuves SIRENE ont été instruites et sont soit déjà exploitées, soit stériles. Combler 1 662 774 organisations exigerait d'inventer des sites ou d'abaisser le standard de preuve. Aucun domaine n'a été fabriqué ; Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+9 tests comportement (un par comportement) dans `apps/api/test/expand-domains-alias-domaine.test.ts` ; 109 tests domaines verts au total ; typecheck `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse`).
+
+OBJECTIF : partiel — 9 167 / 1 671 941 organisations (0,5483 %), manque 1 662 774 organisations vérifiées (99,4517 %) pour atteindre 100 %
