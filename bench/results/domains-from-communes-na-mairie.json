@@ -1,0 +1,77 @@
+{
+  "selected": 1696,
+  "verified": 7,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9474,
+    "withVerifiedProvenance": 9428,
+    "coveragePercent": 0.5639
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9481,
+    "withVerifiedProvenance": 9435,
+    "coveragePercent": 0.5643
+  },
+  "domains": [
+    {
+      "orgId": 125,
+      "name": "Commune de Fontenille",
+      "commune": "Fontenille",
+      "codeCommune": "16141",
+      "domain": "mairie-fontenille.fr",
+      "page": "https://www.mairie-fontenille.fr/"
+    },
+    {
+      "orgId": 193,
+      "name": "Commune de Mesnac",
+      "commune": "Mesnac",
+      "codeCommune": "16218",
+      "domain": "mairie-mesnac.fr",
+      "page": "https://mairie-mesnac.fr/"
+    },
+    {
+      "orgId": 208,
+      "name": "Commune de Mouton",
+      "commune": "Mouton",
+      "codeCommune": "16237",
+      "domain": "mairie-mouton.fr",
+      "page": "https://www.mairie-mouton.fr/"
+    },
+    {
+      "orgId": 845,
+      "name": "Commune de Beyssac",
+      "commune": "Beyssac",
+      "codeCommune": "19024",
+      "domain": "mairie-beyssac.fr",
+      "page": "https://www.mairie-beyssac.fr/"
+    },
+    {
+      "orgId": 882,
+      "name": "Commune de Corrèze",
+      "commune": "Corrèze",
+      "codeCommune": "19062",
+      "domain": "mairie-correze.fr",
+      "page": "https://www.mairie-correze.fr/"
+    },
+    {
+      "orgId": 1824,
+      "name": "Commune de Thenon",
+      "commune": "Thenon",
+      "codeCommune": "24550",
+      "domain": "mairie-thenon.fr",
+      "page": "https://mairie-thenon.fr/"
+    },
+    {
+      "orgId": 2762,
+      "name": "Commune de Calignac",
+      "commune": "Calignac",
+      "codeCommune": "47045",
+      "domain": "mairie-calignac.fr",
+      "page": "https://www.mairie-calignac.fr/"
+    }
+  ]
+}

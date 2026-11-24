@@ -1,0 +1,261 @@
+{
+  "selected": 33,
+  "verified": 30,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9348,
+    "withVerifiedProvenance": 9302,
+    "coveragePercent": 0.5564
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9378,
+    "withVerifiedProvenance": 9332,
+    "coveragePercent": 0.5582
+  },
+  "domains": [
+    {
+      "orgId": 308691,
+      "name": "CONFEDERATION PAYSANNE DE LA VIENNE",
+      "domain": "vienne.confederationpaysanne.fr",
+      "page": "https://vienne.confederationpaysanne.fr/",
+      "corpus": "sources-agriculture-86.jsonl",
+      "catalogue": "Confédération paysanne de la Vienne"
+    },
+    {
+      "orgId": 355490,
+      "name": "TERRE DE LIENS LIMOUSIN",
+      "domain": "terredeliens.org",
+      "page": "https://terredeliens.org/limousin/",
+      "corpus": "sources-agriculture-87.jsonl",
+      "catalogue": "Terre de Liens Limousin"
+    },
+    {
+      "orgId": 261373,
+      "name": "SOLIDARITE PAYSANS LIMOUSIN",
+      "domain": "solidaritepaysans.org",
+      "page": "https://solidaritepaysans.org/nouvelle-aquitaine/limousin",
+      "corpus": "sources-agriculture-87.jsonl",
+      "catalogue": "Solidarité Paysans Limousin"
+    },
+    {
+      "orgId": 92223,
+      "name": "MSA GIRONDE",
+      "domain": "gironde.msa.fr",
+      "page": "https://gironde.msa.fr/lfp/",
+      "corpus": "sources-banque-assurance-33.jsonl",
+      "catalogue": "MSA Gironde"
+    },
+    {
+      "orgId": 134850,
+      "name": "MUTUALITE FRANCAISE LANDES",
+      "domain": "mutualite-landes.fr",
+      "page": "https://mutualite-landes.fr/",
+      "corpus": "sources-banque-assurance-40.jsonl",
+      "catalogue": "Mutualité Française Landes"
+    },
+    {
+      "orgId": 77303,
+      "name": "MEDEF VIENNE",
+      "domain": "medef-vienne.fr",
+      "page": "https://www.medef-vienne.fr/",
+      "corpus": "sources-banque-assurance-86.jsonl",
+      "catalogue": "MEDEF Vienne"
+    },
+    {
+      "orgId": 2233065,
+      "name": "LE LITTORAL",
+      "domain": "le-littoral.com",
+      "page": "https://www.le-littoral.com/",
+      "corpus": "sources-batiment-17.jsonl",
+      "catalogue": "Le Littoral"
+    },
+    {
+      "orgId": 237212,
+      "name": "RADIO GATINE",
+      "domain": "radiogatine.fr",
+      "page": "https://radiogatine.fr/",
+      "corpus": "sources-collectivites-79.jsonl",
+      "catalogue": "Radio Gâtine"
+    },
+    {
+      "orgId": 105433,
+      "name": "RADIO PULSAR",
+      "domain": "radio-pulsar.org",
+      "page": "https://www.radio-pulsar.org/",
+      "corpus": "sources-collectivites-86.jsonl",
+      "catalogue": "Radio Pulsar"
+    },
+    {
+      "orgId": 637592,
+      "name": "CLUB LANDES ENTREPRISES",
+      "domain": "club-landes-entreprises.fr",
+      "page": "https://club-landes-entreprises.fr/",
+      "corpus": "sources-commerce-40.jsonl",
+      "catalogue": "Club Landes Entreprises"
+    },
+    {
+      "orgId": 574477,
+      "name": "ASTER BEARN",
+      "domain": "aster-bearn.fr",
+      "page": "https://www.aster-bearn.fr/",
+      "corpus": "sources-energie-eau-64.jsonl",
+      "catalogue": "AsTER Béarn"
+    },
+    {
+      "orgId": 660527,
+      "name": "BEARN NOUVELLES ENERGIES",
+      "domain": "bearn-nouvelles-energies.fr",
+      "page": "https://www.bearn-nouvelles-energies.fr/",
+      "corpus": "sources-energie-eau-64.jsonl",
+      "catalogue": "Béarn Nouvelles Énergies"
+    },
+    {
+      "orgId": 554100,
+      "name": "FRENCH TECH PERIGORD",
+      "domain": "frenchtechperigord.fr",
+      "page": "https://frenchtechperigord.fr/",
+      "corpus": "sources-industrie-24.jsonl",
+      "catalogue": "French Tech Périgord"
+    },
+    {
+      "orgId": 371568,
+      "name": "MEDEF DEUX SEVRES",
+      "domain": "medef79.fr",
+      "page": "https://www.medef79.fr/",
+      "corpus": "sources-industrie-79.jsonl",
+      "catalogue": "MEDEF Deux-Sèvres"
+    },
+    {
+      "orgId": 80409,
+      "name": "ORDRE DES AVOCATS DE PAU",
+      "domain": "avocats-pau.fr",
+      "page": "https://www.avocats-pau.fr/",
+      "corpus": "sources-juridique-64.jsonl",
+      "catalogue": "Ordre des avocats de Pau"
+    },
+    {
+      "orgId": 18867,
+      "name": "Lycée polyvalent Lot-et-Bastides",
+      "domain": "lyceeleyguescouffignal.fr",
+      "page": "http://lyceeleyguescouffignal.fr/",
+      "corpus": "sources-na-1000.jsonl",
+      "catalogue": "Lycée polyvalent Lot-et-Bastides"
+    },
+    {
+      "orgId": 19177,
+      "name": "Lycée professionnel Gabriel Haure-Placé",
+      "domain": "lyceemetiersdart-coarraze.fr",
+      "page": "https://lyceemetiersdart-coarraze.fr/",
+      "corpus": "sources-na-1000.jsonl",
+      "catalogue": "Lycée professionnel Gabriel Haure-Placé"
+    },
+    {
+      "orgId": 8409,
+      "name": "SDIS GIRONDE",
+      "domain": "pompiers33.fr",
+      "page": "https://www.pompiers33.fr/",
+      "corpus": "sources-na-1000.jsonl",
+      "catalogue": "SDIS Gironde"
+    },
+    {
+      "orgId": 113354,
+      "name": "BORDEAUX TECHNOWEST",
+      "domain": "technowest.com",
+      "page": "https://technowest.com/",
+      "corpus": "sources-numerique-33.jsonl",
+      "catalogue": "Bordeaux Technowest"
+    },
+    {
+      "orgId": 375544,
+      "name": "MEDEF PAYS BASQUE",
+      "domain": "medef-pays-basque.fr",
+      "page": "https://www.medef-pays-basque.fr/",
+      "corpus": "sources-numerique-64.jsonl",
+      "catalogue": "MEDEF Pays Basque"
+    },
+    {
+      "orgId": 538727,
+      "name": "FRENCH TECH PAYS BASQUE",
+      "domain": "frenchtech-paysbasque.com",
+      "page": "https://www.frenchtech-paysbasque.com/",
+      "corpus": "sources-numerique-64.jsonl",
+      "catalogue": "French Tech Pays Basque"
+    },
+    {
+      "orgId": 699033,
+      "name": "PWN - POITIERS WEB NERDZ",
+      "domain": "pwn-association.org",
+      "page": "https://pwn-association.org/",
+      "corpus": "sources-numerique-86.jsonl",
+      "catalogue": "PWN — Poitiers Web Nerdz"
+    },
+    {
+      "orgId": 6884,
+      "name": "CLINIQUE DE LA MARCHE GUERET",
+      "domain": "clinique-lamarche.fr",
+      "page": "https://clinique-lamarche.fr/",
+      "corpus": "sources-sante-23.jsonl",
+      "catalogue": "Clinique de La Marche — Guéret"
+    },
+    {
+      "orgId": 614084,
+      "name": "CPTS DU PAYS LOUDUNAIS",
+      "domain": "cpts-paysloudunais.fr",
+      "page": "https://www.cpts-paysloudunais.fr/",
+      "corpus": "sources-sante-86.jsonl",
+      "catalogue": "CPTS du Pays Loudunais"
+    },
+    {
+      "orgId": 473148,
+      "name": "ATLANTIC CLUSTER",
+      "domain": "atlantic-cluster.com",
+      "page": "https://atlantic-cluster.com/",
+      "corpus": "sources-transport-17.jsonl",
+      "catalogue": "Atlantic Cluster"
+    },
+    {
+      "orgId": 541490,
+      "name": "FERROCAMPUS",
+      "domain": "ferrocampus.fr",
+      "page": "https://www.ferrocampus.fr/",
+      "corpus": "sources-transport-17.jsonl",
+      "catalogue": "Ferrocampus"
+    },
+    {
+      "orgId": 359122,
+      "name": "TRANSPORTS RENE MADRIAS",
+      "domain": "madrias.fr",
+      "page": "https://www.madrias.fr/",
+      "corpus": "sources-transport-19.jsonl",
+      "catalogue": "Transports René Madrias"
+    },
+    {
+      "orgId": 373152,
+      "name": "GRAND PORT MARITIME DE BORDEAUX",
+      "domain": "bordeaux-port.fr",
+      "page": "https://www.bordeaux-port.fr/",
+      "corpus": "sources-transport-33.jsonl",
+      "catalogue": "Grand Port Maritime de Bordeaux"
+    },
+    {
+      "orgId": 21332,
+      "name": "TRANSPORTS C GUERY",
+      "domain": "transports-guery.fr",
+      "page": "https://www.transports-guery.fr/",
+      "corpus": "sources-transport-47.jsonl",
+      "catalogue": "Transports C. Guéry"
+    },
+    {
+      "orgId": 21064,
+      "name": "LES RAPIDES DU POITOU",
+      "domain": "rapides-du-poitou.com",
+      "page": "https://rapides-du-poitou.com/",
+      "corpus": "sources-transport-86.jsonl",
+      "catalogue": "Les Rapides du Poitou"
+    }
+  ]
+}

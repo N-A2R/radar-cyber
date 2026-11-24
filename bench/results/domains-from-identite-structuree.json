@@ -1,0 +1,30 @@
+{
+  "selected": 533,
+  "verified": 1,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9345,
+    "withVerifiedProvenance": 9299,
+    "coveragePercent": 0.5562
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9346,
+    "withVerifiedProvenance": 9300,
+    "coveragePercent": 0.5562
+  },
+  "domains": [
+    {
+      "orgId": 2566,
+      "name": "Commune de Messanges",
+      "domain": "messanges40.fr",
+      "registry": "dila-http-200",
+      "field": "meta",
+      "token": "messanges",
+      "url": "https://messanges40.fr"
+    }
+  ]
+}

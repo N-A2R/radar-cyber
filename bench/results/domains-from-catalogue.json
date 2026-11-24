@@ -1,0 +1,69 @@
+{
+  "selected": 12,
+  "verified": 6,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9060,
+    "withVerifiedProvenance": 9014,
+    "coveragePercent": 0.5391
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9066,
+    "withVerifiedProvenance": 9020,
+    "coveragePercent": 0.5395
+  },
+  "domains": [
+    {
+      "orgId": 2179,
+      "name": "Commune de Le Porge",
+      "commune": "le porge",
+      "domain": "leporge.fr",
+      "page": "https://www.leporge.fr/",
+      "catalogue": "Actualités — Mairie de Le Porge (leporge.fr)"
+    },
+    {
+      "orgId": 4064,
+      "name": "Commune de Sèvres-Anxaumont",
+      "commune": "sevres anxaumont",
+      "domain": "sevresanxaumont.fr",
+      "page": "https://www.sevresanxaumont.fr/actualites/coups-de-theatre-vi/",
+      "catalogue": "Actualités — Mairie de Sèvres-Anxaumont (sevresanxaumont.fr)"
+    },
+    {
+      "orgId": 170,
+      "name": "Commune de Terres-de-Haute-Charente",
+      "commune": "terres de haute charente",
+      "domain": "terresdehautecharente.fr",
+      "page": "https://terresdehautecharente.fr/toutes-les-actualites/",
+      "catalogue": "Actualités — Mairie de Terres-de-Haute-Charente (terresdehautecharente.fr)"
+    },
+    {
+      "orgId": 545,
+      "name": "Commune de Jonzac",
+      "commune": "jonzac",
+      "domain": "villedejonzac.fr",
+      "page": "https://villedejonzac.fr/la-mairie/actualites/",
+      "catalogue": "Actualités — Mairie de Jonzac (villedejonzac.fr)"
+    },
+    {
+      "orgId": 19672,
+      "name": "Collège privé Saint-Joseph",
+      "commune": "college prive saint joseph",
+      "domain": "college-lycee-64.fr",
+      "page": "https://college-lycee-64.fr/",
+      "catalogue": "Collège privé Saint-Joseph"
+    },
+    {
+      "orgId": 651,
+      "name": "Commune de Royan",
+      "commune": "royan",
+      "domain": "ville-royan.fr",
+      "page": "https://ville-royan.fr/toutes-les-actualit%C3%A9s",
+      "catalogue": "Actualités — Mairie de Royan (ville-royan.fr)"
+    }
+  ]
+}

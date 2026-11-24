@@ -1,0 +1,541 @@
+{
+  "selected": 1747,
+  "verified": 65,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9409,
+    "withVerifiedProvenance": 9363,
+    "coveragePercent": 0.56
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9474,
+    "withVerifiedProvenance": 9428,
+    "coveragePercent": 0.5639
+  },
+  "domains": [
+    {
+      "orgId": 59,
+      "name": "Commune de Cellefrouin",
+      "commune": "Cellefrouin",
+      "codeCommune": "16068",
+      "domain": "cellefrouin.fr",
+      "page": "https://www.cellefrouin.fr/"
+    },
+    {
+      "orgId": 161,
+      "name": "Commune de Lésignac-Durand",
+      "commune": "Lésignac-Durand",
+      "codeCommune": "16183",
+      "domain": "lesignac-durand.fr",
+      "page": "https://lesignac-durand.fr/"
+    },
+    {
+      "orgId": 167,
+      "name": "Commune de Londigny",
+      "commune": "Londigny",
+      "codeCommune": "16189",
+      "domain": "londigny.fr",
+      "page": "https://www.londigny.fr/"
+    },
+    {
+      "orgId": 168,
+      "name": "Commune de Longré",
+      "commune": "Longré",
+      "codeCommune": "16190",
+      "domain": "longre.fr",
+      "page": "https://longre.fr/"
+    },
+    {
+      "orgId": 241,
+      "name": "Commune de Rioux-Martin",
+      "commune": "Rioux-Martin",
+      "codeCommune": "16279",
+      "domain": "rioux-martin.fr",
+      "page": "https://www.rioux-martin.fr/"
+    },
+    {
+      "orgId": 251,
+      "name": "Commune de Rouzède",
+      "commune": "Rouzède",
+      "codeCommune": "16290",
+      "domain": "rouzede.fr",
+      "page": "https://www.rouzede.fr/"
+    },
+    {
+      "orgId": 271,
+      "name": "Commune de Saint-Front",
+      "commune": "Saint-Front",
+      "codeCommune": "16318",
+      "domain": "saint-front.fr",
+      "page": "https://www.saint-front.fr/"
+    },
+    {
+      "orgId": 353,
+      "name": "Commune de Vouharte",
+      "commune": "Vouharte",
+      "codeCommune": "16419",
+      "domain": "vouharte.fr",
+      "page": "https://vouharte.fr/"
+    },
+    {
+      "orgId": 398,
+      "name": "Commune de Bercloux",
+      "commune": "Bercloux",
+      "codeCommune": "17042",
+      "domain": "bercloux.fr",
+      "page": "https://bercloux.fr/"
+    },
+    {
+      "orgId": 473,
+      "name": "Commune de Corme-Royal",
+      "commune": "Corme-Royal",
+      "codeCommune": "17120",
+      "domain": "corme-royal.fr",
+      "page": "https://www.corme-royal.fr/"
+    },
+    {
+      "orgId": 589,
+      "name": "Commune de Montils",
+      "commune": "Montils",
+      "codeCommune": "17242",
+      "domain": "montils.fr",
+      "page": "https://www.montils.fr/"
+    },
+    {
+      "orgId": 593,
+      "name": "Commune de Moragne",
+      "commune": "Moragne",
+      "codeCommune": "17246",
+      "domain": "moragne.fr",
+      "page": "https://www.moragne.fr/"
+    },
+    {
+      "orgId": 767,
+      "name": "Commune de Soubran",
+      "commune": "Soubran",
+      "codeCommune": "17430",
+      "domain": "soubran.fr",
+      "page": "https://www.soubran.fr/"
+    },
+    {
+      "orgId": 911,
+      "name": "Commune de Hautefage",
+      "commune": "Hautefage",
+      "codeCommune": "19091",
+      "domain": "hautefage.fr",
+      "page": "https://www.hautefage.fr/"
+    },
+    {
+      "orgId": 921,
+      "name": "Commune de Lamazière-Basse",
+      "commune": "Lamazière-Basse",
+      "codeCommune": "19102",
+      "domain": "lamaziere-basse.fr",
+      "page": "https://www.lamaziere-basse.fr/"
+    },
+    {
+      "orgId": 927,
+      "name": "Commune de Laroche-près-Feyt",
+      "commune": "Laroche-près-Feyt",
+      "codeCommune": "19108",
+      "domain": "laroche-pres-feyt.fr",
+      "page": "https://www.laroche-pres-feyt.fr/"
+    },
+    {
+      "orgId": 958,
+      "name": "Commune de Monceaux-sur-Dordogne",
+      "commune": "Monceaux-sur-Dordogne",
+      "codeCommune": "19140",
+      "domain": "monceaux-sur-dordogne.fr",
+      "page": "https://www.monceaux-sur-dordogne.fr/"
+    },
+    {
+      "orgId": 1016,
+      "name": "Commune de Saint-Exupéry-les-Roches",
+      "commune": "Saint-Exupéry-les-Roches",
+      "codeCommune": "19201",
+      "domain": "saint-exupery-les-roches.fr",
+      "page": "https://www.saint-exupery-les-roches.fr/"
+    },
+    {
+      "orgId": 1020,
+      "name": "Commune de Saint-Geniez-ô-Merle",
+      "commune": "Saint-Geniez-ô-Merle",
+      "codeCommune": "19205",
+      "domain": "saint-geniez-o-merle.fr",
+      "page": "https://www.saint-geniez-o-merle.fr/"
+    },
+    {
+      "orgId": 1034,
+      "name": "Commune de Saint-Martial-de-Gimel",
+      "commune": "Saint-Martial-de-Gimel",
+      "codeCommune": "19220",
+      "domain": "saint-martial-de-gimel.fr",
+      "page": "https://www.saint-martial-de-gimel.fr/"
+    },
+    {
+      "orgId": 1035,
+      "name": "Commune de Saint-Martial-Entraygues",
+      "commune": "Saint-Martial-Entraygues",
+      "codeCommune": "19221",
+      "domain": "saint-martial-entraygues.fr",
+      "page": "https://saint-martial-entraygues.fr/"
+    },
+    {
+      "orgId": 1068,
+      "name": "Commune de Sérilhac",
+      "commune": "Sérilhac",
+      "codeCommune": "19257",
+      "domain": "serilhac.fr",
+      "page": "https://serilhac.fr/"
+    },
+    {
+      "orgId": 1076,
+      "name": "Commune de Tarnac",
+      "commune": "Tarnac",
+      "codeCommune": "19265",
+      "domain": "tarnac.fr",
+      "page": "https://www.tarnac.fr/"
+    },
+    {
+      "orgId": 1104,
+      "name": "Commune de Arrènes",
+      "commune": "Arrènes",
+      "codeCommune": "23006",
+      "domain": "arrenes.fr",
+      "page": "https://arrenes.fr/"
+    },
+    {
+      "orgId": 1183,
+      "name": "Commune de Fresselines",
+      "commune": "Fresselines",
+      "codeCommune": "23087",
+      "domain": "fresselines.fr",
+      "page": "https://www.fresselines.fr/"
+    },
+    {
+      "orgId": 1194,
+      "name": "Commune de Janaillat",
+      "commune": "Janaillat",
+      "codeCommune": "23099",
+      "domain": "janaillat.fr",
+      "page": "https://www.janaillat.fr/"
+    },
+    {
+      "orgId": 1242,
+      "name": "Commune de Peyrabout",
+      "commune": "Peyrabout",
+      "codeCommune": "23150",
+      "domain": "peyrabout.fr",
+      "page": "https://peyrabout.fr/"
+    },
+    {
+      "orgId": 1395,
+      "name": "Commune de Borrèze",
+      "commune": "Borrèze",
+      "codeCommune": "24050",
+      "domain": "borreze.fr",
+      "page": "https://borreze.fr/"
+    },
+    {
+      "orgId": 1644,
+      "name": "Commune de Queyssac",
+      "commune": "Queyssac",
+      "codeCommune": "24345",
+      "domain": "queyssac.fr",
+      "page": "https://www.queyssac.fr/"
+    },
+    {
+      "orgId": 1825,
+      "name": "Commune de Thiviers",
+      "commune": "Thiviers",
+      "codeCommune": "24551",
+      "domain": "thiviers.fr",
+      "page": "https://www.thiviers.fr/"
+    },
+    {
+      "orgId": 1846,
+      "name": "Commune de Veyrignac",
+      "commune": "Veyrignac",
+      "codeCommune": "24574",
+      "domain": "veyrignac.fr",
+      "page": "https://veyrignac.fr/"
+    },
+    {
+      "orgId": 1878,
+      "name": "Commune de Avensan",
+      "commune": "Avensan",
+      "codeCommune": "33022",
+      "domain": "avensan.fr",
+      "page": "https://www.avensan.fr/"
+    },
+    {
+      "orgId": 1881,
+      "name": "Commune de Baigneaux",
+      "commune": "Baigneaux",
+      "codeCommune": "33025",
+      "domain": "baigneaux.fr",
+      "page": "https://www.baigneaux.fr/"
+    },
+    {
+      "orgId": 1941,
+      "name": "Commune de Camiac-et-Saint-Denis",
+      "commune": "Camiac-et-Saint-Denis",
+      "codeCommune": "33086",
+      "domain": "camiac-et-saint-denis.fr",
+      "page": "https://camiac-et-saint-denis.fr/"
+    },
+    {
+      "orgId": 2078,
+      "name": "Commune de Lansac",
+      "commune": "Lansac",
+      "codeCommune": "33228",
+      "domain": "lansac.fr",
+      "page": "https://lansac.fr/"
+    },
+    {
+      "orgId": 2080,
+      "name": "Commune de Lapouyade",
+      "commune": "Lapouyade",
+      "codeCommune": "33230",
+      "domain": "lapouyade.fr",
+      "page": "https://lapouyade.fr/"
+    },
+    {
+      "orgId": 2101,
+      "name": "Commune de Louchats",
+      "commune": "Louchats",
+      "codeCommune": "33251",
+      "domain": "louchats.fr",
+      "page": "https://www.louchats.fr/"
+    },
+    {
+      "orgId": 2130,
+      "name": "Commune de Mérignas",
+      "commune": "Mérignas",
+      "codeCommune": "33282",
+      "domain": "merignas.fr",
+      "page": "https://merignas.fr/"
+    },
+    {
+      "orgId": 2163,
+      "name": "Commune de Périssac",
+      "commune": "Périssac",
+      "codeCommune": "33317",
+      "domain": "perissac.fr",
+      "page": "https://perissac.fr/"
+    },
+    {
+      "orgId": 2190,
+      "name": "Commune de Puybarban",
+      "commune": "Puybarban",
+      "codeCommune": "33346",
+      "domain": "puybarban.fr",
+      "page": "https://puybarban.fr/"
+    },
+    {
+      "orgId": 2242,
+      "name": "Commune de Saint-Ferme",
+      "commune": "Saint-Ferme",
+      "codeCommune": "33400",
+      "domain": "saint-ferme.fr",
+      "page": "https://saint-ferme.fr/"
+    },
+    {
+      "orgId": 2335,
+      "name": "Commune de Samonac",
+      "commune": "Samonac",
+      "codeCommune": "33500",
+      "domain": "samonac.fr",
+      "page": "https://samonac.fr/"
+    },
+    {
+      "orgId": 2420,
+      "name": "Commune de Belhade",
+      "commune": "Belhade",
+      "codeCommune": "40032",
+      "domain": "belhade.fr",
+      "page": "https://www.belhade.fr/"
+    },
+    {
+      "orgId": 2539,
+      "name": "Commune de Lévignacq",
+      "commune": "Lévignacq",
+      "codeCommune": "40154",
+      "domain": "levignacq.fr",
+      "page": "https://www.levignacq.fr/"
+    },
+    {
+      "orgId": 2743,
+      "name": "Commune de Beauziac",
+      "commune": "Beauziac",
+      "codeCommune": "47026",
+      "domain": "beauziac.fr",
+      "page": "https://beauziac.fr/"
+    },
+    {
+      "orgId": 2862,
+      "name": "Commune de Lédat",
+      "commune": "Lédat",
+      "codeCommune": "47146",
+      "domain": "ledat.fr",
+      "page": "https://www.ledat.fr/"
+    },
+    {
+      "orgId": 2934,
+      "name": "Commune de Réaup-Lisse",
+      "commune": "Réaup-Lisse",
+      "codeCommune": "47221",
+      "domain": "reaup-lisse.fr",
+      "page": "https://www.reaup-lisse.fr/"
+    },
+    {
+      "orgId": 3133,
+      "name": "Commune de Baudreix",
+      "commune": "Baudreix",
+      "codeCommune": "64101",
+      "domain": "baudreix.fr",
+      "page": "https://baudreix.fr/"
+    },
+    {
+      "orgId": 3138,
+      "name": "Commune de Béhasque-Lapiste",
+      "commune": "Béhasque-Lapiste",
+      "codeCommune": "64106",
+      "domain": "behasque-lapiste.fr",
+      "page": "https://behasque-lapiste.fr/"
+    },
+    {
+      "orgId": 3167,
+      "name": "Commune de Bonnut",
+      "commune": "Bonnut",
+      "codeCommune": "64135",
+      "domain": "bonnut.fr",
+      "page": "https://www.bonnut.fr/"
+    },
+    {
+      "orgId": 3209,
+      "name": "Commune de Castetpugon",
+      "commune": "Castetpugon",
+      "codeCommune": "64180",
+      "domain": "castetpugon.fr",
+      "page": "https://www.castetpugon.fr/"
+    },
+    {
+      "orgId": 3233,
+      "name": "Commune de Eaux-Bonnes",
+      "commune": "Eaux-Bonnes",
+      "codeCommune": "64204",
+      "domain": "eaux-bonnes.fr",
+      "page": "https://www.eaux-bonnes.fr/"
+    },
+    {
+      "orgId": 3244,
+      "name": "Commune de Espiute",
+      "commune": "Espiute",
+      "codeCommune": "64215",
+      "domain": "espiute.fr",
+      "page": "https://espiute.fr/"
+    },
+    {
+      "orgId": 3248,
+      "name": "Commune de Estialescq",
+      "commune": "Estialescq",
+      "codeCommune": "64219",
+      "domain": "estialescq.fr",
+      "page": "https://estialescq.fr/"
+    },
+    {
+      "orgId": 3391,
+      "name": "Commune de Malaussanne",
+      "commune": "Malaussanne",
+      "codeCommune": "64365",
+      "domain": "malaussanne.fr",
+      "page": "https://www.malaussanne.fr/"
+    },
+    {
+      "orgId": 3561,
+      "name": "Commune de Uhart-Cize",
+      "commune": "Uhart-Cize",
+      "codeCommune": "64538",
+      "domain": "uhart-cize.fr",
+      "page": "https://uhart-cize.fr/"
+    },
+    {
+      "orgId": 3672,
+      "name": "Commune de La Foye-Monjault",
+      "commune": "La Foye-Monjault",
+      "codeCommune": "79127",
+      "domain": "la-foye-monjault.fr",
+      "page": "https://www.la-foye-monjault.fr/"
+    },
+    {
+      "orgId": 3674,
+      "name": "Commune de Fressines",
+      "commune": "Fressines",
+      "codeCommune": "79129",
+      "domain": "fressines.fr",
+      "page": "https://fressines.fr/"
+    },
+    {
+      "orgId": 3763,
+      "name": "Commune de Saint-Hilaire-la-Palud",
+      "commune": "Saint-Hilaire-la-Palud",
+      "codeCommune": "79257",
+      "domain": "saint-hilaire-la-palud.fr",
+      "page": "https://www.saint-hilaire-la-palud.fr/"
+    },
+    {
+      "orgId": 3903,
+      "name": "Commune de La Roche-Rigault",
+      "commune": "La Roche-Rigault",
+      "codeCommune": "86079",
+      "domain": "la-roche-rigault.fr",
+      "page": "https://www.la-roche-rigault.fr/"
+    },
+    {
+      "orgId": 3940,
+      "name": "Commune de Jouhet",
+      "commune": "Jouhet",
+      "codeCommune": "86117",
+      "domain": "jouhet.fr",
+      "page": "https://www.jouhet.fr/"
+    },
+    {
+      "orgId": 3965,
+      "name": "Commune de Maillé",
+      "commune": "Maillé",
+      "codeCommune": "86142",
+      "domain": "maille.fr",
+      "page": "https://www.maille.fr/"
+    },
+    {
+      "orgId": 3995,
+      "name": "Commune de Nérignac",
+      "commune": "Nérignac",
+      "codeCommune": "86176",
+      "domain": "nerignac.fr",
+      "page": "https://www.nerignac.fr/"
+    },
+    {
+      "orgId": 4015,
+      "name": "Commune de Pressac",
+      "commune": "Pressac",
+      "codeCommune": "86200",
+      "domain": "pressac.fr",
+      "page": "https://pressac.fr/"
+    },
+    {
+      "orgId": 4213,
+      "name": "Commune de La Porcherie",
+      "commune": "La Porcherie",
+      "codeCommune": "87120",
+      "domain": "la-porcherie.fr",
+      "page": "https://www.la-porcherie.fr/"
+    }
+  ]
+}

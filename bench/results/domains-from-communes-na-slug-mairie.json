@@ -1,0 +1,20 @@
+{
+  "selected": 1698,
+  "verified": 0,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9481,
+    "withVerifiedProvenance": 9435,
+    "coveragePercent": 0.5643
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9481,
+    "withVerifiedProvenance": 9435,
+    "coveragePercent": 0.5643
+  },
+  "domains": []
+}

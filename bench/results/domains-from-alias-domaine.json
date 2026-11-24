@@ -1,0 +1,1197 @@
+{
+  "selected": 823,
+  "verified": 147,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9066,
+    "withVerifiedProvenance": 9020,
+    "coveragePercent": 0.5395
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9213,
+    "withVerifiedProvenance": 9167,
+    "coveragePercent": 0.5483
+  },
+  "domains": [
+    {
+      "orgId": 21631,
+      "name": "DAYRIES SAS (ART-CHARENTAIS.COM, MES PANTOUFLES.FR, DAYRIES.COM)",
+      "alias": "DAYRIES.COM",
+      "domain": "dayries.com",
+      "page": "https://dayries.com/creation-sites-web-charente/",
+      "identity": "dayries"
+    },
+    {
+      "orgId": 21787,
+      "name": "ALIENOR.ORG, CONSEIL DES MUSEES (CMPC)",
+      "alias": "ALIENOR.ORG, CONSEIL DES MUSEES (CMPC)",
+      "domain": "alienor.org",
+      "page": "https://www.alienor.org/",
+      "identity": "alienor"
+    },
+    {
+      "orgId": 21907,
+      "name": "KASUAL BUSINESS (KASUAL BIZNESS/KASUAL.BIZ/KASUAL/KBIZ/KASUAL.FR)",
+      "alias": "KASUAL BIZNESS/KASUAL.BIZ/KASUAL/KBIZ/KASUAL.FR",
+      "domain": "kasual.biz",
+      "page": "https://www.kasual.biz/",
+      "identity": "kasual"
+    },
+    {
+      "orgId": 22354,
+      "name": "FORUMCONSTRUIRE",
+      "alias": "FORUMCONSTRUIRE.COM",
+      "domain": "forumconstruire.com",
+      "page": "https://www.forumconstruire.com/",
+      "identity": "forumconstruire"
+    },
+    {
+      "orgId": 22723,
+      "name": "SAS AKWAABA EXOTIC.COM (SAS AKWAABA EXOTIC.COM)",
+      "alias": "SAS AKWAABA EXOTIC.COM (SAS AKWAABA EXOTIC.COM)",
+      "domain": "exotic.com",
+      "page": "http://www.exotic.com/",
+      "identity": "exotic"
+    },
+    {
+      "orgId": 23535,
+      "name": "ALLIANCE.NET ASSISTANCE PAR ABREVIATION A.N.A.",
+      "alias": "ALLIANCE.NET ASSISTANCE PAR ABREVIATION A.N.A.",
+      "domain": "alliance.net",
+      "page": "https://alliance.net/",
+      "identity": "alliance"
+    },
+    {
+      "orgId": 23561,
+      "name": "ALTGR.IO (ALTGR.IO)",
+      "alias": "ALTGR.IO (ALTGR.IO)",
+      "domain": "altgr.io",
+      "page": "https://altgr.io/",
+      "identity": "altgr"
+    },
+    {
+      "orgId": 23920,
+      "name": "AQUITAINEONLINE.COM",
+      "alias": "AQUITAINEONLINE.COM",
+      "domain": "aquitaineonline.com",
+      "page": "https://www.aquitaineonline.com/",
+      "identity": "aquitaineonline"
+    },
+    {
+      "orgId": 24656,
+      "name": "BOSSERAUTREMENT.COM (BOSSERAUTREMENT.COM)",
+      "alias": "BOSSERAUTREMENT.COM (BOSSERAUTREMENT.COM)",
+      "domain": "bosserautrement.com",
+      "page": "https://bosserautrement.com/",
+      "identity": "identifiant-public"
+    },
+    {
+      "orgId": 25366,
+      "name": "CODEINTER.NET",
+      "alias": "CODEINTER.NET",
+      "domain": "codeinter.net",
+      "page": "https://codeinter.net/",
+      "identity": "codeinter"
+    },
+    {
+      "orgId": 26068,
+      "name": "DREAMCLIC",
+      "alias": "DREAMCLIC DREAMCLIC.COM DREAMCLIC.FR ...",
+      "domain": "dreamclic.com",
+      "page": "https://www.dreamclic.com/",
+      "identity": "dreamclic"
+    },
+    {
+      "orgId": 26836,
+      "name": "FLORIAN PAVIOT (MEDIASCORE.FR)",
+      "alias": "MEDIASCORE.FR",
+      "domain": "mediascore.fr",
+      "page": "https://mediascore.fr/",
+      "identity": "mediascore"
+    },
+    {
+      "orgId": 27794,
+      "name": "IMPACT.COM FRANCE",
+      "alias": "IMPACT.COM FRANCE",
+      "domain": "impact.com",
+      "page": "https://impact.com/",
+      "identity": "impact"
+    },
+    {
+      "orgId": 27880,
+      "name": "INTERNET.FR",
+      "alias": "INTERNET.FR",
+      "domain": "internet.fr",
+      "page": "https://internet.fr/",
+      "identity": "identifiant-public"
+    },
+    {
+      "orgId": 28628,
+      "name": "JULIEN TISSIDRE (LAB118.IO)",
+      "alias": "LAB118.IO",
+      "domain": "lab118.io",
+      "page": "https://lab118.io/",
+      "identity": "lab118"
+    },
+    {
+      "orgId": 29247,
+      "name": "LILIAN BELLINI (SYSTEMIN.FR)",
+      "alias": "SYSTEMIN.FR",
+      "domain": "systemin.fr",
+      "page": "https://systemin.fr/",
+      "identity": "systemin"
+    },
+    {
+      "orgId": 29874,
+      "name": "MATHEO NOTTELET (LMONE.FR)",
+      "alias": "LMONE.FR",
+      "domain": "lmone.fr",
+      "page": "https://lmone.fr/",
+      "identity": "lmone"
+    },
+    {
+      "orgId": 30229,
+      "name": "MGVDEV.IO (MGVDEV.IO)",
+      "alias": "MGVDEV.IO (MGVDEV.IO)",
+      "domain": "mgvdev.io",
+      "page": "https://mgvdev.io/",
+      "identity": "mgvdev"
+    },
+    {
+      "orgId": 30567,
+      "name": "MVP STUDIO.IO",
+      "alias": "MVP STUDIO.IO",
+      "domain": "studio.io",
+      "page": "https://studio.io/",
+      "identity": "studio"
+    },
+    {
+      "orgId": 30772,
+      "name": "NEWSTRACKER.NET CONSULTING",
+      "alias": "NEWSTRACKER.NET CONSULTING",
+      "domain": "newstracker.net",
+      "page": "https://newstracker.net/",
+      "identity": "newstracker"
+    },
+    {
+      "orgId": 31272,
+      "name": "PANIERPROMO.FR (PANIER PROMO)",
+      "alias": "PANIERPROMO.FR (PANIER PROMO)",
+      "domain": "panierpromo.fr",
+      "page": "https://panierpromo.fr/",
+      "identity": "panierpromo"
+    },
+    {
+      "orgId": 32430,
+      "name": "SARL CAREMEDIA (CADUCEE.NET)",
+      "alias": "SARL CAREMEDIA (CADUCEE.NET)",
+      "domain": "caducee.net",
+      "page": "https://www.caducee.net/",
+      "identity": "caducee"
+    },
+    {
+      "orgId": 32705,
+      "name": "SINGULIARITY (SINGULIARITY.IO)",
+      "alias": "SINGULIARITY (SINGULIARITY.IO)",
+      "domain": "singuliarity.io",
+      "page": "https://singuliarity.io/",
+      "identity": "identifiant-public"
+    },
+    {
+      "orgId": 32732,
+      "name": "SLIPPERS AND BAG (JESUISUNJEUNE.COM)",
+      "alias": "SLIPPERS AND BAG (JESUISUNJEUNE.COM)",
+      "domain": "jesuisunjeune.com",
+      "page": "https://www.jesuisunjeune.com/",
+      "identity": "jesuisunjeune"
+    },
+    {
+      "orgId": 33604,
+      "name": "UGOSIGN.COM",
+      "alias": "UGOSIGN.COM",
+      "domain": "ugosign.com",
+      "page": "https://ugosign.com/",
+      "identity": "ugosign"
+    },
+    {
+      "orgId": 33608,
+      "name": "UMAMY.IO",
+      "alias": "UMAMY.IO",
+      "domain": "umamy.io",
+      "page": "https://umamy.io/",
+      "identity": "identifiant-public"
+    },
+    {
+      "orgId": 34061,
+      "name": "WIZZZ.NET",
+      "alias": "WIZZZ.NET",
+      "domain": "wizzz.net",
+      "page": "https://wizzz.net/en",
+      "identity": "wizzz"
+    },
+    {
+      "orgId": 34338,
+      "name": "ZOUHAIR SOUISSI (INFONUX.FR)",
+      "alias": "INFONUX.FR",
+      "domain": "infonux.fr",
+      "page": "https://infonux.fr/",
+      "identity": "infonux"
+    },
+    {
+      "orgId": 50766,
+      "name": "MAVOITUREAVENDRE.FR",
+      "alias": "MAVOITUREAVENDRE.FR",
+      "domain": "mavoitureavendre.fr",
+      "page": "https://www.mavoitureavendre.fr/",
+      "identity": "mavoitureavendre"
+    },
+    {
+      "orgId": 56941,
+      "name": "DJPROX.FR",
+      "alias": "DJPROX.FR",
+      "domain": "djprox.fr",
+      "page": "https://djprox.fr/",
+      "identity": "djprox"
+    },
+    {
+      "orgId": 69557,
+      "name": "AEROHYDROLIQUE.FR",
+      "alias": "AEROHYDROLIQUE.FR",
+      "domain": "aerohydrolique.fr",
+      "page": "https://aerohydrolique.fr/",
+      "identity": "aerohydrolique"
+    },
+    {
+      "orgId": 75177,
+      "name": "AGENCE.COM AURIAT",
+      "alias": "AGENCE.COM AURIAT",
+      "domain": "agence.com",
+      "page": "https://agence.com/",
+      "identity": "agence"
+    },
+    {
+      "orgId": 101787,
+      "name": "CREATEURS D'IMAGES - CAPTEURS D'EMOTIONS - YAPA PHOTO.FR",
+      "alias": "CREATEURS D'IMAGES - CAPTEURS D'EMOTIONS - YAPA PHOTO.FR",
+      "domain": "photo.fr",
+      "page": "https://photo.fr/",
+      "identity": "photo"
+    },
+    {
+      "orgId": 182741,
+      "name": "1000GITES.COM-LE HAMEAU DU PEYRIE",
+      "alias": "1000GITES.COM-LE HAMEAU DU PEYRIE",
+      "domain": "1000gites.com",
+      "page": "https://www.1000gites.com/",
+      "identity": "1000gites"
+    },
+    {
+      "orgId": 184083,
+      "name": "BETTER PRICES.COM",
+      "alias": "BETTER PRICES.COM",
+      "domain": "prices.com",
+      "page": "https://prices.com/",
+      "identity": "prices"
+    },
+    {
+      "orgId": 190156,
+      "name": "MOBIL.COM",
+      "alias": "MOBIL.COM",
+      "domain": "mobil.com",
+      "page": "https://www.mobil.com/en",
+      "identity": "mobil"
+    },
+    {
+      "orgId": 212233,
+      "name": "WATSOFT",
+      "alias": "WATSOFT.COM",
+      "domain": "watsoft.com",
+      "page": "https://www.watsoft.com/",
+      "identity": "watsoft"
+    },
+    {
+      "orgId": 213801,
+      "name": "GROUPE CONVERGENCE.COM",
+      "alias": "GROUPE CONVERGENCE.COM",
+      "domain": "convergence.com",
+      "page": "https://www.convergence.com/",
+      "identity": "convergence"
+    },
+    {
+      "orgId": 215004,
+      "name": "MEDIPALM.COM",
+      "alias": "MEDIPALM.COM",
+      "domain": "medipalm.com",
+      "page": "https://medipalm.com/",
+      "identity": "medipalm"
+    },
+    {
+      "orgId": 217511,
+      "name": "BROKLAND",
+      "alias": "BROKLAND.COM",
+      "domain": "brokland.com",
+      "page": "https://www.brokland.com/",
+      "identity": "brokland"
+    },
+    {
+      "orgId": 237388,
+      "name": "LEHUBLOT.COM.",
+      "alias": "LEHUBLOT.COM.",
+      "domain": "lehublot.com",
+      "page": "https://www.lehublot.com/",
+      "identity": "lehublot"
+    },
+    {
+      "orgId": 247481,
+      "name": "SURF SHOTS.COM",
+      "alias": "SURF SHOTS.COM",
+      "domain": "shots.com",
+      "page": "https://shots.com/",
+      "identity": "shots"
+    },
+    {
+      "orgId": 248769,
+      "name": "COTEBASQUE.NET",
+      "alias": "COTEBASQUE.NET",
+      "domain": "cotebasque.net",
+      "page": "https://cotebasque.net/",
+      "identity": "cotebasque"
+    },
+    {
+      "orgId": 251740,
+      "name": "NOVAMOB.FR",
+      "alias": "NOVAMOB.FR",
+      "domain": "novamob.fr",
+      "page": "https://novamob.fr/",
+      "identity": "novamob"
+    },
+    {
+      "orgId": 271846,
+      "name": "ASSOCIATION  GOBAGES.COM",
+      "alias": "GOBAGES.COM",
+      "domain": "gobages.com",
+      "page": "https://gobages.com/",
+      "identity": "gobages"
+    },
+    {
+      "orgId": 278639,
+      "name": "TAUXPREMIER.COM",
+      "alias": "TAUXPREMIER.COM",
+      "domain": "tauxpremier.com",
+      "page": "https://www.tauxpremier.com/",
+      "identity": "tauxpremier"
+    },
+    {
+      "orgId": 280582,
+      "name": "JECHANGE.FR",
+      "alias": "JECHANGE.FR",
+      "domain": "jechange.fr",
+      "page": "https://www.jechange.fr/",
+      "identity": "jechange"
+    },
+    {
+      "orgId": 280596,
+      "name": "MOUV'ANCES.COM",
+      "alias": "MOUV'ANCES.COM",
+      "domain": "ances.com",
+      "page": "https://ances.com/",
+      "identity": "ances"
+    },
+    {
+      "orgId": 281935,
+      "name": "MARKET.COM",
+      "alias": "MARKET.COM",
+      "domain": "market.com",
+      "page": "https://www.market.com/",
+      "identity": "market"
+    },
+    {
+      "orgId": 283668,
+      "name": "COZYN.COM",
+      "alias": "COZYN.COM",
+      "domain": "cozyn.com",
+      "page": "https://cozyn.com/",
+      "identity": "cozyn"
+    },
+    {
+      "orgId": 286055,
+      "name": "PARACHUTE.FR",
+      "alias": "PARACHUTE.FR",
+      "domain": "parachute.fr",
+      "page": "https://parachute.fr/",
+      "identity": "parachute"
+    },
+    {
+      "orgId": 291386,
+      "name": "MACOMPTA.FR",
+      "alias": "MACOMPTA.FR",
+      "domain": "macompta.fr",
+      "page": "https://macompta.fr/",
+      "identity": "macompta"
+    },
+    {
+      "orgId": 291625,
+      "name": "ASSOCIATION POINT.COM'",
+      "alias": "ASSOCIATION POINT.COM'",
+      "domain": "point.com",
+      "page": "https://point.com/",
+      "identity": "point"
+    },
+    {
+      "orgId": 292893,
+      "name": "SARL DULIGHT.FR",
+      "alias": "DULIGHT.FR",
+      "domain": "dulight.fr",
+      "page": "https://www.dulight.fr/fr/",
+      "identity": "dulight"
+    },
+    {
+      "orgId": 294707,
+      "name": "DROITDUSPORT.COM",
+      "alias": "DROITDUSPORT.COM",
+      "domain": "droitdusport.com",
+      "page": "https://droitdusport.com/",
+      "identity": "droitdusport"
+    },
+    {
+      "orgId": 308760,
+      "name": "SYLDE.NET",
+      "alias": "SYLDE.NET",
+      "domain": "sylde.net",
+      "page": "https://sylde.net/",
+      "identity": "sylde"
+    },
+    {
+      "orgId": 310653,
+      "name": "FAGES.FR",
+      "alias": "FAGES.FR",
+      "domain": "fages.fr",
+      "page": "https://fages.fr/",
+      "identity": "fages"
+    },
+    {
+      "orgId": 311684,
+      "name": "AUCOFFRE.COM",
+      "alias": "AUCOFFRE.COM",
+      "domain": "aucoffre.com",
+      "page": "https://www.aucoffre.com/",
+      "identity": "aucoffre"
+    },
+    {
+      "orgId": 318024,
+      "name": "FAN AVENUE.COM",
+      "alias": "FAN AVENUE.COM",
+      "domain": "avenue.com",
+      "page": "https://www.avenue.com/",
+      "identity": "avenue"
+    },
+    {
+      "orgId": 326633,
+      "name": "J2M - ARCHITECT.COM",
+      "alias": "J2M - ARCHITECT.COM",
+      "domain": "architect.com",
+      "page": "https://www.architect.com/",
+      "identity": "architect"
+    },
+    {
+      "orgId": 337408,
+      "name": "MEDIA.COM",
+      "alias": "MEDIA.COM",
+      "domain": "media.com",
+      "page": "https://media.com/",
+      "identity": "media"
+    },
+    {
+      "orgId": 342127,
+      "name": "LIVRONSCHEZVOUS.COM",
+      "alias": "LIVRONSCHEZVOUS.COM",
+      "domain": "livronschezvous.com",
+      "page": "https://livronschezvous.com/",
+      "identity": "livronschezvous"
+    },
+    {
+      "orgId": 352012,
+      "name": "BLANCHISSEUR.FR",
+      "alias": "BLANCHISSEUR.FR",
+      "domain": "blanchisseur.fr",
+      "page": "https://blanchisseur.fr/",
+      "identity": "blanchisseur"
+    },
+    {
+      "orgId": 361501,
+      "name": "EARL MONROSIER.COM",
+      "alias": "EARL MONROSIER.COM",
+      "domain": "monrosier.com",
+      "page": "https://www.monrosier.com/",
+      "identity": "monrosier"
+    },
+    {
+      "orgId": 410456,
+      "name": "MONPROJETBOIS.COM",
+      "alias": "MONPROJETBOIS.COM",
+      "domain": "monprojetbois.com",
+      "page": "https://monprojetbois.com/",
+      "identity": "monprojetbois"
+    },
+    {
+      "orgId": 412343,
+      "name": "SECRETAIRES A DOMICILE.FR- LE RESEAU",
+      "alias": "SECRETAIRES A DOMICILE.FR- LE RESEAU",
+      "domain": "domicile.fr",
+      "page": "https://domicile.fr/",
+      "identity": "domicile"
+    },
+    {
+      "orgId": 415501,
+      "name": "IMJ IMMOJURISTE LIMOGES",
+      "alias": "IMJ BY IMMOJURISTE.COM",
+      "domain": "immojuriste.com",
+      "page": "https://www.immojuriste.com/accueil.html",
+      "identity": "immojuriste"
+    },
+    {
+      "orgId": 416123,
+      "name": "DATAMIX.IO",
+      "alias": "DATAMIX.IO",
+      "domain": "datamix.io",
+      "page": "https://datamix.io/",
+      "identity": "datamix"
+    },
+    {
+      "orgId": 422227,
+      "name": "MONAPPARTABORDEAUX.FR",
+      "alias": "MONAPPARTABORDEAUX.FR",
+      "domain": "monappartabordeaux.fr",
+      "page": "https://www.monappartabordeaux.fr/",
+      "identity": "monappartabordeaux"
+    },
+    {
+      "orgId": 436166,
+      "name": "ROBINDESBOIS.COM",
+      "alias": "ROBINDESBOIS.COM",
+      "domain": "robindesbois.com",
+      "page": "https://www.robindesbois.com/fr/",
+      "identity": "robindesbois"
+    },
+    {
+      "orgId": 449405,
+      "name": "CAMPINGS.ONLINE",
+      "alias": "CAMPINGS.ONLINE",
+      "domain": "campings.online",
+      "page": "https://www.campings.online/",
+      "identity": "campings"
+    },
+    {
+      "orgId": 468483,
+      "name": "MECONNU.FR",
+      "alias": "MECONNU.FR",
+      "domain": "meconnu.fr",
+      "page": "https://meconnu.fr/",
+      "identity": "meconnu"
+    },
+    {
+      "orgId": 470216,
+      "name": "JE ME REGALE LOCAL.COM LE DRIVE DES PRODUCTEURS DE BOUSSAC",
+      "alias": "JE ME REGALE LOCAL.COM LE DRIVE DES PRODUCTEURS DE BOUSSAC",
+      "domain": "local.com",
+      "page": "https://www.local.com/",
+      "identity": "local"
+    },
+    {
+      "orgId": 476933,
+      "name": "MALTA.COM",
+      "alias": "MALTA.COM",
+      "domain": "malta.com",
+      "page": "https://malta.com/",
+      "identity": "malta"
+    },
+    {
+      "orgId": 482931,
+      "name": "SURLESFLOTS.COM",
+      "alias": "SURLESFLOTS.COM",
+      "domain": "surlesflots.com",
+      "page": "https://www.surlesflots.com/",
+      "identity": "surlesflots"
+    },
+    {
+      "orgId": 484571,
+      "name": "MONSTORISTE.FR",
+      "alias": "MONSTORISTE.FR",
+      "domain": "monstoriste.fr",
+      "page": "https://monstoriste.fr/",
+      "identity": "monstoriste"
+    },
+    {
+      "orgId": 501295,
+      "name": "GASCOGNE APICULTURE",
+      "alias": "APICULTURE.NET",
+      "domain": "apiculture.net",
+      "page": "https://www.apiculture.net/",
+      "identity": "apiculture"
+    },
+    {
+      "orgId": 524323,
+      "name": "PRINTOO.FR",
+      "alias": "PRINTOO.FR",
+      "domain": "printoo.fr",
+      "page": "https://www.printoo.fr/",
+      "identity": "printoo"
+    },
+    {
+      "orgId": 528790,
+      "name": "PASTEQUE.IO",
+      "alias": "PASTEQUE.IO",
+      "domain": "pasteque.io",
+      "page": "https://pasteque.io/",
+      "identity": "pasteque"
+    },
+    {
+      "orgId": 533436,
+      "name": "OSSIA.IO",
+      "alias": "OSSIA.IO",
+      "domain": "ossia.io",
+      "page": "https://ossia.io/",
+      "identity": "ossia"
+    },
+    {
+      "orgId": 571555,
+      "name": "ASSOCIATION DE GESTION DU SITE WEB86.INFO",
+      "alias": "ASSOCIATION DE GESTION DU SITE WEB86.INFO",
+      "domain": "web86.info",
+      "page": "https://web86.info/",
+      "identity": "web86"
+    },
+    {
+      "orgId": 577361,
+      "name": "WWW.ROLLERENLIGNE.COM",
+      "alias": "WWW.ROLLERENLIGNE.COM",
+      "domain": "rollerenligne.com",
+      "page": "https://www.rollerenligne.com/",
+      "identity": "rollerenligne"
+    },
+    {
+      "orgId": 578217,
+      "name": "DIAGIMMO.FR SAS",
+      "alias": "DIAGIMMO.FR SAS",
+      "domain": "diagimmo.fr",
+      "page": "https://www.diagimmo.fr/",
+      "identity": "diagimmo"
+    },
+    {
+      "orgId": 629037,
+      "name": "MAINDEJUSTICE.COM",
+      "alias": "MAINDEJUSTICE.COM",
+      "domain": "maindejustice.com",
+      "page": "https://maindejustice.com/",
+      "identity": "maindejustice"
+    },
+    {
+      "orgId": 650526,
+      "name": "GUZZIENDURO.ORG",
+      "alias": "GUZZIENDURO.ORG",
+      "domain": "guzzienduro.org",
+      "page": "https://guzzienduro.org/",
+      "identity": "guzzienduro"
+    },
+    {
+      "orgId": 678554,
+      "name": "AUTOSAFE.FR",
+      "alias": "AUTOSAFE.FR",
+      "domain": "autosafe.fr",
+      "page": "https://autosafe.fr/",
+      "identity": "autosafe"
+    },
+    {
+      "orgId": 682332,
+      "name": "MAVOITURECLEAN.COM",
+      "alias": "MAVOITURECLEAN.COM",
+      "domain": "mavoitureclean.com",
+      "page": "https://www.mavoitureclean.com/",
+      "identity": "mavoitureclean"
+    },
+    {
+      "orgId": 682884,
+      "name": "FINANCEVERTE.NET",
+      "alias": "FINANCEVERTE.NET",
+      "domain": "financeverte.net",
+      "page": "https://www.financeverte.net/",
+      "identity": "identifiant-public"
+    },
+    {
+      "orgId": 687615,
+      "name": "VOTRESTORISTE.FR",
+      "alias": "VOTRESTORISTE.FR",
+      "domain": "votrestoriste.fr",
+      "page": "https://votrestoriste.fr/",
+      "identity": "votrestoriste"
+    },
+    {
+      "orgId": 698241,
+      "name": "CHEVALIERB.FR",
+      "alias": "CHEVALIERB.FR",
+      "domain": "chevalierb.fr",
+      "page": "https://chevalierb.fr/",
+      "identity": "chevalierb"
+    },
+    {
+      "orgId": 709604,
+      "name": "SILVER.FR",
+      "alias": "SILVER.FR",
+      "domain": "silver.fr",
+      "page": "https://www.silver.fr/",
+      "identity": "silver"
+    },
+    {
+      "orgId": 1964848,
+      "name": "OUI GLASS.COM (GOND-PONTOUVRE)",
+      "alias": "OUI GLASS.COM",
+      "domain": "glass.com",
+      "page": "https://www.glass.com/",
+      "identity": "glass"
+    },
+    {
+      "orgId": 1965629,
+      "name": "ERUGBAZAAR.COM YOURUG.COM EUROTAPIS (PAU)",
+      "alias": "ERUGBAZAAR.COM YOURUG.COM EUROTAPIS",
+      "domain": "erugbazaar.com",
+      "page": "https://www.erugbazaar.com/",
+      "identity": "erugbazaar"
+    },
+    {
+      "orgId": 1966062,
+      "name": "LOCACYCLE DIRECT.COM (LES MATHES)",
+      "alias": "LOCACYCLE DIRECT.COM",
+      "domain": "direct.com",
+      "page": "https://www.direct.com/",
+      "identity": "direct"
+    },
+    {
+      "orgId": 1966176,
+      "name": "LAMAISON.FR (SAINTE-VERGE)",
+      "alias": "LAMAISON.FR",
+      "domain": "lamaison.fr",
+      "page": "https://www.lamaison.fr/",
+      "identity": "lamaison"
+    },
+    {
+      "orgId": 1968606,
+      "name": "RUEDELACHAUSSURE.COM (LIMOGES)",
+      "alias": "RUEDELACHAUSSURE.COM",
+      "domain": "ruedelachaussure.com",
+      "page": "https://ruedelachaussure.com/",
+      "identity": "ruedelachaussure"
+    },
+    {
+      "orgId": 1975096,
+      "name": "GSM CLINIQUE.COM (PAU)",
+      "alias": "GSM CLINIQUE.COM",
+      "domain": "clinique.com",
+      "page": "https://www.clinique.com/",
+      "identity": "clinique"
+    },
+    {
+      "orgId": 1977508,
+      "name": "VOUSFINANCER.COM (BIARRITZ)",
+      "alias": "VOUSFINANCER.COM",
+      "domain": "vousfinancer.com",
+      "page": "https://www.vousfinancer.com/",
+      "identity": "vousfinancer"
+    },
+    {
+      "orgId": 1980998,
+      "name": "MAMENSUALITE.FR (BORDEAUX)",
+      "alias": "MAMENSUALITE.FR",
+      "domain": "mamensualite.fr",
+      "page": "https://www.mamensualite.fr/",
+      "identity": "mamensualite"
+    },
+    {
+      "orgId": 1984772,
+      "name": "VENDEZVOTREVOITURE.FR (LIMOGES)",
+      "alias": "VENDEZVOTREVOITURE.FR",
+      "domain": "vendezvotrevoiture.fr",
+      "page": "https://www.vendezvotrevoiture.fr/",
+      "identity": "vendezvotrevoiture"
+    },
+    {
+      "orgId": 1986695,
+      "name": "CLICANDNECTAR.FR (MONCRABEAU)",
+      "alias": "CLICANDNECTAR.FR",
+      "domain": "clicandnectar.fr",
+      "page": "https://www.clicandnectar.fr/",
+      "identity": "clicandnectar"
+    },
+    {
+      "orgId": 1991309,
+      "name": "LECREDITATYPIQUE.COM (GRADIGNAN)",
+      "alias": "LECREDITATYPIQUE.COM",
+      "domain": "lecreditatypique.com",
+      "page": "https://www.lecreditatypique.com/",
+      "identity": "lecreditatypique"
+    },
+    {
+      "orgId": 2069405,
+      "name": "COLLANT.FR COLLANTS.FR COLLANTBAS TIG...",
+      "alias": "COLLANT.FR COLLANTS.FR COLLANTBAS TIG...",
+      "domain": "collant.fr",
+      "page": "https://collant.fr/",
+      "identity": "collant"
+    },
+    {
+      "orgId": 2137248,
+      "name": "PERIGORD.COM",
+      "alias": "PERIGORD.COM",
+      "domain": "perigord.com",
+      "page": "https://www.perigord.com/",
+      "identity": "perigord"
+    },
+    {
+      "orgId": 2180545,
+      "name": "SARL LECARNET.COM",
+      "alias": "SARL LECARNET.COM",
+      "domain": "lecarnet.com",
+      "page": "https://lecarnet.com/",
+      "identity": "lecarnet"
+    },
+    {
+      "orgId": 2180887,
+      "name": "NET RANGE.COM",
+      "alias": "NET RANGE.COM",
+      "domain": "range.com",
+      "page": "https://www.range.com/",
+      "identity": "range"
+    },
+    {
+      "orgId": 2182200,
+      "name": "SANTEWEB",
+      "alias": "WWW.SANTEWEB.COM",
+      "domain": "santeweb.com",
+      "page": "https://www.santeweb.com/",
+      "identity": "santeweb"
+    },
+    {
+      "orgId": 2185086,
+      "name": "PLANET.COM",
+      "alias": "PLANET.COM",
+      "domain": "planet.com",
+      "page": "https://www.planet.com/",
+      "identity": "planet"
+    },
+    {
+      "orgId": 2191261,
+      "name": "DOMAINE DE KALIMERO",
+      "alias": "DOMAINE DE KALIMERO.COM",
+      "domain": "kalimero.com",
+      "page": "https://kalimero.com/",
+      "identity": "kalimero"
+    },
+    {
+      "orgId": 2192449,
+      "name": "SECURITE.COM SARL",
+      "alias": "SECURITE.COM SARL",
+      "domain": "securite.com",
+      "page": "https://www.securite.com/",
+      "identity": "securite"
+    },
+    {
+      "orgId": 2195567,
+      "name": "NICOLE DEWAELE.COM",
+      "alias": "NICOLE DEWAELE.COM",
+      "domain": "dewaele.com",
+      "page": "https://www.dewaele.com/nl",
+      "identity": "dewaele"
+    },
+    {
+      "orgId": 2212708,
+      "name": "ALLIANCE SENIOR.COM",
+      "alias": "ALLIANCE SENIOR.COM",
+      "domain": "senior.com",
+      "page": "https://senior.com/",
+      "identity": "senior"
+    },
+    {
+      "orgId": 2216466,
+      "name": "WEBPLANETE.COM",
+      "alias": "WEBPLANETE.COM",
+      "domain": "webplanete.com",
+      "page": "https://webplanete.com/",
+      "identity": "webplanete"
+    },
+    {
+      "orgId": 2218876,
+      "name": "INVESTIGATIONS.COM",
+      "alias": "INVESTIGATIONS.COM",
+      "domain": "investigations.com",
+      "page": "https://www.investigations.com/",
+      "identity": "investigations"
+    },
+    {
+      "orgId": 2225527,
+      "name": "GROUPAUTO.COM",
+      "alias": "GROUPAUTO.COM",
+      "domain": "groupauto.com",
+      "page": "https://groupauto.com/",
+      "identity": "groupauto"
+    },
+    {
+      "orgId": 2227129,
+      "name": "EASYANNONCE",
+      "alias": "EASYANNONCE.COM - GOUTS DE WEB - GOUTS DE LUXE",
+      "domain": "easyannonce.com",
+      "page": "https://easyannonce.com/",
+      "identity": "easyannonce"
+    },
+    {
+      "orgId": 2231723,
+      "name": "PIZZA.COM MOURENX",
+      "alias": "PIZZA.COM MOURENX",
+      "domain": "pizza.com",
+      "page": "https://pizza.com/",
+      "identity": "pizza"
+    },
+    {
+      "orgId": 2237766,
+      "name": "ATLANTIC.NET",
+      "alias": "ATLANTIC.NET",
+      "domain": "atlantic.net",
+      "page": "https://www.atlantic.net/",
+      "identity": "atlantic"
+    },
+    {
+      "orgId": 2238527,
+      "name": "AVANTAGE.COM",
+      "alias": "AVANTAGE.COM - ANNUAIRE DU 87",
+      "domain": "avantage.com",
+      "page": "https://avantage.com/",
+      "identity": "avantage"
+    },
+    {
+      "orgId": 2245265,
+      "name": "COURSADOM",
+      "alias": "COURSADOM.FR COURS@COM",
+      "domain": "coursadom.fr",
+      "page": "https://www.coursadom.fr/",
+      "identity": "coursadom"
+    },
+    {
+      "orgId": 2260313,
+      "name": "AUTO PIECE.COM",
+      "alias": "AUTO PIECE.COM",
+      "domain": "piece.com",
+      "page": "http://www.piece.com/",
+      "identity": "piece"
+    },
+    {
+      "orgId": 2262469,
+      "name": "ABADIE.FR",
+      "alias": "ABADIE.FR",
+      "domain": "abadie.fr",
+      "page": "https://abadie.fr/",
+      "identity": "abadie"
+    },
+    {
+      "orgId": 2263812,
+      "name": "SARL Z'OUTILS",
+      "alias": "Z'OUTILS.FR",
+      "domain": "outils.fr",
+      "page": "https://www.outils.fr/",
+      "identity": "outils"
+    },
+    {
+      "orgId": 2264614,
+      "name": "JOBIJOBA",
+      "alias": "JOBIJOBA.COM",
+      "domain": "jobijoba.com",
+      "page": "https://www.jobijoba.com/fr/",
+      "identity": "jobijoba"
+    },
+    {
+      "orgId": 2265207,
+      "name": "MIRAD.FR",
+      "alias": "MIRAD.FR",
+      "domain": "mirad.fr",
+      "page": "https://mirad.fr/",
+      "identity": "mirad"
+    },
+    {
+      "orgId": 2267057,
+      "name": "COSMOLIGNE.COM",
+      "alias": "COSMOLIGNE.COM",
+      "domain": "cosmoligne.com",
+      "page": "https://www.cosmoligne.com/",
+      "identity": "cosmoligne"
+    },
+    {
+      "orgId": 2267058,
+      "name": "BIOPUR.FR",
+      "alias": "BIOPUR.FR",
+      "domain": "biopur.fr",
+      "page": "https://www.biopur.fr/",
+      "identity": "biopur"
+    },
+    {
+      "orgId": 2280904,
+      "name": "LABONEIDEE.COM",
+      "alias": "LABONEIDEE.COM",
+      "domain": "laboneidee.com",
+      "page": "https://laboneidee.com/",
+      "identity": "laboneidee"
+    },
+    {
+      "orgId": 2281375,
+      "name": "GRAPHIC.COM",
+      "alias": "GRAPHIC.COM",
+      "domain": "graphic.com",
+      "page": "https://www.graphic.com/",
+      "identity": "graphic"
+    },
+    {
+      "orgId": 2284629,
+      "name": "IQUARTIERS.COM",
+      "alias": "IQUARTIERS.COM",
+      "domain": "iquartiers.com",
+      "page": "https://iquartiers.com/",
+      "identity": "iquartiers"
+    },
+    {
+      "orgId": 2286203,
+      "name": "WEBCAM PROFS.FR",
+      "alias": "WEBCAM PROFS.FR",
+      "domain": "profs.fr",
+      "page": "http://www.profs.fr/",
+      "identity": "profs"
+    },
+    {
+      "orgId": 2290116,
+      "name": "SPORTS PULSIONS.COM",
+      "alias": "SPORTS PULSIONS.COM",
+      "domain": "pulsions.com",
+      "page": "https://www.pulsions.com/",
+      "identity": "pulsions"
+    },
+    {
+      "orgId": 2295717,
+      "name": "MOBILUS.FR",
+      "alias": "MOBILUS.FR",
+      "domain": "mobilus.fr",
+      "page": "https://mobilus.fr/data-made-simple.php",
+      "identity": "mobilus"
+    },
+    {
+      "orgId": 2311732,
+      "name": "ANIMALECO.COM",
+      "alias": "ANIMALECO.COM",
+      "domain": "animaleco.com",
+      "page": "https://www.animaleco.com/",
+      "identity": "animaleco"
+    },
+    {
+      "orgId": 2335561,
+      "name": "DEUXROUES.COM",
+      "alias": "DEUXROUES.COM",
+      "domain": "deuxroues.com",
+      "page": "https://www.deuxroues.com/",
+      "identity": "deuxroues"
+    },
+    {
+      "orgId": 2345948,
+      "name": "WWW.ASDUBAD.FR",
+      "alias": "WWW.ASDUBAD.FR",
+      "domain": "asdubad.fr",
+      "page": "https://asdubad.fr/",
+      "identity": "asdubad"
+    },
+    {
+      "orgId": 2349586,
+      "name": "JE RENOV MA MAISON.COM",
+      "alias": "JE RENOV MA MAISON.COM",
+      "domain": "maison.com",
+      "page": "https://maison.com/",
+      "identity": "maison"
+    },
+    {
+      "orgId": 2353965,
+      "name": "LA FABRIQUE DE LOGOS.COM",
+      "alias": "LA FABRIQUE DE LOGOS.COM",
+      "domain": "logos.com",
+      "page": "https://www.logos.com/",
+      "identity": "logos"
+    },
+    {
+      "orgId": 2354168,
+      "name": "ALIBABIKE.COM",
+      "alias": "ALIBABIKE.COM",
+      "domain": "alibabike.com",
+      "page": "https://www.alibabike.com/",
+      "identity": "alibabike"
+    },
+    {
+      "orgId": 2363681,
+      "name": "RESERVER.FR",
+      "alias": "RESERVER.FR",
+      "domain": "reserver.fr",
+      "page": "https://www.reserver.fr/",
+      "identity": "reserver"
+    },
+    {
+      "orgId": 2366241,
+      "name": "CARTEVOEUX.COM",
+      "alias": "CARTEVOEUX.COM",
+      "domain": "cartevoeux.com",
+      "page": "https://www.cartevoeux.com/",
+      "identity": "cartevoeux"
+    },
+    {
+      "orgId": 2367289,
+      "name": "TOPBIZ.FR",
+      "alias": "TOPBIZ.FR",
+      "domain": "topbiz.fr",
+      "page": "https://www.topbiz.fr/",
+      "identity": "topbiz"
+    },
+    {
+      "orgId": 2373871,
+      "name": "KONTRIBU.COM",
+      "alias": "KONTRIBU.COM",
+      "domain": "kontribu.com",
+      "page": "https://www.kontribu.com/en",
+      "identity": "kontribu"
+    },
+    {
+      "orgId": 2380245,
+      "name": "GERMANLINK.FR",
+      "alias": "GERMANLINK.FR",
+      "domain": "germanlink.fr",
+      "page": "https://germanlink.fr/",
+      "identity": "germanlink"
+    },
+    {
+      "orgId": 2392989,
+      "name": "CHART.COM",
+      "alias": "CHART.COM",
+      "domain": "chart.com",
+      "page": "http://www.chart.com/",
+      "identity": "chart"
+    },
+    {
+      "orgId": 2401571,
+      "name": "LIIME.IO",
+      "alias": "LIIME.IO",
+      "domain": "liime.io",
+      "page": "https://liime.io/",
+      "identity": "liime"
+    },
+    {
+      "orgId": 2410288,
+      "name": "CARRE.FR",
+      "alias": "CARRE.FR",
+      "domain": "carre.fr",
+      "page": "https://www.carre.fr/",
+      "identity": "carre"
+    }
+  ]
+}

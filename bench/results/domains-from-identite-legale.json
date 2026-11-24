@@ -1,0 +1,121 @@
+{
+  "selected": 547,
+  "verified": 10,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9282,
+    "withVerifiedProvenance": 9236,
+    "coveragePercent": 0.5524
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9292,
+    "withVerifiedProvenance": 9246,
+    "coveragePercent": 0.553
+  },
+  "domains": [
+    {
+      "orgId": 1511250,
+      "siren": "388513236",
+      "name": "CHAUVEL PATRICE",
+      "domain": "salamandre-limoges.com",
+      "registry": "osm-siret-http-200",
+      "page": "https://salamandre-limoges.com/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 570868,
+      "siren": "904882750",
+      "name": "MAT 17",
+      "domain": "lavapetendre.fr",
+      "registry": "osm-siret-http-200",
+      "page": "https://lavapetendre.fr/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 289981,
+      "siren": "499308856",
+      "name": "SO.BIO",
+      "domain": "sobio.fr",
+      "registry": "osm-siret-http-200",
+      "page": "https://sobio.fr/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 421645,
+      "siren": "811457472",
+      "name": "GADIOU ARNAUD",
+      "domain": "olympik-center.com",
+      "registry": "osm-siret-http-200",
+      "page": "https://olympik-center.com/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 528494,
+      "siren": "883558835",
+      "name": "LE GCO",
+      "domain": "gco.ouvaton.org",
+      "registry": "rna-http-200",
+      "page": "https://gco.ouvaton.org/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 538102,
+      "siren": "889922233",
+      "name": "GERLI",
+      "domain": "mareevita.fr",
+      "registry": "osm-http-200",
+      "page": "https://mareevita.fr/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 173461,
+      "siren": "414780494",
+      "name": "CHARANTELEC",
+      "domain": "cegelec-la-rochelle.fr",
+      "registry": "osm-http-200",
+      "page": "https://cegelec-la-rochelle.fr/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 329561,
+      "siren": "521897090",
+      "name": "KIWEST",
+      "domain": "lapigouille.fr",
+      "registry": "osm-http-200",
+      "page": "https://lapigouille.fr/mentions",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 177314,
+      "siren": "418642658",
+      "name": "SCEA VIGNOBLES CHENE ET FILS",
+      "domain": "chateaumarrin.com",
+      "registry": "wikidata-id-http-200",
+      "page": "https://chateaumarrin.com/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    },
+    {
+      "orgId": 368625,
+      "siren": "755501418",
+      "name": "SOC CENTRALE EXPL CINEMATOGRAPHIQUE",
+      "domain": "grandecran.fr",
+      "registry": "wikidata-id-http-200",
+      "page": "https://grandecran.fr/mentions-legales",
+      "identity": "identifiant-public",
+      "motif": "http200-published-identifier"
+    }
+  ]
+}

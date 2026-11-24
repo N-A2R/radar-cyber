@@ -1,0 +1,28 @@
+{
+  "selected": 32,
+  "verified": 1,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9408,
+    "withVerifiedProvenance": 9362,
+    "coveragePercent": 0.5599
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9409,
+    "withVerifiedProvenance": 9363,
+    "coveragePercent": 0.56
+  },
+  "domains": [
+    {
+      "orgId": 17226,
+      "name": "Lycée des Graves",
+      "uai": "0332846P",
+      "domain": "lyceedesgraves.fr",
+      "page": "https://lyceedesgraves.fr/"
+    }
+  ]
+}

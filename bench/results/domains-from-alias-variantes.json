@@ -1,0 +1,122 @@
+{
+  "selected": 657,
+  "verified": 8,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9230,
+    "withVerifiedProvenance": 9184,
+    "coveragePercent": 0.5493
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9238,
+    "withVerifiedProvenance": 9192,
+    "coveragePercent": 0.5498
+  },
+  "domains": [
+    {
+      "orgId": 218904,
+      "name": "SUD CHARENTE.NET",
+      "alias": "SUD CHARENTE.NET",
+      "domain": "charente.net",
+      "page": "http://charente.net/",
+      "identity": "charente",
+      "tried": [
+        "https://charente.net/",
+        "https://www.charente.net/",
+        "http://charente.net/"
+      ]
+    },
+    {
+      "orgId": 234041,
+      "name": "AGENCE FRANCE WEB - AFW- UBACTO.COM-",
+      "alias": "AGENCE FRANCE WEB - AFW - UBACTO.COM-",
+      "domain": "ubacto.com",
+      "page": "http://ubacto.com/",
+      "identity": "ubacto",
+      "tried": [
+        "https://ubacto.com/",
+        "https://www.ubacto.com/",
+        "http://ubacto.com/"
+      ]
+    },
+    {
+      "orgId": 257869,
+      "name": "VAGDESPOIR.COM",
+      "alias": "VAGDESPOIR.COM",
+      "domain": "vagdespoir.com",
+      "page": "https://www.vagdespoir.com/",
+      "identity": "vagdespoir",
+      "tried": [
+        "https://vagdespoir.com/",
+        "https://www.vagdespoir.com/"
+      ]
+    },
+    {
+      "orgId": 367046,
+      "name": "ELUESLOCALES.FR",
+      "alias": "ELUESLOCALES.FR",
+      "domain": "elueslocales.fr",
+      "page": "https://www.elueslocales.fr/",
+      "identity": "elueslocales",
+      "tried": [
+        "https://elueslocales.fr/",
+        "https://www.elueslocales.fr/"
+      ]
+    },
+    {
+      "orgId": 2226978,
+      "name": "SARL NUTSY.NET",
+      "alias": "SARL NUTSY.NET",
+      "domain": "nutsy.net",
+      "page": "http://nutsy.net/",
+      "identity": "nutsy",
+      "tried": [
+        "https://nutsy.net/",
+        "https://www.nutsy.net/",
+        "http://nutsy.net/"
+      ]
+    },
+    {
+      "orgId": 2303769,
+      "name": "SARL FELIX.FR",
+      "alias": "SARL FELIX.FR",
+      "domain": "felix.fr",
+      "page": "https://www.felix.fr/",
+      "identity": "felix",
+      "tried": [
+        "https://felix.fr/",
+        "https://www.felix.fr/"
+      ]
+    },
+    {
+      "orgId": 2341663,
+      "name": "LEPLUSBEAUBUT.COM",
+      "alias": "LEPLUSBEAUBUT.COM",
+      "domain": "leplusbeaubut.com",
+      "page": "http://leplusbeaubut.com/",
+      "identity": "leplusbeaubut",
+      "tried": [
+        "https://leplusbeaubut.com/",
+        "https://www.leplusbeaubut.com/",
+        "http://leplusbeaubut.com/"
+      ]
+    },
+    {
+      "orgId": 2398310,
+      "name": "PRESTIGE RENOV.COM.",
+      "alias": "PRESTIGE RENOV.COM.",
+      "domain": "renov.com",
+      "page": "http://renov.com/",
+      "identity": "renov",
+      "tried": [
+        "https://renov.com/",
+        "https://www.renov.com/",
+        "http://renov.com/"
+      ]
+    }
+  ]
+}
