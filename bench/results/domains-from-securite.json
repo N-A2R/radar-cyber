@@ -1,0 +1,35 @@
+{
+  "selected": 2,
+  "verified": 2,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9346,
+    "withVerifiedProvenance": 9300,
+    "coveragePercent": 0.5562
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9348,
+    "withVerifiedProvenance": 9302,
+    "coveragePercent": 0.5564
+  },
+  "domains": [
+    {
+      "orgId": 79667,
+      "name": "GYRAX",
+      "domain": "gyrax.fr",
+      "token": "gyrax",
+      "sector": "agroalimentaire"
+    },
+    {
+      "orgId": 2101269,
+      "name": "MAGENDIE",
+      "domain": "magendie.fr",
+      "token": "magendie",
+      "sector": "agroalimentaire"
+    }
+  ]
+}
