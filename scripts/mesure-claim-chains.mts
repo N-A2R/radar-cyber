@@ -8,10 +8,12 @@
  * Écrit `claim_chain` depuis `leak_claim` via `refresh_claim_chains()`, exécute
  * le critère du chantier tel quel, puis publie un rapport sans nom de victime,
  * sans URL et sans donnée personnelle. Aucun appel réseau.
+ * Vérifie aussi que le rapport déclare exactement une fois la ligne OBJECTIF mesurée.
  */
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
+import { ligneObjectifClaimChains, verifierDeclarationObjectifClaimChains } from "../apps/api/src/analyse/objectif-claim-chains.js";
 process.env.DATABASE_URL ??= "postgres://radar:radar@localhost:5433/radar";
 const { closePools, query } = await import("../apps/api/src/db.js");
 const {
@@ -23,6 +25,7 @@ const {
 
 const JSON_PATH = process.argv.find((arg) => arg.startsWith("--json="))?.slice(7)
   ?? "bench/results/claim-chain-2026-11-23.json";
+const RAPPORT = new URL("../docs/claim-chain.md", import.meta.url);
 const CRITERE = `SELECT count(*) FROM claim_chain WHERE repetitions>=3 AND primary_source_count=0 AND first_seen_at IS NOT NULL >=30;`;
 
 async function main(): Promise<void> {
@@ -71,7 +74,11 @@ async function main(): Promise<void> {
   console.log(`   ${count}`);
   console.log(`Chaînes écrites : ${report.dataset.chains} (revendications : ${report.dataset.claims})`);
   console.log(`Rapport : ${JSON_PATH}`);
-  if (count === 0) process.exitCode = 1;
+  const ligne = ligneObjectifClaimChains({ rumeurs: count });
+  const declaree = verifierDeclarationObjectifClaimChains(readFileSync(RAPPORT, "utf8"), ligne);
+  console.log(ligne);
+  console.log(`report declaration : ${declaree ? "ok" : "missing"}`);
+  if (count === 0 || !declaree) process.exitCode = 1;
 }
 
 const isMain = process.argv[1] !== undefined && pathToFileURL(process.argv[1]).href === import.meta.url;
