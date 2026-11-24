@@ -42,6 +42,7 @@ const CIBLES_INSTITUTIONNELLES: Cible[] = [
   { orgId: null, orgName: "Mairie de La Rochelle", domain: "la-rochelle.fr", dept: "17" },
 ];
 const CRT_URL = "https://crt.sh/?q=";
+const CERTSPOTTER_URL = "https://api.certspotter.com/v1/issuances";
 const FEEDS = [
   { id: "openphish", url: "https://raw.githubusercontent.com/openphish/public_feed/refs/heads/main/feed.txt" },
   { id: "phishingarmy", url: "https://phishing.army/download/phishing_army_blocklist_extended.txt" },
@@ -121,8 +122,45 @@ function texteHtml(html: string): string {
     .trim()
     .slice(0, 10_000);
 }
+type Issuance = {
+  issuer?: { friendly_name?: string; name?: string } | null;
+  issuer_name?: string;
+  name_value?: string;
+  dns_names?: string[];
+  not_before?: string;
+  not_after?: string;
+};
 
-/** Sonde réelle : DNS direct, crt.sh, page publique et flux publics. */
+/** Repli public : Cert Spotter interroge les mêmes journaux CT que crt.sh. */
+export async function certificatDepuisCertSpotter(
+  domain: string,
+  fetcher: typeof fetch = fetch,
+): Promise<CertSnapshot | null> {
+  try {
+    const url = `${CERTSPOTTER_URL}?domain=${encodeURIComponent(domain)}` +
+      "&include_subdomains=false&expand=dns_names&expand=issuer";
+    const res = await fetcher(url, {
+      signal: AbortSignal.timeout(20_000),
+      headers: { accept: "application/json" },
+    });
+    if (!res.ok) return null;
+    const rows = (await res.json()) as Issuance[];
+    const valides = rows.filter((r) => r.not_before && r.not_after);
+    if (valides.length === 0) return null;
+    const recent = valides.reduce((a, b) => ((a.not_before ?? "") > (b.not_before ?? "") ? a : b));
+    return {
+      issuer: recent.issuer?.friendly_name ?? recent.issuer?.name ?? recent.issuer_name ?? "",
+      notBefore: recent.not_before ?? "",
+      notAfter: recent.not_after ?? "",
+      dnsNames: [...new Set((recent.dns_names ?? []).map((n) => n.trim()).filter(Boolean))],
+      source: "certspotter",
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Sonde réelle : DNS direct, crt.sh (puis Cert Spotter), page publique et flux publics. */
 export const sondeReelle: Sonde = {
   async dns(domain) {
     const [a, aaaa] = await Promise.all([
@@ -138,25 +176,24 @@ export const sondeReelle: Sonde = {
         signal: AbortSignal.timeout(20_000),
         headers: { accept: "application/json" },
       });
-      if (!res.ok) return null;
-      const rows = (await res.json()) as {
-        issuer_name?: string;
-        name_value?: string;
-        not_before?: string;
-        not_after?: string;
-      }[];
-      const valides = rows.filter((r) => r.not_before && r.not_after);
-      if (valides.length === 0) return null;
-      const recent = valides.reduce((a, b) => ((a.not_before ?? "") > (b.not_before ?? "") ? a : b));
-      return {
-        issuer: recent.issuer_name ?? "",
-        notBefore: recent.not_before ?? "",
-        notAfter: recent.not_after ?? "",
-        dnsNames: [...new Set(rows.flatMap((r) => (r.name_value ?? "").split("\n").map((n) => n.trim()).filter(Boolean)))],
-      };
+      if (res.ok) {
+        const rows = (await res.json()) as Issuance[];
+        const valides = rows.filter((r) => r.not_before && r.not_after);
+        if (valides.length > 0) {
+          const recent = valides.reduce((a, b) => ((a.not_before ?? "") > (b.not_before ?? "") ? a : b));
+          return {
+            issuer: recent.issuer_name ?? "",
+            notBefore: recent.not_before ?? "",
+            notAfter: recent.not_after ?? "",
+            dnsNames: [...new Set(rows.flatMap((r) => (r.name_value ?? "").split("\n").map((n) => n.trim()).filter(Boolean)))],
+            source: "crtsh",
+          };
+        }
+      }
     } catch {
-      return null;
+      // crt.sh répond parfois 502 ou expire : le repli CT garde la preuve.
     }
+    return certificatDepuisCertSpotter(domain);
   },
 
   async page(domain) {
@@ -417,7 +454,7 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
           cert: finding.cert,
           page: finding.page ? { status: finding.page.status, url: finding.page.url, title: finding.page.title } : null,
           verdict,
-          sources: ["dns", "crt.sh", "page-publique"],
+          sources: [...new Set(["dns", finding.cert?.source === "certspotter" ? "certspotter" : "crt.sh", "page-publique"])],
         }, run.id)),
         orgId,
       ],
