@@ -683,4 +683,31 @@ fenêtre de sept jours ne peut être complétée avec les seules observations
 réelles disponibles le 24 novembre : il faut encore trois collectes réelles
 les 25, 26 et 27 novembre. Aucune date ni aucun statut n'a été inventé.
 
+## Reprise du 24 novembre (03 h 50 UTC) — épuisement vérifié
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500). Trois balayages indépendants, tous en lecture seule,
+n'ont retrouvé aucune observation HTTP réelle des 18, 19 ou 20 novembre :
+
+- **Bases** : outre `radar`, les bases `radar_verif`, `shadow_bench`,
+  `radar_couv12_tmp`, `radar_d0` et `radar_viz_sdb` ont 0 ligne 2xx/3xx datée
+  des trois jours manquants dans `source_verification`, `exposition_service`,
+  `warc_proof` et `leak_site`. `exposition_service.first_seen_at` commence le
+  21 novembre UTC : aucun champ alternatif ne fournit de date antérieure.
+- **Arbre et URL** : corpus, artefacts, refs et variantes non encore indexées
+  (query, port, IP, punycode) : 0 preuve exploitable. Les seules preuves HTTP
+  du 20 novembre trouvées dans l'arbre concernent des domaines hors périmètre.
+- **Sources grises** : CDX Wayback sur une URL exacte renvoie `[]` (capture
+  réelle la plus proche : juillet 2026) ; Memento, Perma.cc, archive.li et
+  Common Crawl sont vides ou inaccessibles : 0 service-jour.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+apps/api/node_modules/.bin/tsx --test apps/api/test/service-availability.test.ts
+# 28 tests, 28 réussis
+```
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
