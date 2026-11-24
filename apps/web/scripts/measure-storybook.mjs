@@ -1,6 +1,5 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { inventory } from "./storybook-inventory.mjs";
 
 const base = inventory();
@@ -19,7 +18,7 @@ function baseline() {
     return { organisations, sources, events, source: url.replace(/:[^:@]*@/, ":***@") };
   } catch {
     const snapshot = JSON.parse(
-      readFileSync(resolve(process.cwd(), "../bench/results/couverture-mesuree.json"), "utf8"),
+      readFileSync(new URL("../../../bench/results/couverture-mesuree.json", import.meta.url), "utf8"),
     );
     return {
       organisations: Number(snapshot.base.organisations),
