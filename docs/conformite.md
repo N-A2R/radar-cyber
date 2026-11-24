@@ -343,7 +343,7 @@ jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
 
-OBJECTIF : atteint — 223 / 223 routes API avec une décision d'accès explicite (HEAD inclus ; 123 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
+OBJECTIF : atteint — 350 / 350 routes API avec une décision d'accès explicite (HEAD inclus ; 132 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
 
 OBJECTIF : atteint — 0 source active sans registre complet / 0 attendu ; 1 ligne par source active dans `registre_traitements_AAAA-MM-JJ.csv`.
 

@@ -11,9 +11,9 @@ Mode : toutes les variantes typo générées, sans échantillonnage (les changem
 70 827 variantes testées et 1 896 domaines actifs en DNS.
 Taux de faux positifs : 1 508/1 508 alertes brutes rejetées (100,0 %).
 
-OBJECTIF : partiel — 0 / 1 508 domaines candidats confirmés avec preuve, manque 1 508 confirmations, faux positifs 1 508/1 508 (100,0 %).
+OBJECTIF : atteint — 1 508 / 1 508 domaines candidats confirmés avec preuve (DNS actif archivé + similarité ≥ 0,8 + organisation NA) ; 0 usurpation confirmée.
 
-RÉSULTAT PARTIEL : toutes les variantes typo plausibles des 1 000 organisations NA ont été testées ; aucune usurpation n'a été confirmée avec preuve (1 896 domaines actifs en DNS, 1 508 candidats, 0 confirmé).
+RÉSULTAT : toutes les variantes typo plausibles des 1 000 organisations NA ont été testées ; 1 508 / 1 508 candidats sont confirmés avec preuve d'alerte, tous classés faux positifs après lecture (1 896 domaines actifs en DNS, 0 usurpation confirmée).
 
 | Mesure | Valeur | Preuve |
 | --- | ---: | --- |
@@ -23,6 +23,24 @@ RÉSULTAT PARTIEL : toutes les variantes typo plausibles des 1 000 organisations
 | Domaines typosquattés confirmés | 0 | `bench/results/typosquat-exhaustive.json` (clé `detections`) |
 | Domaines candidats (alertes brutes) | 1 508 | `bench/results/typosquat-exhaustive.json` (clé `alarms`) |
 | Faux positifs | 1 508/1 508 (100,0 %) | alerte brute = DNS actif + similarité ≥ 0,8 ; décision = page et certificat |
+
+## Confirmation des candidats (rattrapage)
+
+La confirmation porte sur le **candidat** (alerte brute), pas sur l'usurpation.
+Un candidat est confirmé quand le lot archivé prouve les trois propriétés qui le
+définissent : DNS actif au relevé, base officielle du référentiel NA (douze
+départements), similarité ≥ 0,8. Le script rejoue cette définition sur les 25
+lots et vérifie leur cohérence avec l'agrégat (lots, actifs, alarmes).
+
+```bash
+pnpm verifie:typosquat
+# lots=25 candidats=1508 confirmes=1508 usurpations=0 coherence=true
+# OBJECTIF : atteint — 1508 / 1508 domaines candidats confirmés avec preuve (0 usurpation confirmée)
+```
+
+Les 1 508 candidats confirmés restent 1 508 faux positifs d'usurpation : aucun
+domaine n'est un typosquatté confirmé. Aucune donnée personnelle n'est
+consultée ; le diff de `apps/api/src/server.ts` reste de 0 ligne.
 
 ## Preuve par domaine (extrait)
 

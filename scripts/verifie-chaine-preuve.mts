@@ -6,6 +6,7 @@
  *   2. un insert sans source_url / sans run_id / avec un run inexistant est refusé ;
  *   3. un run cité ne peut pas être supprimé ;
  *   4. le critère chiffré rend 0 sur les 30 derniers jours.
+ *   5. le rapport déclare exactement une fois la ligne OBJECTIF mesurée.
  *
  * La base `radar_verif_preuve_<pid>` est créée puis détruite, même en échec.
  * Sortie brute : chaque ligne `CHECK ...` porte le résultat mesuré.
@@ -13,6 +14,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createRequire } from "node:module";
+import { ligneObjectifPreuve, verifierDeclarationObjectifPreuve } from "../apps/api/src/collecte/objectif.js";
 
 const require = createRequire(new URL("../apps/api/package.json", import.meta.url));
 const pg = require("pg") as typeof import("pg");
@@ -21,6 +23,7 @@ const { Client } = pg;
 const ADMIN_URL = process.env.RADAR_TEST_ADMIN_URL ?? "postgres://radar:radar@localhost:5432/postgres";
 const name = `radar_verif_preuve_${process.pid}`;
 const dbDir = join(process.cwd(), "db");
+const RAPPORT = new URL("../docs/chaine-de-preuve.md", import.meta.url);
 
 type Resultat = { nom: string; ok: boolean; detail: string };
 const resultats: Resultat[] = [];
@@ -62,6 +65,7 @@ async function main(): Promise<void> {
   await withAdmin((admin) => admin.query(`CREATE DATABASE ${name}`));
   const client = new Client({ connectionString: ADMIN_URL.replace(/\/[^/]+$/, `/${name}`) });
   await client.connect();
+  let sansPreuve = 1;
   try {
     const migrations = readdirSync(dbDir)
       .filter((f) => /^migrate-.*\.sql$/.test(f))
@@ -127,6 +131,7 @@ async function main(): Promise<void> {
         WHERE at >= now() - interval '30 days'
           AND (source_url IS NULL OR evidence->>'run_id' IS NULL)`,
     );
+    sansPreuve = critere[0]?.n ?? 1;
     verifier("count(*) sans preuve sur 30 jours = 0", critere[0]?.n === 0, `count = ${critere[0]?.n}`);
     console.log(`CRITERE ${critere[0]?.n} / 0`);
   } finally {
@@ -136,7 +141,16 @@ async function main(): Promise<void> {
 
   const echecs = resultats.filter((r) => !r.ok);
   console.log(`RESULTAT ${resultats.length - echecs.length}/${resultats.length} vérifications`);
-  if (echecs.length > 0) process.exitCode = 1;
+
+  const ligne = ligneObjectifPreuve({
+    verificationsOk: resultats.length - echecs.length,
+    verificationsTotal: resultats.length,
+    sansPreuve,
+  });
+  const declaree = verifierDeclarationObjectifPreuve(readFileSync(RAPPORT, "utf8"), ligne);
+  console.log(ligne);
+  console.log(`report declaration : ${declaree ? "ok" : "missing"}`);
+  if (echecs.length > 0 || !declaree) process.exitCode = 1;
 }
 
 main().catch((error) => {

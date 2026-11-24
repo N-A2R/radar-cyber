@@ -35,6 +35,11 @@ export type RegleAcces = {
 export const POLITIQUE_ACCES: RegleAcces[] = [
   // --- Socle et santé -------------------------------------------------------
   { methode: "GET", route: "/api/health", niveau: "public" },
+  { methode: "GET", route: "/api/docs", niveau: "public", motif: "documentation OpenAPI" },
+  { methode: "GET", route: "/api/docs/json", niveau: "public", motif: "spécification OpenAPI" },
+  { methode: "GET", route: "/api/docs/yaml", niveau: "public", motif: "spécification OpenAPI YAML" },
+  { methode: "GET", route: "/api/docs/static/*", niveau: "public", motif: "ressources Swagger UI" },
+  { methode: "GET", route: "/api/openapi.json", niveau: "public", motif: "spécification OpenAPI" },
   { methode: "GET", route: "/api/auth/me", niveau: "lecteur" },
   { methode: "GET", route: "/api/dossier", niveau: "lecteur" },
   { methode: "POST", route: "/api/auth/login", niveau: "public", motif: "authentification" },
@@ -87,6 +92,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/live-map/stream", niveau: "public", motif: "3D map: attack feed, no personal data" },
   { methode: "GET", route: "/api/search", niveau: "public" },
   { methode: "GET", route: "/api/search/ask", niveau: "public" },
+  { methode: "GET", route: "/api/search/ask-fr", niveau: "public", motif: "réponses françaises ancrées : identifiants d'événements, URL de source et run de collecte" },
   { methode: "GET", route: "/api/na/overview", niveau: "public" },
   { methode: "GET", route: "/api/na/events", niveau: "public" },
   { methode: "GET", route: "/api/na/hosting-outage", niveau: "public", motif: "simulation agrégée : noms et identifiants d'organisations jamais exposés" },
@@ -160,6 +166,11 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/journal/review", niveau: "analyste" },
   { methode: "GET", route: "/api/audit/acces", niveau: "admin" },
 
+  // --- Clés d'API : session obligatoire, jamais une clé d'API ----------------
+  { methode: "POST", route: "/api/keys", niveau: "lecteur" },
+  { methode: "GET", route: "/api/keys", niveau: "lecteur" },
+  { methode: "DELETE", route: "/api/keys/:id", niveau: "lecteur" },
+
   // --- Administration et ingestion ----------------------------------------
   { methode: "POST", route: "/api/ingest", niveau: "admin", motif: "ingestion machine à machine" },
   { methode: "POST", route: "/api/sources/:id/morte", niveau: "admin" },
@@ -176,7 +187,11 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
 function compiler(route: string): RegExp {
   const source = route
     .split("/")
-    .map((part) => (part.startsWith(":") ? "[^/]+" : part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")))
+    .map((part) => {
+      if (part.startsWith(":")) return "[^/]+";
+      if (part === "*") return ".*";
+      return part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    })
     .join("/");
   return new RegExp(`^${source}$`);
 }
@@ -187,8 +202,13 @@ const REGLES_COMPILEES = POLITIQUE_ACCES.map((regle) => ({ regle, motifRoute: co
  *  enregistre automatiquement les routes HEAD). `null` = non déclarée. */
 export function reglePour(methode: string, route: string): RegleAcces | null {
   const methodeEffective = methode === "HEAD" ? "GET" : methode;
+  // /api/v1/... est un alias de /api/... : une seule matrice pour les deux.
+  let routeEffective = route.startsWith("/api/v1/")
+    ? `/api${route.slice("/api/v1".length)}`
+    : route;
+  if (routeEffective.length > 1) routeEffective = routeEffective.replace(/\/$/, "");
   for (const { regle, motifRoute } of REGLES_COMPILEES) {
-    if (regle.methode === methodeEffective && motifRoute.test(route)) return regle;
+    if (regle.methode === methodeEffective && motifRoute.test(routeEffective)) return regle;
   }
   return null;
 }

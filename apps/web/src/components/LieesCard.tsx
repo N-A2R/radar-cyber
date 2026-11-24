@@ -129,7 +129,7 @@ export function LieesContenu({ data, loading, error, historique = [], onRetry }:
         </>
       ) : null}
 
-      {!loading && !error && historique.length > 1 ? (
+      {!loading && !error && historique.length > 0 ? (
         <MicroCourbe points={historique} />
       ) : null}
     </article>

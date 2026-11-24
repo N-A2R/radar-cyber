@@ -34,6 +34,7 @@ import statsRoute from "./stats.js";
 import searchRoute from "./search.js";
 import scanCampaignsRoute from "./scan-campaigns.js";
 import askRoute from "./ask.js";
+import askFrRoute from "./ask-fr.js";
 import enrichRoute from "./enrich.js";
 import authRoute from "./auth.js";
 import alertsRoute from "./alerts.js";
@@ -92,7 +93,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     corpusStatsRoute, collectePlanRoute, todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute,
     orgsRoute, orgReportRoute, directoryRoute, naRoute, reconnaissanceRoute, graphRoute, graphTemporalRoute, graphAsOfRoute,
     streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute, scanCampaignsRoute, enrichRoute, authRoute,
-    alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, journalRoute,
+    alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, askFrRoute, journalRoute,
     registreTraitementsRoute,
     violationsRgpdRoute,
     orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, rectificationRoute, auditRoute,
