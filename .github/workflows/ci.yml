@@ -161,6 +161,7 @@ jobs:
 
       - name: Diagnostic (doit annoncer toutes les étapes en place)
         run: |
+          set -o pipefail
           pnpm setup:check | tee /tmp/socle-diagnostic.txt
           grep -Eq 'référentiel NA +[1-9][0-9]* orgs / [0-9]+ alias' /tmp/socle-diagnostic.txt
 
