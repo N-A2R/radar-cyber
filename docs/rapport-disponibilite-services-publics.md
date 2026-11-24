@@ -869,4 +869,55 @@ apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --
 Aucune modification du jeu d'observations, de `server.ts` (0 ligne) ni du
 manifeste. La première fenêtre entièrement réelle reste ancrée au 27 novembre.
 
-OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
+## Vérification finale du 24 novembre (05 h UTC) — plafond confirmé
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500, 13 commits), sans repartir de `main`. Quatre passes
+indépendantes n'ont trouvé aucune observation HTTP réelle supplémentaire :
+**0 service-jour gagné**, l'écart reste de 1 500 service-jours.
+
+- **Bases PostgreSQL** : huit bases présentes sur le serveur local (`radar`,
+  `radar_couv12_tmp`, `radar_d0`, `radar_verif`, `radar_viz_sdb`,
+  `repro_couv_try3_55423`, `shadow_bench` et la base de test) ont été
+  interrogées colonne par colonne sur les 280 colonnes `timestamptz` et 36
+  colonnes `date`. Seules `radar`, `radar_verif` et `shadow_bench` portent des
+  tables de preuves HTTP ; leurs distributions UTC sont identiques :
+  `exposition_service` 768 lignes le 21, 10 328 le 22, 418 le 23, 0 le 18, le
+  19 ou le 20 ; `source_verification` ne couvre que le 22. Les dates
+  `derniere_item_at` tombant les 18-20 novembre sont des dates de publication
+  de flux RSS, pas des vérifications HTTP, et aucune URL concernée n'appartient
+  au périmètre.
+- **Sources grises** : calendrier Wayback (`calendarcaptures/2?groupby=day`)
+  pour cinq URL du périmètre : dernier item en octobre, aucun item les 18, 19
+  et 20 novembre. Les URLs directes `web/20261118id_/…`, `web/20261119id_/…` et
+  `web/20261120id_/…` redirigent vers des captures antérieures (octobre,
+  juillet, novembre 2025). `arquivo.pt/textsearch?versionHistory=…` répond
+  `estimated_nr_results=0`, UK Web Archive renvoie un flux vide, et
+  `index.commoncrawl.org` refuse la connexion : faute de réponse, aucune
+  conclusion d'absence n'est tirée de Common Crawl.
+- **Pipeline** : relecture de `collect`, `import`, `measure`, `verify`,
+  `objective` et `audit`. Le fuseau UTC, la clé `(serviceId, day)`, le filtre
+  de périmètre et la fenêtre de sept jours sont corrects ; les 2 000 lignes
+  versionnées ne contiennent que les 21, 22, 23 et 24 novembre. Aucun jour ni
+  statut n'est extrapolé.
+- **Horloge réelle** : les en-têtes `Date` de trois serveurs publics
+  indépendants donnent le 24 novembre 2026 à 04 h 55 UTC. Les collectes des
+  25, 26 et 27 novembre, seules susceptibles de compléter une fenêtre ancrée
+  au 27, n'ont donc pas encore eu lieu.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+grep -cE '"day":"2026-11-(18|19|20)"' bench/results/service-availability-observations.jsonl
+# 0
+```
+
+Aucune modification du jeu d'observations, de `server.ts` (0 ligne) ni du
+manifeste. L'objectif de 3 500 service-jours ne peut pas être atteint le 24
+novembre sans inventer trois jours d'observation : le plafond réel mesurable
+reste 2 000 / 3 500 et la première fenêtre complète reste ancrée au 27
+novembre, après trois collectes réelles.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 : 0 service-jour récupéré, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24`.
