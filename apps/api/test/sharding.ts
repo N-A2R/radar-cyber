@@ -4,7 +4,8 @@
  * Le découpage est public et pur : `--list-shards` permet de vérifier qu'aucun
  * fichier n'est perdu ou dupliqué sans ouvrir PostgreSQL ni lancer de test.
  */
-import { readdir } from "node:fs/promises";
+import { readdir, stat } from "node:fs/promises";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const TEST_DIR = fileURLToPath(new URL("./", import.meta.url));
@@ -14,6 +15,23 @@ export const DEFAULT_TIMEOUT_MS = 20 * 60 * 1000;
 export async function discoverTestFiles(): Promise<string[]> {
 	const entries = await readdir(TEST_DIR);
 	return entries.filter((f) => f.endsWith(".test.ts")).sort().map((f) => `test/${f}`);
+}
+
+/**
+ * Refuse un fichier demandé mais absent : `tsx --test` ignore silencieusement
+ * un chemin manquant dès qu'un autre fichier est présent, ce qui masquerait
+ * un test entier dans un shard.
+ */
+export async function assertTestFilesExist(files: readonly string[], root: string): Promise<void> {
+	const missing: string[] = [];
+	for (const file of files) {
+		try {
+			if (!(await stat(join(root, file))).isFile()) missing.push(file);
+		} catch {
+			missing.push(file);
+		}
+	}
+	if (missing.length) throw new Error(`fichier(s) de test introuvable(s) : ${missing.join(", ")}`);
 }
 
 /** Round-robin sur la liste triée : unordered, stable et sans doublon. */

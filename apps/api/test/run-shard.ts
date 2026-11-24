@@ -9,6 +9,7 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { createTestDatabase, dropTestDatabase, type TestDb } from "./helpers/testdb.js";
+import { assertTestFilesExist } from "./sharding.js";
 
 const API_DIR = fileURLToPath(new URL("../", import.meta.url));
 const LOCAL_TSX = fileURLToPath(new URL("../node_modules/.bin/tsx", import.meta.url));
@@ -82,6 +83,7 @@ process.on("SIGTERM", () => onSignal("SIGTERM"));
 
 let exitCode = 1;
 try {
+	await assertTestFilesExist(files, API_DIR);
 	db = await createTestDatabase();
 	console.log(`[shard ${shard}/${shardCount}] base ${db.name} — ${files.length} fichier(s)`);
 	const cmd = existsSync(LOCAL_TSX) ? LOCAL_TSX : "tsx";
