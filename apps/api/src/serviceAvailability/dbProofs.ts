@@ -48,3 +48,63 @@ export function observationsFromDbProofs(
 	}
 	return observations;
 }
+
+export type ExpositionProofRow = {
+	url: string;
+	status: number;
+	consulted_at: string | Date;
+};
+
+/** Match an exposition proof URL regardless of scheme, www or trailing slash. */
+export function normalizeExpositionProofUrl(url: string): string {
+	return url
+		.trim()
+		.toLowerCase()
+		.replace(/^https?:\/\//, "")
+		.replace(/^www\./, "")
+		.replace(/\/+$/, "");
+}
+
+/**
+ * Map real HTTP proofs from `exposition_service` onto the fixed perimeter.
+ * A service is matched by its public URL and by the final URL recorded in the
+ * corpus proof; several services can share either URL and each gets its own
+ * observation. A row without a perimeter URL or a valid UTC timestamp is
+ * skipped: no day or status is ever inferred.
+ */
+export function observationsFromExpositionProofs(
+	rows: ExpositionProofRow[],
+	services: PublicService[]
+): DailyObservation[] {
+	const byUrl = new Map<string, string[]>();
+	for (const service of services) {
+		const keys = new Set([service.url, service.proofUrl].filter((url): url is string => Boolean(url)));
+		for (const key of keys) {
+			const normalized = normalizeExpositionProofUrl(key);
+			const ids = byUrl.get(normalized) ?? [];
+			if (!ids.includes(service.id)) ids.push(service.id);
+			byUrl.set(normalized, ids);
+		}
+	}
+	const observations: DailyObservation[] = [];
+	for (const row of rows) {
+		const serviceIds = byUrl.get(normalizeExpositionProofUrl(row.url));
+		if (serviceIds === undefined) continue;
+		const at = new Date(row.consulted_at);
+		if (!Number.isFinite(at.getTime())) continue;
+		const observedAt = at.toISOString();
+		const ok = row.status >= 200 && row.status < 400;
+		for (const serviceId of serviceIds) {
+			observations.push({
+				serviceId,
+				day: observedAt.slice(0, 10),
+				ok,
+				status: row.status,
+				latencyMs: 0,
+				observedAt,
+				failure: ok ? null : "http_error",
+			});
+		}
+	}
+	return observations;
+}
