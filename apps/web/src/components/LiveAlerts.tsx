@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import type { LiveAlert } from "../api";
-import { EmptyState } from "./Skeleton";
 import "./live-alerts.css";
+import { Banner, type BannerStatus } from "@astryxdesign/core/Banner";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Button } from "@astryxdesign/core/Button";
 
 /**
  * Bandeau d'alertes en direct — les alertes « tombent » dans le dashboard
@@ -142,44 +143,58 @@ export default function LiveAlerts({
     }
   }, [latest, soundOn]);
 
-  return (
-    <div className="live-alerts" data-empty={latest === null} data-testid="live-alerts" aria-live="polite">
-      {latest ? (
-        <button type="button" className="live-alerts__hit" onClick={onOpenAlerts} data-level={latest.severity}>
-          <span className="live-alerts__dot" aria-hidden="true" />
-          <span className="live-alerts__sev">S{latest.severity}</span>
-          <span className="live-alerts__title">{latest.title}</span>
-          <span className="live-alerts__meta">
-            {latest.org_id !== null ? `organisation #${latest.org_id}` : latest.rule_id} · {formatAgo(latest.created_at)}
-          </span>
-          {unseen > 1 ? <span className="live-alerts__more">+{unseen - 1}</span> : null}
-        </button>
-      ) : (
-        <EmptyState
-          className="live-alerts__idle"
-          message="aucune alerte en direct pour l'instant"
-          actionLabel="Voir les alertes"
-          onAction={onOpenAlerts}
-        />
-      )}
+  const status: BannerStatus =
+    latest === null ? "info" : latest.severity >= 5 ? "error" : latest.severity >= 4 ? "warning" : "info";
 
-      <div className="live-alerts__controls">
-        <Badge label="en direct" className="live-alerts__badge" />
-        <button
-          type="button"
-          className="live-alerts__ctl"
-          aria-pressed={soundOn}
-          onClick={onToggleSound}
-          title="Son pour les alertes de sévérité 4 et 5"
-        >
-          {soundOn ? "Son activé" : "Son coupé"}
-        </button>
-        {latest ? (
-          <button type="button" className="live-alerts__ctl" onClick={onDismiss} aria-label="Masquer la bannière d'alerte">
-            ×
-          </button>
-        ) : null}
-      </div>
-    </div>
+  return (
+    <Banner
+      status={status}
+      container="section"
+      title={
+        latest ? (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            label={latest.title}
+            className="live-alerts__hit"
+            data-level={String(latest.severity)}
+            onClick={onOpenAlerts}
+          >
+            <span className="live-alerts__dot" aria-hidden="true" />
+            <span className="live-alerts__sev">S{latest.severity}</span>
+            <span className="live-alerts__title">{latest.title}</span>
+            <span className="live-alerts__meta">
+              {latest.org_id !== null ? `organisation #${latest.org_id}` : latest.rule_id} · {formatAgo(latest.created_at)}
+            </span>
+            {unseen > 1 ? <span className="live-alerts__more">+{unseen - 1}</span> : null}
+          </Button>
+        ) : (
+          "aucune alerte en direct pour l'instant"
+        )
+      }
+      endContent={
+        <>
+          <Badge label="en direct" className="live-alerts__badge" />
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            label={soundOn ? "Son activé" : "Son coupé"}
+            aria-pressed={soundOn}
+            tooltip="Son pour les alertes de sévérité 4 et 5"
+            onClick={onToggleSound}
+          >
+            {soundOn ? "Son activé" : "Son coupé"}
+          </Button>
+        </>
+      }
+      isDismissable={latest !== null}
+      dismissLabel="Masquer la bannière d'alerte"
+      onDismiss={onDismiss}
+      aria-live="polite"
+      data-testid="live-alerts"
+      data-empty={latest === null ? "true" : "false"}
+    />
   );
 }

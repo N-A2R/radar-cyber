@@ -1,11 +1,11 @@
 /**
  * Vue Nouvelle-Aquitaine — la région entière sur un seul écran.
  *
- * Ce que la carte 3D ne dit pas : les douze départements côte à côte, colorés
+ * Ce que la carte 3D ne dit pas : les départements côte à côte, colorés
  * par volume d'événements rattachés, avec le trou écrit en clair — un
  * département à zéro est une information, pas un espace vide. La carte est un
  * SVG projeté depuis `departements-na.geojson` : pas de WebGL, rendu testable
- * côté serveur, et les douze formes tiennent dans un viewBox fixe.
+ * côté serveur, et toutes les formes tiennent dans un viewBox fixe.
  *
  * Le filtre département vit dans l'URL (`?naDept=33`) : la vue se partage.
  */
@@ -16,7 +16,7 @@ import type { NaViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./na.css";
 import { Badge } from "@astryxdesign/core/Badge";
-/** Les douze départements, dans l'ordre du geojson (props : code, nom). */
+/** Départements du GeoJSON, dans son ordre (props : code, nom). */
 const FEATURES = departementsGeojson.features as {
   properties: { code: string; nom: string };
   geometry: { type: string; coordinates: unknown };
@@ -61,7 +61,12 @@ function libelleEvenements(n: number): string {
   return n <= 1 ? `${n} événement` : `${n} événements`;
 }
 
-/** Bornes des douze départements : une projection équirectangulaire suffit. */
+/** « 1 organisation touchée », « 3 organisations touchées ». */
+function libelleOrganisationsTouchées(n: number): string {
+  return `${n} organisation${n > 1 ? "s" : ""} touchée${n > 1 ? "s" : ""}`;
+}
+
+/** Bornes des départements : une projection équirectangulaire suffit. */
 const LON_MIN = -1.85;
 const LON_MAX = 2.65;
 const LAT_MIN = 42.75;
@@ -166,6 +171,9 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
   const nomDept = dept ? (compteParDept.get(dept)?.nom ?? dept) : null;
   const bornes = useMemo(() => bornesEchelle(maxEvts), [maxEvts]);
 
+  const nbDepartements = compteParDept.size;
+  const libelleDepartements = nbDepartements > 0 ? `${nbDepartements} départements` : "Départements";
+
   /**
    * Département survolé ou focalisé : il alimente la lecture chiffrée sous la
    * carte et met en évidence la ligne correspondante. Aucun autre état.
@@ -199,10 +207,9 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
     <section className="na-view">
       <header className="na-header">
         <h2>Nouvelle-Aquitaine</h2>
-        <Badge label="12 départements" className="na-badge" />
+        <Badge label={libelleDepartements} className="na-badge" />
         <p className="na-totaux" role="status" aria-live="polite">
-          {total.orgs.toLocaleString("fr-FR")} organisations · {total.orgsAvecEvenement} touchées · {total.evenements}{" "}
-          événements
+          {total.orgs.toLocaleString("fr-FR")} organisations · {libelleOrganisationsTouchées(total.orgsAvecEvenement)} · {libelleEvenements(total.evenements)}
           {total.deptsSansEvenement.length > 0 && (
             <>
               {" · "}départements à zéro : <strong>{total.deptsSansEvenement.join(", ")}</strong>
@@ -228,7 +235,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
             className="na-carte"
             viewBox={`0 0 ${SVG_W.toFixed(0)} ${SVG_H.toFixed(0)}`}
             role="group"
-            aria-label="Carte des douze départements de Nouvelle-Aquitaine. Chaque département est un bouton ; sa couleur encode le nombre d'événements rattachés, la légende chiffrée est sous la carte."
+            aria-label="Carte des départements de Nouvelle-Aquitaine. Chaque département est un bouton ; sa couleur encode le nombre d'événements rattachés, la légende chiffrée est sous la carte."
           >
             {FEATURES.map((f) => {
               const code = f.properties.code;
@@ -247,7 +254,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                   role="button"
                   tabIndex={0}
                   aria-pressed={actif}
-                  aria-label={`${c?.nom ?? code} (${code}) : ${libelleEvenements(evts)}, ${c?.orgsAvecEvenement ?? 0} org. touchées sur ${c?.orgs ?? 0} organisations`}
+                  aria-label={`${c?.nom ?? code} (${code}) : ${libelleEvenements(evts)}, ${libelleOrganisationsTouchées(c?.orgsAvecEvenement ?? 0)} sur ${c?.orgs ?? 0} organisations`}
                   onMouseEnter={() => setSurvol(code)}
                   onMouseLeave={() => quitterSurvol(code)}
                   onFocus={() => setSurvol(code)}
@@ -259,7 +266,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                     onSelectDept(actif ? null : code);
                   }}
                 >
-                  <title>{`${c?.nom ?? code} (${code}) — ${libelleEvenements(evts)} · ${c?.orgsAvecEvenement ?? 0} org. touchée(s) sur ${c?.orgs ?? 0}`}</title>
+                  <title>{`${c?.nom ?? code} (${code}) — ${libelleEvenements(evts)} · ${libelleOrganisationsTouchées(c?.orgsAvecEvenement ?? 0)} sur ${c?.orgs ?? 0}`}</title>
                 </path>
               );
             })}
@@ -267,10 +274,8 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
 
           <p className="na-survol" aria-live="polite">
             {survol && survole
-              ? `${survole.nom} (${survol}) : ${libelleEvenements(survole.evenements)} · ${survole.orgsAvecEvenement} org. touchée${
-                  survole.orgsAvecEvenement > 1 ? "s" : ""
-                } sur ${survole.orgs} organisations`
-              : "Survolez la carte ou une ligne pour lire le détail d'un département."}
+              ? `${survole.nom} (${survol}) : ${libelleEvenements(survole.evenements)} · ${libelleOrganisationsTouchées(survole.orgsAvecEvenement)} sur ${survole.orgs} organisations`
+              : "Survolez la carte ou une ligne, ou utilisez le clavier, pour lire le détail d'un département."}
           </p>
 
           <figure className="na-legende" aria-labelledby="na-legende-titre">
@@ -294,7 +299,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
         </div>
 
         <div className="na-panneau">
-          <h3>{dept ? `${nomDept} (${dept})` : "Les douze départements"}</h3>
+          <h3>{dept ? `${nomDept} (${dept})` : `Les ${libelleDepartements.toLowerCase()}`}</h3>
           <ul className="na-liste">
             {[...compteParDept.entries()].map(([code, c]) => {
               const actif = dept === code;
@@ -319,7 +324,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                     <span className="na-ligne-compte">
                       {libelleEvenements(c.evenements)}
                       {" · "}
-                      {c.orgsAvecEvenement} org. touchée{c.orgsAvecEvenement > 1 ? "s" : ""}
+                      {libelleOrganisationsTouchées(c.orgsAvecEvenement)}
                     </span>
                   </button>
                 </li>
@@ -332,7 +337,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                 <div data-testid="na-vide-dept">
                   <EmptyState
                     className="na-vide"
-                    message={`Aucun événement sur ce département. ${compteParDept.get(dept)?.orgs.toLocaleString("fr-FR")} organisations au référentiel, aucune touchée à ce jour — le trou est affiché, pas caché.`}
+                    message={`Aucun événement sur ce département. ${compteParDept.get(dept)?.orgs.toLocaleString("fr-FR")} organisations au référentiel, aucune organisation touchée à ce jour — le trou est affiché, pas caché.`}
                     actionLabel={onRetry ? "Recharger la région" : "Voir toute la région"}
                     onAction={onRetry ?? (() => onSelectDept(null))}
                   />
@@ -368,8 +373,8 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
               {orgsDeptTouchees.length > 0 ? (
                 <>
                   <p className="na-note">
-                    {orgsDeptTouchees.length} organisation(s) touchée(s) sur{" "}
-                    {orgsDept.length.toLocaleString("fr-FR")} du référentiel :
+                    {libelleOrganisationsTouchées(orgsDeptTouchees.length)} sur{" "}
+                    {orgsDept.length.toLocaleString("fr-FR")} organisations du référentiel :
                   </p>
                   <ul className="na-liste">
                     {orgsDeptTouchees.map((o) => (
@@ -382,7 +387,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                         >
                           <span className="na-ligne-nom">{o.name}</span>
                           <span className="na-ligne-compte">
-                            {o.eventCount} événement(s)
+                            {libelleEvenements(o.eventCount)}
                             {o.city ? ` · ${o.city}` : ""}
                           </span>
                         </button>

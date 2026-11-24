@@ -1,4 +1,5 @@
 import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import {
   api,
@@ -266,7 +267,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
             <LoadingSkeleton label="lecture des sources…" />
           </div>
         ) : (
-          <table className="data">
+          <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
                 {COLUMNS.map((col) => (
@@ -346,7 +347,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
                 </tr>
               )}
             </tbody>
-          </table>
+          </Table>
         )}
       </div>
 

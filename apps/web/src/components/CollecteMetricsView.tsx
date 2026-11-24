@@ -1,6 +1,7 @@
 import type { AlerteSupervision, CollecteMetrics, CycleCollecte } from "../api";
 import { formatDate, formatNumber, formatRelative } from "./SourcesView";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 
 export type CollecteMetricsViewProps = {
@@ -71,7 +72,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
         <p className="health-detail__legend">aucune alerte sur les cycles affichés.</p>
       ) : (
         <div className="health-detail__scroll">
-          <table className="data">
+          <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
                 <th scope="col">alerte</th>
@@ -92,7 +93,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       )}
 
@@ -101,7 +102,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
         <p className="health-detail__legend">aucun cycle enregistré.</p>
       ) : (
         <div className="health-detail__scroll">
-          <table className="data">
+          <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
                 <th scope="col">cycle</th>
@@ -133,7 +134,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
                 );
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       )}
     </section>

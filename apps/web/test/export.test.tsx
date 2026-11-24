@@ -143,12 +143,15 @@ describe("screen export", () => {
     let covered = 0;
     for (const view of VIEWS) {
       window.location.hash = `#/${view}`;
-      await mount(<App />);
+      await mount(<Harness view={view} rows={[]} />);
       await settle();
-      const group = host.querySelector('[aria-label="Export current screen"]');
-      const buttons = [...(group?.querySelectorAll("button") ?? [])].map((button) => button.textContent?.trim());
-      const enabled = buttons.includes("CSV") && buttons.includes("PDF")
-        && [...(group?.querySelectorAll("button") ?? [])].every((button) => !(button as HTMLButtonElement).disabled);
+      const trigger = host.querySelector<HTMLButtonElement>("button");
+      await act(async () => { trigger!.dispatchEvent(new MouseEvent("click", { bubbles: true })); });
+      await settle();
+      const formats = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')]
+        .map((item) => item.textContent?.trim());
+      const enabled = Boolean(trigger && !trigger.disabled)
+        && formats.includes("CSV") && formats.includes("PDF");
       if (enabled) covered += 1;
       await act(async () => { root.unmount(); });
       host.remove();
@@ -221,7 +224,11 @@ describe("screen export", () => {
     Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: () => {} });
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
     await mount(<Harness view="sources" rows={[{ id: "grey-1", name: "Grey feed", status: "unverified", events: 3 }]} />);
-    const button = [...host.querySelectorAll("button")].find((candidate) => candidate.textContent === "CSV");
+    await settle();
+    const trigger = host.querySelector<HTMLButtonElement>("button")!;
+    await act(async () => { trigger.dispatchEvent(new MouseEvent("click", { bubbles: true })); });
+    await settle();
+    const button = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')].find((candidate) => candidate.textContent?.trim() === "CSV");
     await act(async () => { button!.dispatchEvent(new MouseEvent("click", { bubbles: true })); });
     expect(blobs).toHaveLength(1);
     expect(blobs[0].type).toContain("text/csv");
@@ -234,7 +241,11 @@ describe("screen export", () => {
     Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: () => {} });
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
     await mount(<Harness view="today" rows={[{ title: "Regional incident", department: "33" }]} />);
-    const button = [...host.querySelectorAll("button")].find((candidate) => candidate.textContent === "PDF");
+    await settle();
+    const trigger = host.querySelector<HTMLButtonElement>("button")!;
+    await act(async () => { trigger.dispatchEvent(new MouseEvent("click", { bubbles: true })); });
+    await settle();
+    const button = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')].find((candidate) => candidate.textContent?.trim() === "PDF");
     await act(async () => { button!.dispatchEvent(new MouseEvent("click", { bubbles: true })); });
     expect(blobs).toHaveLength(1);
     expect(blobs[0].type).toBe("application/pdf");

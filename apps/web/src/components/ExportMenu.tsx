@@ -1,7 +1,7 @@
 /**
- * One export control for the whole shell, fed by the screen currently mounted.
- * Screens publish their own rows through `useScreenExport`; the rail reads the
- * registry, so every screen offers the same two formats without duplicating UI.
+ * Contrôle d'export unique du shell, alimenté par l'écran monté.
+ * Les écrans publient leurs lignes via `useScreenExport` ; le rail lit le
+ * registre, ainsi chaque écran offre les deux mêmes formats sans doublon d'UI.
  */
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { ViewKey } from "../contracts";
@@ -9,7 +9,7 @@ import {
   downloadBlob, exportFilename, EXPORT_TITLES, prepareRows, toCsv, toPdfBlob,
   type DataRow, type ExportFormat,
 } from "../export";
-import { Button } from "@astryxdesign/core/Button";
+import { DropdownMenu } from "@astryxdesign/core/DropdownMenu";
 
 type Snapshot = { view: ViewKey; title: string; rows: DataRow[] };
 const PublishContext = createContext<((snapshot: Snapshot) => void) | null>(null);
@@ -49,7 +49,7 @@ export default function ExportMenu() {
 
   const save = (format: ExportFormat) => {
     if (!snapshot) {
-      setStatus("No screen data available yet.");
+      setStatus("Aucune donnée d'écran disponible pour l'instant.");
       return;
     }
     const rows = prepareRows(snapshot.view, snapshot.rows);
@@ -59,14 +59,18 @@ export default function ExportMenu() {
     } else {
       downloadBlob(toPdfBlob(snapshot.view, snapshot.title, rows), filename);
     }
-    setStatus(`${filename} — ${rows.length} rows`);
+    setStatus(`${filename} — ${rows.length} ${rows.length > 1 ? "lignes" : "ligne"}`);
   };
 
   return (
-    <div className="export" role="group" aria-label="Export current screen">
-      <span className="export__label">Export</span>
-      <Button label="CSV" className="export__format" onClick={() => save("csv")} />
-      <Button label="PDF" className="export__format" onClick={() => save("pdf")} />
+    <div className="export" role="group" aria-label="Exporter l'écran courant">
+      <DropdownMenu
+        button={{ label: "Exporter", className: "export__format" }}
+        items={[
+          { label: "CSV", onClick: () => save("csv") },
+          { label: "PDF", onClick: () => save("pdf") },
+        ]}
+      />
       {status ? <span className="export__status" role="status">{status}</span> : null}
     </div>
   );

@@ -57,46 +57,47 @@ const data: SourcesDashboard = {
   collecte: { dureeTotaleMs: 65_000, runs: 6 },
 };
 
-check("formatage des grands nombres", formatCount(1_234_567) === "1,234,567");
-check("rendement : ratio converti en pourcentage", formatYield(0.2) === "20.0%" && formatYield(0) === "0.0%");
-check("rendement non mesurable explicite", formatYield(null) === "not measurable");
+const plain = (value: string) => value.replace(/[\u00a0\u202f]/g, " ");
+check("formatage des grands nombres", plain(formatCount(1_234_567)) === "1 234 567");
+check("rendement : ratio converti en pourcentage", plain(formatYield(0.2)) === "20,0 %" && plain(formatYield(0)) === "0,0 %");
+check("rendement non mesurable explicite", formatYield(null) === "non mesurable");
 check("durée cumulée lisible", formatDuration(65_000) === "1 min 5 s" && formatDuration(3_721_000) === "1 h 2 min");
 check("durée nulle mesurée", formatDuration(0) === "0 ms");
 
 const html = render();
-check("titre et provenance", html.includes("<h1>Sources dashboard</h1>")
+check("titre et provenance", html.includes("<h1>Tableau de bord des sources</h1>")
   && html.includes("GET /api/sources/dashboard")
   && html.includes("2026-11-21T18:00:00.000Z"));
 check("fenêtres et seuil de la mesure affichés",
-  html.includes("states 7 d") && html.includes("yield 30 d") && html.includes("30,000 ms"));
+  html.includes("états 7 j") && html.includes("rendement 30 j") && plain(html).includes("30 000 ms"));
 
 for (const [etat, count] of Object.entries(data.etats)) {
   const motif = new RegExp(`data-etat="${etat}"[^>]*>.*?<dd>${count}</dd>`, "s");
   check(`état ${etat} : compte exact`, motif.test(html));
 }
 check("définitions des états affichées",
-  html.includes("Explicitly declared dead") && html.includes("not proven healthy")
-  && html.includes("partition the declared sources"));
+  html.includes("Déclarée morte explicitement") && html.includes("santé non prouvée")
+  && html.includes("partitionnent les sources déclarées"));
 
 check("temps de collecte cumulé : valeur lisible et valeur exacte",
-  html.includes("1 min 5 s") && html.includes("65,000 ms summed over 6 finished runs"));
-check("réserve sur le temps cumulé", html.includes("cumulative collector time, not wall-clock time"));
+  html.includes("1 min 5 s") && plain(html).includes("65 000 ms cumulées sur 6 exécutions terminées"));
+check("réserve sur le temps cumulé", html.includes("non du temps écoulé"));
 
 check("évolution : sept jours, dont les zéro",
   (html.match(/<time dateTime="/g) ?? []).length === 7
   && html.includes('dateTime="2026-11-15"') && html.includes('dateTime="2026-11-21"')
   && html.includes("2026-11-15</time></td><td class=\"sdb__num\">0</td>"));
 check("évolution : colonnes mesurées",
-  html.includes("Sources with events") && html.includes(">12</td>") && html.includes(">40</td>"));
+  html.includes("Sources avec événements") && html.includes(">12</td>") && html.includes(">40</td>"));
 
 check("classements : dix meilleures et dix pires",
   (html.match(/class="sdb__rank"/g) ?? []).length === 20
-  && html.includes("10 best sources by yield") && html.includes("10 worst sources by yield"));
+  && html.includes("10 meilleures sources par rendement") && html.includes("10 pires sources par rendement"));
 check("meilleure source : nom, entrées, événements et rendement",
-  html.includes("Source 1") && html.includes(">100</td>") && html.includes(">10.0%</td>"));
-check("pire source : zéro affiché, pas une donnée absente", html.includes(">0.0%</td>"));
+  html.includes("Source 1") && html.includes(">100</td>") && plain(html).includes(">10,0 %</td>"));
+check("pire source : zéro affiché, pas une donnée absente", plain(html).includes(">0,0 %</td>"));
 check("définition du rendement et du non mesurable",
-  html.includes("Yield = events retained over entries read") && html.includes("not measurable” means no entry was"));
+  html.includes("Rendement = événements retenus sur entrées lues") && html.includes("« non mesurable »"));
 
 const vide = render({
   data: {
@@ -110,13 +111,13 @@ const vide = render({
   },
 });
 check("états vides explicites",
-  vide.includes("No source has produced a measurable yield") && vide.includes("No daily measurement available")
-  && vide.includes("0 ms summed over 0 finished runs"));
+  vide.includes("Aucune source n'a produit un rendement mesurable") && vide.includes("Aucune mesure quotidienne disponible")
+  && vide.includes("0 ms cumulées sur 0 exécutions terminées"));
 
 check("chargement, erreur et absence de données : états distincts",
-  render({ data: null, loading: true }).includes("Loading the sources dashboard…")
-  && render({ data: null }).includes("not available in demo mode")
-  && render({ error: "backend down" }).includes("Could not load the sources dashboard: backend down"));
+  render({ data: null, loading: true }).includes("Chargement du tableau de bord des sources…")
+  && render({ data: null }).includes("pas disponible en mode démo")
+  && render({ error: "backend down" }).includes("Impossible de charger le tableau de bord des sources : backend down"));
 
 if (failures > 0) {
   console.error(`${failures} vérification(s) en échec`);

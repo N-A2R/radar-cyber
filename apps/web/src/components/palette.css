@@ -1,116 +1,31 @@
-/* Palette de recherche globale — plaque en surplomb, enfoncure du champ,
-   aucun cadre décoratif. Mêmes jetons que le reste du poste de veille. */
-
-.palette__scrim {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 12vh 16px 16px;
-  background: color-mix(in oklab, var(--bg) 72%, transparent);
-  backdrop-filter: blur(2px);
-}
-
-.palette {
-  width: min(680px, 100%);
-  max-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--radius);
-  background: var(--color-plate);
-  box-shadow: var(--raise);
-  overflow: hidden;
-}
-
-.palette__input {
-  border: 0;
-  padding: 14px 16px;
-  background: var(--color-well);
-  box-shadow: var(--sink);
-  color: var(--color-ink);
-  font: 400 14px/1.3 var(--font-display);
-}
-
-.palette__input::placeholder { color: var(--color-faint); }
-
-.palette__hint {
-  margin: 0;
-  padding: 7px 16px;
-  border-bottom: 1px solid var(--color-edge-lo);
-  font: 400 var(--text-xs)/1.3 var(--font-mono);
-  letter-spacing: 0;
-  color: var(--color-muted);
-}
-
-.palette__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.palette__list li {
+/* Recherche globale : le dialogue, la liste et le focus appartiennent à
+   Astryx. Cette feuille ne décore que le contenu métier de chaque résultat. */
+.palette__result {
   display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  grid-template-areas: "tag label" "tag detail";
-  gap: 1px 10px;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--color-edge-lo);
-  cursor: pointer;
-}
-
-.palette__list li[data-active="true"] {
-  background: var(--color-plate-3);
-  box-shadow: inset 2px 0 0 var(--color-accent);
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  min-width: 0;
 }
 
 .palette__tag {
-  grid-area: tag;
-  align-self: center;
-  font: 500 var(--text-label)/1.2 var(--font-mono);
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--color-faint);
+  color: var(--accent);
+  font-size: var(--text-label);
 }
 
-.palette__list li[data-kind="org"] .palette__tag { color: var(--color-accent); }
-
 .palette__label {
-  grid-area: label;
-  font: 400 12.5px/1.35 var(--font-display);
-  color: var(--color-ink);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--text);
 }
 
 .palette__detail {
-  grid-area: detail;
-  font: 400 var(--text-xs)/1.3 var(--font-mono);
-  color: var(--color-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  grid-column: 2;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--muted);
+  font-size: var(--text-label);
 }
 
-.palette__list li[data-kind="indicator"] { cursor: default; }
-
-.palette__foot {
-  flex: 0 0 auto;
-  padding: 8px 16px;
-  background: var(--color-plate-2);
-  font: 400 var(--text-xs)/1 var(--font-mono);
-  color: var(--color-faint);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .palette__scrim {
-    backdrop-filter: none;
-    animation: none !important;
-    transition: none !important;
-  }
+.palette__result[data-kind="indicator"] .palette__tag {
+  color: var(--muted);
 }

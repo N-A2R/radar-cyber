@@ -1,4 +1,4 @@
-import { FAMILY_HEX, FAMILY_HEX_FALLBACK } from "../map/arcs";
+import { FAMILY_HEX, familyHexFallback } from "../map/arcs";
 import { FAMILY_LABELS } from "../map/libelles";
 import { Badge } from "@astryxdesign/core/Badge";
 import { Card } from "@astryxdesign/core/Card";
@@ -38,7 +38,7 @@ export function MapLegend({ families }: { families: readonly string[] }) {
               <li key={f}>
                 <span
                   className="map-legend__chip"
-                  style={{ background: FAMILY_HEX[f] ?? FAMILY_HEX_FALLBACK }}
+                  style={{ background: FAMILY_HEX[f] ?? familyHexFallback() }}
                   aria-hidden="true"
                 />
                 <Badge label={FAMILY_LABELS[f] ?? f} variant="neutral" />

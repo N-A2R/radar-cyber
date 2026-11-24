@@ -22,7 +22,7 @@
  *   `MAX_POINTS` points, agrégation par cellule géo (compteur + famille dominante) ;
  * - `events-hover` (halo de survol), `events-count` (compteur des cellules).
  *
- * Palette fixe exportée : `FAMILY_COLORS` (partagée avec `arcs.ts`).
+ * Palette exportée du pont Astryx (`FAMILY_COLORS`, partagée avec `arcs.ts`).
  */
 // Le worker MapLibre n'est utile qu'à cette vue : le configurer ici garde la
 // bibliothèque hors du chunk initial.
@@ -30,7 +30,7 @@ import '../maplibre-worker'
 import { useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import type { ExpressionSpecification } from 'maplibre-gl'
-import { FAMILY_HEX, FAMILY_HEX_FALLBACK, arcHex, type FlowArc } from './arcs.js'
+import { FAMILY_HEX, familyHexFallback, resolveTokenColor, type FlowArc } from './arcs.js'
 import { connectAttackStream, fetchLiveAttacks, LiveAttackLayer, mergeAttacks, type LiveAttack } from './live3d.js'
 import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
 import { styleSecours } from '../offline'
@@ -88,43 +88,53 @@ export interface Map3DProps {
   basemap?: 'sat' | 'plan'
 }
 
-// ── Palette fixe (alignée sur les variables CSS de styles.css) ──────────
+// ── Palette du pont Astryx (thème gothic unique) ────────────────────
 
 export const FAMILY_COLORS: Record<string, string> = FAMILY_HEX
-export const FAMILY_COLOR_FALLBACK = FAMILY_HEX_FALLBACK
+export function familyColorFallback(): string {
+  return familyHexFallback()
+}
 /** Marqueur d'organisation : neutre (`--muted`), distinct des familles colorées. */
-export const NEUTRAL_COLOR = '#8b93a1'
+export function neutralColor(): string {
+  return resolveTokenColor('--muted')
+}
 
+const MAP_TOKEN_NAMES = {
+  buildings: ['--surface', '--surface-2', '--surface-3', '--line-strong'],
+  label: '--text',
+  labelHalo: '--bg',
+  depLine: '--accent',
+  density: '--data-teal',
+  surface3: '--surface-3',
+  fog: '--bg',
+  fogHorizon: '--surface-3',
+  lightColor: '--text',
+} as const
+
+type MapTokens = {
+  buildings: string[]
+  label: string
+  labelHalo: string
+  depLine: string
+  density: string
+  surface3: string
+  fog: string
+  fogHorizon: string
+  lightColor: string
+}
+
+/** Les getters résolvent le thème après l'injection du CSS, pas à l'import. */
+const MAP_TOKENS: MapTokens = new Proxy(MAP_TOKEN_NAMES as unknown as MapTokens, {
+  get: (_target, property: keyof MapTokens) => {
+    const names = MAP_TOKEN_NAMES[property]
+    return typeof names === "string"
+      ? resolveTokenColor(names)
+      : names.map(resolveTokenColor)
+  },
+})
 
 export { FAMILY_LABELS }
 
-
-/** Palette des types d'organisation (maquette), reprise par `orgKindMatch`. */
-const ORG_KIND_COLORS: Record<string, string> = {
-  sante: '#f05545',
-  collectivite: '#4a90d9',
-  entreprise: '#f0a63c',
-  enseignement: '#a855f7',
-  recherche: '#22c55e',
-  operateur_critique: '#e0483c',
-  ess: '#e0b341',
-}
-const ORG_KIND_FALLBACK = '#9fb2c4'
-
-const STROKE_DARK = '#12100d'
-const STROKE_LIGHT = '#ffffff'
-
-/** Expression MapLibre `match` sur `family`, construite depuis la palette partagée. */
-function familyMatch(): any[] {
-  const pairs = Object.entries(FAMILY_COLORS).flatMap(([family, color]) => [family, color])
-  return ['match', ['get', 'family'], ...pairs, FAMILY_COLOR_FALLBACK]
-}
-
-/** Expression MapLibre `match` sur `kind` (couleur des points d'organisation). */
-function orgKindMatch(): any[] {
-  const pairs = Object.entries(ORG_KIND_COLORS).flatMap(([kind, color]) => [kind, color])
-  return ['match', ['get', 'kind'], ...pairs, ORG_KIND_FALLBACK]
-}
 // ── Choroplèthe départements (OSM, ODbL) ────────────────────────────────
 
 type DepFeature = {
@@ -137,29 +147,22 @@ type DepFeature = {
 const DEP_FEATURES = (JSON.parse(DEP_GEOJSON_RAW) as { type: 'FeatureCollection'; features: DepFeature[] }).features
 
 /**
- * Densité du référentiel par département.
- *
- * L'orange saturé à 0,68 couvrait toute la carte : chaque département dépasse
- * cent organisations, donc tous tombaient dans la classe haute, et l'aplat
- * masquait les points d'activité. La densité du référentiel est un fond, pas
- * une alerte : elle passe en teal très clair, et se lit comme une texture.
+ * Densité du référentiel par département : le fond reste une texture, pas une
+ * alerte. La teinte vient du jeton `--data-teal` ; seule l'opacité varie.
  */
-function densityColor(count: number): string {
-  if (count <= 0) return 'rgba(61,219,217,0)'
-  if (count <= 200) return 'rgba(61,219,217,0.05)'
-  if (count <= 600) return 'rgba(61,219,217,0.08)'
-  if (count <= 1500) return 'rgba(61,219,217,0.11)'
-  if (count <= 4000) return 'rgba(61,219,217,0.14)'
-  return 'rgba(61,219,217,0.18)'
+function densityOpacity(count: number): number {
+  if (count <= 0) return 0
+  if (count <= 200) return 0.05
+  if (count <= 600) return 0.08
+  if (count <= 1500) return 0.11
+  if (count <= 4000) return 0.14
+  return 0.18
 }
 
-/** Expression `match` sur `code`, teintée par le nombre réel d'organisations. */
-function depDensityMatch(counts: Map<string, number>): ExpressionSpecification {
-  const pairs = DEP_FEATURES.flatMap((f) => [f.properties.code, densityColor(counts.get(f.properties.code) ?? 0)])
-  // `match` admet un nombre variable de couples ; TS ne vérifie pas un spread
-  // dans un tuple, d'où la conversion vers le type d'expression MapLibre.
-  const expr = ['match', ['get', 'code'], ...pairs, 'rgba(232,163,61,0)'] as unknown as ExpressionSpecification
-  return expr
+/** Expression `match` sur `code`, opacité lue depuis le nombre réel d'orgs. */
+function depDensityOpacity(counts: Map<string, number>): ExpressionSpecification {
+  const pairs = DEP_FEATURES.flatMap((f) => [f.properties.code, densityOpacity(counts.get(f.properties.code) ?? 0)])
+  return ['match', ['get', 'code'], ...pairs, 0] as unknown as ExpressionSpecification
 }
 
 /** Compte les organisations par code de département (données réelles de `orgs`). */
@@ -197,49 +200,25 @@ const CITY_LABELS: [string, number, number][] = [
   ['Mont-de-Marsan', -0.4997, 43.8907], ['Dax', -1.0536, 43.7102],
 ]
 
-// Habillage de la carte selon la variante de design (data-theme sur <html>).
-const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, number>; buildings: string[]; label: string; labelHalo: string; orgStroke: string; depLine: string; fog: string; fogHorizon: string; lightColor: string; lightIntensity: number }> = {
-  clair: {
-    tiles: ['https://tiles.basemaps.cartocdn.com/light_all/{z}/{x}{r}.png'],
-    raster: { 'raster-brightness-max': 1, 'raster-saturation': 0, 'raster-contrast': 0 },
-    buildings: ['#e8e4dd', '#dcd6cb', '#cfc6b8', '#bdb2a1'],
-    label: '#1f2937', labelHalo: '#ffffff', orgStroke: '#ffffff', depLine: 'rgba(15,23,42,0.55)',
-    fog: '#e9eff5', fogHorizon: '#fbfcfe', lightColor: '#ffffff', lightIntensity: 0.75,
-  },
-}
-const MAP_THEME_DARK = {
-  raster: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 },
-  buildings: ['#1b2230', '#2b3542', '#3d4a5c', '#5a6b82'],
-  label: '#e6ebf2', labelHalo: '#080b10', orgStroke: '#080b10', depLine: 'rgba(232,163,61,0.55)',
-  // Brume de fond et lumière rasante : les bâtiments extrudés prennent du
-  // relief au lieu d'être des aplats. Couleurs prises dans la charte sombre.
-  fog: '#050a12', fogHorizon: '#0c1826', lightColor: '#c8d4e2', lightIntensity: 0.5,
-}
-
-function applyMapTheme(map: maplibregl.Map, theme: string) {
-  const light = MAP_THEMES[theme]
-  const cfg = light ?? MAP_THEME_DARK
-  const osm = map.getSource('osm') as maplibregl.RasterTileSource | undefined
-  if (light && osm) osm.setTiles(light.tiles)
-  else if (osm) osm.setTiles(['https://tile.openstreetmap.org/{z}/{x}/{y}.png'])
-  map.setPaintProperty('osm', 'raster-brightness-max', cfg.raster['raster-brightness-max'])
-  map.setPaintProperty('osm', 'raster-saturation', cfg.raster['raster-saturation'])
-  map.setPaintProperty('osm', 'raster-contrast', cfg.raster['raster-contrast'])
+/** Habillage unique : toutes les couleurs viennent du pont Astryx. */
+function applyMapTheme(map: maplibregl.Map) {
+  map.setPaintProperty('osm', 'raster-brightness-max', 0.42)
+  map.setPaintProperty('osm', 'raster-saturation', -0.92)
+  map.setPaintProperty('osm', 'raster-contrast', 0.18)
   map.setPaintProperty('buildings', 'fill-extrusion-color', ['interpolate', ['linear'], ['coalesce', ['get', 'render_height'], 6],
-    0, cfg.buildings[0], 8, cfg.buildings[1], 25, cfg.buildings[2], 60, cfg.buildings[3]])
-  map.setPaintProperty('cities', 'text-color', cfg.label)
-  map.setPaintProperty('cities', 'text-halo-color', cfg.labelHalo)
-  map.setPaintProperty('orgs', 'circle-stroke-color', cfg.orgStroke)
-  map.setPaintProperty('dep-outline', 'line-color', cfg.depLine)
+    0, MAP_TOKENS.buildings[0], 8, MAP_TOKENS.buildings[1], 25, MAP_TOKENS.buildings[2], 60, MAP_TOKENS.buildings[3]])
+  map.setPaintProperty('cities', 'text-color', MAP_TOKENS.label)
+  map.setPaintProperty('cities', 'text-halo-color', MAP_TOKENS.labelHalo)
+  map.setPaintProperty('orgs', 'circle-stroke-color', MAP_TOKENS.labelHalo)
+  map.setPaintProperty('dep-outline', 'line-color', MAP_TOKENS.depLine)
 
   // Ambiance : ciel, horizon et brume au sol, plus une lumière rasante sur les
-  // volumes. Purement natif MapLibre 6 (`setSky`, `setLight`), aucune
-  // dépendance ; les couleurs viennent du thème, donc la charte ne bouge pas.
+  // volumes. Purement natif MapLibre 6 (`setSky`, `setLight`).
   try {
     map.setSky({
-      'sky-color': cfg.fogHorizon,
-      'horizon-color': cfg.fog,
-      'fog-color': cfg.fog,
+      'sky-color': MAP_TOKENS.fogHorizon,
+      'horizon-color': MAP_TOKENS.fog,
+      'fog-color': MAP_TOKENS.fog,
       'sky-horizon-blend': 0.35,
       'horizon-fog-blend': 0.5,
       'fog-ground-blend': 0.15,
@@ -247,8 +226,8 @@ function applyMapTheme(map: maplibregl.Map, theme: string) {
     })
     map.setLight({
       anchor: 'viewport',
-      color: cfg.lightColor,
-      intensity: cfg.lightIntensity,
+      color: MAP_TOKENS.lightColor,
+      intensity: 0.5,
       position: [1.6, 88, 55],
     })
   } catch {
@@ -257,7 +236,9 @@ function applyMapTheme(map: maplibregl.Map, theme: string) {
 }
 
 /** Couleur unique des arcs agrégés par destination. */
-const AGGREGATED_ARC_COLOR = 'rgba(232,163,61,0.55)'
+function aggregateArcColor(): string {
+  return resolveTokenColor('--accent')
+}
 
 /** Arc candidat, avant regroupement par destination. */
 type ArcDraft = {
@@ -293,7 +274,7 @@ function aggregateArcs(drafts: readonly ArcDraft[]): ArcFeature[] {
         feature: {
           type: 'Feature',
           geometry: { type: 'LineString', coordinates: draft.coordinates },
-          properties: { family: draft.family, nature: draft.nature, color: AGGREGATED_ARC_COLOR, count: 1 },
+          properties: { family: draft.family, nature: draft.nature, color: aggregateArcColor(), count: 1 },
         },
       })
       continue
@@ -381,7 +362,7 @@ function pointFeature(e: MapEvent, stroke: string): Record<string, unknown> {
       id: e.id,
       kind: 'point',
       family: e.family,
-      color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK,
+      color: FAMILY_COLORS[e.family] ?? familyColorFallback(),
       radius: severityRadius(e.severity),
       severity: e.severity ?? 3,
       title: e.title,
@@ -405,7 +386,7 @@ function cellFeature(key: string, cell: CellAccum, stroke: string): Record<strin
       id: `cell:${key}`,
       kind: 'cell',
       family: dominant,
-      color: FAMILY_COLORS[dominant] ?? FAMILY_COLOR_FALLBACK,
+      color: FAMILY_COLORS[dominant] ?? familyColorFallback(),
       radius: countRadius(cell.count),
       severity: cell.severity,
       count: cell.count,
@@ -484,7 +465,7 @@ const POPUP_STYLE = `
 .radar-popup-body { display: flex; flex-direction: column; gap: var(--space-2); }
 .radar-popup-head { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 .radar-popup-chip {
-  color: #0b0f16;
+  color: var(--accent-ink);
   font-size: var(--text-micro);
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.01em;
@@ -528,7 +509,7 @@ function formatDate(value: unknown): string {
 function familyChip(family: unknown): HTMLElement {
   const key = typeof family === 'string' ? family : ''
   const chip = el('span', 'radar-popup-chip', FAMILY_LABELS[key] ?? key)
-  chip.style.background = FAMILY_COLORS[key] ?? FAMILY_COLOR_FALLBACK
+  chip.style.background = FAMILY_COLORS[key] ?? familyColorFallback()
   return chip
 }
 
@@ -573,7 +554,7 @@ function cellPopupContent(p: Record<string, any>): HTMLElement {
       const key = String(entry[0])
       const row = el('span', 'radar-popup-fam')
       const dot = el('span', 'dot')
-      dot.style.background = FAMILY_COLORS[key] ?? FAMILY_COLOR_FALLBACK
+      dot.style.background = FAMILY_COLORS[key] ?? familyColorFallback()
       row.appendChild(dot)
       row.appendChild(el('span', '', `${FAMILY_LABELS[key] ?? key} · ${entry[1]}`))
       list.appendChild(row)
@@ -619,7 +600,6 @@ export default function Map3D(props: Map3DProps) {
     let map: maplibregl.Map | null = null
     let popup: maplibregl.Popup | null = null
     let raf = 0
-    let themeObserver: MutationObserver | null = null
     let liveLayer: LiveAttackLayer | null = null
     let liveRaf = 0
     let liveCloseFeed: (() => void) | null = null
@@ -730,7 +710,7 @@ export default function Map3D(props: Map3DProps) {
               minzoom: 14,
               paint: {
                 'fill-extrusion-color': ['interpolate', ['linear'], ['coalesce', ['get', 'render_height'], 6],
-                  0, '#1b2230', 8, '#2b3542', 25, '#3d4a5c', 60, '#5a6b82'],
+                  0, MAP_TOKENS.buildings[0], 8, MAP_TOKENS.buildings[1], 25, MAP_TOKENS.buildings[2], 60, MAP_TOKENS.buildings[3]],
                 'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 6],
                 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0],
                 'fill-extrusion-opacity': 0.9,
@@ -740,13 +720,13 @@ export default function Map3D(props: Map3DProps) {
               id: 'dep',
               type: 'fill',
               source: 'dep',
-              paint: { 'fill-color': depDensityMatch(countOrgsByDept(propsRef.current.orgs)), 'fill-opacity': 1 },
+              paint: { 'fill-color': MAP_TOKENS.density, 'fill-opacity': depDensityOpacity(countOrgsByDept(propsRef.current.orgs)) },
             },
             {
               id: 'dep-outline',
               type: 'line',
               source: 'dep',
-              paint: { 'line-color': 'rgba(230,235,242,0.65)', 'line-width': 1 },
+              paint: { 'line-color': MAP_TOKENS.depLine, 'line-opacity': 0.55, 'line-width': 1 },
             },
             {
               id: 'arcs-glow',
@@ -770,7 +750,7 @@ export default function Map3D(props: Map3DProps) {
                 'text-offset': [0, 1.2],
                 'text-font': ['Noto Sans Regular'],
               },
-              paint: { 'text-color': '#e6ebf2', 'text-halo-color': '#080b10', 'text-halo-width': 1.5 },
+              paint: { 'text-color': MAP_TOKENS.label, 'text-halo-color': MAP_TOKENS.labelHalo, 'text-halo-width': 1.5 },
             },
             {
               id: 'orgs-clusters',
@@ -778,9 +758,10 @@ export default function Map3D(props: Map3DProps) {
               source: 'orgs',
               filter: ['has', 'point_count'],
               paint: {
-                'circle-color': 'rgba(20, 30, 38, 0.88)',
-                'circle-opacity': 1,
-                'circle-stroke-color': 'rgba(61, 219, 217, 0.45)',
+                'circle-color': MAP_TOKENS.surface3,
+                'circle-opacity': 0.88,
+                'circle-stroke-color': MAP_TOKENS.density,
+                'circle-stroke-opacity': 0.45,
                 'circle-stroke-width': 1,
                 'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 10, 14, 100, 18, 1000, 24, 10000, 30],
               },
@@ -796,7 +777,7 @@ export default function Map3D(props: Map3DProps) {
                 'text-font': ['Noto Sans Regular'],
                 'text-allow-overlap': true,
               },
-              paint: { 'text-color': '#dfe6f0' },
+              paint: { 'text-color': MAP_TOKENS.label },
             },
             {
               id: 'orgs',
@@ -805,8 +786,8 @@ export default function Map3D(props: Map3DProps) {
               filter: ['!', ['has', 'point_count']],
               paint: {
                 'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 13, 6],
-                'circle-color': NEUTRAL_COLOR,
-                'circle-stroke-color': '#080b10',
+                'circle-color': neutralColor(),
+                'circle-stroke-color': MAP_TOKENS.labelHalo,
                 'circle-stroke-width': 1.5,
               },
             },
@@ -860,7 +841,7 @@ export default function Map3D(props: Map3DProps) {
                 'text-allow-overlap': true,
                 'text-ignore-placement': true,
               },
-              paint: { 'text-color': '#ffffff', 'text-halo-color': '#0b0f16', 'text-halo-width': 1.5 },
+              paint: { 'text-color': MAP_TOKENS.label, 'text-halo-color': MAP_TOKENS.labelHalo, 'text-halo-width': 1.5 },
             },
           ],
         },
@@ -897,7 +878,7 @@ export default function Map3D(props: Map3DProps) {
       const renderData = () => {
         if (disposed || !map) return
         const { orgs, events, families } = propsRef.current
-        const stroke = document.documentElement.dataset.theme === 'clair' ? STROKE_LIGHT : STROKE_DARK
+        const stroke = MAP_TOKENS.labelHalo
         const active = families && families.length > 0 ? new Set(families) : null
         const visible = active ? events.filter((e) => active!.has(e.family)) : events
         const located = visible.filter((e) => e.lat != null && e.lon != null && Number.isFinite(e.lat) && Number.isFinite(e.lon))
@@ -914,7 +895,7 @@ export default function Map3D(props: Map3DProps) {
           properties: { ...f.properties, count: deptCounts.get(f.properties.code) ?? 0 },
         }))
         ;(map.getSource('dep') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: depFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
-        try { map.setPaintProperty('dep', 'fill-color', depDensityMatch(deptCounts)) } catch { /* style pas prête */ }
+        try { map.setPaintProperty('dep', 'fill-opacity', depDensityOpacity(deptCounts)) } catch { /* style pas prête */ }
 
         const hotOrgs = new Set(visible.filter((e) => e.orgId != null).map((e) => e.orgId as number))
         const hotFeatures = orgs.flatMap((o) => {
@@ -922,7 +903,7 @@ export default function Map3D(props: Map3DProps) {
           return [{
             type: 'Feature' as const,
             geometry: { type: 'Point' as const, coordinates: [o.lon, o.lat] as [number, number] },
-            properties: { color: NEUTRAL_COLOR },
+            properties: { color: neutralColor() },
           }]
         })
         ;(map.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
@@ -961,19 +942,16 @@ export default function Map3D(props: Map3DProps) {
       // des orgs (boucle rAF unique, pas de recalcul de géométrie).
 
       const syncTheme = () => {
-        applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
+        applyMapTheme(map!)
         renderData()
       }
       map.on('load', syncTheme)
-      themeObserver = new MutationObserver(syncTheme)
-      themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
       mapRef.current = map
 
       map.on('style.load', () => {
-        // Le thème n'était appliqué qu'au changement : la brume et la lumière
-        // ne posaient donc jamais au premier affichage.
-        applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
+        // Brume et lumière sont reposées à chaque rechargement du style.
+        applyMapTheme(map!)
         try { map?.setTerrain({ source: 'dem', exaggeration: 1.8 }) } catch { /* style déjà prêt */ }
       })
       map.once('load', () => map?.resize())
@@ -1044,7 +1022,8 @@ export default function Map3D(props: Map3DProps) {
         onSelectRef.current?.(`org:${properties.id}`)
       })
 
-      syncTheme()
+      // Le thème et les données sont appliqués par l'événement load, une fois
+      // le style MapLibre réellement prêt.
     }
 
     const observer = new ResizeObserver(() => map?.resize())
@@ -1093,7 +1072,6 @@ export default function Map3D(props: Map3DProps) {
       cancelAnimationFrame(liveRaf)
       liveCloseFeed?.()
       observer.disconnect()
-      themeObserver?.disconnect()
       clearTimeout(zoomTimer)
 
       popup?.remove()

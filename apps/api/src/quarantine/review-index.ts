@@ -1,37 +1,40 @@
 /**
- * Index de la file de revue, construits à la demande et partagés par processus.
+ * Index de la file de revue, construit pour les indices réellement affichés.
  *
  * `reviewQueue` comparait chaque indice de sa fenêtre (2 000 faits) à
  * l'intégralité du référentiel. Sur la base d'exploitation — 1,67 M
  * organisations, 1,68 M alias — cela signifiait deux balayages complets
- * (`org`, puis `org_alias`) **à chaque appel HTTP**, et la construction de deux
- * index de plus d'un million d'entrées sur la boucle d'événements. La file ne
- * répondait plus (timeout à 30 s) et bloquait toutes les autres routes.
+ * (`org`, puis `org_alias`) à chaque appel HTTP.
  *
- * Le snapshot coûte 1,5 à 2,8 Go de RSS : le charger au démarrage faisait
- * attendre `listen` ~20 s et poussait la machine en swap pour une file que
- * personne n'ouvre en permanence. Il n'est donc **plus préchauffé** : la
- * première requête de revue déclenche sa construction en tâche de fond (page
- * par page, keyset sur la clé primaire, une pause toutes les 20 000 lignes) et
- * reçoit immédiatement un état « en préparation » ; les requêtes suivantes
- * lisent le snapshot en mémoire. `/api/health` reste donc immédiat même
- * pendant la construction.
+ * Une première version chargeait ces deux tables une fois au démarrage, en
+ * pages : le snapshot tenait ~2,1 Go de RSS et faisait OOM le processus V8
+ * (limite 2 Go) avant même la première requête. Le chargeur de référentiel
+ * dispose pourtant d'un préfiltre par indice (`loadCandidateIndex`) et
+ * `org_alias.nom_normalise` est indexé. On construit donc l'index à partir
+ * des seuls indices demandés : aucun chargement global, mémoire bornée.
  *
  * Fraîcheur : un snapshot est invalidé par `resetReviewIndexes`, appelé après
- * une écriture du référentiel (création d'organisation, rechargement). La
- * mémoire de l'ancien est libérée aussitôt et le prochain appel de revue
- * reconstruit ; une construction lancée avant l'écriture est jetée et reprise
- * sur les données à jour.
+ * une écriture du référentiel. L'ancien snapshot sert jusqu'à ce que le
+ * nouveau soit prêt ; les indices déjà couverts sont conservés.
  */
 import { query } from "../db.js";
-import { buildAliasIndexChunked, type AliasIndex, type AliasRow } from "../match/core.js";
+import {
+	MIN_ALIAS_LENGTH,
+	normalize,
+	buildAliasIndexChunked,
+	type AliasIndex,
+	type AliasRow,
+} from "../match/core.js";
 import { buildCandidateIndexChunked, candidatesFor, type CandidateIndex } from "./candidates.js";
 import {
+	GENERIC_TOKENS,
 	attacherAliasDomaines,
 	matchOrgInIndex,
 	chargerAliasDomaines,
+	normalizeName,
 	toIndexEntry,
 	type OrgIndexEntry,
+	type OrgMatch,
 	type OrgRow,
 } from "./promote.js";
 
@@ -39,6 +42,8 @@ export type ReviewSnapshot = {
 	orgIndex: OrgIndexEntry[];
 	candidates: CandidateIndex;
 	aliasIndex: AliasIndex;
+	/** Indices déjà pris en compte par ce snapshot. */
+	covered: Set<string>;
 };
 
 /**
@@ -46,11 +51,11 @@ export type ReviewSnapshot = {
  * relit les mêmes 2 000 indices à chaque page, et un rapprochement coûte
  * jusqu'à quelques milliers de comparaisons pour les noms courants.
  */
-const memoMatch = new Map<string, ReturnType<typeof matchOrgInIndex>>();
+const memoMatch = new Map<string, OrgMatch | null>();
 const MEMO_MAX = 50_000;
 
 /** Rapprochement d'un indice, mémoïsé sur le snapshot courant. */
-export function hintMatch(hint: string): ReturnType<typeof matchOrgInIndex> {
+export function hintMatch(hint: string): OrgMatch | null {
 	const cle = hint.trim();
 	if (memoMatch.has(cle)) return memoMatch.get(cle) ?? null;
 	const candidats = snapshot ? candidatesFor(cle, snapshot.candidates) : [];
@@ -76,8 +81,8 @@ export function reviewIndexCacheActif(): boolean {
 }
 
 /**
- * Organisations, lues par pages ordonnées sur `id`. Le keyset évite le coût
- * quadratique d'`OFFSET` et laisse la boucle respirer entre deux pages.
+ * Organisations, lues par pages ordonnées sur `id`. Chemin des tests uniquement
+ * (cache désactivé) : en production, on ne charge jamais le référentiel entier.
  */
 async function chargerOrgIndex(): Promise<OrgIndexEntry[]> {
 	const entrees: OrgIndexEntry[] = [];
@@ -93,11 +98,10 @@ async function chargerOrgIndex(): Promise<OrgIndexEntry[]> {
 		dernier = page.rows[page.rows.length - 1]!.id;
 		await pause();
 	}
-	// 19 lignes mesurées : la table des alias-domaines reste minuscule.
 	return attacherAliasDomaines(entrees, await chargerAliasDomaines());
 }
 
-/** Alias des organisations confirmées, par pages ordonnées sur `org_alias.id`. */
+/** Alias des organisations confirmées, par pages (tests, cache désactivé). */
 async function chargerLignesAlias(): Promise<AliasRow[]> {
 	const lignes: AliasRow[] = [];
 	let dernier = 0;
@@ -119,26 +123,172 @@ async function chargerLignesAlias(): Promise<AliasRow[]> {
 	return lignes;
 }
 
-async function construire(): Promise<ReviewSnapshot> {
-	const [orgIndex, lignesAlias] = await Promise.all([chargerOrgIndex(), chargerLignesAlias()]);
+/** Plafonds de sécurité : jamais de snapshot capable de saturer le heap V8. */
+const MAX_ORGS = 120_000;
+const MAX_ALIASES = 240_000;
+const MOTIFS_PAR_REQUETE = 5;
+const PHRASES_PAR_REQUETE = 2_000;
+
+/** Séquences contiguës de jetons d'un indice, comme `analyzeAliasIndex` les cherche. */
+function phrasesAlias(hint: string): string[] {
+	const tokens = normalize(hint).split(" ").filter(Boolean);
+	const phrases: string[] = [];
+	for (let debut = 0; debut < tokens.length; debut++) {
+		for (let fin = debut + 1; fin <= tokens.length; fin++) {
+			phrases.push(tokens.slice(debut, fin).join(" "));
+		}
+	}
+	return phrases;
+}
+
+/**
+ * Alias actifs dont la forme normalisée apparaît dans un indice demandé.
+ * `nom_normalise` est indexé : une égalité par phrase, même pour 2 000
+ * indices, reste un accès indexé — pas un balayage des 1,68 M d'alias.
+ */
+async function chargerAliasParIndices(hints: readonly string[]): Promise<AliasRow[]> {
+	const phrases = [...new Set(hints.flatMap(phrasesAlias))];
+	const lignes: AliasRow[] = [];
+	for (let i = 0; i < phrases.length; i += PHRASES_PAR_REQUETE) {
+		const lot = phrases.slice(i, i + PHRASES_PAR_REQUETE);
+		const r = await query<AliasRow>(
+			`SELECT a.org_id, o.name, a.alias, o.dept
+			   FROM org_alias a JOIN org o ON o.id = a.org_id
+			  WHERE a.status = 'active' AND length(btrim(a.alias)) >= $2
+			    AND a.nom_normalise = ANY($1::text[])`,
+			[lot, MIN_ALIAS_LENGTH],
+		);
+		for (const row of r.rows) {
+			if (lignes.length >= MAX_ALIASES) break;
+			lignes.push(row);
+		}
+		await pause();
+	}
+	return lignes;
+}
+
+/** Motifs de nom déduits des indices : sur-ensemble des jetons témoins du moteur. */
+function motifsNoms(hints: readonly string[]): string[] {
+	const motifs = new Set<string>();
+	for (const hint of hints) {
+		for (const token of normalizeName(hint).split(" ")) {
+			if (token.length < 3 || GENERIC_TOKENS.has(token)) continue;
+			motifs.add(`%${token}%`);
+		}
+	}
+	return [...motifs];
+}
+
+/**
+ * Organisations candidates aux indices demandés. Le préfiltre par nom utilise
+ * l'index trigramme `org_name_norm_trgm` par petits lots : au-delà de quelques
+ * motifs, Postgres choisit un seq scan et chaque indice coûte plusieurs
+ * secondes. Les ~10 000 organisations pourvues d'un domaine sont ajoutées en
+ * une passe pour couvrir les rapprochements par domaine.
+ */
+async function chargerOrgParIndices(hints: readonly string[]): Promise<OrgIndexEntry[]> {
+	const entrees = new Map<number, OrgIndexEntry>();
+	const ajouter = (row: OrgRow) => {
+		if (entrees.size < MAX_ORGS) entrees.set(row.id, toIndexEntry(row));
+	};
+	const motifs = motifsNoms(hints);
+	for (let i = 0; i < motifs.length; i += MOTIFS_PAR_REQUETE) {
+		const r = await query<OrgRow>(
+			`SELECT id, name, slug, kind, city, domain, website FROM org
+			  WHERE name_norm ILIKE ANY($1::text[])`,
+			[motifs.slice(i, i + MOTIFS_PAR_REQUETE)],
+		);
+		for (const row of r.rows) ajouter(row);
+		await pause();
+	}
+	const avecDomaine = await query<OrgRow>(
+		`SELECT id, name, slug, kind, city, domain, website FROM org
+		  WHERE lower(domain) IS NOT NULL OR lower(website) IS NOT NULL`,
+	);
+	for (const row of avecDomaine.rows) ajouter(row);
+	return attacherAliasDomaines([...entrees.values()], await chargerAliasDomaines());
+}
+
+async function construire(hints: readonly string[]): Promise<ReviewSnapshot> {
+	const [orgIndex, lignesAlias] = reviewIndexCacheActif()
+		? await Promise.all([chargerOrgParIndices(hints), chargerAliasParIndices(hints)])
+		: await Promise.all([chargerOrgIndex(), chargerLignesAlias()]);
 	const candidates = await buildCandidateIndexChunked(orgIndex);
 	const aliasIndex = await buildAliasIndexChunked(lignesAlias);
-	return { orgIndex, candidates, aliasIndex };
+	return { orgIndex, candidates, aliasIndex, covered: new Set(hints) };
 }
 
 let snapshot: ReviewSnapshot | null = null;
 let enCours: Promise<ReviewSnapshot> | null = null;
-/** Incrémenté à chaque écriture du référentiel : une construction antérieure est jetée. */
-let generation = 0;
-/** Dernier échec de construction, pour ne pas relancer une requête par appel. */
-let echecLe = 0;
-const ECHEC_REPOS_MS = 10_000;
+/** Une écriture du référentiel demande un nouveau snapshot ; l'ancien reste servi. */
+let perime = false;
+
+async function construireEtStocker(hints: readonly string[]): Promise<ReviewSnapshot> {
+	const neuf = await construire(hints);
+	snapshot = neuf;
+	perime = false;
+	memoMatch.clear();
+	// Les indices demandés sont déjà chargés : le préchauffage est gratuit.
+	for (const hint of hints) hintMatch(hint);
+	return neuf;
+}
 
 /**
- * Préchauffe les rapprochements de la fenêtre courante : la première requête
- * servie après la construction ne paie pas les 2 000 indices.
+ * Snapshot couvrant les indices fournis. Un snapshot périmé reste servi pendant
+ * que le nouveau se construit, pour qu'une écriture ne suspende jamais la file.
  */
-async function prechaufferRapprochements(): Promise<void> {
+export async function reviewSnapshot(hints: readonly string[] = []): Promise<ReviewSnapshot> {
+	const demandes = [...new Set(hints.map((h) => h.trim()).filter(Boolean))];
+	if (!reviewIndexCacheActif()) {
+		const neuf = await construire(demandes);
+		snapshot = neuf;
+		memoMatch.clear();
+		return neuf;
+	}
+	const manquants = demandes.filter((h) => !snapshot?.covered.has(h));
+	if (snapshot && !perime && manquants.length === 0) return snapshot;
+	if (enCours) {
+		// Une seule construction à la fois : on attend puis on réévalue.
+		const neuf = await enCours.catch(() => null);
+		if (neuf && !perime && demandes.every((h) => neuf.covered.has(h))) return neuf;
+		if (!neuf && snapshot) return snapshot;
+	}
+	const cibles = [...new Set([...(snapshot?.covered ?? []), ...demandes])];
+	enCours = construireEtStocker(cibles).finally(() => {
+		enCours = null;
+	});
+	return snapshot ?? enCours;
+
+}
+
+/**
+ * Snapshot immédiat s'il couvre les indices affichés. Sinon la construction
+ * bornée démarre en arrière-plan et la route peut répondre « en préparation »
+ * sans bloquer le reste de l'API.
+ */
+export function snapshotRevueSiPret(hints: readonly string[] = []): ReviewSnapshot | null {
+	if (!reviewIndexCacheActif()) return null;
+	const demandes = [...new Set(hints.map((h) => h.trim()).filter(Boolean))];
+	if (snapshot && demandes.every((h) => snapshot!.covered.has(h))) return snapshot;
+	if (!enCours) {
+		const cibles = [...new Set([...(snapshot?.covered ?? []), ...demandes])];
+		const construction = construireEtStocker(cibles).finally(() => {
+			enCours = null;
+		});
+		enCours = construction;
+		void construction.catch(() => {
+			// La prochaine requête relancera la construction.
+		});
+	}
+	return null;
+}
+
+/**
+ * À appeler au démarrage, avant `listen` : la fenêtre par défaut de la file est
+ * indexée sans attendre la première requête, avec les mêmes bornes qu'elle.
+ */
+export async function prechaufferIndexRevue(): Promise<void> {
+	if (!reviewIndexCacheActif()) return;
 	const fenetre = Math.min(
 		10_000,
 		Math.max(1, Number(process.env.RADAR_REVIEW_WINDOW ?? 2000) || 2000),
@@ -150,90 +300,17 @@ async function prechaufferRapprochements(): Promise<void> {
 		  ORDER BY received_at DESC, id DESC LIMIT $1`,
 		[fenetre],
 	);
-	for (const row of rows) hintMatch(String(row.org_hint ?? ""));
+	await reviewSnapshot(rows.map((row) => String(row.org_hint ?? "")));
 }
 
 /**
- * Construit puis publie le snapshot. L'ancien est lâché avant la construction :
- * le pic mémoire ne dépasse pas un index, et aucune requête ne lit un
- * référentiel partiel. Une écriture survenue pendant la construction fait
- * repartir le travail sur les données à jour.
- */
-async function construireEtStocker(): Promise<ReviewSnapshot> {
-	for (;;) {
-		const gen = generation;
-		snapshot = null;
-		memoMatch.clear();
-		const neuf = await construire();
-		if (gen !== generation) continue;
-		snapshot = neuf;
-		await prechaufferRapprochements();
-		// Une écriture pendant le préchauffage rend le snapshot obsolète : on
-		// le jette plutôt que de servir un référentiel d'avant l'écriture.
-		if (gen !== generation) {
-			snapshot = null;
-			memoMatch.clear();
-			continue;
-		}
-		return neuf;
-	}
-}
-
-/** Lance (ou rejoint) la construction en tâche de fond, sans jamais attendre. */
-function demarrerConstruction(): Promise<ReviewSnapshot> {
-	if (!enCours) {
-		enCours = construireEtStocker()
-			.catch((error) => {
-				echecLe = Date.now();
-				throw error;
-			})
-			.finally(() => {
-				enCours = null;
-			});
-	}
-	return enCours;
-}
-
-/**
- * Snapshot s'il est prêt, sinon `null` **immédiatement** après avoir déclenché
- * sa construction en tâche de fond. C'est le point d'entrée des routes : une
- * première requête de revue répond « en préparation » en quelques dizaines de
- * millisecondes au lieu d'attendre ~20 s.
- */
-export function snapshotRevueSiPret(): ReviewSnapshot | null {
-	if (!reviewIndexCacheActif()) return null;
-	if (snapshot) return snapshot;
-	if (Date.now() - echecLe >= ECHEC_REPOS_MS) {
-		void demarrerConstruction().catch(() => {
-			// Le prochain appel réessaiera après le repos.
-		});
-	}
-	return null;
-}
-
-/**
- * Snapshot partagé, en attendant sa construction. Utilisé par les routes qui
- * ne peuvent pas rendre un résultat partiel (`/quarantine`) et par le mode
- * sans cache des tests.
- */
-export async function reviewSnapshot(): Promise<ReviewSnapshot> {
-	if (!reviewIndexCacheActif()) {
-		memoMatch.clear();
-		snapshot = await construire();
-		return snapshot;
-	}
-	if (snapshot) return snapshot;
-	return demarrerConstruction();
-}
-
-/**
- * Invalide le snapshot après une écriture du référentiel. La mémoire de
- * l'ancien est libérée tout de suite : rien ne reste en RSS tant qu'aucune
- * revue ne redemande l'index. Une construction en cours est jetée et reprise.
+ * Invalide le snapshot après une écriture du référentiel. L'ancien reste servi
+ * jusqu'à ce que le nouveau soit prêt : une reconstruction ne vide jamais la file.
  */
 export function resetReviewIndexes(): void {
-	if (!reviewIndexCacheActif()) return;
-	generation += 1;
-	snapshot = null;
-	memoMatch.clear();
+	if (!reviewIndexCacheActif() || enCours) return;
+	perime = true;
+	void reviewSnapshot([...(snapshot?.covered ?? [])]).catch(() => {
+		// Une reconstruction ratée laissera le prochain appel réessayer.
+	});
 }

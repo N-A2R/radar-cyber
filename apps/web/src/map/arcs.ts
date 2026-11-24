@@ -1,7 +1,7 @@
 /**
  * Palette et couleur des arcs (org → hébergement/événement).
  *
- * `Map3D.tsx` consomme `FAMILY_HEX`, `FAMILY_HEX_FALLBACK`, `arcHex` et le type
+ * `Map3D.tsx` consomme `FAMILY_HEX`, `familyHexFallback`, `arcHex` et le type
  * `FlowArc`. Les helpers de rendu animé ont été supprimés : le rendu
  * des arcs est fait directement dans Map3D.
  */
@@ -22,56 +22,71 @@ export type FlowArc = {
 }
 
 /** MapLibre ne sait pas lire `var(...)` dans une paint property : on résout le
- * jeton du thème gothic actif via le CSS. Sans DOM (SSR, tests), on garde la
- * référence `var(...)`, que le CSS sait consommer. */
+ * jeton du thème gothic actif via le CSS, y compris ses alias. Sans DOM (SSR,
+ * tests), on garde la référence `var(...)`, que le CSS sait consommer. */
 function resoudre(jeton: string, styles?: CSSStyleDeclaration): string {
   const feuilles = styles ?? (typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement));
-  return feuilles?.getPropertyValue(jeton.slice(4, -1)).trim() || jeton;
+  let valeur = jeton;
+  for (let passe = 0; passe < 4 && valeur.includes("var("); passe += 1) {
+    valeur = valeur.replace(/var\((--[\w-]+)\)/g, (_, nom: string) => feuilles?.getPropertyValue(nom).trim() ?? "");
+  }
+  return valeur || jeton;
 }
 
-function palette(jetons: Record<string, string>): Record<string, string> {
-  const styles = typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement);
-  return Object.fromEntries(
-    Object.entries(jetons).map(([nom, jeton]) => [nom, resoudre(jeton, styles)]),
-  );
+/** Couleur concrète d'un jeton du pont, pour MapLibre et le canvas. */
+export function resolveTokenColor(nom: string): string {
+  return resoudre(tokenVar(nom));
 }
 
-/** Palette unique des familles : jetons de données du pont gothic (styles.css). */
-export const FAMILY_HEX: Record<string, string> = palette({
-  ransomware: tokenVar("--family-ransomware"),
-  vuln: tokenVar("--family-vuln"),
-  phishing: tokenVar("--family-phishing"),
-  malware: tokenVar("--family-malware"),
-  cert: tokenVar("--family-cert"),
-  cert_fr: tokenVar("--family-cert-fr"),
-  typosquat: tokenVar("--family-typosquat"),
-  reputation: tokenVar("--family-reputation"),
-  cti: tokenVar("--family-cti"),
-  presse: tokenVar("--family-presse"),
-  presse_locale: tokenVar("--family-presse-locale"),
-});
+function dynamicPalette(tokens: Record<string, string>): Record<string, string> {
+  return new Proxy(tokens, {
+    get: (target, name: string) => {
+      const token = target[name];
+      return token ? resoudre(tokenVar(token)) : undefined;
+    },
+  });
+}
 
-/** Famille inconnue : cyan clair du pont de données. */
-export const FAMILY_HEX_FALLBACK = resoudre(tokenVar("--family-cert-fr"));
+const FAMILY_TOKENS: Record<string, string> = {
+  ransomware: "--family-ransomware",
+  vuln: "--family-vuln",
+  phishing: "--family-phishing",
+  malware: "--family-malware",
+  cert: "--family-cert",
+  cert_fr: "--family-cert-fr",
+  typosquat: "--family-typosquat",
+  reputation: "--family-reputation",
+  cti: "--family-cti",
+  presse: "--family-presse",
+  presse_locale: "--family-presse-locale",
+};
+
+/** Palette dynamique : le CSS peut être injecté après l'import du module. */
+export const FAMILY_HEX = dynamicPalette(FAMILY_TOKENS);
+
+/** Famille inconnue : teinte de repli du pont de données. */
+export function familyHexFallback(): string {
+  return resoudre(tokenVar("--family-cert-fr"));
+}
 
 /**
  * Palette des natures d'organisation : jetons `--org-*` du pont gothic.
  * `ess` reste neutre via `--sev-1`. `operateur_critique` est un alias
  * normalisé de la valeur OSM `opérateur critique`.
  */
-const NATURE_HEX: Record<string, string> = palette({
-  sante: tokenVar("--org-sante"),
-  collectivite: tokenVar("--org-collectivite"),
-  entreprise: tokenVar("--org-entreprise"),
-  enseignement: tokenVar("--org-enseignement"),
-  recherche: tokenVar("--org-recherche"),
-  "opérateur critique": tokenVar("--org-operateur"),
-  operateur_critique: tokenVar("--org-operateur"),
-  ess: tokenVar("--sev-1"),
+const NATURE_HEX = dynamicPalette({
+  sante: "--org-sante",
+  collectivite: "--org-collectivite",
+  entreprise: "--org-entreprise",
+  enseignement: "--org-enseignement",
+  recherche: "--org-recherche",
+  "opérateur critique": "--org-operateur",
+  operateur_critique: "--org-operateur",
+  ess: "--sev-1",
 });
 
 /** Couleur d'un arc : nature d'organisation si connue, sinon famille. */
 export function arcHex(family: string, nature?: string | null): string {
   if (nature && NATURE_HEX[nature]) return NATURE_HEX[nature]
-  return FAMILY_HEX[family] ?? FAMILY_HEX_FALLBACK
+  return FAMILY_HEX[family] ?? familyHexFallback()
 }

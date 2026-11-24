@@ -1,37 +1,32 @@
+import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
 import type { FeedProps } from "../contracts";
 import "./feed.css";
-import { Button } from "@astryxdesign/core/Button";
 
 type FamilyFilterProps = Pick<FeedProps, "byFamily" | "family" | "onFamily">;
 
+const ALL = "all";
+const FAMILY_PREFIX = "family:";
+
 export default function FamilyFilter({ byFamily, family, onFamily }: FamilyFilterProps) {
   return (
-    <div className="family-filter" role="group" aria-label="Filter by family">
-      <span className="family-filter__label">family</span>
-      <Button
-        label="All"
-        className="family-filter__btn"
+    <div className="family-filter">
+      <SegmentedControl
+        label="Filtrer par famille"
         size="sm"
-        variant={family === null ? "primary" : "secondary"}
-        aria-pressed={family === null}
-        onClick={() => onFamily(null)}
+        value={family === null ? ALL : `${FAMILY_PREFIX}${family}`}
+        onChange={(value) => {
+          onFamily(value === ALL ? null : value.slice(FAMILY_PREFIX.length));
+        }}
       >
-        <span>All</span>
-      </Button>
-      {byFamily.map(({ family: name, n }) => (
-        <Button
-          key={name}
-          label={name}
-          className="family-filter__btn"
-          size="sm"
-          variant={family === name ? "primary" : "secondary"}
-          aria-pressed={family === name}
-          onClick={() => onFamily(name)}
-        >
-          <span>{name}</span>
-          <span className="family-filter__count" role="status" aria-live="polite">{n}</span>
-        </Button>
-      ))}
+        <SegmentedControlItem value={ALL} label="Tout" />
+        {byFamily.map(({ family: name, n }) => (
+          <SegmentedControlItem
+            key={name}
+            value={`${FAMILY_PREFIX}${name}`}
+            label={`${name} (${n})`}
+          />
+        ))}
+      </SegmentedControl>
     </div>
   );
 }

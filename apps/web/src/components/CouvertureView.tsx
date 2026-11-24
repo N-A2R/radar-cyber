@@ -11,6 +11,7 @@ import { useMemo, useState } from "react";
 import type { CouvertureLigne, CouvertureResponse } from "../api";
 import "./couverture.css";
 import { Card } from "@astryxdesign/core/Card";
+import { Table } from "@astryxdesign/core/Table";
 
 
 export type CouvertureProps = {
@@ -199,7 +200,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
             <h3 id="coverage-depts">Par département</h3>
             <p className="coverage__hint">Cliquez sur un en-tête de colonne pour trier. Tous les départements sont affichés.</p>
             <div className="coverage__scroll">
-              <table className="coverage__table">
+              <Table className="coverage__table" density="compact" dividers="rows">
                 <thead>
                   <tr>
                     <EnTeteTri cle="departement" libelle="Département" tri={tri} sens={sens} onTri={changerTri} />
@@ -222,7 +223,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
                     ))
                   )}
                 </tbody>
-              </table>
+              </Table>
             </div>
           </section>
 

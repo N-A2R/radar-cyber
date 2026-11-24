@@ -4,6 +4,7 @@ import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./Source
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./health-detail.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 
 export type HealthDetailViewProps = {
@@ -96,7 +97,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
             </p>
           ) : null}
           <div className="health-detail__scroll">
-            <table className="data">
+            <Table className="data" density="compact" dividers="rows">
               <thead>
                 <tr>
                   <th scope="col">cause</th>
@@ -128,7 +129,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </Table>
           </div>
           <p className="health-detail__legend">
             Une source peut figurer dans plusieurs causes : ces catégories ne sont pas exclusives.
@@ -139,7 +140,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
 
       <h3>dernier fait par famille</h3>
       <div className="health-detail__scroll">
-        <table className="data">
+        <Table className="data" density="compact" dividers="rows">
           <thead>
             <tr>
               <th scope="col">famille</th>
@@ -169,7 +170,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
               </td></tr>
             )}
           </tbody>
-        </table>
+        </Table>
       </div>
 
     </section>

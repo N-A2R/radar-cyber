@@ -1428,7 +1428,7 @@ export const api = {
   },
   rectificationsOrg: (orgId: number) => get<RectificationsOrg>(`/orgs/${orgId}/rectifications`),
   demanderRectification: (body: DemandeRectification) => postJson<AccuseRectification>("/rectifications", body),
-  search: (q: string) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`),
+  search: (q: string, signal?: AbortSignal) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`, signal),
   events: (
     limit = 100,
     order: "regional" | "recent" = "regional",

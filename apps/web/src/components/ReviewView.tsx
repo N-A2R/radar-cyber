@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { authHeaders } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
-import { keepFocusInDialog } from "../a11y/dialog-focus";
+import { Dialog } from "@astryxdesign/core/Dialog";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./review.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Button } from "@astryxdesign/core/Button";
 import { type ReviewUrlState, type RevueBucket } from "../url-state";
 export type { RevueBucket } from "../url-state";
 
@@ -139,10 +140,6 @@ export default function ReviewView({
   const pendingNotice = useRef<string | null>(null);
   const selectAllRef = useRef<HTMLInputElement>(null);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
-  const helpRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (help) helpRef.current?.querySelector("button")?.focus();
-  }, [help]);
 
   const families = useMemo(
     () => [...new Set(rows.map((row) => row.groupe).filter((name): name is string => Boolean(name)))]
@@ -587,16 +584,10 @@ export default function ReviewView({
       {!loading && visibleRows.length === 0 && !error && server ? (
         <EmptyState
           className="revue__empty"
-          message={
-            <>
-              <strong>{total === 0 ? "Aucune revendication restante à examiner." : "Aucun résultat avec ces filtres."}</strong>
-              <span>
-                {total === 0
-                  ? "La file est vide : chaque revendication publique a une décision enregistrée."
-                  : "Essayez une autre priorité, une autre famille ou un autre terme de recherche."}
-              </span>
-            </>
-          }
+          message={total === 0 ? "Aucune revendication restante à examiner." : "Aucun résultat avec ces filtres."}
+          description={total === 0
+            ? "La file est vide : chaque revendication publique a une décision enregistrée."
+            : "Essayez une autre priorité, une autre famille ou un autre terme de recherche."}
           actionLabel={filtersActive ? "Effacer les filtres" : "Recharger la file"}
           onAction={filtersActive ? clearFilters : refresh}
         />
@@ -792,26 +783,29 @@ export default function ReviewView({
       </footer>
       ) : null}
 
-      {help ? (
-        <div className="revue__help" role="dialog" aria-modal="true" aria-labelledby="revue-help-title" ref={helpRef} onKeyDown={keepFocusInDialog}>
-          <div className="revue__help-card">
-            <h2 id="revue-help-title">Raccourcis clavier</h2>
-            <dl>
-              <dt>J / ↓</dt><dd>Aller à la ligne suivante</dd>
-              <dt>K / ↑</dt><dd>Aller à la ligne précédente</dd>
-              <dt>X</dt><dd>Sélectionner ou désélectionner la ligne courante</dd>
-              <dt>Maj+A</dt><dd>Sélectionner toutes les lignes de cette page</dd>
-              <dt>A</dt><dd>Ouvrir l'acceptation de la ligne courante</dd>
-              <dt>R</dt><dd>Ouvrir le rejet de la ligne courante</dd>
-              <dt>C</dt><dd>Créer une organisation</dd>
-              <dt>?</dt><dd>Afficher cette aide</dd>
-              <dt>Échap</dt><dd>Fermer l'aide, le formulaire de décision ou la sélection</dd>
-            </dl>
-            <p className="revue__help-note">Les raccourcis sont ignorés pendant la saisie dans un champ.</p>
-            <button type="button" onClick={() => setHelp(false)}>Fermer</button>
-          </div>
+      <Dialog
+        isOpen={help}
+        onOpenChange={setHelp}
+        width={560}
+        aria-labelledby="revue-help-title"
+      >
+        <div className="revue__help">
+          <h2 id="revue-help-title">Raccourcis clavier</h2>
+          <dl>
+            <dt>J / ↓</dt><dd>Aller à la ligne suivante</dd>
+            <dt>K / ↑</dt><dd>Aller à la ligne précédente</dd>
+            <dt>X</dt><dd>Sélectionner ou désélectionner la ligne courante</dd>
+            <dt>Maj+A</dt><dd>Sélectionner toutes les lignes de cette page</dd>
+            <dt>A</dt><dd>Ouvrir l'acceptation de la ligne courante</dd>
+            <dt>R</dt><dd>Ouvrir le rejet de la ligne courante</dd>
+            <dt>C</dt><dd>Créer une organisation</dd>
+            <dt>?</dt><dd>Afficher cette aide</dd>
+            <dt>Échap</dt><dd>Fermer l'aide, le formulaire de décision ou la sélection</dd>
+          </dl>
+          <p className="revue__help-note">Les raccourcis sont ignorés pendant la saisie dans un champ.</p>
+          <Button label="Fermer" onClick={() => setHelp(false)} />
         </div>
-      ) : null}
+      </Dialog>
     </section>
   );
 }

@@ -7,6 +7,7 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./directory.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 
 /**
@@ -398,7 +399,7 @@ export default function DirectoryView({
 					aria-label="Tableau des organisations"
 					data-busy={busy}
 				>
-					<table>
+					<Table aria-label="Organisations du référentiel" density="compact" dividers="rows">
 						<caption className="sr-only">
 							Organisations du référentiel. Flèches pour parcourir, Entrée pour ouvrir la fiche.
 						</caption>
@@ -483,7 +484,7 @@ export default function DirectoryView({
 							))}
 							{paddingBottom > 0 ? <tr style={{ height: paddingBottom }} aria-hidden="true"><td colSpan={COLUMNS.length} /></tr> : null}
 						</tbody>
-					</table>
+					</Table>
 				</div>
 			)}
 

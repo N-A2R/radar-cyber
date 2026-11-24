@@ -61,6 +61,7 @@ describe("LoginScreen — connexion soignée", () => {
     root = undefined;
     host.remove();
     vi.unstubAllGlobals();
+    vi.useRealTimers();
   });
 
   async function mount(): Promise<HTMLFormElement> {
@@ -99,8 +100,8 @@ describe("LoginScreen — connexion soignée", () => {
     const password = host.querySelector<HTMLInputElement>("#login-password");
     expect(email).not.toBeNull();
     expect(password).not.toBeNull();
-    expect(host.querySelector('label[for="login-email"]')?.textContent).toBe("adresse e-mail");
-    expect(host.querySelector('label[for="login-password"]')?.textContent).toBe("mot de passe");
+    expect(host.querySelector('label[for="login-email"]')?.textContent).toContain("adresse e-mail");
+    expect(host.querySelector('label[for="login-password"]')?.textContent).toContain("mot de passe");
     expect(email?.getAttribute("autocomplete")).toBe("username");
     expect(password?.getAttribute("autocomplete")).toBe("current-password");
     expect(document.activeElement).toBe(email);
@@ -195,12 +196,13 @@ describe("LoginScreen — connexion soignée", () => {
     setInput(email, "agent");
     submit(form);
 
-    expect(host.querySelector("#login-email-error")?.textContent).toBe("cette adresse e-mail semble incomplète");
+    const errorId = email.getAttribute("aria-describedby");
+    expect(document.getElementById(errorId ?? "")?.textContent).toBe("cette adresse e-mail semble incomplète");
     expect(calls).toHaveLength(0);
 
     setInput(email, "agent@exemple.fr");
-    expect(host.querySelector("#login-email-error")).toBeNull();
-    expect(email.getAttribute("aria-invalid")).toBe("false");
+    expect(document.getElementById(errorId ?? "")).toBeNull();
+    expect(email.getAttribute("aria-invalid")).toBeNull();
   });
 
   it("pendant l'envoi : bouton et champs désactivés, état annoncé", async () => {
@@ -214,10 +216,10 @@ describe("LoginScreen — connexion soignée", () => {
     await flush();
 
     const button = host.querySelector<HTMLButtonElement>(".login__submit")!;
-    expect(button.disabled).toBe(true);
+    expect(button.getAttribute("aria-disabled")).toBe("true");
     expect(button.textContent).toContain("Connexion…");
     expect(host.querySelector(".login__status")?.textContent).toBe("Vérification des identifiants…");
-    expect(host.querySelector<HTMLInputElement>("#login-email")!.disabled).toBe(true);
+    expect(host.querySelector<HTMLInputElement>("#login-email")?.getAttribute("aria-disabled")).toBe("true");
 
     await act(async () => { pending.resolve(response({ token: "jeton-1" })); });
     await flush();
@@ -246,7 +248,7 @@ describe("LoginScreen — connexion soignée", () => {
     const alert = host.querySelector('[role="alert"]');
     expect(alert?.textContent).toContain("mot de passe incorrect");
     expect(alert?.textContent).toContain("réessayez");
-    expect(host.querySelector<HTMLButtonElement>(".login__submit")!.disabled).toBe(false);
+    expect(host.querySelector<HTMLButtonElement>(".login__submit")?.getAttribute("aria-disabled")).not.toBe("true");
   });
 
   it("identifiants acceptés : le jeton remonte au shell", async () => {
@@ -263,6 +265,7 @@ describe("LoginScreen — connexion soignée", () => {
   });
 
   it("serveur injoignable : message distinct du refus d'identifiants", async () => {
+    vi.useFakeTimers();
     vi.stubGlobal("fetch", vi.fn(async () => response({ error: "boom" }, 500)));
 
     const form = await mount();
@@ -270,9 +273,12 @@ describe("LoginScreen — connexion soignée", () => {
     setInput(host.querySelector<HTMLInputElement>("#login-password")!, "secret");
     submit(form);
     await flush();
+    await act(async () => { await vi.advanceTimersByTimeAsync(1_000); });
+    await flush();
 
     const alert = host.querySelector('[role="alert"]');
     expect(alert?.textContent).toContain("Impossible de joindre le serveur");
     expect(alert?.textContent).not.toContain("incorrect");
+    vi.useRealTimers();
   });
 });

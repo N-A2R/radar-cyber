@@ -1,228 +1,122 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
+import {
+  CommandPalette as AstryxCommandPalette,
+  CommandPaletteFooter,
+  CommandPaletteInput,
+} from "@astryxdesign/core/CommandPalette";
+import type { SearchSource, SearchableItem } from "@astryxdesign/core/Typeahead";
 import { api } from "../api";
 import type { CommandPaletteProps, SearchHit } from "../contracts";
-import { EmptyState, LoadingSkeleton } from "./Skeleton";
-import { keepFocusInDialog } from "../a11y/dialog-focus";
 import "./palette.css";
-import { Card } from "@astryxdesign/core/Card";
 
-
-/**
- * Recherche globale (⌘K / Ctrl+K) — organisations, événements, indicateurs.
- *
- * Elle interroge `GET /api/search` (anonyme, 3 caractères minimum) avec un
- * debounce de 180 ms et annule la requête précédente : on ne veut pas qu'une
- * réponse en retard remplace la frappe en cours. En mode démonstration, la
- * recherche est locale, sur les données simulées.
- *
- * Accessibilité : rôle combobox/listbox, focus rendu à l'ouverture, flèches
- * pour parcourir, Entrée pour ouvrir, Échap pour fermer. Le focus reste dans
- * le dialogue tant qu'il est ouvert (Tab circule entre ses contrôles).
- */
-
-const DEBOUNCE_MS = 180;
 const MIN_QUERY = 3;
 
+type PaletteItem = SearchableItem<SearchHit> & {
+  id: string;
+  label: string;
+  auxiliaryData: SearchHit;
+};
+
+function paletteItems(hits: SearchHit[], index: Map<string, SearchHit>): PaletteItem[] {
+  index.clear();
+  return hits.map((hit) => {
+    const id = `${hit.kind}:${hit.id}`;
+    index.set(id, hit);
+    return { id, label: hit.label, auxiliaryData: hit };
+  });
+}
+
 export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, mock }: CommandPaletteProps) {
-	const [query, setQuery] = useState("");
-	const [hits, setHits] = useState<SearchHit[]>([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
-	const [active, setActive] = useState(0);
-	const inputRef = useRef<HTMLInputElement>(null);
-	const listRef = useRef<HTMLUListElement>(null);
+  const controller = useRef<AbortController | null>(null);
+  const hitIndex = useRef(new Map<string, SearchHit>());
 
-	useEffect(() => {
-		if (open) {
-			setActive(0);
-			// le focus suit l'ouverture, pas la frappe
-			inputRef.current?.focus();
-		} else {
-			setQuery("");
-			setHits([]);
-			setError(null);
-		}
-	}, [open]);
+  const searchSource = useMemo<SearchSource<PaletteItem>>(() => ({
+    search: (query) => {
+      const q = query.trim();
+      if (q.length < MIN_QUERY) return [];
+      if (mock) {
+        const lower = q.toLowerCase();
+        const orgs = mock.orgs
+          .filter((org) => `${org.name} ${org.city ?? ""} ${org.dept ?? ""}`.toLowerCase().includes(lower))
+          .map((org): SearchHit => ({
+            kind: "org",
+            id: org.id,
+            label: org.name,
+            detail: [org.kind, org.city, org.dept].filter(Boolean).join(" · "),
+          }));
+        const events = mock.events
+          .filter((event) => event.title.toLowerCase().includes(lower))
+          .map((event): SearchHit => ({
+            kind: "event",
+            id: event.id,
+            label: event.title,
+            detail: `${event.family} · ${event.sourceId}`,
+          }));
+        return paletteItems([...orgs, ...events].slice(0, 20), hitIndex.current);
+      }
+      controller.current?.abort();
+      controller.current = new AbortController();
+      return api.search(q, controller.current.signal).then((res) => {
+        const hits: SearchHit[] = [
+          ...res.orgs.map((org): SearchHit => ({
+            kind: "org",
+            id: org.id,
+            label: org.name,
+            detail: [org.kind, org.city, org.dept, org.domain].filter(Boolean).join(" · "),
+          })),
+          ...res.events.map((event): SearchHit => ({
+            kind: "event",
+            id: event.id,
+            label: event.title,
+            detail: `${event.family} · ${event.sourceId}`,
+          })),
+          ...res.indicators.map((indicator): SearchHit => ({
+            kind: "indicator",
+            id: indicator.id,
+            label: indicator.value,
+            detail: `${indicator.type} · ${indicator.sourceId} · ${indicator.tlp}`,
+          })),
+        ];
+        return paletteItems(hits, hitIndex.current);
+      });
+    },
+    bootstrap: () => [],
+    cancel: () => controller.current?.abort(),
+  }), [mock]);
 
-	const localHits = useMemo<SearchHit[]>(() => {
-		if (!mock) return [];
-		const q = query.trim().toLowerCase();
-		if (q.length < MIN_QUERY) return [];
-		const out: SearchHit[] = [];
-		for (const org of mock.orgs) {
-			if (`${org.name} ${org.city ?? ""} ${org.dept ?? ""}`.toLowerCase().includes(q)) {
-				out.push({
-					kind: "org",
-					id: org.id,
-					label: org.name,
-					detail: [org.kind, org.city, org.dept].filter(Boolean).join(" · "),
-				});
-			}
-		}
-		for (const event of mock.events) {
-			if (event.title.toLowerCase().includes(q)) {
-				out.push({ kind: "event", id: event.id, label: event.title, detail: `${event.family} · ${event.sourceId}` });
-			}
-		}
-		return out.slice(0, 20);
-	}, [mock, query]);
+  function choose(hit: SearchHit) {
+    if (hit.kind === "org") onOpenOrg(hit.id);
+    else if (hit.kind === "event") onOpenEvent(hit.id);
+    else return;
+    onClose();
+  }
 
-	useEffect(() => {
-		if (!open || mock) return;
-		const q = query.trim();
-		if (q.length < MIN_QUERY) {
-			setHits([]);
-			setLoading(false);
-			setError(null);
-			return;
-		}
-		let cancelled = false;
-		setLoading(true);
-		const timer = setTimeout(() => {
-			api
-				.search(q)
-				.then((res) => {
-					if (cancelled) return;
-					const next: SearchHit[] = [
-						...res.orgs.map((o) => ({
-							kind: "org" as const,
-							id: o.id,
-							label: o.name,
-							detail: [o.kind, o.city, o.dept, o.domain].filter(Boolean).join(" · "),
-						})),
-						...res.events.map((e) => ({
-							kind: "event" as const,
-							id: e.id,
-							label: e.title,
-							detail: `${e.family} · ${e.sourceId}`,
-						})),
-						...res.indicators.map((i) => ({
-							kind: "indicator" as const,
-							id: i.id,
-							label: i.value,
-							detail: `${i.type} · ${i.sourceId} · ${i.tlp}`,
-						})),
-					];
-					setHits(next);
-					setActive(0);
-					setError(null);
-				})
-				.catch((err: unknown) => {
-					if (!cancelled) setError(err instanceof Error ? err.message : "Recherche indisponible");
-				})
-				.finally(() => {
-					if (!cancelled) setLoading(false);
-				});
-		}, DEBOUNCE_MS);
-		return () => {
-			cancelled = true;
-			clearTimeout(timer);
-		};
-	}, [open, query, mock]);
-
-	const results = mock ? localHits : hits;
-
-	useEffect(() => {
-		const node = listRef.current?.querySelector<HTMLLIElement>('[data-active="true"]');
-		node?.scrollIntoView({ block: "nearest" });
-	}, [active, results]);
-
-	if (!open) return null;
-
-	function choose(hit: SearchHit) {
-		if (hit.kind === "org") onOpenOrg(hit.id);
-		else if (hit.kind === "event") onOpenEvent(hit.id);
-		else return; // les indicateurs n'ont pas encore de fiche : pas de faux clic
-		onClose();
-	}
-
-
-	function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-		keepFocusInDialog(event);
-		if (event.key === "Escape") {
-			event.preventDefault();
-			onClose();
-		} else if (event.key === "ArrowDown") {
-			event.preventDefault();
-			setActive((i) => Math.min(i + 1, results.length - 1));
-		} else if (event.key === "ArrowUp") {
-			event.preventDefault();
-			setActive((i) => Math.max(i - 1, 0));
-		} else if (event.key === "Enter") {
-			const hit = results[active];
-			if (hit) {
-				event.preventDefault();
-				choose(hit);
-			}
-		}
-	}
-
-	const hint =
-		query.trim().length < MIN_QUERY
-			? `Saisissez au moins ${MIN_QUERY} caractères.`
-			: loading
-				? "Recherche…"
-				: error
-					? error
-					: results.length === 0
-						? "Aucun résultat."
-						: `${results.length} résultat${results.length > 1 ? "s" : ""}`;
-
-	return (
-		<div className="palette__scrim" onClick={onClose}>
-			<Card
-				className="palette"
-				padding={0}
-				variant="transparent"
-				role="dialog"
-				aria-modal="true"
-				aria-label="Recherche globale"
-				onClick={(e) => e.stopPropagation()}
-				onKeyDown={onKeyDown}
-			>
-				<input
-					ref={inputRef}
-					className="palette__input"
-					type="text"
-					role="combobox"
-					aria-expanded={results.length > 0}
-					aria-controls="palette-list"
-					aria-activedescendant={results[active] ? `palette-hit-${active}` : undefined}
-					aria-label="Global search"
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-				/>
-				<p className="palette__hint" role="status">{hint}</p>
-				{loading && query.trim().length >= MIN_QUERY ? <LoadingSkeleton label="Recherche…" /> : null}
-				{results.length > 0 ? (
-					<ul className="palette__list" id="palette-list" role="listbox" ref={listRef} aria-label="Résultats">
-						{results.map((hit, i) => (
-							<li
-								key={`${hit.kind}-${hit.id}`}
-								id={`palette-hit-${i}`}
-								role="option"
-								aria-selected={i === active}
-								data-active={i === active}
-								data-kind={hit.kind}
-								onMouseEnter={() => setActive(i)}
-								onClick={() => choose(hit)}
-							>
-								<span className="palette__tag">{hit.kind === "org" ? "org" : hit.kind === "event" ? "événement" : "indicateur"}</span>
-								<span className="palette__label">{hit.label}</span>
-								<span className="palette__detail">{hit.detail}</span>
-							</li>
-						))}
-					</ul>
-				) : null}
-				{!loading && !error && query.trim().length >= MIN_QUERY && results.length === 0 ? (
-					<EmptyState
-						message="Aucun résultat."
-						actionLabel="Effacer la recherche"
-						onAction={() => setQuery("")}
-					/>
-				) : null}
-				<footer className="palette__foot">↑ ↓ parcourir · Entrée ouvrir · Échap fermer</footer>
-			</Card>
-		</div>
-	);
+  return (
+    <AstryxCommandPalette
+      isOpen={open}
+      onOpenChange={(nextOpen) => { if (!nextOpen) onClose(); }}
+      searchSource={searchSource}
+      label="Recherche globale"
+      width="min(640px, calc(100vw - 32px))"
+      maxHeight="min(560px, calc(100vh - 64px))"
+      emptySearchText="Aucun résultat."
+      emptyBootstrapText="Saisissez au moins 3 caractères."
+      input={<CommandPaletteInput placeholder="Organisation, événement ou indicateur…" label="Recherche globale" />}
+      footer={<CommandPaletteFooter>↑ ↓ parcourir · Entrée ouvrir · Échap fermer</CommandPaletteFooter>}
+      renderItem={(item) => {
+        const hit = item.auxiliaryData;
+        return (
+          <span className="palette__result" data-kind={hit.kind}>
+            <span className="palette__tag">{hit.kind === "org" ? "organisation" : hit.kind === "event" ? "événement" : "indicateur"}</span>
+            <span className="palette__label">{hit.label}</span>
+            <span className="palette__detail">{hit.detail}</span>
+          </span>
+        );
+      }}
+      onValueChange={(value) => {
+        const hit = hitIndex.current.get(value);
+        if (hit) choose(hit);
+      }}
+    />
+  );
 }

@@ -8,6 +8,7 @@ import type { JournalDecision } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./journal.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 
 /** Select value for facts with no recorded decision. */
@@ -305,7 +306,7 @@ export default function JournalList({
         aria-label="Entrées du journal"
         tabIndex={0}
       >
-        <table className="journal__table">
+        <Table className="journal__table" density="compact" dividers="rows">
           <colgroup>
             <col />
             <col />
@@ -370,7 +371,7 @@ export default function JournalList({
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
 
       <footer className="journal__foot">

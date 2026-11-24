@@ -5,7 +5,8 @@ import { renduRattachement } from "./rattachement-view";
 import CustodyPanel from "./CustodyPanel";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./inspector.css";
-import { Card } from "@astryxdesign/core/Card";
+import { Button } from "@astryxdesign/core/Button";
+import { Drawer, DrawerHeader } from "@astryxdesign/core/Drawer";
 
 
 type LoadState =
@@ -114,53 +115,60 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
   else if (state.status === "ready-event") targetOrgId = state.data.event?.org_id ?? null;
 
   return (
-    <aside className="inspector" aria-label="Inspecteur">
-      <header className="inspector__header">
-        <h2 className="inspector__title">{title}</h2>
-        {onOpenOrg && targetOrgId !== null && (
-          <button
-            type="button"
-            className="inspector__link inspector__open-sheet"
-            onClick={() => onOpenOrg(targetOrgId)}
-          >
-            ouvrir la fiche
-          </button>
-        )}
-        <button type="button" className="inspector__close" onClick={onClose}>
-          fermer
-        </button>
-      </header>
+    <Drawer
+      isOpen
+      label="Inspecteur"
+      side="end"
+      onOpenChange={(open) => { if (!open) onClose(); }}
+      data-testid="inspector"
+    >
+      <DrawerHeader
+        title={title}
+        endContent={
+          <>
+            {onOpenOrg && targetOrgId !== null && (
+              <Button
+                label="ouvrir la fiche"
+                variant="ghost"
+                size="sm"
+                onClick={() => onOpenOrg(targetOrgId)}
+              />
+            )}
+            <Button label="Fermer l'inspecteur" variant="ghost" size="sm" onClick={onClose}>
+              fermer
+            </Button>
+          </>
+        }
+      />
 
-      <Card variant="transparent" padding={0} className="inspector__body">
-        {!hasSelection && (
-          <EmptyState
-            message="rien de sélectionné"
-            actionLabel="Fermer l'inspecteur"
-            onAction={onClose}
-          />
-        )}
+      {!hasSelection && (
+        <EmptyState
+          message="rien de sélectionné"
+          actionLabel="Fermer l'inspecteur"
+          onAction={onClose}
+        />
+      )}
 
-        {hasSelection && state.status === "loading" && (
-          <LoadingSkeleton label="Chargement…" />
-        )}
+      {hasSelection && state.status === "loading" && (
+        <LoadingSkeleton label="Chargement…" />
+      )}
 
-        {hasSelection && state.status === "error" && (
-          <EmptyState
-            className="inspector__status inspector__status--error"
-            message={state.message}
-            role="alert"
-            actionLabel="Recharger l'inspecteur"
-            onAction={() => setReloadSignal((n) => n + 1)}
-          />
-        )}
+      {hasSelection && state.status === "error" && (
+        <EmptyState
+          className="inspector__status inspector__status--error"
+          message={state.message}
+          role="alert"
+          actionLabel="Recharger l'inspecteur"
+          onAction={() => setReloadSignal((n) => n + 1)}
+        />
+      )}
 
-        {state.status === "ready-event" && (
-          <EventDetail data={state.data} onClose={onClose} />
-        )}
+      {state.status === "ready-event" && (
+        <EventDetail data={state.data} onClose={onClose} />
+      )}
 
-        {state.status === "ready-org" && <OrgDetail org={state.org} />}
-      </Card>
-    </aside>
+      {state.status === "ready-org" && <OrgDetail org={state.org} />}
+    </Drawer>
   );
 }
 

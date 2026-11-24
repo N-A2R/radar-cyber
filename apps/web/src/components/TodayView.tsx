@@ -13,6 +13,7 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./today.css";
 import LieesCard from "./LieesCard";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 /** Date lisible et sans ambiguïté : UTC affichée, jamais une heure locale devinée. */
 export function dateLisible(iso: string | null): string {
@@ -242,16 +243,10 @@ export default function TodayView({
       {vide ? (
         <EmptyState
           className="today__vide"
-          message={
-            <>
-              <strong className="today__vide-titre">Aucun incident sur cette période</strong>
-              <span className="today__vide-detail">
-                {family || dept
-                  ? `Filtres actifs : ${family ? `famille « ${family} »` : ""}${family && dept ? ", " : ""}${dept ? `département ${dept}` : ""}.`
-                  : "Aucun filtre actif."}
-              </span>
-            </>
-          }
+          message="Aucun incident sur cette période"
+          description={family || dept
+            ? `Filtres actifs : ${family ? `famille « ${family} »` : ""}${family && dept ? ", " : ""}${dept ? `département ${dept}` : ""}.`
+            : "Aucun filtre actif."}
           actionLabel={onRetry ? "Recharger la période" : "Effacer les filtres"}
           onAction={onRetry ?? (() => { onFamily(null); onDept(null); })}
         />
@@ -259,7 +254,7 @@ export default function TodayView({
 
       {evenementsAffiches.length > 0 ? (
         <div className="today__table-wrap">
-          <table className="today__table">
+          <Table className="today__table" density="compact" dividers="rows">
             <thead>
               <tr>
                 <th scope="col">date</th>
@@ -318,7 +313,7 @@ export default function TodayView({
                 );
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       ) : null}
     </section>

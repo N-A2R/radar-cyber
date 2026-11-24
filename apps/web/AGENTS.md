@@ -8,9 +8,10 @@ Ce fichier lie toute PR sur ce workspace, humaine ou agent : l'objectif est qu'u
 1. `@astryxdesign/core/reset.css`
 2. `@astryxdesign/core/astryx.css` — variables du système
 3. `@astryxdesign/theme-gothic/fonts.css` + `theme.css` — le thème actif
-4. `./styles.css` — le pont de jetons radar
+4. `InternationalizationProvider locale="fr-FR"` + catalogue français Astryx
+5. `./styles.css` — le pont de jetons radar
 
-Ne pas importer d'autre feuille globale. Une feuille de composant ne charge que ses propres styles.
+Ne pas importer d'autre feuille globale. Une feuille de composant ne charge que ses propres styles. Les libellés internes Astryx (champs, pagination, menus) passent par le catalogue français.
 
 ## Le pont de jetons (src/styles.css)
 
@@ -59,22 +60,22 @@ Conséquence : dans un composant, on écrit `var(--surface)` — jamais `#0e1014
 | Point d'état (flux direct) | `StatusDot` |
 | Navigation d'app | `TopNav` / `SideNav` (voir règle 6 avant d'y toucher) |
 
-## Migration en cours (suivi)
+## Migration terminée (2026-11-24)
 
-La fondation est posée (cascade + pont + shell). Les écrans existants gardent leur DOM — ils re-présentent via le pont — et migrent écran par écran, un PR `loop/` par case avec son critère de sortie :
+La fondation et les écrans existants utilisent Astryx. Le fil d'événements n'est monté que sur Carte et Graphe ; les autres vues occupent toute la largeur.
 
-- [ ] `table.data` / `ds-table` → `Table`
-- [ ] `ds-modal` → `Dialog`
-- [ ] `ds-toast` → `Toast`
-- [ ] `Skeleton.tsx` maison → `Skeleton`
-- [ ] `CommandPalette.tsx` maison → `CommandPalette`
-- [ ] `OrgSheet` / `Inspector` → `Drawer`
-- [ ] `LoginScreen` → `Card` + `Field` + `TextInput` + `Button variant="primary"`
-- [ ] `FamilyFilter` → `SegmentedControl`
-- [ ] `ExportMenu` → `DropdownMenu`
-- [ ] `ds-card` / `ds-field` / `ds-button` (styles.css) → `Card` / `Field` / `Button`, puis suppression du CSS mort
-- [ ] Re-audit AA des couleurs de données sur les surfaces gothic (`test:a11y`)
+- [x] `table.data` / `ds-table` → `Table`
+- [x] `ds-modal` → `Dialog`
+- [x] `ds-toast` → suppression au profit des états Astryx
+- [x] `Skeleton.tsx` maison → `Skeleton`
+- [x] `CommandPalette.tsx` maison → `CommandPalette`
+- [x] `OrgSheet` / `Inspector` → `Drawer`
+- [x] `LoginScreen` → `Card` + `Field` + `TextInput` + `Button variant="primary"`
+- [x] `FamilyFilter` → `SegmentedControl`
+- [x] `ExportMenu` → `DropdownMenu`
+- [x] `ds-card` / `ds-field` / `ds-button` (styles.css) → `Card` / `Field` / `Button`, puis suppression du CSS mort
+- [x] Re-audit AA des couleurs de données sur les surfaces gothic (`test:a11y`)
 
-## Thèmes
+## Thème
 
-`html[data-theme]` (`terminal`, `souverain`, `clair`) surcharge les jetons du pont : ils fonctionnent au-dessus d'Astryx. Le défaut (sans attribut) est le thème gothic.
+Le thème actif est `@astryxdesign/theme-gothic`. Les anciens thèmes `terminal`, `souverain` et `clair` ont été supprimés ; ne pas réintroduire une seconde feuille de thème.

@@ -6,8 +6,8 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 const meta = {
   title: "Design System/Skeleton",
   component: LoadingSkeleton,
-  parameters: { docs: { description: { component: "Shared loading and empty states for every screen." } } },
-  args: { label: "Loading events" },
+  parameters: { docs: { description: { component: "États de chargement et états vides partagés par tous les écrans." } } },
+  args: { label: "Chargement des événements" },
   decorators: [
     (Story) => (
       <Theme theme={gothicTheme} mode="dark">
@@ -24,8 +24,8 @@ export const Loading: Story = {};
 
 /** The companion empty state is documented in the same entry. */
 export const EmptyWithoutAction: Story = {
-  render: () => <EmptyState message="No events in this window" actionLabel="Retry" onAction={() => {}} />,
+  render: () => <EmptyState message="Aucun événement sur cette période" actionLabel="Réessayer" onAction={() => {}} />,
 };
 export const EmptyWithAction: Story = {
-  render: () => <EmptyState message="No coverage measurement yet" actionLabel="Retry" onAction={() => {}} />,
+  render: () => <EmptyState message="Aucune mesure de couverture disponible" actionLabel="Réessayer" onAction={() => {}} />,
 };

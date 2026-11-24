@@ -201,27 +201,6 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	if (cursor !== null) add("id < ?", cursor);
 	values.push(window + 1);
 
-	// Index de rapprochement construit à la demande : on ne fait jamais attendre
-	// la première requête de revue ~20 s. Les comptes viennent de la base, donc
-	// l'écran garde des totaux justes pendant la préparation.
-	const pret = snapshotRevueSiPret();
-	if (pret === null && reviewIndexCacheActif()) {
-		const complets = await query<CompteRow>(COMPTES_SQL);
-		return {
-			rows: [],
-			total: 0,
-			page,
-			limit,
-			nextCursor: null,
-			window: 0,
-			truncated: false,
-			facets: { source: [], groupe: [], bucket: [], status: [] },
-			counts: compterQuarantaine(complets.rows),
-			preparation: true,
-			tookMs: Number((performance.now() - started).toFixed(1)),
-		};
-	}
-
 	const [raw, countsRaw] = await Promise.all([
 		query<RawRow>(
 			`SELECT id, source, source_url, groupe, org_hint, claimed_at, received_at, tlp, status,
@@ -236,7 +215,25 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 		),
 		query<CompteRow>(COMPTES_SQL),
 	]);
-	const { orgIndex, candidates, aliasIndex } = pret ?? (await reviewSnapshot());
+	const shown = raw.rows.slice(0, window);
+	const hints = shown.map((row) => String(row.org_hint ?? ""));
+	const pret = snapshotRevueSiPret(hints);
+	if (pret === null && reviewIndexCacheActif()) {
+		return {
+			rows: [],
+			total: 0,
+			page,
+			limit,
+			nextCursor: null,
+			window: 0,
+			truncated: false,
+			facets: { source: [], groupe: [], bucket: [], status: [] },
+			counts: compterQuarantaine(countsRaw.rows),
+			preparation: true,
+			tookMs: Number((performance.now() - started).toFixed(1)),
+		};
+	}
+	const { orgIndex, candidates, aliasIndex } = pret ?? (await reviewSnapshot(hints));
 
 	const truncated = raw.rows.length > window;
 	const orgById = new Map<number, OrgIndexEntry>(orgIndex.map((entry) => [entry.id, entry]));
@@ -246,7 +243,6 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	// au moteur, et le score de chaque candidat est calculé par le moteur lui-même.
 	const enrichments = new Map<number, { candidates: QueueCandidate[]; city: string | null; dept: string | null }>();
 	if (params.enriched) {
-		const shown = raw.rows.slice(0, window);
 		const perRow = shown.map((row) => {
 			const hint = row.org_hint ?? "";
 			const pool = candidatesFor(hint, candidates);

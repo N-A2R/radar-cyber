@@ -1,75 +1,61 @@
+/* Écran des attributions : seuls les jetons locaux, pas de couleur littérale. */
 .attrib {
+  min-block-size: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  padding: 1.5rem;
+  gap: var(--space-5);
+  padding: var(--space-5);
   overflow: auto;
+  color: var(--text);
 }
 
 .attrib__head h1 {
-  margin: 0 0 0.35rem;
+  margin: 0 0 var(--space-2);
   font-size: 1.4rem;
 }
 
 .attrib__head p {
   margin: 0;
-  opacity: 0.75;
+  color: var(--muted);
+}
+
+.attrib__resume {
+  width: 100%;
 }
 
 .attrib__stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-4);
+  margin: 0;
 }
 
-.attrib__stats article {
+.attrib__stat {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  padding: 0.85rem;
-  border: 1px solid rgba(127, 127, 127, 0.25);
-  border-radius: 8px;
+  gap: var(--space-1);
 }
 
-.attrib__stats span {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 0.7;
+.attrib__stats dt {
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
-.attrib__stats strong {
-  font-size: 1.5rem;
+.attrib__stats dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .attrib__table {
   width: 100%;
-  border-collapse: collapse;
   font-size: 0.9rem;
 }
 
-.attrib__table th,
-.attrib__table td {
-  padding: 0.5rem 0.7rem;
-  text-align: left;
-  border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+.attrib__etat {
+  align-self: center;
+  max-width: 48rem;
+  margin-block: auto;
 }
-
-.attrib__table th {
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  opacity: 0.7;
-}
-
-.attrib__badge {
-  display: inline-block;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.attrib__badge--high { background: var(--color-background-green); color: var(--color-on-success); }
-.attrib__badge--medium { background: var(--color-background-yellow); color: var(--color-on-warning); }
-.attrib__badge--low { background: var(--color-background-red); color: var(--color-on-error); }
