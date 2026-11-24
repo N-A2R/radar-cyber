@@ -658,3 +658,48 @@ Le bloc de 1 661 457 organisations sans aucune URL HTTP 200 dans le corpus conso
 4 tests comportement (un par comportement) dans `apps/api/test/expand-domains-pages-identite.test.ts`, tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`). La suite complète `tsx test/run.ts` exige un PostgreSQL de test sur `127.0.0.1:5432`, absent de cet environnement.
 
 OBJECTIF : partiel — 9 236 / 1 671 941 organisations (0,5524 %), manque 1 662 705 organisations vérifiées (99,4476 %) pour atteindre 100 %
+
+## Rattrapage — tranche t23 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t22 : 9 236 / 1 671 941), seule base autorisée : la PR #797 existe mais son objectif chiffré (100 %) n'est pas atteint. Le travail des tranches t1 à t22 est conservé tel quel. La tranche t23 ajoute deux routes grises sans toucher au standard de preuve (statut 200, racine stable après redirection, contenu réel, identité publiée par le site lui-même).
+
+**t23a — identité légale sur les pages de registre.** `scripts/expand-domains-identite-legale.mts` reprend les 547 racines d'URL officielles encore sans domaine et essaie dix pages d'identité ou mentions légales non couvertes par la passe t22. Une page n'est acceptée que si elle publie le SIREN exact de l'organisation (au plus trois identifiants sur la page, pour écarter les annuaires) ou un jeton distinctif de son nom. Sur 547 candidats, **10 domaines vérifiés et tracés** `exposition-service:identite-legale:http200` (9 236 → 9 246). Détail : `bench/results/domains-from-identite-legale.json`.
+
+**t23b — communiqués officiels versionnés.** `scripts/expand-domains-communiques.mts` lit les 16 communiqués first-party des corpus `bench/corpus/incidents-*.jsonl`. Une racine n'est retenue que si son libellé nomme l'organisation du communiqué, si une seule organisation de Nouvelle-Aquitaine sans domaine porte ce jeton, et si la racine passe la preuve stricte en direct. Sur 2 candidats appariés, **1 domaine vérifié et tracé** `corpus:communique-officiel:http200` (9 246 → 9 247). Détail : `bench/results/domains-from-communiques.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-identite-legale -- --limit=2000 --concurrency=32 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-communiques -- --limit=200 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées : `selected=547 verified=10 applied=true` (`verified_domain_coverage=9236 -> 9246`), puis `selected=2 verified=1 applied=true` (`9246 -> 9247`). Mesure rejouée indépendamment après écritures :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9293
+organisations_avec_domaine_verifie_et_provenance=9247
+couverture_pourcent=0.5531
+```
+
+Décomposition reproductible de l'écart restant (1 662 694 organisations), par la requête des tranches précédentes :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661456 | 1192 | 9293
+```
+
+Le bloc de 1 661 456 organisations sans aucune URL HTTP 200 reste inchangé. Les autres réservoirs ont été recoupés et écartés : `org_enrichissement/domaine:lien-article` (4 racines divergentes sans `urlFinale`), `exposition_service/shodan-internetdb` (2 noms de ville sans statut HTTP), `org_history` (2 sites de groupe), `warc_proof` (33 URL d'articles), `fuite_reference` (179 faux positifs), `org_rec` (6 flux RSS) et `org.parent_evidence` (14 930 URL d'annuaire du parent) : **226 organisations** au total hors exposition_service HTTP 200, aucune ne portant la preuve stricte. Les compter exigerait d'inventer des sites ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+11 tests comportement, un par comportement (`apps/api/test/expand-domains-identite-legale.test.ts` : 6 tests ; `apps/api/test/expand-domains-communiques.test.ts` : 5 tests), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 247 / 1 671 941 organisations (0,5531 %), manque 1 662 694 organisations vérifiées (99,4469 %) pour atteindre 100 %

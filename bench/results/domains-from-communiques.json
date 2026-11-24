@@ -1,0 +1,29 @@
+{
+  "selected": 2,
+  "verified": 1,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9292,
+    "withVerifiedProvenance": 9246,
+    "coveragePercent": 0.553
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9293,
+    "withVerifiedProvenance": 9247,
+    "coveragePercent": 0.5531
+  },
+  "domains": [
+    {
+      "orgId": 2211611,
+      "name": "DEDALUS PRIVATE HEALTHCARE SOLUTIONS",
+      "corpusId": "gir-couv-012",
+      "domain": "dedalus.com",
+      "page": "https://dedalus.com/",
+      "token": "dedalus"
+    }
+  ]
+}
