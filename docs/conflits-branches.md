@@ -1,6 +1,6 @@
 # Branches en conflit réel
 
-Deux branches restent visibles dans le dépôt (`remotes/origin/…`) mais leurs pull requests sont fermées sans fusion. Faits vérifiés par lecture du dépôt et des PR, le 2026-11-23.
+Deux branches étaient visibles dans le dépôt (`remotes/origin/…`) mais leurs pull requests sont fermées sans fusion. Faits vérifiés par lecture du dépôt et des PR, le 2026-11-23. Au 2026-11-24, les deux réfs distantes ont été supprimées ; les commits d'en-tête restent consultables dans ce clone (`f2545711`, `09870dbc`) et les deux PR sont toujours `CLOSED` avec `merged: false` (contrôle : `gh api repos/j0ltdevv/radar-cyber/pulls/229` et `/688`).
 
 ## `loop/big-collecte-cycle`
 
@@ -15,3 +15,15 @@ Deux branches restent visibles dans le dépôt (`remotes/origin/…`) mais leurs
 - **Preuve du verdict** : PR [#688](https://github.com/j0ltdevv/radar-cyber/pull/688), commentaire du 2026-11-22 : « Critère chiffré non atteint au verdict (table model_eval absente du bac à sable, aucun brier/ECE produit). À reprendre si le sujet revient. » Le critère `model_eval` est donc FAIL, faute de brier/ECE.
 - **Décision** : abandon pour l'instant. Piste de réconciliation si le sujet revient : rebase sur main, étendre ensemble `FAMILIES`, le CHECK DB et les labels API/web, puis produire brier et ECE dans `model_eval` avant toute nouvelle fusion.
 - **État** : non fusionnée (PR #688 `CLOSED`, `merged: false`), conservée comme trace. Tête distante : `09870dbc`.
+
+## Objectif canonique — mesure reproductible
+
+OBJECTIF : atteint — 2 / 2 branches en conflit réel arbitrées sans fusion et sans code incompatible dans main.
+
+La cible est le nombre de branches en conflit réel recensées dans ce rapport : deux. Une branche compte comme arbitrée quand (1) le rapport porte sa décision et l'état de non-fusion de sa PR et (2) aucun fichier incompatible avec main n'est présent dans `HEAD` — `db/migrate-049-cycle-collecte.sql`, `db/migrate-200-bodacc-pc.sql` et `apps/api/src/collectors/bodacc.collector.ts` — tandis que les équivalents retenus sur main restent présents (`db/migrate-050-supervision-collecte.sql`, ordonnanceur et backoff dans `apps/api/src/collectors/index.ts`, `FAMILIES` sans `bodacc`).
+
+```sh
+node scripts/verifie-objectif-conflits-branches.mjs
+```
+
+Un contrôle par comportement : décision tracée, main non contaminée, déclaration présente. Le script lit git et des fichiers locaux uniquement — ni base, ni réseau, ni service payant, ni donnée personnelle — et échoue dès qu'un contrôle manque. Résultat observé le 2026-11-24 : 2 / 2 décisions tracées, 2 / 2 branches sans code incompatible, déclaration cohérente.
