@@ -94,7 +94,6 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
       >
         Relancer
       </button>
-
       <RelanceResultat etat={etat} onRelance={() => void relancer()} />
     </div>
   );

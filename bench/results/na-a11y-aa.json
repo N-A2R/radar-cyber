@@ -10,17 +10,17 @@
   "violations": 0,
   "screensDetail": [
     {
-      "label": "Today",
+      "label": "Aujourd'hui",
       "violations": 0,
       "rules": []
     },
     {
-      "label": "Coverage",
+      "label": "Couverture",
       "violations": 0,
       "rules": []
     },
     {
-      "label": "Review",
+      "label": "Revue",
       "violations": 0,
       "rules": []
     },
@@ -40,22 +40,22 @@
       "rules": []
     },
     {
-      "label": "Map",
+      "label": "Carte",
       "violations": 0,
       "rules": []
     },
     {
-      "label": "Graph",
+      "label": "Graphe",
       "violations": 0,
       "rules": []
     },
     {
-      "label": "Health",
+      "label": "Santé",
       "violations": 0,
       "rules": []
     },
     {
-      "label": "Alerts",
+      "label": "Alertes",
       "violations": 0,
       "rules": []
     },

@@ -7,6 +7,8 @@
     "setup": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --with-sample",
     "setup:check": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --check",
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
+    "campagnes:build": "apps/api/node_modules/.bin/tsx scripts/build-campagnes.mts",
+    "mesure:campagnes": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-quality.mts",
     "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
     "test": "pnpm -F @radar/api test",
     "provenance:check": "apps/api/node_modules/.bin/tsx scripts/provenance.mts check --json=bench/results/provenance-na.json",
@@ -41,6 +43,7 @@
     "scelle:exports:check": "apps/api/node_modules/.bin/tsx scripts/scelle-exports-publics.mts --check",
     "nis2:rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts",
     "verifie:nis2-rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts --check",
+    "verifie:nis2-classement": "apps/api/node_modules/.bin/tsx scripts/verifie-nis2-classement.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
@@ -52,6 +55,7 @@
     "mesure:risk-decay": "apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts",
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",
+    "mesure:precurseur-campagne": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-precursor.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
     "verifie:prestataires-qualifies": "apps/api/node_modules/.bin/tsx scripts/verifie-prestataires-qualifies.mts",
     "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
@@ -126,6 +130,9 @@
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
     "validation:active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts --apply",
     "verifie:validation-active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts"
+    "dora:exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts",
+    "verifie:dora-exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts --check",
+    "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts"
     "verifie:rec": "apps/api/node_modules/.bin/tsx scripts/verifie-rec.mts"
   },
   "devDependencies": {
