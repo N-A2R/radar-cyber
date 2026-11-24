@@ -281,16 +281,32 @@ test("RSS contains only Nouvelle-Aquitaine alerts and no personal data", async (
   const xml = buildRssFeed(alerts, { generatedAt: new Date("2026-11-22T00:00:00Z") });
   assert.match(xml, /<language>en<\/language>/);
   assert.match(xml, /Radar Cyber - Nouvelle-Aquitaine alerts/);
-  assert.match(xml, new RegExp(`radar-alert-${inside.alertId}`));
-  assert.ok(!xml.includes(`radar-alert-${outside.alertId}`), "outside alert absent from the feed");
-  assert.ok(!xml.includes("Durand"), "no victim name in the feed");
-  assert.ok(!xml.includes("durand@example.fr"), "no personal email in the feed");
   const parsed = new XMLParser({ ignoreAttributes: false }).parse(xml) as {
     rss?: { channel?: { item?: unknown[] } };
   };
   const items = parsed.rss?.channel?.item;
   const itemList = Array.isArray(items) ? items : [items];
   assert.ok(itemList.length >= 1 && itemList.every((item) => item !== undefined), "feed is valid XML with items");
+
+  // Exact guid values: a prefix match cannot distinguish id 12 from id 123.
+  const guids = itemList.map((item) => {
+    assert.ok(item && typeof item === "object", "RSS item is an XML object");
+    const guid = (item as Record<string, unknown>).guid;
+    const text = typeof guid === "string"
+      ? guid
+      : (guid as { "#text"?: unknown } | undefined)?.["#text"];
+    assert.equal(typeof text, "string", "RSS item carries a guid");
+    return String(text);
+  });
+  assert.ok(guids.includes(`radar-alert-${inside.alertId}`), "inside alert guid is in the feed");
+  assert.ok(!guids.includes(`radar-alert-${outside.alertId}`), "outside alert absent from the feed");
+  assert.deepEqual(
+    [...guids].sort(),
+    alerts.map((alert) => `radar-alert-${alert.id}`).sort(),
+    "feed carries exactly the eligible alerts",
+  );
+  assert.ok(!xml.includes("Durand"), "no victim name in the feed");
+  assert.ok(!xml.includes("durand@example.fr"), "no personal email in the feed");
 });
 
 test("TLP:RED and review-scope alerts never enter a notification channel", async (t: TestContext) => {
