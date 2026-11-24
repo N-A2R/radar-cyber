@@ -49,6 +49,22 @@ test("URL : schéma, identifiants et IP privées refusés avant tout fetch", asy
 	}
 });
 
+test("6to4 : l'IPv4 embarquée est lue dans les mots 1 et 2", async () => {
+	let calls = 0;
+	const fetchImpl = stubFetch(() => {
+		calls++;
+		return new Response("ok");
+	});
+	await assert.rejects(
+		fetchBounded("http://[2002:7f00:1::1.1.1.1]/admin", { fetchImpl }),
+		UnsafeUrlError,
+	);
+	assert.equal(calls, 0, "aucun fetch vers une 6to4 embarquant une IP privée");
+	const result = await fetchBounded("http://[2002:5db8:d822::]/public", { fetchImpl });
+	assert.equal(result.status, 200);
+	assert.equal(calls, 1, "la 6to4 embarquant une IP publique doit être fetchée");
+});
+
 test("redirections : une cible privée est refusée au saut suivant", async () => {
 	let calls = 0;
 	const fetchImpl = stubFetch((url) => {

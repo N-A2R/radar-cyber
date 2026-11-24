@@ -134,7 +134,8 @@ function isPrivateV6(ip: string): boolean {
 	const compatible = matchesV6(w, [0, 0, 0, 0, 0, 0, 0, 0], 96);
 	const sixToFour = w[0] === 0x2002;
 	if (mapped || sixToFour || nat64 || compatible) {
-		const embedded = `${((w[6] ?? 0) >>> 8) & 0xff}.${(w[6] ?? 0) & 0xff}.${((w[7] ?? 0) >>> 8) & 0xff}.${(w[7] ?? 0) & 0xff}`;
+		const [high, low] = sixToFour ? [w[1] ?? 0, w[2] ?? 0] : [w[6] ?? 0, w[7] ?? 0];
+		const embedded = `${(high >>> 8) & 0xff}.${high & 0xff}.${(low >>> 8) & 0xff}.${low & 0xff}`;
 		return isPrivateV4(embedded);
 	}
 	return false;
