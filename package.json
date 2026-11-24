@@ -35,6 +35,7 @@
     "verifie:ct-anomalies": "apps/api/node_modules/.bin/tsx scripts/verifie-ct-anomalies.mts",
     "genere:actor-alias": "apps/api/node_modules/.bin/tsx scripts/generate-actor-alias-seed.mts",
     "verifie:actor-alias": "apps/api/node_modules/.bin/tsx scripts/verifie-actor-alias.mts",
+    "verifie:objectif-actor-alias": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-actor-alias.mts",
     "verifie:preuve": "apps/api/node_modules/.bin/tsx scripts/verifie-chaine-preuve.mts",
     "verif:orientation": "apps/api/node_modules/.bin/tsx scripts/verif-orientation-collectivites.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
@@ -141,8 +142,7 @@
     "verifie:objectif-enrich-job": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-enrich-job.mts",
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
     "validation:active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts --apply",
-    "verifie:validation-active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts"
-    "verifie:stealer-domain-stat": "apps/api/node_modules/.bin/tsx scripts/verifie-stealer-domain-stat.mts"
+    "verifie:validation-active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts",
     "verifie:stealer-domain-stat": "apps/api/node_modules/.bin/tsx scripts/verifie-stealer-domain-stat.mts",
     "dora:exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts",
     "verifie:dora-exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts --check",
@@ -151,6 +151,7 @@
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
