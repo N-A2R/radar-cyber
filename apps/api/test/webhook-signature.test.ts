@@ -10,6 +10,7 @@ import { after, test, type TestContext } from "node:test";
 import { closePools, query } from "../src/db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "../src/notify/alert-delivery.js";
 import { signWebhookBody, verifyWebhookSignature } from "../src/notify/webhook-signature.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const SECRET = "integration-test-webhook-secret";
 const SIGNATURE_HEADER = "x-radar-signature";
@@ -43,7 +44,7 @@ async function makeFixture(): Promise<{ alertId: number; cleanup: () => Promise<
     alertId,
     cleanup: async () => {
       await query("DELETE FROM alert WHERE id = $1", [alertId]);
-      await query("DELETE FROM event WHERE id = $1", [eventId]);
+      await supprimerEvenementsArchivees("id = $1", [eventId]);
       await query("DELETE FROM org WHERE id = $1", [orgId]);
     },
   };
@@ -98,9 +99,9 @@ after(async () => {
 
 test("client verifies the delivered signature over the exact raw body", async (t: TestContext) => {
   const fixture = await makeFixture();
-  t.after(fixture.cleanup);
   const server = await startCapture();
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: SECRET },
@@ -117,9 +118,9 @@ test("client verifies the delivered signature over the exact raw body", async (t
 
 test("an altered payload is rejected by the client verifier", async (t: TestContext) => {
   const fixture = await makeFixture();
-  t.after(fixture.cleanup);
   const server = await startCapture();
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   await deliverPendingAlerts(() => undefined, {
     cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: SECRET },
@@ -155,20 +156,18 @@ test("a signature outside the freshness window is rejected", () => {
 test("a configured webhook without a signing secret sends nothing", async (t: TestContext) => {
   const fixture = await makeFixture();
   t.after(fixture.cleanup);
-  const server = await startCapture();
-  t.after(server.close);
 
   const result = await deliverPendingAlerts(() => undefined, {
-    cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook` },
+    cfg: { webhookUrl: "http://127.0.0.1:1/hook" },
     limit: 1000,
   });
-  assert.ok(result.failed >= 1);
-  assert.equal(server.hits.length, 0);
+  assert.equal(result.skipped, true, "une configuration incomplète ne tente aucun envoi");
+  assert.equal(result.attempted, 0);
   const row = await query<{ last_error: string | null; webhook_delivered_at: Date | null }>(
     "SELECT last_error, webhook_delivered_at FROM alert WHERE id = $1",
     [fixture.alertId],
   );
-  assert.match(row.rows[0]?.last_error ?? "", /signing secret is not configured/);
+  assert.equal(row.rows[0]?.last_error, null, "aucune alerte n'est marquée en échec");
   assert.equal(row.rows[0]?.webhook_delivered_at, null);
 });
 

@@ -21,6 +21,7 @@ import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import { consigner, MOTEURS } from "../src/journal/index.js";
 import { runRetention } from "../src/maintenance/retention.js";
 import historyRoute from "../src/routes/history.js";
@@ -40,6 +41,8 @@ const OBSERVE = new Date(Date.now() - AGE_JOURS * 86_400_000);
 const AT = new Date(OBSERVE.getTime() + 3 * 86_400_000);
 const CLE_CORRIGE = `${TAG}:corrige`;
 const OBSERVE_CORRIGE = new Date(OBSERVE.getTime() + 5 * 86_400_000);
+/** La projection corrigée respecte l'apprentissage après la date de vérité. */
+const AT_CORRIGE = new Date(OBSERVE_CORRIGE.getTime() + 86_400_000);
 /** Fenêtre d'une minute : le rejeu ne lit que notre archive, pas celle des autres tests. */
 const DEPUIS = new Date(OBSERVE.getTime() - 60_000).toISOString();
 const JUSQUA = new Date(OBSERVE.getTime() + 60_000).toISOString();
@@ -100,7 +103,7 @@ before(async () => {
        (dedup_key, family, assertion_type, source_id, org_name, severity,
         observed_at, collected_at, valid_at, at)
      VALUES ($1,'ransomware','confirmed_incident',$2,$3,2,$4,$4,$4,$5)`,
-    [CLE_CORRIGE, SOURCE, ORG_NOM, OBSERVE_CORRIGE.toISOString(), AT.toISOString()],
+    [CLE_CORRIGE, SOURCE, ORG_NOM, OBSERVE_CORRIGE.toISOString(), AT_CORRIGE.toISOString()],
   );
   // La vraie rétention : archive puis purge de tout ce qui a plus de 90 jours.
   await runRetention(() => {}, { days: 90, tables: ["event"] });
@@ -109,9 +112,9 @@ before(async () => {
 after(async () => {
   if (app) await app.close();
   // Le journal est append-only : ses faits restent, comme en production.
-  for (const table of ["event", "event_archive", "archive_event"]) {
-    await query(`DELETE FROM ${table} WHERE dedup_key = ANY($1)`, [CLE, CLE_CORRIGE]).catch(() => {});
-  }
+  await supprimerEvenementsArchivees("dedup_key = ANY($1::text[])", [[CLE, CLE_CORRIGE]]);
+  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [[CLE, CLE_CORRIGE]]).catch(() => {});
+  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [[CLE, CLE_CORRIGE]]).catch(() => {});
   await query("DELETE FROM org WHERE id = $1", [orgId]).catch(() => {});
   await query("DELETE FROM source WHERE id = $1", [SOURCE]).catch(() => {});
   await closePools();
@@ -240,7 +243,7 @@ test("4 — le diff nominatif nomme le rattachement corrigé", async (t: TestCon
   );
   assert.equal(proj.rows[0]?.org_id, orgId, "le rattachement manquant est corrigé dans la projection");
   assert.equal(new Date(proj.rows[0].valide).toISOString(), OBSERVE_CORRIGE.toISOString(), "valid_at est repris de l'archive");
-  assert.equal(new Date(proj.rows[0].su).toISOString(), AT.toISOString(), "at est repris de l'archive");
+  assert.equal(new Date(proj.rows[0].su).toISOString(), AT_CORRIGE.toISOString(), "at est repris de l'archive corrigée");
 
   const journal = await query<{ org: string | null }>(
     `WITH dernier AS (

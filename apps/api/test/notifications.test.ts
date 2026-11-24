@@ -22,6 +22,7 @@ import { buildNotificationMessage, buildRssFeed, sanitizeText } from "../src/not
 import { sendSmtpEmail } from "../src/notify/smtp.js";
 import alertsRssRoute from "../src/routes/alerts-rss.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 let sequence = 0;
 const slug = (): string => `notification-test-${Date.now()}-${sequence++}`;
@@ -68,7 +69,7 @@ async function makeFixture(options: {
     orgId,
     cleanup: async () => {
       await query("DELETE FROM alert WHERE id = $1", [alertId]);
-      await query("DELETE FROM event WHERE id = $1", [eventId]);
+      await supprimerEvenementsArchivees("id = $1", [eventId]);
       await query("DELETE FROM org WHERE id = $1", [orgId]);
     },
   };
@@ -162,9 +163,9 @@ after(async () => {
 
 test("webhook receives a structured JSON payload and records channel delivery", async (t: TestContext) => {
   const fixture = await makeFixture({ orgName: "Hôpital M. Dupont contact@hopital.fr" });
-  t.after(fixture.cleanup);
   const server = await startWebhookServer(200);
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: "test-webhook-secret" },
@@ -189,9 +190,9 @@ test("webhook receives a structured JSON payload and records channel delivery", 
 
 test("a failing webhook is retried later and never marked delivered", async (t: TestContext) => {
   const fixture = await makeFixture();
-  t.after(fixture.cleanup);
   const server = await startWebhookServer(500);
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: "test-webhook-secret" },
@@ -213,9 +214,9 @@ test("email is delivered through a local SMTP server without personal data", asy
     orgName: "CHU M. Martin martin@chu.example",
     title: "Victime Jean Dupont 06 12 34 56 78",
   });
-  t.after(fixture.cleanup);
   const server = await startSmtpServer();
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: {
@@ -252,6 +253,7 @@ test("an unreachable SMTP server is recorded as a failed email attempt", async (
       emailPort: 1,
       emailFrom: "radar@example.invalid",
       emailTo: "ops@example.invalid",
+      emailTimeoutMs: 2000,
     },
     limit: 1000,
   });
@@ -375,10 +377,13 @@ test("configuration enables delivery only with complete channel settings", () =>
     RADAR_ALERT_EMAIL_TO: "ops@example.invalid",
     RADAR_ALERT_EMAIL_PORT: "2525",
     RADAR_ALERT_EMAIL_SECURE: "true",
+    RADAR_ALERT_EMAIL_TIMEOUT_MS: "2000",
   });
   assert.equal(isDeliveryConfigured(email), true);
   assert.equal(email.emailPort, 2525);
   assert.equal(email.emailSecure, true);
+  assert.equal(email.emailTimeoutMs, 2000);
+  assert.equal(readDeliveryConfig({ RADAR_ALERT_EMAIL_TIMEOUT_MS: "999999" }).emailTimeoutMs, 15_000);
 });
 
 test("sanitizeText removes emails, phones and honorific names", () => {

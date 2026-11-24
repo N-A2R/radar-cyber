@@ -12,6 +12,7 @@ import type { FastifyInstance } from "fastify";
 import { buildApp } from "../src/app.js";
 import { installAccessControl } from "../src/security/rbac.js";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import {
 	canonicalAttestationPayload,
 	sealNegativeAttestation,
@@ -80,7 +81,7 @@ after(async () => {
 		WINDOW_START,
 		WINDOW_END,
 	]);
-	await query("DELETE FROM event WHERE dedup_key = $1", [`${TAG}-event`]);
+	await supprimerEvenementsArchivees("dedup_key = $1", [`${TAG}-event`]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${SLUG_PREFIX}%`]);
 	await query("DELETE FROM source WHERE id = ANY($1::text[])", [SOURCE_IDS]);
 	await closePools();

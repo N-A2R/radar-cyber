@@ -25,6 +25,8 @@ export interface DeliveryConfig {
   emailUser?: string;
   emailPassword?: string;
   emailSecure?: boolean;
+  /** Délai maximal d'une session SMTP, en millisecondes. */
+  emailTimeoutMs?: number;
 }
 
 export interface DeliveryAlert {
@@ -79,9 +81,12 @@ export function readDeliveryConfig(env: NodeJS.ProcessEnv = process.env): Delive
   const emailUser = env.RADAR_ALERT_EMAIL_USER?.trim() || undefined;
   const emailPassword = env.RADAR_ALERT_EMAIL_PASSWORD?.trim() || undefined;
   const emailSecure = env.RADAR_ALERT_EMAIL_SECURE?.trim().toLowerCase() === "true";
+  const emailTimeoutRaw = Number(env.RADAR_ALERT_EMAIL_TIMEOUT_MS ?? 15_000);
+  const emailTimeoutMs = Number.isInteger(emailTimeoutRaw) && emailTimeoutRaw >= 100 && emailTimeoutRaw <= 120_000
+    ? emailTimeoutRaw : 15_000;
   return {
     webhookUrl, webhookSecret, telegramBotToken, telegramChatId, webBaseUrl,
-    emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure,
+    emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure, emailTimeoutMs,
   };
 }
 
@@ -343,6 +348,7 @@ export async function deliverPendingAlerts(
               user: cfg.emailUser,
               password: cfg.emailPassword,
               secure: cfg.emailSecure,
+              timeoutMs: cfg.emailTimeoutMs,
             },
             msg.subject,
             msg.text,
