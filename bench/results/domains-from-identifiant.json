@@ -1,0 +1,39 @@
+{
+  "selected": 180,
+  "verified": 2,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9058,
+    "withVerifiedProvenance": 9012,
+    "coveragePercent": 0.539
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9060,
+    "withVerifiedProvenance": 9014,
+    "coveragePercent": 0.5391
+  },
+  "domains": [
+    {
+      "orgId": 5591,
+      "identifier": "170017602",
+      "kind": "finess",
+      "name": "HOPITAL DE JOUR LE VERMENDOIS",
+      "domain": "retab.fr",
+      "page": "https://www.retab.fr/450/page-de-csj-hopital-de-jour-le-vermandois-a-17300-rochefort",
+      "registry": "finess-site-http-200"
+    },
+    {
+      "orgId": 11163,
+      "identifier": "470010984",
+      "kind": "finess",
+      "name": "MAS CENTRE D' ACCUEIL DE JOUR",
+      "domain": "retab.fr",
+      "page": "https://www.retab.fr/1061/page-de-mas------centre-d--accueil-de-jour-a-47300-villeneuve-sur-lot",
+      "registry": "finess-site-http-200"
+    }
+  ]
+}
