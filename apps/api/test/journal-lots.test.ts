@@ -92,6 +92,26 @@ test("les octets nuls des flux sont nettoyés avant l'insertion", async () => {
 	}
 });
 
+test("un échappement \\u0000 littéral dans une preuve reste intact", async () => {
+	const appels: Appel[] = [];
+	const preuve: JournalEntry = {
+		kind: "event.rattachement",
+		subject: "dedup:preuve-echappee",
+		summary: "extrait cité tel quel",
+		actor: "moteur:test",
+		payload: { extrait: "chemin\\u0000littéral", reelle: "avant\u0000après" },
+		validAt: null,
+	};
+	const r = await consignerLotAvec(runQuiTrace(appels), [preuve]);
+	assert.equal(r.consignes, 1);
+	assert.equal(r.lacunes, 0);
+	const json = String(appels[0]?.params?.[3]);
+	const payload = JSON.parse(json) as Record<string, string>;
+	// La chaîne littérale est une preuve ; seul le vrai octet nul doit partir.
+	assert.equal(payload.extrait, "chemin\\u0000littéral");
+	assert.equal(payload.reelle, "avantaprès");
+});
+
 test("journal indisponible : rien n'est inventé, les erreurs remontent", async () => {
 	const runner = async () => {
 		throw new Error("journal indisponible");

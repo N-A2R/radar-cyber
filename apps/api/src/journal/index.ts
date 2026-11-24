@@ -95,9 +95,27 @@ function sansNul(valeur: string): string {
 	return valeur.replace(/\u0000/g, "");
 }
 
-/** Idem sur du texte JSON déjà sérialisé, où le nul est une séquence d'échappement. */
+/**
+ * Nettoie les octets nuls *déjà sérialisés* sans toucher aux échappements
+ * littéraux : remplacer `\\u0000` dans du texte JSON transforme une preuve
+ * contenant cette chaîne en JSON invalide, et perd le fait entier. On ne
+ * réécrit donc que si une séquence d'échappement est présente : on reparses
+ * alors pour ne retirer que les vrais NUL, dans les valeurs comme dans les clés.
+ */
+function nettoyerValeurJson(valeur: unknown): unknown {
+	if (typeof valeur === "string") return sansNul(valeur);
+	if (Array.isArray(valeur)) return valeur.map(nettoyerValeurJson);
+	if (valeur !== null && typeof valeur === "object") {
+		const propre: Record<string, unknown> = Object.create(null);
+		for (const [cle, contenu] of Object.entries(valeur)) propre[sansNul(cle)] = nettoyerValeurJson(contenu);
+		return propre;
+	}
+	return valeur;
+}
+
 function sansNulJson(json: string): string {
-	return json.replace(/\\u0000/g, "");
+	if (!json.includes("\\u0000")) return json;
+	return JSON.stringify(nettoyerValeurJson(JSON.parse(json)));
 }
 
 /**
