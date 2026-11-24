@@ -1047,4 +1047,51 @@ node_modules/.bin/tsc --noEmit -p tsconfig.json
 # 0 erreur
 ```
 
-OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 22 UTC : 0 service-jour récupéré lors de la cinquième vérification croisée, `full_windows=0` sur 92 ancres reproductibles, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31`.
+## Reprise du 24 novembre (05 h 35 UTC) — borne DB reproductible
+
+Trois balayages indépendants supplémentaires confirment le plafond : **0
+service-jour réel récupéré**, l'écart reste de 1 500 service-jours.
+
+- **PostgreSQL** : 158 relations, 1 691 colonnes (316 temporelles, 52
+  json/jsonb) examinées. Aucune preuve HTTP datée des 18, 19 ou 20 novembre UTC
+  pour le périmètre : `source_verification.verifie_at` (0 / 7 236),
+  `exposition_service.consulted_at` (0 / 11 514), `warc_proof.captured_at`
+  (0 / 167), `leak_site_freshness.harvested_at` (0 / 80). Les 72
+  `source_verification.derniere_item_at` de la fenêtre sont des dates de
+  publication RSS, pas des observations HTTP ; les 136 lignes
+  `quarantine_raw` ne portent aucune URL du périmètre.
+- **Arbre et historique** : 2 000 observations versionnées, 0 sur les trois
+  jours manquants ; 16 copies de worktrees, refs, reflogs et artifacts GitHub
+  Actions : 0. Le corpus ne contient que des preuves au 21 novembre. La cause
+  est documentée : trou de collecte du 16 au 20 novembre
+  (`na-gap/docs/operations.md:240`).
+- **Sources grises** : 15 requêtes gratuites bornées sur 11 pistes inédites
+  (urlvoid, Netcraft, scamadviser, Sucuri, Quttera, Safe Browsing, VirusTotal,
+  Robtex, BuiltWith, BibAlex, Tavily) : 0 observation HTTP horodatée dans la
+  fenêtre. Les pistes déjà épuisées (Wayback, Common Crawl, arquivo.pt,
+  urlscan.io, RIPE Atlas, Memento) restent sans capture exploitable.
+
+Un audit DB dédié rend cette borne reproductible : quatre tables de preuves
+HTTP, sans corps de réponse ni champ personnel, et une classification pure par
+jour UTC.
+
+```
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/audit-service-availability-db-gap.mts \
+  --from=2026-11-18 --to=2026-11-20
+# window=2026-11-18..2026-11-20 tables=4 rows_in_window=0 perimeter_rows=0 capturable_service_days=0 new_service_days=0 verdict=no_http_proof
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+# scan=2026-10-01..2026-12-31 scanned_anchors=92 max_observed_service_days=2000/3500 full_windows=0
+cd apps/api && DATABASE_URL=postgres://radar:radar@localhost:5433/radar node_modules/.bin/tsx test/run.ts test/service-availability.test.ts
+# ℹ tests 33 · pass 33 · fail 0
+```
+
+`server.ts` (0 ligne), le manifeste et le jeu d'observations sont inchangés.
+La première fenêtre entièrement réelle reste ancrée au 27 novembre, après trois
+collectes réelles ; combler les 18, 19 et 20 novembre exigerait d'inventer une
+date, ce que la méthode interdit.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond confirmé le 24/11/2026 à 05 h 35 UTC par trois balayages indépendants et un audit DB reproductible (`rows_in_window=0`, `new_service_days=0`), `feasible_windows=0`, `full_windows=0` sur 92 ancres, `earliest_attainable_anchor=2026-11-27`.
