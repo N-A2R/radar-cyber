@@ -18,6 +18,8 @@ import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 const TAG = `comp${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const EMAIL = `${TAG}@composition.test`;
 const TOKEN = `tok-${TAG}`;
+const marqueurTlp = (tlp: string) => `Composition ${TAG} ${tlp}`;
+const cleDedupTlp = (tlp: string) => `composition:${TAG}:${tlp}`;
 const CLE = generateApiKey();
 let app: FastifyInstance;
 let userId: number;
@@ -76,7 +78,7 @@ before(async () => {
          (dedup_key, family, assertion_type, title, summary, severity, confidence, source_id, source_url, observed_at, tlp, evidence, lat, lon, regional)
        VALUES ($1,'ransomware','ambient_signal',$2,$2,5,'A1',$3,'https://example.invalid/composition',now(),$4::text,
                JSONB_BUILD_OBJECT('tlp',$4::text,'run_id',$5::text),45.5,-0.5,true) RETURNING id`,
-      [`composition:${TAG}:${tlp}`, `Composition ${tlp}`, sourceId, tlp, runId],
+      [cleDedupTlp(tlp), marqueurTlp(tlp), sourceId, tlp, runId],
     );
     const id = Number(r.rows[0]!.id);
     if (tlp === "CLEAR") clearId = id;
@@ -140,12 +142,43 @@ test("CLEAR reste visible et les faits AMBER et RED sont absents des flux public
   assert.equal(evenementPublic({ tlp: "RED" }), false);
   assert.equal(evenementPublic({ tlp: "RED", evidence: JSON.stringify({ tlp: "RED" }) }), false);
   assert.match(evenementPublicSql("e"), /evidence->>'tlp'/);
+  type IdentiteFlux = { id?: number; cle?: string; titre?: string };
+  const champ = (objet: unknown, cle: string): unknown =>
+    objet !== null && typeof objet === "object" && cle in objet
+      ? (objet as Record<string, unknown>)[cle]
+      : undefined;
+  const nombre = (valeur: unknown): number | undefined => {
+    const n = Number(valeur);
+    return valeur !== null && valeur !== undefined && Number.isFinite(n) ? n : undefined;
+  };
+  const texte = (valeur: unknown): string | undefined => typeof valeur === "string" ? valeur : undefined;
+  const liste = (valeur: unknown): unknown[] => Array.isArray(valeur) ? valeur : [];
+  const identitesFlux = (url: string, donnees: unknown): IdentiteFlux[] => {
+    if (url.startsWith("/api/events")) {
+      return liste(donnees).map((e) => ({ id: nombre(champ(e, "id")), cle: texte(champ(e, "dedupKey")), titre: texte(champ(e, "title")) }));
+    }
+    if (url.startsWith("/api/alerts")) {
+      return liste(donnees).map((a) => ({
+        id: nombre(champ(a, "event_id") ?? champ(a, "eventId")),
+        cle: texte(champ(a, "rule_id") ?? champ(a, "ruleId")),
+        titre: texte(champ(a, "event_title") ?? champ(a, "eventTitle")),
+      }));
+    }
+    if (url.startsWith("/api/map/timeline/events")) {
+      return liste(champ(donnees, "events")).map((e) => ({ id: nombre(champ(e, "id")), titre: texte(champ(e, "title")) }));
+    }
+    return liste(champ(donnees, "attacks")).map((a) => ({ id: nombre(champ(a, "id")) }));
+  };
+  const ids: Record<string, number> = { CLEAR: clearId, AMBER: amberId, RED: redId };
   for (const url of ["/api/events?portee=toutes", "/api/alerts", "/api/map/timeline/events?bucket=all", "/api/live-map"]) {
     const res = await app.inject({ method: "GET", url });
     assert.equal(res.statusCode, 200, `${url} : ${res.body}`);
-    assert.ok(res.body.includes(String(clearId)), `${url} cache le fait CLEAR`);
-    assert.ok(!res.body.includes(String(amberId)), `${url} laisse passer AMBER`);
-    assert.ok(!res.body.includes(String(redId)), `${url} laisse passer RED`);
+    const identites = identitesFlux(url, res.json<unknown>());
+    for (const tlp of ["CLEAR", "AMBER", "RED"]) {
+      const visible = identites.some((i) =>
+        i.id === ids[tlp] || i.cle === cleDedupTlp(tlp) || i.titre === marqueurTlp(tlp));
+      assert.equal(visible, tlp === "CLEAR", `${url} : visibilité TLP:${tlp} incorrecte`);
+    }
   }
    const invalide = await app.inject({ method: "GET", url: "/api/stream?sinceId=abc" });
    assert.equal(invalide.statusCode, 400, invalide.body);
