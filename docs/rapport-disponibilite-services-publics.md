@@ -211,6 +211,20 @@ jours entièrement observable reste celle du 23 au 29 novembre, après cinq
 collectes réelles (25 au 29) : toute fenêtre incluant le 22 novembre reste
 limitée à 420 sondes ce jour-là. Aucun jour ni statut n'a été inventé.
 
+### Sources complémentaires testées à 01 h 30 UTC
+
+Quinze pistes gratuites supplémentaires ont été interrogées avec des requêtes
+`curl` bornées à 8-30 s : Common Crawl `CC-MAIN-2026-47` et `-43` (CDX : 504
+répété), crt.sh (timeout) et certspotter (7 domaines du périmètre, aucun
+événement du 18 au 20 novembre, et ce n'est pas du HTTP), Memento/TimeTravel
+et Wayback d'Alexandrie (DNS non résolu), UK Web Archive et NLA-Trove
+(challenge anti-bot), archive.is (timeout), Wayback « snapshot direct » (5 URL
+: captures réelles uniquement en mars, juin et juillet 2026), HTTP Archive
+(404), data.gouv.fr (0 jeu pertinent), Observatoire .gouv (SPA), PageSpeed
+Insights (429) et recherche de code GitHub sur deux URL exactes (0 résultat).
+Aucune observation HTTP réelle datée du 18, 19 ou 20 novembre n'a été trouvée :
+0 service-jour gagné, l'écart reste de 1 580.
+
 ## Reproduire
 
 ```bash
