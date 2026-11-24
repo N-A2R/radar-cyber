@@ -1,0 +1,59 @@
+{
+  "genereLe": "2026-11-23T20:38:01.490Z",
+  "sourceOfficielle": "https://recherche-entreprises.api.gouv.fr/search",
+  "mode": "rapport",
+  "organisationsCitees": 0,
+  "dejaVerifiees": 0,
+  "ajoutees": 0,
+  "corrigees": 0,
+  "fusionnees": 0,
+  "detachrees": 0,
+  "evenementsDeclies": 0,
+  "nonVerifieesApres": 0,
+  "echantillon": {
+    "taille": 100,
+    "conformes": 94,
+    "nomsDifferents": 6,
+    "introuvables": 0,
+    "erreurs": 0,
+    "exemplesNonConformes": [
+      {
+        "id": 2262792,
+        "siren": "498730399",
+        "nom": "BOUCHERIE CHARCUTERIE JEAN LUC PUYO",
+        "officiel": "ANNIE PUYO (DARRABA)"
+      },
+      {
+        "id": 2231852,
+        "siren": "480780824",
+        "nom": "BOUCHERIE CHARCUTERIE PIERRE CHRETI",
+        "officiel": "PIERRE CHRETIEN"
+      },
+      {
+        "id": 1942191,
+        "siren": "999029127",
+        "nom": "VIGOUROUX NADINE",
+        "officiel": "NADINE GIBAUD (VIGOUROUX)"
+      },
+      {
+        "id": 2058584,
+        "siren": "341505824",
+        "nom": "CAFE DU COMMERCE",
+        "officiel": "RENEE CANIOT (LARGEAU)"
+      },
+      {
+        "id": 2269502,
+        "siren": "501898266",
+        "nom": "ANTIQUE DESIGN DECORATION",
+        "officiel": "VANESSA STILLITANO"
+      },
+      {
+        "id": 1542059,
+        "siren": "413794546",
+        "nom": "BLANC CLAUDIE",
+        "officiel": "CLAUDIE GARLOPEAU (BLANC)"
+      }
+    ]
+  },
+  "decisions": []
+}

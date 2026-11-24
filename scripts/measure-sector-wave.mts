@@ -20,7 +20,6 @@ import {
 	addDays,
 	buildCandidates,
 	evaluateWindow,
-	rankCandidates,
 	scoreCandidate,
 	summariseBacktest,
 	victimsInWindow,
@@ -37,8 +36,16 @@ import {
 	type WaveScope,
 	type WaveSubject,
 } from "../apps/api/src/prediction/sector-wave.js";
+import {
+	attachBrandFamilyClaims,
+	brandFamilyBonus,
+	measureBrandFamilySource,
+	type BrandClaim,
+	type BrandOrganization,
+} from "../apps/api/src/prediction/brand-family-precursors.js";
+import type { SignalRecord } from "../apps/api/src/prediction/precursor-coverage.js";
 
-type OrgRow = { id: number; sector: string | null; dept: string; secteurGroupe: string | null };
+type OrgRow = { id: number; name: string; sector: string | null; dept: string; secteurGroupe: string | null };
 type ClaimRow = {
 	orgId: number;
 	publishedAt: string;
@@ -48,6 +55,8 @@ type ClaimRow = {
 	secteurGroupe: string | null;
 };
 type EventRow = { orgId: number; validAt: string; sourceId: string };
+type BrandClaimRow = { id: number; orgId: number | null; victim: string; publishedAt: string };
+type AliasRow = { orgId: number; alias: string };
 type ScaleRow = { sources: number; events: number };
 
 const arg = (name: string): string | undefined =>
@@ -65,7 +74,7 @@ async function main(): Promise<void> {
 	const windowEnd = addDays(cutoffs.at(-1)!, HORIZON_DAYS);
 
 	const { rows: orgRows } = await query<OrgRow>(
-		`SELECT id, sector, dept, secteur_groupe AS "secteurGroupe"
+		`SELECT id, name, sector, dept, secteur_groupe AS "secteurGroupe"
 		   FROM org WHERE dept = ANY($1::text[])`,
 		[NA_DEPARTMENTS],
 	);
@@ -77,6 +86,17 @@ async function main(): Promise<void> {
 		   FROM leak_claim c JOIN org o ON o.id = c.org_id
 		  WHERE c.na AND c.org_id IS NOT NULL AND c.published_at IS NOT NULL
 		    AND o.dept = ANY($1::text[])`,
+		[NA_DEPARTMENTS],
+	);
+	const { rows: brandClaimRows } = await query<BrandClaimRow>(
+		`SELECT id, org_id AS "orgId", victim,
+		        to_char(published_at AT TIME ZONE 'UTC', 'YYYY-MM-DD') AS "publishedAt"
+		   FROM leak_claim WHERE published_at IS NOT NULL AND victim IS NOT NULL`,
+	);
+	const { rows: aliasRows } = await query<AliasRow>(
+		`SELECT oa.org_id AS "orgId", oa.alias
+		   FROM org_alias oa JOIN org o ON o.id = oa.org_id
+		  WHERE o.dept = ANY($1::text[]) AND oa.alias IS NOT NULL AND oa.rejected_at IS NULL`,
 		[NA_DEPARTMENTS],
 	);
 	const { rows: eventRows } = await query<EventRow>(
@@ -108,6 +128,30 @@ async function main(): Promise<void> {
 		validAt: e.validAt,
 		sourceId: e.sourceId,
 	}));
+	const aliases = new Map<number, string[]>();
+	for (const row of aliasRows) {
+		const list = aliases.get(row.orgId) ?? [];
+		list.push(row.alias);
+		aliases.set(row.orgId, list);
+	}
+	const organizations: BrandOrganization[] = orgRows.map((row) => ({
+		orgId: row.id,
+		name: row.name,
+		aliases: aliases.get(row.id) ?? [],
+	}));
+	const brandClaims: BrandClaim[] = brandClaimRows.map((row) => ({
+		claimId: row.id,
+		orgId: row.orgId,
+		victim: row.victim,
+		publishedAt: row.publishedAt,
+	}));
+	const brandAttachment = attachBrandFamilyClaims(brandClaims, organizations);
+	const signalsAtCutoff = new Map<string, readonly SignalRecord[]>(
+		cutoffs.map((cutoff) => [
+			cutoff,
+			brandAttachment.attachments.filter((signal) => signal.observedAt < cutoff),
+		]),
+	);
 	const subjects: WaveSubject[] = claimRows.map((c) => ({
 		orgId: c.orgId,
 		publishedAt: c.publishedAt,
@@ -122,31 +166,61 @@ async function main(): Promise<void> {
 	const coverage = summariseWaveCoverage(
 		scopes.map((scope) => measureWaveSource(scope, victims, subjects)),
 	);
+	const brandPriorSignals: SignalRecord[] = [];
+	for (const victim of victims) {
+		const cutoff = cutoffs.find(
+			(value) => victim.publishedAt >= value && victim.publishedAt < addDays(value, HORIZON_DAYS),
+		);
+		if (cutoff === undefined) continue;
+		brandPriorSignals.push(
+			...(signalsAtCutoff.get(cutoff) ?? []).filter((signal) => signal.orgId === victim.orgId),
+		);
+	}
+	const brandCoverage = measureBrandFamilySource(
+		victims.map((victim) => ({ orgId: victim.orgId, claimedAt: victim.publishedAt })),
+		brandPriorSignals,
+	);
 
 	const groups = new Map<number, string | null>(
 		orgRows.map((org) => [org.id, org.secteurGroupe]),
 	);
-	const baselineWindows = cutoffs.map((cutoff) =>
-		evaluateWindow(
-			cutoff,
-			rankCandidates(buildCandidates(orgs, claims, events, cutoff)).map((entry) => entry.orgId),
-			victimsInWindow(claims, cutoff),
-		),
-	);
-	const injectedWindows = cutoffs.map((cutoff) => {
-		const counts = waveCountsAtCutoff(subjects, cutoff, "secteur_groupe");
-		const ranked = buildCandidates(orgs, claims, events, cutoff)
+	const candidatesByCutoff = cutoffs.map((cutoff) => buildCandidates(orgs, claims, events, cutoff));
+	const rankedWith = (
+		candidates: ReturnType<typeof buildCandidates>,
+		bonusFor: (orgId: number) => number,
+	): number[] =>
+		candidates
 			.map((candidate) => ({
 				orgId: candidate.orgId,
-				score: scoreCandidate(candidate) + waveBonus(candidate.orgId, groups, counts),
+				score: scoreCandidate(candidate) + bonusFor(candidate.orgId),
 			}))
 			.sort((a, b) => b.score - a.score || a.orgId - b.orgId)
 			.slice(0, TOP_N)
 			.map((entry) => entry.orgId);
-		return evaluateWindow(cutoff, ranked, victimsInWindow(claims, cutoff));
+	const evaluate = (cutoff: string, index: number, bonusFor: (orgId: number) => number) =>
+		evaluateWindow(
+			cutoff,
+			rankedWith(candidatesByCutoff[index]!, bonusFor),
+			victimsInWindow(claims, cutoff),
+		);
+	const baselineWindows = cutoffs.map((cutoff, index) => evaluate(cutoff, index, () => 0));
+	const injectedWindows = cutoffs.map((cutoff, index) => {
+		const counts = waveCountsAtCutoff(subjects, cutoff, "secteur_groupe");
+		return evaluate(cutoff, index, (orgId) => waveBonus(orgId, groups, counts));
+	});
+	const brandWindows = cutoffs.map((cutoff, index) =>
+		evaluate(cutoff, index, (orgId) => brandFamilyBonus(orgId, signalsAtCutoff.get(cutoff) ?? [])),
+	);
+	const combinedWindows = cutoffs.map((cutoff, index) => {
+		const counts = waveCountsAtCutoff(subjects, cutoff, "secteur_groupe");
+		return evaluate(cutoff, index, (orgId) =>
+			waveBonus(orgId, groups, counts) + brandFamilyBonus(orgId, signalsAtCutoff.get(cutoff) ?? []),
+		);
 	});
 	const baseline = summariseBacktest(baselineWindows);
 	const injected = summariseBacktest(injectedWindows);
+	const brandInjected = summariseBacktest(brandWindows);
+	const combinedInjected = summariseBacktest(combinedWindows);
 	const lastCounts = waveCountsAtCutoff(subjects, asOf, "secteur_groupe");
 	const activeGroups = [...lastCounts.entries()].sort(
 		(a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
@@ -171,13 +245,23 @@ async function main(): Promise<void> {
 		activeSectorGroupsAtAsOf: activeGroups.map(([key, count]) => ({ key, count })),
 		baseline: { predictions: baseline.predictions, hits: baseline.hits, victims: baseline.victims },
 		injected: { predictions: injected.predictions, hits: injected.hits, victims: injected.victims },
+		brandFamily: {
+			attachments: brandAttachment.attachments.length,
+			ambiguousBrands: brandAttachment.ambiguous,
+			unmatchedBrands: brandAttachment.unmatched,
+			priorSignalPairs: brandCoverage.priorSignals,
+			victimsWithPriorSignal: brandCoverage.victimsWithPriorSignal,
+			coveredOrgIds: brandCoverage.coveredOrgIds,
+		},
+		brandInjected: { predictions: brandInjected.predictions, hits: brandInjected.hits, victims: brandInjected.victims },
+		combinedInjected: { predictions: combinedInjected.predictions, hits: combinedInjected.hits, victims: combinedInjected.victims },
 		dataset: {
 			organisationsNA: orgs.length,
 			sources: scaleRows[0]?.sources ?? 0,
 			events: scaleRows[0]?.events ?? 0,
 		},
 		caveat:
-			"A wave signal is a claim by another NA organisation in the same scope within 30 days, strictly before the victim's claim. No group label of the future claim is used. The injected ranking adds a bounded sector-group bonus to the published score; it is an audit, not a change to the published forecast.",
+			"A wave signal is a claim by another NA organisation in the same scope within 30 days, strictly before the victim's claim. No group label of the future claim is used. The brand-family signal is a claim against a different organisation whose name shares an exact two-token prefix with a single NA organisation, published strictly before the cutoff. Both injected rankings add bounded bonuses to the published score; they are audits, not a change to the published forecast.",
 	};
 
 	console.log(`Sector-wave precursors — ${cutoffs.length} windows ${windowStart} → ${windowEnd}`);
@@ -197,6 +281,12 @@ async function main(): Promise<void> {
 	);
 	console.log(
 		`Backtest hits: baseline ${baseline.hits}/${baseline.predictions}, wave-injected ${injected.hits}/${injected.predictions} (${injected.victims} victims)`,
+	);
+	console.log(
+		`Brand family: ${brandAttachment.attachments.length} attachments, prior signals ${brandCoverage.priorSignals}/${brandCoverage.pairs} pairs, victims covered ${brandCoverage.victimsWithPriorSignal}/${brandCoverage.victims}`,
+	);
+	console.log(
+		`Brand-injected hits: ${brandInjected.hits}/${brandInjected.predictions}, combined wave+brand ${combinedInjected.hits}/${combinedInjected.predictions}`,
 	);
 	if (jsonPath) {
 		writeFileSync(jsonPath, `${JSON.stringify(result, null, 2)}\n`, "utf8");
