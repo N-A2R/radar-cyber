@@ -17,6 +17,8 @@ import assert from "node:assert/strict";
 import { createServer, type Server } from "node:http";
 import { FAMILIES } from "@radar/shared";
 import { createTestDatabase, dropTestDatabase, type TestDb } from "./helpers/testdb.js";
+import { fetchResilient } from "../src/collectors/http.js";
+
 // Imports de types uniquement : effacés à la compilation, ils ne chargent pas
 // `db.ts` avant que le test ait choisi sa base.
 type DbModule = typeof import("../src/db.js");
@@ -91,7 +93,12 @@ test("le collecteur écrit presse_locale, son département, et une assertion non
 			[sourceId, `Presse locale de test ${sourceId}`, `http://127.0.0.1:${adresse.port}/flux.xml`],
 		);
 
-		await generic.runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		// Le client HTTP refuse les hôtes privés par défaut : le serveur local
+		// du test est explicitement autorisé, comme dans dedup-evenements.
+		const fluxLocal = (url: string): Promise<string> =>
+			fetchResilient(url, { allowPrivate: true }).then((res) => res.text);
+
+		await generic.runGenericSources(() => {}, { sourceIds: [sourceId], force: true, fetchTexte: fluxLocal });
 
 		const { rows } = await db.query<{
 			dedup_key: string;
