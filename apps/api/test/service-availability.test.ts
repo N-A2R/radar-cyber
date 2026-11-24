@@ -20,6 +20,7 @@ import {
 	observationsFromDbProofs,
 	observationsFromExpositionProofs,
 } from "../src/serviceAvailability/dbProofs.js";
+import { classifyHttpProofGap, proofUtcDay } from "../src/serviceAvailability/dbGap.js";
 import {
 	archiveAuditVerdict,
 	capturableServiceDays,
@@ -364,4 +365,49 @@ test("an incomplete archive sweep is reported as indeterminate", () => {
 	assert.equal(archiveAuditVerdict(1, 0), "indeterminate");
 	assert.equal(archiveAuditVerdict(0, 0), "no_captures");
 	assert.equal(archiveAuditVerdict(0, 2), "captures_found");
+});
+
+test("a database proof is dated from its UTC timestamp, never the local calendar day", () => {
+	assert.equal(proofUtcDay("2026-11-20T23:30:00.000Z"), "2026-11-20");
+	assert.equal(proofUtcDay("not-a-date"), null);
+});
+
+test("an HTTP error proof cannot fill a missing service-day", () => {
+	const target = service("na-gap-001");
+	const audit = classifyHttpProofGap(
+		[{ table: "source_verification", url: target.url, status: 503, at: "2026-11-19T09:00:00.000Z" }],
+		[target], "2026-11-18", "2026-11-20"
+	);
+	assert.equal(audit.rowsInWindow, 0);
+	assert.equal(audit.capturableServiceDays, 0);
+});
+
+test("only successful in-window proofs on perimeter URLs fill service-days", () => {
+	const target = service("na-gap-002");
+	const audit = classifyHttpProofGap([
+		{ table: "source_verification", url: target.url, status: 200, at: "2026-11-19T09:00:00.000Z" },
+		{ table: "source_verification", url: target.url, status: 200, at: "2026-11-17T09:00:00.000Z" },
+		{ table: "warc_proof", url: "https://other.fr/", status: 200, at: "2026-11-20T09:00:00.000Z" },
+	], [target], "2026-11-18", "2026-11-20");
+	assert.deepEqual(audit.byDay, [
+		{ day: "2026-11-19", rows: 1, perimeterRows: 1 },
+		{ day: "2026-11-20", rows: 1, perimeterRows: 0 },
+	]);
+	assert.equal(audit.rowsInWindow, 2);
+	assert.equal(audit.perimeterRows, 1);
+	assert.equal(audit.capturableServiceDays, 1);
+});
+
+test("one shared real proof yields one service-day for each perimeter service", () => {
+	const first = { ...service("na-gap-003"), url: "https://example.fr/shared" };
+	const second = { ...service("na-gap-004"), url: "https://www.example.fr/shared/" };
+	const audit = classifyHttpProofGap([
+		{ table: "exposition_service", url: "http://EXAMPLE.FR/shared/", status: 301, at: "2026-11-18T09:00:00.000Z" },
+	], [first, second], "2026-11-18", "2026-11-20");
+	assert.equal(audit.perimeterRows, 1);
+	assert.equal(audit.capturableServiceDays, 2);
+	assert.deepEqual(audit.serviceDayKeys, [
+		`na-gap-003\u00002026-11-18`,
+		`na-gap-004\u00002026-11-18`,
+	]);
 });
