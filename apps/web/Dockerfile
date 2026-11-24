@@ -2,7 +2,7 @@
 #
 # Web (@radar/web) — build Vite puis serveur statique Node zéro dépendance.
 # Le runtime ne contient ni vite, ni Storybook, ni Playwright, ni node_modules.
-FROM node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 AS base
+FROM node:26-alpine@sha256:6bd9ab43c0ec0190ca7b2d193906cb8b7edf6e7f4afa43ddeccd6452710bffb5 AS base
 RUN apk add --no-cache tini
 RUN corepack enable
 WORKDIR /app
@@ -19,7 +19,7 @@ COPY packages/shared packages/shared
 COPY apps/web apps/web
 RUN pnpm --filter @radar/web build
 
-FROM node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 AS runtime
+FROM node:26-alpine@sha256:6bd9ab43c0ec0190ca7b2d193906cb8b7edf6e7f4afa43ddeccd6452710bffb5 AS runtime
 ENV NODE_ENV=production
 RUN apk add --no-cache tini \
     && addgroup -g 10001 -S radar \
