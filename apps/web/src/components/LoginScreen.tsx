@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { api } from "../api";
 import "./login.css";
+import { Card } from "@astryxdesign/core/Card";
 
 type LoginScreenProps = {
   /** Appelé avec le jeton de session dès que l'API l'a délivré. */
@@ -220,6 +221,7 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
             </dl>
           ) : null}
 
+          <Card variant="transparent" className="login__map-card">
           <figure className="login__map" aria-hidden="true">
             <svg viewBox="0 0 331 445" focusable="false">
               {Object.entries(CARTE_NA).map(([code, trace]) => (
@@ -227,6 +229,7 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
               ))}
             </svg>
           </figure>
+          </Card>
         </section>
 
         <section className="login__panel">
