@@ -20,6 +20,9 @@ CREATE TABLE source (
   family     text NOT NULL,
   url        text NOT NULL,
   enabled    boolean NOT NULL DEFAULT true,
+  -- Depuis la migration 240 : la couverture écarte les sources non branchées.
+  -- Toutes les sources figées sont prêtes : le chiffre publié reste inchangé.
+  pret_a_collecter boolean NOT NULL DEFAULT true,
   last_ok_at timestamptz
 );
 

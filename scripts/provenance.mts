@@ -25,6 +25,8 @@ const argv = process.argv.slice(2);
 const command = argv[0];
 const jsonFlag = argv.find((arg) => arg.startsWith("--json="));
 const JSON_PATH = jsonFlag?.slice("--json=".length) ?? "bench/results/provenance-na.json";
+const ageFlag = argv.find((arg) => arg.startsWith("--max-age-minutes="));
+const MAX_AGE_MINUTES = ageFlag ? Number(ageFlag.slice("--max-age-minutes=".length)) : 1440;
 
 const DEFINITION =
   "Zero fact without provenance: every Nouvelle-Aquitaine event carries a source id and URL, " +
@@ -181,9 +183,25 @@ async function main(): Promise<void> {
       process.exitCode = 1;
       return;
     }
+    // Un ledger versionné peut rester vert indéfiniment alors que la DB a
+    // changé : le gate bloquant exige désormais une mesure fraîche.
+    if (!Number.isFinite(MAX_AGE_MINUTES) || MAX_AGE_MINUTES < 0) {
+      console.error("Provenance gate FAIL: invalid-max-age.");
+      process.exitCode = 1;
+      return;
+    }
+    const measured = Date.parse(artifact.generatedAt ?? "");
+    const ageMinutes = Number.isFinite(measured) ? (Date.now() - measured) / 60000 : Number.POSITIVE_INFINITY;
+    if (ageMinutes > MAX_AGE_MINUTES) {
+      console.error(
+        `Provenance gate FAIL: artifact trop ancien (${Math.round(ageMinutes)} min > ${MAX_AGE_MINUTES} min) — relancez provenance:measure.`,
+      );
+      process.exitCode = 1;
+      return;
+    }
     const verdict = evaluateProvenanceGate(artifact);
     const line = resultLine(artifact, verdict);
-    if (verdict.ok) console.log(line);
+    if (verdict.ok) console.log(`${line} Artifact: ${Math.round(ageMinutes)} min.`);
     else {
       console.error(line);
       if (verdict.withoutProvenance.length > 0) console.error(`Subjects: ${verdict.withoutProvenance.join(", ")}`);
@@ -192,7 +210,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.error("Usage: provenance.mts measure|check --json=<path>");
+  console.error("Usage: provenance.mts measure|check --json=<path> [--max-age-minutes=N]");
   process.exitCode = 2;
 }
 
