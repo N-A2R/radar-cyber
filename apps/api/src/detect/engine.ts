@@ -1,7 +1,7 @@
 import { query, ingestQuery } from "../db.js";
 import { classifyScope, isConfident, isScopeGateEnabled } from "./scope.js";
 import { REVIEW_THRESHOLD, scoreAlert } from "./confidence.js";
-import { NA_ANCHOR_BONUS } from "./calibration.js";
+import { calibratedScore } from "./calibration.js";
 import { discardIfFalse } from "./false-events.js";
 import { DEDUP_RULE_VERSION, findCrossFlowDuplicates } from "../dedup/event-pairs.js";
 
@@ -230,17 +230,23 @@ export async function evaluateEvent(
     components: confidence.components,
     distinct_sources: distinctSources,
   };
+  // Deux échelles distinctes : la porte globale porte sur la note majorée
+  // d'un ancrage Nouvelle-Aquitaine, les seuils de règle sur la note brute.
+  const anchored = orgId != null || e.regional === true;
+  const globalScore = calibratedScore(confidence.score, anchored);
 
   // `force` : une promotion de quarantaine est un acte humain explicite.
-  // L'analyste a choisi ce fait ; l'alerte doit exister. La porte de
-  // confiance ne s'applique qu'aux alertes automatiques.
-  if (!ctx?.force && confidence.score < REVIEW_THRESHOLD) {
+  // L'analyste a choisi ce fait ; la porte globale ne s'applique qu'aux
+  // alertes automatiques et porte sur la note majorée de l'ancrage NA.
+  if (!ctx?.force && globalScore < REVIEW_THRESHOLD) {
     console.warn(
       JSON.stringify({
         detect: "alert_skipped_below_threshold",
         event_id: Number(e.id),
-        score: confidence.score,
+        score: globalScore,
+        base_score: confidence.score,
         threshold: REVIEW_THRESHOLD,
+        anchored,
         components: confidence.components,
         distinct_sources: distinctSources,
         rule_ids: matched.map((rule) => rule.id),
@@ -249,25 +255,20 @@ export async function evaluateEvent(
     return 0;
   }
 
-  // Échelle mesurée par la calibration : note de confiance, majorée quand un
-  // ancrage régional est observable (rattachement organisation ou drapeau
-  // `regional` de l'événement). Aucun autre signal n'entre dans ce score.
-  const anchored = orgId != null || e.regional === true;
-  const calibratedScore = confidence.score + (anchored ? NA_ANCHOR_BONUS : 0);
   const ruleThresholds = await loadRuleThresholds();
 
   let created = 0;
   for (const rule of matched) {
-    // Un seuil calibré ne peut que resserrer : il s'applique après la porte
-    // globale de 65, et une promotion humaine (`force`) le conserve.
+    // Un seuil calibré ne peut que resserrer : il porte sur la note de
+    // confiance non majorée, après la porte globale ; `force` le conserve.
     const threshold = ruleThresholds.get(rule.id);
-    if (!ctx?.force && threshold != null && calibratedScore < threshold) {
+    if (!ctx?.force && threshold != null && confidence.score < threshold) {
       console.warn(
         JSON.stringify({
           detect: "alert_skipped_below_rule_threshold",
           event_id: Number(e.id),
           rule_id: rule.id,
-          score: calibratedScore,
+          score: confidence.score,
           threshold,
           anchored,
         })
@@ -302,7 +303,9 @@ export async function evaluateEvent(
       ...(factGroup !== null && factGroup.length > 1
         ? { cross_flow: { rule_version: DEDUP_RULE_VERSION, event_ids: factGroup } }
         : {}),
-      ...(threshold != null ? { calibration: { score: calibratedScore, threshold, anchored } } : {}),
+      ...(threshold != null
+        ? { calibration: { score: confidence.score, globalScore, threshold, anchored } }
+        : {}),
       ...(regionalVerdict ? { scope_decision: regionalVerdict } : {}),
     };
     const ins = await ingestQuery(
