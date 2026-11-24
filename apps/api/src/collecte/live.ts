@@ -56,7 +56,7 @@ export async function listLiveSources(): Promise<LiveSource[]> {
   }>(
     `SELECT id, name, url, format, parser, family, relevance, GREATEST(1000, live_interval_ms) AS interval_ms
        FROM source
-      WHERE enabled AND live
+      WHERE enabled AND live AND (pret_a_collecter IS NULL OR pret_a_collecter IS TRUE)
         AND (lower(coalesce(region, '')) = 'nouvelle-aquitaine' OR department = ANY($1::text[]))
       ORDER BY id`,
     [[...NA_DEPARTMENTS]],
@@ -195,9 +195,9 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
   return { sourceIds: sources.map((source) => source.id), sources: sources.length, ...counts };
 }
 
-/** La santé de la source reste une écriture distincte du run (qui, lui, est déjà clos). */
-async function markSourceOk(sourceId: string): Promise<void> {
-  await ingestQuery("UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1", [sourceId]);
+/** marque un run réussi ; exporté pour le test de disponibilité DB-M8. */
+export async function markSourceOk(sourceId: string): Promise<void> {
+  await ingestQuery("UPDATE source SET last_ok_at=now(), pret_a_collecter=true, last_error=NULL, last_error_at=NULL WHERE id=$1", [sourceId]);
 }
 
 /**

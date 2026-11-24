@@ -25,6 +25,8 @@ export interface DeliveryConfig {
   emailUser?: string;
   emailPassword?: string;
   emailSecure?: boolean;
+  /** Délai maximal d'une session SMTP, en millisecondes. */
+  emailTimeoutMs?: number;
 }
 
 export interface DeliveryAlert {
@@ -79,9 +81,12 @@ export function readDeliveryConfig(env: NodeJS.ProcessEnv = process.env): Delive
   const emailUser = env.RADAR_ALERT_EMAIL_USER?.trim() || undefined;
   const emailPassword = env.RADAR_ALERT_EMAIL_PASSWORD?.trim() || undefined;
   const emailSecure = env.RADAR_ALERT_EMAIL_SECURE?.trim().toLowerCase() === "true";
+  const emailTimeoutRaw = Number(env.RADAR_ALERT_EMAIL_TIMEOUT_MS ?? 15_000);
+  const emailTimeoutMs = Number.isInteger(emailTimeoutRaw) && emailTimeoutRaw >= 100 && emailTimeoutRaw <= 120_000
+    ? emailTimeoutRaw : 15_000;
   return {
     webhookUrl, webhookSecret, telegramBotToken, telegramChatId, webBaseUrl,
-    emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure,
+    emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure, emailTimeoutMs,
   };
 }
 
@@ -90,8 +95,11 @@ export function isEmailConfigured(cfg: DeliveryConfig): boolean {
   return Boolean(cfg.emailHost && cfg.emailFrom && cfg.emailTo);
 }
 
-/** True si au moins un canal est configuré. */
+/** True si au moins un canal est complètement configuré. */
 export function isDeliveryConfigured(cfg: DeliveryConfig = readDeliveryConfig()): boolean {
+  // URL sans secret : erreur de configuration déterministe, jamais une
+  // tentative vouée au backoff puis à l'abandon après MAX_ATTEMPTS.
+  if (cfg.webhookUrl && !cfg.webhookSecret) return false;
   return Boolean(
     cfg.webhookUrl ||
     (cfg.telegramBotToken && cfg.telegramChatId) ||
@@ -269,6 +277,12 @@ async function markFailed(id: number, attemptsBefore: number, error: string): Pr
   return { abandoned };
 }
 
+/** Une alerte acquittée entre la lecture du lot et l'envoi ne part pas. */
+async function alertStillOpen(id: number): Promise<boolean> {
+  const r = await ingestQuery<{ status: string }>("SELECT status FROM alert WHERE id = $1", [id]);
+  return r.rows[0]?.status === "open";
+}
+
 /**
  * Diffuse un lot d'alertes en attente vers les canaux configurés.
  * Ne lève jamais : un échec réseau est enregistré sur l'alerte, jamais propagé.
@@ -293,40 +307,60 @@ export async function deliverPendingAlerts(
   const result: DeliveryResult = { attempted: 0, delivered: 0, failed: 0, abandoned: 0, skipped: false };
   for (const alert of alerts) {
     result.attempted++;
+    if (!(await alertStillOpen(alert.id))) {
+      log(`diffusion alerte #${alert.id} ignorée : statut non ouvert`);
+      continue;
+    }
     const msg = buildDeliveryMessage(alert, cfg);
     try {
       let webhookOk = Boolean(alert.webhook_delivered_at);
       let telegramOk = Boolean(alert.telegram_delivered_at);
       let emailOk = Boolean(alert.email_delivered_at);
-      if (cfg.webhookUrl && !cfg.webhookSecret) {
-        throw new Error("signing secret is not configured");
-      }
+      let interrupted = false;
       if (cfg.webhookUrl && !webhookOk) {
-        await sendWebhook(cfg.webhookUrl, msg.payload, cfg.webhookSecret ?? "");
-        webhookOk = true;
-        await markChannelDelivered(alert.id, "webhook");
+        if (!(await alertStillOpen(alert.id))) {
+          interrupted = true;
+        } else {
+          await sendWebhook(cfg.webhookUrl, msg.payload, cfg.webhookSecret ?? "");
+          webhookOk = true;
+          await markChannelDelivered(alert.id, "webhook");
+        }
       }
       if (cfg.telegramBotToken && cfg.telegramChatId && !telegramOk) {
-        await sendTelegram(cfg.telegramBotToken, cfg.telegramChatId, msg.text);
-        telegramOk = true;
-        await markChannelDelivered(alert.id, "telegram");
+        if (!(await alertStillOpen(alert.id))) {
+          interrupted = true;
+        } else {
+          await sendTelegram(cfg.telegramBotToken, cfg.telegramChatId, msg.text);
+          telegramOk = true;
+          await markChannelDelivered(alert.id, "telegram");
+        }
       }
       if (isEmailConfigured(cfg) && !emailOk) {
-        await sendSmtpEmail(
-          {
-            host: cfg.emailHost as string,
-            port: cfg.emailPort ?? 25,
-            from: cfg.emailFrom as string,
-            to: cfg.emailTo as string,
-            user: cfg.emailUser,
-            password: cfg.emailPassword,
-            secure: cfg.emailSecure,
-          },
-          msg.subject,
-          msg.text,
-        );
-        emailOk = true;
-        await markChannelDelivered(alert.id, "email");
+        if (!(await alertStillOpen(alert.id))) {
+          interrupted = true;
+        } else {
+          await sendSmtpEmail(
+            {
+              host: cfg.emailHost as string,
+              port: cfg.emailPort ?? 25,
+              from: cfg.emailFrom as string,
+              to: cfg.emailTo as string,
+              user: cfg.emailUser,
+              password: cfg.emailPassword,
+              secure: cfg.emailSecure,
+              timeoutMs: cfg.emailTimeoutMs,
+            },
+            msg.subject,
+            msg.text,
+          );
+          emailOk = true;
+          await markChannelDelivered(alert.id, "email");
+        }
+      }
+      if (interrupted) {
+        log(`diffusion alerte #${alert.id} interrompue : statut modifié pendant le lot`);
+        result.failed++;
+        continue;
       }
       const allOk =
         (cfg.webhookUrl ? webhookOk : true) &&

@@ -143,5 +143,5 @@ test("declared HTML reader sees repaired text instead of the misdecoded one", ()
 	const after = parseNarrativeItems(fixed.body, {}, "html");
 	assert.equal(String(before[0]?.title).includes("LycÃ©e"), true);
 	assert.equal(String(after[0]?.title).includes("Lycée"), true);
-	assert.equal(evaluateRepairs(body, "text/html", detectItems).body, undefined);
+	assert.equal(Object.hasOwn(evaluateRepairs(body, "text/html", detectItems), "body"), false);
 });

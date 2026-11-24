@@ -19,6 +19,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { query, closePools } from "../src/db.js";
 import ingestRoute from "../src/routes/ingest.js";
 import { hashSessionToken } from "../src/auth.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `ing${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const EMAIL = `${TAG}@exemple.invalid`;
@@ -62,7 +63,7 @@ before(async () => {
 after(async () => {
 	if (app) await app.close();
 	await query("DELETE FROM alert WHERE event_id IN (SELECT id FROM event WHERE dedup_key LIKE $1)", [`${PREFIX}%`]);
-	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIX}%`]);
+	await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${PREFIX}%`]);
 	await query("DELETE FROM app_session WHERE user_id = $1", [userId]);
 	await query("DELETE FROM app_user WHERE id = $1", [userId]);
 	// Les runs de la route /ingest citent la source : ils partent avant elle.

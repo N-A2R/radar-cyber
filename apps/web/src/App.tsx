@@ -1,47 +1,39 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Badge } from "@astryxdesign/core/Badge";
-import { TopNav, TopNavItem, TopNavMenu } from "@astryxdesign/core/TopNav";
+import { TopNav, TopNavItem } from "@astryxdesign/core/TopNav";
 import { Banner } from "@astryxdesign/core/Banner";
 import { Button } from "@astryxdesign/core/Button";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { lastOfflineFallback, offlineStatus, onOfflineFallback } from "./offline/pwa";
 import { type DataRow } from "./export";
 import ExportMenu, { ExportProvider, useScreenExport } from "./components/ExportMenu";
-import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
+import {
+  api, ApiError, clearAuthToken, getAffected, getAuthToken, setAuthToken,
+  type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats,
+  type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail,
+  type LiveAlert, type NaFil, type NaOverview, type Org, type Source,
+} from "./api";
 import type { ActorAttributionsResponse } from "./api";
 import type { MapTimelineBucket, MapTimelineEvent } from "./api";
 import { mockData } from "./mock";
-import MapLegend from "./components/MapLegend";
-const Map3D = lazy(() => import("./map/Map3D"));
-const GraphView = lazy(() => import("./graph/GraphView"));
-const SourcesView = lazy(() => import("./components/SourcesView"));
-const SourcesDashboardView = lazy(() => import("./components/SourcesDashboardView"));
-const HealthView = lazy(() => import("./components/HealthView"));
-const HealthDetailView = lazy(() => import("./components/HealthDetailView"));
+import LiveAlerts, { addLiveAlert, connectLiveAlerts } from "./components/LiveAlerts";
+const MapWorkspace = lazy(() => import("./components/MapWorkspace"));
+const ActionWorkspace = lazy(() => import("./components/ActionWorkspace"));
+const SourcesWorkspace = lazy(() => import("./components/SourcesWorkspace"));
+const JournalWorkspace = lazy(() => import("./components/JournalWorkspace"));
 const EventList = lazy(() => import("./components/EventList"));
 const Inspector = lazy(() => import("./components/Inspector"));
 const OrgSheet = lazy(() => import("./components/OrgSheet"));
-const DirectoryView = lazy(() => import("./components/DirectoryView"));
 const CommandPalette = lazy(() => import("./components/CommandPalette"));
-import LiveAlerts, { addLiveAlert, connectLiveAlerts } from "./components/LiveAlerts";
-const ReviewView = lazy(() => import("./components/ReviewView"));
-const JournalView = lazy(() => import("./components/JournalView"));
-const DossierView = lazy(() => import("./components/DossierView"));
-const NaView = lazy(() => import("./components/NaView"));
-const TodayView = lazy(() => import("./components/TodayView"));
-const CouvertureView = lazy(() => import("./components/CouvertureView"));
-const WarcProofCard = lazy(() => import("./components/WarcProofCard"));
-const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
-const CorpusView = lazy(() => import("./components/CorpusView"));
-const ActorAttributionsView = lazy(() => import("./components/ActorAttributionsView"));
-const AffectedView = lazy(() => import("./components/AffectedView"));
 import type { ViewKey } from "./contracts";
-import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
-import MapTimeline from "./map/MapTimeline";
+import {
+  parseHash, toHash, shareableUrl,
+  type ActionTab, type AppUrlState, type JournalTab, type MapPanel, type SourcesTab,
+} from "./url-state";
 import { buildBuckets, eventsInBucket, withEmptyBuckets } from "./map/timeline.js";
 
-// Chaque écran chargé à la demande garde sa place dans le shell : le
+// Chaque destination chargée à la demande garde sa place dans le shell : le
 // squelette occupe la même zone jusqu'à l'arrivée du chunk.
 function ViewSkeleton() {
   return (
@@ -58,93 +50,112 @@ function ViewSkeleton() {
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEW_LABELS: Record<ViewKey, string> = {
-  today: "Aujourd'hui",
-  coverage: "Couverture",
-  review: "Revue",
-  journal: "Journal",
-  corpus: "Corpus",
-  sources: "Sources",
-  "sources-dashboard": "Tableau de bord sources",
   map: "Carte",
-  directory: "Annuaire",
-  graph: "Graphe",
-  health: "Santé",
-  alerts: "Alertes",
-  dossier: "Dossier",
-  na: "Nouvelle-Aquitaine",
-  affected: "Suis-je concerné ?",
-  attributions: "Attributions",
+  action: "Action",
+  sources: "Sources",
+  journal: "Journal",
 };
 
-const NAV_GROUPS: { label: string; items: ViewKey[] }[] = [
-  { label: "Observatoire", items: ["today", "coverage", "na", "affected"] },
-  { label: "Analyse", items: ["review", "journal", "corpus", "dossier"] },
-  { label: "Sources", items: ["sources", "sources-dashboard", "health"] },
-  { label: "Explorer", items: ["map", "graph", "directory"] },
-  { label: "Alertes", items: ["alerts"] },
-  { label: "Attributions", items: ["attributions"] },
-];
+const VIEW_ORDER: ViewKey[] = ["map", "action", "sources", "journal"];
 
 const FEED_LIMIT = 300;
 /** Alertes gardées en mémoire pour le bandeau (les plus récentes d'abord). */
 const LIVE_ALERT_LIMIT = 50;
 const SOUND_KEY = "radar.alertSound";
 
-/** Screens whose data is owned by the shell; the others publish themselves. */
-const APP_EXPORT_VIEWS: Record<string, true> = {
-  today: true, coverage: true, corpus: true, sources: true,
-  map: true, graph: true, health: true, na: true,
+/** Destinations dont le shell publie les lignes ; les autres les publient elles-mêmes. */
+const APP_EXPORT_VIEWS: Partial<Record<ViewKey, true>> = { map: true, sources: true };
+
+/** Ce que chaque destination a réellement à rafraîchir ; `stats` n'est plus sondé. */
+export type RefreshKind = "today" | "departements" | "graph" | "health" | "na" | "flows" | "corpus" | "sourcesDashboard";
+export type RefreshPlan = Readonly<Partial<Record<RefreshKind, true>>>;
+const AUCUN_REFRESH: RefreshPlan = {};
+/** Anciennes vues : conservées pour les tests de décision de polling. */
+const REFRESH_LEGACY: Partial<Record<string, RefreshPlan>> = {
+  today: { today: true, departements: true },
+  graph: { graph: true },
+  health: { health: true },
+  na: { na: true },
+  corpus: { corpus: true },
+  "sources-dashboard": { sourcesDashboard: true },
 };
+
+/** Onglet caché = zéro appel ; panneau non ouvert = zéro appel lourd. */
+export function refreshPlan(view: string, visible: boolean, panel?: string, tab?: string): RefreshPlan {
+  if (!visible) return AUCUN_REFRESH;
+  if (view === "map") {
+    const plan: Partial<Record<RefreshKind, true>> = { flows: true };
+    if (panel === "graph") plan.graph = true;
+    if (panel === "regional") plan.na = true;
+    return plan;
+  }
+  if (view === "sources") {
+    const plan: Partial<Record<RefreshKind, true>> = {};
+    if (tab === "indicateurs") plan.sourcesDashboard = true;
+    if (tab === "sante") plan.health = true;
+    if (tab === "corpus") plan.corpus = true;
+    return plan;
+  }
+  return REFRESH_LEGACY[view] ?? AUCUN_REFRESH;
+}
+
+export function pageVisible(): boolean {
+  return typeof document === "undefined" || document.visibilityState === "visible";
+}
+
+/** Vue, panneau, onglet et fiche ouverte = navigation ; le reste = filtrage. */
+function urlKey(state: AppUrlState): string {
+  return `${state.view}\u0000${state.mapPanel}\u0000${state.actionTab}\u0000${state.sourcesTab}\u0000${state.journalTab}\u0000${state.org ?? ""}`;
+}
 
 type AppExportInput = {
   view: ViewKey;
-  today: TodayResponse | null;
+  mapPanel: MapPanel;
+  sourcesTab: SourcesTab;
   coverage: CouvertureResponse | null;
   corpus: CorpusStats | null;
   sources: Source[];
   orgs: Org[];
   graph: Graph;
   na: NaOverview | null;
-  naFil: NaFil | null;
+  attributions: ActorAttributionsResponse | null;
 };
 
 function rowsForAppScreen(input: AppExportInput): DataRow[] {
-  const { view } = input;
-  if (view === "today") {
-    return (input.today?.evenements ?? []).map((event) => ({
-      date: event.date, family: event.famille, title: event.titre,
-      organisation: event.organisation, department: event.dept,
-      source: event.source, severity: event.severite,
-    }));
-  }
-  if (view === "coverage") {
-    return (input.coverage?.parDepartement ?? []).map((line) => ({
-      department: line.departement, seen: line.vus, total: line.total, rate: line.taux,
-    }));
-  }
-  if (view === "corpus") {
-    return (input.corpus?.byDepartment ?? []).map((line) => ({
-      department: line.department, label: line.label, total: line.total,
-    }));
-  }
-  if (view === "map") {
+  if (input.view === "map") {
+    if (input.mapPanel === "couverture") {
+      return (input.coverage?.parDepartement ?? []).map((line) => ({
+        department: line.departement, seen: line.vus, total: line.total, rate: line.taux,
+      }));
+    }
+    if (input.mapPanel === "graph") {
+      return input.graph.nodes.map((node) => ({
+        id: node.id, label: node.label, kind: node.kind, department: node.dept,
+      }));
+    }
+    if (input.mapPanel === "regional") {
+      return (input.na?.depts ?? []).map((dept) => ({
+        department: dept.dept, organisations: dept.orgs,
+        withEvents: dept.orgsAvecEvenement, events: dept.evenements,
+      }));
+    }
+    if (input.mapPanel === "attributions") {
+      return (input.attributions?.attributions ?? []).map((row) => ({
+        actor: row.actor, groupName: row.groupName, confidence: row.confidence,
+        level: row.level, method: row.method, sources: row.sources, claims: row.claims,
+      }));
+    }
     return input.orgs.map((org) => ({
       id: org.id, organisation: org.name, department: org.dept, family: org.kind,
       latitude: org.lat, longitude: org.lon, events: org.eventCount,
     }));
   }
-  if (view === "graph") {
-    return input.graph.nodes.map((node) => ({
-      id: node.id, label: node.label, kind: node.kind, department: node.dept,
-    }));
-  }
-  if (view === "na") {
-    return (input.na?.depts ?? []).map((dept) => ({
-      department: dept.dept, organisations: dept.orgs,
-      withEvents: dept.orgsAvecEvenement, events: dept.evenements,
-    }));
-  }
-  if (view === "sources" || view === "health") {
+  if (input.view === "sources") {
+    if (input.sourcesTab === "corpus") {
+      return (input.corpus?.byDepartment ?? []).map((line) => ({
+        department: line.department, label: line.label, total: line.total,
+      }));
+    }
     return input.sources.map((source) => ({
       id: source.id, name: source.name, family: source.family, kind: source.kind,
       status: source.ok ? "ok" : "unverified", lastSeen: source.lastOkAt,
@@ -158,23 +169,19 @@ export default function App() {
   const [orgs, setOrgs] = useState<Org[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
-  const [stats, setStats] = useState<Stats | null>(null);
   const [healthDetail, setHealthDetail] = useState<HealthDetail | null>(null);
   const [healthCauses, setHealthCauses] = useState<HealthCauses | null>(null);
+  const [collecteMetrics, setCollecteMetrics] = useState<CollecteMetrics | null>(null);
+  const [metricsLoading, setMetricsLoading] = useState(true);
+  const [metricsError, setMetricsError] = useState<string | null>(null);
   const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
   const [naFil, setNaFil] = useState<NaFil | null>(null);
-  const [todayData, setTodayData] = useState<TodayResponse | null>(null);
-  const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
-  const [todayError, setTodayError] = useState<string | null>(null);
   const [couvertureData, setCouvertureData] = useState<CouvertureResponse | null>(null);
   const [couvertureLoading, setCouvertureLoading] = useState(false);
   const [couvertureError, setCouvertureError] = useState<string | null>(null);
   const [corpusData, setCorpusData] = useState<CorpusStats | null>(null);
   const [corpusLoading, setCorpusLoading] = useState(false);
   const [corpusError, setCorpusError] = useState<string | null>(null);
-  const [sourcesDashboardData, setSourcesDashboardData] = useState<SourcesDashboard | null>(null);
-  const [sourcesDashboardLoading, setSourcesDashboardLoading] = useState(false);
-  const [sourcesDashboardError, setSourcesDashboardError] = useState<string | null>(null);
   const [attributionsData, setAttributionsData] = useState<ActorAttributionsResponse | null>(null);
   const [attributionsLoading, setAttributionsLoading] = useState(false);
   const [attributionsError, setAttributionsError] = useState<string | null>(null);
@@ -183,27 +190,58 @@ export default function App() {
   const [affectedLoading, setAffectedLoading] = useState(false);
   const [affectedError, setAffectedError] = useState<string | null>(null);
   const [affectedQuery, setAffectedQuery] = useState("");
-  const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [temporalGraph, setTemporalGraph] = useState<Graph | null>(null);
   const [flows, setFlows] = useState<FlowArc[]>([]);
-  // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
-  // une vue se copie, se partage et survit au rechargement.
+  // L'URL porte la destination, le panneau, les filtres et la fiche ouverte :
+  // un état se copie, se partage et survit au rechargement.
   const [urlState, setUrlState] = useState<AppUrlState>(() =>
     typeof window === "undefined"
       ? parseHash("")
       : parseHash(window.location.hash),
   );
-  const view = urlState.view as ViewKey;
+  const view = urlState.view;
   const appExportRows = useMemo(() => rowsForAppScreen({
-    view, today: todayData, coverage: couvertureData, corpus: corpusData,
-    sources, orgs, graph, na: naOverview, naFil,
-  }), [view, todayData, couvertureData, corpusData, sources, orgs, graph, naOverview, naFil]);
+    view, mapPanel: urlState.mapPanel, sourcesTab: urlState.sourcesTab,
+    coverage: couvertureData, corpus: corpusData, sources, orgs, graph,
+    na: naOverview, attributions: attributionsData,
+  }), [view, urlState.mapPanel, urlState.sourcesTab, couvertureData, corpusData, sources, orgs, graph, naOverview, attributionsData]);
   useScreenExport(view, appExportRows, APP_EXPORT_VIEWS[view] === true);
-  const setView = useCallback((next: ViewKey) => {
+  const navigate = useCallback((next: ViewKey) => {
     setUrlState((prev) => (prev.view === next ? prev : { ...prev, view: next }));
+    if (next === "action") setUnseenAlerts(0);
+  }, []);
+  const setMapPanel = useCallback((panel: MapPanel) => {
+    setUrlState((prev) => (
+      prev.view === "map" && prev.mapPanel === panel ? prev : { ...prev, view: "map", mapPanel: panel }
+    ));
+  }, []);
+  const setActionTab = useCallback((tab: ActionTab) => {
+    setUrlState((prev) => (
+      prev.view === "action" && prev.actionTab === tab ? prev : { ...prev, view: "action", actionTab: tab }
+    ));
+  }, []);
+  const setSourcesTab = useCallback((tab: SourcesTab) => {
+    setUrlState((prev) => (
+      prev.view === "sources" && prev.sourcesTab === tab ? prev : { ...prev, view: "sources", sourcesTab: tab }
+    ));
+  }, []);
+  const setJournalTab = useCallback((tab: JournalTab) => {
+    setUrlState((prev) => (
+      prev.view === "journal" && prev.journalTab === tab ? prev : { ...prev, view: "journal", journalTab: tab }
+    ));
+  }, []);
+  const setNaDept = useCallback((dept: string | null) => {
+    setUrlState((prev) => (prev.naDept === dept ? prev : { ...prev, naDept: dept }));
   }, []);
   const [error, setError] = useState<string | null>(null);
+  // Tant que la révocation serveur n'est pas confirmée, le jeton local (et la
+  // session HttpOnly associée) reste intact : on ne peut pas afficher un état
+  // déconnecté alors que la session distante est toujours valable.
+  const [logoutState, setLogoutState] = useState<"idle" | "pending" | "failed">("idle");
+  const [logoutForced, setLogoutForced] = useState(false);
+  const logoutBusy = useRef(false);
+  const logoutGeneration = useRef(0);
   /**
    * Hors ligne : quand l'API ne répond pas, on continue d'afficher le dernier
    * état connu de la carte, avec son âge. Un écran vide en dit moins qu'un
@@ -220,8 +258,6 @@ export default function App() {
   }, []);
   const instantaneData = useMemo(() => etatDonnees(instantane, horloge), [instantane, horloge]);
   // Offline is a first-class state: the network can drop between two renders.
-  // The timestamp comes from the last replayed response, or from the map
-  // snapshot when the current view made no API call.
   const [offline, setOffline] = useState(() => typeof navigator !== "undefined" ? !navigator.onLine : false);
   const [offlineAt, setOfflineAt] = useState<number | null>(() => lastOfflineFallback()?.at ?? null);
   useEffect(() => {
@@ -243,14 +279,24 @@ export default function App() {
   const [reloadSignal, setReloadSignal] = useState(0);
   const recharger = useCallback(() => setReloadSignal((n) => n + 1), []);
   const [family, setFamily] = useState<string | null>(null);
+  // Un lien `#/today?family=…` garde son filtre dans le fil de la Carte.
+  useEffect(() => {
+    setFamily(urlState.today.family);
+  }, [urlState.today.family]);
   // Ordre du fil : « régional d'abord » par défaut, « tout » = ordre de l'API.
   const [regionalFirst, setRegionalFirst] = useState(true);
   /**
    * Ce que le fil montre : la région (défaut), tout, ou la veille CVE.
-   * Le fil par défaut ne affichait 19 000 lignes dont 87 % de bulletins de
-   * vulnérabilités et aucune ne concernait la région.
+   * Le fil par défaut ne noie pas l'écran sous 19 000 bulletins dont 87 %
+   * ne concernent pas la région.
    */
   const [portee, setPortee] = useState<"region" | "toutes" | "vulnerabilites">("region");
+  // Le fil d'événements change sans relancer les endpoints du shell.
+  const porteeRef = useRef(portee);
+  const porteeInitiale = useRef(true);
+  const orgsRef = useRef<Org[]>([]);
+  const mainRef = useRef<HTMLElement | null>(null);
+  const urlKeyRef = useRef<string | null>(null);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedOrgId, setSelectedOrgId] = useState<number | null>(null);
   const sheetOrgId = urlState.org;
@@ -259,8 +305,7 @@ export default function App() {
   }, []);
   const [connected, setConnected] = useState(false);
   // Le fond par défaut est le plan sombre : l'imagerie satellite est superbe
-  // mais elle occupe l'œil, et la densité du référentiel comme les pastilles
-  // de regroupement ne se lisent plus dessus. C'est un mode de détail.
+  // mais elle occupe l'œil, et la densité du référentiel ne se lit plus dessus.
   const [basemap, setBasemap] = useState<"sat" | "plan">("plan");
   // Map timeline: monthly counts from the API, one page of geolocated points.
   const [mapBuckets, setMapBuckets] = useState<MapTimelineBucket[]>([]);
@@ -272,11 +317,6 @@ export default function App() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [liveAlerts, setLiveAlerts] = useState<LiveAlert[]>([]);
   const [unseenAlerts, setUnseenAlerts] = useState(0);
-
-  const navigate = useCallback((next: ViewKey) => {
-    setView(next);
-    if (next === "alerts") setUnseenAlerts(0);
-  }, [setView]);
   const [alertSignal, setAlertSignal] = useState(0);
   const [soundOn, setSoundOn] = useState(() => {
     try {
@@ -285,6 +325,11 @@ export default function App() {
       return false;
     }
   });
+
+  // Arrivée sur Action (déclic ou lien direct) : le badge est acquitté.
+  useEffect(() => {
+    if (view === "action") setUnseenAlerts(0);
+  }, [view]);
 
   const toggleSound = useCallback(() => {
     setSoundOn((on) => {
@@ -326,7 +371,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Recherche globale : ⌘K / Ctrl+K, disponible depuis toutes les vues.
+  // Recherche globale : ⌘K / Ctrl+K, disponible depuis toutes les destinations.
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -341,9 +386,7 @@ export default function App() {
   // Temps réel : le serveur pousse les nouveaux événements (SSE).
   useEffect(() => {
     if (!token) return;
-    // `EventSource` ne peut pas poser d'en-tête : le jeton passe en query,
-    // accepté par la seule route /api/stream côté serveur.
-    const stream = connectLiveAlerts({ token: getAuthToken(), onConnection: setConnected, onAlert: (a) => {
+    const stream = connectLiveAlerts({ onConnection: setConnected, onAlert: (a) => {
       setLiveAlerts((prev) => addLiveAlert(prev, a, LIVE_ALERT_LIMIT));
       setUnseenAlerts((n) => n + 1);
       setAlertSignal((n) => n + 1);
@@ -372,8 +415,6 @@ export default function App() {
           // l'écriture par `porteeRegionale`. Le front ne la réinvente plus.
           regional: row.regional === true,
         };
-        // Le flux direct doit respecter la portée choisie : sinon les
-        // bulletins CVE arrivent en continu et noient le fil filtré.
         const visible =
           portee === "toutes" ||
           (portee === "region" && event.regional) ||
@@ -395,13 +436,15 @@ export default function App() {
     return fallback.arcs;
   }, []);
 
+  useEffect(() => { orgsRef.current = orgs; }, [orgs]);
+
   useEffect(() => {
     if (MOCK_MODE) {
       setOrgs(mockData.orgs);
       setEvents(mockData.events);
       setSources(mockData.sources);
-      setStats(mockData.stats);
       setGraph(mockData.graph);
+      setCouvertureData(mockData.couverture);
       setLoading(false);
       return;
     }
@@ -418,33 +461,31 @@ export default function App() {
     // Chaque appel est indépendant : un endpoint en erreur ne doit plus vider
     // l'écran. C'est exactement ce qui arrivait quand `/api/graph` dépassait
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
-    // événements, sources et statistiques n'étaient jamais posés en état.
+    // événements et sources n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "graphe temporel"] as const;
+      const labels = ["organisations", "événements", "sources", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "graphe temporel"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
-        api.events(FEED_LIMIT, "regional", portee),
+        api.events(FEED_LIMIT, "regional", porteeRef.current),
         api.sources(),
-        api.stats(),
         api.graph(90),
         api.naOverview(),
         api.healthDetail(),
         api.healthCauses(),
         api.graphTemporal(),
       ]);
-      const [o, e, s, st, g, na, hd, hc, tg] = results;
+      const [o, e, s, g, na, hd, hc, tg] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
       if (o.status === "fulfilled" && e.status === "fulfilled") {
         // On n'écrit l'instantané que si les deux moitiés de la carte sont là :
-        // une carte avec des organisations et sans événements serait un état
-        // qui n'a jamais existé.
+        // une carte avec des orgs et sans événements serait un état qui n'a
+        // jamais existé.
         const at = Date.now();
         memoire.ecrire("carte", { orgs: o.value, events: e.value }, at);
         setInstantane({ at, data: { orgs: o.value, events: e.value } });
       }
       if (s.status === "fulfilled") setSources(s.value);
-      if (st.status === "fulfilled") setStats(st.value);
       if (g.status === "fulfilled") setGraph(g.value);
       if (na.status === "fulfilled") setNaOverview(na.value);
       if (hd.status === "fulfilled") setHealthDetail(hd.value);
@@ -457,25 +498,60 @@ export default function App() {
       setFlows(arcs);
     };
     void load();
-  }, [loadFlows, token, portee, reloadSignal]);
+  }, [loadFlows, token, reloadSignal]);
 
-  // Rafraîchit statistiques, graphe et arcs toutes les 30 s.
+  // Changer le périmètre ne concerne que le fil : on relit /events et on
+  // reconnecte le SSE (effet plus haut), sans toucher aux autres endpoints.
   useEffect(() => {
     if (MOCK_MODE || !token) return;
-    const timer = setInterval(() => {
-      api.stats().then(setStats).catch(() => {});
-      api.graph(90).then(setGraph).catch(() => {});
-      api.healthDetail().then(setHealthDetail).catch(() => {});
-      api.healthCauses().then(setHealthCauses).catch(() => {});
-      api.naOverview().then(setNaOverview).catch(() => {});
-      loadFlows().then(setFlows).catch(() => {});
-    }, 30000);
-    return () => clearInterval(timer);
-  }, [loadFlows, token]);
+    if (porteeInitiale.current) {
+      porteeInitiale.current = false;
+      return;
+    }
+    porteeRef.current = portee;
+    const controller = new AbortController();
+    api.events(FEED_LIMIT, "regional", portee, controller.signal)
+      .then((nouveaux) => {
+        if (controller.signal.aborted) return;
+        setEvents(nouveaux);
+        const orgsConnues = orgsRef.current;
+        if (orgsConnues.length > 0) {
+          const at = Date.now();
+          memoire.ecrire("carte", { orgs: orgsConnues, events: nouveaux }, at);
+          setInstantane({ at, data: { orgs: orgsConnues, events: nouveaux } });
+        }
+      })
+      .catch(() => { /* le fil garde les événements déjà chargés */ });
+    return () => controller.abort();
+  }, [portee, token, memoire]);
 
-  // Le fil d'événements suit le filtre département (?naDept=) : rechargé à
-  // chaque changement, et une org cliquée dans le fil n'efface pas le filtre —
-  // elle ouvre la fiche, l'URL reste `#/na?naDept=NN`.
+  // Rafraîchissement 30 s : seulement les données utiles à la destination
+  // ouverte, et jamais dans un onglet caché. Retour sur l'onglet : immédiat.
+  useEffect(() => {
+    if (MOCK_MODE || !token) return;
+    const rafraichir = () => {
+      const plan = refreshPlan(
+        view, pageVisible(),
+        view === "map" ? urlState.mapPanel : undefined,
+        view === "sources" ? urlState.sourcesTab : undefined,
+      );
+      if (plan.graph) api.graph(90).then(setGraph).catch(() => {});
+      if (plan.health) {
+        api.healthDetail().then(setHealthDetail).catch(() => {});
+        api.healthCauses().then(setHealthCauses).catch(() => {});
+      }
+      if (plan.na) api.naOverview().then(setNaOverview).catch(() => {});
+      if (plan.flows) loadFlows().then(setFlows).catch(() => {});
+    };
+    const timer = setInterval(rafraichir, 30_000);
+    document.addEventListener("visibilitychange", rafraichir);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", rafraichir);
+    };
+  }, [loadFlows, token, view, urlState.mapPanel, urlState.sourcesTab]);
+
+  // Le fil d'événements suit le filtre département du panneau régional.
   useEffect(() => {
     if (MOCK_MODE || !token) return;
     if (!urlState.naDept) {
@@ -488,40 +564,11 @@ export default function App() {
       .catch(() => setNaFil(null));
   }, [urlState.naDept, token]);
 
-  // Écran d'accueil : un seul appel donne les compteurs et le fil. Les filtres
-  // vivent dans l'URL, donc un lien partagé recharge exactement la même liste.
+  // The scrubber is populated only while the Carte panneau is open. In mock
+  // mode the same pure helpers read the simulated events, so no network call.
+  const timelineVisible = view === "map" && urlState.mapPanel === "carte";
   useEffect(() => {
-    if (MOCK_MODE || !token || view !== "today") return;
-    const controller = new AbortController();
-    const charger = () => {
-      setTodayLoading(true);
-      api
-        .today({ family: urlState.today.family, dept: urlState.today.dept }, controller.signal)
-        .then((donnees) => {
-          setTodayData(donnees);
-          setTodayError(null);
-        })
-        .catch((err: unknown) => {
-          if (!controller.signal.aborted) {
-            setTodayError(err instanceof Error ? err.message : "indisponible");
-          }
-        })
-        .finally(() => {
-          if (!controller.signal.aborted) setTodayLoading(false);
-        });
-    };
-    charger();
-    const timer = setInterval(charger, 60_000);
-    return () => {
-      controller.abort();
-      clearInterval(timer);
-    };
-  }, [view, urlState.today.family, urlState.today.dept, token, reloadSignal]);
-
-  // The scrubber is populated only while the map is open. In mock mode the
-  // same pure helpers read the simulated events, so no network call is made.
-  useEffect(() => {
-    if (view !== "map") return;
+    if (!timelineVisible) return;
     if (MOCK_MODE) {
       setMapBuckets(buildBuckets(mockData.events, 12));
       return;
@@ -534,10 +581,10 @@ export default function App() {
       })
       .catch(() => { if (!controller.signal.aborted) setMapBuckets([]); });
     return () => controller.abort();
-  }, [view, token, reloadSignal]);
+  }, [timelineVisible, token, reloadSignal]);
 
   useEffect(() => {
-    if (view !== "map") return;
+    if (!timelineVisible) return;
     if (MOCK_MODE) {
       const visible = eventsInBucket(mockData.events, mapBucket);
       setMapEvents(visible.slice(0, 1000));
@@ -561,16 +608,15 @@ export default function App() {
       })
       .finally(() => { if (!controller.signal.aborted) setMapLoading(false); });
     return () => controller.abort();
-  }, [view, token, mapBucket, mapBuckets, reloadSignal]);
+  }, [timelineVisible, token, mapBucket, mapBuckets, reloadSignal]);
 
   // Corpus : lecture publique, indépendante du token et du fil d'événements.
-  // Un appel à l'ouverture, puis toutes les minutes pour que la réponse à
-  // « est-ce que mon corpus grossit ? » ne soit pas une mesure périmée.
+  const corpusVisible = view === "sources" && urlState.sourcesTab === "corpus";
   useEffect(() => {
-    if (MOCK_MODE || view !== "corpus") return;
+    if (MOCK_MODE || !corpusVisible) return;
     const controller = new AbortController();
     const charger = () => {
-      setCorpusLoading(true);
+      if (!refreshPlan(view, pageVisible(), undefined, "corpus").corpus) return;
       api
         .corpusStats(controller.signal)
         .then((donnees) => {
@@ -592,47 +638,26 @@ export default function App() {
       controller.abort();
       clearInterval(timer);
     };
-  }, [view]);
+  }, [corpusVisible, view]);
 
-  // Tableau de bord des sources : une seule lecture publique, à l'ouverture
-  // puis chaque minute. Aucun chiffre n'est recalculé dans le navigateur.
+  // Supervision des cycles : complète les chiffres du registre des sources.
   useEffect(() => {
-    if (MOCK_MODE || view !== "sources-dashboard") return;
+    if (MOCK_MODE || !token || view !== "sources") return;
     const controller = new AbortController();
     const charger = () => {
-      setSourcesDashboardLoading(true);
-      api
-        .sourcesDashboard(controller.signal)
+      setMetricsLoading(true);
+      setMetricsError(null);
+      api.collecteMetrics(20, controller.signal)
         .then((donnees) => {
-          setSourcesDashboardData(donnees);
-          setSourcesDashboardError(null);
+          setCollecteMetrics(donnees);
+          setMetricsLoading(false);
         })
         .catch((err: unknown) => {
           if (!controller.signal.aborted) {
-            setSourcesDashboardError(err instanceof Error ? err.message : "indisponible");
+            setMetricsError(err instanceof Error ? err.message : "indisponible");
+            setMetricsLoading(false);
           }
-        })
-        .finally(() => {
-          if (!controller.signal.aborted) setSourcesDashboardLoading(false);
         });
-    };
-    charger();
-    const timer = setInterval(charger, 60_000);
-    return () => {
-      controller.abort();
-      clearInterval(timer);
-    };
-  }, [view]);
-
-  // La liste des départements vient de l'agrégat serveur, pas du fil courant :
-  // un filtre appliqué ne doit pas faire disparaître les autres départements.
-  useEffect(() => {
-    if (MOCK_MODE || !token || view !== "today") return;
-    const controller = new AbortController();
-    const charger = () => {
-      api.statsDepartements(controller.signal)
-        .then((reponse) => setStatsDepartements(reponse.departements))
-        .catch(() => { /* le fil reste utilisable avec les dept du fil */ });
     };
     charger();
     const timer = setInterval(charger, 60_000);
@@ -642,10 +667,18 @@ export default function App() {
     };
   }, [view, token]);
 
-  // The coverage figure is a published measurement: one request when the view
-  // is opened, aborted as soon as the user leaves it.
+  // Couverture : mesure publiée, un appel à l'ouverture du panneau, annulé à
+  // la fermeture.
+  const couvertureVisible = view === "map" && urlState.mapPanel === "couverture";
   useEffect(() => {
-    if (view !== "coverage") return;
+    if (!couvertureVisible) return;
+    if (MOCK_MODE) {
+      setCouvertureData(mockData.couverture);
+      setCouvertureLoading(false);
+      setCouvertureError(null);
+      return;
+    }
+    if (!token) return;
     const controller = new AbortController();
     setCouvertureLoading(true);
     setCouvertureError(null);
@@ -660,11 +693,12 @@ export default function App() {
         if (!controller.signal.aborted) setCouvertureLoading(false);
       });
     return () => controller.abort();
-  }, [view]);
+  }, [couvertureVisible, token]);
 
-  // Attribution figures are a published measurement: fetched on view open.
+  // Attribution figures are a published measurement: fetched on panel open.
+  const attributionsVisible = view === "map" && urlState.mapPanel === "attributions";
   useEffect(() => {
-    if (view !== "attributions" || MOCK_MODE) return;
+    if (!attributionsVisible || MOCK_MODE) return;
     const controller = new AbortController();
     setAttributionsLoading(true);
     setAttributionsError(null);
@@ -679,7 +713,7 @@ export default function App() {
         if (!controller.signal.aborted) setAttributionsLoading(false);
       });
     return () => controller.abort();
-  }, [view]);
+  }, [attributionsVisible]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -741,26 +775,93 @@ export default function App() {
 
   const handleSelectOrg = useCallback((id: string) => {
     const numeric = Number(id.startsWith("org:") ? id.slice(4) : id);
-    setSelectedOrgId(Number.isFinite(numeric) ? numeric : null);
-    setSelectedEventId(null);
-  }, []);
+    setSheetOrgId(Number.isFinite(numeric) ? numeric : null);
+  }, [setSheetOrgId]);
 
-  const openOrgSheet = useCallback((id: number) => setSheetOrgId(id), []);
+  const openOrgSheet = useCallback((id: number) => setSheetOrgId(id), [setSheetOrgId]);
 
-  // Refléter l'état dans le hash, sans empiler une entrée par frappe.
+  const openEventInspector = useCallback((id: string) => {
+    setSelectedEventId(id);
+    setSelectedOrgId(null);
+    setSheetOrgId(null);
+  }, [setSheetOrgId]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const hash = toHash(urlState);
-    if (window.location.hash !== hash) window.history.replaceState(null, "", hash);
+    const cle = urlKey(urlState);
+    if (window.location.hash === hash) {
+      urlKeyRef.current = cle;
+      return;
+    }
+    // Changer de destination, de panneau ou ouvrir une fiche empile une
+    // entrée : « Retour » revient à l'état précédent. Frapper dans un champ
+    // ne le fait pas.
+    const navigation = urlKeyRef.current !== null && cle !== urlKeyRef.current;
+    if (navigation) window.history.pushState(null, "", hash);
+    else window.history.replaceState(null, "", hash);
+    urlKeyRef.current = cle;
   }, [urlState]);
 
-  // Précédent / suivant : on relit le hash plutôt que de garder deux vérités.
+  // Précédent / suivant, hash collé ou lien externe : une seule vérité, le hash.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const onHashChange = () => setUrlState(parseHash(window.location.hash));
+    const onHashChange = () => {
+      const next = parseHash(window.location.hash);
+      urlKeyRef.current = urlKey(next);
+      setUrlState(next);
+    };
     window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onHashChange);
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("popstate", onHashChange);
+    };
   }, []);
+
+  /** Oubli local : seulement après révocation confirmée, 401, ou accord explicite. */
+  const finishLogout = useCallback((forced = false) => {
+    logoutGeneration.current += 1;
+    setToken(null);
+    setError(null);
+    clearAuthToken();
+    setLogoutState("idle");
+    setLogoutForced(forced);
+    logoutBusy.current = false;
+  }, []);
+
+  const onUnauthorized = useCallback(() => {
+    // 401 : le jeton est déjà invalide côté serveur, pas de révocation à appeler.
+    finishLogout();
+  }, [finishLogout]);
+
+  /** Déconnexion volontaire : révoquer la session avant de oublier le jeton. */
+  const onLogout = useCallback(async () => {
+    if (logoutBusy.current) return;
+    if (!getAuthToken()) { finishLogout(); return; }
+    const generation = logoutGeneration.current;
+    logoutBusy.current = true;
+    setLogoutState("pending");
+    try {
+      const resultat = await api.logout();
+      if (resultat?.ok === false) throw new Error("révocation refusée");
+      if (logoutGeneration.current !== generation) return;
+      finishLogout();
+    } catch (err) {
+      // Un 401 passif ou une nouvelle connexion a changé de session entretemps.
+      if (logoutGeneration.current !== generation) return;
+      const status = err instanceof ApiError ? err.status : (err as { status?: number } | null)?.status;
+      if (status === 401) {
+        // Session déjà invalide : même traitement qu'un 401 sur toute autre route.
+        finishLogout();
+        return;
+      }
+      // La session distante peut encore être valable : garder le jeton et le
+      // shell, et laisser l'utilisateur choisir révocation ou déconnexion locale.
+      logoutBusy.current = false;
+      setLogoutState("failed");
+    }
+  }, [finishLogout]);
 
   const onDirectoryStateChange = useCallback((directory: AppUrlState["directory"]) => {
     setUrlState((prev) => {
@@ -785,30 +886,21 @@ export default function App() {
     });
   }, []);
 
-  const onTodayFamily = useCallback((family: string | null) => {
-    setUrlState((prev) => (prev.today.family === family ? prev : { ...prev, today: { ...prev.today, family } }));
-  }, []);
-  const onTodayDept = useCallback((dept: string | null) => {
-    setUrlState((prev) => (prev.today.dept === dept ? prev : { ...prev, today: { ...prev.today, dept } }));
-  }, []);
-
   const copyDirectoryLink = useCallback(() => {
     if (typeof window === "undefined") return;
     const url = shareableUrl(urlState, window.location.origin, window.location.pathname);
     void navigator.clipboard?.writeText(url).catch(() => {});
   }, [urlState]);
 
-  const onUnauthorized = useCallback(() => {
-    setToken(null);
-    setError(null);
-    clearAuthToken();
-  }, []);
-
   /** Connexion réussie : mémorise le jeton puis relance le chargement. */
   const onAuthenticated = useCallback((fresh: string) => {
+    logoutGeneration.current += 1;
+    logoutBusy.current = false;
     setAuthToken(fresh);
     setToken(fresh);
     setError(null);
+    setLogoutState("idle");
+    setLogoutForced(false);
   }, []);
 
   const affectedController = useRef<AbortController | null>(null);
@@ -842,28 +934,39 @@ export default function App() {
   }, []);
   useEffect(() => () => affectedController.current?.abort(), []);
 
-
   const inspectorOpen =
     selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
 
-  // Le fil n'est utile qu'aux vues spatiales. Ailleurs, chaque écran garde
+  // Le fil n'est utile qu'à la Carte. Ailleurs, chaque destination garde
   // toute la largeur : pas de colonne permanente qui parasite la lecture.
-  const feedVisible = view === "map" || view === "graph";
+  const feedVisible = view === "map";
   const [feedOpen, setFeedOpen] = useState(true);
   const feedState = !feedVisible ? "none" : feedOpen ? "open" : "rail";
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
   // l'écran de connexion est rendu, aucune requête authentifiée ne part.
   if (!token && !MOCK_MODE) return (
-    <Suspense fallback={<ViewSkeleton />}>
-      <LoginScreen onAuthenticated={onAuthenticated} />
-    </Suspense>
+    <>
+      {logoutForced ? (
+        <p className="shell__error" role="alert" aria-live="assertive">
+          Session distante encore active : la déconnexion locale ne l'a pas révoquée.
+        </p>
+      ) : null}
+      <Suspense fallback={<ViewSkeleton />}>
+        <LoginScreen onAuthenticated={onAuthenticated} />
+      </Suspense>
+    </>
   );
 
   return (
     <ExportProvider>
-    <div className="shell">
-      <a className="skip-link" href="#main">Aller au contenu</a>
+    <div className="shell" data-view={view}>
+      <Button
+        type="button"
+        className="skip-link"
+        label="Aller au contenu"
+        onClick={() => mainRef.current?.focus()}
+      />
       {MOCK_MODE ? (
         <Banner status="info" container="section" title="Mode démonstration, données simulées" />
       ) : null}
@@ -877,58 +980,23 @@ export default function App() {
         <TopNav
           className="rail__nav"
           label="Navigation principale"
-          startContent={NAV_GROUPS.map((group) => {
-            const active = group.items.includes(view);
-            if (group.items.length === 1) {
-              const id = group.items[0];
-              return (
-                <TopNavItem
-                  key={group.label}
-                  label={group.label}
-                  href={toHash({ ...urlState, view: id })}
-                  isSelected={active}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    navigate(id);
-                  }}
-                >
-                  {id === "alerts" && unseenAlerts > 0 ? (
-                    <span className="rail__nav-label">
-                      {group.label}
-                      <Badge variant="error" label={String(unseenAlerts)} />
-                    </span>
-                  ) : undefined}
-                </TopNavItem>
-              );
-            }
-            return (
-              <TopNavMenu
-                key={group.label}
-                label={group.label}
-                data-active={active ? "true" : undefined}
-                aria-current={active ? "page" : undefined}
-                items={group.items.map((id) => ({
-                  title: VIEW_LABELS[id],
-                  description: id === "today" ? "Synthèse du jour et activité récente"
-                    : id === "coverage" ? "Couverture territoriale et sources"
-                    : id === "na" ? "Vue régionale détaillée"
-                    : id === "affected" ? "Recherche par organisation ou commune"
-                    : id === "review" ? "File de revue et décisions"
-                    : id === "journal" ? "Journal des décisions et preuves"
-                    : id === "corpus" ? "Corpus d'incidents et archivage"
-                    : id === "dossier" ? "Dossier d'analyse consolidé"
-                    : id === "sources" ? "Registre des sources"
-                    : id === "sources-dashboard" ? "Indicateurs de collecte"
-                    : id === "health" ? "Santé et causes d'indisponibilité"
-                    : id === "map" ? "Carte territoriale et temporelle"
-                    : id === "graph" ? "Relations et graphe temporel"
-                    : "Annuaire des organisations",
-                  href: toHash({ ...urlState, view: id }),
-                  onClick: () => navigate(id),
-                }))}
-              />
-            );
-          })}
+          startContent={VIEW_ORDER.map((id) => (
+            <TopNavItem
+              key={id}
+              label={VIEW_LABELS[id]}
+              href={toHash({ ...urlState, view: id })}
+              isSelected={view === id}
+              aria-current={view === id ? "page" : undefined}
+              onClick={(event) => { event.preventDefault(); navigate(id); }}
+            >
+              {id === "action" && unseenAlerts > 0 ? (
+                <span className="rail__nav-label">
+                  {VIEW_LABELS[id]}
+                  <Badge variant="error" label={String(unseenAlerts)} />
+                </span>
+              ) : undefined}
+            </TopNavItem>
+          ))}
         />
 
         <span className="rail__spacer" />
@@ -936,24 +1004,19 @@ export default function App() {
         <Button label="Rechercher ⌘K" variant="ghost" size="sm" onClick={() => setPaletteOpen(true)} />
         <ExportMenu />
 
-        {view === "map" ? (
-          <button
-            type="button"
-            className="rail__toggle"
-            aria-pressed={basemap === "sat"}
-            onClick={() => setBasemap(basemap === "sat" ? "plan" : "sat")}
-          >
-            {basemap === "sat" ? "satellite" : "plan"}
-          </button>
-        ) : null}
-
         <span className="rail__live" data-on={connected}>
           <i aria-hidden="true" />
           {connected ? "flux direct" : "flux interrompu"}
         </span>
 
         {token ? (
-          <Button label="Déconnexion" variant="ghost" size="sm" onClick={onUnauthorized} />
+          <Button
+            label={logoutState === "pending" ? "Déconnexion…" : "Déconnexion"}
+            variant="ghost"
+            size="sm"
+            isDisabled={logoutState === "pending"}
+            onClick={() => void onLogout()}
+          />
         ) : null}
       </header>
 
@@ -963,9 +1026,7 @@ export default function App() {
         unseen={unseenAlerts}
         soundOn={soundOn}
         onToggleSound={toggleSound}
-        onOpenAlerts={() => {
-          navigate("alerts");
-        }}
+        onOpenAlerts={() => { navigate("action"); }}
         onDismiss={() => {
           setLiveAlerts([]);
           setUnseenAlerts(0);
@@ -974,6 +1035,13 @@ export default function App() {
       </Suspense>
 
       {error ? <p className="shell__error" role="alert" aria-live="assertive">API : {error}</p> : null}
+      {logoutState === "failed" ? (
+        <div className="shell__error" role="alert" aria-live="assertive">
+          <span>Session distante encore active : la révocation a échoué, vous restez connecté.</span>
+          <Button label="Réessayer" variant="ghost" size="sm" onClick={() => void onLogout()} />
+          <Button label="Se déconnecter quand même" variant="ghost" size="sm" onClick={() => finishLogout(true)} />
+        </div>
+      ) : null}
       {/* Offline first: the cache age replaces the live claim; an API error
           with no offline event still reports stale snapshot data. */}
       {offline ? (() => {
@@ -1060,168 +1128,91 @@ export default function App() {
           </button>
         )}
 
-        <main className="shell__stage" id="main">
+        <main className="shell__stage" id="main" ref={mainRef} tabIndex={-1}>
           <Suspense fallback={<ViewSkeleton />}>
-          {view === "today" ? (
-            <TodayView
-              data={todayData}
-              loading={todayLoading}
-              error={todayError}
-              family={urlState.today.family}
-              dept={urlState.today.dept}
-              onFamily={onTodayFamily}
-              onDept={onTodayDept}
-              departements={statsDepartements}
-              onRetry={recharger}
-              onOpenOrg={openOrgSheet}
-              onOpenEvent={(id) => {
-                setSelectedEventId(id);
-                setSelectedOrgId(null);
-                setSheetOrgId(null);
-              }}
-            />
-          ) : null}
-          {view === "coverage" ? (
-            <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
-          ) : null}
           {view === "map" ? (
-            <div className="map-view">
-              <Map3D
-                orgs={orgs}
-                events={mapEvents}
-                families={family ? [family] : undefined}
-                flows={flows}
-                live
-                basemap={basemap}
-                onSelect={handleSelectOrg}
-                onSelectEvent={(id) => {
-                  setSelectedEventId(id);
-                  setSelectedOrgId(null);
-                }}
-              />
-              <MapTimeline
-                buckets={mapBuckets}
-                selected={mapBucket}
-                shown={mapEvents.length}
-                total={mapTotal}
-                loading={mapLoading}
-                onSelect={setMapBucket}
-              />
-              <MapLegend families={filtered.map((e) => e.family)} />
-            </div>
-          ) : null}
-
-          {view === "graph" ? (
-            <GraphView
-              nodes={graph.nodes}
-              links={graph.links}
-              eventsById={eventsById}
-              orgsById={orgsById}
-              sourcesById={sourcesById}
-              onSelect={(id) => {
-                if (id) handleSelectOrg(id);
-              }}
-              theme="observatoire"
-              loading={loading}
-              temporal={temporalGraph}
-            />
-          ) : null}
-
-          {view === "directory" ? (
-            <DirectoryView
+            <MapWorkspace
               orgs={orgs}
+              events={events}
               loading={loading}
               error={error}
-              onOpenOrg={openOrgSheet}
-              server={!MOCK_MODE}
-              urlState={urlState.directory}
-              onUrlStateChange={onDirectoryStateChange}
-              onCopyLink={copyDirectoryLink}
               onRetry={recharger}
+              flows={flows}
+              basemap={basemap}
+              onBasemapChange={setBasemap}
+              mapBuckets={mapBuckets}
+              mapBucket={mapBucket}
+              onMapBucketChange={setMapBucket}
+              mapEvents={mapEvents}
+              mapTotal={mapTotal}
+              mapLoading={mapLoading}
+              family={family}
+              onFamily={setFamily}
+              onOpenOrg={openOrgSheet}
+              onOpenEvent={openEventInspector}
+              initialPanel={urlState.mapPanel}
+              onPanelChange={setMapPanel}
+              coverage={{ data: couvertureData, loading: couvertureLoading, error: couvertureError }}
+              regional={{
+                overview: naOverview, fil: naFil, dept: urlState.naDept,
+                onSelectDept: setNaDept, loading, error,
+              }}
+              affected={{
+                report: affectedReport, loading: affectedLoading, error: affectedError,
+                query: affectedQuery, onQueryChange: setAffectedQuery, onSubmit: onAffectedSubmit,
+              }}
+              graph={{ graph, temporal: temporalGraph, eventsById, orgsById, sourcesById }}
+              directory={{
+                urlState: urlState.directory, onUrlStateChange: onDirectoryStateChange,
+                onCopyLink: copyDirectoryLink, server: !MOCK_MODE,
+              }}
+              attributions={{ data: attributionsData, loading: attributionsLoading, error: attributionsError }}
             />
           ) : null}
 
-          {view === "review" ? (
-            <ReviewView
+          {view === "action" ? (
+            <ActionWorkspace
+              initialTab={urlState.actionTab}
+              onTabChange={setActionTab}
               canWrite={Boolean(token)}
               server={!MOCK_MODE}
               onUnauthorized={onUnauthorized}
+              onOpenEvent={openEventInspector}
               onOpenOrg={openOrgSheet}
+              refreshSignal={alertSignal}
               urlState={urlState.review}
               onUrlStateChange={onReviewStateChange}
             />
           ) : null}
-          {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
-          {view === "corpus" ? (
-            <>
-              <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
-              {MOCK_MODE ? null : <WarcProofCard />}
-            </>
-          ) : null}
-          {view === "attributions" ? (
-            <ActorAttributionsView data={attributionsData} loading={attributionsLoading} error={attributionsError} />
-          ) : null}
-          {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
-          {view === "sources-dashboard" ? (
-            <SourcesDashboardView
-              data={sourcesDashboardData}
-              loading={sourcesDashboardLoading}
-              error={sourcesDashboardError}
-            />
-          ) : null}
-
-          {view === "health" ? (
-            // Le stage est un item de grille en block : deux vues empilées n'y
-            // tiennent pas. Ce conteneur donne à chacune sa place — le résumé
-            // garde 40 % au plus, le tableau prend le reste et défile.
-            <div className="health-ecran">
-              <div className="health-ecran__resume">
-                <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
-              </div>
-              <HealthView sources={sources} loading={loading} onRetry={recharger} />
-            </div>
-          ) : null}
-
-          {view === "dossier" ? <DossierView /> : null}
-
-          {view === "na" ? (
-            <NaView
-              orgs={orgs}
-              overview={naOverview}
-              fil={naFil}
+          {view === "sources" ? (
+            <SourcesWorkspace
+              sources={sources}
               loading={loading}
               error={error}
-              dept={urlState.naDept}
-              onSelectDept={(d) => setUrlState((prev) => (prev.naDept === d ? prev : { ...prev, naDept: d }))}
-              onOpenOrg={setSheetOrgId}
               onRetry={recharger}
+              metrics={collecteMetrics}
+              metricsLoading={metricsLoading}
+              metricsError={metricsError}
+              healthDetail={healthDetail}
+              healthCauses={healthCauses}
+              healthLoading={loading}
+              healthError={error}
+              corpusData={corpusData}
+              corpusLoading={corpusLoading}
+              corpusError={corpusError}
+              initialTab={urlState.sourcesTab}
+              onTabChange={setSourcesTab}
             />
           ) : null}
 
-          {view === "alerts" ? (
-            <AlertsView
-              refreshSignal={alertSignal}
-              canWrite={Boolean(token)}
+          {view === "journal" ? (
+            <JournalWorkspace
+              tab={urlState.journalTab}
+              onTabChange={setJournalTab}
               onUnauthorized={onUnauthorized}
-              onOpenEvent={(id) => {
-                setSelectedEventId(id);
-                setSelectedOrgId(null);
-              }}
             />
           ) : null}
-
-          {view === "affected" ? (
-            <AffectedView
-              report={affectedReport}
-              loading={affectedLoading}
-              error={affectedError}
-              query={affectedQuery}
-              onQueryChange={setAffectedQuery}
-              onSubmit={onAffectedSubmit}
-            />
-          ) : null}
-
           </Suspense>
         </main>
 
@@ -1252,11 +1243,7 @@ export default function App() {
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
         onOpenOrg={openOrgSheet}
-        onOpenEvent={(id) => {
-          setSelectedEventId(id);
-          setSelectedOrgId(null);
-          setSheetOrgId(null);
-        }}
+        onOpenEvent={openEventInspector}
         mock={MOCK_MODE ? { orgs, events } : null}
       />
       </Suspense>

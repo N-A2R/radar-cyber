@@ -1,10 +1,12 @@
 import type { PoolClient } from "pg";
 import { Pool } from "pg";
 
-if (process.env.NODE_ENV === "production" && !process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is required in production");
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+	// Aucune cible implicite : une URL par défaut masquerait une configuration
+	// manquante et pourrait écrire dans une base locale non prévue (SEC-03).
+	throw new Error("DATABASE_URL is required (no implicit local fallback)");
 }
-const connectionString = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
 
 /**
  * Deux pools séparés, volontairement.

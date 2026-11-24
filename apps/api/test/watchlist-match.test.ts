@@ -11,6 +11,7 @@
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `wm${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const SOURCE_ID = `test-watchlist-match-${TAG}`;
@@ -64,7 +65,7 @@ before(async () => {
 
 after(async () => {
   if (watchlistId) await query("DELETE FROM watchlist WHERE id=$1", [watchlistId]);
-  if (EVENT_IDS.length) await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [EVENT_IDS]);
+  if (EVENT_IDS.length) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [EVENT_IDS]);
   if (ORG_IDS.length) {
     await query("DELETE FROM alert WHERE rule_id='watchlist' AND org_id = ANY($1::int[])", [ORG_IDS]);
     await query("DELETE FROM org WHERE id = ANY($1::int[])", [ORG_IDS]);

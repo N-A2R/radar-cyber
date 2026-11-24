@@ -1,19 +1,28 @@
 # radar-report.service — rapport hebdomadaire Radar Cyber.
 #
-# Unité autonome : elle n'utilise aucun jeton @...@ rendu par install.sh, elle
-# est installée telle quelle dans ~/.config/systemd/user/. Voir docs/operations.md.
+# install.sh remplace @REPO@ et @PATH@ puis écrit l'unité rendue dans
+# ~/.config/systemd/user/. Modèle versionné : aucun chemin absolu, aucun secret.
 [Unit]
 Description=Radar Cyber — rapport hebdomadaire (HTML + Markdown)
-Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+Documentation=file:@REPO@/docs/operations.md
 After=network-online.target postgresql.service
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/jolt/radar-cyber/apps/api
-# PATH figé : systemd --user n'hérite pas de la session (node installé via mise).
-Environment=PATH=/home/jolt/.local/share/mise/shims:/home/jolt/.local/share/mise/installs/node/latest/bin:/usr/local/bin:/usr/bin:/bin
+WorkingDirectory=@REPO@/apps/api
+# PATH figé : systemd --user n'hérite pas du PATH de la session (node via mise).
+Environment=PATH=@PATH@
 Environment=HOME=%h
-Environment=DATABASE_URL=postgres://radar:radar@localhost:5432/radar
-ExecStart=/usr/bin/env bash /home/jolt/radar-cyber/scripts/report-weekly.sh
+EnvironmentFile=%h/.config/radar-cyber/api-security.env
+ExecStart=/usr/bin/env bash @REPO@/scripts/report-weekly.sh
 Nice=10
+IOSchedulingClass=idle
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+LockPersonality=true
+UMask=0077

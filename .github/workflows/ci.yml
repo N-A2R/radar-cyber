@@ -5,21 +5,152 @@ on:
     branches: [main]
   pull_request:
 
-# Une branche qui pousse plusieurs fois de suite annule ses runs perimes.
-# main n'est jamais annule : chaque etat de main doit etre verifie.
+permissions:
+  contents: read
+
+# Une branche qui pousse plusieurs fois de suite annule ses runs périmés.
+# main n'est jamais annulé : chaque état de main doit être vérifié.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-jobs:
-  verify:
-    runs-on: ubuntu-latest
+# Nombre de shards API : identique à la matrix `api-tests` et au plan vérifié
+# par `shard-files.ts --list --check`.
+env:
+  API_SHARDS: "6"
 
-    # Les tests API (detect, quarantine, alerts) écrivent dans PostgreSQL :
-    # la base de test est créée et migrée avant la suite.
+jobs:
+  # Contrats, typechecks et migrations : aucune base nécessaire.
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Contrat hors base (en premier)
+        run: |
+          ./apps/api/node_modules/.bin/tsx --test \
+            apps/api/test/contract-admit.test.ts \
+            apps/api/test/contract-families.test.ts
+
+      - name: Typechecks (API, web, tests, SDK)
+        run: |
+          pnpm -F @radar/api typecheck
+          pnpm -F @radar/web typecheck
+          pnpm typecheck:tests
+          pnpm typecheck:sdk
+
+      - name: Tests migrations et outillage
+        run: pnpm test:migrations
+
+      - name: Plan des shards API (sans base)
+        run: |
+          ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
+            --shards="$API_SHARDS" --list --check
+
+  # Chaque matrix job a son propre service PostgreSQL et `test/run.ts` y crée
+  # une base jetable dédiée : une base par shard, aucun état partagé.
+  # fail-fast: false laisse tous les verdicts s'exprimer ; un shard en échec
+  # fait échouer la matrix, puis le job agrégateur `verify`.
+  api-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6]
+
     services:
       postgres:
-        image: postgres:17-alpine
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
+        env:
+          POSTGRES_USER: radar
+          POSTGRES_PASSWORD: radar
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U radar -d radar"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://radar:radar@localhost:5432/radar
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Fichiers du shard ${{ matrix.shard }}
+        run: |
+          ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
+            --shards="$API_SHARDS" --index=${{ matrix.shard }} > /tmp/api-shard.txt
+          # Sans garde, `run.ts` sans argument lancerait toute la suite.
+          test -s /tmp/api-shard.txt || { echo "shard ${{ matrix.shard }} vide" >&2; exit 1; }
+          echo "$(wc -l < /tmp/api-shard.txt) fichier(s) — shard ${{ matrix.shard }}/$API_SHARDS"
+
+      - name: Tests API (shard ${{ matrix.shard }})
+        shell: bash
+        working-directory: apps/api
+        run: |
+          mapfile -t files < /tmp/api-shard.txt
+          ./node_modules/.bin/tsx test/run.ts "${files[@]}"
+
+  web-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests web (Vitest, jsdom, rendu)
+        run: |
+          pnpm -F @radar/web run test:unit
+          pnpm -F @radar/web run test:offline-pwa
+          pnpm -F @radar/web run test:render
+          pnpm -F @radar/web run test:dom
+          pnpm -F @radar/web run storybook:coverage
+
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests web de bout en bout (Playwright)
+        run: |
+          pnpm -F @radar/web exec playwright install --with-deps chromium
+          pnpm -F @radar/web run test:e2e
+
+  sdks-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests SDK TypeScript et Python
+        run: pnpm test:sdks
+
+      - name: Tests Python du socle
+        run: pnpm test:python
+
+  provenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # La mesure porte sur une base jetable migrée puis peuplée d'une fixture
+    # NA déterministe : le jeu réel ne peut pas être cloné dans le CI.
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
         env:
           POSTGRES_USER: radar
           POSTGRES_PASSWORD: radar
@@ -37,9 +168,69 @@ jobs:
 
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Schéma et migrations (base de mesure)
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
+          pnpm migrate
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
+
+      - name: Fixture Nouvelle-Aquitaine (provenance réelle, sans donnée personnelle)
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/fixtures/provenance-ci.sql
+
+      - name: Provenance sur mesure fraîche (blocking)
+        run: |
+          pnpm provenance:measure:ci
+          pnpm provenance:check:ci
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Build web
+        run: pnpm -F @radar/web build
+
+  # Rejoue l'installation par le chemin qu'emprunte un humain : `pnpm setup`.
+  # Le job verify appliquait autrefois le schéma par psql et contournait
+  # scripts/migrate.mts : il ne voyait ni l'amorçage mensonger ni le défaut de
+  # résolution de `pg`. Un socle ne se vérifie qu'en le rejouant depuis le vide,
+  # puis une seconde fois pour l'idempotence et sur une base COPIÉE.
+  socle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
+        env:
+          POSTGRES_USER: radar
+          POSTGRES_PASSWORD: radar
+          POSTGRES_DB: socle
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U radar -d socle"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://radar:radar@localhost:5432/socle
+      ADMIN_URL: postgres://radar:radar@localhost:5432/postgres
+      RADAR_ADMIN_PASSWORD: ci-jetable-sans-secret
+      RADAR_ADMIN_EMAIL: ci@radar.local
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: pnpm
-        uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
         with:
           version: 12.15.0
 
@@ -49,30 +240,110 @@ jobs:
           node-version: 24
 
       - name: Installation des dépendances
+        run: pnpm install --frozen-lockfile --store-dir .pnpm-store
+
+      - name: Bootstrap depuis une base vide
+        run: pnpm setup
+
+      - name: Diagnostic (doit annoncer toutes les étapes en place)
         run: |
-          rm -rf node_modules apps/*/node_modules packages/*/node_modules
-          pnpm install --frozen-lockfile --store-dir .pnpm-store
+          set -o pipefail
+          pnpm setup:check | tee /tmp/socle-diagnostic.txt
+          grep -Eq 'référentiel NA +[1-9][0-9]* orgs / [0-9]+ alias' /tmp/socle-diagnostic.txt
 
-      - name: Schéma et migrations (base de test)
+      - name: Rejeu (idempotence)
         run: |
-          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/schema.sql
-          for f in db/migrate-*.sql; do
-            echo "→ $f"
-            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"
-          done
-          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
-          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
+          pnpm setup > /tmp/rejeu.txt 2>&1
+          cat /tmp/rejeu.txt
+          grep -E 'sources .*\(\+0\)' /tmp/rejeu.txt
+          test "$(grep -Ec 'référentiel NA +[1-9][0-9]* orgs / [0-9]+ alias' /tmp/rejeu.txt)" -ge 1
+          reference_before="$(sed -nE 's/.*référentiel NA +([0-9]+) orgs \/ ([0-9]+) alias.*/\1 \2/p' /tmp/socle-diagnostic.txt)"
+          reference_after="$(sed -nE 's/.*référentiel NA +([0-9]+) orgs \/ ([0-9]+) alias.*/\1 \2/p' /tmp/rejeu.txt)"
+          test -n "$reference_before"
+          test "$reference_before" = "$reference_after"
 
-      - name: Typecheck API
-        run: pnpm -F @radar/api typecheck
+      - name: Base copiée — migrations sans rejeu destructif
+        env:
+          COPIE_URL: postgres://radar:radar@localhost:5432/socle_copie
+        run: |
+          psql "$ADMIN_URL" -v ON_ERROR_STOP=1 -c \
+            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='socle' AND pid <> pg_backend_pid();"
+          psql "$ADMIN_URL" -v ON_ERROR_STOP=1 -c "CREATE DATABASE socle_copie TEMPLATE socle"
+          DATABASE_URL="$COPIE_URL" pnpm migrate > /tmp/copie-migrate.txt 2>&1
+          cat /tmp/copie-migrate.txt
+          grep -q 'Aucune migration en attente' /tmp/copie-migrate.txt
+          RADAR_DB_INTEGRATION=1 DATABASE_URL="$COPIE_URL" pnpm test:migrations
 
-      - name: Typecheck web
-        run: pnpm -F @radar/web typecheck
+      - name: Plan du référentiel (sans écriture)
+        run: ./apps/api/node_modules/.bin/tsx scripts/load-referentiel-na.mts --plan-only
 
-      - name: Tests API
-        run: pnpm -F @radar/api test
-      - name: Provenance gate (blocking)
-        run: pnpm provenance:check
+  # Portes de configuration : elles échouent avant tout test si la chaîne
+  # d'approvisionnement régresse (audit de production, images, compose).
+  supply-chain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Valeurs jetables : `docker compose config` vérifie les variables
+      # obligatoires sans secrets réels.
+      POSTGRES_PASSWORD: ci-jetable-sans-secret
+      RADAR_AUDIT_PEPPER: ci-jetable-sans-secret
 
-      - name: Build web
-        run: pnpm -F @radar/web build
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          version: 12.15.0
+
+      - name: Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+
+      - name: Audit de production (bloquant)
+        run: pnpm audit --prod --audit-level=high
+
+      - name: Validation des fichiers Docker et Compose
+        run: |
+          docker compose -f docker-compose.yml config --quiet
+          docker compose -f docker-compose.yml --profile tor config --quiet
+          docker build --check -f apps/api/Dockerfile .
+          docker build --check -f apps/web/Dockerfile .
+          docker build --check -f docker/tor/Dockerfile .
+
+  # Nom conservé pour la protection de branche : agrège TOUTES les étapes,
+  # y compris `socle` et `supply-chain` qui restent bloquantes. `always()`
+  # garantit un verdict même lorsqu'une étape a échoué ou été annulée.
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: always()
+    needs:
+      - contracts
+      - api-tests
+      - web-unit
+      - playwright
+      - sdks-python
+      - provenance
+      - build
+      - socle
+      - supply-chain
+
+    steps:
+      - name: Toutes les étapes requises doivent être vertes
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e '
+            const results = JSON.parse(process.env.RESULTS);
+            const failing = Object.entries(results)
+              .filter(([, value]) => value.result !== "success")
+              .map(([name, value]) => `${name}:${value.result}`);
+            if (failing.length) {
+              console.error(`Étapes non vertes : ${failing.join(", ")}`);
+              process.exitCode = 1;
+            } else {
+              console.log("Toutes les étapes requises sont vertes.");
+            }
+          '

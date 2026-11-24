@@ -14,10 +14,11 @@
  * des seuls indices demandés : aucun chargement global, mémoire bornée.
  *
  * Fraîcheur : un snapshot est invalidé par `resetReviewIndexes`, appelé après
- * une écriture du référentiel. L'ancien snapshot sert jusqu'à ce que le
- * nouveau soit prêt ; les indices déjà couverts sont conservés.
+ * une écriture du référentiel. Une génération empêche une reconstruction
+ * déjà lancée de publier un snapshot périmé dans ce cas-là.
  */
 import { query } from "../db.js";
+import { resetIndexSigles } from "../match/sigles.js";
 import {
 	MIN_ALIAS_LENGTH,
 	normalize,
@@ -219,18 +220,34 @@ async function construire(hints: readonly string[]): Promise<ReviewSnapshot> {
 }
 
 let snapshot: ReviewSnapshot | null = null;
-let enCours: Promise<ReviewSnapshot> | null = null;
+let enCours: Promise<ReviewSnapshot | null> | null = null;
 /** Une écriture du référentiel demande un nouveau snapshot ; l'ancien reste servi. */
 let perime = false;
+/** Incrémenté à chaque reset : une construction observant une ancienne valeur ne publie pas. */
+let generation = 0;
 
-async function construireEtStocker(hints: readonly string[]): Promise<ReviewSnapshot> {
+async function construireEtStocker(
+	hints: readonly string[],
+	gen: number,
+): Promise<ReviewSnapshot | null> {
 	const neuf = await construire(hints);
+	// Une écriture référentielle est survenue pendant la lecture : publier ce
+	// snapshot rendrait le nouveau candidat invisible indéfiniment.
+	if (gen !== generation) return null;
 	snapshot = neuf;
 	perime = false;
 	memoMatch.clear();
 	// Les indices demandés sont déjà chargés : le préchauffage est gratuit.
 	for (const hint of hints) hintMatch(hint);
 	return neuf;
+}
+
+function demarrerConstruction(cibles: readonly string[]): Promise<ReviewSnapshot | null> {
+	const construction = construireEtStocker(cibles, generation).finally(() => {
+		if (enCours === construction) enCours = null;
+	});
+	enCours = construction;
+	return construction;
 }
 
 /**
@@ -245,20 +262,21 @@ export async function reviewSnapshot(hints: readonly string[] = []): Promise<Rev
 		memoMatch.clear();
 		return neuf;
 	}
-	const manquants = demandes.filter((h) => !snapshot?.covered.has(h));
-	if (snapshot && !perime && manquants.length === 0) return snapshot;
-	if (enCours) {
-		// Une seule construction à la fois : on attend puis on réévalue.
-		const neuf = await enCours.catch(() => null);
-		if (neuf && !perime && demandes.every((h) => neuf.covered.has(h))) return neuf;
-		if (!neuf && snapshot) return snapshot;
+	// Au plus trois constructions : un reset concurrent rend la première
+	// obsolète, une panne DB ne doit pas faire boucler la route indéfiniment.
+	for (let tentative = 0; tentative < 3; tentative++) {
+		const manquants = demandes.filter((h) => !snapshot?.covered.has(h));
+		if (snapshot && !perime && manquants.length === 0) return snapshot;
+		if (enCours) {
+			const neuf = await enCours.catch(() => null);
+			if (neuf && demandes.every((h) => neuf.covered.has(h))) return neuf;
+		}
+		const cibles = [...new Set([...(snapshot?.covered ?? []), ...demandes])];
+		const neuf = await demarrerConstruction(cibles).catch(() => null);
+		if (neuf && demandes.every((h) => neuf.covered.has(h))) return neuf;
 	}
-	const cibles = [...new Set([...(snapshot?.covered ?? []), ...demandes])];
-	enCours = construireEtStocker(cibles).finally(() => {
-		enCours = null;
-	});
-	return snapshot ?? enCours;
-
+	if (snapshot) return snapshot;
+	throw new Error("index de revue indisponible");
 }
 
 /**
@@ -269,14 +287,10 @@ export async function reviewSnapshot(hints: readonly string[] = []): Promise<Rev
 export function snapshotRevueSiPret(hints: readonly string[] = []): ReviewSnapshot | null {
 	if (!reviewIndexCacheActif()) return null;
 	const demandes = [...new Set(hints.map((h) => h.trim()).filter(Boolean))];
-	if (snapshot && demandes.every((h) => snapshot!.covered.has(h))) return snapshot;
+	if (snapshot && !perime && demandes.every((h) => snapshot!.covered.has(h))) return snapshot;
 	if (!enCours) {
 		const cibles = [...new Set([...(snapshot?.covered ?? []), ...demandes])];
-		const construction = construireEtStocker(cibles).finally(() => {
-			enCours = null;
-		});
-		enCours = construction;
-		void construction.catch(() => {
+		void demarrerConstruction(cibles).catch(() => {
 			// La prochaine requête relancera la construction.
 		});
 	}
@@ -308,8 +322,11 @@ export async function prechaufferIndexRevue(): Promise<void> {
  * jusqu'à ce que le nouveau soit prêt : une reconstruction ne vide jamais la file.
  */
 export function resetReviewIndexes(): void {
-	if (!reviewIndexCacheActif() || enCours) return;
+	// Même pendant une construction : sa génération est déjà capturée et elle
+	// ne publiera plus son snapshot une fois le compteur incrémenté.
+	generation++;
 	perime = true;
+	resetIndexSigles();
 	void reviewSnapshot([...(snapshot?.covered ?? [])]).catch(() => {
 		// Une reconstruction ratée laissera le prochain appel réessayer.
 	});

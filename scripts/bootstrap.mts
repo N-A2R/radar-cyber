@@ -22,6 +22,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import { listMigrations } from "../db/migration-order.mts";
 
 // pnpm cloisonne les dépendances : `pg` vit dans apps/api, pas à la racine.
 // Même idiome que scripts/import-entreprises-na.mts.
@@ -90,23 +91,32 @@ async function main(): Promise<void> {
 		// --- Migrations -----------------------------------------------------
 		// Le runner maison (scripts/migrate.mts) garde la table de suivi ; on
 		// l'appelle plutôt que de réimplémenter l'ordre et l'amorçage ici.
-		const migrations = readdirSync(DB_DIR).filter((f) => /^migrate-.*\.sql$/.test(f)).sort();
-		const tracking = await client.query<{ present: boolean }>(
-			"SELECT to_regclass('public.schema_migrations') IS NOT NULL AS present",
-		);
-		let applied = 0;
-		if (tracking.rows[0].present) {
-			const r = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM schema_migrations");
-			applied = Number(r.rows[0].n);
-		}
-		if (applied >= migrations.length) {
-			report("migrations", true, `${applied}/${migrations.length} appliquées`);
+		// La sentinelle posée par docker-compose désactive l'amorçage du runner :
+		// elle ne compte pas comme une migration appliquée.
+		const migrations = listMigrations(DB_DIR);
+		const sentinel = "__container_bootstrap__";
+		const appliedVersions = async (): Promise<Set<string>> => {
+			const tracking = await client.query<{ present: boolean }>(
+				"SELECT to_regclass('public.schema_migrations') IS NOT NULL AS present",
+			);
+			if (!tracking.rows[0].present) return new Set();
+			const r = await client.query<{ version: string }>("SELECT version FROM schema_migrations");
+			return new Set(r.rows.map((row) => row.version).filter((v) => v !== sentinel));
+		};
+		const countApplied = (applied: Set<string>): number =>
+			migrations.filter((v) => applied.has(v)).length;
+		const applied = await appliedVersions();
+		const count = countApplied(applied);
+		if (count === migrations.length) {
+			report("migrations", true, `${count}/${migrations.length} appliquées`);
 		} else if (CHECK) {
-			report("migrations", false, `${applied}/${migrations.length} — lancez scripts/migrate.mts`);
+			const missing = migrations.filter((v) => !applied.has(v));
+			report("migrations", false,
+				`${count}/${migrations.length} — manquantes : ${missing.slice(0, 3).join(", ")}${missing.length > 3 ? "…" : ""}`);
 		} else {
 			await runScript("scripts/migrate.mts");
-			const r = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM schema_migrations");
-			report("migrations", true, `${r.rows[0].n}/${migrations.length} appliquées`);
+			const after = countApplied(await appliedVersions());
+			report("migrations", after === migrations.length, `${after}/${migrations.length} appliquées`);
 		}
 
 		// --- Inventaire CT (sous-domaines) ----------------------------------

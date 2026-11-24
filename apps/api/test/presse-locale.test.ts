@@ -17,12 +17,14 @@ import assert from "node:assert/strict";
 import { createServer, type Server } from "node:http";
 import { FAMILIES } from "@radar/shared";
 import { createTestDatabase, dropTestDatabase, type TestDb } from "./helpers/testdb.js";
+import { fetchResilient } from "../src/collectors/http.js";
+
 // Imports de types uniquement : effacés à la compilation, ils ne chargent pas
 // `db.ts` avant que le test ait choisi sa base.
-import type * as DbModule from "../src/db.js";
-import type * as GenericModule from "../src/collectors/generic.js";
-import type * as ClassifyModule from "../src/collectors/classify.js";
-import type * as CorpusModule from "../src/routes/corpus-stats.js";
+type DbModule = typeof import("../src/db.js");
+type GenericModule = typeof import("../src/collectors/generic.js");
+type ClassifyModule = typeof import("../src/collectors/classify.js");
+type CorpusModule = typeof import("../src/routes/corpus-stats.js");
 
 let db: DbModule;
 let generic: GenericModule;
@@ -91,7 +93,12 @@ test("le collecteur écrit presse_locale, son département, et une assertion non
 			[sourceId, `Presse locale de test ${sourceId}`, `http://127.0.0.1:${adresse.port}/flux.xml`],
 		);
 
-		await generic.runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		// Le client HTTP refuse les hôtes privés par défaut : le serveur local
+		// du test est explicitement autorisé, comme dans dedup-evenements.
+		const fluxLocal = (url: string): Promise<string> =>
+			fetchResilient(url, { allowPrivate: true }).then((res) => res.text);
+
+		await generic.runGenericSources(() => {}, { sourceIds: [sourceId], force: true, fetchTexte: fluxLocal });
 
 		const { rows } = await db.query<{
 			dedup_key: string;
@@ -144,7 +151,9 @@ test("le collecteur écrit presse_locale, son département, et une assertion non
 			serveur.close((err) => (err ? ferme.reject(err) : ferme.resolve()));
 			await ferme.promise;
 		}
-		await db.query("DELETE FROM event WHERE source_id=$1", [sourceId]).catch(() => {});
+		// Import différé : db.ts lit DATABASE_URL au chargement (voir `before`).
+		const { supprimerEvenementsArchivees } = await import("./helpers/archive-delete.js");
+		await supprimerEvenementsArchivees("source_id=$1", [sourceId]).catch(() => {});
 		await db.query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]).catch(() => {});
 		await db.query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
 	}

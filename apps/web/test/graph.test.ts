@@ -9,6 +9,7 @@ import {
   NODE_RADIUS_MAX,
   NODE_RADIUS_MIN,
   nodeRadius,
+  observedTime,
   selectNeighborhood,
   type GraphData,
   type GraphEventInfo,
@@ -16,6 +17,7 @@ import {
   type GraphNode,
   type GraphSourceInfo,
 } from '../src/graph/graphModel';
+import { parseEventTime } from '../src/map/timeline';
 
 const NOW = Date.parse('2026-11-21T12:00:00Z');
 const iso = (daysAgo: number) => new Date(NOW - daysAgo * 86_400_000).toISOString();
@@ -201,5 +203,29 @@ describe('graph at 500 nodes', () => {
     console.log(
       `[graph perf] 500 nodes / ${graph.links.length} links: build ${buildMs.toFixed(1)} ms, filter ${filterMs.toFixed(1)} ms`,
     );
+  });
+});
+
+describe('PostgreSQL timestamps in the graph', () => {
+  it('shares the map parser for PostgreSQL offsets', () => {
+    const pg = '2026-11-21 15:00:00+01';
+    expect(observedTime(pg)).toBe(parseEventTime(pg));
+    expect(observedTime(pg)).toBe(Date.parse('2026-11-21T15:00:00+01:00'));
+    expect(observedTime('not-a-date')).toBeNull();
+  });
+
+  it('excludes unparsable dates from every rolling window', () => {
+    const graph: GraphData = {
+      nodes: [
+        { id: 'event:recent', label: 'PG récent', kind: 'event', observedAt: '2026-11-21 15:00:00+01' },
+        { id: 'event:old', label: 'PG ancien', kind: 'event', observedAt: '2026-10-01 08:00:00+01' },
+        { id: 'event:broken', label: 'Date illisible', kind: 'event', observedAt: '21/11/2026 15:00' },
+      ],
+      links: [],
+    };
+    for (const days of [7, 30, 90]) {
+      const ids = filterGraph(graph, { periodDays: days, now: NOW }).nodes.map((node) => node.id);
+      expect(ids).toEqual(days === 90 ? ['event:recent', 'event:old'] : ['event:recent']);
+    }
   });
 });

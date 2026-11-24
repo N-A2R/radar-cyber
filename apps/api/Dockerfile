@@ -2,13 +2,10 @@
 #
 # API Fastify (@radar/api) — runtime = `tsx src/server.ts`.
 #
-# tsx est une devDependency du package : l'installation n'est donc PAS élaguée
-# (`--prod=false` implicite), sinon le conteneur ne démarre pas. On limite
-# seulement le périmètre au workspace @radar/api (+ @radar/shared).
-#
-# L'image sert aussi au one-shot `migrate` (même code, `db/` embarqué).
+# tsx est une dépendance runtime explicite; les devDependencies (TypeScript,
+# types, ajv) sont élaguées. L'image sert aussi au one-shot `migrate`.
 
-FROM node:24-alpine AS base
+FROM node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 AS base
 RUN apk add --no-cache tini
 RUN corepack enable
 WORKDIR /app
@@ -20,12 +17,15 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/shared/package.json packages/shared/
 COPY apps/api/package.json apps/api/
 RUN --mount=type=cache,id=pnpm-api-store,target=/root/.cache/pnpm \
-    pnpm install --frozen-lockfile --filter @radar/api...
+    pnpm install --prod --frozen-lockfile --store-dir /root/.cache/pnpm --filter @radar/api...
 
 # Image finale : sources + node_modules, utilisateur non-root.
-FROM base AS runtime
+FROM node:24-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 AS runtime
 ENV NODE_ENV=production
-RUN addgroup -g 10001 -S radar && adduser -u 10001 -S -G radar -h /app -s /sbin/nologin radar
+RUN apk add --no-cache tini \
+    && addgroup -g 10001 -S radar \
+    && adduser -u 10001 -S -G radar -h /app -s /sbin/nologin radar
+WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules
@@ -47,4 +47,4 @@ COPY scripts/migrate.mts scripts/migrate.mts
 USER radar
 EXPOSE 8080
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["pnpm", "--filter", "@radar/api", "start"]
+CMD ["/app/apps/api/node_modules/.bin/tsx", "/app/apps/api/src/server.ts"]

@@ -1,3 +1,4 @@
+import { assertPublicDomain, fetchBoundedJson } from "../security/network.js";
 // Certificats via crt.sh. HTTP 200 + JSON array.
 
 const TIMEOUT_MS = 8000;
@@ -18,21 +19,19 @@ interface CrtShEntry {
 
 /** `timeoutMs` : crt.sh dépasse souvent 8 s (28 s observés) — la découverte d'actifs allonge. */
 export async function certificatesFor(domain: string, timeoutMs = TIMEOUT_MS): Promise<CertInfo[]> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeoutMs);
-  try {
-    const res = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`, { signal: ctrl.signal });
-    if (!res.ok) return [];
-    const j: unknown = await res.json();
-    if (!Array.isArray(j)) return [];
-    return j.slice(0, 50).map((raw) => {
-      const c = raw as CrtShEntry;
-      return {
-        name: c.name_value ?? c.common_name ?? "",
-        issuer: c.issuer_name ?? "",
-        notBefore: c.not_before ?? "",
-        notAfter: c.not_after ?? "",
-      };
-    });
-  } finally { clearTimeout(t); }
+  const cible = assertPublicDomain(domain);
+  const j = await fetchBoundedJson<unknown>(`https://crt.sh/?q=${encodeURIComponent(cible)}&output=json`, {
+    timeoutMs,
+    maxBytes: 512_000,
+  });
+  if (!Array.isArray(j)) throw new Error("crt.sh : réponse JSON inattendue");
+  return j.slice(0, 50).map((raw): CertInfo => {
+    const c = (raw && typeof raw === "object" ? raw : {}) as CrtShEntry;
+    return {
+      name: c.name_value ?? c.common_name ?? "",
+      issuer: c.issuer_name ?? "",
+      notBefore: c.not_before ?? "",
+      notAfter: c.not_after ?? "",
+    };
+  });
 }

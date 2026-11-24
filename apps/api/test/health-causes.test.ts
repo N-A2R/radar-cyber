@@ -10,6 +10,7 @@ import { randomBytes } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import healthCausesRoute, { type HealthCauses } from "../src/routes/health-causes.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `hc${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -55,7 +56,7 @@ before(async () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id = ANY($1)", [ALL_IDS]);
+  await supprimerEvenementsArchivees("source_id = ANY($1::text[])", [ALL_IDS]);
   await query("DELETE FROM collector_run WHERE source_id = ANY($1)", [ALL_IDS]);
   await query("DELETE FROM source WHERE id = ANY($1)", [ALL_IDS]);
   await app.close();

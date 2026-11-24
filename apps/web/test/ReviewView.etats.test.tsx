@@ -2,9 +2,9 @@
 /**
  * Revue — un seul état de file à la fois.
  *
- * Le défaut constaté : quand /api/review/queue ne répond pas, l'écran montrait
- * simultanément « 0 affichées sur 0 dans la file » (état vide) et un squelette
- * de chargement qui ne s'arrêtait jamais. Ces deux tests prouvent que le
+ * Le défaut constaté : quand /api/quarantine/queue ne répond pas, l'écran
+ * montrait simultanément « 0 affichées sur 0 dans la file » (état vide) et un
+ * squelette de chargement qui ne s'arrêtait jamais. Ces tests prouvent que le
  * composant quitte le chargement au bout du délai, ou dès le rejet, et laisse
  * une action « Réessayer » qui relance réellement la requête.
  */
@@ -18,17 +18,23 @@ testGlobals.IS_REACT_ACT_ENVIRONMENT = true;
 
 function row(id: number, hint: string): RevueRow {
   return {
-    id, source: "jeu-test", sourceUrl: null, groupe: null, orgHint: hint,
+    id, source: "jeu-test", sourceUrl: "https://exemple.test/a", groupe: null, orgHint: hint,
     claimedAt: "2026-11-10T12:00:00Z", receivedAt: "2026-11-10T10:00:00Z", tlp: "AMBER",
-    triage: { score: 42, bucket: "tiede", suggested: "review", reasons: [] },
-    candidates: [{ id: 100 + id, name: `Organisation ${id}`, score: 0.8, via: "domain", city: null, dept: null }],
-    rejectRule: null, city: null, dept: null, review: [],
+    status: "pending", promoted: false, promotedBy: null, promotedAt: null, hasDescription: false,
+    triage: {
+      score: 42, bucket: "tiede", suggested: "review", reasons: [],
+      declaredCountry: null, domainOnly: false, disagreement: false, referentialGap: false,
+    },
+    org: null, orgConfidence: null, review: [], candidates: [],
+    rejectRule: null, city: null, dept: null,
   };
 }
 
 const queue: RevueQueue = {
   rows: [row(11, "Commune de Pessac")], total: 1, page: 0, limit: 50,
-  window: 500, truncated: false, counts: { pending: 1 }, tookMs: 4,
+  window: 500, truncated: false,
+  facets: { source: [], groupe: [], bucket: [], status: [] },
+  counts: { pending: 1, reviewed: 0, rejected: 0, promoted: 0 }, tookMs: 4,
 };
 
 function response(body: unknown, status = 200): Response {
@@ -85,14 +91,14 @@ describe("ReviewView — un seul état à la fois", () => {
     expect(host.querySelector(".revue__empty")).toBeNull();
   });
 
-  it("affiche une promesse rejetée, puis Réessayer relance et rend la file", async () => {
+  it("affiche un rejet du serveur, puis Réessayer relance et rend la file", async () => {
     const fetchMock = vi.fn()
-      .mockRejectedValueOnce(new Error("panne réseau"))
+      .mockResolvedValueOnce(response({ error: "queue unavailable" }, 400))
       .mockResolvedValueOnce(response(queue));
     vi.stubGlobal("fetch", fetchMock);
     await mount();
 
-    expect(host.querySelector(".revue__error")?.textContent).toContain("panne réseau");
+    expect(host.querySelector(".revue__error")?.textContent).toContain("HTTP 400");
     expect(host.querySelector(".revue__retry")).not.toBeNull();
     expect(host.textContent).not.toContain("Chargement de la file de revue…");
     expect(host.textContent).not.toContain("affichées sur");
@@ -103,6 +109,7 @@ describe("ReviewView — un seul état à la fois", () => {
     await flush();
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls.every(([url]) => String(url).includes("/api/quarantine/queue"))).toBe(true);
     expect(host.querySelector(".revue__error")).toBeNull();
     expect(host.querySelector(".revue__results")?.textContent).toContain("1 affichées sur 1");
     expect(host.textContent).toContain("Commune de Pessac");

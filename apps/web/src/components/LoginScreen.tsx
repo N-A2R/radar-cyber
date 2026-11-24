@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { api } from "../api";
+import { api, type DeptStat, type Stats, type StatsDepartements } from "../api";
 import "./login.css";
 import { Button } from "@astryxdesign/core/Button";
 import { Card } from "@astryxdesign/core/Card";
@@ -51,13 +51,37 @@ const CARTE_NA: Readonly<Record<string, string>> = {
 
 const NOMBRE = new Intl.NumberFormat("fr-FR");
 
-type StatsPubliques = {
-  sources?: { total?: unknown };
-};
+/**
+ * La bande lit exactement les contrats publics du serveur : `GET /api/stats`
+ * et `GET /api/today/departements` (24 h, champs `dept` / `evenements`).
+ * `/api/stats/departements` est la fenêtre 7 jours, avec d'autres noms de
+ * champs : l'utiliser ici donnait une bande toujours vide.
+ */
+function estStats(valeur: unknown): valeur is Stats {
+  if (!valeur || typeof valeur !== "object") return false;
+  const sources = (valeur as Partial<Stats>).sources;
+  return Boolean(sources && typeof sources.total === "number" && Number.isFinite(sources.total) && sources.total >= 0);
+}
 
-type DepartementsPubliques = {
-  departements?: Array<{ departement?: unknown; evenements7j?: unknown }>;
-};
+function estStatsDepartements(valeur: unknown): valeur is StatsDepartements {
+  if (!valeur || typeof valeur !== "object") return false;
+  const lignes = (valeur as Partial<StatsDepartements>).departements;
+  if (!Array.isArray(lignes)) return false;
+  return lignes.every((ligne: unknown) => {
+    if (!ligne || typeof ligne !== "object") return false;
+    const dept = (ligne as Partial<DeptStat>).dept;
+    const evenements = (ligne as Partial<DeptStat>).evenements;
+    return typeof dept === "string" && typeof evenements === "number" && Number.isFinite(evenements);
+  });
+}
+
+/** Réponse HTTP et contrat vérifiés séparément : un 500 n'est pas un schéma faux. */
+async function lireContrat<T>(reponse: Response, valide: (valeur: unknown) => valeur is T): Promise<T> {
+  if (!reponse.ok) throw new Error(`HTTP ${reponse.status}`);
+  const corps: unknown = await reponse.json();
+  if (!valide(corps)) throw new Error("contrat inattendu");
+  return corps;
+}
 
 function entier(valeur: unknown): number | null {
   return typeof valeur === "number" && Number.isFinite(valeur) && valeur >= 0
@@ -66,9 +90,9 @@ function entier(valeur: unknown): number | null {
 }
 
 /**
- * Charge la bande de faits en silence : les deux routes sont publiques, et
- * un échec (hors ligne, API arrêtée, schéma inattendu) ne rend rien du tout —
- * ni trou, ni message d'erreur sur un écran de connexion.
+ * Charge la bande de faits en silence : un échec réseau, un statut HTTP ou un
+ * schéma inattendu n'affichent jamais de chiffre inventé sur l'écran de
+ * connexion. L'annulation (démontage) n'est pas traitée comme une erreur.
  */
 function useFaits(): Faits | null {
   const [faits, setFaits] = useState<Faits | null>(null);
@@ -80,34 +104,23 @@ function useFaits(): Faits | null {
     async function charger(): Promise<void> {
       try {
         const [stats, departements] = await Promise.all([
-          fetch("/api/stats", { signal }).then((r) => {
-            if (!r.ok) throw new Error(`stats → ${r.status}`);
-            return r.json() as Promise<StatsPubliques>;
-          }),
-          fetch("/api/stats/departements", { signal }).then((r) => {
-            if (!r.ok) throw new Error(`departements → ${r.status}`);
-            return r.json() as Promise<DepartementsPubliques>;
-          }),
+          fetch("/api/stats", { signal }).then((r) => lireContrat(r, estStats)),
+          fetch("/api/today/departements", { signal }).then((r) => lireContrat(r, estStatsDepartements)),
         ]);
-
-        const sources = entier(stats?.sources?.total);
-        const lignes = Array.isArray(departements?.departements)
-          ? departements.departements
-          : null;
-        if (sources === null || lignes === null) return;
 
         let incidents7j = 0;
         let couverts = 0;
-        for (const ligne of lignes) {
-          const code = ligne?.departement;
-          const evenements = entier(ligne?.evenements7j);
-          if (typeof code !== "string" || DEPTS_NA[code] !== true || evenements === null) continue;
+        for (const ligne of departements.departements) {
+          if (DEPTS_NA[ligne.dept] !== true) continue;
+          const evenements = entier(ligne.evenements);
+          if (evenements === null) continue;
           incidents7j += evenements;
           if (evenements > 0) couverts += 1;
         }
-        setFaits({ sources, incidents7j, departements: couverts });
+        setFaits({ sources: stats.sources.total, incidents7j, departements: couverts });
       } catch {
-        // Repli silencieux : la bande n'existe pas.
+        if (signal.aborted) return;
+        setFaits(null);
       }
     }
 

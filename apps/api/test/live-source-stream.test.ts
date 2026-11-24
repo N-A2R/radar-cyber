@@ -9,6 +9,7 @@ import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query } from "../src/db.js";
 import { listLiveSources, liveTickMs } from "../src/collecte/live.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `live${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const IDS = {
@@ -79,6 +80,6 @@ test("the trigger records publication-to-record latency at insert time", async (
 
 after(async () => {
   await query("DELETE FROM source_live_item WHERE source_id = ANY($1::text[])", [Object.values(IDS)]).catch(() => {});
-  await query("DELETE FROM event WHERE source_id = ANY($1::text[])", [Object.values(IDS)]).catch(() => {});
+  await supprimerEvenementsArchivees("source_id = ANY($1::text[])", [Object.values(IDS)]).catch(() => {});
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [Object.values(IDS)]).catch(() => {});
 });

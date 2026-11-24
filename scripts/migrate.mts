@@ -2,29 +2,24 @@
 /**
  * Migration runner PostgreSQL (déterministe).
  *
- * - Applique `db/migrate-*.sql` triés lexicographiquement.
+ * - Applique `db/migrate-*.sql` dans l'ordre (`préfixe numérique`, `nom`),
+ *   jamais par `localeCompare` brut (voir db/migration-order.mts).
  * - Table de suivi : `schema_migrations (version text primary key, applied_at timestamptz default now())`.
- * - Amorçage **conditionnel** : les migrations listées dans SEED_APPLIED ne
- *   sont marquées appliquées que si la base porte la trace de leur exécution
- *   passée. Sur une base neuve, elles sont jouées normalement.
- *
- *   Piège corrigé au chantier « socle » : l'amorçage était inconditionnel dès
- *   que la table de suivi était absente ou vide. Sur un dépôt neuf, il
- *   marquait 17 migrations comme faites sans les exécuter, puis la première
- *   migration suivante échouait sur `relation "org_alias" does not exist`.
- *   Les tests ne le voyaient pas : ils appliquent les migrations directement,
- *   sans passer par ce runner.
- * - Chaque migration s'applique dans une transaction et n'est enregistrée
- *   qu'après succès.
+ * - Chaque migration tourne dans UNE transaction portée par le runner ; la
+ *   version est insérée AVANT le commit. Les `BEGIN;`/`COMMIT;` écrits pour
+ *   psql dans 127 fichiers sont retirés avant exécution (voir stripTransactionControl).
+ *   Un crash ne peut donc plus laisser une migration appliquée non suivie.
+ * - Les versions appliquées en production dont le SQL n'a jamais été versionné
+ *   sont des tombstones (db/migration-order.mts) : aucun rejeu destructeur.
  *
  * Usage:
- *   npx tsx scripts/migrate.mts             # applique les migrations en attente
- *   npx tsx scripts/migrate.mts --dry-run   # liste sans rien modifier
+ *   DATABASE_URL=postgres://… npx tsx scripts/migrate.mts
+ *   DATABASE_URL=postgres://… npx tsx scripts/migrate.mts --dry-run
  */
-
-import { readdirSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createRequire } from "node:module";
+import { listMigrations, REPAIR_VERSIONS, stripTransactionControl } from "../db/migration-order.mts";
 
 // pnpm cloisonne les dépendances : `pg` est installé dans apps/api, pas à la
 // racine. Sans ce require ciblé, le script échoue en ERR_MODULE_NOT_FOUND
@@ -34,15 +29,15 @@ const pg = require("pg") as typeof import("pg");
 
 const { Client } = pg;
 
-const DATABASE_URL = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
+const DATABASE_URL = process.env.DATABASE_URL;
+if (!DATABASE_URL) {
+  console.error("DATABASE_URL est obligatoire : refus de migrer une base implicite (port 5432 par défaut).");
+  process.exit(1);
+}
 const DB_DIR = join(process.cwd(), "db");
 const DRY_RUN = process.argv.includes("--dry-run");
 
-/**
- * Migrations historiquement appliquées à la main (constatées en base).
- * Sert à amorcer `schema_migrations` au premier lancement pour éviter
- * tout rejeu. On conserve le nom de fichier tel qu'il existe dans db/.
- */
+/** Migrations historiquement appliquées à la main (base historique recognisable). */
 const SEED_APPLIED: string[] = [
   "migrate-002.sql",
   "migrate-003-dates.sql",
@@ -70,27 +65,34 @@ const SCORE_BASELINE_APPLIED = [
   "migrate-225-org-score-referentiel.sql",
 ];
 
-function listMigrations(): string[] {
-  return readdirSync(DB_DIR)
-    .filter((f) => /^migrate-.*\.sql$/.test(f))
-    .sort((a, b) => a.localeCompare(b, "en"));
-}
+/** Marqueurs du schéma final : permettent de reconnaître une base copiée dont
+ * l'historique a été perdu, sans rejouer les migrations destructrices. */
+const FINAL_SCHEMA_OBJECTS = [
+  "public.org_alias",
+  "public.quarantine_raw",
+  "public.archive_event",
+  "public.event_archive",
+  "public.org_unknown",
+  "public.negative_attestation",
+  "public.campaign_precursor_eval",
+  "public.eval_fdr",
+  "public.enrich_job",
+  "public.alert_load_daily",
+];
 
 async function main(): Promise<void> {
-  // La cible est dite à voix haute : le défaut est le port 5432, alors que la
-  // base de dev tourne sur 5433. Sans cette ligne, on juge une migration sur la
-  // mauvaise base et l'échec ressemble à un défaut de schéma.
+  // La cible est dite à voix haute, SANS identifiants : les journaux systemd
+  // contenaient 12 lignes avec l'URL PostgreSQL complète (audit sécurité).
   const cible = (() => {
     const u = new URL(DATABASE_URL);
     return `${u.hostname}:${u.port || "5432"}${u.pathname}`;
   })();
-  console.log(`Cible : ${cible}${process.env.DATABASE_URL ? " (DATABASE_URL)" : " (défaut)"}`);
+  console.log(`Cible : ${cible} (DATABASE_URL)`);
   const client = new Client({ connectionString: DATABASE_URL });
   await client.connect();
   try {
-    const all = listMigrations();
+    const all = listMigrations(DB_DIR);
 
-    // Détecte si la table existe déjà et si elle est vide (pour l'amorçage).
     const tableRes = await client.query<{ exists: boolean }>(
       `SELECT to_regclass('public.schema_migrations') IS NOT NULL AS exists`,
     );
@@ -106,19 +108,38 @@ async function main(): Promise<void> {
       trackingEmpty = applied.size === 0;
     }
 
-    // L'amorçage ne vaut que pour une base historique reprise en main : on
-    // exige la trace des objets que ces migrations créent. `org_alias` vient
-    // de migrate-014a, `quarantine_raw` de migrate-007. Base neuve => aucun
-    // des deux => on joue tout, dans l'ordre.
-    const legacy = await client.query<{ org_alias: boolean; quarantine: boolean }>(
-      `SELECT to_regclass('public.org_alias') IS NOT NULL AS org_alias,
-              to_regclass('public.quarantine_raw') IS NOT NULL AS quarantine`,
+    const objects = await client.query<{ name: string; present: boolean }>(
+      `SELECT o.name, to_regclass(o.name) IS NOT NULL AS present
+         FROM unnest($1::text[]) AS o(name)`,
+      [FINAL_SCHEMA_OBJECTS],
     );
-    const isLegacy = legacy.rows[0]?.org_alias === true && legacy.rows[0]?.quarantine === true;
-    // Une base peut porter le schéma final mais avoir perdu son historique de
-    // migrations (restauration/copie). Rejouer 225 serait destructeur : cette
-    // migration vide org_score avant recalcul. On n'adopte donc ces versions
-    // que si la colonne ET la clé composite sont déjà présentes.
+    const present = new Set(
+      objects.rows.filter((r) => r.present).map((r) => r.name),
+    );
+    const isLegacy = present.has("public.org_alias") && present.has("public.quarantine_raw");
+    const finalSchema = FINAL_SCHEMA_OBJECTS.every((name) => present.has(name));
+
+    // Historique perdu sur une base déjà au schéma final : on adopte toutes
+    // les versions ANTÉRIEURES AUX RÉPARATIONS, puis on joue les réparations.
+    // Sans ce garde-fou, le runner rejouait des migrations destructrices
+    // (DELETE/TRUNCATE) sur une copie dont la table de suivi était vide.
+    let recovered = 0;
+    if ((!tableExists || trackingEmpty) && finalSchema) {
+      for (const v of all) {
+        if (!REPAIR_VERSIONS.includes(v)) {
+          applied.add(v);
+          recovered += 1;
+        }
+      }
+    }
+
+    // Base historique partielle : amorçage conservatif (les 17 premières).
+    const needsSeed = !finalSchema && (!tableExists || trackingEmpty) && isLegacy;
+    const seedVersions = needsSeed ? SEED_APPLIED.filter((v) => all.includes(v)) : [];
+    for (const v of seedVersions) applied.add(v);
+
+    // Ancienne copie dont l'historique a perdu les trois versions org_score :
+    // on ne les adopte que si la colonne ET la clé composite sont déjà là.
     const scoreSchema = await client.query<{ referentiel: boolean; composite_key: boolean }>(
       `SELECT
          EXISTS (
@@ -136,13 +157,9 @@ async function main(): Promise<void> {
     const scoreBaseline = scoreSchema.rows[0]?.referentiel === true
       && scoreSchema.rows[0]?.composite_key === true;
     const baselineVersions = scoreBaseline
-      ? SCORE_BASELINE_APPLIED.filter((v) => all.includes(v))
+      ? SCORE_BASELINE_APPLIED.filter((v) => all.includes(v) && !applied.has(v))
       : [];
     for (const v of baselineVersions) applied.add(v);
-    const needsSeed = (tableExists ? trackingEmpty : true) && isLegacy;
-
-    const seedVersions = needsSeed ? SEED_APPLIED.filter((v) => all.includes(v)) : [];
-    for (const v of seedVersions) applied.add(v);
 
     const pending = all.filter((v) => !applied.has(v));
     const already = all.filter((v) => applied.has(v));
@@ -150,6 +167,9 @@ async function main(): Promise<void> {
     if (DRY_RUN) {
       console.log(`--dry-run: aucune modification.`);
       console.log(`Table schema_migrations: ${tableExists ? "présente" : "absente (serait créée)"}`);
+      if (recovered > 0) {
+        console.log(`Schéma final sans historique : ${recovered} version(s) seraient adoptées, hors réparations.`);
+      }
       if (needsSeed) {
         console.log(`Amorçage prévu (base historique reconnue): ${seedVersions.length} migration(s)`);
       } else if (!tableExists || trackingEmpty) {
@@ -173,59 +193,33 @@ async function main(): Promise<void> {
       )
     `);
 
-    if (needsSeed) {
-      for (const v of seedVersions) {
+    if (recovered > 0 || seedVersions.length > 0 || baselineVersions.length > 0) {
+      for (const v of [...all.filter((version) => applied.has(version))]) {
         await client.query(
           "INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT DO NOTHING",
           [v],
         );
       }
-      if (seedVersions.length > 0) {
-        console.log(`Amorçage: ${seedVersions.length} migration(s) marquée(s) appliquée(s).`);
-      }
+      console.log(`Historique réconcilié: ${recovered + seedVersions.length + baselineVersions.length} version(s) adoptée(s).`);
     }
 
-    if (baselineVersions.length > 0) {
-      for (const v of baselineVersions) {
-        await client.query(
-          "INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT DO NOTHING",
-          [v],
-        );
-      }
-      console.log(`Historique réparé: ${baselineVersions.length} migration(s) org_score déjà présentes en base.`);
-    }
-
-    // Une transaction PAR migration, pas une pour tout le lot. Deux raisons,
-    // constatées au chantier « socle » :
-    //  1. migrate-021 et migrate-022 contiennent leur propre BEGIN/COMMIT
-    //     (écrits pour psql). Dans une transaction englobante, leur COMMIT
-    //     validait le travail déjà fait : un échec plus loin laissait une base
-    //     à moitié migrée et une table de suivi qui mentait.
-    //  2. Le contrat annoncé est « chaque migration dans une transaction,
-    //     enregistrée après succès ». C'est ce que fait cette boucle : un
-    //     échec arrête net, et le suivi reflète exactement ce qui est passé.
     for (const v of pending) {
-      const sql = readFileSync(join(DB_DIR, v), "utf8");
-      // Certaines migrations (021, 022) ont été écrites pour `psql` et portent
-      // leur propre BEGIN/COMMIT. On ne réécrit PAS leur SQL : le retirer par
-      // regex casse les blocs PL/pgSQL (un `END;` y ferme un bloc, pas une
-      // transaction) et les expressions contenant des `$`. On les laisse
-      // therefore piloter leur transaction, et on n'ouvre la nôtre que pour
-      // les fichiers muets.
-      //
-      // Distinction fiable : en SQL transactionnel on écrit `BEGIN;` avec le
-      // point-virgule ; en PL/pgSQL le `BEGIN` d'un bloc n'en porte pas.
-      const selfTransactional =
-        /^\s*BEGIN\s*;\s*$/im.test(sql) && /^\s*COMMIT\s*;\s*$/im.test(sql);
-      console.log(`Applying ${v}...${selfTransactional ? " (transaction fournie)" : ""}`);
-      if (!selfTransactional) await client.query("BEGIN");
+      const sql = stripTransactionControl(readFileSync(join(DB_DIR, v), "utf8"));
+      console.log(`Applying ${v}...`);
+      await client.query("BEGIN");
       try {
         await client.query(sql);
+        // La version fait partie du MÊME commit que le SQL : un crash ne peut
+        // pas laisser une migration appliquée mais non suivie.
         await client.query("INSERT INTO schema_migrations (version) VALUES ($1)", [v]);
-        if (!selfTransactional) await client.query("COMMIT");
+        await client.query("COMMIT");
         console.log(`  OK ${v}`);
       } catch (err) {
-        if (!selfTransactional) await client.query("ROLLBACK");
+        try {
+          await client.query("ROLLBACK");
+        } catch {
+          // Le BEGIN lui-même peut avoir échoué : rien à annuler.
+        }
         console.error(`  ÉCHEC ${v} — aucune version enregistrée pour cette migration.`);
         console.error(`  Les migrations précédentes restent appliquées ; corrigez puis relancez.`);
         throw err;
@@ -236,6 +230,11 @@ async function main(): Promise<void> {
       console.log("Aucune migration en attente.");
     } else {
       console.log(`Terminé: ${pending.length} migration(s) appliquée(s).`);
+      // Les chargements massifs laissent des statistiques obsolètes (F10).
+      await client.query("ANALYZE event");
+      await client.query("ANALYZE org");
+      await client.query("ANALYZE org_unknown");
+      console.log("Statistiques rafraîchies (ANALYZE).");
     }
   } finally {
     await client.end();

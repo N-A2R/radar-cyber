@@ -22,7 +22,6 @@ const ErrorEnvelope = z.strictObject({
     details: z.unknown(),
   }),
 });
-const PgDetails = z.object({ constraint: z.string(), detail: z.string() });
 
 let app: FastifyInstance;
 
@@ -89,22 +88,20 @@ test("codes et messages distincts derrière la même enveloppe", async () => {
   assert.equal(assertErrorShape(conflictRes.json(), 409).code, "CONFLICT");
 });
 
-test("23505 (doublon) devient 409 DUPLICATE_KEY", async () => {
+test("23505 (doublon) devient 409 DUPLICATE_KEY sans détails Postgres", async () => {
   const res = await app.inject({ method: "POST", url: "/probe/duplicate" });
   assert.equal(res.statusCode, 409, res.body);
   const error = assertErrorShape(res.json(), 409);
   assert.equal(error.code, "DUPLICATE_KEY");
-  const details = PgDetails.parse(error.details);
-  assert.match(details.constraint, /email/);
-  assert.match(details.detail, /already exists/);
+  assert.doesNotMatch(res.body, /constraint|already exists|app_user_email_key/);
 });
 
-test("23503 (clé étrangère) devient 422 FOREIGN_KEY_VIOLATION", async () => {
+test("23503 (clé étrangère) devient 422 FOREIGN_KEY_VIOLATION sans détails Postgres", async () => {
   const res = await app.inject({ method: "POST", url: "/probe/fk" });
   assert.equal(res.statusCode, 422, res.body);
   const error = assertErrorShape(res.json(), 422);
   assert.equal(error.code, "FOREIGN_KEY_VIOLATION");
-  assert.equal(typeof PgDetails.parse(error.details).constraint, "string");
+  assert.doesNotMatch(res.body, /constraint|violates foreign key/);
 });
 
 test("une erreur inattendue reste dans la même enveloppe", async () => {

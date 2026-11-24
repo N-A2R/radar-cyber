@@ -274,7 +274,9 @@ export default function AffectedView({
         </Card>
       ) : null}
 
-      <div className="affected__stage" aria-live="polite">
+      {/* Une seule région live : les états enfants portent role=status/alert,
+          le conteneur ne doit pas réannoncer leur contenu. */}
+      <div className="affected__stage">
         {loading ? (
           <div className="affected__loading" role="status">
             <span className="affected__spinner" aria-hidden="true" />

@@ -1,5 +1,5 @@
 {
-  "dateCalcul": "2026-11-22",
+  "dateCalcul": "2026-11-21",
   "hashCorpus": "fee9681c3869baffa645ac20b1679edb82c45597433185923734c4cdf0397c26",
   "fenetre": {
     "debut": "2024-04-19",
@@ -7,13 +7,13 @@
   },
   "sequenceCorpus": "stable",
   "base": {
-    "derniere_collecte": "2026-11-22",
-    "derniere_execution": "2026-11-21",
-    "evenements": 27899,
-    "evenements_archives": 4710,
-    "sources": 463,
-    "organisations": "1673220",
-    "empreinte": "e2ad03ba4407d3d134d3108187dd7983fdb6f9c51167c38e9c4160ef84ffb3a1"
+    "derniere_collecte": "2026-11-21",
+    "derniere_execution": null,
+    "evenements": 1,
+    "evenements_archives": 0,
+    "sources": 75,
+    "organisations": "4",
+    "empreinte": "08380a0e47358d8f327d2867d54e2f2b3bc12544a4526b8efea5415f695edf6e"
   },
   "publication": {
     "publiable": true,
@@ -224,6 +224,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -231,6 +232,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -238,6 +240,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -245,6 +248,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -252,6 +256,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -259,6 +264,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -279,7 +285,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -320,6 +326,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -327,6 +334,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -334,6 +342,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -341,6 +350,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -348,6 +358,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -355,6 +366,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -362,6 +374,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -369,6 +382,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -376,6 +390,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -383,6 +398,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -390,6 +406,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -397,6 +414,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -404,6 +422,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -424,7 +443,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -472,6 +491,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -479,6 +499,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -486,6 +507,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -493,6 +515,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -500,6 +523,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -507,6 +531,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -514,6 +539,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -521,6 +547,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -528,6 +555,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -535,6 +563,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -542,6 +571,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -549,6 +579,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -556,6 +587,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -576,7 +608,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -624,6 +656,7 @@
           "id": "eco-charentelibre",
           "nom": "Charente Libre Économie (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -631,6 +664,7 @@
           "id": "presse-charentelibre",
           "nom": "Charente Libre (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -651,7 +685,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "charentelibre.fr",
             "charente libre",
@@ -688,6 +722,7 @@
           "id": "corpus:ici-poitou-infos-rss",
           "nom": "ICI Poitou — infos (RSS)",
           "famille": "radio",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -695,6 +730,7 @@
           "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
           "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -702,6 +738,7 @@
           "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
           "nom": "ici Landes (40) — actualités et podcasts Radio France",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -709,6 +746,7 @@
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -716,6 +754,7 @@
           "id": "presse-ici-limousin-infos",
           "nom": "ICI Limousin — infos (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -736,7 +775,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ici.fr",
             "ici radio france",
@@ -776,6 +815,7 @@
           "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
           "nom": "La Nouvelle République — Vienne (flux RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -783,6 +823,7 @@
           "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
           "nom": "La Nouvelle République des Pyrénées — Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -790,6 +831,7 @@
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -797,6 +839,7 @@
           "id": "presse-lnr-vienne",
           "nom": "La Nouvelle République — Vienne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -804,6 +847,7 @@
           "id": "public-title:na-quotidien-015",
           "nom": "Public title feed — La Nouvelle République — général",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -824,7 +868,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "lanouvellerepublique.fr",
             "la nouvelle republique",
@@ -864,6 +908,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -871,6 +916,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -878,6 +924,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -885,6 +932,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -892,6 +940,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -899,6 +948,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -906,6 +956,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -913,6 +964,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -920,6 +972,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -927,6 +980,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -934,6 +988,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -941,6 +996,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -948,6 +1004,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -968,7 +1025,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -1016,6 +1073,7 @@
           "id": "eco-charentelibre",
           "nom": "Charente Libre Économie (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1023,6 +1081,7 @@
           "id": "presse-charentelibre",
           "nom": "Charente Libre (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1043,7 +1102,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "charentelibre.fr",
             "charente libre",
@@ -1080,6 +1139,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1087,6 +1147,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1094,6 +1155,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1101,6 +1163,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1108,6 +1171,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1115,6 +1179,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1122,6 +1187,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1129,6 +1195,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1136,6 +1203,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1143,6 +1211,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1150,6 +1219,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1157,6 +1227,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1164,6 +1235,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1184,7 +1256,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -1232,6 +1304,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1239,6 +1312,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1246,6 +1320,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1253,6 +1328,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1260,6 +1336,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1267,6 +1344,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1287,7 +1365,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -1328,6 +1406,7 @@
           "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
           "nom": "La Nouvelle République — Vienne (flux RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1335,6 +1414,7 @@
           "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
           "nom": "La Nouvelle République des Pyrénées — Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1342,6 +1422,7 @@
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1349,6 +1430,7 @@
           "id": "presse-lnr-vienne",
           "nom": "La Nouvelle République — Vienne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1356,6 +1438,7 @@
           "id": "public-title:na-quotidien-015",
           "nom": "Public title feed — La Nouvelle République — général",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1376,7 +1459,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "lanouvellerepublique.fr",
             "la nouvelle republique",
@@ -1416,6 +1499,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1423,6 +1507,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1430,6 +1515,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1437,6 +1523,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1444,6 +1531,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1451,6 +1539,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1458,6 +1547,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1465,6 +1555,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1472,6 +1563,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1479,6 +1571,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1486,6 +1579,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1493,6 +1587,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1500,6 +1595,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1520,7 +1616,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -1568,6 +1664,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1575,6 +1672,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1582,6 +1680,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1589,6 +1688,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1596,6 +1696,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1603,6 +1704,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1623,7 +1725,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -1664,6 +1766,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1671,6 +1774,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1678,6 +1782,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1685,6 +1790,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1692,6 +1798,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1699,6 +1806,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1706,6 +1814,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1713,6 +1822,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1720,6 +1830,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1727,6 +1838,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1734,6 +1846,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1741,6 +1854,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1748,6 +1862,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1768,7 +1883,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -1828,7 +1943,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "reussir.fr",
             "reussir fr",
@@ -1862,6 +1977,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1869,6 +1985,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1876,6 +1993,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1883,6 +2001,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1890,6 +2009,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1897,6 +2017,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -1917,7 +2038,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -1958,6 +2079,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1965,6 +2087,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1972,6 +2095,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1979,6 +2103,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1986,6 +2111,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -1993,6 +2119,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2013,7 +2140,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -2054,6 +2181,7 @@
           "id": "corpus:ici-poitou-infos-rss",
           "nom": "ICI Poitou — infos (RSS)",
           "famille": "radio",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2061,6 +2189,7 @@
           "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
           "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2068,6 +2197,7 @@
           "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
           "nom": "ici Landes (40) — actualités et podcasts Radio France",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2075,6 +2205,7 @@
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2082,6 +2213,7 @@
           "id": "presse-ici-limousin-infos",
           "nom": "ICI Limousin — infos (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2102,7 +2234,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ici.fr",
             "ici radio france",
@@ -2142,6 +2274,7 @@
           "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
           "nom": "La Nouvelle République — Vienne (flux RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2149,6 +2282,7 @@
           "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
           "nom": "La Nouvelle République des Pyrénées — Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2156,6 +2290,7 @@
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2163,6 +2298,7 @@
           "id": "presse-lnr-vienne",
           "nom": "La Nouvelle République — Vienne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2170,6 +2306,7 @@
           "id": "public-title:na-quotidien-015",
           "nom": "Public title feed — La Nouvelle République — général",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2190,7 +2327,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "lanouvellerepublique.fr",
             "la nouvelle republique",
@@ -2230,6 +2367,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2237,6 +2375,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2244,6 +2383,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2251,6 +2391,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2258,6 +2399,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2265,6 +2407,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2272,6 +2415,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2279,6 +2423,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2286,6 +2431,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2293,6 +2439,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2300,6 +2447,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2307,6 +2455,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2314,6 +2463,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2334,7 +2484,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -2382,6 +2532,7 @@
           "id": "corpus:ici-poitou-infos-rss",
           "nom": "ICI Poitou — infos (RSS)",
           "famille": "radio",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2389,6 +2540,7 @@
           "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
           "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2396,6 +2548,7 @@
           "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
           "nom": "ici Landes (40) — actualités et podcasts Radio France",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2403,6 +2556,7 @@
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2410,6 +2564,7 @@
           "id": "presse-ici-limousin-infos",
           "nom": "ICI Limousin — infos (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2430,7 +2585,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ici.fr",
             "ici radio france",
@@ -2482,7 +2637,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "tf1info.fr",
             "tf1 info",
@@ -2516,6 +2671,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2523,6 +2679,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2530,6 +2687,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2537,6 +2695,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2544,6 +2703,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2551,6 +2711,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2571,7 +2732,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -2612,6 +2773,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2619,6 +2781,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2626,6 +2789,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2633,6 +2797,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2640,6 +2805,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2647,6 +2813,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2667,7 +2834,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -2708,6 +2875,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2715,6 +2883,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2722,6 +2891,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2729,6 +2899,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2736,6 +2907,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2743,6 +2915,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2763,7 +2936,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -2804,6 +2977,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2811,6 +2985,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2818,6 +2993,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2825,6 +3001,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2832,6 +3009,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2839,6 +3017,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2846,6 +3025,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2853,6 +3033,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2860,6 +3041,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2867,6 +3049,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2874,6 +3057,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2881,6 +3065,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2888,6 +3073,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2908,7 +3094,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -2956,6 +3142,7 @@
           "id": "corpus:landes-40-passion-aquitaine-ouest-france-landes",
           "nom": "Passion Aquitaine (Ouest-France) — Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -2963,6 +3150,7 @@
           "id": "presse-ouestfrance-rss",
           "nom": "Ouest-France (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -2983,7 +3171,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ouest-france.fr",
             "ouest france",
@@ -3020,6 +3208,7 @@
           "id": "eco-charentelibre",
           "nom": "Charente Libre Économie (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3027,6 +3216,7 @@
           "id": "presse-charentelibre",
           "nom": "Charente Libre (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3047,7 +3237,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "charentelibre.fr",
             "charente libre",
@@ -3084,6 +3274,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3091,6 +3282,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3098,6 +3290,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3105,6 +3298,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3112,6 +3306,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3119,6 +3314,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3139,7 +3335,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -3180,6 +3376,7 @@
           "id": "corpus:france-3-vienne",
           "nom": "France 3 — Vienne",
           "famille": "tv",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3187,6 +3384,7 @@
           "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
           "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3194,6 +3392,7 @@
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3201,6 +3400,7 @@
           "id": "presse-france3-creuse",
           "nom": "France 3 NA — Creuse (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3208,6 +3408,7 @@
           "id": "presse-france3-landes",
           "nom": "France 3 NA — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3215,6 +3416,7 @@
           "id": "presse-france3-na",
           "nom": "France 3 Nouvelle-Aquitaine (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3235,7 +3437,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "france3-regions.franceinfo.fr",
             "france 3 nouvelle aquitaine",
@@ -3288,7 +3490,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ccdordogne-bessede.fr",
             "communaute de communes vallee dordogne foret bessede alerte officielle",
@@ -3334,7 +3536,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "chnds.fr",
             "centre hospitalier nord deux sevres communique officiel",
@@ -3380,7 +3582,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "egora.fr",
             "egora",
@@ -3414,6 +3616,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3421,6 +3624,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3428,6 +3632,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3435,6 +3640,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3442,6 +3648,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3449,6 +3656,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3456,6 +3664,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3463,6 +3672,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3470,6 +3680,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3477,6 +3688,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3484,6 +3696,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3491,6 +3704,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3498,6 +3712,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3518,7 +3733,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -3566,6 +3781,7 @@
           "id": "corpus:landes-40-actu-fr-actu-landes",
           "nom": "actu.fr — Actu Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3573,6 +3789,7 @@
           "id": "corpus:landes-40-actu-fr-mont-de-marsan",
           "nom": "actu.fr — Mont-de-Marsan",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3580,6 +3797,7 @@
           "id": "presse-republicain-47",
           "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3600,7 +3818,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "actu.fr",
             "actu fr apei",
@@ -3638,6 +3856,7 @@
           "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
           "nom": "La Nouvelle République — Vienne (flux RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3645,6 +3864,7 @@
           "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
           "nom": "La Nouvelle République des Pyrénées — Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3652,6 +3872,7 @@
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3659,6 +3880,7 @@
           "id": "presse-lnr-vienne",
           "nom": "La Nouvelle République — Vienne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3666,6 +3888,7 @@
           "id": "public-title:na-quotidien-015",
           "nom": "Public title feed — La Nouvelle République — général",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3686,7 +3909,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "lanouvellerepublique.fr",
             "la nouvelle republique",
@@ -3726,6 +3949,7 @@
           "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
           "nom": "La Nouvelle République — Vienne (flux RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3733,6 +3957,7 @@
           "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
           "nom": "La Nouvelle République des Pyrénées — Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3740,6 +3965,7 @@
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3747,6 +3973,7 @@
           "id": "presse-lnr-vienne",
           "nom": "La Nouvelle République — Vienne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3754,6 +3981,7 @@
           "id": "public-title:na-quotidien-015",
           "nom": "Public title feed — La Nouvelle République — général",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3774,7 +4002,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "lanouvellerepublique.fr",
             "la nouvelle republique",
@@ -3814,6 +4042,7 @@
           "id": "eco-charentelibre",
           "nom": "Charente Libre Économie (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3821,6 +4050,7 @@
           "id": "presse-charentelibre",
           "nom": "Charente Libre (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3841,7 +4071,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "charentelibre.fr",
             "charente libre",
@@ -3878,6 +4108,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3885,6 +4116,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3892,6 +4124,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3899,6 +4132,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3906,6 +4140,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3913,6 +4148,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3920,6 +4156,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3927,6 +4164,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3934,6 +4172,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3941,6 +4180,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3948,6 +4188,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3955,6 +4196,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -3962,6 +4204,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -3982,7 +4225,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -4030,6 +4273,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4037,6 +4281,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4044,6 +4289,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4051,6 +4297,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4058,6 +4305,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4065,6 +4313,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4072,6 +4321,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4079,6 +4329,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4086,6 +4337,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4093,6 +4345,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4100,6 +4353,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4107,6 +4361,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4114,6 +4369,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4134,7 +4390,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -4182,6 +4438,7 @@
           "id": "official-na-ars-communiques",
           "nom": "ARS Nouvelle-Aquitaine - press releases",
           "famille": "official_statement",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4202,7 +4459,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "nouvelle-aquitaine.ars.sante.fr",
             "ars nouvelle aquitaine communique officiel",
@@ -4238,6 +4495,7 @@
           "id": "corpus:landes-40-actu-fr-actu-landes",
           "nom": "actu.fr — Actu Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4245,6 +4503,7 @@
           "id": "corpus:landes-40-actu-fr-mont-de-marsan",
           "nom": "actu.fr — Mont-de-Marsan",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4252,6 +4511,7 @@
           "id": "presse-republicain-47",
           "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4272,7 +4532,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "actu.fr",
             "actu fr afp",
@@ -4310,6 +4570,7 @@
           "id": "corpus:ici-poitou-infos-rss",
           "nom": "ICI Poitou — infos (RSS)",
           "famille": "radio",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4317,6 +4578,7 @@
           "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
           "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4324,6 +4586,7 @@
           "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
           "nom": "ici Landes (40) — actualités et podcasts Radio France",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4331,6 +4594,7 @@
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4338,6 +4602,7 @@
           "id": "presse-ici-limousin-infos",
           "nom": "ICI Limousin — infos (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4358,7 +4623,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ici.fr",
             "ici radio france",
@@ -4398,6 +4663,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4405,6 +4671,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4412,6 +4679,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4419,6 +4687,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4426,6 +4695,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4433,6 +4703,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4440,6 +4711,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4447,6 +4719,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4454,6 +4727,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4461,6 +4735,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4468,6 +4743,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4475,6 +4751,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4482,6 +4759,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4502,7 +4780,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -4550,6 +4828,7 @@
           "id": "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos",
           "nom": "Tarnos Contact — journal municipal de Tarnos",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4557,6 +4836,7 @@
           "id": "corpus:landes-40-ville-de-tarnos",
           "nom": "Ville de Tarnos",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4577,7 +4857,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "ville-tarnos.fr",
             "ville de tarnos communique officiel",
@@ -4614,6 +4894,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4621,6 +4902,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4628,6 +4910,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4635,6 +4918,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4642,6 +4926,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4649,6 +4934,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4656,6 +4942,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4663,6 +4950,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4670,6 +4958,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4677,6 +4966,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4684,6 +4974,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4691,6 +4982,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4698,6 +4990,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4718,7 +5011,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -4766,6 +5059,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4773,6 +5067,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4780,6 +5075,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4787,6 +5083,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4794,6 +5091,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4801,6 +5099,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4808,6 +5107,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4815,6 +5115,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4822,6 +5123,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4829,6 +5131,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4836,6 +5139,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4843,6 +5147,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4850,6 +5155,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -4870,7 +5176,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -4918,6 +5224,7 @@
           "id": "corpus:landes-40-sud-ouest-edition-landes",
           "nom": "Sud Ouest — édition Landes",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4925,6 +5232,7 @@
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4932,6 +5240,7 @@
           "id": "presse-sudouest",
           "nom": "Sud Ouest (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4939,6 +5248,7 @@
           "id": "presse-sudouest-charente",
           "nom": "Sud Ouest — Charente (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4946,6 +5256,7 @@
           "id": "presse-sudouest-charente-maritime",
           "nom": "Sud Ouest — Charente-Maritime (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4953,6 +5264,7 @@
           "id": "presse-sudouest-deux-sevres",
           "nom": "Sud Ouest — Deux-Sèvres (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4960,6 +5272,7 @@
           "id": "presse-sudouest-dordogne",
           "nom": "Sud Ouest — Dordogne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4967,6 +5280,7 @@
           "id": "presse-sudouest-gironde",
           "nom": "Sud Ouest — Gironde (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4974,6 +5288,7 @@
           "id": "presse-sudouest-landes",
           "nom": "Sud Ouest — Landes (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4981,6 +5296,7 @@
           "id": "presse-sudouest-lot-et-garonne",
           "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4988,6 +5304,7 @@
           "id": "presse-sudouest-mont-de-marsan",
           "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -4995,6 +5312,7 @@
           "id": "presse-sudouest-pyrenees",
           "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -5002,6 +5320,7 @@
           "id": "presse-sudouest-rss",
           "nom": "Sud Ouest (RSS)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -5022,7 +5341,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "sudouest.fr",
             "sud ouest",
@@ -5070,6 +5389,7 @@
           "id": "gn-press-lamontagne",
           "nom": "Google News — cyber sur lamontagne.fr (30 j)",
           "famille": "presse_cyber",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -5077,6 +5397,7 @@
           "id": "presse-lamontagne-correze",
           "nom": "La Montagne — Correze (page actualites)",
           "famille": "cti",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         },
@@ -5084,6 +5405,7 @@
           "id": "public-title:na-quotidien-017",
           "nom": "Public title feed — La Montagne — Corrèze/Creuse (via Google News)",
           "famille": "presse",
+          "pretACollecter": true,
           "executionsDuJour": 0,
           "evenementsDuJour": 0
         }
@@ -5104,7 +5426,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "lamontagne.fr",
             "la montagne",
@@ -5154,7 +5476,7 @@
           ]
         },
         "collecte": {
-          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
           "params": [
             "cyberattaque.org",
             "cyberattaque org",
@@ -5181,7 +5503,7 @@
       "indetermine"
     ],
     "delai": "heures entre la publication (00:00 UTC) et collected_at du premier événement correspondant",
-    "collecte": "collector_run ou event le jour de publication pour le média déclaré, ou last_ok_at ce jour",
+    "collecte": "collector_run ou event le jour de publication pour le média déclaré, ou last_ok_at ce jour ; une source pret_a_collecter=false n'est jamais une preuve de couverture",
     "correspondance": "URL normalisée identique, ou titre normalisé identique le jour de publication, ou organisation normalisée le jour de publication",
     "filtreCyber": "classifyFamily() du collecteur : une sortie 'presse' est refusée à l'admission"
   }

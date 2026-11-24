@@ -12,7 +12,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, test } from "node:test";
 import { createHash } from "node:crypto";
-import { query } from "../src/db.js";
+import { closePools, query } from "../src/db.js";
 import {
   CRITERE_BROUILLONS_NIS2,
   compteurBrouillonsIncomplets,
@@ -20,6 +20,7 @@ import {
   NIS2_REGIMES,
   NIS2_SECTIONS,
 } from "../src/report/nis2-rapports.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `nis2${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const DEDUP_KEY = `test:${TAG}:incident-confirme`;
@@ -37,6 +38,13 @@ type Brouillon = {
 
 let eventId: string;
 let dossier: string;
+
+/** Migration 231 : un événement ne peut être supprimé qu'après copie intégrale. */
+async function supprimerEvenementsDeTest(ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  await query("DELETE FROM notification_brouillon WHERE source_event_id = ANY($1::bigint[])", [ids]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
+}
 
 before(async () => {
   await query(
@@ -60,13 +68,16 @@ before(async () => {
 });
 
 after(async () => {
-  if (eventId) {
-    await query("DELETE FROM notification_brouillon WHERE source_event_id = $1", [eventId]);
-    await query("DELETE FROM rapport_nis2_export WHERE source_event_id = $1", [eventId]);
-    await query("DELETE FROM event WHERE id = $1", [eventId]);
-    await query("DELETE FROM source WHERE id = $1", [SOURCE_ID]);
+  try {
+    if (eventId) {
+      await query("DELETE FROM rapport_nis2_export WHERE source_event_id = $1", [eventId]);
+      await supprimerEvenementsDeTest([eventId]);
+      await query("DELETE FROM source WHERE id = $1", [SOURCE_ID]);
+    }
+    if (dossier) await rm(dossier, { recursive: true, force: true });
+  } finally {
+    await closePools();
   }
-  if (dossier) await rm(dossier, { recursive: true, force: true });
 });
 
 async function brouillons(): Promise<Brouillon[]> {
@@ -153,7 +164,7 @@ test("deux exports datés par incident contiennent les trois sections obligatoir
 
 test("une correction de la date incident recale les deux échéances sans doubler les brouillons", async () => {
   const avant = (await brouillons()).filter((b) => b.regime !== "NIS2_24h");
-  await query("UPDATE event SET valid_at = valid_at + interval '1 day' WHERE id = $1", [eventId]);
+  await query("UPDATE event SET valid_at = valid_at + interval '1 day', at = at + interval '1 day' WHERE id = $1", [eventId]);
   const apres = (await brouillons()).filter((b) => b.regime !== "NIS2_24h");
   assert.equal(apres.length, 2, "aucun brouillon supplémentaire");
   for (const ligne of apres) {
@@ -182,7 +193,6 @@ test("un brouillon incomplet ne peut pas être inséré", async () => {
       ),
     );
   } finally {
-    await query("DELETE FROM notification_brouillon WHERE source_event_id = $1", [id]);
-    await query("DELETE FROM event WHERE id = $1", [id]);
+    await supprimerEvenementsDeTest([id]);
   }
 });

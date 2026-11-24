@@ -12,10 +12,11 @@
  * Sous `ARBITRATION_CONFIDENCE_THRESHOLD`, on garde `null` : on préfère rater
  * un rattachement que d'en inventer un.
  *
- * Toute défaillance (réseau, quota, clé absente, réponse inattendue) renvoie
- * `null` : l'appelant reprend la règle déterministe. Ce module ne lève jamais.
+ * Toute défaillance (réseau, quota, clé absente, JSON invalide) rend
+ * `indisponible` ; une réponse valable mais entre les seuils rend `indecis`.
+ * Ce module ne lève jamais.
  */
-import { askDecision, decisionApiKey } from "../detect/decision.js";
+import { askDecision } from "../detect/decision.js";
 
 
 /** En dessous, l'arbitrage n'est pas retenu. */
@@ -53,52 +54,68 @@ function readNoul(payload: unknown, question: string): number | null {
 /** Au-dessus, le modèle affirme ; en dessous de 1 − ce seuil, il nie. */
 const CONFIRM_THRESHOLD = 0.9;
 
+/** Verdict explicite : ni `null` ambigu, ni `false` qui masque une panne. */
+export type VerdictOrganisation = "oui" | "non" | "indecis" | "indisponible";
+
+/** Fournisseur injectable pour les tests déterministes (aucun réseau). */
+export type FournisseurDecision = (state: unknown, questions: unknown) => Promise<unknown | null>;
+
+type ChoixDetaille = { verdict: VerdictOrganisation; orgId: number | null };
+
+async function interroger(
+	fournisseur: FournisseurDecision,
+	state: unknown,
+	questions: unknown,
+): Promise<unknown | null> {
+	try {
+		return await fournisseur(state, questions);
+	} catch {
+		return null;
+	}
+}
+
 /**
  * Vérifie qu'un texte désigne bien une organisation donnée.
  *
  * Sert aux revendications de rançongiciel, où le rapprochement par nom est
- * trop permissif : « El Portal Imaging Center » avait été rattaché à
- * « IBM Services Center France ». Le modèle lit le texte et le nom, et répond
- * par une probabilité. Entre les deux seuils, il hésite : on rend `null` et
- * l'appelant décide.
- *
- * Le nom est placé dans l'état, pas dans la question : mesuré, ce modèle
- * ignore le texte d'une question et ne lit que l'état.
+ * trop permissif. Le nom est placé dans l'état, pas dans la question : mesuré,
+ * ce modèle ignore le texte d'une question et ne lit que l'état.
  */
-export async function confirmOrganization(text: string, orgName: string): Promise<boolean | null> {
-	const key = decisionApiKey();
+export async function confirmOrganizationVerdict(
+	text: string,
+	orgName: string,
+	fournisseur: FournisseurDecision = askDecision,
+): Promise<VerdictOrganisation> {
 	const message = text.trim().slice(0, 1200);
-	if (!key || message.length < 20 || orgName.trim() === "") return null;
+	if (message.length < 20 || orgName.trim() === "") return "indisponible";
 
-	const payload = await askDecision(
+	const payload = await interroger(
+		fournisseur,
 		{ message: `Texte : ${message}\n\nOrganisation candidate : ${orgName}` },
 		{ mention: { type: "noul", text: "Le texte désigne-t-il cette organisation ?" } },
 	);
-	if (payload === null) return null;
+	if (payload === null) return "indisponible";
 	const probability = readNoul(payload, "mention");
-	if (probability === null) return null;
-	if (probability >= CONFIRM_THRESHOLD) return true;
-	if (probability <= 1 - CONFIRM_THRESHOLD) return false;
-	return null;
+	if (probability === null || probability < 0 || probability > 1) return "indisponible";
+	if (probability >= CONFIRM_THRESHOLD) return "oui";
+	if (probability <= 1 - CONFIRM_THRESHOLD) return "non";
+	return "indecis";
 }
 
-/**
- * Demande au modèle quelle organisation le texte désigne.
- * Rend l'identifiant retenu, ou `null` si la décision n'est pas assez sûre.
- */
-export async function chooseOrganization(
+async function choisirOrganisationDetaille(
 	text: string,
 	candidates: readonly OrgCandidate[],
-): Promise<number | null> {
-	if (candidates.length < 2) return null;
-	const key = decisionApiKey();
+	fournisseur: FournisseurDecision,
+): Promise<ChoixDetaille> {
+	if (candidates.length < 2) return { verdict: "indisponible", orgId: null };
 	const message = text.trim().slice(0, 1500);
-	if (!key || message.length < 20) return null;
+	if (message.length < 20) return { verdict: "indisponible", orgId: null };
 
 	const criteria: Record<string, string> = {};
 	for (const candidate of candidates) criteria[`org_${candidate.id}`] = candidate.name;
 
-	const payload = await askDecision(
+	const payload = await interroger(
+		fournisseur,
 		{ message },
 		{
 			organization: {
@@ -110,11 +127,47 @@ export async function chooseOrganization(
 		},
 	);
 	const answer = payload === null ? null : readChoice(payload);
-	if (!answer) return null;
+	if (!answer) return { verdict: "indisponible", orgId: null };
 	const confidence = Number(answer.confidence);
-	if (!Number.isFinite(confidence) || confidence < ARBITRATION_CONFIDENCE_THRESHOLD) return null;
+	if (!Number.isFinite(confidence) || confidence < 0 || confidence > 1) {
+		return { verdict: "indisponible", orgId: null };
+	}
+	if (confidence < ARBITRATION_CONFIDENCE_THRESHOLD) return { verdict: "indecis", orgId: null };
 	const choice = String(answer.choice ?? "");
-	if (!choice.startsWith("org_")) return null;
+	if (choice === "aucune") return { verdict: "non", orgId: null };
+	if (!choice.startsWith("org_")) return { verdict: "indisponible", orgId: null };
 	const id = Number(choice.slice(4));
-	return Number.isInteger(id) && candidates.some((candidate) => candidate.id === id) ? id : null;
+	if (!Number.isInteger(id) || !candidates.some((candidate) => candidate.id === id)) {
+		return { verdict: "indisponible", orgId: null };
+	}
+	return { verdict: "oui", orgId: id };
+}
+
+/** Demande au modèle quelle organisation le texte désigne, avec verdict explicite. */
+export async function chooseOrganizationVerdict(
+	text: string,
+	candidates: readonly OrgCandidate[],
+	fournisseur: FournisseurDecision = askDecision,
+): Promise<VerdictOrganisation> {
+	return (await choisirOrganisationDetaille(text, candidates, fournisseur)).verdict;
+}
+
+/** Enveloppe historique pour les appelants qui attendent un booléen. */
+export async function confirmOrganization(
+	text: string,
+	orgName: string,
+	fournisseur: FournisseurDecision = askDecision,
+): Promise<boolean | null> {
+	const verdict = await confirmOrganizationVerdict(text, orgName, fournisseur);
+	return verdict === "oui" ? true : verdict === "non" ? false : null;
+}
+
+/** Enveloppe historique pour les appelants qui attendent un identifiant. */
+export async function chooseOrganization(
+	text: string,
+	candidates: readonly OrgCandidate[],
+	fournisseur: FournisseurDecision = askDecision,
+): Promise<number | null> {
+	const resultat = await choisirOrganisationDetaille(text, candidates, fournisseur);
+	return resultat.verdict === "oui" ? resultat.orgId : null;
 }

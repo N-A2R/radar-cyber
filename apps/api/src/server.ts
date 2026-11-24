@@ -3,7 +3,7 @@ import { languageVerdict } from "./collectors/filter.js";
 import { scoreEventPertinence } from "./collectors/pertinence.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
-import helmet from "@fastify/helmet";
+
 import rateLimit from "@fastify/rate-limit";
 import fastifyStatic from "@fastify/static";
 import { existsSync } from "node:fs";
@@ -25,26 +25,25 @@ import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { ancrerJournalDuJour } from "./journal/anchor.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
-import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
+import { deliverPendingAlerts, isDeliveryConfigured, readDeliveryConfig } from "./notify/alert-delivery.js";
 import {
 	orientationVerificationDue,
 	verifierOrientationCollectivites,
 } from "./orientation/verification.js";
 import { runRetention } from "./maintenance/retention.js";
 import { applyAlertFatiguePolicy } from "./maintenance/alert-fatigue.js";
-import { instruireDemandesDroitReponse } from "./domain/rectification-delais.js";
+import { registerApiRoutes } from "./routes/index.js";
+import { installApiCore } from "./app.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
+import { installSecurityHeaders } from "./security/headers.js";
+import type { LanceurCollecte } from "./routes/sources.js";
+import { runForumCycle } from "./forums/collect.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
-import { requireRole } from "./middleware/auth.js";
-import { registerApiRoutes } from "./routes/index.js";
+import { instruireDemandesDroitReponse } from "./domain/rectification-delais.js";
 import exportMispRoute from "./routes/export-misp.js";
-import { installAccessControl } from "./security/rbac.js";
-import { installSecurityHeaders } from "./security/headers.js";
-import { installErrorHandler } from "./errors.js";
-import { installPublicApi } from "./openapi/install.js";
-import { runForumCycle } from "./forums/collect.js";
+
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -57,15 +56,34 @@ const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1
 const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
 /** Cadence de la politique de fatigue (défaut : 1 min, comme la collecte). */
 const ALERT_FATIGUE_MS = Number(process.env.RADAR_ALERT_FATIGUE_TICK_MS ?? 60_000);
+/**
+ * Proxies de confiance (E5/NET-09) : liste d'adresses ou CIDR séparés par des
+ * virgules, transmise à Fastify. Vide = aucune délégation, `req.ip` reste
+ * l'adresse du pair — un client ne peut pas usurper X-Forwarded-For.
+ * Exemple : RADAR_TRUST_PROXY=127.0.0.1,::1 derrière un Caddy local.
+ */
+const trustProxy = process.env.RADAR_TRUST_PROXY?.trim() || undefined;
 
-const app = Fastify({ logger: true, bodyLimit: 1024 * 1024 });
-installErrorHandler(app);
-// Avant toute route : matrices d'accès, identifiant de corrélation et audit.
-installAccessControl(app);
 
-// API publique versionnée, documentée et à quotas (déclarée avant les routes historiques).
-await installPublicApi(app);
 
+const app = Fastify({
+  logger: {
+    serializers: {
+      req: (req: { method?: string; url?: string; hostname?: string; ip?: string; remotePort?: number }) => ({
+        method: req.method,
+        url: String(req.url ?? "").replace(/([?&]token=)[^&]*/gi, "$1<redacted>"),
+        hostname: req.hostname,
+        remoteAddress: req.ip,
+        remotePort: req.remotePort,
+      }),
+    },
+  },
+  bodyLimit: 1024 * 1024,
+  trustProxy,
+});
+// Un seul ordre de hooks pour la production, les tests et les sondes :
+// identité → RBAC → quotas/en-têtes publics (C1).
+await installApiCore(app);
 /** Origines autorisées pour le cross-origin, séparées par des virgules.
  *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
 const corsOrigins = (process.env.RADAR_CORS_ORIGINS ?? "")
@@ -76,10 +94,6 @@ const corsOrigins = (process.env.RADAR_CORS_ORIGINS ?? "")
 await app.register(cors, { origin: corsOrigins.length > 0 ? corsOrigins : false });
 await installSecurityHeaders(app);
 
-/** En-têtes de sécurité sur toutes les réponses (nosniff, frameguard,
- *  referrer-policy, HSTS). Le CSP reste à la charge de la couche qui sert du
- *  HTML (le dist statique sur la box) : l'API ne sert que du JSON. */
-await app.register(helmet, { contentSecurityPolicy: false });
 
 /**
  * Limite globale, par utilisateur authentifié ou par adresse IP. Les routes
@@ -120,6 +134,31 @@ if (existsSync(webDist)) {
 } else {
   app.log.warn(`front statique absent (${webDist}) : pnpm -F @radar/web build`);
 }
+/** Relance manuelle d'une source : le bouton « relancer » du registre. Le
+ *  handler HTTP vit dans `routes/sources.ts` pour être couvert par la matrice
+ *  RBAC et par le test de couverture ; seule l'exécution est propre au serveur. */
+const relancesEnCours = new Set<string>();
+const lanceurCollecte: LanceurCollecte = (id, source) => {
+  if (relancesEnCours.has(id)) return false;
+  const journal = (m: string) => app.log.info(m);
+  const dedie = collectors.find((c) => c.id === id);
+  const tache = dedie
+    ? () => runCollectors({ onlyId: id, force: true })
+    : id === "hermes_radar_cyber"
+      ? () => runHermesCollector(journal)
+      : source.kind === "quarantine"
+        ? () => runQuarantineCollector(journal)
+        : () => runGenericSources(journal, { sourceIds: [id], force: true });
+  relancesEnCours.add(id);
+  void tache().catch((e: unknown) => {
+    app.log.error(e);
+  }).finally(() => {
+    relancesEnCours.delete(id);
+  });
+  return true;
+};
+app.decorate("lanceurCollecte", lanceurCollecte);
+
 
 /** Toutes les routes API sont déclarées dans un registre unique, audité par
  *  le test de couverture des règles d'accès. */
@@ -329,40 +368,6 @@ function messageErreur(reason: unknown): string {
 	if (typeof reason === "string") return reason;
 	return String(reason);
 }
-/** Relance manuelle d'une source : le bouton « relancer » du registre. */
-const relancesEnCours = new Set<string>();
-app.post<{ Params: { id: string } }>(
-  "/api/sources/:id/collecte",
-  { preHandler: requireRole("admin") },
-  async (req, reply) => {
-    const id = req.params.id;
-    const { rows } = await query<{ id: string; enabled: boolean; kind: string }>(
-      "SELECT id, enabled, kind FROM source WHERE id=$1",
-      [id],
-    );
-    const source = rows[0];
-    if (!source) return reply.code(404).send({ error: "source introuvable" });
-    if (!source.enabled) return reply.code(409).send({ error: "source désactivée" });
-    if (relancesEnCours.has(id)) return reply.code(409).send({ error: "collecte déjà en cours" });
-
-    const dedie = collectors.find((c) => c.id === id);
-    const tache = dedie
-      ? () => runCollectors({ onlyId: id, force: true })
-      : id === "hermes_radar_cyber"
-        ? () => runHermesCollector(log)
-        : source.kind === "quarantine"
-          ? () => runQuarantineCollector(log)
-          : () => runGenericSources(log, { sourceIds: [id], force: true });
-
-    relancesEnCours.add(id);
-    void tache().catch((e: unknown) => {
-      app.log.error(e);
-    }).finally(() => {
-      relancesEnCours.delete(id);
-    });
-    return reply.code(202).send({ id, lancee: true });
-  },
-);
 
 /** RADAR_COLLECT=0 : API seule, sans boucle de collecte (dev, UI, déploiement séparé). */
 const COLLECT = process.env.RADAR_COLLECT !== "0";
@@ -455,7 +460,7 @@ if (COLLECT) {
 
 	// Diffusion des alertes : uniquement si un canal est configuré.
 	const deliveryCfg = readDeliveryConfig();
-	if (deliveryCfg.webhookUrl || (deliveryCfg.telegramBotToken && deliveryCfg.telegramChatId)) {
+	if (isDeliveryConfigured(deliveryCfg)) {
 		const deliver = () => void guarded("diffusion alertes", () => deliverPendingAlerts(log).then(() => undefined));
 		deliver();
 		setInterval(deliver, ALERT_DELIVERY_MS);

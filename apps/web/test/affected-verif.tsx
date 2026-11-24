@@ -94,6 +94,8 @@ check("l'état de chargement est annoncé", loading.includes('role="status"') &&
 
 const error = renderToStaticMarkup(<AffectedView error="Organization not found" query="Ghost SARL" />);
 check("l'erreur est affichée en français", error.includes('role="alert"') && error.includes("Erreur : Organization not found"));
+check("une seule région live sur le conteneur de résultat",
+  !html.includes("aria-live") && !loading.includes("aria-live") && !error.includes("aria-live"));
 
 const empty = renderToStaticMarkup(<AffectedView />);
 check("l'état vide demande une organisation", empty.includes("Saisissez un nom") && empty.includes("pour vérifier."));

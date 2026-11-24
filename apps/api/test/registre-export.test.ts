@@ -22,7 +22,7 @@ const FINALITE_LOCALE = `Surveillance, "qualifiée" de la presse ${TAG}`;
 const ENTETE = "source_id,source_nom,famille,portee,finalite,base_legale,duree_jours,declare_at,exporte_le";
 const JUGE = `SELECT count(*) FROM source s LEFT JOIN registre_traitement r ON r.source_id=s.id WHERE s.enabled AND (r.id IS NULL OR r.base_legale IS NULL OR r.duree_jours IS NULL OR r.finalite IS NULL);`;
 
-let db: DbModule;
+let db: typeof DbModule;
 let app: FastifyInstance;
 let baseJetable: TestDb | null = null;
 

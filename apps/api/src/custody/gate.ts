@@ -15,12 +15,39 @@ import { evaluateCustody, PROOF_KEYS, type CustodyEvent, type CustodyFact } from
 
 export const PROVENANCE_SCOPE = "nouvelle-aquitaine";
 
+export type ProvenanceContext = "real" | "ci-fixture";
+
+export const PROVENANCE_CONTEXTS = ["real", "ci-fixture"] as const;
+
+export type ProvenanceState = {
+  organisations: number;
+  sources: number;
+  events: number;
+};
+
 /** Real state measured on 2026-11-22 before the gate was written. */
-export const REAL_STATE = Object.freeze({
+export const REAL_STATE: Readonly<ProvenanceState> = Object.freeze({
   organisations: 1_673_151,
   sources: 312,
   events: 26_259,
 });
+
+/**
+ * Disposable CI state: schema, migrations and the single deterministic
+ * Nouvelle-Aquitaine fixture in `db/fixtures/provenance-ci.sql`. This is a
+ * second pinned state, not a looser rule: the same custody chain, scope and
+ * summary checks apply, and only an explicitly requested `ci-fixture` run can
+ * use these counts.
+ */
+export const CI_FIXTURE_STATE: Readonly<ProvenanceState> = Object.freeze({
+  organisations: 30,
+  sources: 2_757,
+  events: 340,
+});
+
+export function expectedState(context: ProvenanceContext): Readonly<ProvenanceState> {
+  return context === "ci-fixture" ? CI_FIXTURE_STATE : REAL_STATE;
+}
 
 export type ProvenanceEntry = {
   event: CustodyEvent;
@@ -30,6 +57,8 @@ export type ProvenanceEntry = {
 export type ProvenanceArtifact = {
   definition: string;
   scope: string;
+  /** State the measurement targeted; an absent value means the real state. */
+  context?: ProvenanceContext;
   generatedAt: string;
   organisations: number;
   sources: number;
@@ -64,17 +93,24 @@ function sanitized(entry: ProvenanceEntry): boolean {
 /**
  * Recompute the verdict from the ledger instead of trusting a stored number.
  * Every refusal reason is a stable English code, never a fact about a victim.
+ * `context` is supplied by the caller, never by the ledger alone, so a fresh
+ * measurement cannot declare its own expected state to pass the gate.
  */
-export function evaluateProvenanceGate(artifact: ProvenanceArtifact): ProvenanceVerdict {
+export function evaluateProvenanceGate(
+  artifact: ProvenanceArtifact,
+  context: ProvenanceContext = "real",
+): ProvenanceVerdict {
   const reasons: string[] = [];
   const withoutProvenance: string[] = [];
   const gaps: Record<string, number> = {};
+  const expected = expectedState(context);
 
+  if ((artifact.context ?? "real") !== context) reasons.push("context-mode-mismatch");
   if (artifact.scope !== PROVENANCE_SCOPE) reasons.push("wrong-scope");
   if (
-    artifact.organisations !== REAL_STATE.organisations ||
-    artifact.sources !== REAL_STATE.sources ||
-    artifact.events !== REAL_STATE.events
+    artifact.organisations !== expected.organisations ||
+    artifact.sources !== expected.sources ||
+    artifact.events !== expected.events
   ) reasons.push("context-mismatch");
   if (!Number.isInteger(artifact.regionalEvents) || artifact.regionalEvents <= 0) reasons.push("empty-scope");
   if (artifact.entries.length !== artifact.regionalEvents) reasons.push("ledger-truncated");

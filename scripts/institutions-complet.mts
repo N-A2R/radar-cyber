@@ -489,6 +489,9 @@ if (estLanceDirectement()) {
 		...candidatsScolaires(education, nomsDep),
 		...candidatsSante(lireJsonl(CORPUS_SANTE), nomsDep),
 	];
+	const retenusCandidats = Number.isFinite(LIMITE) ? candidats.slice(0, LIMITE) : candidats;
+	console.error(`${retenusCandidats.length} candidats à vérifier (${candidats.length} au total)…`);
+	const { retenus, echecs } = await verifierTous(retenusCandidats);
 	const parType: Record<string, number> = {};
 	for (const l of retenus) parType[String(l.type)] = (parType[String(l.type)] ?? 0) + 1;
 	const rapport = {

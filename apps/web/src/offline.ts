@@ -21,60 +21,152 @@ import { tokenVar } from "@astryxdesign/core/theme";
 /** Style MapLibre sans tuiles : rien à télécharger, rien à perdre. */
 export type StyleSecours = {
 	version: 8;
-	sources: Record<string, { type: "geojson"; data: GeoJSONCollection }>;
-	layers: unknown[];
+	sources: Record<string, {
+		type: "geojson";
+		data: GeoJSONCollection;
+		cluster?: boolean;
+		clusterRadius?: number;
+		clusterMaxZoom?: number;
+	}>;
+	layers: Record<string, unknown>[];
 };
 
 type GeoJSONCollection = { type: "FeatureCollection"; features: unknown[] };
 
+/** Sources de données que la carte alimentera dès son `load`, même hors ligne. */
+type DonneesSecours = Partial<Record<"orgs" | "events" | "hot" | "arcs", GeoJSONCollection>>;
+
 /**
  * Ce que la carte peut dessiner avec zéro octet de réseau.
  *
- * Les contours départementaux (`DEP_FEATURES`) et les libellés de villes sont
- * déjà des constantes du bundle : ils pèsent quelques dizaines de kilooctets,
- * sont versionnés avec le code, et ne dépendent d'aucun service. Les tuiles
- * raster, elles, ne peuvent pas être mises en cache durablement par-dessus le
- * quota d'un navigateur — d'où le choix du vectoriel embarqué.
+ * Contours, villes, organisations, événements, halo et arcs sont soit des
+ * constantes du bundle, soit les dernières données reçues par l'application :
+ * le repli reste une carte complète, pas seulement des contours. Aucune couche
+ * `symbol` n'est déclarée : sans ressource `glyphs` locale, MapLibre ne peut
+ * pas rendre de texte — les libellés de villes sont posés en marqueurs DOM par
+ * `Map3D`, avec les jetons du thème.
  */
-export function styleSecours(contours: GeoJSONCollection, villes: GeoJSONCollection): StyleSecours {
-	// MapLibre ne comprend pas `var(...)` dans une paint property : on résout
-	// les jetons du pont gothic via le CSS du thème actif. Sans DOM (tests,
-	// SSR), la référence CSS reste intacte.
+export function styleSecours(
+	contours: GeoJSONCollection,
+	villes: GeoJSONCollection,
+	donnees: DonneesSecours = {},
+): StyleSecours {
 	const styles = typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement);
-	const jetons = {
-		fond: tokenVar("--bg"),
-		dep: tokenVar("--surface"),
-		contour: tokenVar("--line-strong"),
-		texte: tokenVar("--text"),
+	const jeton = (nom: string) => {
+		const reference = tokenVar(nom);
+		return reference.startsWith("var(")
+			? styles?.getPropertyValue(reference.slice(4, -1)).trim() || reference
+			: reference;
 	};
-	const couleurs = Object.fromEntries(
-		Object.entries(jetons).map(([nom, jeton]) => [
-			nom,
-			styles?.getPropertyValue(jeton.slice(4, -1)).trim() || jeton,
-		]),
-	);
+	const vide = (): GeoJSONCollection => ({ type: "FeatureCollection", features: [] });
+	const collection = (source: GeoJSONCollection | undefined): GeoJSONCollection => source ?? vide();
+	const largeurArc = (extra: number) => ["+", 2 + extra, ["min", 6, ["/", ["coalesce", ["get", "count"], 1], 12]]];
+
 	return {
 		version: 8,
 		sources: {
 			dep: { type: "geojson", data: contours },
 			cities: { type: "geojson", data: villes },
+			orgs: {
+				type: "geojson",
+				data: collection(donnees.orgs),
+				cluster: true,
+				clusterRadius: 42,
+				clusterMaxZoom: 9,
+			},
+			hot: { type: "geojson", data: collection(donnees.hot) },
+			arcs: { type: "geojson", data: collection(donnees.arcs) },
+			events: { type: "geojson", data: collection(donnees.events) },
 		},
 		layers: [
 			// Fond plein : la mer et le hors-champ, en une couleur qui ne dépend
 			// d'aucune image.
-			{ id: "fond", type: "background", paint: { "background-color": couleurs.fond } },
+			{ id: "fond", type: "background", paint: { "background-color": jeton("--bg") } },
 			{
 				id: "dep",
 				type: "fill",
 				source: "dep",
-				paint: { "fill-color": couleurs.dep, "fill-outline-color": couleurs.contour },
+				paint: { "fill-color": jeton("--surface"), "fill-outline-color": jeton("--line-strong") },
 			},
 			{
-				id: "cities",
-				type: "symbol",
-				source: "cities",
-				layout: { "text-field": ["get", "name"], "text-size": 12, "text-font": ["Noto Sans Regular"] },
-				paint: { "text-color": couleurs.texte, "text-halo-color": couleurs.fond, "text-halo-width": 1.5 },
+				id: "dep-outline",
+				type: "line",
+				source: "dep",
+				paint: { "line-color": jeton("--accent"), "line-opacity": 0.55, "line-width": 1 },
+			},
+			{
+				id: "arcs-glow",
+				type: "line",
+				source: "arcs",
+				paint: { "line-color": ["get", "color"], "line-width": largeurArc(6), "line-opacity": 0.1 },
+			},
+			{
+				id: "arcs",
+				type: "line",
+				source: "arcs",
+				paint: { "line-color": ["get", "color"], "line-width": largeurArc(0), "line-opacity": 0.85 },
+			},
+			{
+				id: "orgs-clusters",
+				type: "circle",
+				source: "orgs",
+				filter: ["has", "point_count"],
+				paint: {
+					"circle-color": jeton("--surface-3"),
+					"circle-opacity": 0.88,
+					"circle-stroke-color": jeton("--data-teal"),
+					"circle-stroke-opacity": 0.45,
+					"circle-stroke-width": 1,
+				},
+			},
+			{
+				id: "orgs",
+				type: "circle",
+				source: "orgs",
+				filter: ["!", ["has", "point_count"]],
+				paint: {
+					"circle-color": jeton("--muted"),
+					"circle-stroke-color": jeton("--bg"),
+					"circle-stroke-width": 1.5,
+				},
+			},
+			{
+				id: "hot",
+				type: "circle",
+				source: "hot",
+				paint: {
+					"circle-radius": 14,
+					"circle-color": ["get", "color"],
+					"circle-opacity": 0.18,
+					"circle-stroke-color": ["get", "color"],
+					"circle-stroke-width": 1.2,
+					"circle-stroke-opacity": 0.6,
+				},
+			},
+			{
+				id: "events",
+				type: "circle",
+				source: "events",
+				paint: {
+					"circle-color": ["get", "color"],
+					"circle-radius": ["get", "radius"],
+					"circle-opacity": 0.92,
+					"circle-stroke-color": ["get", "stroke"],
+					"circle-stroke-width": 1,
+				},
+			},
+			{
+				id: "events-hover",
+				type: "circle",
+				source: "events",
+				paint: {
+					"circle-color": ["get", "color"],
+					"circle-radius": ["+", ["get", "radius"], 4],
+					"circle-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.22, 0],
+					"circle-stroke-color": ["get", "stroke"],
+					"circle-stroke-width": ["case", ["boolean", ["feature-state", "hover"], false], 2, 0],
+					"circle-stroke-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.9, 0],
+				},
 			},
 		],
 	};

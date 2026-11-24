@@ -45,8 +45,7 @@ export type VerdictManuel = { classement: ClassementManuel; raison: string };
 export function echantillonner<T>(elements: readonly T[], taille: number): T[] {
 	if (elements.length <= taille) return [...elements];
 	const pas = elements.length / taille;
-	return Array.from({ length: taille }, (_, i) => elements[Math.floor(i * pas)]!)
-		.filter((e): e is T => e !== undefined);
+	return Array.from({ length: taille }, (_, i) => elements[Math.floor(i * pas)]!);
 }
 
 /** Taux sur les seules alertes classées ; jamais 0/0. */

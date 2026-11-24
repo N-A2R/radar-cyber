@@ -15,6 +15,21 @@ import { buildOpenApi, documentedRouteCount, executableExampleCount, openApiPath
 let app: FastifyInstance;
 let results: ReplayResult[];
 
+type OpenApiDocument = {
+  paths: Record<string, Record<string, {
+    responses: Record<string, { content?: Record<string, { example?: unknown }> }>;
+  }>>;
+};
+
+const responseExample = (document: OpenApiDocument, path: string): Record<string, unknown> => {
+  const example = document.paths[path]?.get?.responses["200"]?.content?.["application/json"]?.example;
+  assert.ok(
+    typeof example === "object" && example !== null && !Array.isArray(example),
+    `GET ${path} response example`,
+  );
+  return example as Record<string, unknown>;
+};
+
 before(async () => {
   app = await buildApp();
   await app.ready();
@@ -67,10 +82,26 @@ test("examples embed the documented real Nouvelle-Aquitaine state", () => {
   for (const fragment of ["1 673 151 organisations", "312 sources", "26 719 événements"]) {
     assert.ok(source.includes(fragment), fragment);
   }
-  const serialized = JSON.stringify(buildOpenApi());
-  for (const value of [BASELINE.organisations, BASELINE.sources, BASELINE.evenements]) {
-    assert.ok(serialized.includes(String(value)), String(value));
-  }
+  const document = buildOpenApi() as OpenApiDocument;
+  const stats = responseExample(document, "/stats");
+  assert.equal(stats.organisations, BASELINE.organisations);
+  assert.equal(stats.sources, BASELINE.sources);
+  assert.equal(stats.evenements, BASELINE.evenements);
+  assert.equal(stats.archivedEvenements, BASELINE.archivedEvenements);
+  const coverage = responseExample(document, "/couverture");
+  assert.equal(coverage.organisations, BASELINE.organisations);
+  assert.equal(coverage.sources, BASELINE.sources);
+  assert.equal(coverage.evenements, BASELINE.evenements);
+  assert.equal(responseExample(document, "/health").sources, BASELINE.sources);
+  assert.equal(responseExample(document, "/health/detail").sources, BASELINE.sources);
+  assert.equal(responseExample(document, "/orgs").total, BASELINE.organisations);
+  assert.equal(responseExample(document, "/directory").total, BASELINE.organisations);
+  const verification = responseExample(document, "/sources/verification");
+  assert.equal(verification.total_sources, BASELINE.sources);
+  assert.equal(verification.verifiees, BASELINE.sources);
+  const resume = verification.resume;
+  assert.ok(typeof resume === "object" && resume !== null, "GET /sources/verification resume");
+  assert.equal((resume as Record<string, unknown>)["200"], BASELINE.sources);
 });
 
 test("examples contain no victim personal data", () => {

@@ -143,5 +143,5 @@ test("replay keeps only pauses confirmed silent for at least 24 hours", () => {
 		NOW,
 	);
 	assert.deepEqual(episodes.map((e) => e.sourceId), ["confirmed", "ongoing"]);
-	assert.equal(episodes[0]?.delayHours, 12);
+	assert.equal(episodes[0]?.delayHours, 14, "le replay utilise le seuil calibré 14 h, pas 12 h");
 });

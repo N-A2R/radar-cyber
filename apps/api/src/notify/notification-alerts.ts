@@ -61,7 +61,8 @@ export async function fetchNotificationAlerts(options: FetchOptions = {}): Promi
   const limit = options.limit ?? 50;
   const pendingOnly = options.pendingOnly ?? true;
   const pendingClause = pendingOnly
-    ? `   AND a.delivered_at IS NULL
+    ? `   AND a.status = 'open'
+   AND a.delivered_at IS NULL
    AND a.attempts < $4
    AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
 `

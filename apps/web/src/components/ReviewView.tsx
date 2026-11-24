@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { authHeaders } from "../api";
+import { api, ApiError, type ReviewAction, type ReviewQueueResponse, type ReviewRow as ApiReviewRow } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
 import { Dialog } from "@astryxdesign/core/Dialog";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
@@ -22,33 +22,46 @@ export type RevueCandidate = {
   dept: string | null;
 };
 
-export type RevueRow = {
-  id: number;
-  source: string;
-  sourceUrl: string | null;
-  groupe: string | null;
-  orgHint: string | null;
-  claimedAt: string | null;
-  receivedAt: string;
-  tlp: string;
-  triage: { score: number; bucket: RevueBucket; suggested: string; reasons: Array<{ label: string; weight: number }> };
+/** Vue locale d'une ligne `/quarantine/queue`, avec les candidats affichés. */
+export type RevueRow = Omit<ApiReviewRow, "candidates" | "rejectRule" | "city" | "dept"> & {
   candidates: RevueCandidate[];
   rejectRule: string | null;
   city: string | null;
   dept: string | null;
-  review: Array<{ at: string; by: string; action: string; reason: string | null }>;
 };
 
-export type RevueQueue = {
-  rows: RevueRow[];
-  total: number;
-  page: number;
-  limit: number;
-  window: number;
-  truncated: boolean;
-  counts: Record<string, number>;
-  tookMs: number;
+export type RevueQueue = Omit<ReviewQueueResponse, "rows"> & { rows: RevueRow[] };
+
+/**
+ * La route `/quarantine/queue` joint les candidats quand elle est enrichie ;
+ * sinon le rapprochement serveur est déjà porté par `org`. On n'invente jamais
+ * un candidat absent : l'UI affiche ce que le serveur a réellement trouvé.
+ */
+function versRevueRow(row: ApiReviewRow): RevueRow {
+  const candidats: RevueCandidate[] = row.candidates ?? (
+    row.org
+      ? [{ id: row.org.id, name: row.org.name, score: row.orgConfidence ?? 0, via: "rapprochement", city: row.org.city, dept: null }]
+      : []
+  );
+  return {
+    ...row,
+    candidates: candidats,
+    rejectRule: row.rejectRule ?? null,
+    city: row.city ?? row.org?.city ?? null,
+    dept: row.dept ?? null,
+  };
+}
+
+/** Décisions historiques de l'écran → actions canoniques de la quarantaine. */
+const ACTION_PAR_DECISION: Record<RevueDecision, ReviewAction> = {
+  accepter: "promote",
+  refuser: "reject",
+  creer: "promote",
 };
+
+function est401(err: unknown): boolean {
+  return err instanceof ApiError && err.status === 401;
+}
 
 type Props = {
   canWrite?: boolean;
@@ -77,25 +90,7 @@ const DECISION_LABEL: Record<RevueDecision, string> = {
 type BulkDecision = "accepter" | "refuser";
 const BULK_LABEL: Record<BulkDecision, string> = { accepter: "Acceptations", refuser: "Rejets" };
 
-/** L'API renvoie `{ error, details }` : afficher son message, pas un code générique. */
-async function apiMessage(res: Response, fallback: string): Promise<string> {
-  try {
-    const body = await res.json() as { error?: unknown; details?: unknown; message?: unknown };
-    if (Array.isArray(body.details) && body.details.length > 0) {
-      const details = body.details
-        .map((item) => (item && typeof item === "object" && "message" in item ? String(item.message) : String(item)))
-        .join(", ");
-      return `${typeof body.error === "string" ? body.error : "requête invalide"} : ${details}`;
-    }
-    if (typeof body.error === "string") return body.error;
-    if (typeof body.message === "string") return body.message;
-  } catch {
-    // Pas de corps JSON : le statut HTTP est le seul fait certain.
-  }
-  return `${fallback} (${res.status})`;
-}
-
-/** File de décisions de rattachement : GET /api/review/queue, POST /api/review/:id/decision. */
+/** File de décisions de rattachement : client API central, routes /quarantine/*. */
 export default function ReviewView({
   canWrite = false,
   server = true,
@@ -127,12 +122,10 @@ export default function ReviewView({
   const [active, setActive] = useState(0);
   const [help, setHelp] = useState(false);
   const [decision, setDecision] = useState<RevueDecision>("accepter");
-  const [orgId, setOrgId] = useState<number | null>(null);
   const [reason, setReason] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [selected, setSelected] = useState<Set<number>>(() => new Set());
-  const [selectedOrgs, setSelectedOrgs] = useState<Record<number, number>>({});
   const [bulkReason, setBulkReason] = useState("");
   const [bulkError, setBulkError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
@@ -171,9 +164,6 @@ export default function ReviewView({
       return;
     }
     const controller = new AbortController();
-    const params = new URLSearchParams({ limit: String(LIMIT), page: String(page) });
-    if (bucket) params.set("bucket", bucket);
-    if (query) params.set("q", query);
     setLoading(true);
     setError(null);
     // Une requête muette ne doit pas laisser un squelette éternel : passé le
@@ -188,30 +178,24 @@ export default function ReviewView({
       setLoading(false);
       controller.abort();
     }, QUEUE_TIMEOUT_MS);
-    fetch(`/api/review/queue?${params.toString()}`, { headers: authHeaders(), signal: controller.signal })
-      .then(async (res) => {
-        if (res.status === 401) onUnauthorized?.();
-        if (!res.ok) throw new Error(await apiMessage(res, "File de revue indisponible"));
-        return res.json() as Promise<RevueQueue>;
-      })
+    api.reviewQueue({ limit: LIMIT, page, bucket: bucket || undefined, q: query || undefined }, controller.signal)
       .then((data) => {
         if (timedOut) return;
-        setRows(data.rows);
+        setRows(data.rows.map(versRevueRow));
         setTotal(data.total);
         setOpenRow(null);
         setReason("");
         setActive((index) => Math.min(index, Math.max(0, data.rows.length - 1)));
-        setOrgId(null);
         setSelected(new Set());
-        setSelectedOrgs({});
         setBulkReason("");
         setProgress(null);
         setNotice(pendingNotice.current);
         pendingNotice.current = null;
       })
-      .catch((err: Error) => {
-        if (timedOut || err.name === "AbortError") return;
-        setError(err.message);
+      .catch((err: unknown) => {
+        if (timedOut || (err instanceof Error && err.name === "AbortError")) return;
+        if (err instanceof ApiError && err.status === 401) onUnauthorized?.();
+        setError(err instanceof Error ? err.message : "File de revue indisponible");
         pendingNotice.current = null;
         setProgress(null);
       })
@@ -266,7 +250,6 @@ export default function ReviewView({
   const changeFamily = useCallback((next: string) => {
     setFamily(next);
     setSelected(new Set());
-    setSelectedOrgs({});
     setActive(0);
     setOpenRow(null);
   }, []);
@@ -309,14 +292,12 @@ export default function ReviewView({
   const openAction = useCallback((id: number, next: RevueDecision) => {
     setOpenRow(id);
     setDecision(next);
-    setOrgId(null);
     setReason("");
     setActionError(null);
   }, []);
 
   const closeAction = useCallback(() => {
     setOpenRow(null);
-    setOrgId(null);
     setReason("");
     setActionError(null);
   }, []);
@@ -376,22 +357,20 @@ export default function ReviewView({
       setActionError("Un motif est obligatoire.");
       return;
     }
-    if (decision === "accepter" && orgId === null) {
-      setActionError("Choisissez une organisation candidate.");
-      return;
-    }
-    const body: { decision: RevueDecision; raison: string; orgId?: number } = { decision, raison: motif };
-    if (decision === "accepter" && orgId !== null) body.orgId = orgId;
+    const ligne = rows.find((row) => row.id === openRow);
     setSubmitting(true);
     setActionError(null);
     try {
-      const res = await fetch(`/api/review/${openRow}/decision`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeaders() },
-        body: JSON.stringify(body),
-      });
-      if (res.status === 401) onUnauthorized?.();
-      if (!res.ok) throw new Error(await apiMessage(res, "Décision refusée"));
+      if (decision === "creer") {
+        if (!ligne?.orgHint) throw new Error("Aucun indice ne permet de créer une organisation.");
+        await api.orgFromHint({
+          nom: ligne.orgHint,
+          source: `revue:${ligne.source}`,
+          preuve: motif,
+        });
+      }
+      const outcome = await api.reviewAction([openRow], ACTION_PAR_DECISION[decision], motif);
+      if (outcome.changed === 0) throw new Error("Aucune décision appliquée par le serveur.");
       const decidedId = openRow;
       // Retirer la ligne immédiatement : aucun rechargement de la file pour
       // une seule revendication tranchée.
@@ -406,6 +385,7 @@ export default function ReviewView({
       setNotice(`${DECISION_LABEL[decision]} enregistrée : ${motif}`);
       closeAction();
     } catch (err) {
+      if (est401(err)) onUnauthorized?.();
       setActionError(err instanceof Error ? err.message : "La décision n'a pas pu être enregistrée");
     } finally {
       setSubmitting(false);
@@ -422,51 +402,29 @@ export default function ReviewView({
     const targets = selectedRows;
     if (targets.length === 0) return;
 
-    // L'API exige un orgId pour chaque acceptation : partir du meilleur
-    // candidat de chaque ligne, modifiable dans le panneau avant l'envoi du lot.
-    const payloads: Array<{ id: number; body: { decision: BulkDecision; raison: string; orgId?: number } }> = [];
-    let skipped = 0;
-    for (const row of targets) {
-      if (kind === "refuser") {
-        payloads.push({ id: row.id, body: { decision: kind, raison: motif } });
-        continue;
-      }
-      const orgId = selectedOrgs[row.id] ?? row.candidates[0]?.id;
-      if (orgId === undefined) {
-        skipped += 1;
-        continue;
-      }
-      payloads.push({ id: row.id, body: { decision: kind, raison: motif, orgId } });
-    }
-    if (payloads.length === 0) {
-      setBulkError("Aucune des lignes sélectionnées n'a de candidat à rattacher.");
-      return;
-    }
-
+    // Le serveur journalise dans l'ordre de la file : on garde un appel par
+    // ligne, mais il passe désormais par le client API central.
+    const ids = targets.map((row) => row.id);
     setSubmitting(true);
     setBulkError(null);
     setNotice(null);
-    setProgress({ done: 0, total: payloads.length });
+    setProgress({ done: 0, total: ids.length });
     let done = 0;
+    let changes = 0;
+    let ignores = 0;
     try {
-      // Volontairement séquentiel : le journal enregistre les décisions dans
-      // l'ordre de la file, et une erreur arrête le lot au lieu d'envoyer le
-      // reste à l'aveugle.
-      for (const item of payloads) {
-        const res = await fetch(`/api/review/${item.id}/decision`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...authHeaders() },
-          body: JSON.stringify(item.body),
-        });
-        if (res.status === 401) onUnauthorized?.();
-        if (!res.ok) throw new Error(await apiMessage(res, "Décision refusée"));
+      for (const id of ids) {
+        const outcome = await api.reviewAction([id], ACTION_PAR_DECISION[kind], motif);
         done += 1;
-        setProgress({ done, total: payloads.length });
+        changes += outcome.changed;
+        ignores += outcome.skipped.length;
+        setProgress({ done, total: ids.length });
       }
-      pendingNotice.current = `${BULK_LABEL[kind]} enregistrées : ${motif} (${done}/${payloads.length})`;
-      if (skipped > 0) pendingNotice.current += ` — ${skipped} ligne(s) sans candidat ignorée(s)`;
+      pendingNotice.current = `${BULK_LABEL[kind]} enregistrées : ${motif} (${changes}/${ids.length})`;
+      if (ignores > 0) pendingNotice.current += ` — ${ignores} ligne(s) ignorée(s) par le serveur`;
     } catch (err) {
-      setBulkError(`${done}/${payloads.length} décisions envoyées. ${err instanceof Error ? err.message : "La décision n'a pas pu être enregistrée"}`);
+      if (est401(err)) onUnauthorized?.();
+      setBulkError(`${done}/${ids.length} décisions envoyées. ${err instanceof Error ? err.message : "La décision n'a pas pu être enregistrée"}`);
     } finally {
       setSubmitting(false);
       setReloadKey((key) => key + 1);
@@ -619,20 +577,9 @@ export default function ReviewView({
               {selectedRows.map((row) => (
                 <li key={row.id}>
                   <span className="revue__bulk-hint">{row.orgHint ?? "(aucun indice)"}</span>
-                  <label className="revue__bulk-org">
-                    Organisation à rattacher (acceptation)
-                    <select
-                      aria-label={`Organisation pour ${row.orgHint ?? "cette ligne"}`}
-                      value={selectedOrgs[row.id] ?? row.candidates[0]?.id ?? ""}
-                      disabled={!canWrite || submitting}
-                      onChange={(event) => setSelectedOrgs((prev) => ({ ...prev, [row.id]: Number(event.target.value) }))}
-                    >
-                      {row.candidates.length === 0 ? <option value="">aucun candidat</option> : null}
-                      {row.candidates.map((candidate) => (
-                        <option key={candidate.id} value={candidate.id}>{candidate.name}</option>
-                      ))}
-                    </select>
-                  </label>
+                  <span className="revue__bulk-org">
+                    Rattachement pressenti : {row.candidates[0]?.name ?? "à déterminer par le serveur"}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -727,22 +674,11 @@ export default function ReviewView({
               <form className="revue__decision" onSubmit={decide}>
                 <p className="revue__decision-title">{DECISION_LABEL[decision]} — {row.orgHint}</p>
                 {decision === "accepter" ? (
-                  <fieldset className="revue__orgs">
-                    <legend>Organisation à rattacher</legend>
-                    {row.candidates.length === 0 ? <p className="revue__none">Aucun candidat : rejetez cette ligne ou créez l'organisation.</p> : null}
-                    {row.candidates.map((candidate) => (
-                      <label className="revue__org" key={candidate.id}>
-                        <input
-                          type="radio"
-                          name={`org-${row.id}`}
-                          value={candidate.id}
-                          checked={orgId === candidate.id}
-                          onChange={() => setOrgId(candidate.id)}
-                        />
-                        {candidate.name}
-                      </label>
-                    ))}
-                  </fieldset>
+                  <p className="revue__none">
+                    {row.candidates.length > 0
+                      ? `Rattachement proposé : ${row.candidates.map((candidate) => candidate.name).join(", ")}. Le serveur applique le rapprochement retenu.`
+                      : "Aucun rattachement proposé : le serveur décidera ou la décision sera ignorée."}
+                  </p>
                 ) : null}
                 <label className="revue__label" htmlFor={`raison-${row.id}`}>Motif de cette décision (obligatoire)</label>
                 <textarea
@@ -758,7 +694,7 @@ export default function ReviewView({
                 <div className="revue__decision-actions">
                   <button
                     type="submit"
-                    disabled={submitting || !reason.trim() || (decision === "accepter" && orgId === null)}
+                    disabled={submitting || !reason.trim()}
                   >
                     Confirmer
                   </button>

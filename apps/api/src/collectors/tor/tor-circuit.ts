@@ -36,7 +36,6 @@ interface TorState {
 }
 
 const state = new Map<string, TorState>();
-let endpointCursor = 0;
 
 /** Classifie une erreur réseau Tor sans jamais la confondre avec un parse. */
 export function classifyTorCause(err: unknown): TorCause {
@@ -66,15 +65,18 @@ export function torFailureCount(source: string): number {
 }
 
 /**
- * URL SOCKS à utiliser pour une source : tourne sur la liste de points de
- * sortie et change d'identifiants à chaque échec enregistré. Le suffixe est
- * stable pour un même (source, échec) afin qu'un run soit reproductible.
+ * URL SOCKS à utiliser pour une source : le point de sortie avance d'un cran
+ * par échec enregistré, et les identifiants changent avec lui. Un seul
+ * compteur — ajouter un curseur global ici faisait retomber sur le même
+ * proxy après un échec (et n'atteignait que les index pairs sur quatre).
+ * Le suffixe est stable pour un même (source, échec) afin qu'un run soit
+ * reproductible.
  */
 export function rotatedTorSocks(source: string, env: NodeJS.ProcessEnv = process.env): string | null {
   const endpoints = torEndpoints(env);
   if (endpoints.length === 0) return null;
   const failures = torFailureCount(source);
-  const base = endpoints[(endpointCursor + failures) % endpoints.length]!;
+  const base = endpoints[failures % endpoints.length]!;
   const url = new URL(base);
   const fingerprint = createHash("sha256")
     .update(`${PROCESS_SECRET}\u0000${source}\u0000${failures}`)
@@ -85,11 +87,6 @@ export function rotatedTorSocks(source: string, env: NodeJS.ProcessEnv = process
   return url.toString();
 }
 
-/** Avance le curseur de points de sortie (rotation entre instances Tor). */
-export function rotateEndpoint(): void {
-  endpointCursor++;
-}
-
 /** Délai restant avant de retenter une source (0 si elle est disponible). */
 export function torBackoffRemainingMs(source: string, now = Date.now()): number {
   const s = state.get(source);
@@ -98,7 +95,8 @@ export function torBackoffRemainingMs(source: string, now = Date.now()): number 
 
 /**
  * Enregistre un échec et renvoie le délai appliqué. Le circuit tourne à
- * chaque échec : l'appel suivant utilisera des identifiants différents.
+ * chaque échec : l'appel suivant utilisera un autre point de sortie et des
+ * identifiants différents.
  */
 export function noteTorFailure(source: string, err: unknown, now = Date.now()): number {
   const cause = classifyTorCause(err);
@@ -106,7 +104,6 @@ export function noteTorFailure(source: string, err: unknown, now = Date.now()): 
   const delays = TOR_BACKOFF_DELAYS[cause];
   const delay = delays[Math.min(failures, delays.length) - 1]!;
   state.set(source, { failures, retryAt: now + delay, cause });
-  rotateEndpoint();
   return delay;
 }
 
@@ -139,5 +136,4 @@ export function torCircuitStats(): {
 /** Remise à zéro complète, uniquement pour les tests. */
 export function resetTorState(): void {
   state.clear();
-  endpointCursor = 0;
 }

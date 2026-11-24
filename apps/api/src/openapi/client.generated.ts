@@ -53,6 +53,7 @@ export type FlowsQuery = z.infer<typeof Catalog.FlowsQuery>;
 export type MorteBody = z.infer<typeof Schemas.MorteBody>;
 export type IngestBody = z.infer<typeof Catalog.IngestBody>;
 export type ValueParam = z.infer<typeof Catalog.ValueParam>;
+export type AlertQuery = z.infer<typeof Catalog.AlertQuery>;
 export type QuarantineQuery = z.infer<typeof Catalog.QuarantineQuery>;
 export type QueueQuery = z.infer<typeof Schemas.QueueQuery>;
 export type ReviewBody = z.infer<typeof Catalog.ReviewBody>;
@@ -177,7 +178,7 @@ export function createRadarClient(options?: RequestOptions) {
       request<Enrichment>(pathOf("/enrich/domain/{value}", args.params), "GET", undefined, { ...options, ...call }),
     getEventEnrichment: (args: { params: { id: string | number } }, call?: RequestOptions) =>
       request<Enrichment>(pathOf("/enrich/events/{id}", args.params), "GET", undefined, { ...options, ...call }),
-    getAlerts: (args: { query?: QuarantineQuery }, call?: RequestOptions) =>
+    getAlerts: (args: { query?: AlertQuery }, call?: RequestOptions) =>
       request<Alerts>(withQuery("/alerts", args?.query), "GET", undefined, { ...options, ...call }),
     getAlertStats: (args?: Record<string, never>, call?: RequestOptions) =>
       request<Stats>("/alerts/stats", "GET", undefined, { ...options, ...call }),

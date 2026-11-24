@@ -16,6 +16,7 @@ import {
 	translationQuality,
 	type ArticleRecord,
 } from "../src/translation/index.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `trans${Date.now().toString(36)}`;
 const SOURCE = `${TAG}-source`;
@@ -66,17 +67,17 @@ before(async () => {
 
 after(async () => {
 	if (app) await app.close();
-	await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+	await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
 	await query("DELETE FROM source WHERE id = $1", [SOURCE]);
 	await closePools();
 });
 
-const NA_ARTICLE: ArticleRecord = {
+const NA_ARTICLE = {
 	id: 1,
 	title: "Gîtes de France - 117,574 breached accounts",
 	regional: false,
 	department: "33",
-};
+} satisfies ArticleRecord;
 
 function article(overrides: Partial<ArticleRecord> = {}): ArticleRecord {
 	return { ...NA_ARTICLE, ...overrides };

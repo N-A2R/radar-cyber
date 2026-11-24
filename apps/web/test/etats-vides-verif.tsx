@@ -8,6 +8,7 @@
 import { JSDOM } from "jsdom";
 import type { Root } from "react-dom/client";
 import { mockData } from "../src/mock";
+import type { ReactElement } from "react";
 
 const dom = new JSDOM("<!doctype html><html><body><div id='root'></div></body></html>", {
 	url: "http://localhost/",
@@ -60,7 +61,7 @@ async function main(): Promise<void> {
 	const { default: SourcesView } = await import("../src/components/SourcesView");
 
 	const act = react.act;
-	async function render(node: react.ReactElement): Promise<void> {
+	async function render(node: ReactElement): Promise<void> {
 		if (root !== null) await act(async () => root!.unmount());
 		await act(async () => {
 			root = createRoot(container);
@@ -92,15 +93,15 @@ async function main(): Promise<void> {
 	check("fil : pas d'état vide avec des événements", container.querySelector(".empty-state") === null);
 
 	// 2. Journal ------------------------------------------------------------
-	await render(<JournalListe rows={[]} resultCount={0} filters={{}} onFilterChange={() => {}} onReset={() => {}}
-		truncated={false} loading error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
+	await render(<JournalListe rows={[]} total={0} filters={{}} onFilterChange={() => {}} onReset={() => {}}
+		loading error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
 		selected={null} onSelect={() => {}} onCloseDetail={() => {}} onExport={() => {}} exporting={false}
 		exportError={null} onRetry={onRetry} />);
 	check("journal : 3 lignes de squelette pendant l'appel", skeletons() === 3);
 	check("journal : libellé de chargement annoncé",
 		container.querySelector(".skeleton__label")?.textContent === "Chargement du journal…");
-	await render(<JournalListe rows={[]} resultCount={0} filters={{}} onFilterChange={() => {}} onReset={() => {}}
-		truncated={false} loading={false} error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
+	await render(<JournalListe rows={[]} total={0} filters={{}} onFilterChange={() => {}} onReset={() => {}}
+		loading={false} error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
 		selected={null} onSelect={() => {}} onCloseDetail={() => {}} onExport={() => {}} exporting={false}
 		exportError={null} onRetry={onRetry} />);
 	check("journal : état vide explicite", container.querySelector(".empty-state__message")?.textContent === "Aucune entrée de journal enregistrée pour l'instant.");

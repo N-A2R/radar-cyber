@@ -1,0 +1,163 @@
+/* Carte workspace — three destinations in one panel, modern dark Astryx.
+   Chromes come from design-system tokens; only geometry and translucency are
+   local, so the whole panel follows the active theme. */
+
+.map-workspace {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  min-height: 0;
+  height: 100%;
+}
+
+.map-workspace__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: calc(var(--control-min-size) + var(--space-3));
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 var(--surface-hover), 0 var(--space-2) var(--space-4) var(--color-overlay-pressed);
+}
+
+.map-workspace__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  margin-left: auto;
+}
+
+.map-workspace__family,
+.map-workspace__search,
+.map-workspace__basemap button {
+  min-height: var(--control-min-size);
+  padding: var(--control-pad-y) var(--control-pad-x);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font: var(--text-label) / var(--leading-tight) var(--font-label);
+}
+
+.map-workspace__family {
+  max-width: 12rem;
+}
+
+.map-workspace__search {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.map-workspace__search:hover,
+.map-workspace__basemap button:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+}
+
+.map-workspace__basemap {
+  display: inline-flex;
+  gap: var(--space-1);
+}
+
+.map-workspace__basemap button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--surface-active);
+}
+
+.map-workspace__status {
+  color: var(--muted);
+  font: var(--text-label) / var(--leading-tight) var(--font-label);
+  white-space: nowrap;
+}
+
+.map-workspace__carte {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 26rem);
+  gap: var(--space-3);
+  min-height: 0;
+}
+
+.map-workspace__stage {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  box-shadow: inset 0 1px 0 var(--surface-hover);
+}
+
+.map-workspace__stage > :first-child {
+  height: 100%;
+}
+
+.map-workspace__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 var(--surface-hover), 0 var(--space-2) var(--space-5) var(--color-overlay-pressed);
+}
+
+.map-workspace__side > :last-child {
+  min-width: 0;
+}
+
+.map-workspace__graphe,
+.map-workspace__directory {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: 0;
+}
+
+.map-workspace__graphe > :last-child,
+.map-workspace__directory > :last-child {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.map-workspace__subbar {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 1180px) {
+  .map-workspace__carte {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(24rem, 1fr) minmax(0, 0.8fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .map-workspace__bar {
+    flex-wrap: wrap;
+  }
+
+  .map-workspace__tools {
+    flex-wrap: wrap;
+    margin-left: 0;
+  }
+}

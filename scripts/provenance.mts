@@ -3,21 +3,27 @@
  *
  *   tsx scripts/provenance.mts measure --json=bench/results/provenance-na.json
  *   tsx scripts/provenance.mts check   --json=bench/results/provenance-na.json
+ *   tsx scripts/provenance.mts measure --context=ci-fixture --json=/tmp/ci.json
  *
- * `measure` reads the live Nouvelle-Aquitaine database and writes a ledger
+ * `measure` reads the Nouvelle-Aquitaine database and writes a ledger
  * containing only source metadata, actors, recording clocks and proof keys.
  * `check` re-evaluates that ledger with the pure gate and exits 1 when any
  * fact lacks provenance. The ledger never carries event titles, journal
- * summaries, organisation names or victim data.
+ * summaries, organisation names or victim data. `--context=ci-fixture` only
+ * swaps the pinned expected counts for the disposable CI fixture; every
+ * blocking custody check still applies.
  */
+
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { closePools, query } from "../apps/api/src/db.js";
 import { evaluateCustody, iso, PROOF_KEYS, type CustodyEvent, type CustodyFact } from "../apps/api/src/custody/chain.js";
 import {
   evaluateProvenanceGate,
+  PROVENANCE_CONTEXTS,
   PROVENANCE_SCOPE,
   type ProvenanceArtifact,
+  type ProvenanceContext,
   type ProvenanceEntry,
 } from "../apps/api/src/custody/gate.js";
 
@@ -25,6 +31,16 @@ const argv = process.argv.slice(2);
 const command = argv[0];
 const jsonFlag = argv.find((arg) => arg.startsWith("--json="));
 const JSON_PATH = jsonFlag?.slice("--json=".length) ?? "bench/results/provenance-na.json";
+const ageFlag = argv.find((arg) => arg.startsWith("--max-age-minutes="));
+const MAX_AGE_MINUTES = ageFlag ? Number(ageFlag.slice("--max-age-minutes=".length)) : 1440;
+const contextFlag = argv.find((arg) => arg.startsWith("--context="));
+const contextArg = contextFlag?.slice("--context=".length) ?? "real";
+const CONTEXT: ProvenanceContext | undefined =
+  PROVENANCE_CONTEXTS.find((candidate): candidate is ProvenanceContext => candidate === contextArg);
+if (!CONTEXT) {
+  console.error(`Provenance gate FAIL: invalid-context (${contextArg}).`);
+  process.exit(2);
+}
 
 const DEFINITION =
   "Zero fact without provenance: every Nouvelle-Aquitaine event carries a source id and URL, " +
@@ -113,6 +129,7 @@ async function measure(): Promise<ProvenanceArtifact> {
   return {
     definition: DEFINITION,
     scope: PROVENANCE_SCOPE,
+    context: CONTEXT,
     generatedAt: new Date().toISOString(),
     organisations: Number(totals.rows[0]?.orgs ?? 0),
     sources: Number(totals.rows[0]?.sources ?? 0),
@@ -160,8 +177,8 @@ async function main(): Promise<void> {
     const artifact = summarize(await measure());
     mkdirSync(dirname(JSON_PATH), { recursive: true });
     writeFileSync(JSON_PATH, `${JSON.stringify(artifact, null, 2)}\n`, "utf8");
-    console.log(resultLine(artifact, evaluateProvenanceGate(artifact)));
-    console.log(`Context: ${artifact.organisations} organisations, ${artifact.sources} sources, ${artifact.events} events.`);
+    console.log(resultLine(artifact, evaluateProvenanceGate(artifact, CONTEXT)));
+    console.log(`Context: ${artifact.organisations} organisations, ${artifact.sources} sources, ${artifact.events} events (${CONTEXT}).`);
     console.log(`Ledger: ${JSON_PATH}`);
     await closePools();
     return;
@@ -181,9 +198,25 @@ async function main(): Promise<void> {
       process.exitCode = 1;
       return;
     }
-    const verdict = evaluateProvenanceGate(artifact);
+    // Un ledger versionné peut rester vert indéfiniment alors que la DB a
+    // changé : le gate bloquant exige désormais une mesure fraîche.
+    if (!Number.isFinite(MAX_AGE_MINUTES) || MAX_AGE_MINUTES < 0) {
+      console.error("Provenance gate FAIL: invalid-max-age.");
+      process.exitCode = 1;
+      return;
+    }
+    const measured = Date.parse(artifact.generatedAt ?? "");
+    const ageMinutes = Number.isFinite(measured) ? (Date.now() - measured) / 60000 : Number.POSITIVE_INFINITY;
+    if (ageMinutes > MAX_AGE_MINUTES) {
+      console.error(
+        `Provenance gate FAIL: artifact trop ancien (${Math.round(ageMinutes)} min > ${MAX_AGE_MINUTES} min) — relancez provenance:measure.`,
+      );
+      process.exitCode = 1;
+      return;
+    }
+    const verdict = evaluateProvenanceGate(artifact, CONTEXT);
     const line = resultLine(artifact, verdict);
-    if (verdict.ok) console.log(line);
+    if (verdict.ok) console.log(`${line} Artifact: ${Math.round(ageMinutes)} min.`);
     else {
       console.error(line);
       if (verdict.withoutProvenance.length > 0) console.error(`Subjects: ${verdict.withoutProvenance.join(", ")}`);
@@ -192,7 +225,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.error("Usage: provenance.mts measure|check --json=<path>");
+  console.error("Usage: provenance.mts measure|check --json=<path> [--context=real|ci-fixture] [--max-age-minutes=N]");
   process.exitCode = 2;
 }
 

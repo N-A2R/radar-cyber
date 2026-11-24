@@ -1,7 +1,6 @@
 # Unité système générée par scripts/deploy/install.sh.
-# @PNPM@ est remplacé par le chemin absolu de pnpm au moment de l'installation.
 [Unit]
-Description=Radar Cyber — interface web (vite preview, dist statique)
+Description=Radar Cyber — interface web (serveur statique Node)
 Documentation=file:/opt/radar-cyber/current/docs/operations.md
 After=network-online.target postgresql.service radar-api.service
 Wants=network-online.target
@@ -12,8 +11,9 @@ Type=simple
 User=radar
 Group=radar
 WorkingDirectory=/opt/radar-cyber/current/apps/web
+Environment=WEB_DIST=/opt/radar-cyber/current/apps/web/dist
 EnvironmentFile=/etc/radar-cyber/radar.env
-ExecStart=@PNPM@ -F @radar/web exec vite preview --config ../../scripts/systemd/preview.config.mjs
+ExecStart=node /opt/radar-cyber/current/apps/web/serve.mjs
 Restart=on-failure
 RestartSec=5
 TimeoutStopSec=20

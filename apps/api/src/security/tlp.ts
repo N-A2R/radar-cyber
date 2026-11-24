@@ -47,17 +47,26 @@ const PUBLIC_TLP: Record<string, true> = {
 /**
  * Même règle en TypeScript, pour les flux déjà chargés en mémoire (SSE) :
  * le curseur doit avancer sur toutes les lignes, seules les publiques sortent.
+ * `evidence` peut arriver comme objet JSONB ou comme chaîne JSON sérialisée :
+ * dans les deux cas une déclaration restreinte doit être refusée, et une
+ * chaîne illisible ne doit jamais être traitée comme publique.
  */
+function declarationTlp(evidence: unknown): string {
+  if (evidence === null || evidence === undefined) return "CLEAR";
+  let objet: unknown = evidence;
+  if (typeof evidence === "string") {
+    try { objet = JSON.parse(evidence); } catch { return ""; }
+  }
+  if (!objet || typeof objet !== "object" || Array.isArray(objet)) return "";
+  return String((objet as Record<string, unknown>).tlp ?? "CLEAR");
+}
+
 export function evenementPublic(row: {
   tlp?: unknown;
   evidence?: unknown;
 }): boolean {
   const colonne = String(row.tlp ?? "CLEAR").trim().toUpperCase();
-  const evidence =
-    row.evidence && typeof row.evidence === "object" && !Array.isArray(row.evidence)
-      ? (row.evidence as Record<string, unknown>)
-      : {};
-  return PUBLIC_TLP[colonne] === true && String(evidence.tlp ?? "CLEAR") === "CLEAR";
+  return PUBLIC_TLP[colonne] === true && declarationTlp(row.evidence) === "CLEAR";
 }
 
 export function indicateurPublic(row: { tlp?: unknown }): boolean {

@@ -124,12 +124,14 @@ export function DroitReponseSection({
           <label className="droit-reponse__champ">
             <span>nom de l'organisation</span>
             <input
+              id="droit-reponse-organisation"
               type="text" value={valeurs.organisation} readOnly
               onChange={(event) => onChanger("organisation", event.target.value)}
               aria-invalid={Boolean(erreurs.organisation)}
+              aria-describedby={erreurs.organisation ? "droit-reponse-organisation-erreur" : undefined}
             />
           </label>
-          {erreurs.organisation && <p className="droit-reponse__erreur-champ" role="alert">{erreurs.organisation}</p>}
+          {erreurs.organisation && <p id="droit-reponse-organisation-erreur" className="droit-reponse__erreur-champ" role="alert">{erreurs.organisation}</p>}
 
           <label className="droit-reponse__champ">
             <span>contact (nom)</span>
@@ -142,12 +144,14 @@ export function DroitReponseSection({
           <label className="droit-reponse__champ">
             <span>e-mail de contact</span>
             <input
+              id="droit-reponse-email"
               type="email" value={valeurs.email} maxLength={200}
               onChange={(event) => onChanger("email", event.target.value)}
               aria-invalid={Boolean(erreurs.email)}
+              aria-describedby={erreurs.email ? "droit-reponse-email-erreur" : undefined}
             />
           </label>
-          {erreurs.email && <p className="droit-reponse__erreur-champ" role="alert">{erreurs.email}</p>}
+          {erreurs.email && <p id="droit-reponse-email-erreur" className="droit-reponse__erreur-champ" role="alert">{erreurs.email}</p>}
 
           <label className="droit-reponse__champ">
             <span>domaine justificatif (facultatif)</span>
@@ -167,12 +171,14 @@ export function DroitReponseSection({
           <label className="droit-reponse__champ">
             <span>rectification demandée</span>
             <textarea
+              id="droit-reponse-message"
               value={valeurs.message} maxLength={3000} rows={4}
               onChange={(event) => onChanger("message", event.target.value)}
               aria-invalid={Boolean(erreurs.message)}
+              aria-describedby={erreurs.message ? "droit-reponse-message-erreur" : undefined}
             />
           </label>
-          {erreurs.message && <p className="droit-reponse__erreur-champ" role="alert">{erreurs.message}</p>}
+          {erreurs.message && <p id="droit-reponse-message-erreur" className="droit-reponse__erreur-champ" role="alert">{erreurs.message}</p>}
 
           <label className="droit-reponse__champ">
             <span>référence de pièce justificative (facultatif)</span>

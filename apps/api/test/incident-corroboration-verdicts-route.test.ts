@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import incidentCorroborationRoute from "../src/routes/incident-corroboration.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `verdict${Date.now().toString(36)}`;
 const SOURCES = [`${TAG}-a`, `${TAG}-b`];
@@ -56,7 +57,7 @@ before(async () => {
 after(async () => {
   if (app) await app.close();
   if (eventIds.length > 0) {
-    await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [eventIds]);
+    await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [eventIds]);
   }
   await query("DELETE FROM org WHERE id = $1", [orgId]);
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [SOURCES]);

@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { closePools, ingestQuery, query } from "../src/db.js";
 import { eligibleFacts, pendingFacts } from "../src/warc/eligibility.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `warc${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const ids: Record<string, number> = {};
@@ -64,7 +65,7 @@ before(async () => {
 
 after(async () => {
 	await query("DELETE FROM warc_proof WHERE event_id = ANY($1::bigint[])", [Object.values(ids)]);
-	await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [Object.values(ids)]);
+	await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [Object.values(ids)]);
 	await query("DELETE FROM collector_run WHERE id = $1", [runId]);
 	await query("DELETE FROM source WHERE id LIKE $1", [`src-${TAG}%`]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${tagSlug()}%`]);

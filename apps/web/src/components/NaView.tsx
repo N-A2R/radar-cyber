@@ -230,73 +230,6 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
       </header>
 
       <div className="na-corps">
-        <div className="na-carte-bloc">
-          <svg
-            className="na-carte"
-            viewBox={`0 0 ${SVG_W.toFixed(0)} ${SVG_H.toFixed(0)}`}
-            role="group"
-            aria-label="Carte des départements de Nouvelle-Aquitaine. Chaque département est un bouton ; sa couleur encode le nombre d'événements rattachés, la légende chiffrée est sous la carte."
-          >
-            {FEATURES.map((f) => {
-              const code = f.properties.code;
-              const c = compteParDept.get(code);
-              const evts = c?.evenements ?? 0;
-              const actif = dept === code;
-              const niveau = niveauPour(evts, maxEvts);
-              return (
-                <path
-                  key={code}
-                  className={`na-dept na-niveau-${niveau}${actif ? " na-dept-actif" : ""}${
-                    survol === code ? " na-dept-survol" : ""
-                  }`}
-                  data-dept={code}
-                  d={cheminDe(f.geometry)}
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={actif}
-                  aria-label={`${c?.nom ?? code} (${code}) : ${libelleEvenements(evts)}, ${libelleOrganisationsTouchées(c?.orgsAvecEvenement ?? 0)} sur ${c?.orgs ?? 0} organisations`}
-                  onMouseEnter={() => setSurvol(code)}
-                  onMouseLeave={() => quitterSurvol(code)}
-                  onFocus={() => setSurvol(code)}
-                  onBlur={() => quitterSurvol(code)}
-                  onClick={() => onSelectDept(actif ? null : code)}
-                  onKeyDown={(e) => {
-                    if (e.key !== "Enter" && e.key !== " ") return;
-                    e.preventDefault();
-                    onSelectDept(actif ? null : code);
-                  }}
-                >
-                  <title>{`${c?.nom ?? code} (${code}) — ${libelleEvenements(evts)} · ${libelleOrganisationsTouchées(c?.orgsAvecEvenement ?? 0)} sur ${c?.orgs ?? 0}`}</title>
-                </path>
-              );
-            })}
-          </svg>
-
-          <p className="na-survol" aria-live="polite">
-            {survol && survole
-              ? `${survole.nom} (${survol}) : ${libelleEvenements(survole.evenements)} · ${libelleOrganisationsTouchées(survole.orgsAvecEvenement)} sur ${survole.orgs} organisations`
-              : "Survolez la carte ou une ligne, ou utilisez le clavier, pour lire le détail d'un département."}
-          </p>
-
-          <figure className="na-legende" aria-labelledby="na-legende-titre">
-            <figcaption id="na-legende-titre">
-              Couleur = nombre d'événements rattachés au département (échelle racine carrée,{" "}
-              {libelleEvenements(maxReel)} au maximum en région).
-            </figcaption>
-            <ul className="na-legende-echelle">
-              <li className="na-legende-item">
-                <span className="na-legende-pastille na-niveau-0" aria-hidden="true" />
-                <span>0 événement</span>
-              </li>
-              {bornes.map((b) => (
-                <li key={b.niveau} className="na-legende-item">
-                  <span className={`na-legende-pastille na-niveau-${b.niveau}`} aria-hidden="true" />
-                  <span>{b.lo === b.hi ? libelleEvenements(b.lo) : `${b.lo}–${b.hi} événements`}</span>
-                </li>
-              ))}
-            </ul>
-          </figure>
-        </div>
 
         <div className="na-panneau">
           <h3>{dept ? `${nomDept} (${dept})` : `Les ${libelleDepartements.toLowerCase()}`}</h3>
@@ -407,6 +340,73 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
               )}
             </>
           )}
+        </div>
+        <div className="na-carte-bloc">
+          <svg
+            className="na-carte"
+            viewBox={`0 0 ${SVG_W.toFixed(0)} ${SVG_H.toFixed(0)}`}
+            role="group"
+            aria-label="Carte des départements de Nouvelle-Aquitaine. Chaque département est un bouton ; sa couleur encode le nombre d'événements rattachés, la légende chiffrée est sous la carte."
+          >
+            {FEATURES.map((f) => {
+              const code = f.properties.code;
+              const c = compteParDept.get(code);
+              const evts = c?.evenements ?? 0;
+              const actif = dept === code;
+              const niveau = niveauPour(evts, maxEvts);
+              return (
+                <path
+                  key={code}
+                  className={`na-dept na-niveau-${niveau}${actif ? " na-dept-actif" : ""}${
+                    survol === code ? " na-dept-survol" : ""
+                  }`}
+                  data-dept={code}
+                  d={cheminDe(f.geometry)}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={actif}
+                  aria-label={`${c?.nom ?? code} (${code}) : ${libelleEvenements(evts)}, ${libelleOrganisationsTouchées(c?.orgsAvecEvenement ?? 0)} sur ${c?.orgs ?? 0} organisations`}
+                  onMouseEnter={() => setSurvol(code)}
+                  onMouseLeave={() => quitterSurvol(code)}
+                  onFocus={() => setSurvol(code)}
+                  onBlur={() => quitterSurvol(code)}
+                  onClick={() => onSelectDept(actif ? null : code)}
+                  onKeyDown={(e) => {
+                    if (e.key !== "Enter" && e.key !== " ") return;
+                    e.preventDefault();
+                    onSelectDept(actif ? null : code);
+                  }}
+                >
+                  <title>{`${c?.nom ?? code} (${code}) — ${libelleEvenements(evts)} · ${libelleOrganisationsTouchées(c?.orgsAvecEvenement ?? 0)} sur ${c?.orgs ?? 0}`}</title>
+                </path>
+              );
+            })}
+          </svg>
+
+          <p className="na-survol" aria-live="polite">
+            {survol && survole
+              ? `${survole.nom} (${survol}) : ${libelleEvenements(survole.evenements)} · ${libelleOrganisationsTouchées(survole.orgsAvecEvenement)} sur ${survole.orgs} organisations`
+              : "Survolez la carte ou une ligne, ou utilisez le clavier, pour lire le détail d'un département."}
+          </p>
+
+          <figure className="na-legende" aria-labelledby="na-legende-titre">
+            <figcaption id="na-legende-titre">
+              Couleur = nombre d'événements rattachés au département (échelle racine carrée,{" "}
+              {libelleEvenements(maxReel)} au maximum en région).
+            </figcaption>
+            <ul className="na-legende-echelle">
+              <li className="na-legende-item">
+                <span className="na-legende-pastille na-niveau-0" aria-hidden="true" />
+                <span>0 événement</span>
+              </li>
+              {bornes.map((b) => (
+                <li key={b.niveau} className="na-legende-item">
+                  <span className={`na-legende-pastille na-niveau-${b.niveau}`} aria-hidden="true" />
+                  <span>{b.lo === b.hi ? libelleEvenements(b.lo) : `${b.lo}–${b.hi} événements`}</span>
+                </li>
+              ))}
+            </ul>
+          </figure>
         </div>
       </div>
     </section>

@@ -2,41 +2,31 @@
 
 Observatoire régional de cybermenaces : collecte passive de sources OSINT/CTI, normalisation et visualisation.
 
-## État mesuré (2026-11-11)
+## État mesuré (2026-11-24)
 
-Mesures exécutées en lecture seule sur la base live `postgres://radar:radar@localhost:5432/radar` le 2026-11-11.
+Mesures exécutées en lecture seule sur la base live `localhost:5433/radar` le 2026-11-24.
 
 | Métrique | Valeur mesurée | Requête de vérification |
 |---|---:|---|
-| Sources déclarées | 594 | `SELECT count(*) FROM source;` |
-| Sources activées (`enabled`) | 544 | `SELECT count(*) FROM source WHERE enabled;` |
-| Sources avec dernier succès connu | 552 | `SELECT count(*) FROM source WHERE last_ok_at IS NOT NULL AND (last_error_at IS NULL OR last_ok_at >= last_error_at);` |
-| **Sources productives** (au moins un événement) | **160** | `SELECT count(DISTINCT source_id) FROM event;` |
-| Sources en erreur | 7 | `SELECT count(*) FROM source WHERE enabled AND last_error IS NOT NULL;` |
-| Événements | 3 456 | `SELECT count(*) FROM event;` |
-| Événements rattachés à une organisation (`org_id` non nul) | 1 112 | `SELECT count(*) FROM event WHERE org_id IS NOT NULL;` |
-| Organisations au référentiel | 10 261 | `SELECT count(*) FROM org;` |
-| Organisations avec au moins un événement | 113 | `SELECT count(DISTINCT org_id) FROM event WHERE org_id IS NOT NULL;` |
-| Organisations géocodées (`lat`/`lon` renseignés) | 444 | `SELECT count(*) FROM org WHERE lat IS NOT NULL AND lon IS NOT NULL;` |
-| Événements avec coordonnées | 12 | `SELECT count(*) FROM event WHERE lat IS NOT NULL AND lon IS NOT NULL;` |
-| Indicateurs collectés | 28 549 | `SELECT count(*) FROM indicator;` |
-| Scores EPSS en base | 402 773 | `SELECT count(*) FROM epss;` |
-| Scores EPSS > 0,30 | 7 163 | `SELECT count(*) FROM epss WHERE score > 0.30;` |
-| Alertes en base | 4 546 | `SELECT count(*) FROM alert;` |
-| Lignes en quarantaine (`quarantine_raw`) | 16 235 | `SELECT count(*) FROM quarantine_raw;` |
-| Sources `.onion` déclarées / activées | 77 / 77 | `SELECT count(*) FROM source WHERE id LIKE 'onion:%';` |
-| Sources `.onion` productives | **37** | `SELECT count(DISTINCT source_id) FROM event WHERE source_id LIKE 'onion:%';` |
-| Pages `.onion` en quarantaine (HTML illisible) | 45 | `SELECT count(*) FROM quarantine_raw WHERE source LIKE 'onion:%';` |
-| Événements issus de sources `.onion` | 664 | `SELECT count(*) FROM event WHERE source_id LIKE 'onion:%';` |
+| Sources déclarées | 3 140 | `SELECT count(*) FROM source;` |
+| Sources activées (`enabled`) | 3 038 | `SELECT count(*) FROM source WHERE enabled;` |
+| **Sources productives** (au moins un événement) | **141** | `SELECT count(DISTINCT source_id) FROM event;` |
+| Événements | 27 218 | `SELECT count(*) FROM event;` |
+| Événements rattachés à une organisation | 250 | `SELECT count(*) FROM event WHERE org_id IS NOT NULL;` |
+| Organisations au référentiel | 1 673 270 | `SELECT count(*) FROM org;` |
+| Organisations avec au moins un événement | 83 | `SELECT count(DISTINCT org_id) FROM event WHERE org_id IS NOT NULL;` |
+| Organisations géocodées | 1 671 918 | `SELECT count(*) FROM org WHERE lat IS NOT NULL AND lon IS NOT NULL;` |
+| Événements avec coordonnées | 12 569 | `SELECT count(*) FROM event WHERE lat IS NOT NULL AND lon IS NOT NULL;` |
+| Indicateurs collectés | 2 051 | `SELECT count(*) FROM indicator;` |
+| Scores EPSS en base | 410 485 | `SELECT count(*) FROM epss;` |
+| Alertes en base | 1 652 | `SELECT count(*) FROM alert;` |
+| Lignes de quarantaine | 17 362 | `SELECT count(*) FROM quarantine_raw;` |
+| Certificats d'ignorance | 11 798 512 | `SELECT count(*) FROM org_unknown;` |
+| Sources `.onion` déclarées / activées / productives | 77 / 9 / 8 | `source` + `event.source_id` |
 
-**La métrique qui compte est « sources productives », pas « sources actives ».**
-Une source peut répondre en 200 et ne rien produire : sur 60 sources muettes
-relancées, 1 913 items ont été rejetés comme presse régionale, 71 comme hors
-sujet, et 4 seulement étaient de vraies pannes de parsing. Compter les sources
-actives reviendrait à compter des portes ouvertes sur un couloir vide.
-| Sources `.onion` sans événement | 64 | `SELECT count(*) FROM source s WHERE (s.url LIKE '%.onion%' OR s.id LIKE '%onion%') AND NOT EXISTS (SELECT 1 FROM event e WHERE e.source_id = s.id);` |
+**La métrique qui compte est « sources productives », pas « sources actives ».** Une source peut répondre en 200 et ne rien produire.
 
-Répartition des événements par famille (mesurée le 2026-11-10) : `cti` 747, `vuln` 665, `ransomware` 276, `cert_fr` 239, `cert` 76, `leaks` 18. La table `event` ne contient pas de colonne `is_press`.
+Répartition des événements par famille (mesurée le 2026-11-24) : `vuln` 23 543, `cti` 1 614, `ransomware` 919, `leaks` 577, `cert_fr` 296, `cert` 193, `ambient` 30, `presse` 15, `official_statement` 14, `presse_cyber` 10, `paste` 7.
 
 ## Tableau de bord de couverture
 
@@ -65,7 +55,17 @@ pnpm dev:api                                                # terminal 2 — API
 pnpm dev:web                                                # terminal 3 — http://localhost:5173
 ```
 
-`pnpm setup` applique le schéma, les migrations, les 16 catalogues de sources,
+Ports : API 8080 (`RADAR_API_PORT`), web 5173 en développement/systemd et
+4173 en Compose (`RADAR_WEB_PORT`), PostgreSQL 5433 sur l'hôte / 5432 dans le
+conteneur, Tor SOCKS5 9050 (réseau interne Compose uniquement).
+
+En déploiement (`scripts/deploy/install.sh`, `docker-compose.yml`), la valeur
+visée est **`RADAR_COLLECT=1`** : la collecte continue fait partie de la
+production. `RADAR_COLLECT=0` (ou `--no-collect`) reste réservé aux vérifications
+et aux environnements sans sortie réseau ; contrôle :
+`grep RADAR_COLLECT /etc/radar-cyber/radar.env` sur une installation système.
+
+`pnpm setup` applique le schéma, les migrations, les 18 catalogues de sources,
 les règles de détection, le référentiel NA (4 462 organisations) et l'échantillon
 de revue. **Mesuré : 8/8 étapes en 4,3 s depuis une base vide, entièrement hors
 réseau** — le jeu NA et les fixtures sont versionnés. Idempotent : un rejeu ne
@@ -83,7 +83,7 @@ Mode démonstration (données simulées, sans appel API) :
 
 ```bash
 VITE_DATA_MODE=mock pnpm -F @radar/web build
-pnpm -F @radar/web exec vite preview --port 5175
+WEB_HOST=127.0.0.1 WEB_PORT=5175 node apps/web/serve.mjs
 ```
 
 ## Architecture (références vérifiées)
@@ -96,6 +96,8 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 - `apps/api/src/collectors/*.collector.ts` — collecteurs dédiés (ex. CERT-FR, CISA KEV, EPSS, RansomLook, Hermes).
 - `apps/web/src/map/Map3D.tsx` — carte MapLibre GL JS.
 - `apps/web/src/maplibre-worker.ts` — `setWorkerUrl()` pour MapLibre GL + bundler.
+- `apps/web/src/App.tsx` et `apps/web/src/components/{Map,Action,Sources,Journal}Workspace.tsx` — coque Stone à quatre destinations : **Carte**, **Action**, **Sources**, **Journal** (`#/<destination>`) ; les anciens hashs sont réécrits vers le bon panneau/onglet sans perdre les filtres.
+- `apps/web/serve.mjs` — serveur de fichiers statiques sans dépendance, avec proxy `/api` (runtime des unités systemd et de Compose).
 
 ## API
 
@@ -137,16 +139,69 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 
 ## Contrôles
 
-`pnpm verify` enchaîne contrat hors base, diagnostic du socle, typechecks, tests
-API, tests front, build et healthcheck. Le contrat d'événement est appliqué aux
-cinq chemins d'écriture : [docs/contrat.md](docs/contrat.md).
+`pnpm verify` (`bash scripts/verify-all.sh`) enchaîne contrat hors base,
+diagnostic du socle, typechecks, suites API/web/SDK/Python/migrations, build et
+healthcheck. Le lot de réparation `migrate-231` … `migrate-246` est appliqué par
+`pnpm migrate` et contrôlé par `pnpm test:migrations` ; aucune migration
+déjà enregistrée dans `schema_migrations` n'est rejouée à la main. Le contrat
+d'événement est appliqué aux cinq chemins d'écriture : [docs/contrat.md](docs/contrat.md).
 
 ```bash
-psql postgres://radar:radar@localhost:5432/radar -f db/checks.sql
-BASE_URL=http://localhost:8080 DATABASE_URL=postgres://radar:radar@localhost:5432/radar bash scripts/smoke.sh
+pnpm verify
+pnpm setup:check                 # socle complet, sans écriture
+pnpm test:migrations             # dont REPAIR_VERSIONS 231-246
+API_URL=http://127.0.0.1:8080 WEB_URL=http://127.0.0.1:5173 \
+  scripts/healthcheck.sh
+psql "postgres://radar:CHANGE_ME@localhost:5433/radar" -f db/checks.sql
+BASE_URL=http://localhost:8080 \
+  DATABASE_URL="postgres://radar:CHANGE_ME@localhost:5433/radar" \
+  bash scripts/smoke.sh
 ```
 
-> `db/checks.sql` et `scripts/smoke.sh` existent ; `bash -n scripts/smoke.sh` OK ; `db/checks.sql` exécuté avec succès sur la base live le 2026-11-10.
+> `db/checks.sql` et `scripts/smoke.sh` existent ; `bash -n scripts/smoke.sh` OK. Le mot de passe n'est jamais versionné : il vient de `DATABASE_URL` / d'un fichier d'environnement protégé.
+
+### CI par étapes parallèles
+
+`.github/workflows/ci.yml` exécute en parallèle : contrats/typechecks/migrations (`contracts`), API (`api-tests`, matrix de 6 shards), web unitaire/render/dom (`web-unit`), Playwright (`playwright`), SDK/Python (`sdks-python`), provenance (`provenance`) et build (`build`). Le job `verify` reste l'agrégateur attendu par la protection de branche : il a `needs` sur ces sept étapes **et** sur `socle` et `supply-chain`, qui restent bloquantes.
+
+Le découpage API est déterministe (liste triée, tranches contiguës) et auditable sans base :
+
+```bash
+./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=6 --list --check
+# observé : vérification OK : 442 fichiers, 442 assignés, 0 doublon (2026-11-24)
+```
+
+Chaque job de la matrix a son propre PostgreSQL ; `test/run.ts` y crée une base jetable par shard. Un shard vide échoue (jamais de repli sur la suite complète) et `fail-fast: false` laisse tous les verdicts s'exprimer. Commandes exactes des étapes :
+
+```bash
+# contracts
+./apps/api/node_modules/.bin/tsx --test apps/api/test/contract-admit.test.ts apps/api/test/contract-families.test.ts
+pnpm -F @radar/api typecheck && pnpm -F @radar/web typecheck && pnpm typecheck:tests && pnpm typecheck:sdk
+pnpm test:migrations
+
+# api-tests : i ∈ 1..6, DATABASE_URL pointant le PostgreSQL du job
+./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=6 --index=$i > /tmp/api-shard.txt
+(cd apps/api && mapfile -t files < /tmp/api-shard.txt && ./node_modules/.bin/tsx test/run.ts "${files[@]}")
+
+# web-unit
+pnpm -F @radar/web run test:unit && pnpm -F @radar/web run test:offline-pwa && pnpm -F @radar/web run test:render && pnpm -F @radar/web run test:dom && pnpm -F @radar/web run storybook:coverage
+
+# playwright
+pnpm -F @radar/web exec playwright install --with-deps chromium && pnpm -F @radar/web run test:e2e
+
+# sdks-python
+pnpm test:sdks && pnpm test:python
+
+# provenance (base préparée comme dans l'ancien job verify)
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
+pnpm migrate
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
+pnpm provenance:measure && pnpm provenance:check
+
+# build
+pnpm -F @radar/web build
+```
 
 Scripts de mesure/revue (fichiers présents) :
 
@@ -171,13 +226,32 @@ en-têtes de sécurité et droit de réponse des organisations : voir
 [`docs/conformite.md`](docs/conformite.md). Configuration dans `.env.example`
 (notamment `RADAR_AUDIT_PEPPER`, obligatoire en production).
 
-## Limites et constats mesurés (2026-11-10)
+En production, le rôle PostgreSQL applicatif est dédié et non superutilisateur
+(`radar` / `radar_app`) ; les migrations passent par une URL d'administration
+distincte (`RADAR_MIGRATE_DATABASE_URL` dans les unités utilisateur) et la
+rétention du journal des accès passe par `radar_retention` (`NOLOGIN`, migrations
+239/244). Les mots de passe sont stockés en **SCRAM-SHA-256** (`md5` refusé) :
 
-- Authentification par jeton de session en base (scrypt) ; usage interne.
-- Aucune diffusion externe d'alertes détectée dans `apps/api/src` (recherche texte `telegram`/`smtp`/`webhook` sans résultat) alors que la table `alert` contient 4 546 lignes.
+```bash
+psql "$RADAR_MIGRATE_DATABASE_URL" -c "SHOW password_encryption;"  # scram-sha-256
+psql "$RADAR_MIGRATE_DATABASE_URL" -c \
+  "SELECT rolname, left(rolpassword, 14) AS algo FROM pg_authid
+    WHERE rolname IN ('radar', 'radar_app') AND rolpassword IS NOT NULL;"
+```
+
+Sauvegardes : `~/.local/share/radar-cyber/backups/` sur le poste de veille,
+`/var/lib/radar-cyber/backups/` sur une installation système, copie chiffrée
+hors site dans `/data/home/backups/radar` (`compute-3`). Voir
+[`docs/operations.md`](docs/operations.md) pour le tunnel SSH vers la base de
+`compute-2` (5433) et la preuve de restauration.
+
+## Limites et constats mesurés (2026-11-24)
+
+- Authentification par session en base (scrypt) et clés API à portée/quota.
+- Diffusion externe des alertes disponible via webhook signé, Telegram, SMTP et RSS; elle doit être explicitement configurée.
 - Pertinence narrative basée sur mots-clés/matching d'entités (pas de NER complet, cf. docs).
-- Pas de déduplication de republication (MinHash/LSH non intégré).
-- Quarantaine implémentée (`quarantine_raw`, 16 190 lignes le 2026-11-10) ; revue/promotion via scripts/API selon contexte.
-- Géocodage présent (`db/migrate-008-geo.sql`, `scripts/geocode-orgs.mts`) : 444 organisations et 12 événements géocodés le 2026-11-10.
+- Déduplication sémantique et déduplication de republication partielles; les corpus volumineux restent un chantier.
+- Quarantaine implémentée (`quarantine_raw`, 17 362 lignes au 2026-11-24); revue/promotion via scripts/API.
+- Géocodage présent: 1 671 918 organisations et 12 569 événements géocodés au 2026-11-24.
 - Filtre d'actionnabilité présent dans `apps/api/src/collectors/filter.ts`.
-- Couverture `.onion` (2026-11-10) : 77 sources déclarées/activées avec dernier succès connu, 38 événements au total, 64 sources sans événement ; aucune ligne `.onion` identifiée dans `quarantine_raw` (`source`/`source_url`).
+- Couverture `.onion`: 77 sources déclarées, 9 activées, 8 productives au 2026-11-24.

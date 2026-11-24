@@ -1,57 +1,16 @@
 // @vitest-environment jsdom
 /**
- * DOM test of the product rail: Coverage and Corpus are reachable from their
- * hash routes and from the navigation, in the documented order. Both screens
- * are fed by a fake API response; nothing here touches the network.
+ * Navigation contract of the four destinations. Legacy hash routes are mapped
+ * to their workspace and panel/tab without dropping their query filters.
  */
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import App from "../src/App";
-import type { CouvertureResponse, CorpusStats } from "../src/api";
+import { parseHash, toHash } from "../src/url-state";
 
 const testGlobals = globalThis as unknown as Record<string, unknown>;
 testGlobals.IS_REACT_ACT_ENVIRONMENT = true;
-
-const coverage: CouvertureResponse = {
-  dateCalcul: "2026-11-21T09:30:00Z",
-  hashCorpus: "0123456789abcdef",
-  fenetre: { debut: "2026-11-01T00:00:00Z", fin: "2026-11-10T23:59:59Z" },
-  global: { vus: 27, total: 42, taux: 64.3 },
-  parMotif: [{ motif: "vu", incidents: 27, part: 64.3 }],
-  parDepartement: [{ departement: "33", vus: 12, total: 18, taux: 66.7 }],
-  parSecteur: [{ secteur: "sante", vus: 10, total: 14, taux: 71.4 }],
-  parMois: [{ mois: "2026-10", vus: 27, total: 42, taux: 64.3 }],
-  stale: false,
-};
-
-const corpus: CorpusStats = {
-  generatedAt: "2026-11-21T18:00:00.000Z",
-  windowHours: 24,
-  totals: { sources: 312, sourcesLocalised: 280, organisations: 1_673_151, incidents: 1_732 },
-  families: ["presse"],
-  byDepartment: [{ department: "33", label: "Gironde", total: 4, families: { presse: 4 } }],
-  domainCoverage: { withDomain: 88, organisations: 1_673_151, percent: 0.0053 },
-  sinceLastReport: {
-    windowHours: 24,
-    newEvents: 1281,
-    previousEvents: 4506,
-    change: -3225,
-    percentChange: -71.6,
-    comparedTo: "previous 24 hours",
-  },
-  recentIncidents: [{
-    id: "1",
-    title: "Hospital incident",
-    organisation: "CHU de Bordeaux",
-    department: "33",
-    date: "2026-11-20",
-    type: "confirmed_incident",
-    family: "presse",
-    sourceName: "Sud Ouest",
-    sourceUrl: "https://example.invalid/article",
-  }],
-};
 
 class FakeEventSource {
   addEventListener() {}
@@ -78,50 +37,82 @@ async function settle(ms = 20): Promise<void> {
   await act(async () => { await promise; });
 }
 
-async function waitForText(text: string): Promise<void> {
-  for (let attempt = 0; attempt < 60; attempt += 1) {
-    if (host.textContent?.includes(text)) return;
+async function waitForHash(hash: string): Promise<void> {
+  for (let attempt = 0; attempt < 40 && window.location.hash !== hash; attempt += 1) {
     await settle();
   }
-  throw new Error(`"${text}" never appeared in the DOM`);
+  expect(window.location.hash).toBe(hash);
 }
 
-const NAV_GROUP: Record<string, string> = {
-  Couverture: "Observatoire",
-  Corpus: "Analyse",
-};
+function railLabels(): string[] {
+  return [...host.querySelectorAll<HTMLElement>("nav.rail__nav a, nav.rail__nav button")]
+    .filter((element) => !element.closest('[role="menu"]'))
+    .map((element) => element.textContent?.trim() ?? "")
+    .filter((label) => label && label !== "Close popover");
+}
 
 async function clickRail(label: string): Promise<void> {
-  const group = NAV_GROUP[label];
-  const trigger = [...host.querySelectorAll<HTMLElement>("nav.rail__nav button, nav.rail__nav a")]
-    .find((candidate) => candidate.textContent?.trim() === (group ?? label));
-  expect(trigger, `navigation button "${group ?? label}"`).toBeTruthy();
+  const trigger = [...host.querySelectorAll<HTMLElement>("nav.rail__nav a, nav.rail__nav button")]
+    .find((candidate) => candidate.textContent?.trim() === label);
+  expect(trigger, `navigation "${label}"`).toBeTruthy();
   await act(async () => {
     trigger!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
-  if (!group) return;
-  await settle();
-  const item = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')]
-    .find((candidate) => candidate.textContent?.includes(label));
-  expect(item, `menu item "${label}"`).toBeTruthy();
-  await act(async () => {
-    item!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
 }
 
+const payloads: Record<string, unknown> = {
+  "/api/today": { compteurs: { evenements24h: 3, organisations7j: 2, derniereCollecte: null }, evenements: [] },
+  "/api/today/departements": { departements: [] },
+  "/api/couverture": {
+    dateCalcul: "2026-11-21T09:30:00Z", hashCorpus: "abc",
+    fenetre: { debut: "2026-11-01T00:00:00Z", fin: "2026-11-21T00:00:00Z" },
+    global: { vus: 0, total: 0, taux: 0 }, parMotif: [], parDepartement: [], parType: [], stale: false,
+  },
+  "/api/corpus/stats": {
+    generatedAt: "2026-11-21T18:00:00.000Z", windowHours: 24,
+    totals: { sources: 0, sourcesLocalised: 0, organisations: 0, incidents: 0 },
+    families: [], byDepartment: [],
+    domainCoverage: { withDomain: 0, organisations: 0, percent: null },
+    sinceLastReport: { windowHours: 24, newEvents: 0, previousEvents: 0, change: 0, percentChange: 0, comparedTo: "previous" },
+    recentIncidents: [],
+  },
+  "/api/sources": [], "/api/orgs": [], "/api/events": [], "/api/flows": [],
+  "/api/graph": { nodes: [], links: [] }, "/api/graph/temporal": { nodes: [], links: [] },
+  "/api/stats": { orgs: 0, events: 0, indicators: 0, sources: { total: 0, active: 0, ok: 0, err: 0 }, byFamily: [], byAssertion: [] },
+  "/api/stats/departements": { departements: [] },
+  "/api/sources/dashboard": { generatedAt: "2026-11-21T18:00:00Z", lignes: [] },
+  "/api/na/overview": { depts: [], total: { orgs: 0, orgsAvecEvenement: 0, evenements: 0, deptsSansEvenement: [] }, derniereCollecte: null },
+  "/api/na/events": { dept: "33", events: [] },
+  "/api/directory": { rows: [], total: 0, page: 0, limit: 50, facets: { kind: [], sector: [], dept: [] }, truncated: false, tookMs: 0 },
+  "/api/quarantine/queue": { rows: [], total: 0, page: 0, limit: 50, window: 24, truncated: false, facets: {}, counts: {}, tookMs: 0 },
+  "/api/journal/review": { rows: [], limite: 50, avant: null },
+  "/api/alerts": [], "/api/alerts/stats": [],
+  "/api/actor-attributions": { attributions: [], generatedAt: "2026-11-21T18:00:00Z" },
+  "/api/orgs/liees": { semaine: 0, total: 0, enAttente: 0, examinees: 0, parDepartement: [] },
+  "/api/orgs/liees/historique": { points: [] },
+  "/api/health/detail": {
+    ok: true, generatedAt: "2026-11-21T18:00:00Z", windowDays: 7,
+    sources: { declared: 0, enabled: 0, actives7j: 0, muettes7j: 0, bySource: [] },
+    events24h: 0, orgs7j: 0, queues: { pending: 0, reviewed: 0, promoted: 0 }, families: [],
+  },
+  "/api/health/causes": {
+    ok: true, generatedAt: "2026-11-21T18:00:00Z", rouges: 0, sansTrace: 0,
+    stockage: { causeStockee: false, explication: "", champPropose: { table: "", colonne: "", definition: "" } }, causes: [],
+  },
+  "/api/collecte/metrics": {}, "/api/collecte/plan": {},
+};
+
 beforeEach(() => {
-  localStorage.setItem("radar_token", "dom-test-token");
+  localStorage.setItem("radar_token", "nav-test-token");
   fetchMock = vi.fn(async (input: RequestInfo | URL) => {
     const url = String(input);
-    if (url.includes("/api/couverture")) {
-      return { ok: true, status: 200, json: async () => coverage } as Response;
+    const path = Object.keys(payloads)
+      .sort((a, b) => b.length - a.length)
+      .find((candidate) => url.includes(candidate));
+    if (!path) {
+      return { ok: false, status: 503, json: async () => ({}) } as Response;
     }
-    if (url.includes("/api/corpus/stats")) {
-      return { ok: true, status: 200, json: async () => corpus } as Response;
-    }
-    // Other panels are not under test here: fail them explicitly instead of
-    // inventing data. App catches those failures and still renders the rail.
-    return { ok: false, status: 503, json: async () => ({}) } as Response;
+    return { ok: true, status: 200, json: async () => payloads[path] } as Response;
   });
   vi.stubGlobal("fetch", fetchMock);
   vi.stubGlobal("EventSource", FakeEventSource);
@@ -134,40 +125,63 @@ afterEach(async () => {
   vi.unstubAllGlobals();
 });
 
-describe("Coverage and Corpus navigation", () => {
-  it("lists the screens in the product order", async () => {
-    await mount("#/coverage");
-    const labels = [...host.querySelectorAll<HTMLElement>("nav.rail__nav button, nav.rail__nav a")]
-      .filter((element) => !element.closest('[role="menu"]'))
-      .map((element) => element.textContent?.trim() ?? "")
-      .filter((label) => label && label !== "Close popover");
-    // Le rail est regroupé en six entrées Astryx plutôt qu'en une liste plate.
-    expect(labels).toEqual([
-      "Observatoire", "Analyse", "Sources", "Explorer", "Alertes", "Attributions",
-    ]);
+describe("four destinations", () => {
+  const LEGACY: Array<[string, string]> = [
+    ["#/today?family=cyber&dept=33", "#/map?family=cyber&dept=33"],
+    ["#/coverage?dept=33", "#/map?panel=couverture&dept=33"],
+    ["#/na?naDept=33", "#/map?panel=regional&naDept=33"],
+    ["#/directory?q=acme&dept=33", "#/map?panel=directory&q=acme&dept=33"],
+    ["#/graph", "#/map?panel=graph"],
+    ["#/affected", "#/map?panel=affected"],
+    ["#/attributions", "#/map?panel=attributions"],
+    ["#/review?bucket=chaud&q=php", "#/action?tab=review&bucket=chaud&q=php"],
+    ["#/alerts", "#/action"],
+    ["#/health", "#/sources?tab=sante"],
+    ["#/sources-dashboard", "#/sources?tab=indicateurs"],
+    ["#/corpus", "#/sources?tab=corpus"],
+    ["#/dossier", "#/journal?tab=dossier"],
+  ];
+
+  it("lists exactly the four destinations in the rail", async () => {
+    await mount("#/map");
+    await settle();
+    expect(railLabels()).toEqual(["Carte", "Action", "Sources", "Journal"]);
   });
 
-  it("opens the Coverage screen from #/coverage and calls GET /api/couverture", async () => {
-    await mount("#/coverage");
-    await waitForText("Couverture");
-    await waitForText("64.3%");
-    expect(window.location.hash).toBe("#/coverage");
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/api/couverture"))).toBe(true);
+  it("maps every legacy route to its workspace and keeps its filters", () => {
+    for (const [legacy, expected] of LEGACY) {
+      expect(toHash(parseHash(legacy)), legacy).toBe(expected);
+    }
   });
 
-  it("reaches the Corpus screen from the rail and calls GET /api/corpus/stats", async () => {
-    await mount("#/coverage");
-    await waitForText("Couverture");
-    await clickRail("Corpus");
-    await waitForText("Le corpus progresse-t-il ?");
-    await waitForText("CHU de Bordeaux");
-    expect(window.location.hash).toBe("#/corpus");
-    expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/api/corpus/stats"))).toBe(true);
+  it("rewrites a legacy hash without losing its department filter", async () => {
+    await mount("#/coverage?dept=33");
+    await waitForHash("#/map?panel=couverture&dept=33");
+    expect(parseHash(window.location.hash).mapPanel).toBe("couverture");
+    expect(parseHash(window.location.hash).today.dept).toBe("33");
   });
 
-  it("opens the Corpus screen directly from #/corpus", async () => {
-    await mount("#/corpus");
-    await waitForText("Sources par département");
-    expect(window.location.hash).toBe("#/corpus");
+  it("navigates between destinations from the rail", async () => {
+    await mount("#/map");
+    await settle();
+    await clickRail("Sources");
+    await waitForHash("#/sources");
+    await clickRail("Journal");
+    await waitForHash("#/journal");
+  });
+
+  it("Retour revient à la destination précédente sans réinitialiser ses filtres", async () => {
+    await mount("#/map?panel=directory&q=acme");
+    await settle(40);
+    const push = vi.spyOn(window.history, "pushState");
+
+    await clickRail("Sources");
+    await waitForHash("#/sources");
+    expect(push).toHaveBeenCalled();
+
+    await act(async () => { window.history.back(); });
+    await waitForHash("#/map?panel=directory&q=acme");
+    expect(parseHash(window.location.hash).directory.q).toBe("acme");
+    push.mockRestore();
   });
 });

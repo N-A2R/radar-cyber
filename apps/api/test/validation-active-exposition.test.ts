@@ -17,8 +17,10 @@ import {
 	lireTauxFauxPositif,
 	validerTopDecile,
 	type CandidatValidation,
+	type ReponseSonde,
+	type ResultatActive,
 	type SondeTcp,
-} from "../src/exposition/validation-active.js";
+	} from "../src/exposition/validation-active.js";
 
 const TAG = `vac${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const REGLE_TEST = `${REGLE_VALIDATION_ACTIVE}-test-${TAG}`;
@@ -89,8 +91,8 @@ test("20 expositions confirmées sous 24 h, faux positifs sous 10 %", async () =
 		criticite: 85 - i * 0.1,
 		rang: i + 1,
 	}));
-	const sorties = new Map(candidats.map((c, i) => [c.id, i === 0 ? "refuse" : i < 3 ? "timeout" : "ouvert"]));
-	const sonde: SondeTcp = async (ip) => ({
+	const sorties = new Map<number, ResultatActive>(candidats.map((c, i) => [c.id, i === 0 ? "refuse" : i < 3 ? "timeout" : "ouvert"] as const));
+	const sonde: SondeTcp = async (ip): Promise<ReponseSonde> => ({
 		resultat: sorties.get(Number(ip.split(".").at(-1)) + ID_BASE - 1) ?? "erreur",
 		latenceMs: 8,
 	});

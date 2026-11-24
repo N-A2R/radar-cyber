@@ -35,8 +35,8 @@ function event(id: number, sourceUrl: string | null): CorroborationEvent {
 function report(publishers: string[]): CorroborationReport {
   return {
     incidentsTotal: 1,
-    incidentsCorroborated: publishers.length > 1,
-    incidentsSingleSource: publishers.length <= 1,
+    incidentsCorroborated: publishers.length > 1 ? 1 : 0,
+    incidentsSingleSource: publishers.length <= 1 ? 1 : 0,
     ratePercent: 0,
     clusters: [{
       incidentKey: "victim|testgroup",

@@ -10,9 +10,11 @@
  * lus par l'API. Le calcul est pur à partir des lignes chargées, donc le même
  * jeu de données donne toujours les mêmes notes.
  */
-import { ingestQuery } from "../db.js";
+import { createHash } from "node:crypto";
+import { ingestQuery, withIngestTransaction } from "../db.js";
 import {
 	scoreConfidence,
+	CONFIDENCE_REGLE_VERSION,
 	type ConfidenceScore,
 	type CorpusPresence,
 	type DatePrecision,
@@ -133,8 +135,11 @@ function titleKey(title: string): string {
 		.replace(/\p{Diacritic}/gu, "")
 		.toLowerCase()
 		.replace(/[^a-z0-9]+/g, " ")
-		.trim()
-		.slice(0, 120);
+		.trim();
+}
+/** Clé courte mais sensible au titre entier : deux titres de même préfixe ne fusionnent pas. */
+function cleTitre(titre: string): string {
+	return createHash("sha256").update(titre, "utf8").digest("hex").slice(0, 24);
 }
 
 function eventTime(event: EventForScore): number {
@@ -163,7 +168,7 @@ export function groupFactsWithCorpus(
 	for (const event of ordered) {
 		const time = eventTime(event);
 		const title = titleKey(event.title) || `event-${event.id}`;
-		const key = `${event.family}|${event.orgId ?? "na"}|${title}`;
+		const key = `${event.family}|${event.orgId ?? "na"}|${cleTitre(title)}`;
 		const current = active.get(key);
 		if (!current || time - current.start > FACT_WINDOW_MS) {
 			const group: Group = { key, family: event.family, orgId: event.orgId, title: event.title, items: [event], start: time };
@@ -301,7 +306,9 @@ export async function loadEvents(ids?: readonly number[]): Promise<EventForScore
 
 const CHUNK = 500;
 
-async function upsertEvents(rows: readonly ScoredEvent[]): Promise<void> {
+type ConfidenceRunner = (text: string, params?: unknown[]) => Promise<{ rows: unknown[] }>;
+
+async function upsertEvents(run: ConfidenceRunner, rows: readonly ScoredEvent[]): Promise<void> {
 	for (let offset = 0; offset < rows.length; offset += CHUNK) {
 		const chunk = rows.slice(offset, offset + CHUNK);
 		const params: unknown[] = [];
@@ -310,23 +317,25 @@ async function upsertEvents(rows: readonly ScoredEvent[]): Promise<void> {
 			params.push(
 				row.eventId, row.factKey, row.score.score, row.score.level, row.sourcesDistinct,
 				JSON.stringify(row.score.components), JSON.stringify(row.score.breakdown), JSON.stringify(row.score.measures),
+				CONFIDENCE_REGLE_VERSION,
 			);
-			return `($${i + 1},$${i + 2},$${i + 3},$${i + 4},$${i + 5},$${i + 6}::jsonb,$${i + 7}::jsonb,$${i + 8}::jsonb)`;
+			return `($${i + 1},$${i + 2},$${i + 3},$${i + 4},$${i + 5},$${i + 6}::jsonb,$${i + 7}::jsonb,$${i + 8}::jsonb,$${i + 9})`;
 		});
-		await ingestQuery(
+		await run(
 			`INSERT INTO event_confidence
-				(event_id, fact_key, score, level, sources_distinct, components, breakdown, measures)
+				(event_id, fact_key, score, level, sources_distinct, components, breakdown, measures, regle_version)
 			 VALUES ${values.join(",")}
 			 ON CONFLICT (event_id) DO UPDATE SET
 				fact_key = EXCLUDED.fact_key, score = EXCLUDED.score, level = EXCLUDED.level,
 				sources_distinct = EXCLUDED.sources_distinct, components = EXCLUDED.components,
-				breakdown = EXCLUDED.breakdown, measures = EXCLUDED.measures, computed_at = now()`,
+				breakdown = EXCLUDED.breakdown, measures = EXCLUDED.measures,
+				regle_version = EXCLUDED.regle_version, computed_at = now()`,
 			params,
 		);
 	}
 }
 
-async function upsertAttachments(rows: readonly ScoredAttachment[]): Promise<void> {
+async function upsertAttachments(run: ConfidenceRunner, rows: readonly ScoredAttachment[]): Promise<void> {
 	for (let offset = 0; offset < rows.length; offset += CHUNK) {
 		const chunk = rows.slice(offset, offset + CHUNK);
 		const params: unknown[] = [];
@@ -335,24 +344,29 @@ async function upsertAttachments(rows: readonly ScoredAttachment[]): Promise<voi
 			params.push(
 				row.eventId, row.orgId, row.factKey, row.score.score, row.score.level, row.sourcesDistinct,
 				JSON.stringify(row.score.components), JSON.stringify(row.score.breakdown), JSON.stringify(row.score.measures),
+				CONFIDENCE_REGLE_VERSION,
 			);
-			return `($${i + 1},$${i + 2},$${i + 3},$${i + 4},$${i + 5},$${i + 6},$${i + 7}::jsonb,$${i + 8}::jsonb,$${i + 9}::jsonb)`;
+			return `($${i + 1},$${i + 2},$${i + 3},$${i + 4},$${i + 5},$${i + 6},$${i + 7}::jsonb,$${i + 8}::jsonb,$${i + 9}::jsonb,$${i + 10})`;
 		});
-		await ingestQuery(
+		await run(
 			`INSERT INTO attachment_confidence
-				(event_id, org_id, fact_key, score, level, sources_distinct, components, breakdown, measures)
+				(event_id, org_id, fact_key, score, level, sources_distinct, components, breakdown, measures, regle_version)
 			 VALUES ${values.join(",")}
 			 ON CONFLICT (event_id, org_id) DO UPDATE SET
 				fact_key = EXCLUDED.fact_key, score = EXCLUDED.score, level = EXCLUDED.level,
 				sources_distinct = EXCLUDED.sources_distinct, components = EXCLUDED.components,
-				breakdown = EXCLUDED.breakdown, measures = EXCLUDED.measures, computed_at = now()`,
+				breakdown = EXCLUDED.breakdown, measures = EXCLUDED.measures,
+				regle_version = EXCLUDED.regle_version, computed_at = now()`,
 			params,
 		);
 	}
 }
 
-/** Écrit les scores en base. Les lignes existantes sont remplacées, pas doublées. */
+/** Écrit les deux projections dans une seule transaction : jamais l'une sans l'autre. */
 export async function persistConfidence(batch: ConfidenceBatch): Promise<void> {
-	await upsertEvents(batch.events);
-	await upsertAttachments(batch.attachments);
+	await withIngestTransaction(async (client) => {
+		const run: ConfidenceRunner = (text, params) => client.query(text, params);
+		await upsertEvents(run, batch.events);
+		await upsertAttachments(run, batch.attachments);
+	});
 }

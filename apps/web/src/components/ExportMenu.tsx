@@ -4,14 +4,13 @@
  * registre, ainsi chaque écran offre les deux mêmes formats sans doublon d'UI.
  */
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import type { ViewKey } from "../contracts";
 import {
-  downloadBlob, exportFilename, EXPORT_TITLES, prepareRows, toCsv, toPdfBlob,
+  downloadBlob, exportFilename, EXPORT_TITLES, prepareRows, toCsv, toPdfBlob, workspaceFor,
   type DataRow, type ExportFormat,
 } from "../export";
 import { DropdownMenu } from "@astryxdesign/core/DropdownMenu";
 
-type Snapshot = { view: ViewKey; title: string; rows: DataRow[] };
+type Snapshot = { view: string; title: string; rows: DataRow[] };
 const PublishContext = createContext<((snapshot: Snapshot) => void) | null>(null);
 const SnapshotContext = createContext<Snapshot | null>(null);
 
@@ -29,10 +28,10 @@ export function ExportProvider({ children }: { children: ReactNode }) {
  * effect dependency even when a parent rebuilds its row array on each render.
  */
 export function useScreenExport(
-  view: ViewKey,
+  view: string,
   rows: DataRow[],
   enabled = true,
-  title: string = EXPORT_TITLES[view],
+  title: string = EXPORT_TITLES[workspaceFor(view)],
 ): void {
   const publish = useContext(PublishContext);
   const latest = useRef(rows);
@@ -52,12 +51,13 @@ export default function ExportMenu() {
       setStatus("Aucune donnée d'écran disponible pour l'instant.");
       return;
     }
-    const rows = prepareRows(snapshot.view, snapshot.rows);
-    const filename = exportFilename(snapshot.view, format);
+    const destination = workspaceFor(snapshot.view);
+    const rows = prepareRows(destination, snapshot.rows);
+    const filename = exportFilename(destination, format);
     if (format === "csv") {
-      downloadBlob(new Blob([toCsv(snapshot.view, rows)], { type: "text/csv;charset=utf-8" }), filename);
+      downloadBlob(new Blob([toCsv(destination, rows)], { type: "text/csv;charset=utf-8" }), filename);
     } else {
-      downloadBlob(toPdfBlob(snapshot.view, snapshot.title, rows), filename);
+      downloadBlob(toPdfBlob(destination, snapshot.title, rows), filename);
     }
     setStatus(`${filename} — ${rows.length} ${rows.length > 1 ? "lignes" : "ligne"}`);
   };

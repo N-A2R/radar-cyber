@@ -45,6 +45,11 @@ SELECT cr.source_id, cr.finished_at AS produced_at
 
 let lastCheckAt = 0;
 
+/** Repart d'un créneau libre : utile quand l'horloge de test est remplacée. */
+export function resetSilentSourceCheckState(): void {
+	lastCheckAt = 0;
+}
+
 export type SilentSourceCheckResult = {
 	ran: boolean;
 	sources: number;
@@ -85,7 +90,7 @@ export async function runSilentSourceCheck(options: { now?: number; force?: bool
 	if (!options.force && now - lastCheckAt < CHECK_INTERVAL_MS) {
 		return { ran: false, sources: 0, alerts: 0, created: 0 };
 	}
-	lastCheckAt = now;
+
 
 	const from = new Date(now - LOOKBACK_DAYS * DAY_MS).toISOString();
 	const until = new Date(now).toISOString();
@@ -110,5 +115,6 @@ export async function runSilentSourceCheck(options: { now?: number; force?: bool
 	for (const alert of alerts) {
 		if (await writeAlert(alert)) created++;
 	}
+	lastCheckAt = now;
 	return { ran: true, sources: signals.length, alerts: alerts.length, created };
 }

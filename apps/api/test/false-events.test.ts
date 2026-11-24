@@ -15,6 +15,7 @@ import {
   sweepRecentFalseEvents,
   sweepUnrecordedFalseEvents,
 } from "../src/detect/false-events.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `fe${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 let seq = 0;
@@ -51,7 +52,7 @@ async function cleanup(ids: { events: number[]; rules: string[] }): Promise<void
   if (ids.events.length > 0) {
     await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [ids.events]);
     // false_event rows are removed by the ON DELETE CASCADE foreign key.
-    await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids.events]);
+    await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids.events]);
   }
   if (ids.rules.length > 0) {
     await query("DELETE FROM detection_rule WHERE id = ANY($1::text[])", [ids.rules]);

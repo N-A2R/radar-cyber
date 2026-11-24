@@ -1,6 +1,7 @@
 import { beforeEach, test } from "node:test";
 import assert from "node:assert/strict";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import {
   isQualifiedOnionLead,
   loadOnionLeads,
@@ -150,7 +151,7 @@ test("une mention .onion géolocalisée réelle est découverte puis reliée", a
 
     await query("DELETE FROM onion_lead WHERE lead_key = $1", [row.lead_key]);
   } finally {
-    await query("DELETE FROM event WHERE dedup_key IN ($1, $2)", [mentionKey, victimKey]);
+    await supprimerEvenementsArchivees("dedup_key = ANY($1::text[])", [[mentionKey, victimKey]]);
     await query("DELETE FROM source WHERE id = $1", [sourceId]);
   }
 });

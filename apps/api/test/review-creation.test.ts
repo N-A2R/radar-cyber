@@ -14,6 +14,7 @@ import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
 import reviewRoute from "../src/routes/review.js";
 import { installErrorHandler } from "../src/errors.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rc${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -48,7 +49,7 @@ after(async () => {
 	if (app) await app.close();
 	for (const eventId of createdEventIds) {
 		await query("DELETE FROM alert WHERE event_id=$1", [eventId]);
-		await query("DELETE FROM event WHERE id=$1", [eventId]);
+		await supprimerEvenementsArchivees("id=$1", [eventId]);
 		const rest = await query<{ n: number }>("SELECT count(*)::int AS n FROM event WHERE id=$1", [eventId]);
 		assert.equal(rest.rows[0]?.n, 0, `événement ${eventId} supprimé`);
 	}
@@ -145,7 +146,9 @@ test("creer : organisation créée depuis l'indice, événement attaché et jour
 
 	const journal = await query<{ payload: { decision: string; action: string; reason: string; cree: boolean; orgId: number }; actor: string }>(
 		`SELECT payload, actor FROM journal
-		  WHERE kind='review.decided' AND subject=$1 ORDER BY id DESC LIMIT 1`, [`quarantine:${id}`],
+		  WHERE kind='review.decided'
+		    AND subject=(SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id=$1)
+		  ORDER BY id DESC LIMIT 1`, [id],
 	);
 	assert.equal(journal.rows[0]?.actor, `humain:${EMAIL}`);
 	assert.equal(journal.rows[0]?.payload.decision, "creer");
@@ -244,7 +247,9 @@ $fn$`);
 	assert.equal(ligne.rows[0]?.promoted, false, "la promotion est annulée");
 	assert.equal(ligne.rows[0]?.status, "pending");
 	const trace = await query<{ n: number }>(
-		"SELECT count(*)::int AS n FROM journal WHERE kind='review.decided' AND subject=$1", [`quarantine:${id}`],
+		`SELECT count(*)::int AS n FROM journal
+		  WHERE kind='review.decided'
+		    AND subject=(SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id=$1)`, [id],
 	);
 	assert.equal(trace.rows[0]?.n, 0, "aucune décision journalisée sans promotion");
 });

@@ -61,6 +61,17 @@ const nombreNullable = z.number().nullable();
 
 /* ---- Schémas de réponse (un par route) --------------------------------- */
 
+/** La route calcule et expose deux notes : persistée et recalculée. */
+const confianceAlerte = z.strictObject({
+  score: z.number(),
+  status: z.enum(["verifie", "a_verifier"]),
+  components: z.strictObject({
+    source_reliability: z.number(),
+    assertion_strength: z.number(),
+    attachment_quality: z.number(),
+    corroboration: z.number(),
+  }),
+});
 const alerte = z.strictObject({
   id: z.number(), rule_id: z.string(), title: z.string(), severity: z.number(),
   status: z.string(), event_id: nombreNullable, indicator_id: nombreNullable,
@@ -71,7 +82,8 @@ const alerte = z.strictObject({
   next_attempt_at: json, webhook_delivered_at: json, telegram_delivered_at: json, email_delivered_at: json,
   event_title: json, event_family: json, event_tlp: json, event_summary: json,
   event_confidence: json, event_assertion: json, indicator_type: json,
-  indicator_value: json, org_name: json, org_dept: json, confidence: objet,
+  indicator_value: json, org_name: json, org_dept: json, confidence: confianceAlerte,
+  confidenceRecalcule: confianceAlerte,
   url_orientation: chaineNullable, actions: z.array(z.string()), lien_verifie_le: json,
 });
 
@@ -106,6 +118,8 @@ const faitQuarantaine = z.strictObject({
 const source = z.strictObject({
   id: z.string(), name: z.string(), family: z.string(), url: z.string(),
   kind: z.string(), format: z.string(), enabled: z.boolean(),
+  pretACollecter: z.boolean().nullable(),
+  statutCollecte: z.enum(["en-attente-branchement", "en-erreur", "ok", "jamais-collectee", "desactivee"]),
   intervalSec: z.number(), lastOkAt: chaineNullable,
   lastErrorAt: chaineNullable, lastError: chaineNullable,
   itemsTotal: nombreNullable, lastItems: nombreNullable,
@@ -159,7 +173,6 @@ const SCHEMAS = {
       lastItems: nombreNullable,
     })),
   }),
-  "/api/journal/review": z.strictObject({ rows: objets, limite: z.number(), avant: nombreNullable }),
   "/api/journal/review": z.strictObject({
     rows: objets, total: z.number(), limite: z.number(), offset: z.number(), avant: nombreNullable,
   }),
@@ -204,7 +217,7 @@ const SCHEMAS = {
   "/api/sources": z.array(source),
   "/api/stats": z.strictObject({
     orgs: z.number(), events: z.number(), indicators: z.number(),
-    sources: z.strictObject({ total: z.number(), active: z.number(), ok: z.number(), err: z.number() }),
+    sources: z.strictObject({ total: z.number(), active: z.number(), ok: z.number(), err: z.number(), enAttente: z.number() }),
     byFamily: objets, byAssertion: objets,
   }),
   "/api/stats/departements": z.strictObject({ windowDays: z.number(), departements: objets, departements24h: objets }),

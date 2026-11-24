@@ -27,6 +27,7 @@ import {
 import { containsPersonalData, redactText } from "../src/coldarchive/redact.js";
 import { fetchArchiveEvents } from "../src/coldarchive/scope.js";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `cold${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const SOURCE = `${TAG}-grey-forum`;
@@ -102,7 +103,7 @@ before(async () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   for (const id of orgIds) await query("DELETE FROM org WHERE id = $1", [id]);
   await closePools();
@@ -167,20 +168,28 @@ test("a single flipped byte in the cold file is rejected", async () => {
 });
 
 test("the procedure restores every selected event from the encrypted file", async () => {
+  const eligibles = await fetchArchiveEvents();
   assert.deepEqual(
     result.stages.map((stage) => stage.ok),
     [true, true, true, true, true, true],
   );
-  assert.equal(result.selected, 2);
+  // La procedure selectionne toutes les faits NA de la base jetable, pas
+  // seulement les fixtures de ce fichier : le nombre exact depend de l'etat
+  // de la base au moment ou le test s'execute.
+  assert.ok(eligibles.length >= 2);
+  assert.equal(result.selected, eligibles.length);
+  assert.ok(eligibles.some((row) => row.id === ids.naByDept));
+  assert.ok(eligibles.some((row) => row.id === ids.naByFlag));
   assert.equal(result.restored, result.selected);
-  assert.equal(result.sources, 1);
+  assert.equal(result.sources, new Set(eligibles.map((row) => row.sourceId)).size);
   assert.match(result.sha256, /^[0-9a-f]{64}$/);
   assert.deepEqual(await readdir(directory), [ARCHIVE_FILE]);
   const bytes = await readFile(join(directory, ARCHIVE_FILE));
   assert.equal(bytes.includes(Buffer.from("radar-cold-archive-payload")), false);
 });
 
-test("the measurement command prints the reproducible end-to-end figure", () => {
+test("the measurement command prints the reproducible end-to-end figure", async () => {
+  const eligibles = await fetchArchiveEvents();
   const output = execFileSync(TSX, [SCRIPT], {
     encoding: "utf8",
     env: {
@@ -189,8 +198,25 @@ test("the measurement command prints the reproducible end-to-end figure", () => 
       RADAR_COLD_ARCHIVE_PASSPHRASE: PASSPHRASE,
     },
   });
+  const [summary, json] = output.trim().split("\n");
+  const metrics = JSON.parse(json) as {
+    passed: number;
+    selected: number;
+    restored: number;
+    sources: number;
+    sha256: string;
+  };
+  assert.equal(metrics.passed, 6);
+  assert.equal(metrics.selected, eligibles.length);
+  assert.equal(metrics.restored, metrics.selected);
+  assert.equal(metrics.sources, new Set(eligibles.map((row) => row.sourceId)).size);
+  assert.equal(metrics.sha256, result.sha256);
   assert.match(
-    output,
-    /Cold archive: 6\/6 stages passed; 2\/2 NA events sealed, encrypted and restored \(100%\)/,
+    summary,
+    new RegExp(
+      `^Cold archive: 6/6 stages passed; ${metrics.restored}/${metrics.selected} ` +
+        `NA events sealed, encrypted and restored \\(100%\\); ` +
+        `sources=${metrics.sources}; sha256=${metrics.sha256}; scope=Nouvelle-Aquitaine$`,
+    ),
   );
 });

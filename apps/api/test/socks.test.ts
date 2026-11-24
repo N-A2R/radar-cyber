@@ -36,6 +36,22 @@ test("fetchResilient rejette une URL .onion sans RADAR_TOR_SOCKS, immédiatement
   });
 });
 
+test("fetchResilient refuse loopback et IP privées par défaut", async () => {
+  const cas: Array<[string, RegExp]> = [
+    ["http://127.0.0.1:9/", /adresse IP non publique refusée/],
+    ["http://[::1]:9/", /adresse IP non publique refusée|hôte local refusé/],
+    ["http://10.1.2.3/", /adresse IP non publique refusée/],
+    ["http://192.168.1.1/", /adresse IP non publique refusée/],
+  ];
+  for (const [url, motif] of cas) {
+    await assert.rejects(
+      fetchResilient(url, { timeoutMs: 500, maxAttempts: 1, source: `test:prive:${url}` }),
+      motif,
+      `${url} doit être refusée avant toute connexion`,
+    );
+  }
+});
+
 test("fetchResilient sert le clearnet via un serveur local", async () => {
   await withEnvUnset("RADAR_TOR_SOCKS", async () => {
     const server = createServer((_req, res) => {
@@ -49,6 +65,7 @@ test("fetchResilient sert le clearnet via un serveur local", async () => {
       const addr = server.address();
       assert.ok(addr !== null && typeof addr === "object", "adresse du serveur local");
       const res = await fetchResilient(`http://127.0.0.1:${addr.port}/ping`, {
+        allowPrivate: true,
         timeoutMs: 5000,
         maxAttempts: 1,
       });

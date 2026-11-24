@@ -12,6 +12,7 @@ import { randomBytes } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import corpusRoute from "../src/routes/corpus-stats.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `cs${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -33,7 +34,7 @@ type CorpusResponse = {
   totals: { sources: number; sourcesLocalised: number; organisations: number; incidents: number };
   byDepartment: { department: string; label: string; total: number; families: Record<string, number> }[];
   domainCoverage: { withDomain: number; organisations: number; percent: number | null };
-  sinceLastReport: { newEvents: number; previousEvents: number; change: number; percentChange: number | null; windowHours: number };
+  sinceLastReport: { newEvents: number; previousEvents: number; change: number; percentChange: number | null; windowHours: number; comparedTo: string };
   recentIncidents: { id: string; title: string; type: string; sourceName: string; sourceUrl: string | null; organisation: string | null; department: string | null; date: string | null }[];
 };
 
@@ -90,7 +91,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key = ANY($1)", [ALL_DEDUP]);
+  await supprimerEvenementsArchivees("dedup_key = ANY($1::text[])", [ALL_DEDUP]);
   await query("DELETE FROM source WHERE id = ANY($1)", [ALL_IDS]);
   await query("DELETE FROM org WHERE id = $1", [orgId]);
   await closePools();

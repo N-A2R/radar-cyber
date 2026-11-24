@@ -28,7 +28,8 @@ déploiement hors réseau sortant) :
 
 ```bash
 sudo bash scripts/deploy/install.sh --source "$PWD" \
-  --admin-password 'MOT-DE-PASSE-ADMIN' --db-password 'MOT-DE-PASSE-DB'
+  --admin-password 'MOT-DE-PASSE-ADMIN' --db-password 'MOT-DE-PASSE-DB' \
+  --web-port 4173
 ```
 
 Les mots de passe sont générés (hexadécimal 48 caractères) s'ils ne sont pas
@@ -46,12 +47,12 @@ fournis. Ils ne sont jamais écrits dans `state.json`.
 | `--repo-url URL`, `--ref REF` | dépôt/branche à cloner en l'absence de `--source` |
 | `--admin-password PWD`, `--admin-email EMAIL` | compte administrateur créé par le socle |
 | `--db-password PWD`, `--db-name NAME`, `--db-user USER`, `--pg-port N` | connexion PostgreSQL |
-| `--api-port N`, `--web-port N` | ports d'écoute (8080 / 5173) |
+| `--api-port N`, `--web-port N` | ports d'écoute (8080 / 4173 recommandé ; 5173 = dev Vite, encore défaut historique du script) |
 | `--public` | écoute sur `0.0.0.0` au lieu de `127.0.0.1` |
 | `--restore ARCHIVE` | dump `.dump`, `.sql` ou `.gpg` restauré avant le socle |
 | `--passphrase-file FILE` | phrase secrète d'une archive chiffrée (obligatoire pour `.gpg`) |
 | `--strict-data` | refuse une archive sans événement |
-| `--no-collect` | `RADAR_COLLECT=0` (utile en environnement sans réseau sortant) |
+| `--no-collect` | `RADAR_COLLECT=0` ; défaut `RADAR_COLLECT=1` (collecte active après déploiement, utile à désactiver seulement sans réseau sortant) |
 | `--no-rollback` | laisse l'état en cas d'échec, pour diagnostic |
 | `--dry-run` | affiche le plan sans rien modifier |
 | `--check` | vérifie une installation existante, sans écriture applicative |
@@ -134,9 +135,96 @@ sudo -u postgres psql -d radar -At -c \
   "SELECT (SELECT count(*) FROM event), (SELECT count(*) FROM org), (SELECT count(*) FROM source)"
 ```
 
-Le port 5173 sert l'UI et proxie `/api` vers 8080. Sans `--public`, les deux
-services n'écoutent que sur la boucle locale : face à un reverse proxy (Caddy,
-cf. `Caddyfile`) ou à un tunnel SSH, c'est ce dernier qui publie le service.
+Le port 4173 sert l'UI Stone (`apps/web/serve.mjs`) et proxie `/api` vers 8080 ;
+5173 reste le port de développement Vite (`pnpm dev:web`). Sans `--public`, les
+deux services n'écoutent que sur la boucle locale : face à un reverse proxy
+(Caddy, cf. `Caddyfile`) ou à un tunnel SSH, c'est ce dernier qui publie le service.
+
+## Unités utilisateur (poste de travail / box)
+
+Les modèles de `scripts/systemd/` sont rendus par `install.sh` sans root quand
+le dépôt vit sous `$HOME`. Ils substituent `@REPO@`, `@PATH@`, `@API_PORT@`,
+`@WEB_PORT@` (**4173** par défaut) et `@COLLECT@` (**1** par défaut). Le serveur
+statique Stone sert `apps/web/dist` sur 4173 et proxie `/api` vers 8080 ; 5173
+reste réservé au développement Vite.
+
+Ordre d'exécution, depuis le checkout à déployer :
+
+```bash
+REPO=/home/jolt/radar-cyber
+cd "$REPO"
+git status --short
+git pull --ff-only
+pnpm install --frozen-lockfile
+pnpm -F @radar/web build
+
+# 1. Capturer l'existant (lecture seule des unités live)
+BACKUP="$HOME/.config/radar-cyber/units-backup-$(date +%F-%H%M)"
+mkdir -p "$BACKUP"
+systemctl --user cat radar-api.service radar-web.service radar-backup.service radar-backup.timer > "$BACKUP/units.txt"
+for f in radar-api.service.d/30-db.conf radar-api.service.d/40-security.conf radar-web.service.d/30-db.conf; do
+  src="$HOME/.config/systemd/user/$f"
+  [ -e "$src" ] && cp -a "$src" "$BACKUP/${f//\//_}"
+done
+
+# 2. Retirer les drop-ins qui écrasent les modèles versionnés
+for f in radar-api.service.d/30-db.conf radar-api.service.d/40-security.conf radar-web.service.d/30-db.conf; do
+  rm -f "$HOME/.config/systemd/user/$f"
+done
+
+# 3. Vérifier les secrets sans les afficher (0600 attendu)
+chmod 600 "$HOME/.config/radar-cyber/api-security.env" "$HOME/.config/radar-cyber/backup.env"
+for k in DATABASE_URL RADAR_MIGRATE_DATABASE_URL RADAR_AUDIT_PEPPER; do
+  grep -q "^${k}=" "$HOME/.config/radar-cyber/api-security.env" || { echo "MANQUANT: $k"; exit 1; }
+done
+for k in DATABASE_URL PASSPHRASE_FILE OFFSITE; do
+  grep -q "^${k}=" "$HOME/.config/radar-cyber/backup.env" || { echo "MANQUANT: $k"; exit 1; }
+done
+[ -r "$HOME/.config/radar-cyber/db-box.pass" ] || { echo "MANQUANT: db-box.pass"; exit 1; }
+
+# 4. Repérer les ports tenus par des processus manuels, puis les arrêter
+ss -ltnp | grep -E ':(8080|4173)[[:space:]]'
+# PID à arrêter : ceux de cette liste qui ne sont pas le MainPID de radar-api.service
+systemctl --user show radar-api.service -p MainPID --value
+
+# 5. Rendre, activer et démarrer les unités versionnées
+RADAR_API_PORT=8080 RADAR_WEB_PORT=4173 RADAR_COLLECT=1 "$REPO/scripts/systemd/install.sh"
+
+# 6. Vérifier l'effet observable
+systemctl --user is-active radar-api.service radar-web.service
+systemctl --user show radar-api.service -p Environment --value | grep -o 'RADAR_COLLECT=[01]'
+systemctl --user cat radar-api.service | grep -E 'ExecStartPre|EnvironmentFile'
+systemctl --user cat radar-backup.service | grep -E 'ExecStart|EnvironmentFile'
+curl -fsS http://127.0.0.1:8080/api/health | jq .
+API_URL=http://127.0.0.1:8080 WEB_URL=http://127.0.0.1:4173 "$REPO/scripts/healthcheck.sh"
+systemctl --user list-timers radar-backup.timer radar-report.timer --no-pager
+journalctl --user -u radar-api.service -u radar-web.service -u radar-backup.service -n 100 --no-pager
+```
+
+`RADAR_MIGRATE_DATABASE_URL` doit désigner un rôle avec droits DDL ; le rôle
+applicatif de `DATABASE_URL` reste non superutilisateur. C'est la seule URL
+utilisée par `ExecStartPre`. Ne jamais afficher `systemctl show -p Environment`
+sans filtre : la ligne contient `DATABASE_URL` en clair.
+
+`EnvironmentFile` systemd est lu après `Environment` : si `RADAR_COLLECT`
+figure aussi dans `api-security.env`, il gagne sur la valeur rendue. Le retirer
+du fichier avant l'installation pour que `RADAR_COLLECT=1` soit effectif.
+
+Retour arrière si nécessaire (les drop-ins sauvegardés portent le suffixe aplati
+`radar-<unité>.service.d_<nom>.conf`) :
+
+```bash
+for f in radar-api.service.d/30-db.conf radar-api.service.d/40-security.conf radar-web.service.d/30-db.conf; do
+  saved="$BACKUP/${f//\//_}"
+  [ -e "$saved" ] || continue
+  mkdir -p "$(dirname "$HOME/.config/systemd/user/$f")"
+  cp -a "$saved" "$HOME/.config/systemd/user/$f"
+done
+systemctl --user daemon-reload
+systemctl --user restart radar-api.service radar-web.service
+```
+
+Le fichier `$BACKUP/units.txt` garde les définitions précédentes pour comparaison.
 
 ## Restauration
 
@@ -184,10 +272,9 @@ unités et release créés.
 |---|---|
 | Commande lancée sans root | `ERREUR: cette installation doit être lancée en root`, code 1 |
 | Distribution non Debian/Ubuntu | refus avant `apt-get` |
-| Port 8080/5173 déjà pris | `ERREUR: port API … déjà occupé par un autre processus`, avant toute mutation (145 ms) |
 | `--restore` sur fichier absent | refus avant installation des paquets ; base inchangée |
 | `.gpg` sans `--passphrase-file` | refus avant mutation |
-| Dump corrompu | `ÉCHEC … pendant : Restauration optionnelle`, puis retour en arrière automatique (11,9 s mesurées) |
+| Port 8080/4173 (5173 en dev) déjà pris | `ERREUR: port API … déjà occupé par un autre processus`, avant toute mutation (145 ms) |
 | `--strict-data` sur un dump sans événement | refus après journalisation des comptages, rollback auto (8,3 s) |
 | Archive `.gpg` avec bonne phrase secrète | déchiffrement en lot (`--pinentry-mode loopback`), restauration vérifiée (16,6 s) |
 | PostgreSQL injoignable | message explicite + `journalctl -u postgresql`, code 1 |
@@ -217,8 +304,8 @@ par scénario et échoue à la première assertion non respectée.
 - Un seul nœud : ni réplication PostgreSQL ni bascule automatique. Le snapshot
   local n'est pas une sauvegarde hors site (`scripts/backup-db.sh` reste
   nécessaire).
-- `--public` expose directement `vite preview` : le reverse proxy/Caddy et le
-  TLS restent à configurer séparément.
+- `--public` expose le serveur statique Node sur toutes les interfaces: le
+  reverse proxy/Caddy, le TLS et le pare-feu restent à configurer séparément.
 - Le retour en arrière restaure la base et le code, pas les événements collectés
   après le snapshot pris au début du passage (fenêtre de perte = durée du
   déploiement).

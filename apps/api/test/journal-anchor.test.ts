@@ -336,4 +336,34 @@ describe("ancrage quotidien du journal de vérité", () => {
 		assert.equal(requete[0], 0x30, "TimeStampReq est une SEQUENCE DER");
 		assert.ok(requete.includes(Buffer.from("608648016503040201", "hex")), "algorithme SHA-256");
 	});
+
+it("course d'ancrage : le fichier publié porte le jeton de la ligne gagnante", async () => {
+	const jour = "2026-11-20";
+	const subject = `test-anchor-concurrent-${Date.now()}`;
+	await insérerFait({
+		subject,
+		summary: "fait d'un jour distinct pour la simulation de course",
+		recordedAt: `${jour}T10:00:00Z`,
+		validAt: null,
+	});
+	const jetonA = Buffer.from("jeton-concurrent-a").toString("base64");
+	const jetonB = Buffer.from("jeton-concurrent-b").toString("base64");
+	const fournisseur = (jeton: string): typeof fournisseurTest => async (racine: string) => ({
+		...await fournisseurTest(racine),
+		jeton,
+	});
+	const [a, b] = await Promise.allSettled([
+		ancrerJour({ jour, fournisseur: fournisseur(jetonA), verificateur: verificateurTest, dossier }),
+		ancrerJour({ jour, fournisseur: fournisseur(jetonB), verificateur: verificateurTest, dossier }),
+	]);
+	assert.equal(a.status, "fulfilled", a.status === "rejected" ? String(a.reason) : "");
+	assert.equal(b.status, "fulfilled", b.status === "rejected" ? String(b.reason) : "");
+	const ligne = await query<{ token_rfc3161: string }>(
+		"SELECT token_rfc3161 FROM journal_anchor WHERE jour = $1", [jour],
+	);
+	const tokenDb = ligne.rows[0]?.token_rfc3161;
+	assert.ok(tokenDb === jetonA || tokenDb === jetonB);
+	const publie = JSON.parse(await readFile(`${dossier}/journal_root_${jour}.json`, "utf8")) as Record<string, unknown>;
+	assert.equal(publie.token_rfc3161, tokenDb, "le fichier ne doit jamais porter le jeton du perdant");
+});
 });

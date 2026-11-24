@@ -1,0 +1,82 @@
+/* Journal & dossier — bande d'onglets au-dessus des deux panneaux.
+   La densité reste confortable : cible 32 px minimum, aucun texte en pilule,
+   un seul accent, relief discret hérité des jetons de la coquille. */
+
+.journal-workspace {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  background: var(--color-well-2);
+}
+
+.journal-workspace__tabs {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  background: color-mix(in oklab, var(--color-plate-2) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-edge-lo);
+  box-shadow: var(--raise-sm);
+}
+
+.journal-workspace__tab {
+  min-height: 32px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-muted);
+  font: 500 var(--text-label) / 1.2 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.journal-workspace__tab:hover:not([aria-selected="true"]) {
+  color: var(--color-ink);
+  background: var(--color-plate-2);
+  border-color: var(--color-edge-lo);
+}
+
+.journal-workspace__tab[aria-selected="true"] {
+  color: var(--color-ink);
+  background: var(--color-plate-3);
+  border-color: var(--color-edge-hi);
+  box-shadow: var(--raise-sm);
+}
+
+.journal-workspace__tab:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* `hidden` reste la seule source de vérité : une règle display:flex plus
+   spécifique que la feuille utilisateur ne doit pas réafficher le panneau. */
+.journal-workspace__panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.journal-workspace__panel[hidden] {
+  display: none;
+}
+
+.journal-workspace__panel:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .journal-workspace__tab {
+    transition: color 120ms ease, background-color 120ms ease, border-color 120ms ease;
+  }
+}

@@ -15,6 +15,7 @@ import assert from "node:assert/strict";
 import { query, closePools } from "../src/db.js";
 import { loadRules, evaluateEvent, loadCorroborationContext } from "../src/detect/engine.js";
 import type { RuleMatch } from "../src/detect/engine.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `d${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
@@ -93,7 +94,7 @@ async function alertEvidence(ruleId: string, eventIds: number[]): Promise<Record
 
 async function cleanup(ids: Ids): Promise<void> {
 	if (ids.rules.length > 0) await query("DELETE FROM alert WHERE rule_id = ANY($1::text[])", [ids.rules]);
-	if (ids.events.length > 0) await query("DELETE FROM event WHERE id = ANY($1::int[])", [ids.events]);
+	if (ids.events.length > 0) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids.events]);
 	if (ids.orgs.length > 0) await query("DELETE FROM org WHERE id = ANY($1::int[])", [ids.orgs]);
 	if (ids.rules.length > 0) await query("DELETE FROM detection_rule WHERE id = ANY($1::text[])", [ids.rules]);
 	if (ids.sources.length > 0) await query("DELETE FROM source WHERE id = ANY($1::text[])", [ids.sources]);

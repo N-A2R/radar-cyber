@@ -2,13 +2,29 @@
  * One check per offline behaviour. Shared by the test entry point and the
  * reproducible measurement command so both report the same number.
  */
-import assert from "node:assert/strict";
 import {
-	CACHE_PREFIX, INDEX_KEY, MAX_AGE_MS, MAX_BYTES, MAX_ENTRIES, MAX_ENTRY_BYTES,
+	CACHE_PREFIX, CONFIDENTIAL_ROUTES, INDEX_KEY, MAX_AGE_MS, MAX_BYTES, MAX_ENTRIES, MAX_ENTRY_BYTES,
 	OFFLINE_ROUTES, OFFLINE_VIEWS, OfflineApiCache, isCacheable, lastOfflineFallback,
 	normalizePath, offlineStatus, onOfflineFallback, redactPersonalData, resetOfflineFallback,
 	type OfflineStorage,
 } from "../src/offline/pwa.js";
+
+const assert = {
+	equal(actual: unknown, expected: unknown, message?: string): void {
+		if (!Object.is(actual, expected)) throw new Error(message ?? `${String(actual)} != ${String(expected)}`);
+	},
+	notEqual(actual: unknown, expected: unknown, message?: string): void {
+		if (Object.is(actual, expected)) throw new Error(message ?? `${String(actual)} == ${String(expected)}`);
+	},
+	deepEqual(actual: unknown, expected: unknown, message?: string): void {
+		const a = JSON.stringify(actual);
+		const b = JSON.stringify(expected);
+		if (a !== b) throw new Error(message ?? `${a} != ${b}`);
+	},
+	ok(value: unknown, message?: string): void {
+		if (!value) throw new Error(message ?? "valeur attendue");
+	},
+};
 
 export type CheckResult = { name: string; ok: boolean; detail: string };
 
@@ -47,9 +63,15 @@ export function runOfflineChecks(): { passed: number; total: number; results: Ch
 		}
 	};
 
-	check("every product view has a replayable read route", () => {
+	check("every destination has a replayable read route, legacy screens do not", () => {
+		assert.deepEqual([...OFFLINE_VIEWS], ["map", "action", "sources", "journal"]);
 		const missing = OFFLINE_VIEWS.filter((view) => !OFFLINE_ROUTES.some((route) => route.views.includes(view)));
 		assert.deepEqual(missing, []);
+		for (const route of OFFLINE_ROUTES) {
+			for (const view of route.views) {
+				assert.ok((OFFLINE_VIEWS as readonly string[]).includes(view), `${route.prefix}: ${view}`);
+			}
+		}
 	});
 
 	check("write methods are never cached", () => {
@@ -70,20 +92,120 @@ export function runOfflineChecks(): { passed: number; total: number; results: Ch
 		assert.equal(isCacheable("GET", "/admin/export"), false);
 	});
 
-	check("all view read endpoints are allowed", () => {
+	check("all workspace read endpoints are allowed, including legacy panels", () => {
 		const endpoints = [
 			"/orgs", "/orgs/1", "/orgs/liees", "/orgs/liees/historique?jours=30", "/events",
-			"/today", "/today/departements", "/directory", "/review/queue", "/quarantine/queue",
-			"/journal/review", "/corpus/stats", "/couverture", "/sources", "/health",
+			"/today", "/today/departements", "/directory", "/review/queue",
+			"/map/timeline/buckets?dept=33", "/map/timeline/events?dept=33",
+			"/corpus/stats", "/couverture", "/sources", "/health",
 			"/health/detail", "/health/causes", "/collecte/metrics", "/graph", "/graph/temporal",
 			"/na/overview", "/na/events?dept=33", "/alerts", "/alerts/1", "/alerts/stats",
 			"/flows", "/search?q=bordeaux", "/enrich/events/1",
+			"/actor-attributions", "/warc/proofs", "/custody?subject=evt-1",
 		];
 		for (const path of endpoints) assert.equal(isCacheable("GET", path), true, path);
 	});
 
-	check("filter order does not multiply cache keys", () => {
+	check("confidential casework is never persisted", () => {
+		const storage = new MemoryStorage();
+		const cache = new OfflineApiCache(storage, clock);
+		for (const path of CONFIDENTIAL_ROUTES) {
+			const cible = `${path}/review`;
+			assert.equal(isCacheable("GET", cible), false, cible);
+			assert.equal(cache.remember("GET", cible, { reason: "texte sensible" }), false, cible);
+			assert.equal(cache.recall("GET", cible), null, cible);
+		}
+		assert.equal(storage.keys().filter((key) => key.includes("entry:")).length, 0);
+	});
+
+	check("free text is redacted recursively before persistence", () => {
+		const storage = new MemoryStorage();
+		const cache = new OfflineApiCache(storage, clock);
+		const secret = "Sophie accuse Marc — preuve confidentielle";
+		const path = "/review/queue?etat=attente";
+		cache.remember("GET", path, {
+			rows: [{ raison: secret, nested: [{ resume: secret }] }],
+			motifDominant: secret,
+			commentaire: secret,
+			ville: "Bordeaux",
+		});
+		const raw = storage.read(entryKey(path)) ?? "";
+		assert.equal(raw.includes("Sophie"), false);
+		assert.equal(raw.includes("preuve confidentielle"), false);
+		assert.ok(raw.includes("[redacted]"));
+		assert.ok(raw.includes("Bordeaux"));
+		assert.deepEqual(redactPersonalData({ imbrique: [{ sujet: secret }] }), {
+			imbrique: [{ sujet: "[redacted]" }],
+		});
+	});
+
+	check("couverture aggregates replay offline without casework", () => {
+		const secret = "Sophie accuse Marc — preuve confidentielle";
+		const path = "/couverture";
+		const couverture = {
+			dateCalcul: "2026-11-22T12:00:00.000Z",
+			hashCorpus: "corpus-couverture-52540025",
+			fenetre: { debut: "2026-11-15T00:00:00.000Z", fin: "2026-11-22T00:00:00.000Z" },
+			global: { vus: 8, total: 10, taux: 80 },
+			parMotif: [
+				{ motif: "vu", incidents: 8, part: 80 },
+				{ motif: "pas_rattache", incidents: 2, part: 20 },
+			],
+			parDepartement: [{ departement: "33", vus: 8, total: 10, taux: 80 }],
+			parType: [{ type: "association", vus: 8, total: 10, taux: 80 }],
+			stale: false,
+			victime: secret,
+			notes: [secret],
+		};
+		const storage = new MemoryStorage();
+		const cache = new OfflineApiCache(storage, clock);
+		assert.equal(cache.remember("GET", path, couverture), true);
+		assert.equal(cache.remember("GET", "/journal/review", couverture), false);
+		assert.equal(cache.remember("GET", "/quarantine/review", couverture), false);
+		const raw = storage.read(entryKey(path)) ?? "";
+		assert.equal(raw.includes("Sophie"), false);
+		const stored = JSON.parse(raw) as { value: typeof couverture; at: number };
+		assert.equal(stored.at, BASE_TIME);
+		assert.deepEqual(stored.value.global, couverture.global);
+		assert.deepEqual(stored.value.fenetre, couverture.fenetre);
+		assert.deepEqual(stored.value.parMotif, couverture.parMotif);
+		assert.deepEqual(stored.value.parDepartement, couverture.parDepartement);
+		assert.deepEqual(stored.value.parType, couverture.parType);
+		assert.equal(stored.value.stale, false);
+		assert.equal(stored.value.victime, "[redacted]");
+		assert.deepEqual(stored.value.notes, ["[redacted]"]);
+		assert.deepEqual(redactPersonalData({ parMotif: [] }), { parMotif: [] });
+		const hit = cache.recall<typeof couverture>("GET", path);
+		assert.ok(hit);
+		assert.deepEqual(hit?.value.parMotif, couverture.parMotif);
+	});
+
+	check("confidential entries written by an older build are purged", () => {
+		const storage = new MemoryStorage();
+		storage.setItem(entryKey("/journal/review"), JSON.stringify({ value: { raison: "secret" }, at: BASE_TIME }));
+		storage.setItem(INDEX_KEY, JSON.stringify([{ key: "/journal/review", at: BASE_TIME, bytes: 40 }]));
+		new OfflineApiCache(storage, clock);
+		assert.equal(storage.read(entryKey("/journal/review")), null);
+		assert.deepEqual(JSON.parse(storage.read(INDEX_KEY) ?? "[]"), []);
+	});
+
+	check("map timeline buckets and events replay offline", () => {
+		assert.ok(OFFLINE_ROUTES.some((route) => route.prefix === "/map" && route.views.includes("map")));
+		const buckets = "/map/timeline/buckets?dept=33";
+		const events = "/map/timeline/events?dept=33";
+		assert.equal(isCacheable("GET", buckets), true);
+		assert.equal(isCacheable("GET", events), true);
+		const cache = new OfflineApiCache(new MemoryStorage(), clock);
+		assert.equal(cache.remember("GET", buckets, { buckets: [] }), true);
+		assert.ok(cache.recall("GET", buckets));
+	});
+
+	check("filter order does not multiply cache keys or rename filters", () => {
 		assert.equal(normalizePath("/events?b=2&a=1&a=0"), normalizePath("/events?a=0&a=1&b=2"));
+		assert.equal(
+			normalizePath("/events?family=phishing&dept=33&page=2"),
+			"/events?dept=33&family=phishing&page=2",
+		);
 	});
 
 	check("an online read is written through to the cache", () => {
@@ -103,10 +225,11 @@ export function runOfflineChecks(): { passed: number; total: number; results: Ch
 
 	check("different filters keep separate cached payloads", () => {
 		const cache = new OfflineApiCache(new MemoryStorage(), clock);
-		cache.remember("GET", "/today?family=cyber", { family: "cyber" });
-		cache.remember("GET", "/today?family=phishing", { family: "phishing" });
-		assert.deepEqual(cache.recall("GET", "/today?family=cyber")?.value, { family: "cyber" });
-		assert.deepEqual(cache.recall("GET", "/today?family=phishing")?.value, { family: "phishing" });
+		cache.remember("GET", "/events?family=cyber&dept=33", { family: "cyber" });
+		cache.remember("GET", "/events?family=phishing&dept=33", { family: "phishing" });
+		assert.deepEqual(cache.recall("GET", "/events?family=cyber&dept=33")?.value, { family: "cyber" });
+		assert.deepEqual(cache.recall("GET", "/events?family=phishing&dept=33")?.value, { family: "phishing" });
+		assert.deepEqual(cache.recall("GET", "/events?dept=33&family=cyber")?.value, { family: "cyber" });
 	});
 
 	check("a failed read without a cached response has no fake fallback", () => {
@@ -180,11 +303,11 @@ export function runOfflineChecks(): { passed: number; total: number; results: Ch
 	check("personal fields are redacted before a payload is stored", () => {
 		const storage = new MemoryStorage();
 		const cache = new OfflineApiCache(storage, clock);
-		cache.remember("GET", "/journal/review", {
+		cache.remember("GET", "/review/queue", {
 			rows: [{ acteur: "victim-name", email: "victim@example.test", review: [{ by: "analyst@example.test" }] }],
 			contactNom: "victim-name",
 		});
-		const raw = storage.read(entryKey("/journal/review")) ?? "";
+		const raw = storage.read(entryKey("/review/queue")) ?? "";
 		assert.equal(raw.includes("victim-name"), false);
 		assert.equal(raw.includes("victim@example.test"), false);
 		assert.equal(raw.includes("analyst@example.test"), false);

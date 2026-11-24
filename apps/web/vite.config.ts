@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
@@ -35,6 +35,7 @@ export default defineConfig({
   },
   // Réglages lus par vitest uniquement : le build navigateur n'y touche pas.
   test: {
+    environment: "jsdom",
     // `test/offline.spec.ts` est un spec Playwright (voir playwright.config.ts),
     // pas un test vitest : on ne collecte que les *.test.*.
     include: ["test/**/*.test.{ts,tsx}"],

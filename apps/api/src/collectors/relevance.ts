@@ -10,6 +10,7 @@ import { buildGazetteer, designateUneOrganisation, resoudre } from "../match/gaz
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "../match/generique.js";
 import type { OrgRef } from "@radar/shared";
 import type { ExplicationRattachement } from "../journal/rattachement.js";
+import { MOTEUR_RATTACHEMENT } from "../match/versions.js";
 
 interface MatchOrgRow {
   id: number;
@@ -162,7 +163,7 @@ export function designateOrganization(text: string): OrgMatch | null {
 				orgId: resultat.org.id,
 				confidence: resultat.confidence,
 				explication: {
-					moteur: "gazetteer@2",
+					moteur: MOTEUR_RATTACHEMENT,
 					motif: resultat.reason,
 					alias: resultat.alias,
 					confiance: resultat.confidence,
@@ -183,11 +184,11 @@ export function designateOrganization(text: string): OrgMatch | null {
 export function expliquerRattachement(text: string): ExplicationRattachement {
 	const gaz = gazetteerCharge();
 	if (!gaz) {
-		return { moteur: "gazetteer@2", motif: "aucun", alias: null, confiance: 0, indisponible: true };
+		return { moteur: MOTEUR_RATTACHEMENT, motif: "aucun", alias: null, confiance: 0, indisponible: true };
 	}
 	const resultat = designateUneOrganisation(gaz, text);
 	return {
-		moteur: "gazetteer@2",
+		moteur: MOTEUR_RATTACHEMENT,
 		motif: resultat.reason,
 		alias: resultat.alias,
 		confiance: resultat.confidence,

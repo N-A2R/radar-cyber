@@ -9,10 +9,9 @@ import {
   findActorMentions,
   isFrancophoneMessage,
   summarizeActorActivity,
-  type ForumMessage,
 } from "../src/forums/actors.js";
 import { persistForumActorMentions, readForumActorStats } from "../src/forums/actor-store.js";
-import { classifyForumMessage, dedupKey, type ForumVerdict } from "../src/forums/classify.js";
+import { classifyForumMessage, dedupKey, type ForumMessage, type ForumVerdict } from "../src/forums/classify.js";
 import { forumSourceById } from "../src/forums/sources.js";
 import { query } from "../src/db.js";
 

@@ -41,6 +41,18 @@ export class InvalidHintError extends Error {
   }
 }
 
+/** Un indice peut désigner plusieurs organisations : on ne choisit pas à leur place. */
+export class AmbiguousHintError extends Error {
+  constructor(
+    message: string,
+    readonly orgIds: number[],
+    readonly critere: "domaine" | "nom",
+  ) {
+    super(message);
+    this.name = "AmbiguousHintError";
+  }
+}
+
 /**
  * Nom à stocker pour un indice : l'indice lui-même, normalisé.
  *
@@ -83,51 +95,54 @@ const ORG_COLUMNS = "id, name, slug, kind, city, domain, status";
 const DOMAIN_RE =
   /^(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/;
 
-/** Jetons du préfiltre : sur-ensemble du nom normalisé, jamais un sous-ensemble. */
-function nameTokens(nomNorm: string): string[] {
-  const tokens = [...new Set(nomNorm.split(" ").filter((t) => t.length >= 2))];
-  return tokens.length > 0 ? tokens : nomNorm ? [nomNorm] : [];
+type Existence = { statut: "unique"; org: OrgFromHint; matchedBy: "domaine" | "nom" }
+  | { statut: "ambigus"; orgIds: number[]; matchedBy: "domaine" | "nom" };
+
+function unicite(orgs: OrgFromHint[], matchedBy: "domaine" | "nom"): Existence | null {
+  const parId = new Map<number, OrgFromHint>();
+  for (const org of orgs) parId.set(Number(org.id), org);
+  if (parId.size === 0) return null;
+  if (parId.size > 1) {
+    return { statut: "ambigus", orgIds: [...parId.keys()].sort((a, b) => a - b), matchedBy };
+  }
+  return { statut: "unique", org: parId.values().next().value!, matchedBy };
 }
 
+/**
+ * Recherche exhaustive et sans limite : un `LIMIT 1` masquait un domaine
+ * partagé, un `LIMIT 500` pouvait exclure la ligne exacte du nom. Le verrou
+ * advisory est posé par l'appelant AVANT cette lecture.
+ */
 async function findExisting(
   client: PoolClient,
   domain: string | null,
   nomNorm: string,
-): Promise<{ org: OrgFromHint; matchedBy: "domaine" | "nom" } | null> {
+): Promise<Existence | null> {
   if (domain) {
+    const parDomaine: OrgFromHint[] = [];
     const byDomain = await client.query<OrgFromHint>(
-      `SELECT ${ORG_COLUMNS} FROM org WHERE lower(domain) = $1 LIMIT 1`,
+      `SELECT ${ORG_COLUMNS} FROM org WHERE lower(domain) = $1`,
       [domain],
     );
-    if (byDomain.rows[0]) return { org: byDomain.rows[0], matchedBy: "domaine" };
-
-    // Le chargeur de référentiel matérialise aussi les domaines en alias : un
-    // domaine connu sous cette forme ne doit pas recréer l'organisation.
+    parDomaine.push(...byDomain.rows);
+    // Le chargeur de référentiel matérialise aussi les domaines en alias.
     const byAlias = await client.query<OrgFromHint>(
       `SELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.status
          FROM org_alias a JOIN org o ON o.id = a.org_id
-        WHERE lower(a.alias) = $1 AND a.status = 'active' AND a.valid_to IS NULL
-        LIMIT 1`,
+        WHERE lower(a.alias) = $1 AND a.status = 'active' AND a.valid_to IS NULL`,
       [domain],
     );
-    if (byAlias.rows[0]) return { org: byAlias.rows[0], matchedBy: "domaine" };
+    parDomaine.push(...byAlias.rows);
+    const parDomain = unicite(parDomaine, "domaine");
+    if (parDomain) return parDomain;
   }
 
-  const patterns = nameTokens(nomNorm).map((token) => `%${token}%`);
-  if (patterns.length > 0) {
-    // `name_norm` est déaccentuée (migration 041) et indexée en trigramme.
-    // Le préfiltre est large ; la décision se prend côté TypeScript avec la
-    // MÊME normalisation que celle du nom fourni, pour ne rien inventer.
-    const byName = await client.query<OrgFromHint>(
-      `SELECT ${ORG_COLUMNS} FROM org
-        WHERE name_norm = $1 OR name_norm ILIKE ANY($2::text[])
-        LIMIT 500`,
-      [nomNorm, patterns],
-    );
-    const exact = byName.rows.find((row) => normalizeName(row.name) === nomNorm);
-    if (exact) return { org: exact, matchedBy: "nom" };
-  }
-  return null;
+  // Égalité stricte sur la colonne déaccentuée, sans fenêtre arbitraire.
+  const byName = await client.query<OrgFromHint>(
+    `SELECT ${ORG_COLUMNS} FROM org WHERE name_norm = $1`,
+    [nomNorm],
+  );
+  return unicite(byName.rows, "nom");
 }
 
 function slugFor(domain: string | null, nomNorm: string): string {
@@ -160,15 +175,26 @@ export async function createOrgFromHintTx(
   const domain = input.domaine ? normalizeDomain(input.domaine) : null;
   if (domain && !DOMAIN_RE.test(domain)) throw new InvalidHintError("domaine invalide");
 
+  // Le verrou précède la dédup : sans lui, deux appels concurrents pouvaient
+  // ne rien trouver puis créer deux organisations pour le même indice. Les
+  // clés sont triées pour éviter un cycle entre appels domaine + nom.
+  const verrous = [domain ? `domaine:${domain}` : null, `nom:${nomNorm}`]
+    .filter((cle): cle is string => cle !== null)
+    .sort();
+  for (const cle of verrous) {
+    await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [cle]);
+  }
   const found = await findExisting(client, domain, nomNorm);
-  if (found) return { ...found, created: false, aliases: 0, journal: { ok: true, ecrit: false } };
-
-  await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
-    domain ? `domaine:${domain}` : `nom:${nomNorm}`,
-  ]);
-  // Le verrou posé, on revérifie : un appel concurrent a pu créer entre-temps.
-  const afterLock = await findExisting(client, domain, nomNorm);
-  if (afterLock) return { ...afterLock, created: false, aliases: 0, journal: { ok: true, ecrit: false } };
+  if (found?.statut === "ambigus") {
+    throw new AmbiguousHintError(
+      `${found.matchedBy} ambigu pour l'indice « ${input.nom} » : ${found.orgIds.join(", ")}`,
+      found.orgIds,
+      found.matchedBy,
+    );
+  }
+  if (found && found.statut === "unique") {
+    return { org: found.org, matchedBy: found.matchedBy, created: false, aliases: 0, journal: { ok: true, ecrit: false } };
+  }
 
   const slug = slugFor(domain, nomNorm);
   const inserted = await client.query<OrgFromHint>(

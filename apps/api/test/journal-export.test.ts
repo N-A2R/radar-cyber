@@ -165,7 +165,14 @@ test("export: Content-Disposition, English header, one row per decision with its
     assert.equal(ligne[5], c.raison);
     assert.equal(ligne[6], String(c.orgId ?? ""));
     assert.equal(ligne[7], String(c.id));
-    assert.match(ligne[8], new RegExp(`"quarantineId": ?${c.id}`));
+    const evidence = JSON.parse(ligne[8]) as Record<string, unknown>;
+    assert.deepEqual(evidence, {
+      decision: c.decision,
+      action: c.decision === "refuser" ? "reject" : "promote",
+      reason: c.raison,
+      orgId: c.orgId,
+      quarantineId: c.id,
+    }, `preuve exacte pour la quarantaine ${c.id}`);
   }
 });
 

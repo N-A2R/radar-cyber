@@ -15,9 +15,10 @@
 import type { FastifyInstance } from "fastify";
 import { badRequest } from "../errors.js";
 import { query } from "../db.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 export const NA_BOUNDS = Object.freeze({ minLat: 44, maxLat: 46.6, minLon: -1.9, maxLon: 1.3 });
-const REGION_FILTER = `e.lat BETWEEN $1 AND $2 AND e.lon BETWEEN $3 AND $4`;
+const REGION_FILTER = `e.lat BETWEEN $1 AND $2 AND e.lon BETWEEN $3 AND $4 AND ${evenementPublicSql("e")}`;
 const EVENT_TIME = `COALESCE(e.observed_at, e.collected_at)`;
 const MAX_MONTHS = 36;
 const MAX_EVENTS = 2000;

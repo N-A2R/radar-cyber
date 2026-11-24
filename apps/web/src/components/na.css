@@ -1,19 +1,9 @@
 /* Vue Nouvelle-Aquitaine — échelle chiffrée et états interactifs de la carte.
-   Les règles de base .na-* restent dans styles.css (un propriétaire par
-   fichier) ; ce fichier ajoute ce que la carte ne disait pas : la couleur
-   vit en jetons, la légende est lisible sans survol, et la sélection se voit
-   par une bordure en plus de la teinte. */
+   Les règles de base .na-* et l'échelle --na-niveau-* vivent dans styles.css
+   (pont de jetons) ; ce fichier n'ajoute que le comportement de la carte :
+   légende lisible sans survol et sélection marquée par une bordure. */
 
 :root {
-  /* Échelle séquentielle bleue : niveau 0 = zéro événement (gris neutre, pas
-     une couleur d'alerte), niveaux 1 → 5 = nombre d'événements croissant.
-     Une pastille n'est jamais seule : chaque niveau porte son libellé chiffré. */
-  --na-niveau-0: #1d222b;
-  --na-niveau-1: #1e3a5f;
-  --na-niveau-2: #27537f;
-  --na-niveau-3: #336ca3;
-  --na-niveau-4: #4d8ec9;
-  --na-niveau-5: #6fb1e3;
   --na-contour: var(--surface-2);
   --na-contour-actif: var(--accent);
   --na-pastille: 18px;
@@ -147,4 +137,43 @@
 
 .na-ligne-actif .na-ligne-nom {
   font-weight: var(--weight-semibold);
+}
+
+/* Dans le panneau latéral de la Carte, la vue régionale est une seule
+   colonne : le nom d'un département reste horizontal et son compte se lit
+   en dessous, sans rogner ni forcer un retour à la lettre. */
+.map-workspace__side .na-view {
+  padding: 0;
+}
+
+.map-workspace__side .na-header {
+  gap: var(--space-3);
+}
+
+.map-workspace__side .na-corps {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+.map-workspace__side .na-ligne {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  min-block-size: 52px;
+}
+
+.map-workspace__side .na-ligne-nom {
+  min-width: 0;
+  overflow-wrap: normal;
+}
+
+.map-workspace__side .na-ligne-compte {
+  white-space: normal;
+}
+
+/* Le panneau latéral défile déjà : pas de second ascenseur imbriqué. */
+.map-workspace__side .na-panneau {
+  max-height: none;
+  overflow: visible;
 }

@@ -1,31 +1,30 @@
-/* Hallmark · shape: app screen · genre: modern-minimal · theme: astryx gothic (design system externe) · posture: restrained · surface: absolute · hero: kept · nav: shell rail · footer: none · signature: serif display gothic, focus/motion Astryx, tabular figures
+/* Hallmark · shape: app screen · genre: modern-minimal · theme: astryx stone (design system externe) · posture: restrained · surface: glass · hero: kept · nav: four destinations · footer: none · signature: tabular figures, dark relief
  * axes: AA contrast · visible focus · 24px targets · v2.1.0 */
 /* Pre-emit critique: P_ H_ E_ S_ R_ V_ · weakest: R_, une seule source de jetons (Astryx) et un composant par rôle. */
 
 /* ═══════════════════════════════════════════════════════════════════
-   Radar Cyber sur Astryx.
+   Radar Cyber on Astryx Stone.
 
-   Le front consomme le design system Astryx (@astryxdesign/core,
-   thème gothic). La cascade (voir main.tsx) est :
-
-     reset.css → astryx.css → theme-gothic (fonts + theme) → ce fichier
+   Cascade (voir main.tsx) :
+     reset.css → astryx.css → theme-stone (fonts + theme) → ce fichier
 
    Ce fichier est un PONT DE JETONS : chaque jeton radar alias une
    variable Astryx (--color-background-surface, --color-text-primary,
-   --radius-inner, --spacing-*, --font-family-*...). Les 24 feuilles de
-   composants (login.css, sources.css, na.css...) ne référencent QUE
-   ces jetons : l'app entière re-présente quand le thème change, sans
-   y toucher.
+   --radius-inner, --spacing-*...). Les feuilles de composants ne
+   référencent que ces jetons : l'app entière suit le thème actif.
 
-   Règle (voir apps/web/AGENTS.md) : aucune couleur, police, rayon,
-   espacement ou ombre de chrome ne s'écrit en dur ici. Seules les
-   couleurs de DONNÉES (sévérités, familles, natures d'organisation)
-   restent locales : elles n'existent pas dans un design system
-   générique.
+   Règle (voir apps/web/AGENTS.md) : aucun chrome codé en dur ici — ni
+   couleur, ni police, ni ombre, ni dégradé décoratif. Seules les couleurs
+   de DONNÉES (sévérités, familles, natures d'organisation) restent
+   locales : elles n'existent pas dans un design system générique. Le
+   rendu garde une atmosphère gothique sur la carte, uniquement là où
+   elle sert la lisibilité des faits.
    ═══════════════════════════════════════════════════════════════════ */
 
 
-/* ── Jetons : le thème gothic d'Astryx possède le chrome ──────── */
+/* ── Jetons : le thème stone d'Astryx possède le chrome ──────── */
+
+
 :root {
   color-scheme: dark;
 
@@ -48,15 +47,29 @@
 
   --text: var(--color-text-primary);
   --muted: var(--color-text-secondary);
-  --faint: var(--color-text-disabled);
+  /* AA : --color-text-disabled n'atteint pas 4,5:1 sur --bg. Le jeton
+     « atténué » du pont alias donc le secondaire du thème : aucun texte
+     informatif ne descend sous le seuil, même via --faint. */
+  --faint: var(--muted);
+  --text-info: var(--muted);
+  --text-error: var(--color-text-error);
+  --surface-scrim: color-mix(in srgb, var(--bg) 78%, transparent);
 
   --accent: var(--color-accent);
   --accent-ink: var(--color-on-accent);
   --focus: var(--accent);
   --focus-offset: var(--focus-outline-offset, 2px);
-  --surface-hover: var(--color-tint-hover);
+  --surface-hover: color-mix(in srgb, var(--color-tint-hover) 8%, transparent);
   --surface-active: var(--color-overlay-pressed);
 
+  /* Verre et relief : la profondeur reste une couche translucide mince,
+     pas un dégradé ni une lueur colorée permanente. */
+  --glass: color-mix(in srgb, var(--surface) 88%, transparent);
+  --glass-strong: color-mix(in srgb, var(--surface-2) 92%, transparent);
+  --glass-line: color-mix(in srgb, var(--line-strong) 45%, transparent);
+  --accent-wash: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-edge: color-mix(in srgb, var(--accent) 55%, var(--line));
+  --lumen: var(--color-info);
   /* ── Palette de données : locale au domaine ──────────────────────
      Sévérités, familles d'événements et natures d'organisation n'ont
      pas d'équivalent dans un design system générique : elles restent
@@ -96,15 +109,31 @@
   --org-recherche: var(--data-green);
   --org-operateur: #ea5548;
 
-  /* ── Typographie : les trois voix du thème gothic ──────────────── */
+  /* Échelle séquentielle Nouvelle-Aquitaine : niveau 0 = zéro événement.
+     Palette de DONNÉES locale au domaine (autorisée par AGENTS.md), déplacée
+     ici depuis na.css ; les classes .na-niveau-* ne font qu'aliaser ces jetons. */
+  --data-na-0: #1d222b;
+  --data-na-1: #1e3a5f;
+  --data-na-2: #27537f;
+  --data-na-3: #336ca3;
+  --data-na-4: #4d8ec9;
+  --data-na-5: #6fb1e3;
+  --na-niveau-0: var(--data-na-0);
+  --na-niveau-1: var(--data-na-1);
+  --na-niveau-2: var(--data-na-2);
+  --na-niveau-3: var(--data-na-3);
+  --na-niveau-4: var(--data-na-4);
+  --na-niveau-5: var(--data-na-5);
+
+  /* ── Typographie : les trois voix du thème stone ──────────────── */
   --font-sans: var(--font-family-body);
   --font-mono: var(--font-family-code);
   --font-display: var(--font-family-heading);
   --font-body: var(--font-sans);
   --font-label: var(--font-sans);
 
-  /* ── Géométrie : échelles Astryx ───────────────────────────────── */
   --radius: var(--radius-inner);
+  --radius-panel: calc(var(--radius) * 3);
   --radius-full: 999px;
   --space-1: var(--spacing-1);
   --space-2: var(--spacing-2);
@@ -113,12 +142,15 @@
   --space-5: var(--spacing-5);
   --space-6: var(--spacing-6);
   --control-min-size: 24px;
-  --control-pad-x: var(--space-2);
-  --control-pad-y: var(--space-1);
+  --control-h: 36px;
+  --nav-h: 34px;
+  --control-pad-x: var(--space-3);
+  --control-pad-y: var(--space-2);
 
   /* Densité d'observatoire de veille : l'échelle reste celle du produit
      (le corps d'un tableau de veille ne descend pas sous 13 px). */
   --text-micro: 11px;
+  --text-nano: 10px;
   --text-label: 12px;
   --text-xs: 13px;
   --text-body: 14px;
@@ -173,14 +205,14 @@ table.data th button {
 .skip-link {
   position: absolute;
   z-index: 1000;
-  top: -60px;
-  left: 12px;
-  padding: 12px 16px;
+  top: calc(-3 * var(--space-5));
+  left: var(--space-3);
+  padding: var(--space-3) var(--space-4);
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--line-strong);
 }
-.skip-link:focus { top: 12px; }
+.skip-link:focus { top: var(--space-3); }
 /* Cible tactile minimale, sans imposer de largeur aux liens en texte. */
 :where(button, select, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], [role="tab"], [role="switch"], summary) {
   min-block-size: var(--control-min-size);
@@ -227,170 +259,7 @@ html { scrollbar-color: var(--line-strong) var(--surface-2); }
 ::-webkit-scrollbar-thumb { background: var(--line-strong); border: 2px solid var(--surface-2); border-radius: var(--radius); }
 body { caret-color: var(--accent); }
 
-/* ── Barre supérieure ────────────────────────────────────────── */
-.topbar {
-  /* La barre porte des cibles de 44 px : elle grandit avec elles. */
-  flex: 0 0 56px;
-  display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  padding: 0 var(--space-4);
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-.wordmark {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  white-space: nowrap;
-}
-.wordmark b {
-  font: 600 14px/1 var(--font-sans);
-  letter-spacing: 0.01em;
-}
-.wordmark span {
-  font: 400 12px/1 var(--font-mono);
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--muted);
-}
-
-.nav {
-  display: flex;
-  gap: 2px;
-}
-.nav button {
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid transparent;
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--muted);
-  font: var(--weight-medium) 12px/1 var(--font-label);
-}
-.nav button:hover { color: var(--text); border-color: var(--line-strong); }
-.nav button[aria-current="page"] {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-.spacer { flex: 1 1 auto; }
-
-.live {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
-  color: var(--muted);
-  letter-spacing: var(--tracking-normal);
-  white-space: nowrap;
-}
-.live .dot {
-  width: 5px;
-  height: 5px;
-  background: var(--faint);
-}
-.live[data-live="true"] .dot { background: var(--accent); }
-
-.basemap-picker {
-  display: flex;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.basemap-picker button {
-  padding: var(--space-1) var(--space-2);
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  min-width: 24px;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
-  letter-spacing: var(--tracking-normal);
-}
-.basemap-picker button + button { border-left: 1px solid var(--line-strong); }
-.basemap-picker button:hover { color: var(--text); }
-.basemap-picker button[aria-pressed="true"] {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-.basemap-picker button:active { background: var(--color-plate-3); color: var(--text); }
-
-.theme-picker {
-  padding: var(--space-1) var(--space-2);
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  min-width: 24px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: transparent;
-  color: var(--muted);
-  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
-  letter-spacing: var(--tracking-normal);
-}
-.theme-picker:hover { color: var(--text); }
-.theme-picker:active { background: var(--color-plate-3); }
-
-/* ── Corps ───────────────────────────────────────────────────── */
-.workspace {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 352px minmax(0, 1fr) 250px;
-}
-
-.panel {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  min-width: 0;
-  background: var(--surface);
-  border-right: 1px solid var(--line);
-}
-
-.panel.inspector {
-  border-right: 0;
-  border-left: 1px solid var(--line);
-}
-
-.panel-head {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4) var(--space-2);
-  border-bottom: 1px solid var(--line);
-}
-
-.stage {
-  position: relative;
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  background: var(--bg);
-}
-.stage__canvas { position: absolute; inset: 0; }
-
-/* ── Inspecteur ──────────────────────────────────────────────── */
-.inspector__body { padding: var(--space-4); }
-.inspector__body h2 {
-  margin: 0;
-  font: 600 13px/1.3 var(--font-sans);
-  color: var(--text);
-}
-.inspector__body .kind {
-  margin-top: 2px;
-  color: var(--accent);
-  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
-  letter-spacing: var(--tracking-normal);
-  white-space: nowrap;
-}
-
+/* ── Paires clé/valeur (graphe, inspecteurs) ─────────────────── */
 .kv {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -409,52 +278,6 @@ body { caret-color: var(--accent); }
   text-align: right;
   overflow-wrap: break-word;
   color: var(--text);
-}
-
-.panel .empty {
-  margin: 0;
-  padding: var(--space-4);
-  color: var(--faint);
-  font: 400 12px/1.5 var(--font-mono);
-}
-
-/* ── Feuilles pleine largeur (sources, santé) ────────────────── */
-.sheet {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  padding: var(--space-6);
-  background: var(--bg);
-}
-
-.sources { max-width: 1500px; }
-
-/* Sept colonnes ne tiennent pas dans le panneau : le conteneur défile au lieu
-   de rogner sa dernière colonne. */
-.sources__scroll {
-  overflow-x: auto;
-  min-height: 0;
-}
-
-.sources__scroll table.data {
-  min-width: 820px;
-}
-
-.sources header {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-4);
-  margin-bottom: var(--space-4);
-}
-.sources header h1 {
-  margin: 0;
-  font: 600 16px/1.2 var(--font-sans);
-}
-.sources header p {
-  margin: 0;
-  color: var(--muted);
-  font: 400 12px/1.5 var(--font-mono);
-  font-variant-numeric: tabular-nums;
 }
 
 table.data {
@@ -581,12 +404,11 @@ table.data a:hover { text-decoration: underline; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Coquille « rack » — plaques surélevées, hairlines, aucun cadre.
+   Coquille Stone — panneaux de verre, hairlines, hiérarchie calme.
 
    Les jetons --color-* restent des ALIAS des jetons radar (--surface,
-   --text, --line...), eux-mêmes alias du thème Astryx actif : une
-   seule chaîne de vérité, du design system jusqu'aux feuilles de
-   composants. Les variantes data-theme s'intercalent dans la chaîne.
+   --text, --line...), eux-mêmes alias du thème Astryx actif : une seule
+   chaîne de vérité, du design system jusqu'aux feuilles de composants.
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
@@ -605,17 +427,15 @@ table.data a:hover { text-decoration: underline; }
      ne pas les réaliaser vers --accent, cela créerait un cycle. */
   --color-accent-2: var(--accent);
   --color-alarm: var(--sev-5);
-  --font-display: var(--font-family-heading);
 
   /* Relief : la profondeur vient d'Astryx (--shadow-low / --shadow-med,
-   couleur d'ombre --color-shadow). */
+     couleur d'ombre --color-shadow). */
   --shadow-ink: var(--color-shadow);
   --shadow-ink-soft: var(--color-shadow);
   --raise: var(--shadow-low);
   --raise-sm: var(--shadow-low);
   --sink: var(--shadow-med);
 }
-
 
 html,
 body {
@@ -624,11 +444,9 @@ body {
 
 body {
   margin: 0;
-  background: var(--color-plate-3);
-  color: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: 14px;
-  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 var(--text-body)/var(--leading-body) var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -636,22 +454,32 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: var(--space-3) var(--space-3) var(--space-3);
-  gap: 0;
+  height: 100dvh;
+  min-height: 0;
+  padding: var(--space-3);
+  gap: var(--space-2);
   box-sizing: border-box;
+  background: var(--bg);
 }
 
 /* Hors ligne : neutre, pas alarmant. L'incident n'est pas la panne réseau. */
-.shell__offline {
+.shell__offline,
+.shell__error {
   flex: 0 0 auto;
-  margin: 0 0 var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: 4px;
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  color: var(--color-muted);
-  background: var(--color-plate);
-  border-left: 2px solid var(--sev-3, var(--color-edge-hi));
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--glass-line);
+  border-left: 2px solid var(--sev-3);
+  border-radius: var(--radius-full);
+  background: var(--glass);
+  box-shadow: var(--raise-sm);
+  color: var(--muted);
+  font-size: var(--text-label);
+  line-height: var(--leading-tight);
+  letter-spacing: 0.01em;
 }
 
 .shell__offline[data-etat="frais"] {
@@ -659,14 +487,8 @@ body {
 }
 
 .shell__error {
-  flex: 0 0 auto;
-  margin: 0 0 var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: 4px;
-  font-size: 12px;
-  color: var(--color-alarm);
-  background: var(--color-plate);
-  box-shadow: var(--raise-sm);
+  border-left-color: var(--sev-5);
+  color: var(--text-error);
 }
 
 /* Erreur récupérable : message lisible et action de rejeu, sans masquer les
@@ -699,13 +521,11 @@ body {
 .shell__body {
   display: grid;
   /* Mobile d'abord : une seule colonne. Les colonnes bornées du shell
-     (fil 352 px, inspecteur 320 px) n'existent qu'à partir de 1025 px —
-     voir les deux blocs de media queries plus bas. */
+     (fil, inspecteur) n'existent qu'à partir de 1025 px. */
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3);
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
-  margin-top: var(--space-3);
 }
 
 .shell__feed,
@@ -714,115 +534,130 @@ body {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
 }
 
-.shell__feed {
+.shell__feed,
+.shell__inspect {
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, var(--color-plate), var(--color-plate-3));
-  box-shadow: var(--raise);
-  border-top: 1px solid var(--color-edge-hi);
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(1.05);
+  box-shadow: var(--raise), inset 0 1px 0 var(--glass-line);
 }
 
 .shell__stage {
   position: relative;
-  border-radius: var(--radius);
   background: var(--color-well-2);
   box-shadow: var(--sink);
   overflow: hidden;
 }
 
-.shell__inspect {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, var(--color-plate), var(--color-plate-3));
-  box-shadow: var(--raise);
-  border-top: 1px solid var(--color-edge-hi);
-  overflow-y: auto;
+.shell__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--glass-line);
+  pointer-events: none;
 }
 
-/* Rail : une seule plaque, pas de cadre autour des éléments. */
+/* La carte garde le puits sombre ; les trois autres destinations présentent
+   leurs panneaux sur une surface plus calme. */
+.shell[data-view="map"] .shell__stage { background: var(--bg); }
+:is(.shell[data-view="action"], .shell[data-view="sources"], .shell[data-view="journal"]) .shell__stage {
+  background: var(--surface);
+}
+
+.shell__inspect {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Rail : une plaque de verre, une navigation segmentée, des actions discrètes. */
 .rail {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
-  height: 52px;
+  gap: var(--space-3);
+  min-height: 56px;
   flex: 0 0 auto;
-  padding: 0 var(--space-5);
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, var(--color-plate-2), var(--color-plate));
-  box-shadow: var(--raise);
-  border-top: 1px solid var(--color-edge-hi);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
+  background: var(--glass-strong);
+  backdrop-filter: blur(18px) saturate(1.1);
+  box-shadow: var(--raise), inset 0 1px 0 var(--glass-line);
 }
 
 .wordmark {
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 .wordmark b {
-  font-weight: 600;
+  font: var(--weight-semibold) 15px/1.2 var(--font-display);
+  letter-spacing: -0.02em;
   color: var(--color-ink);
 }
 
 .wordmark span {
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: 0;
+  font: 400 var(--text-label)/1 var(--font-mono);
   color: var(--color-muted);
 }
 
 .rail__nav {
   display: flex;
   align-items: center;
-  /* L'écart visible reste le même, mais il passe dans la zone cliquable de
-     chaque entrée : 8 px de vide + 6 px de rembourrage de chaque côté. */
-  gap: var(--space-2);
+  gap: 2px;
+  margin-inline: auto;
+  padding: 3px;
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-full);
+  background: var(--surface-3);
+  box-shadow: inset 0 1px 2px var(--shadow-ink-soft);
+  min-width: 0;
 }
 
-.rail__nav button {
-  font: inherit;
-  font-size: 12px;
-  background: none;
+.rail__nav :is(a, button, [role="menuitem"], .astryx-top-nav-item) {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--nav-h);
+  padding: 0 var(--space-3);
   border: 0;
-  /* Zone cliquable de 40 px de haut : le libellé reste à 12 px, c'est la
-     cible qui grandit, pas le texte. */
-  padding: 15px 6px;
+  border-radius: var(--radius-full);
+  background: transparent;
   color: var(--color-muted);
-  cursor: pointer;
-  /* Un libellé de navigation ne se coupe pas : c'est la barre qui passe à la
-     ligne entre deux entrées. Sinon « Nouvelle-Aquitaine » se brise au milieu. */
+  font: var(--weight-medium) var(--text-body)/1 var(--font-label);
+  text-decoration: none;
   white-space: nowrap;
-  transition: color 90ms ease, box-shadow 90ms ease;
+  transition: color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
 }
 
-.rail__nav button:hover {
-  color: var(--color-ink-2);
-}
-
-.rail__nav button:active {
+.rail__nav :is(a, button, [role="menuitem"], .astryx-top-nav-item):hover {
   color: var(--color-ink);
+  background: var(--surface-hover);
 }
 
-.rail__nav button[aria-current="page"] {
+.rail__nav :is(a, button, [role="menuitem"], .astryx-top-nav-item):active {
+  background: var(--surface-active);
+}
+
+.rail__nav :is(a, button, [role="menuitem"])[aria-current="page"],
+.rail__nav :is(a, button, [role="menuitem"])[data-selected="selected"],
+.rail__nav [data-active="true"] > :is(a, button) {
   color: var(--color-ink);
-  box-shadow: inset 0 -2px 0 var(--color-accent);
+  background: color-mix(in srgb, var(--surface-2) 78%, var(--accent-wash));
+  box-shadow: inset 0 0 0 1px var(--accent-edge), 0 1px 2px var(--shadow-ink-soft);
 }
 
-.rail__nav button:focus-visible {
+.rail__nav :is(a, button, [role="menuitem"]):focus-visible {
   outline: 2px solid var(--color-accent-2);
-  outline-offset: 3px;
-}
-
-.rail__nav button[data-active="true"] {
-  color: var(--color-ink);
-  box-shadow: inset 0 -2px 0 var(--color-accent);
+  outline-offset: 2px;
 }
 
 .rail__nav-label {
@@ -837,82 +672,94 @@ body {
   display: none;
 }
 
+/* Le repli reste porté par le DOM, mais la barre elle-même n'a plus besoin
+   d'un ressort : la navigation segmentée occupe l'espace libre. */
 .rail__spacer {
-  flex: 1;
+  display: none;
 }
 
-.rail__toggle {
-  font: inherit;
-  font-size: 12px;
-  color: var(--color-ink-2);
-  background: none;
-  border: 0;
-  /* Même hauteur de cible que les entrées de navigation. */
-  padding: 15px 6px;
-  cursor: pointer;
-  box-shadow: inset 0 -1px 0 var(--color-edge-hi);
-  transition: color 90ms ease, box-shadow 90ms ease;
+.rail > .astryx-button {
+  flex: 0 0 auto;
+  min-height: var(--control-h);
+  min-width: var(--control-h);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-full);
+  font: var(--weight-medium) var(--text-label)/1 var(--font-label);
+  opacity: 0.78;
+  transition: opacity 120ms ease, box-shadow 120ms ease;
+}
+
+.rail > .astryx-button:hover {
+  opacity: 1;
+  box-shadow: inset 0 0 0 1px var(--glass-line);
+}
+
+.rail > .astryx-button:active { box-shadow: inset 0 0 0 1px var(--accent-edge); }
+
+/* Recherche globale : un champ-pilule discret, pas un bouton de plus. */
+.rail__spacer + .astryx-button {
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  min-width: 0;
+  padding-inline: var(--space-3);
+  box-shadow: inset 0 0 0 1px var(--glass-line);
+  opacity: 1;
+}
+
+.rail__spacer + .astryx-button:hover {
+  box-shadow: inset 0 0 0 1px var(--accent-edge);
+}
+/* La déconnexion ferme la barre : elle garde son libellé entier, même quand
+   la navigation segmentée cède de la largeur. */
+.rail > .astryx-button:last-child {
+  min-width: max-content;
   white-space: nowrap;
 }
 
-.rail__toggle:hover {
-  color: var(--color-accent);
-  box-shadow: inset 0 -1px 0 var(--color-accent);
-}
-
-.rail__toggle:active {
-  color: var(--color-ink);
-}
-
-.rail__toggle[aria-pressed="true"] {
-  color: var(--color-accent);
-}
-
-.rail__toggle:focus-visible {
-  outline: 2px solid var(--color-accent-2);
-  outline-offset: 3px;
+.rail > :is(.export, .rail__live) {
+  flex: 0 0 auto;
 }
 
 .rail__live {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 12px;
+  min-height: var(--control-h);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-full);
+  background: var(--glass);
   color: var(--color-muted);
+  font-size: var(--text-label);
   white-space: nowrap;
 }
 
 .rail__live i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-well-2);
-  box-shadow: 0 0 0 1px var(--color-edge-lo) inset;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-faint);
+  box-shadow: inset 0 0 0 1px var(--glass-line);
   flex: 0 0 auto;
 }
 
-.rail__live[data-on="true"] {
-  color: var(--color-ink-2);
-}
+.rail__live[data-on="true"] { color: var(--color-ink); }
 
 .rail__live[data-on="true"] i {
-  background: var(--color-accent-2);
-  box-shadow: 0 0 7px var(--color-accent-2);
+  background: var(--lumen);
+  box-shadow: 0 0 0 3px var(--accent-wash);
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .rail__nav button,
-  .rail__toggle {
+  .rail__nav :is(a, button, [role="menuitem"]),
+  .rail > .astryx-button {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
 }
 
-/* Sous 1024 px : le fil et son rail de repli s'effacent, l'inspecteur
-   devient un tiroir posé sur le stage. Le contenu garde toute la largeur
-   utile et rien ne dépasse : à 768 px de viewport, 768 − 24 px de padding
-   du shell = 744 px pour le stage, bien au-delà des 300 px exigés. */
+/* Sous 1025 px : le fil s'efface, l'inspecteur devient un tiroir posé sur
+   le stage. Le contenu garde toute la largeur utile. */
 @media (max-width: 1024px) {
   .shell__feed,
   .shell__feed-rail {
@@ -923,109 +770,110 @@ body {
     justify-self: end;
     inline-size: min(100%, 380px);
     z-index: 4;
-    border-inline-start: 1px solid var(--line);
+    border-inline-start: 1px solid var(--glass-line);
     box-shadow: var(--raise);
+    animation: shell-drawer-in 160ms ease-out both;
   }
 }
 
+@keyframes shell-drawer-in {
+  from { opacity: 0.6; transform: translateX(var(--space-3)); }
+  to { opacity: 1; transform: none; }
+}
+
 /* À partir de 1025 px : fil + stage + inspecteur, chaque colonne bornée.
-   L'état vient des attributs data-* posés par App.tsx (le style inline
-   écrasait cette feuille, d'où la colonne vide de 352 px sur mobile). */
+   L'état vient des attributs data-* posés par App.tsx. */
 @media (min-width: 1025px) {
   .shell__body {
-    grid-template-columns: minmax(0, 352px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
   }
   .shell__body[data-feed="rail"] {
-    grid-template-columns: minmax(0, 44px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 48px) minmax(0, 1fr);
   }
   .shell__body[data-feed="none"] {
     grid-template-columns: minmax(0, 1fr);
   }
   .shell__body[data-inspector="open"] {
-    grid-template-columns: minmax(0, 352px) minmax(0, 1fr) minmax(0, 320px);
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr) minmax(0, 340px);
   }
   .shell__body[data-feed="rail"][data-inspector="open"] {
-    grid-template-columns: minmax(0, 44px) minmax(0, 1fr) minmax(0, 320px);
+    grid-template-columns: minmax(0, 48px) minmax(0, 1fr) minmax(0, 340px);
   }
   .shell__body[data-feed="none"][data-inspector="open"] {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
   }
 }
 
-/* Sous 1800 px : les six groupes et les actions du rail ne tiennent plus sur
-   une seule ligne. La navigation passe donc dessous plutôt que de tronquer
-   « Rechercher » ou « Déconnexion ». */
-@media (min-width: 481px) and (max-width: 1800px) {
-  .rail {
-    flex-wrap: wrap;
-    height: auto;
-    min-height: 52px;
-    padding: var(--space-2) var(--space-5);
-    row-gap: var(--space-1);
+@media (min-width: 1600px) {
+  .shell__body { grid-template-columns: minmax(0, 392px) minmax(0, 1fr); }
+  .shell__body[data-inspector="open"] {
+    grid-template-columns: minmax(0, 392px) minmax(0, 1fr) minmax(0, 360px);
   }
-  .wordmark {
-    min-width: 0;
-  }
+}
+
+/* Quatre destinations tiennent sur une ligne : on compacte les actions
+   avant de laisser la navigation passer à la ligne. */
+@media (max-width: 1200px) {
+  .rail { gap: var(--space-3); }
+  .wordmark span { display: none; }
+  .rail__nav :is(a, button, [role="menuitem"]) { padding-inline: var(--space-3); }
+  .rail__spacer + .astryx-button { min-width: 0; }
+}
+
+@media (max-width: 860px) {
+  .rail { flex-wrap: wrap; min-height: 0; }
   .rail__nav {
     order: 3;
     flex: 1 1 100%;
-    flex-wrap: wrap;
-    gap: var(--space-1) var(--space-4);
+    margin-inline: 0;
+    justify-content: center;
   }
-  .rail__nav button {
-    padding: var(--space-1) var(--space-1);
-    white-space: nowrap;
-  }
-  /* Les libellés ne se coupent jamais en deux : c'est la barre qui passe à la
-     ligne entre deux entrées, sinon « Nouvelle-Aquitaine » et « Suis-je
-     concerné ? » se brisent en plein milieu à 1440 px. */
-  .rail__nav,
-  .rail__toggle {
-    white-space: nowrap;
-  }
+  .rail__live { display: none; }
 }
 
 /* ── Repli du fil ─────────────────────────────────────────────
-   Le fil n'est monté que sur Carte et Graphe. Sur mobile, il s'efface ;
-   sur desktop, l'utilisateur peut le réduire à un rail de 44 px. */
+   Le fil n'est monté que sur Carte. Sur mobile, il s'efface ; sur desktop,
+   l'utilisateur peut le réduire à un rail vertical. */
 .shell__feed {
   position: relative;
 }
 
 .shell__feed-collapse {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: var(--space-2);
+  right: var(--space-2);
   z-index: 3;
-  width: 24px;
-  height: 24px;
+  width: var(--control-h);
+  height: var(--control-h);
   display: grid;
   place-items: center;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface-2);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-full);
+  background: var(--glass-strong);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--raise-sm);
   color: var(--muted);
-  font-size: 14px;
+  font-size: var(--text-body);
   line-height: 1;
   cursor: pointer;
 }
 
 .shell__feed-collapse:hover {
   color: var(--text);
-  border-color: var(--line-strong);
+  border-color: var(--accent-edge);
 }
 
 .shell__feed-rail {
   display: grid;
   place-items: center;
   align-content: start;
-  padding-top: var(--space-4);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
+  padding-block: var(--space-4);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
+  background: var(--glass);
   color: var(--muted);
-  font-size: var(--text-label);
-  font-family: var(--font-label);
+  font: var(--weight-medium) var(--text-label)/1 var(--font-label);
+  letter-spacing: 0.06em;
   writing-mode: vertical-rl;
   cursor: pointer;
   transition: color 120ms ease, border-color 120ms ease;
@@ -1033,7 +881,7 @@ body {
 
 .shell__feed-rail:hover {
   color: var(--text);
-  border-color: var(--line-strong);
+  border-color: var(--accent-edge);
 }
 
 /* --- Vue Nouvelle-Aquitaine --- */
@@ -1237,50 +1085,30 @@ body {
 }
 .na-ligne-org-bouton:active { background: var(--color-plate-3); }
 
-/* Téléphone : les six groupes restent sur une ligne défilante plutôt que de
-   former une grille qui mange la moitié de l'écran. */
+/* Téléphone : les quatre destinations restent lisibles sur une seule ligne. */
 @media (max-width: 480px) {
-  .rail {
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    height: auto;
-    padding: var(--space-3);
-  }
-  .wordmark { flex: 1 1 auto; min-width: 0; }
-  .wordmark span,
-  .rail__live,
-  .rail__spacer { display: none; }
-  .rail__toggle { min-height: 32px; font-size: 12px; }
-  .rail__nav {
-    order: 3;
-    flex: 1 1 100%;
-    display: flex;
-    flex-wrap: nowrap;
+  .shell {
+    padding: var(--space-2);
     gap: var(--space-1);
-    overflow-x: auto;
-    scrollbar-width: none;
   }
-  .rail__nav::-webkit-scrollbar { display: none; }
-  .rail__nav > div,
-  .rail__nav > div > div {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
+  .rail {
+    gap: var(--space-2);
+    padding: var(--space-2);
   }
-  .rail__nav > div::-webkit-scrollbar,
-  .rail__nav > div > div::-webkit-scrollbar { display: none; }
-  .rail__nav button {
-    flex: 0 0 auto;
-    min-height: 34px;
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-edge-lo);
-    border-radius: var(--radius);
-    white-space: nowrap;
-    line-height: 1.2;
+  .wordmark { min-width: 0; }
+  .rail > .astryx-button { padding-inline: var(--space-2); }
+  .rail__spacer + .astryx-button { min-width: 0; }
+  .rail__nav {
+    gap: 0;
+    padding: 2px;
   }
-  .rail__nav button[aria-current="page"] {
-    border-color: var(--color-accent);
+  .rail__nav :is(a, button, [role="menuitem"]) {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-inline: var(--space-2);
+    font-size: var(--text-label);
   }
+  .rail__nav-label { gap: var(--space-1); }
 }
 
 
@@ -1299,10 +1127,12 @@ body {
   display: grid;
   gap: var(--space-2);
   max-width: 260px;
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-2, 8px);
-  background: var(--surface);
+  padding: var(--space-3);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
+  background: var(--glass-strong);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--raise), inset 0 1px 0 var(--glass-line);
   font-size: var(--text-label);
   color: var(--muted);
 }
@@ -1327,59 +1157,103 @@ body {
 .map-legend__fam li {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 .map-legend__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
 }
 
 .map-legend__chip {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
+  width: calc(var(--space-2) + var(--space-1) / 2);
+  height: calc(var(--space-2) + var(--space-1) / 2);
+  border-radius: calc(var(--radius) / 2);
 }
+
+/* La couleur vient du jeton de données, jamais d'un style inline. */
+.map-legend__dot[data-sev="1"] { background: var(--sev-1); }
+.map-legend__dot[data-sev="2"] { background: var(--sev-2); }
+.map-legend__dot[data-sev="3"] { background: var(--sev-3); }
+.map-legend__dot[data-sev="4"] { background: var(--sev-4); }
+.map-legend__dot[data-sev="5"] { background: var(--sev-5); }
+.map-legend__chip { background: var(--family-cert-fr); }
+.map-legend__chip[data-family="ransomware"] { background: var(--family-ransomware); }
+.map-legend__chip[data-family="vuln"] { background: var(--family-vuln); }
+.map-legend__chip[data-family="phishing"] { background: var(--family-phishing); }
+.map-legend__chip[data-family="malware"] { background: var(--family-malware); }
+.map-legend__chip[data-family="cert"] { background: var(--family-cert); }
+.map-legend__chip[data-family="cert_fr"] { background: var(--family-cert-fr); }
+.map-legend__chip[data-family="typosquat"] { background: var(--family-typosquat); }
+.map-legend__chip[data-family="reputation"] { background: var(--family-reputation); }
+.map-legend__chip[data-family="cti"] { background: var(--family-cti); }
+.map-legend__chip[data-family="presse"] { background: var(--family-presse); }
+.map-legend__chip[data-family="presse_locale"] { background: var(--family-presse-locale); }
 
 /* Screen export: shared by every view through the shell rail. */
 .export {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
   flex-wrap: wrap;
 }
 .export__label {
-  font-size: 10px;
+  font-size: var(--text-nano);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
 }
+.export__format,
+.live-map-badge {
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-full);
+  background: var(--glass-strong);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--raise-sm);
+}
 .export__format {
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
-  background: transparent;
+  min-height: var(--control-h);
+  padding: 0 var(--space-3);
   color: var(--text);
   font: inherit;
-  font-size: 11px;
-  padding: 2px 6px;
+  font-size: var(--text-micro);
   cursor: pointer;
 }
-.export__format:hover { border-color: var(--focus); }
-.export__status { font-size: 10px; color: var(--muted); }
+.export__format:hover { border-color: var(--accent-edge); }
+.export__status { font-size: var(--text-nano); color: var(--muted); }
 
 /* Live 3D attack layer status (English UI, same vocabulary as the benchmark). */
 .live-map-badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: var(--space-3);
+  right: var(--space-3);
   z-index: 2;
-  padding: 6px 10px;
-  border: 1px solid var(--line-strong, #3d4a5c);
-  border-radius: var(--radius, 6px);
-  background: rgb(9 14 20 / 78%);
-  color: var(--text, #e7edf5);
-  font: 600 11px/1.4 ui-monospace, monospace;
+  min-height: var(--control-h);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  color: var(--text);
+  font: var(--weight-semibold) var(--text-micro)/var(--leading-body) var(--font-mono);
   letter-spacing: 0.04em;
   pointer-events: none;
 }
+
+/* Les composants dont la feuille locale n'est pas modifiée ici reçoivent
+   leurs styles inline via le pont : aucune valeur de chrome en dur. */
+.health-view__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.health-view__toolbar label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-label);
+  color: var(--muted);
+}
+.health-view__compte { font-size: var(--text-label); }
+.sources-view__summary[data-tone="error"] { color: var(--text-error); }
+table.data th[data-num="true"] { text-align: right; }

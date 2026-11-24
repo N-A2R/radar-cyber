@@ -26,6 +26,11 @@ function reports(exported: OpenCtiExport): Record<string, unknown>[] {
   return exported.bundle.objects.filter((object) => object.type === "report");
 }
 
+function labels(report: Record<string, unknown> | undefined): string[] {
+  const value = report?.labels;
+  return Array.isArray(value) ? value.map(String) : [];
+}
+
 describe("OpenCTI export connector", () => {
   it("exports only events with a Nouvelle-Aquitaine proof", () => {
     const result = exportToOpenCti([
@@ -42,7 +47,7 @@ describe("OpenCTI export connector", () => {
     assert.equal(isNouvelleAquitaine(regional), true);
     const result = exportToOpenCti([regional]);
     assert.equal(result.exported, 1);
-    assert.ok(reports(result)[0]?.labels?.includes("department:unspecified"));
+    assert.ok(labels(reports(result)[0]).includes("department:unspecified"));
   });
 
   it("keeps gray sources with an explicit trust label", () => {
@@ -50,8 +55,8 @@ describe("OpenCTI export connector", () => {
     const standard = exportToOpenCti([row({ sourceRelevance: "veille" })]);
     assert.equal(gray.graySources, 1);
     assert.equal(standard.graySources, 0);
-    assert.ok(reports(gray)[0]?.labels?.includes("source-trust:gray"));
-    assert.ok(reports(standard)[0]?.labels?.includes("source-trust:standard"));
+    assert.ok(labels(reports(gray)[0]).includes("source-trust:gray"));
+    assert.ok(labels(reports(standard)[0]).includes("source-trust:standard"));
   });
 
   it("never exports victim personal data, summaries or raw evidence", () => {

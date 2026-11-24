@@ -7,7 +7,7 @@ import type { FrozenContract } from "./contract.js";
 export const V1_CONTRACT: FrozenContract = {
   "version": "1.0.0",
   "frozenAt": "2026-11-23",
-  "digest": "7f5eb33b9b03709af9885c48710e1cc7e288930227879bf3ebde530a6139cc1d",
+  "digest": "308933e5939b477710a50231aa8727ff8cd5346be01d3c7d99ff46f9714bd226",
   "operations": [
     {
       "method": "delete",
@@ -17,7 +17,7 @@ export const V1_CONTRACT: FrozenContract = {
     {
       "method": "get",
       "path": "/alerts",
-      "signature": "d02d9dee3bfe7acd"
+      "signature": "b163bbb07c840057"
     },
     {
       "method": "get",
@@ -47,7 +47,7 @@ export const V1_CONTRACT: FrozenContract = {
     {
       "method": "get",
       "path": "/dossier",
-      "signature": "ec459054fa46f81a"
+      "signature": "775cf16057ac1e9f"
     },
     {
       "method": "get",
@@ -147,22 +147,22 @@ export const V1_CONTRACT: FrozenContract = {
     {
       "method": "get",
       "path": "/orgs/liees/historique",
-      "signature": "b3362f6d360293b4"
+      "signature": "8332be0937f5b490"
     },
     {
       "method": "get",
       "path": "/quarantine",
-      "signature": "ded4db1a86fe85b9"
+      "signature": "a4336be1ae9c395e"
     },
     {
       "method": "get",
       "path": "/quarantine/queue",
-      "signature": "92b414a5b3ac9c92"
+      "signature": "c205e7200cde633f"
     },
     {
       "method": "get",
       "path": "/quarantine/stats",
-      "signature": "1c0e0de311b6221e"
+      "signature": "12986891dbc3cf82"
     },
     {
       "method": "get",
@@ -207,7 +207,7 @@ export const V1_CONTRACT: FrozenContract = {
     {
       "method": "get",
       "path": "/stream",
-      "signature": "53e32de5b9bfe410"
+      "signature": "3ae8ca9f02713271"
     },
     {
       "method": "get",

@@ -97,6 +97,7 @@ function reponseApi(url: URL): unknown {
 					percentChange: null, comparedTo: "fixture",
 				},
 				recentIncidents: [],
+				contactNom: "Marie Confidentielle",
 			};
 		case "/api/quarantine/queue":
 			return {
@@ -106,6 +107,16 @@ function reponseApi(url: URL): unknown {
 			};
 		case "/api/journal/review":
 			return { rows: [], limite: 50, avant: null };
+		case "/api/dossier":
+			return {
+				etat: {
+					organisations: ORGS.length, sources: 3, sourcesActives: 3, sourcesMuettes: 0,
+					evenements: EVENTS.length, evenements30j: EVENTS.length, indicateurs: 0,
+					alertes: 0, journalEvenements: 0, archives: 0, regles: 0, migrations: 0,
+					derniereMigration: null, domainesConnus: 1,
+				},
+				dossier: { genere: "2026-11-22T08:00:00Z", sections: [] },
+			};
 		case "/api/health":
 			return { ok: true, sources: [] };
 		case "/api/health/detail":
@@ -148,7 +159,7 @@ function reponseApi(url: URL): unknown {
 	}
 }
 
-async function installeReseau(context: BrowserContext, baseURL: string, etat: { offline: boolean }) {
+async function installeReseau(context: BrowserContext, origine: string, etat: { offline: boolean }) {
 	const ressources = new Map<string, Ressource>();
 
 	await context.addInitScript(() => {
@@ -175,9 +186,9 @@ async function installeReseau(context: BrowserContext, baseURL: string, etat: { 
 			});
 		}
 
-		// Le serveur de développement tombe hors de portée avec le réseau :
-		// on rejoue exactement les fichiers déjà servis pendant la phase en ligne.
-		if (url.origin !== baseURL) return route.abort();
+		// La fixture baseURL (donc PLAYWRIGHT_BASE_URL) donne l'origine réelle :
+		// on ne rejoue que ses ressources, jamais une origine tierce.
+		if (url.origin !== origine) return route.abort();
 		if (etat.offline) {
 			const ressource = ressources.get(request.url());
 			return ressource
@@ -202,45 +213,175 @@ async function installeReseau(context: BrowserContext, baseURL: string, etat: { 
 	});
 }
 
-const NAV_GROUP: Record<string, string> = {
-	"Aujourd'hui": "Observatoire",
-	Couverture: "Observatoire",
-	"Nouvelle-Aquitaine": "Observatoire",
-	Revue: "Analyse",
-	Journal: "Analyse",
-	Corpus: "Analyse",
-	Sources: "Sources",
-	Santé: "Sources",
-	Carte: "Explorer",
-	Graphe: "Explorer",
+const RAIL = ["Carte", "Action", "Sources", "Journal"] as const;
+type RailView = (typeof RAIL)[number];
+const VIEW_ID: Record<RailView, string> = {
+	Carte: "map", Action: "action", Sources: "sources", Journal: "journal",
 };
 
-async function openView(page: Page, label: string) {
-	const group = NAV_GROUP[label];
-	if (group) {
-		await page.locator(".rail__nav").getByRole("button", { name: group, exact: true }).click();
-		await page.getByRole("menuitem", { name: new RegExp(label) }).click();
-		return;
+type Step = { kind: "radio" | "tab"; group: string; name: string };
+type Destination = {
+	label: string;
+	view: RailView;
+	steps?: readonly Step[];
+	shell: string;
+	data?: { selector: string; text: string };
+};
+
+const CARTE_TAB: Step = { kind: "radio", group: "Panneau de la Carte", name: "Carte" };
+const REGION: Destination = {
+	label: "Carte · Région",
+	view: "Carte",
+	steps: [CARTE_TAB, { kind: "radio", group: "Panneau régional", name: "Région" }],
+	shell: ".na-view",
+	data: { selector: ".na-totaux", text: "12 organisations" },
+};
+
+/** Les anciens écrans sont aujourd'hui des panneaux ou des onglets du rail. */
+const DESTINATIONS: readonly Destination[] = [
+	{ label: "Carte", view: "Carte", shell: ".map-workspace" },
+	REGION,
+	{
+		label: "Carte · Couverture",
+		view: "Carte",
+		steps: [CARTE_TAB, { kind: "radio", group: "Panneau régional", name: "Couverture" }],
+		shell: ".coverage",
+		data: { selector: ".coverage__hero-number", text: "80" },
+	},
+	{
+		label: "Carte · Graphe",
+		view: "Carte",
+		steps: [{ kind: "radio", group: "Panneau de la Carte", name: "Graphe" }],
+		shell: ".gv-root",
+	},
+	{
+		label: "Carte · Organisations",
+		view: "Carte",
+		steps: [{ kind: "radio", group: "Panneau de la Carte", name: "Organisations" }],
+		shell: ".directory",
+	},
+	{
+		label: "Action · Alertes",
+		view: "Action",
+		steps: [{ kind: "tab", group: "Action", name: "Alertes" }],
+		shell: ".alerts",
+	},
+	{
+		label: "Action · Revue",
+		view: "Action",
+		steps: [{ kind: "tab", group: "Action", name: "Revue" }],
+		shell: ".revue",
+	},
+	{
+		label: "Sources · Registre",
+		view: "Sources",
+		steps: [{ kind: "tab", group: "Panneaux des sources", name: "Registre" }],
+		shell: ".sources-view",
+	},
+	{
+		label: "Sources · Indicateurs",
+		view: "Sources",
+		steps: [{ kind: "tab", group: "Panneaux des sources", name: "Indicateurs" }],
+		shell: ".sws-dashboard",
+	},
+	{
+		label: "Sources · Santé",
+		view: "Sources",
+		steps: [{ kind: "tab", group: "Panneaux des sources", name: "Santé" }],
+		shell: ".health-view",
+	},
+	{
+		label: "Sources · Corpus",
+		view: "Sources",
+		steps: [{ kind: "tab", group: "Panneaux des sources", name: "Corpus" }],
+		shell: ".corpus__panel",
+		data: { selector: '.corpus__panel:has-text("Sources par département")', text: "3 sources" },
+	},
+	{
+		label: "Journal · Journal",
+		view: "Journal",
+		steps: [{ kind: "tab", group: "Sections du journal", name: "Journal" }],
+		shell: ".journal",
+	},
+	{
+		label: "Journal · Dossier",
+		view: "Journal",
+		steps: [{ kind: "tab", group: "Sections du journal", name: "Dossier" }],
+		shell: ".dossier",
+	},
+];
+
+async function openView(page: Page, view: RailView) {
+	// Plus de menu d'application : les quatre destinations sont des liens
+	// directs du rail, et leurs écrans d'origine sont des onglets/panneaux.
+	await page.locator(".rail__nav").getByRole("link", { name: view }).click();
+	await expect(page.locator(".shell")).toHaveAttribute("data-view", VIEW_ID[view]);
+}
+
+async function selectStep(page: Page, step: Step) {
+	const collection = step.kind === "radio"
+		? page.getByRole("radiogroup", { name: step.group })
+		: page.getByRole("tablist", { name: step.group });
+	const control = step.kind === "radio"
+		? collection.getByRole("radio", { name: step.name, exact: true })
+		: collection.getByRole("tab", { name: step.name, exact: true });
+	await control.click();
+}
+
+async function visit(page: Page, destination: Destination) {
+	await openView(page, destination.view);
+	for (const step of destination.steps ?? []) await selectStep(page, step);
+	await expect(page.locator(destination.shell).first(), destination.label).toBeVisible({ timeout: 15_000 });
+	if (destination.data) {
+		await expect(page.locator(destination.data.selector).first(), destination.label)
+			.toContainText(destination.data.text, { timeout: 15_000 });
 	}
-	await page.locator(".rail__nav").getByRole("link", { name: label, exact: true }).click();
+}
+
+/** Clés de l'index du cache PWA, décodées pour lisibilité. */
+async function cachedPaths(page: Page): Promise<string[]> {
+	return page.evaluate(() => {
+		const brut = localStorage.getItem("radar:pwa:index");
+		if (brut === null) return [];
+		try {
+			const parsed: unknown = JSON.parse(brut);
+			if (!Array.isArray(parsed)) return [];
+			return parsed.flatMap((entry): string[] => (
+				entry !== null && typeof entry === "object" && "key" in entry && typeof entry.key === "string"
+					? [decodeURIComponent(entry.key)]
+					: []
+			));
+		} catch {
+			return [];
+		}
+	});
+}
+
+async function cachedValue(page: Page, path: string): Promise<unknown> {
+	return page.evaluate((key) => {
+		const brut = localStorage.getItem(`radar:pwa:entry:${encodeURIComponent(key)}`);
+		if (brut === null) return null;
+		try { return JSON.parse(brut); } catch { return null; }
+	}, path);
 }
 
 test("la barre contient les vues dans l'ordre du produit", async ({ page, context, baseURL }) => {
 	const etat = { offline: false };
-	await installeReseau(context, baseURL!, etat);
+	await installeReseau(context, new URL(baseURL!).origin, etat);
 	await page.goto("/");
 	await expect(page.locator(".shell")).toBeVisible();
 	const labels = await page.locator(".rail__nav button, .rail__nav a").evaluateAll((elements) =>
-		elements.map((element) => element.textContent?.trim() ?? "").filter((label) => label && label !== "Close popover"),
+		elements
+			.filter((element) => !element.closest('[role="menu"]'))
+			.map((element) => element.textContent?.trim() ?? "")
+			.filter((label) => label && !/^(Fermer le popover|Close popover)$/.test(label)),
 	);
-	expect(labels).toEqual([
-		"Observatoire", "Analyse", "Sources", "Explorer", "Alertes", "Attributions",
-	]);
+	expect(labels).toEqual([...RAIL]);
 });
 
 test("la carte garde ses organisations et son indicateur hors ligne après rechargement", async ({ page, context, baseURL }) => {
 	const etat = { offline: false };
-	await installeReseau(context, baseURL!, etat);
+	await installeReseau(context, new URL(baseURL!).origin, etat);
 
 	await page.goto("/#/map");
 	await expect(page.locator(".shell")).toBeVisible();
@@ -254,13 +395,13 @@ test("la carte garde ses organisations et son indicateur hors ligne après recha
 		return Array.isArray(data.orgs) ? data.orgs.length : 0;
 	})).toBeGreaterThanOrEqual(10);
 
-	// On visite aussi la vue région en ligne : son chunk chargé à la demande
-	// sera disponible hors ligne, où il servira à compter les organisations.
-	await openView(page, "Nouvelle-Aquitaine");
+	// On visite aussi le panneau régional en ligne : son chunk chargé à la
+	// demande sera disponible hors ligne, où il servira à compter les organisations.
+	await visit(page, REGION);
 	await page.locator('button.na-ligne[data-dept="33"]').click();
 	await expect.poll(() => page.locator("button.na-ligne-org").count()).toBeGreaterThanOrEqual(10);
 	await page.getByRole("button", { name: /toute la région/ }).click();
-	await openView(page, "Carte");
+	await visit(page, DESTINATIONS[0]);
 
 	// Un instantané tout frais est volontairement présenté comme « à jour » :
 	// on le vieillit pour observer l'état « hors ligne » revendiqué par l'UI.
@@ -283,37 +424,36 @@ test("la carte garde ses organisations et son indicateur hors ligne après recha
 	await expect(indicateur).toHaveAttribute("data-etat", "perime");
 	await expect(indicateur).toContainText("Offline ·");
 
-	await openView(page, "Nouvelle-Aquitaine");
+	await visit(page, REGION);
 	await page.locator('button.na-ligne[data-dept="33"]').click();
 	await expect.poll(() => page.locator("button.na-ligne-org").count()).toBeGreaterThanOrEqual(10);
 });
 
-test("every product view replays from cache after the network is cut", async ({ page, context, baseURL }) => {
+test("chaque destination rejoue coquille et données du cache après la panne réseau", async ({ page, context, baseURL }) => {
 	const etat = { offline: false };
-	await installeReseau(context, baseURL!, etat);
-	const vues: Array<[string, string]> = [
-		["Aujourd'hui", ".today__compteurs"],
-		["Couverture", ".coverage"],
-		["Revue", ".revue"],
-		["Journal", ".journal"],
-		["Corpus", ".corpus__panel"],
-		["Sources", ".sources-view"],
-		["Carte", "canvas"],
-		["Graphe", ".gv-root"],
-		["Santé", ".sources"],
-		["Alertes", ".alerts"],
-		["Nouvelle-Aquitaine", ".na-view"],
-	];
+	await installeReseau(context, new URL(baseURL!).origin, etat);
 
 	await page.goto("/");
 	await expect(page.locator(".shell")).toBeVisible();
 	const enLigne: string[] = [];
-	for (const [label, selecteur] of vues) {
-		await openView(page, label);
-		await expect(page.locator(selecteur).first()).toBeVisible({ timeout: 8000 });
-		enLigne.push(label);
+	for (const destination of DESTINATIONS) {
+		await visit(page, destination);
+		enLigne.push(destination.label);
 	}
-	expect(enLigne).toEqual(vues.map(([label]) => label));
+	expect(enLigne).toEqual(DESTINATIONS.map((destination) => destination.label));
+
+	// Les données des quatre destinations sont bien sur disque, mais jamais
+	// les files de modération ni les identités : le cache est public et daté.
+	const cheminCache = await cachedPaths(page);
+	for (const chemin of ["/orgs", "/events", "/sources", "/alerts", "/corpus/stats", "/health/detail", "/couverture", "/na/overview"]) {
+		expect(cheminCache.some((cle) => cle === chemin || cle.startsWith(`${chemin}?`)), `cache missing ${chemin}`)
+			.toBe(true);
+	}
+	for (const chemin of cheminCache) {
+		expect(chemin.split("?")[0], `confidential route cached: ${chemin}`)
+			.not.toMatch(/^\/(journal|quarantine|auth|dossier|rectifications)(\/|$)/);
+	}
+	expect(JSON.stringify(await cachedValue(page, "/corpus/stats"))).not.toContain("Marie Confidentielle");
 
 	etat.offline = true;
 	await context.setOffline(true);
@@ -322,10 +462,57 @@ test("every product view replays from cache after the network is cut", async ({ 
 	await expect(page.locator("p.shell__offline")).toContainText("Offline ·");
 
 	const horsLigne: string[] = [];
-	for (const [label, selecteur] of vues) {
-		await openView(page, label);
-		await expect(page.locator(selecteur).first()).toBeVisible({ timeout: 8000 });
-		horsLigne.push(label);
+	for (const destination of DESTINATIONS) {
+		await visit(page, destination);
+		horsLigne.push(destination.label);
 	}
 	expect(horsLigne).toEqual(enLigne);
 });
+
+test("les onglets conservent le focus clavier après la bascule hors ligne", async ({ page, context, baseURL }) => {
+	const etat = { offline: false };
+	await installeReseau(context, new URL(baseURL!).origin, etat);
+
+	await page.goto("/#/sources");
+	await expect(page.locator(".sws")).toBeVisible();
+	await openView(page, "Action");
+	await expect(page.locator(".alerts")).toBeVisible();
+	await openView(page, "Journal");
+	await expect(page.locator(".journal-workspace")).toBeVisible();
+	await openView(page, "Sources");
+
+	etat.offline = true;
+	await context.setOffline(true);
+	await page.reload();
+	await expect(page.locator(".shell")).toBeVisible();
+
+	await openView(page, "Sources");
+	const registre = page.getByRole("tab", { name: "Registre", exact: true });
+	await registre.focus();
+	await expect(registre).toBeFocused();
+	await page.keyboard.press("ArrowRight");
+	const indicateurs = page.getByRole("tab", { name: "Indicateurs", exact: true });
+	await expect(indicateurs).toBeFocused();
+	await expect(indicateurs).toHaveAttribute("aria-selected", "true");
+	await expect(page.locator(".sws-dashboard")).toBeVisible();
+
+	await openView(page, "Action");
+	const alertes = page.getByRole("tab", { name: "Alertes", exact: true });
+	await alertes.focus();
+	await page.keyboard.press("End");
+	const revue = page.getByRole("tab", { name: "Revue", exact: true });
+	await expect(revue).toBeFocused();
+	await expect(revue).toHaveAttribute("aria-selected", "true");
+	await expect(page.locator(".revue")).toBeVisible();
+	await page.keyboard.press("Home");
+	await expect(alertes).toBeFocused();
+	await expect(page.locator(".alerts")).toBeVisible();
+
+	await openView(page, "Journal");
+	const journal = page.getByRole("tab", { name: "Journal", exact: true });
+	await journal.focus();
+	await page.keyboard.press("ArrowRight");
+	await expect(page.getByRole("tab", { name: "Dossier", exact: true })).toBeFocused();
+	await expect(page.locator(".dossier")).toBeVisible();
+});
+

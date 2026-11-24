@@ -1,0 +1,370 @@
+/* Espace Sources — quatre panneaux dans le même stage. Jetons existants
+   uniquement : le relief vient des ombres du système, le verre d'un léger
+   backdrop-filter, sans nouvelle couleur ni densité fantaisiste. */
+
+.sws {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--color-plate), var(--color-plate-3));
+  box-shadow: var(--raise);
+}
+
+.sws__head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-edge-lo);
+  box-shadow: 0 1px 0 var(--color-edge-hi);
+  background: linear-gradient(180deg, var(--surface-2), transparent);
+  backdrop-filter: blur(8px);
+}
+
+.sws__title {
+  margin: 0;
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sws__tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.sws__tab {
+  min-height: var(--control-min-size);
+  padding: var(--control-pad-y) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.sws__tab:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.sws__tab[aria-selected="true"] {
+  color: var(--text);
+  background: var(--surface-active);
+  border-color: var(--line-strong);
+  box-shadow: var(--raise-sm), inset 0 1px 0 var(--color-edge-hi);
+}
+
+.sws__body {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+}
+
+.sws__panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.sws__panel[hidden] { display: none; }
+
+/* Santé : le résumé garde sa hauteur bornée, le tableau des sources prend
+   le reste et défile pour son compte, comme dans l'ancien écran dédié. */
+.sws__health {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sws__health-summary {
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 40%;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5) 0;
+  box-shadow: 0 1px 0 var(--color-edge-hi);
+}
+
+.sws__corpus {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5) var(--space-6);
+}
+
+/* CorpusView gère son propre défilement quand elle est seule à l'écran ; ici
+   c'est le panneau qui défile, pour garder la carte WARC dans le même flux. */
+.sws__corpus .corpus {
+  flex: 0 0 auto;
+  overflow: visible;
+  padding: 0;
+}
+
+/* ── Indicateurs ───────────────────────────────────────────────── */
+.sws-dashboard {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5) var(--space-6);
+}
+
+.sws-dashboard__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.sws-dashboard__head h2 {
+  margin: 0;
+  color: var(--text);
+  font: var(--weight-medium) var(--text-subtitle)/var(--leading-tight) var(--font-sans);
+}
+
+.sws-dashboard__head p {
+  margin: var(--space-1) 0 0;
+  max-width: 72ch;
+  color: var(--muted);
+  font: var(--text-body)/var(--leading-body) var(--font-sans);
+}
+
+.sws-retry {
+  min-height: var(--control-min-size);
+  padding: var(--control-pad-y) var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-active);
+  color: var(--text);
+  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
+  box-shadow: var(--raise-sm);
+  cursor: pointer;
+}
+
+.sws-retry:hover { border-color: var(--accent); }
+
+.sws-dashboard__error,
+.sws-dashboard__state {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--muted);
+  font: var(--text-body)/var(--leading-body) var(--font-sans);
+}
+
+.sws-dashboard__error { color: var(--text); }
+
+.sws-dashboard__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.sws-dashboard__kpi {
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-top-color: var(--line-strong);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  box-shadow: var(--raise-sm);
+}
+
+.sws-dashboard__kpi dt {
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
+}
+
+.sws-dashboard__kpi dd {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-2) 0 var(--space-1);
+  color: var(--text);
+  font: var(--weight-semibold) var(--text-title)/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.sws-dashboard__kpi span {
+  color: var(--muted);
+  font: var(--text-xs)/var(--leading-body) var(--font-sans);
+}
+
+.sws-dashboard__families {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.sws-dashboard__families h3 {
+  margin: 0 0 var(--space-2);
+  color: var(--text);
+  font: var(--weight-medium) var(--text-body)/var(--leading-tight) var(--font-sans);
+}
+
+.sws-dashboard__families ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sws-dashboard__families li {
+  display: grid;
+  grid-template-columns: minmax(90px, 160px) minmax(40px, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.sws-dashboard__family-name {
+  overflow: hidden;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sws-dashboard__bar {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--surface-3);
+}
+
+.sws-dashboard__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--data-steel));
+}
+
+.sws-dashboard__families strong {
+  color: var(--text);
+  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.sws-dashboard__cycles {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+/* ── Preuve d'archive ──────────────────────────────────────────── */
+.sws-warc {
+  flex: 0 0 auto;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-top-color: var(--line-strong);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  box-shadow: var(--raise-sm);
+}
+
+.sws-warc__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.sws-warc__head h2 {
+  margin: 0;
+  color: var(--text);
+  font: var(--weight-medium) var(--text-body)/var(--leading-tight) var(--font-sans);
+}
+
+.sws-warc__format {
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-micro)/var(--leading-tight) var(--font-label);
+  letter-spacing: 0.12em;
+}
+
+.sws-warc__empty {
+  margin: 0;
+  color: var(--muted);
+  font: var(--text-body)/var(--leading-body) var(--font-sans);
+}
+
+.sws-warc__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.sws-warc__fields > div {
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.sws-warc dt {
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
+}
+
+.sws-warc dd {
+  margin: var(--space-1) 0 0;
+  color: var(--text);
+  font: var(--text-body)/var(--leading-body) var(--font-sans);
+  overflow-wrap: anywhere;
+}
+
+.sws-warc dd code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.sws-warc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sws-warc a:hover { text-decoration: underline; }
+
+@media (max-width: 720px) {
+  .sws__head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .sws-dashboard__families li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .sws-dashboard__bar { display: none; }
+}

@@ -177,7 +177,9 @@ export async function runRetention(
     // on signale.
     if (table === "event" && !dryRun) {
       try {
-        // Résumé historique : continue d'alimenter `v_event_all` et le dossier.
+        // Résumé historique : même prédicat que la copie intégrale et que la
+        // suppression — un événement cité par une alerte reste en brut et ne
+        // doit pas être archivé en double (voir migrate-232).
         await ingestQuery(
           `INSERT INTO event_archive
              (dedup_key, family, assertion_type, org_id, org_name, org_kind, dept,
@@ -190,6 +192,7 @@ export async function runRetention(
              FROM event e
              LEFT JOIN org o ON o.id = e.org_id
             WHERE COALESCE(e.observed_at, e.collected_at) < $1
+              AND NOT EXISTS (SELECT 1 FROM alert a WHERE a.event_id = e.id)
            ON CONFLICT (dedup_key) DO NOTHING`,
           [cutoff],
         );

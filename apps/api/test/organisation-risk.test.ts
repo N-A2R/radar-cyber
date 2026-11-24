@@ -153,6 +153,7 @@ test("the most exposed observed profile scores one hundred", () => {
 test("extreme evidence never exceeds the one hundred cap", () => {
 	const model = fitRiskModel(samples(), POPULATION);
 	const extreme: RiskSignals = {
+		...SIGNALS,
 		ambientEvents: 1_000_000,
 		ambientSources: 1_000_000,
 		maxSeverity: 100,

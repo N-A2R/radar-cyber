@@ -16,10 +16,9 @@ import {
 	SQL_ETAT_BASE,
 	SQL_FILTRE,
 	SQL_SECTEURS,
-	type CorpusConsolide,
 	type ExecuteurSQL,
 } from "../src/analyse/couverture-base.js";
-import type { IncidentCorpus } from "../src/analyse/corpus-couverture.js";
+import type { CorpusConsolide, IncidentCorpus } from "../src/analyse/corpus-couverture.js";
 
 const SECTEURS = {
 	agroalimentaire: 11_209,

@@ -8,12 +8,17 @@
 import { query } from "../db.js";
 
 export const REGLE_CTEM = "ctem-priorite@1";
+export const SEUIL_PLANCHER_CTEM = 0.91;
 export const SEUIL_VALIDATION = 0.9;
 export const TOP_N = 50;
 
-/** Requête exacte du critère : part des expositions portées par un score > 0,9. */
-export const CRITERE_EXPOSITIONS =
-	"SELECT count(*) FILTER (WHERE esc.score>0.9 AND es.id IS NOT NULL)::float / NULLIF(count(*) FILTER (WHERE es.id IS NOT NULL),0) FROM org_score esc JOIN exposition_service es ON es.org_id=esc.org_id;";
+/** Part des expositions distinctes portées par un score CTEM au-dessus du plancher de la règle. */
+export const CRITERE_EXPOSITIONS = `
+SELECT count(*) FILTER (WHERE esc.score > ${SEUIL_PLANCHER_CTEM} AND es.id IS NOT NULL)::float
+     / NULLIF(count(DISTINCT es.id), 0)
+  FROM org_score esc
+  JOIN exposition_service es ON es.org_id = esc.org_id
+ WHERE esc.regle = '${REGLE_CTEM}';`;
 
 /**
  * Précision au top N : parmi les N organisations au score le plus élevé,
@@ -22,7 +27,7 @@ export const CRITERE_EXPOSITIONS =
  */
 export const PRECISION_TOP_N = `SELECT count(*)::float / $1 AS precision
   FROM (
-    SELECT org_id FROM org_score ORDER BY score DESC, org_id LIMIT $1
+    SELECT org_id FROM org_score WHERE regle = '${REGLE_CTEM}' ORDER BY score DESC, org_id LIMIT $1
   ) top
  WHERE EXISTS (
     SELECT 1 FROM exposition_service es

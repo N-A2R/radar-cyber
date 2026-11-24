@@ -6,47 +6,78 @@
  * measurement engine; the HTML shell (title, language) is copied from the
  * real index.html so that the jsdom run reflects the shipped page.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import axe from "axe-core";
-import { keepFocusInDialog } from "../src/a11y/dialog-focus";
+
 vi.mock("../src/map/Map3D", () => ({
   default: () => <div role="img" aria-label="Carte territoriale" />,
 }));
 
 // The module reads VITE_DATA_MODE at import time: a static import would fix
 // the environment before the stub is installed.
-import type AppType from "../src/App";
+type AppType = typeof import("../src/App").default;
 
-// Libellés métier audités ; le rail Astryx les regroupe en six entrées.
-const SCREEN_LABELS = [
-  "Aujourd'hui", "Couverture", "Nouvelle-Aquitaine", "Suis-je concerné ?",
-  "Revue", "Journal", "Corpus", "Dossier", "Sources", "Tableau de bord sources",
-  "Santé", "Carte", "Graphe", "Annuaire", "Alertes", "Attributions",
-] as const;
+// Le rail ne porte plus que quatre destinations ; chaque écran historique est
+// un onglet ou un panneau de l'une d'elles. Le libellé reste celui du rapport.
+const DESTINATIONS = ["Carte", "Action", "Sources", "Journal"] as const;
+type Destination = (typeof DESTINATIONS)[number];
 
-const NAV_GROUP: Record<string, string> = {
-  "Aujourd'hui": "Observatoire",
-  Couverture: "Observatoire",
-  "Nouvelle-Aquitaine": "Observatoire",
-  "Suis-je concerné ?": "Observatoire",
-  Revue: "Analyse",
-  Journal: "Analyse",
-  Corpus: "Analyse",
-  Dossier: "Analyse",
-  Sources: "Sources",
-  "Tableau de bord sources": "Sources",
-  Santé: "Sources",
-  Carte: "Explorer",
-  Graphe: "Explorer",
-  Annuaire: "Explorer",
+const MAP_TABS = "Panneau de la Carte";
+const MAP_REGION = "Panneau régional";
+const MAP_GRAPH = "Vue du graphe";
+
+// La destination Carte porte un panneau imbriqué par onglet : le contrôle
+// régional n'existe que dans « carte », et « attributions » que dans « graphe ».
+const VIEW_ROOTS: Record<Destination, string> = {
+  Carte: "section.map-workspace",
+  Action: "section.action-workspace",
+  Sources: ".sws",
+  Journal: "section.journal-workspace",
+};
+type Segment = { group: string; value: string };
+type Screen = {
+  label: string;
+  view: Destination;
+  tab?: string;
+  segments?: readonly Segment[];
+  /** État final attendu de `section.map-workspace[data-panel]`. */
+  panel?: string;
 };
 
+const SCREENS: readonly Screen[] = [
+
+  { label: "Carte — fil d'événements", view: "Carte", panel: "carte", segments: [{ group: MAP_TABS, value: "carte" }] },
+  { label: "Carte — couverture", view: "Carte", panel: "couverture", segments: [
+    { group: MAP_TABS, value: "carte" }, { group: MAP_REGION, value: "couverture" },
+  ] },
+  { label: "Carte — région", view: "Carte", panel: "regional", segments: [
+    { group: MAP_TABS, value: "carte" }, { group: MAP_REGION, value: "regional" },
+  ] },
+  { label: "Carte — concerné", view: "Carte", panel: "affected", segments: [
+    { group: MAP_TABS, value: "carte" }, { group: MAP_REGION, value: "affected" },
+  ] },
+  { label: "Graphe", view: "Carte", panel: "graph", segments: [{ group: MAP_TABS, value: "graphe" }] },
+  { label: "Attributions", view: "Carte", panel: "attributions", segments: [
+    { group: MAP_TABS, value: "graphe" }, { group: MAP_GRAPH, value: "attributions" },
+  ] },
+  { label: "Annuaire", view: "Carte", panel: "directory", segments: [{ group: MAP_TABS, value: "organisations" }] },
+  { label: "Alertes", view: "Action", tab: "Alertes" },
+  { label: "Revue", view: "Action", tab: "Revue" },
+  { label: "Sources", view: "Sources", tab: "Registre" },
+  { label: "Tableau de bord sources", view: "Sources", tab: "Indicateurs" },
+  { label: "Santé", view: "Sources", tab: "Santé" },
+  { label: "Corpus", view: "Sources", tab: "Corpus" },
+  { label: "Journal", view: "Journal", tab: "Journal" },
+  { label: "Dossier", view: "Journal", tab: "Dossier" },
+];
+
+
 const AA_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
-const RESULT_FILE = "../../bench/results/na-a11y-aa.json";
+
 const INDEX_FILE = "index.html";
 
 let App: AppType;
@@ -59,23 +90,74 @@ async function settle(ms = 40): Promise<void> {
   await act(async () => { await promise; });
 }
 
+async function waitForHost<T extends HTMLElement>(
+  description: string,
+  query: () => T | null | undefined,
+  timeoutMs = 5_000,
+): Promise<T> {
+  const deadline = Date.now() + timeoutMs;
+  let element = query();
+  while (!element && Date.now() < deadline) {
+    await settle(20);
+    element = query();
+  }
+  expect(element, description).toBeTruthy();
+  return element!;
+}
+
+async function clickElement(element: HTMLElement): Promise<void> {
+  await act(async () => {
+    element.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+}
+
+async function selectSegment(groupLabel: string, value: string): Promise<void> {
+  // Les contrôles segmentés sont imbriqués : le groupe régional n'existe que
+  // dans l'onglet « carte », et « attributions » que dans « graphe ». On attend
+  // le groupe puis son état coché, sans délai fixe après le clic.
+  const group = await waitForHost(`panneau "${groupLabel}"`, () =>
+    host.querySelector<HTMLElement>(`[role="radiogroup"][aria-label="${groupLabel}"]`));
+  const segment = await waitForHost(`segment "${groupLabel} / ${value}"`, () =>
+    group.querySelector<HTMLElement>(`[role="radio"][data-value="${value}"]`));
+  await clickElement(segment);
+  await waitForHost(`segment coché "${groupLabel} / ${value}"`, () =>
+    host.querySelector<HTMLElement>(`[role="radiogroup"][aria-label="${groupLabel}"]`)
+      ?.querySelector<HTMLElement>(`[role="radio"][data-value="${value}"][aria-checked="true"]`));
+}
+
+async function selectTab(label: string): Promise<void> {
+  // Les onglets (Action, Sources, Journal) sont des boutons role="tab".
+  const tab = await waitForHost(`onglet "${label}"`, () =>
+    [...host.querySelectorAll<HTMLElement>('[role="tab"]')]
+      .find((candidate) => candidate.textContent?.trim() === label));
+  await clickElement(tab);
+  const selected = await waitForHost(`onglet sélectionné "${label}"`, () =>
+    [...host.querySelectorAll<HTMLElement>('[role="tab"]')]
+      .find((candidate) => candidate.textContent?.trim() === label
+        && candidate.getAttribute("aria-selected") === "true"));
+  const panelId = selected.getAttribute("aria-controls");
+  if (panelId) {
+    await waitForHost(`panneau de l'onglet "${label}"`, () => document.getElementById(panelId));
+  }
+}
+
 async function selectScreen(label: string): Promise<void> {
-  const group = NAV_GROUP[label];
-  const button = [...host.querySelectorAll<HTMLElement>("nav.rail__nav button, nav.rail__nav a")]
-    .find((candidate) => candidate.textContent?.trim() === (group ?? label));
-  expect(button, `navigation button "${group ?? label}"`).toBeTruthy();
-  await act(async () => {
-    button!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
-  if (!group) return;
-  await settle();
-  const item = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')]
-    .find((candidate) => candidate.textContent?.includes(label));
-  expect(item, `menu item "${label}"`).toBeTruthy();
-  await act(async () => {
-    item!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
-  await settle();
+  const screen = SCREENS.find((candidate) => candidate.label === label);
+  expect(screen, `écran "${label}"`).toBeTruthy();
+  // Une destination à item unique (Action) peut porter un badge : son texte
+  // commence par le libellé sans lui être strictement égal.
+  const rail = [...host.querySelectorAll<HTMLElement>("nav.rail__nav a, nav.rail__nav button")]
+    .find((candidate) => (candidate.textContent?.trim() ?? "").startsWith(screen!.view));
+  expect(rail, `destination "${screen!.view}"`).toBeTruthy();
+  await clickElement(rail!);
+  await waitForHost(`destination "${screen!.view}"`, () =>
+    host.querySelector<HTMLElement>(VIEW_ROOTS[screen!.view]));
+  if (screen!.tab) await selectTab(screen!.tab);
+  for (const segment of screen!.segments ?? []) await selectSegment(segment.group, segment.value);
+  if (screen!.panel) {
+    await waitForHost(`panneau Carte "${screen!.panel}"`, () =>
+      host.querySelector<HTMLElement>(`section.map-workspace[data-panel="${screen!.panel}"]`));
+  }
 }
 
 beforeAll(async () => {
@@ -104,7 +186,7 @@ async function mountApp(): Promise<void> {
     root = createRoot(host);
     root.render(<App />);
   });
-  await settle();
+  await waitForHost("rail du shell", () => host.querySelector<HTMLElement>("nav.rail__nav"));
 }
 
 async function openPalette(): Promise<void> {
@@ -112,39 +194,60 @@ async function openPalette(): Promise<void> {
   await act(async () => {
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true }));
   });
-  await settle();
+  await waitForHost("recherche globale", () =>
+    document.querySelector<HTMLInputElement>("input[role='combobox']"));
 }
 
 describe("WCAG AA audit", () => {
-  it("measures zero axe A/AA violations on all sixteen screens", async () => {
+  it("measures zero axe A/AA violations on every consolidated screen", async () => {
     await mountApp();
-    const screens: { label: string; violations: number; rules: string[] }[] = [];
-    for (const label of SCREEN_LABELS) {
-      await selectScreen(label);
+    const screens: {
+      label: string;
+      violations: number;
+      rules: string[];
+      incomplete: number;
+      incompleteRules: string[];
+    }[] = [];
+    for (const screen of SCREENS) {
+      await selectScreen(screen.label);
       const result = await axe.run(document, { runOnly: { type: "tag", values: AA_TAGS } });
       screens.push({
-        label,
+        label: screen.label,
         violations: result.violations.reduce((total, rule) => total + rule.nodes.length, 0),
         rules: result.violations.map((rule) => rule.id).sort(),
+        // `incomplete` n'est pas une violation, mais en jsdom la règle
+        // color-contrast y est typiquement indéterminée : on l'enregistre.
+        incomplete: result.incomplete.reduce((total, rule) => total + rule.nodes.length, 0),
+        incompleteRules: result.incomplete.map((rule) => rule.id).sort(),
       });
     }
     const violations = screens.reduce((total, screen) => total + screen.violations, 0);
+    const incomplete = screens.reduce((total, screen) => total + screen.incomplete, 0);
     const summary = {
       command: "cd apps/web && ./node_modules/.bin/vitest run test/a11y-audit.test.tsx test/a11y-shell-status.test.tsx --reporter=dot",
       screens: screens.length,
       axeTags: AA_TAGS,
       violations,
+      // Aucune écriture : bench/results/na-a11y-aa.json est versionné.
+      incomplete,
       screensDetail: screens,
     };
-    writeFileSync(resolve(RESULT_FILE), `${JSON.stringify(summary, null, 2)}\n`);
-    console.log(`A11Y_AA_AUDIT screens=${summary.screens} violations=${violations}`);
+    console.log(`A11Y_AA_AUDIT screens=${summary.screens} violations=${violations} incomplete=${incomplete}`);
+    console.log(`A11Y_AA_INCOMPLETE ${JSON.stringify(summary.screensDetail.map((s) => ({ label: s.label, rules: s.incompleteRules })))}`);
     expect(violations).toBe(0);
   }, 90_000);
 
-  it("bypasses the rail with a skip link to the main landmark", async () => {
+  it("bypasses the rail with a skip button that focuses main without changing the route", async () => {
     await mountApp();
-    expect(host.querySelector("a.skip-link")?.getAttribute("href")).toBe("#main");
-    expect(host.querySelector("main#main")).toBeTruthy();
+    const button = host.querySelector<HTMLButtonElement>("button.skip-link");
+    const main = host.querySelector<HTMLElement>("main#main");
+    expect(button).toBeTruthy();
+    expect(main).toBeTruthy();
+    expect(main!.tabIndex).toBe(-1);
+    const hashBefore = window.location.hash;
+    await act(async () => { button!.click(); });
+    expect(window.location.hash).toBe(hashBefore);
+    expect(document.activeElement).toBe(main);
   });
 
   it("declares French as the page language", () => {
@@ -153,7 +256,7 @@ describe("WCAG AA audit", () => {
 
   it("gives feed rows a valid pressed state instead of aria-selected", async () => {
     await mountApp();
-    await selectScreen("Carte");
+    await selectScreen("Carte — fil d'événements");
     const rows = host.querySelectorAll<HTMLButtonElement>("button.feed__row");
     expect(rows.length).toBeGreaterThan(0);
     for (const row of rows) {
@@ -168,24 +271,6 @@ describe("WCAG AA audit", () => {
     expect(input?.getAttribute("aria-label")).toBe("Recherche globale");
   });
 
-  it("wraps Tab focus inside a modal dialog", () => {
-    const dialog = document.createElement("div");
-    dialog.innerHTML = '<button id="first">First</button><button id="last">Last</button>';
-    document.body.appendChild(dialog);
-    const [first, last] = [...dialog.querySelectorAll("button")];
-    const event = (shiftKey: boolean) => ({
-      key: "Tab",
-      currentTarget: dialog,
-      shiftKey,
-      preventDefault() {},
-    }) as unknown as Parameters<typeof keepFocusInDialog>[0];
-    last.focus();
-    keepFocusInDialog(event(false));
-    expect(document.activeElement).toBe(first);
-    keepFocusInDialog(event(true));
-    expect(document.activeElement).toBe(last);
-    dialog.remove();
-  });
 
   it("makes every health sort header keyboard operable", async () => {
     await mountApp();

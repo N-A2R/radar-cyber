@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Theme } from "@astryxdesign/core/theme";
-import { gothicTheme } from "@astryxdesign/theme-gothic/built";
+import { stoneTheme } from "@astryxdesign/theme-stone/built";
 import Inspector from "./Inspector";
 import { events } from "../storybook/fixtures";
 
@@ -16,7 +16,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <Theme theme={gothicTheme} mode="dark">
+      <Theme theme={stoneTheme} mode="dark">
         <Story />
       </Theme>
     ),

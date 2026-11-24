@@ -18,6 +18,7 @@ import {
 import type { ValidatedCorpus } from "../src/analyse/validated-corpus.js";
 import confidenceRoute from "../src/routes/confidence.js";
 
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 const TAG = `conf${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const SOURCES = [`${TAG}-a`, `${TAG}-b`];
 const TITLE = `Incident corroboré ${TAG}`;
@@ -68,7 +69,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [eventIds]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [eventIds]);
   await query("DELETE FROM org WHERE id = $1", [orgId]);
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [SOURCES]);
   await closePools();

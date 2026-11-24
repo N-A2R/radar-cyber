@@ -2,7 +2,7 @@
 
 .sources-view {
   /* Les colonnes se replient d'après la largeur réelle de la vue, pas celle du
-     viewport : avec le fil ouvert (352 px), le stage perd 352 px sans que la
+     viewport : avec le fil ouvert, le stage perd sa largeur sans que la
      fenêtre change. */
   container-type: inline-size;
   container-name: sources;
@@ -10,10 +10,10 @@
   flex-direction: column;
   height: 100%;
   min-height: 0;
-  background: linear-gradient(180deg, var(--color-plate), var(--color-plate-3));
-  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
   box-shadow: var(--raise);
-  border-top: 1px solid var(--color-edge-hi);
   overflow: hidden;
 }
 
@@ -148,6 +148,10 @@
   color: var(--color-muted);
   border-bottom: 1px solid var(--color-edge-lo);
   flex: 0 0 auto;
+}
+
+.sources-view__summary[data-tone="error"] {
+  color: var(--text-error);
 }
 
 .sources-view__caption {

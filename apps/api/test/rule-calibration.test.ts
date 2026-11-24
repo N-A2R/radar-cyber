@@ -6,6 +6,7 @@ import { readFileSync } from "node:fs";
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query, closePools } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import { evaluateEvent, loadRuleThresholds, loadRules } from "../src/detect/engine.js";
 import { DAY_MS, HOUR_MS, SILENT_SOURCE_RULE, detectSilentSource } from "../src/detect/silent-source.js";
 import {
@@ -13,7 +14,7 @@ import {
 	mesurerObjectifCalibration,
 	noObservationPoint,
 	precisionRecallCurve,
-	ruleScore,
+	calibratedScore,
 	verifierDeclarationObjectifCalibration,
 } from "../src/detect/calibration.js";
 
@@ -50,9 +51,9 @@ test("la courbe PR choisit le seuil le plus élevé qui qualifie la règle", () 
 	assert.equal(impossible, null);
 });
 
-test("l'ancrage NA majore le score et une règle sans observation reste neutre", () => {
-	assert.equal(ruleScore(69, false), 69);
-	assert.equal(ruleScore(69, true), 99);
+test("l'ancrage NA est tracé dans le score global sans créer de seuil", () => {
+	assert.equal(calibratedScore(69, false), 69);
+	assert.equal(calibratedScore(69, true), 99);
 	assert.deepEqual(noObservationPoint(), {
 		threshold: 65, precision: 1, recall: 1, alerts: 0, tp: 0, fp: 0, fn: 0,
 	});
@@ -137,16 +138,17 @@ test("le moteur applique le seuil calibré de la règle", async () => {
 		};
 		const belowId = await insertEvent("below");
 		await loadRuleThresholds(true);
-		// A1 + signal ambiant + ancrage + une source = score 97, sous 100.
-		assert.equal(await evaluateEvent(belowId), 0);
-		await query("UPDATE rule_calibration SET threshold = 90 WHERE rule_id = $1", [ruleId]);
+		// Note brute 67, trace globale 97 avec l'ancrage : la porte globale
+		// passe sur la note brute, le seuil de règle 100 refuse encore.
+		assert.equal(await evaluateEvent(belowId), 0, "67 < 100 au seuil de règle");
+		await query("UPDATE rule_calibration SET threshold = 65 WHERE rule_id = $1", [ruleId]);
 		await loadRuleThresholds(true);
-		assert.equal(await evaluateEvent(belowId), 1);
+		assert.equal(await evaluateEvent(belowId), 1, "67 >= 65 au seuil de règle");
 	} finally {
 		await query("DELETE FROM alert WHERE rule_id = $1", [ruleId]);
 		await query("DELETE FROM rule_calibration WHERE rule_id = $1", [ruleId]);
 		await query("DELETE FROM detection_rule WHERE id = $1", [ruleId]);
-		await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+		await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
 		await query("DELETE FROM org WHERE slug = $1", [`${TAG}-org`]);
 		await loadRuleThresholds(true);
 		await loadRules(true);
@@ -168,6 +170,40 @@ test("le rapport déclare une seule fois la ligne OBJECTIF mesurée", () => {
 	const ligne = objectifPublie().ligne;
 	assert.equal(verifierDeclarationObjectifCalibration(rapport, ligne), true);
 	assert.equal(verifierDeclarationObjectifCalibration(rapport, "OBJECTIF : atteint — 1 / 1"), false);
+});
+test("la porte globale reste sur la note non majorée malgré l'ancrage NA", async () => {
+	const ruleId = `test-gate-${TAG}`;
+	const slug = `${TAG}-gate-org`;
+	try {
+		await query(
+			`INSERT INTO detection_rule (id, name, description, severity, enabled, match, action)
+			 VALUES ($1, $2, NULL, 3, true, $3, 'alert')`,
+			[ruleId, ruleId, JSON.stringify({ family: "testcalgate" })],
+		);
+		await loadRules(true);
+		const org = await query<{ id: number }>(
+			"INSERT INTO org (name, slug, kind, dept) VALUES ($1,$2,'collectivite','33') RETURNING id",
+			[`Org porte ${TAG}`, slug],
+		);
+		const source = await query<{ id: string }>("SELECT id FROM source ORDER BY id LIMIT 1");
+		const event = await query<{ id: number }>(
+			`INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence, source_id, org_id, evidence, source_url)
+			 VALUES ($1,'testcalgate','ambient_signal',$2,3,'C3',$3,$4,'{}'::jsonb || '{"run_id":"1"}'::jsonb,'https://example.invalid/event') RETURNING id`,
+			[`${TAG}-gate`, "Signal faible ancré", source.rows[0]!.id, org.rows[0]!.id],
+		);
+		const eventId = event.rows[0]!.id;
+		// Note brute 44, trace globale 74 avec l'ancrage : la majoration ne doit
+		// pas faire passer la porte de revue (REVIEW_THRESHOLD = 65).
+		assert.equal(await evaluateEvent(eventId), 0);
+		const alerts = await query("SELECT 1 FROM alert WHERE event_id = $1", [eventId]);
+		assert.equal(alerts.rowCount, 0);
+	} finally {
+		await query("DELETE FROM alert WHERE event_id IN (SELECT id FROM event WHERE dedup_key LIKE $1)", [`${TAG}-gate%`]);
+		await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-gate%`]);
+		await query("DELETE FROM org WHERE slug = $1", [slug]);
+		await query("DELETE FROM detection_rule WHERE id = $1", [ruleId]);
+		await loadRules(true);
+	}
 });
 after(async () => {
 	await closePools();

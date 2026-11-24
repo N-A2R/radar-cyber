@@ -23,6 +23,7 @@ import {
 	persistStixObjects,
 	type StixEventRow,
 } from "../src/export/stix.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `tlp${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const AMBER = Array.from({ length: 20 }, (_, i) => `${TAG}-amber-${String(i).padStart(2, "0")}.example`);
@@ -38,6 +39,12 @@ let clearId: number;
 let clearEventId: number;
 let aliasEventId: number;
 let alertId: number;
+
+/** Migration 231 : un événement ne peut être supprimé qu'après copie intégrale. */
+async function supprimerEvenementsDeTest(ids: number[]): Promise<void> {
+	if (ids.length === 0) return;
+	await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
+}
 
 before(async () => {
 	app = await buildApp();
@@ -121,7 +128,7 @@ before(async () => {
 after(async () => {
 	if (app) await app.close();
 	await query("DELETE FROM alert WHERE id=$1", [alertId]);
-	await query("DELETE FROM event WHERE id=ANY($1::bigint[])", [[...amberEventIds, clearEventId, aliasEventId]]);
+	await supprimerEvenementsDeTest([...amberEventIds, clearEventId, aliasEventId]);
 	await query("DELETE FROM indicator WHERE id=ANY($1::bigint[])", [[...amberIds, clearId]]);
 	await query("DELETE FROM org WHERE id=$1", [orgId]);
 	await closePools();

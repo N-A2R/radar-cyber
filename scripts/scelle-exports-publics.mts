@@ -114,19 +114,23 @@ async function produire(): Promise<void> {
   for (let i = 0; i < NOMBRE; i += 1) {
     const jour = new Date(aujourdHui.getTime() - (NOMBRE - 1 - i) * 86_400_000).toISOString().slice(0, 10);
     const demain = new Date(aujourdHui.getTime() - (NOMBRE - 1 - i) * 86_400_000 + 86_400_000).toISOString().slice(0, 10);
+    const relatif = `exports/scelles/radar-signals-${jour}.misp.json`;
+    const chemin = fileURLToPath(new URL(`../${relatif}`, import.meta.url));
+    let scellement: Awaited<ReturnType<typeof ecrireDossierScelle>> | undefined;
     const exportation = await exportMisp({
       limit: 25,
       since: new Date(`${jour}T00:00:00Z`),
       until: new Date(`${demain}T00:00:00Z`),
+      livrer: async ({ body }) => {
+        scellement = await ecrireDossierScelle({
+          chemin,
+          contenu: body,
+          reference: relatif,
+          format: "misp-json",
+        });
+      },
     });
-    const relatif = `exports/scelles/radar-signals-${jour}.misp.json`;
-    const chemin = fileURLToPath(new URL(`../${relatif}`, import.meta.url));
-    const scellement = await ecrireDossierScelle({
-      chemin,
-      contenu: exportation.body,
-      reference: relatif,
-      format: "misp-json",
-    });
+    if (!scellement) throw new Error(`scellement non produit pour ${jour}`);
     resultats.push({
       jour_couvert: jour,
       evenements: exportation.run.eventCount,

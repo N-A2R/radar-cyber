@@ -116,6 +116,7 @@ export async function scellerExport(options: OptionsScellement): Promise<Scellem
 		   (reference, format, taille_octets, sha256_fichier, token_rfc3161, certificat_tsa,
 		    prestataire_anssi, tsa_url, tsa_gen_time, tsa_serial, verify_ok, fichier, exporte_le)
 		 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, true, $11, $12::timestamptz)
+		 ON CONFLICT (reference, sha256_fichier) DO NOTHING
 		 RETURNING id::text, reference, format, sha256_fichier, token_rfc3161, certificat_tsa,
 		           prestataire_anssi, tsa_url, tsa_gen_time, tsa_serial, exporte_le`,
 		[
@@ -134,8 +135,18 @@ export async function scellerExport(options: OptionsScellement): Promise<Scellem
 		],
 	);
 	const ligne = resultat.rows[0];
-	if (!ligne) throw new Error("insertion du scellement sans ligne retournée");
-	return versScellement(ligne);
+	if (ligne) return versScellement(ligne);
+	// Un concurrent a publié les mêmes octets sous la même référence : sa
+	// preuve est la bonne, on la rend au lieu de lever une violation d'unicité.
+	const publie = await query<LigneScellement>(
+		`SELECT id::text, reference, format, sha256_fichier, token_rfc3161, certificat_tsa,
+		        prestataire_anssi, tsa_url, tsa_gen_time, tsa_serial, exporte_le
+		   FROM public.export_scellement WHERE reference = $1 AND sha256_fichier = $2`,
+		[options.reference, sha256Fichier],
+	);
+	const retenu = publie.rows[0];
+	if (!retenu) throw new Error("insertion du scellement sans ligne retournée");
+	return versScellement(retenu);
 }
 
 function versScellement(ligne: LigneScellement): Scellement {

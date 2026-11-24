@@ -19,6 +19,7 @@ import {
 import { measureC2Servers } from "../src/c2/measure.js";
 import c2ServersRoute from "../src/routes/c2-servers.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `c2${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const HASH = `${TAG}-claim`;
@@ -58,7 +59,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE id = $1", [fixtureEventId]);
+  await supprimerEvenementsArchivees("id = $1", [fixtureEventId]);
   await query("DELETE FROM quarantine_raw WHERE content_hash = $1", [HASH]);
   await query("DELETE FROM source WHERE id = $1", [C2_SOURCE_ID]);
   await closePools();

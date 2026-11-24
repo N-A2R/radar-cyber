@@ -22,6 +22,7 @@ import { buildNotificationMessage, buildRssFeed, sanitizeText } from "../src/not
 import { sendSmtpEmail } from "../src/notify/smtp.js";
 import alertsRssRoute from "../src/routes/alerts-rss.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 let sequence = 0;
 const slug = (): string => `notification-test-${Date.now()}-${sequence++}`;
@@ -68,7 +69,7 @@ async function makeFixture(options: {
     orgId,
     cleanup: async () => {
       await query("DELETE FROM alert WHERE id = $1", [alertId]);
-      await query("DELETE FROM event WHERE id = $1", [eventId]);
+      await supprimerEvenementsArchivees("id = $1", [eventId]);
       await query("DELETE FROM org WHERE id = $1", [orgId]);
     },
   };
@@ -162,9 +163,9 @@ after(async () => {
 
 test("webhook receives a structured JSON payload and records channel delivery", async (t: TestContext) => {
   const fixture = await makeFixture({ orgName: "Hôpital M. Dupont contact@hopital.fr" });
-  t.after(fixture.cleanup);
   const server = await startWebhookServer(200);
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: "test-webhook-secret" },
@@ -189,9 +190,9 @@ test("webhook receives a structured JSON payload and records channel delivery", 
 
 test("a failing webhook is retried later and never marked delivered", async (t: TestContext) => {
   const fixture = await makeFixture();
-  t.after(fixture.cleanup);
   const server = await startWebhookServer(500);
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: "test-webhook-secret" },
@@ -213,9 +214,9 @@ test("email is delivered through a local SMTP server without personal data", asy
     orgName: "CHU M. Martin martin@chu.example",
     title: "Victime Jean Dupont 06 12 34 56 78",
   });
-  t.after(fixture.cleanup);
   const server = await startSmtpServer();
   t.after(server.close);
+  t.after(fixture.cleanup);
 
   const result = await deliverPendingAlerts(() => undefined, {
     cfg: {
@@ -252,7 +253,7 @@ test("an unreachable SMTP server is recorded as a failed email attempt", async (
       emailPort: 1,
       emailFrom: "radar@example.invalid",
       emailTo: "ops@example.invalid",
-      timeoutMs: 2000,
+      emailTimeoutMs: 2000,
     },
     limit: 1000,
   });
@@ -280,16 +281,32 @@ test("RSS contains only Nouvelle-Aquitaine alerts and no personal data", async (
   const xml = buildRssFeed(alerts, { generatedAt: new Date("2026-11-22T00:00:00Z") });
   assert.match(xml, /<language>en<\/language>/);
   assert.match(xml, /Radar Cyber - Nouvelle-Aquitaine alerts/);
-  assert.match(xml, new RegExp(`radar-alert-${inside.alertId}`));
-  assert.ok(!xml.includes(`radar-alert-${outside.alertId}`), "outside alert absent from the feed");
-  assert.ok(!xml.includes("Durand"), "no victim name in the feed");
-  assert.ok(!xml.includes("durand@example.fr"), "no personal email in the feed");
   const parsed = new XMLParser({ ignoreAttributes: false }).parse(xml) as {
     rss?: { channel?: { item?: unknown[] } };
   };
   const items = parsed.rss?.channel?.item;
   const itemList = Array.isArray(items) ? items : [items];
   assert.ok(itemList.length >= 1 && itemList.every((item) => item !== undefined), "feed is valid XML with items");
+
+  // Exact guid values: a prefix match cannot distinguish id 12 from id 123.
+  const guids = itemList.map((item) => {
+    assert.ok(item && typeof item === "object", "RSS item is an XML object");
+    const guid = (item as Record<string, unknown>).guid;
+    const text = typeof guid === "string"
+      ? guid
+      : (guid as { "#text"?: unknown } | undefined)?.["#text"];
+    assert.equal(typeof text, "string", "RSS item carries a guid");
+    return String(text);
+  });
+  assert.ok(guids.includes(`radar-alert-${inside.alertId}`), "inside alert guid is in the feed");
+  assert.ok(!guids.includes(`radar-alert-${outside.alertId}`), "outside alert absent from the feed");
+  assert.deepEqual(
+    [...guids].sort(),
+    alerts.map((alert) => `radar-alert-${alert.id}`).sort(),
+    "feed carries exactly the eligible alerts",
+  );
+  assert.ok(!xml.includes("Durand"), "no victim name in the feed");
+  assert.ok(!xml.includes("durand@example.fr"), "no personal email in the feed");
 });
 
 test("TLP:RED and review-scope alerts never enter a notification channel", async (t: TestContext) => {
@@ -328,14 +345,23 @@ test("the RSS route is public, returns XML and cannot leak free text", async (t:
 test("shared message builder emits English structured labels only", () => {
   const alert = {
     id: 42,
+    title: "Alerte de test",
     severity: 4,
     status: "open",
     created_at: new Date("2026-11-22T12:00:00Z"),
     attempts: 0,
+    webhook_delivered_at: null,
+    telegram_delivered_at: null,
+    email_delivered_at: null,
     org_name: "Entreprise & Fils <test>",
     org_dept: "33",
+    org_kind: "entreprise",
     source_name: "Presse NA",
     source_url: "https://example.invalid/story?token=secret#part",
+    event_title: "Événement confidentiel",
+    url_orientation: null,
+    actions: null,
+    lien_verifie_le: null,
   };
   const message = buildNotificationMessage(alert, "https://radar.example.invalid/");
   assert.equal(message.subject, "[Radar Cyber] Nouvelle-Aquitaine alert #42 - severity high");
@@ -354,7 +380,12 @@ test("shared message builder emits English structured labels only", () => {
 test("configuration enables delivery only with complete channel settings", () => {
   const empty = readDeliveryConfig({});
   assert.equal(isDeliveryConfigured(empty), false);
-  const webhook = readDeliveryConfig({ RADAR_ALERT_WEBHOOK_URL: "https://hooks.example.invalid/radar" });
+  const incomplete = readDeliveryConfig({ RADAR_ALERT_WEBHOOK_URL: "https://hooks.example.invalid/radar" });
+  assert.equal(isDeliveryConfigured(incomplete), false, "une URL sans secret n'est pas une configuration exploitable");
+  const webhook = readDeliveryConfig({
+    RADAR_ALERT_WEBHOOK_URL: "https://hooks.example.invalid/radar",
+    RADAR_ALERT_WEBHOOK_SECRET: "secret-de-test",
+  });
   assert.equal(isDeliveryConfigured(webhook), true);
   const email = readDeliveryConfig({
     RADAR_ALERT_EMAIL_HOST: "127.0.0.1",
@@ -362,10 +393,13 @@ test("configuration enables delivery only with complete channel settings", () =>
     RADAR_ALERT_EMAIL_TO: "ops@example.invalid",
     RADAR_ALERT_EMAIL_PORT: "2525",
     RADAR_ALERT_EMAIL_SECURE: "true",
+    RADAR_ALERT_EMAIL_TIMEOUT_MS: "2000",
   });
   assert.equal(isDeliveryConfigured(email), true);
   assert.equal(email.emailPort, 2525);
   assert.equal(email.emailSecure, true);
+  assert.equal(email.emailTimeoutMs, 2000);
+  assert.equal(readDeliveryConfig({ RADAR_ALERT_EMAIL_TIMEOUT_MS: "999999" }).emailTimeoutMs, 15_000);
 });
 
 test("sanitizeText removes emails, phones and honorific names", () => {

@@ -1,16 +1,16 @@
 import "@astryxdesign/core/reset.css";
 import "@astryxdesign/core/astryx.css";
-import "@astryxdesign/theme-gothic/fonts.css";
-import "@astryxdesign/theme-gothic/theme.css";
+import "@astryxdesign/theme-stone/fonts.css";
+import "@astryxdesign/theme-stone/theme.css";
 import "../src/styles.css";
 import { Theme } from "@astryxdesign/core/theme";
-import { gothicTheme } from "@astryxdesign/theme-gothic/built";
+import { stoneTheme } from "@astryxdesign/theme-stone/built";
 import type { Preview } from "@storybook/react";
 
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <Theme theme={gothicTheme} mode="dark">
+      <Theme theme={stoneTheme} mode="dark">
         <Story />
       </Theme>
     ),

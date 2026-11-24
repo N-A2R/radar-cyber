@@ -10,6 +10,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import earlyWarningRoute from "../src/routes/early-warning.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `ew${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const SOURCE_ID = `ew-fixture:${TAG}`;
@@ -57,7 +58,7 @@ before(async () => {
 after(async () => {
   if (app) await app.close();
   await query("DELETE FROM campaign WHERE cle = $1", [CAMPAIGN_KEY]);
-  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [EVENT_IDS]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [EVENT_IDS]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE_ID]);
   await closePools();
 });

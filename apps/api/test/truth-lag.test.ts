@@ -4,6 +4,7 @@ import { randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TOKEN = `lag-${Date.now()}-${randomBytes(3).toString("hex")}`;
 const SOURCE = `src-${TOKEN}`;
@@ -34,7 +35,7 @@ async function semer(observedAt: string | null, at: string, sourceId: string, ti
 }
 
 after(async () => {
-  if (ids.length) await query("DELETE FROM event WHERE id = ANY($1)", [ids]).catch(() => {});
+  if (ids.length) await supprimerEvenementsArchivees("id = ANY($1)", [ids]).catch(() => {});
   await query("DELETE FROM source WHERE id = ANY($1)", [[SOURCE, ...(sourceCreee ? [DATE_PORTEUSE] : [])]]).catch(() => {});
   await closePools().catch(() => {});
 });

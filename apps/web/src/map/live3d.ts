@@ -248,8 +248,8 @@ export function normalizeAttack(raw: Record<string, unknown>): LiveAttack | null
   };
 }
 
-export async function fetchLiveAttacks(url: string): Promise<LiveAttack[]> {
-  const res = await fetch(url);
+export async function fetchLiveAttacks(url: string, signal?: AbortSignal): Promise<LiveAttack[]> {
+  const res = await fetch(url, signal === undefined ? undefined : { signal });
   if (!res.ok) throw new Error(`live map snapshot: HTTP ${res.status}`);
   const body = await res.json() as { attacks?: unknown };
   if (!Array.isArray(body.attacks)) throw new Error("live map snapshot: invalid payload");

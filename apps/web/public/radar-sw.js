@@ -4,26 +4,113 @@
  * Golden rule: never touch /api/. Dynamic data is cached client-side by the
  * allowlist in src/offline/pwa.ts, where it can be redacted, bounded and dated.
  * This worker keeps the application shell, its assets (Vite modules included)
- * and a bounded number of map tiles so a cold reload works offline.
+ * and a bounded number of raster tiles and glyphs so a cold reload works
+ * offline. TileJSON documents are deliberately NOT cached: they must fail
+ * offline so the map can switch to its embedded fallback style.
  */
 
+const RACINE = "/";
 const PREFIX = "radar-offline-v2";
 const CACHE_SHELL = `${PREFIX}-shell`;
 const CACHE_ASSETS = `${PREFIX}-assets`;
 const CACHE_TILES = `${PREFIX}-tiles`;
-const SHELL_URLS = ["/", "/index.html", "/manifest.webmanifest", "/icon.svg"];
+const CACHE_GLYPHS = `${PREFIX}-glyphs`;
+const SHELL_URLS = [RACINE, "/index.html", "/manifest.webmanifest", "/icon.svg"];
 const MAX_TILES = 300;
 const MAX_ASSETS = 800;
+const MAX_GLYPHS = 80;
+/** Ressources cartographiques : cache-first, rafraîchies en arrière-plan. */
+function cacheFirst(requete, event, nomCache, limite, message) {
+	return (async () => {
+		const cache = await caches.open(nomCache);
+		const memo = await cache.match(requete);
+		const maj = fetch(requete)
+			.then(async (reponse) => {
+				await mettreEnCache(cache, requete, reponse, limite);
+				return reponse;
+			})
+			.catch(() => null);
+		if (memo) {
+			event.waitUntil(maj);
+			return memo;
+		}
+		const reponse = await maj;
+		if (reponse) return reponse;
+		throw new Error(message);
+	})();
+}
+
+function tuiles(requete, event) {
+	return cacheFirst(requete, event, CACHE_TILES, MAX_TILES, "tuile indisponible hors ligne");
+}
+
+function glyphes(requete, event) {
+	return cacheFirst(requete, event, CACHE_GLYPHS, MAX_GLYPHS, "police indisponible hors ligne");
+}
+
+/** Navigation : réseau d'abord, shell précaché en repli, puis 503 explicite. */
+async function navigation(requete) {
+	let cache = null;
+	try {
+		cache = await caches.open(CACHE_SHELL);
+	} catch {
+		// Cache indisponible : le réseau reste tenté, le 503 reste possible.
+	}
+	try {
+		const reponse = await fetch(requete);
+		if (reponse.ok && cache) {
+			try {
+				await cache.put(RACINE, reponse.clone());
+				await cache.put("/index.html", reponse.clone());
+			} catch {
+				// Le shell précaché à l'installation reste valable.
+			}
+		}
+		return reponse;
+	} catch {
+		if (cache) {
+			try {
+				const shell = (await cache.match(RACINE)) ?? (await cache.match("/index.html"));
+				if (shell) return shell;
+			} catch {
+				// Lecture impossible : on tombe sur la réponse de repli.
+			}
+		}
+		return new Response("Application indisponible hors ligne", {
+			status: 503,
+			headers: { "Content-Type": "text/plain; charset=utf-8" },
+		});
+	}
+}
+
 
 const HOTES_TUILES = new Set([
 	"tile.openstreetmap.org",
 	"data.geopf.fr",
 	"tiles.openfreemap.org",
 	"s3.amazonaws.com",
-	"fonts.googleapis.com",
-	"fonts.gstatic.com",
-	"unpkg.com",
 ]);
+
+// Polices et glyphes MapLibre : budget propre, une police ne doit pas évincer
+// les tuiles raster ni inversement.
+const HOTES_GLYPHS = new Set(["fonts.googleapis.com", "fonts.gstatic.com", "unpkg.com"]);
+const EXTENSION_TUILE = /\.(png|jpe?g|webp|avif|pbf|mvt)(?:$|\?)/i;
+
+/**
+ * Le TileJSON d'OpenFreeMap est `/planet` (sans extension) : le mettre en
+ * cache-first servirait un style pointant vers des tuiles non cachées et
+ * empêcherait `degrade()` de recevoir l'échec réseau. On le laisse donc
+ * toujours passer au réseau, y compris hors ligne.
+ */
+function estDocumentTuiles(url) {
+	return url.hostname === "tiles.openfreemap.org"
+		&& (url.pathname === "/planet" || url.pathname.endsWith(".json") || !EXTENSION_TUILE.test(url.pathname));
+}
+
+function estGlyphe(url) {
+	return HOTES_GLYPHS.has(url.hostname) || url.pathname.includes("/fonts/");
+}
+
 
 /** Écrit une réponse en bornant le cache : les entrées les plus anciennes partent. */
 async function ecrireBorné(cache, requete, reponse, limite) {
@@ -67,7 +154,7 @@ self.addEventListener("activate", (event) => {
 	event.waitUntil(
 		(async () => {
 			const noms = await caches.keys();
-			const courants = [CACHE_SHELL, CACHE_ASSETS, CACHE_TILES];
+			const courants = [CACHE_SHELL, CACHE_ASSETS, CACHE_TILES, CACHE_GLYPHS];
 			await Promise.all(
 				noms
 					.filter((nom) => nom.startsWith("radar-offline-") && !courants.includes(nom))
@@ -77,53 +164,6 @@ self.addEventListener("activate", (event) => {
 		})(),
 	);
 });
-
-/** Tuiles et polices : cache-first, rafraîchies en arrière-plan. */
-function tuiles(requete, event) {
-	return (async () => {
-		const cache = await caches.open(CACHE_TILES);
-		const memo = await cache.match(requete);
-		const maj = fetch(requete)
-			.then(async (reponse) => {
-				await mettreEnCache(cache, requete, reponse, MAX_TILES);
-				return reponse;
-			})
-			.catch(() => null);
-		if (memo) {
-			event.waitUntil(maj);
-			return memo;
-		}
-		const reponse = await maj;
-		if (reponse) return reponse;
-		throw new Error("tuile indisponible hors ligne");
-	})();
-}
-
-/** Navigation : réseau d'abord, shell précaché en repli. */
-async function navigation(requete) {
-	const cache = await caches.open(CACHE_SHELL);
-	try {
-		const reponse = await fetch(requete);
-		if (reponse.ok) {
-			try {
-				await cache.put(RACINE, reponse.clone());
-				await cache.put("/index.html", reponse.clone());
-			} catch {
-				// Le shell précaché à l'installation reste valable.
-			}
-		}
-		return reponse;
-	} catch {
-		return (
-			(await cache.match(RACINE)) ??
-			(await cache.match("/index.html")) ??
-			new Response("Application indisponible hors ligne", {
-				status: 503,
-				headers: { "Content-Type": "text/plain; charset=utf-8" },
-			})
-		);
-	}
-}
 
 /** Assets same-origin (y compris /src/* et /@vite/*) : stale-while-revalidate. */
 function asset(requete, event) {
@@ -153,8 +193,15 @@ self.addEventListener("fetch", (event) => {
 	}
 	// Données dynamiques : laissées intégralement au réseau, sans exception.
 	if (url.pathname.startsWith("/api/")) return;
-	if (HOTES_TUILES.has(url.hostname)) {
-		event.respondWith(tuiles(requete, event));
+	if (HOTES_TUILES.has(url.hostname) || HOTES_GLYPHS.has(url.hostname) || estGlyphe(url)) {
+		// Un TileJSON périmé ne doit jamais masquer le repli carte hors ligne.
+		if (estDocumentTuiles(url)) {
+			event.respondWith(fetch(requete));
+			return;
+		}
+		event.respondWith(
+			estGlyphe(url) ? glyphes(requete, event) : tuiles(requete, event),
+		);
 		return;
 	}
 	if (url.origin === self.location.origin) {

@@ -13,13 +13,20 @@ import { createHash, randomUUID } from "node:crypto";
 import type { FastifyRequest } from "fastify";
 import { query } from "../db.js";
 
-const PEPPER = process.env.RADAR_AUDIT_PEPPER ?? "radar-audit-pepper-a-changer-en-production";
-if (process.env.NODE_ENV === "production" && !process.env.RADAR_AUDIT_PEPPER) {
-  throw new Error("RADAR_AUDIT_PEPPER is required in production (access log hashing)");
+/**
+ * Le poivre n'a aucune valeur par défaut : une constante versionnée serait
+ * reproductible par toute personne disposant du code et d'un accès lecture
+ * à la base, et rendrait la pseudonymisation des IP caduque (SEC-01).
+ * Seuls les tests peuvent s'en passer : ils n'écrivent aucune donnée réelle.
+ */
+const PEPPER = process.env.RADAR_AUDIT_PEPPER;
+if (!PEPPER && process.env.NODE_ENV !== "test") {
+  throw new Error("RADAR_AUDIT_PEPPER is required outside tests (access log hashing)");
 }
+const CLE_PEPPER = PEPPER ?? "test-only-audit-pepper";
 
 export function empreinteAudit(valeur: string): string {
-  return createHash("sha256").update(`${PEPPER}:${valeur}`).digest("hex").slice(0, 32);
+  return createHash("sha256").update(`${CLE_PEPPER}:${valeur}`).digest("hex").slice(0, 32);
 }
 
 /** Identifiant de corrélation : fourni par le client ou généré par le serveur. */

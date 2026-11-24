@@ -107,25 +107,29 @@ describe("LoginScreen — connexion soignée", () => {
     expect(document.activeElement).toBe(email);
   });
 
-  it("affiche les chiffres publics exacts, limités aux douze départements de la région", async () => {
+  it("affiche les chiffres publics exacts avec la réponse réelle de /api/today/departements", async () => {
     vi.stubGlobal("fetch", vi.fn(async (input: unknown) => {
       const url = String(input);
       if (url === "/api/stats") {
-        return response({ sources: { total: 2506, active: 2405 } });
-      }
-      if (url === "/api/stats/departements") {
         return response({
-          windowDays: 7,
+          orgs: 38, events: 5, indicators: 0,
+          sources: { total: 2506, active: 2405, ok: 7, err: 2 },
+          byFamily: [], byAssertion: [],
+        });
+      }
+      if (url === "/api/today/departements") {
+        return response({
           departements: [
-            { departement: "33", evenements7j: 5, organisations: 10, sourcesActives: 2 },
-            { departement: "17", evenements7j: 3, organisations: 4, sourcesActives: 1 },
-            { departement: "75", evenements7j: 999, organisations: 1, sourcesActives: 0 },
-            { departement: "16", evenements7j: 0, organisations: 2, sourcesActives: 0 },
+            { dept: "33", evenements: 5, organisations: 10 },
+            { dept: "17", evenements: 3, organisations: 4 },
+            { dept: "75", evenements: 999, organisations: 1 },
+            { dept: "16", evenements: 0, organisations: 2 },
           ],
         });
       }
       return response({}, 404);
     }));
+
 
     await mount();
     await flush();
@@ -163,7 +167,7 @@ describe("LoginScreen — connexion soignée", () => {
     vi.stubGlobal("fetch", vi.fn(async (input: unknown) =>
       String(input) === "/api/stats"
         ? response({ sources: "beaucoup" })
-        : response({ departements: "aucun" }),
+        : response({ departements: [{ departement: "33", evenements7j: 5 }] }),
     ));
 
     await mount();

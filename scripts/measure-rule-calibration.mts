@@ -21,7 +21,6 @@ import {
 	chooseThreshold,
 	noObservationPoint,
 	precisionRecallCurve,
-	ruleScore,
 	type CalibrationObservation,
 	type CalibrationPoint,
 } from "../apps/api/src/detect/calibration.js";
@@ -48,7 +47,6 @@ type AlertRow = {
 	rule_id: string;
 	base_score: string | null;
 	silence_hours: string | null;
-	anchor: boolean;
 	is_false: boolean;
 };
 
@@ -69,12 +67,14 @@ const round4 = (n: number): number => Math.round(n * 10_000) / 10_000;
 
 function toObservation(row: AlertRow): CalibrationObservation {
 	// La règle de supervision ne porte pas de note de confiance : son score
-	// observable est la durée de silence mesurée, en heures.
-	const base = row.rule_id === "supervision:silent-source-24h"
+	// observable est la durée de silence mesurée, en heures. Les seuils de
+	// règle sont mesurés et appliqués sur le score non majoré ; la majoration
+	// d'ancrage ne sert qu'à la porte globale du détecteur.
+	const brut = row.rule_id === "supervision:silent-source-24h"
 		? Number(row.silence_hours)
 		: Number(row.base_score);
 	return {
-		score: ruleScore(base, row.anchor),
+		score: Number.isFinite(brut) ? brut : 0,
 		positive: !row.is_false,
 	};
 }
@@ -132,11 +132,9 @@ async function main(): Promise<void> {
 			SELECT a.rule_id,
 			       a.evidence->'confidence'->>'score' AS base_score,
 			       a.evidence->>'silenceHours' AS silence_hours,
-			       (a.event_id IS NOT NULL AND (e.regional OR e.org_id IS NOT NULL)) AS anchor,
 			       (f.event_id IS NOT NULL OR a.evidence ? 'false_event') AS is_false
 			  FROM alert a
-			  LEFT JOIN event e ON e.id = a.event_id
-			  LEFT JOIN false_event f ON f.event_id = e.id
+			  LEFT JOIN false_event f ON f.event_id = a.event_id
 			 WHERE a.created_at >= now() - interval '30 days'
 		`);
 		const rows = res.rows;

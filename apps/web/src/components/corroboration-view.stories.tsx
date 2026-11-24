@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Theme } from "@astryxdesign/core/theme";
-import { gothicTheme } from "@astryxdesign/theme-gothic/built";
+import { stoneTheme } from "@astryxdesign/theme-stone/built";
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { orgDetail } from "../storybook/fixtures";
 
@@ -13,7 +13,7 @@ const meta = {
   parameters: { docs: { description: { component: "Facts grouped by source agreement, not one row per event." } } },
   decorators: [
     (Story) => (
-      <Theme theme={gothicTheme} mode="dark">
+      <Theme theme={stoneTheme} mode="dark">
         <Story />
       </Theme>
     ),

@@ -59,10 +59,14 @@ interface Org {
 	dept: string | null
 	domain: string | null
 	website: string | null
+	kind?: string | null
+	siren?: string | null
 }
 
 interface Candidat {
 	org: Org
+	host: string
+	url: string
 	piste: 1 | 2 | 3 | 4 | 5
 	origine: string
 	confiance: number
@@ -333,16 +337,35 @@ async function avecConcurrence<T, R>(items: T[], n: number, fn: (item: T) => Pro
 	return resultats
 }
 
-function corpusJsonl(chemin: string, branche = "origin/big/CorpusCommunes-2"): any[] {
+interface LigneCorpus {
+	id: string
+	nom: string
+	organisation?: string | null
+	commune?: string | null
+	siren?: string | null
+	url?: string | null
+	url_candidate?: string | null
+	url_finale?: string | null
+	url_preuve?: string | null
+	source?: string | null
+	statut_http?: number | null
+	preuve?: unknown
+}
+
+function lireLignesJsonl(texte: string): LigneCorpus[] {
+	return texte.trim().split("\n").filter(Boolean).map((ligne) => JSON.parse(ligne) as LigneCorpus)
+}
+
+function corpusJsonl(chemin: string, branche = "origin/big/CorpusCommunes-2"): LigneCorpus[] {
 	const local = join(RACINE, chemin)
-	if (existsSync(local)) return readFileSync(local, "utf8").trim().split("\n").filter(Boolean).map(JSON.parse)
+	if (existsSync(local)) return lireLignesJsonl(readFileSync(local, "utf8"))
 	// Les corpus fusionnés vivent sur main ; sinon sur leur branche dédiée, sinon sur le commit d'origine.
 	for (const ref of [branche, "origin/main", "1cb5d91"]) {
 		try {
 			const sortie = execFileSync("git", ["-C", RACINE, "show", `${ref}:${chemin}`], {
 				encoding: "utf8", maxBuffer: 40_000_000, stdio: ["ignore", "pipe", "ignore"],
 			})
-			return sortie.trim().split("\n").filter(Boolean).map(JSON.parse)
+			return lireLignesJsonl(sortie)
 		} catch { /* référence absente : suivante */ }
 	}
 	throw new Error(`corpus introuvable : ${chemin}`)
@@ -378,14 +401,16 @@ async function piste1(maxHttp: number): Promise<{ candidats: Candidat[]; stat: S
 
 	// a) événements rattachés à une org : une seule requête, pas une par ligne.
 	const { rows: evenements } = await query<Org & {
-		event_id: number; title: string; summary: string | null; source_url: string | null; evidence: any
+		event_id: number; title: string; summary: string | null; source_url: string | null
+		evidence: { references?: unknown; description?: string | null; org_hint?: string | null } | null
 	}>(`SELECT e.id AS event_id, e.title, e.summary, e.source_url, e.evidence,
 	             o.id, o.name, o.city, o.dept, o.domain, o.website
 	      FROM event e JOIN org o ON o.id=e.org_id
 	      WHERE (o.domain IS NULL OR btrim(o.domain)='')
 	        AND (o.website IS NULL OR btrim(o.website)='')`)
 	for (const e of evenements) {
-		const refs: string[] = Array.isArray(e.evidence?.references) ? e.evidence.references : []
+		const refsBruts: unknown = e.evidence?.references
+		const refs: string[] = Array.isArray(refsBruts) ? refsBruts.filter((ref): ref is string => typeof ref === "string") : []
 		const textes = [e.title, e.summary ?? "", e.source_url ?? "", ...refs, e.evidence?.description ?? "", e.evidence?.org_hint ?? ""]
 		for (const h of domainesDansTexte(textes.join(" "))) {
 			ajouter(e, h, `https://${h}/`, `event:${e.event_id}`, [e.title])
@@ -529,8 +554,7 @@ async function piste3(cheminCommunes: string, max: number): Promise<{ candidats:
 	const s = stat()
 	const candidats: Candidat[] = []
 	const communes = corpusJsonl(cheminCommunes)
-	const sante = readFileSync(join(RACINE, "bench/corpus/sante-enseignement.jsonl"), "utf8")
-		.trim().split("\n").filter(Boolean).map(JSON.parse)
+	const sante = lireLignesJsonl(readFileSync(join(RACINE, "bench/corpus/sante-enseignement.jsonl"), "utf8"))
 	const sirens = [...new Set([...communes, ...sante].map((r) => String(r.siren ?? "")).filter((v) => /^\d{9}$/.test(v)))]
 	const noms = [...new Set([...communes.map((r) => normaliser(r.nom)), ...sante.map((r) => normaliser(r.organisation || r.nom))].filter(Boolean))]
 	const { rows: orgs } = await ingestQuery<Org & { siren: string | null; name_norm: string | null }>(
@@ -563,19 +587,28 @@ async function piste3(cheminCommunes: string, max: number): Promise<{ candidats:
 			rejet(s, "commune-incompatible")
 			continue
 		}
-		const host = racine(row.url_finale || row.url_candidate)
+		const url = row.url_finale || row.url_candidate
+		if (!url) {
+			rejet(s, "url-commune-introuvable")
+			continue
+		}
+		const host = racine(url)
 		if (!host || HOTES_TIERS.has(host)) {
 			rejet(s, "hote-tiers")
 			continue
 		}
 		candidats.push({
-			org, host, url: row.url_finale || row.url_candidate, piste: 3,
+			org, host, url, piste: 3,
 			origine: `communes:${row.id}`, confiance: 0,
 			preuve: { corpus: row.id, source: "wikidata/corpus-communes", siren: row.siren, statutCorpus: row.statut_http },
 		})
 	}
 
 	for (const row of sante) {
+		if (!row.url) {
+			rejet(s, "url-introuvable")
+			continue
+		}
 		const host = racine(row.url)
 		if (!host || HOTES_TIERS.has(host)) {
 			rejet(s, "hote-tiers")
@@ -805,6 +838,7 @@ async function piste5(max: number): Promise<{ candidats: Candidat[]; stat: Stat;
 		const villeOrg = normaliser(org.city)
 		if (ville && villeOrg && !ville.includes(villeOrg) && !villeOrg.includes(ville)) { rejet(s, "ville-incompatible"); continue }
 		const url = row.url_preuve || row.url
+		if (!url) { rejet(s, "url-introuvable"); continue }
 		const host = racine(url)
 		if (!host || HOTES_TIERS.has(host)) { rejet(s, "hote-tiers"); continue }
 		if (!racineDistinctive(host, org, [row.nom])) { rejet(s, "domaine-non-distinctif"); continue }

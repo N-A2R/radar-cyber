@@ -80,21 +80,15 @@ TMP_WEB_PID=""
 cleanup() {
   [ -n "$TMP_API_PID" ] && kill -- "-$TMP_API_PID" 2>/dev/null || true
   [ -n "$TMP_WEB_PID" ] && kill -- "-$TMP_WEB_PID" 2>/dev/null || true
-  [ -n "$PNPM_WRAPPER" ] && rm -f "$PNPM_WRAPPER"
 }
 trap cleanup EXIT
 
-# pnpm n'est pas toujours installé globalement (sandbox) : on retombe sur npx
-# avec la version épinglée par le dépôt, sans rien installer d'autre.
-# Il faut un vrai exécutable, pas une fonction shell : start_bg fait `exec`
-# dans un sous-shell, où les fonctions du script parent n'existent pas.
+# pnpm doit être présent localement (Corepack fourni par Node). Pas de repli
+# `npx --yes` : une résolution réseau non vérifiée n'a rien à faire ici.
 PNPM_BIN="$(command -v pnpm || true)"
-PNPM_WRAPPER=""
 if [ -z "$PNPM_BIN" ]; then
-  PNPM_WRAPPER="$(mktemp "${TMPDIR:-/tmp}/radar-verify-pnpm.XXXXXX")"
-  printf '#!/bin/sh\nexec npx --yes pnpm@12.15.0 "$@"\n' > "$PNPM_WRAPPER"
-  chmod +x "$PNPM_WRAPPER"
-  PNPM_BIN="$PNPM_WRAPPER"
+  log "ERREUR: pnpm introuvable. Lancez 'corepack enable' puis relancez la vérification."
+  exit 1
 fi
 TSX="$REPO_DIR/apps/api/node_modules/.bin/tsx"
 
@@ -115,6 +109,12 @@ fi
 
 run_step "typecheck api"  "$PNPM_BIN" -F @radar/api typecheck
 run_step "typecheck web" "$PNPM_BIN" -F @radar/web typecheck
+run_step "typecheck tests" "$PNPM_BIN" typecheck:tests
+run_step "typecheck sdk" "$PNPM_BIN" typecheck:sdk
+run_step "tests migrations" "$PNPM_BIN" test:migrations
+run_step "tests web unit" "$PNPM_BIN" -F @radar/web run test:unit
+run_step "tests SDK" "$PNPM_BIN" test:sdks
+run_step "tests Python" "$PNPM_BIN" test:python
 run_step "tests api"     "$PNPM_BIN" -F @radar/api test
 run_step "tests rendu"   "$PNPM_BIN" -F @radar/web run test:render
 run_step "tests dom"     "$PNPM_BIN" -F @radar/web run test:dom
@@ -149,13 +149,13 @@ else
   fi
 fi
 
-# Web : idem avec vite preview, le build venant d'être produit.
+# Web : serveur statique Node, le build venant d'être produit.
 if wait_up "$WEB_URL/" 3; then
   log "Web détecté sur $WEB_URL."
 else
-  log "Web absent de $WEB_URL : démarrage temporaire de vite preview (port $TMP_WEB_PORT)."
+  log "Web absent de $WEB_URL : démarrage temporaire du serveur statique (port $TMP_WEB_PORT)."
   tmp_web_log="$(mktemp "${TMPDIR:-/tmp}/radar-verify-web.XXXXXX")"
-  TMP_WEB_PID="$(start_bg "$tmp_web_log" "$REPO_DIR/apps/web" env WEB_PORT="$TMP_WEB_PORT" API_PROXY_TARGET="$API_URL" "$PNPM_BIN" -F @radar/web exec vite preview --config ../../scripts/systemd/preview.config.mjs)"
+  TMP_WEB_PID="$(start_bg "$tmp_web_log" "$REPO_DIR/apps/web" env WEB_PORT="$TMP_WEB_PORT" WEB_DIST="$REPO_DIR/apps/web/dist" API_PROXY_TARGET="$API_URL" node "$REPO_DIR/apps/web/serve.mjs")"
   if wait_up "http://127.0.0.1:$TMP_WEB_PORT/" 20; then
     WEB_URL="http://127.0.0.1:$TMP_WEB_PORT"
     log "Web temporaire prêt sur $WEB_URL."

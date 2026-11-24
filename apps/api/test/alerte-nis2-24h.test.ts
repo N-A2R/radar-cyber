@@ -10,6 +10,7 @@ import { after, before, test } from "node:test";
 import { performance } from "node:perf_hooks";
 import { query } from "../src/db.js";
 import {
+  type BrouillonAlerte24h,
   brouillonsAlerte24h,
   compteurAlerte24hIncomplete,
   CRITERE_ALERTE_NIS2_24H,
@@ -18,6 +19,7 @@ import {
   REGIME_ALERTE_24H,
   renduAlerte24h,
 } from "../src/report/alerte-nis2-24h.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `alerte24h${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE_ID = `test:${TAG}:source-nationale`;
@@ -25,18 +27,17 @@ const PRIVE = ["VICTIME_MARKER", "RESUME_PRIVE_MARKER", "https://article.example
 const NB_INCIDENTS = 20;
 const PRISE_EN_CONNAISSANCE = new Date("2026-11-23T10:00:00.000Z");
 
-type Brouillon = {
-  id: string;
-  source_event_id: string;
-  regime: string;
-  awareness_at: Date;
-  echeance: Date;
-  payload: Record<string, unknown>;
-};
 
 let orgId: string;
 let eventIds: string[] = [];
 let dureeGenerationMs = 0;
+
+/** Migration 231 : copie intégrale avant suppression, puis retrait des archives. */
+async function supprimerEvenementsDeTest(ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  await query("DELETE FROM notification_brouillon WHERE source_event_id = ANY($1::bigint[])", [ids]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
+}
 
 before(async () => {
   await query(
@@ -72,10 +73,7 @@ before(async () => {
 });
 
 after(async () => {
-  if (eventIds.length > 0) {
-    await query("DELETE FROM notification_brouillon WHERE source_event_id = ANY($1::bigint[])", [eventIds]);
-    await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [eventIds]);
-  }
+  await supprimerEvenementsDeTest(eventIds);
   if (orgId) await query("DELETE FROM org WHERE id = $1", [orgId]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE_ID]);
 });
@@ -85,7 +83,7 @@ test("20 incidents graves produisent 20 brouillons datés en moins d'une minute"
     `SELECT id::text, at FROM event WHERE id = ANY($1::bigint[]) ORDER BY id`,
     [eventIds],
   );
-  const brouillons: Brouillon[] = [];
+  const brouillons: BrouillonAlerte24h[] = [];
   for (const id of eventIds) {
     brouillons.push(...(await brouillonsAlerte24h(id)));
   }
@@ -129,8 +127,8 @@ test("la requête du juge externe renvoie 0", async () => {
 
 test("un incident de gravité inférieure à 4 ne crée pas d'alerte", async () => {
   const insere = await query<{ id: string }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, at, valid_at, source_id, source_url, evidence)
-     VALUES ($1, 'vuln', 'confirmed_incident', 'incident mineur', now(), now(),
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, at, valid_at, source_id, source_url, evidence)
+     VALUES ($1, 'vuln', 'confirmed_incident', 'incident mineur', 3, now(), now(),
              'ransomlook', 'https://example.invalid/alerte24h', '{"run_id":"1"}'::jsonb)
      RETURNING id::text`,
     [`test:${TAG}:mineur`],
@@ -139,7 +137,7 @@ test("un incident de gravité inférieure à 4 ne crée pas d'alerte", async () 
   try {
     assert.deepEqual(await brouillonsAlerte24h(id), []);
   } finally {
-    await query("DELETE FROM event WHERE id = $1", [id]);
+    await supprimerEvenementsDeTest([id]);
   }
 });
 

@@ -28,7 +28,7 @@ const PRISE_SUIVANTE = "2026-04-02T08:00:00+00";
 const JUGE = `SELECT count(*) FROM violation_rgpd WHERE date_prise_connaissance IS NULL OR echeance_72h IS NULL OR statut IS NULL OR (statut='notifiee' AND date_notification IS NULL);`;
 const ENTETE = "reference,organisation_id,organisation_type,departement,famille,source_id,date_prise_connaissance,echeance_72h,statut,date_notification,source_url";
 
-let db: DbModule;
+let db: typeof DbModule;
 let app: FastifyInstance;
 let baseJetable: TestDb | null = null;
 let orgId: number;
@@ -115,7 +115,9 @@ after(async () => {
     await db.query("DELETE FROM fuite_org WHERE fuite_id = $1", [FUITE]);
     await db.query("DELETE FROM fuite_reference WHERE id = $1", [FUITE]);
     if (evenements.length > 0) {
-      await db.query("DELETE FROM event WHERE id = ANY($1::bigint[])", [evenements]);
+      // Import différé : db.ts lit DATABASE_URL au chargement (voir `before`).
+      const { supprimerEvenementsArchivees } = await import("./helpers/archive-delete.js");
+      await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evenements]);
     }
     await db.query("DELETE FROM org WHERE id = $1", [orgId]);
     await db.query("DELETE FROM source WHERE id = $1", [SOURCE]);
@@ -167,7 +169,16 @@ test("l'échéance et la notification ne peuvent pas être écrites à la main",
   );
   assert.equal(apres.rows[0]!.echeance.getTime() - avant.rows[0]!.prise.getTime(), 72 * 60 * 60 * 1000);
 
-  await db.query("UPDATE violation_rgpd SET statut = 'notifiee' WHERE reference = $1", [ref]);
+  // Une notification sans preuve est refusée par la contrainte ajoutée en 236.
+  await assert.rejects(
+    db.query("UPDATE violation_rgpd SET statut = 'notifiee' WHERE reference = $1", [ref]),
+    /violation_rgpd_notification_preuve_requise/,
+  );
+  // La preuve est une donnée de workflow saisissable ; l'horodatage, lui, reste posé par le trigger.
+  await db.query(
+    "UPDATE violation_rgpd SET statut = 'notifiee', notifie_a = 'cnil:test' WHERE reference = $1",
+    [ref],
+  );
   const notifie = await db.query<{ statut: string; notification: Date | null }>(
     "SELECT statut, date_notification AS notification FROM violation_rgpd WHERE reference = $1", [ref],
   );
@@ -176,8 +187,8 @@ test("l'échéance et la notification ne peuvent pas être écrites à la main",
 
   await db.query(
     `INSERT INTO violation_rgpd (reference, origine, origine_id, org_kind, famille,
-                                 date_prise_connaissance, statut)
-     VALUES ($1, 'event', $2, 'collectivite', 'leaks', $3::timestamptz, 'notifiee')`,
+                                 date_prise_connaissance, statut, notifie_a)
+     VALUES ($1, 'event', $2, 'collectivite', 'leaks', $3::timestamptz, 'notifiee', 'cnil:test')`,
     // Hors des mois de l'export contrôlé, pour ne pas changer ses décomptes.
     [DIRECT, "direct", "2026-06-01T00:00:00+00"],
   );

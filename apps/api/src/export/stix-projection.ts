@@ -66,7 +66,7 @@ export async function exportStixBundle(
 	const params = limite === null ? [] : [limite];
 	const clause = limite === null ? "" : " LIMIT $1";
 	const objets = await sql<{ object: StixObject }>(
-		`SELECT object FROM stix_object ORDER BY id${clause}`,
+		`SELECT object FROM stix_object WHERE tlp = 'WHITE' AND pap <> 'RED' ORDER BY id${clause}`,
 		params,
 	);
 	const relations = await sql<{ object: StixObject }>(
@@ -179,9 +179,9 @@ export async function importStixBundle(
 			continue;
 		}
 		const tags = trustOf(object);
-		// Le périmètre public reste hermétique : un marquage restrictif n'entre
-		// pas dans le TIP, même si un bundle foreign le propose.
-		if (tags.tlp === "RED" || tags.pap === "RED") {
+		// Périmètre public hermétique : un bundle externe ne peut introduire
+		// que des objets TLP:WHITE (PAP non RED). AMBER/GREEN/RED sont ignorés.
+		if (tags.tlp !== "WHITE" || tags.pap === "RED") {
 			skipped++;
 			continue;
 		}

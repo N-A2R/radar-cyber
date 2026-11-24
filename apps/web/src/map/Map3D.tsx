@@ -16,7 +16,7 @@
  *   `dep-outline` (contours départementaux) ;
  * - `arcs-glow` + `arcs` (liaisons org → événement ou centroïde ; couleur par
  *   nature d'organisation si connue, sinon par famille) ;
- * - `cities` (labels de villes) ;
+ * - `cities` (labels de villes, ou marqueurs DOM dans le style de secours) ;
  * - `orgs` (marqueurs neutres cliquables) + `hot` (halo des orgs actives) ;
  * - `events` : cercles colorés par famille, rayon par sévérité ; au-delà de
  *   `MAX_POINTS` points, agrégation par cellule géo (compteur + famille dominante) ;
@@ -30,12 +30,13 @@ import '../maplibre-worker'
 import { useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import type { ExpressionSpecification } from 'maplibre-gl'
-import { FAMILY_HEX, familyHexFallback, resolveTokenColor, type FlowArc } from './arcs.js'
+import { FAMILY_HEX, familyHexFallback, resolveTokenColor, clearTokenCache, type FlowArc } from './arcs.js'
 import { connectAttackStream, fetchLiveAttacks, LiveAttackLayer, mergeAttacks, type LiveAttack } from './live3d.js'
 import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
 import { styleSecours } from '../offline'
 import { FAMILY_LABELS, ORG_KIND_LABELS } from './libelles'
 import { Badge } from '@astryxdesign/core/Badge'
+import './map-timeline.css'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -181,6 +182,8 @@ function countOrgsByDept(orgs: MapOrg[]): Map<string, number> {
 const OFM_TILEJSON = 'https://tiles.openfreemap.org/planet'
 // Polices de la carte (labels de villes + compteurs de cellules).
 const OFM_GLYPHS = 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf'
+/** La démo ne doit jamais dépendre d'un service de tuiles externe. */
+const MOCK_MODE = import.meta.env.VITE_DATA_MODE === 'mock'
 
 /** En deçà, chaque point est dessiné ; au-delà, agrégation par cellule. */
 const MAX_POINTS = 5000
@@ -202,15 +205,20 @@ const CITY_LABELS: [string, number, number][] = [
 
 /** Habillage unique : toutes les couleurs viennent du pont Astryx. */
 function applyMapTheme(map: maplibregl.Map) {
-  map.setPaintProperty('osm', 'raster-brightness-max', 0.42)
-  map.setPaintProperty('osm', 'raster-saturation', -0.92)
-  map.setPaintProperty('osm', 'raster-contrast', 0.18)
-  map.setPaintProperty('buildings', 'fill-extrusion-color', ['interpolate', ['linear'], ['coalesce', ['get', 'render_height'], 6],
+  // Le style de secours n'a ni fond raster, ni bâtiments, ni couche de texte :
+  // on ne touche que les couches réellement présentes.
+  const paint = (layer: string, property: string, value: unknown) => {
+    if (map.getLayer(layer)) map.setPaintProperty(layer as never, property as never, value as never)
+  }
+  paint('osm', 'raster-brightness-max', 0.42)
+  paint('osm', 'raster-saturation', -0.92)
+  paint('osm', 'raster-contrast', 0.18)
+  paint('buildings', 'fill-extrusion-color', ['interpolate', ['linear'], ['coalesce', ['get', 'render_height'], 6],
     0, MAP_TOKENS.buildings[0], 8, MAP_TOKENS.buildings[1], 25, MAP_TOKENS.buildings[2], 60, MAP_TOKENS.buildings[3]])
-  map.setPaintProperty('cities', 'text-color', MAP_TOKENS.label)
-  map.setPaintProperty('cities', 'text-halo-color', MAP_TOKENS.labelHalo)
-  map.setPaintProperty('orgs', 'circle-stroke-color', MAP_TOKENS.labelHalo)
-  map.setPaintProperty('dep-outline', 'line-color', MAP_TOKENS.depLine)
+  paint('cities', 'text-color', MAP_TOKENS.label)
+  paint('cities', 'text-halo-color', MAP_TOKENS.labelHalo)
+  paint('orgs', 'circle-stroke-color', MAP_TOKENS.labelHalo)
+  paint('dep-outline', 'line-color', MAP_TOKENS.depLine)
 
   // Ambiance : ciel, horizon et brume au sol, plus une lumière rasante sur les
   // volumes. Purement natif MapLibre 6 (`setSky`, `setLight`).
@@ -244,7 +252,9 @@ function aggregateArcColor(): string {
 type ArcDraft = {
   /** Destination arrondie (~11 m) : clé de regroupement. */
   key: string
-  coordinates: [number, number][]
+  /** Extrémités : la géométrie n'est calculée qu'en cas de cache miss. */
+  from: [number, number]
+  to: [number, number]
   family: string
   nature: string | null
   severity: number
@@ -273,7 +283,7 @@ function aggregateArcs(drafts: readonly ArcDraft[]): ArcFeature[] {
         severity: draft.severity,
         feature: {
           type: 'Feature',
-          geometry: { type: 'LineString', coordinates: draft.coordinates },
+          geometry: { type: 'LineString', coordinates: arcPoints(draft.from, draft.to) },
           properties: { family: draft.family, nature: draft.nature, color: aggregateArcColor(), count: 1 },
         },
       })
@@ -590,7 +600,9 @@ export default function Map3D(props: Map3DProps) {
   const mapRef = useRef<maplibregl.Map | null>(null)
   const flowsRef = useRef<FlowArc[]>(props.flows ?? [])
   flowsRef.current = props.flows ?? []
+  const liveControlRef = useRef<{ start: () => void; stop: () => void } | null>(null)
   const [liveStatus, setLiveStatus] = useState<{ count: number; fps: number } | null>(null)
+  const [mapUnavailable, setMapUnavailable] = useState(false)
 
 
   // Création unique de la carte.
@@ -599,31 +611,117 @@ export default function Map3D(props: Map3DProps) {
     let disposed = false
     let map: maplibregl.Map | null = null
     let popup: maplibregl.Popup | null = null
-    let raf = 0
+    let pulseRaf = 0
+    let pulsing = false
+    let pulseFrame = 0
     let liveLayer: LiveAttackLayer | null = null
     let liveRaf = 0
     let liveCloseFeed: (() => void) | null = null
+    let liveAbort: AbortController | null = null
+    let liveWanted = false
     let liveAttacks: LiveAttack[] = []
+    let tileAbort: AbortController | null = null
+    let degraded = false
+    let webglFailed = false
+    let tileErrors = 0
+    let tileErrorAt = 0
+    let cityMarkers: HTMLElement[] = []
+    let dataCache: {
+      orgs: MapOrg[] | null
+      events: MapEvent[] | null
+      families: string
+      cellDeg: number
+      eventFeatures: Record<string, unknown>[] | null
+      orgFeatures: OrgCollection | null
+      depFeatures: unknown[] | null
+      hotFeatures: unknown[] | null
+      arcKey: string
+      arcFeatures: ArcFeature[]
+    } = {
+      orgs: null, events: null, families: '', cellDeg: Number.NaN,
+      eventFeatures: null, orgFeatures: null, depFeatures: null, hotFeatures: null,
+      arcKey: '', arcFeatures: [],
+    }
+
+    const invalidateCache = () => {
+      clearTokenCache()
+      dataCache.orgs = null
+      dataCache.events = null
+      dataCache.families = ''
+      dataCache.cellDeg = Number.NaN
+      dataCache.eventFeatures = null
+      dataCache.orgFeatures = null
+      dataCache.depFeatures = null
+      dataCache.hotFeatures = null
+    }
+
+    const stopPulse = () => {
+      pulsing = false
+      if (pulseRaf !== 0) cancelAnimationFrame(pulseRaf)
+      pulseRaf = 0
+    }
+    const startPulse = () => {
+      if (pulsing || disposed) return
+      pulsing = true
+      const step = () => {
+        if (disposed || !pulsing) return
+        pulseFrame += 0.06
+        const current = map
+        if (current?.getLayer('hot')) {
+          try {
+            current.setPaintProperty('hot', 'circle-radius', 12 + Math.sin(pulseFrame) * 4)
+            current.setPaintProperty('hot', 'circle-opacity', 0.16 + (Math.sin(pulseFrame) + 1) * 0.06)
+          } catch { /* style pas encore prêt */ }
+        }
+        pulseRaf = requestAnimationFrame(step)
+      }
+      pulseRaf = requestAnimationFrame(step)
+    }
+
+    const clearCityMarkers = () => {
+      for (const marker of cityMarkers) marker.remove()
+      cityMarkers = []
+    }
+    const placeCityMarkers = () => {
+      const current = map
+      if (!current || cityMarkers.length === 0) return
+      CITY_LABELS.forEach(([, lon, lat], index) => {
+        const point = current.project([lon, lat]) as { x: number; y: number }
+        cityMarkers[index]!.style.transform = `translate(${point.x}px, ${point.y}px) translate(-50%, -50%)`
+      })
+    }
+    const showCityMarkers = () => {
+      clearCityMarkers()
+      const container = ref.current
+      if (!container) return
+      for (const [name] of CITY_LABELS) {
+        const marker = el('span', 'radar-map-city', name)
+        container.appendChild(marker)
+        cityMarkers.push(marker)
+      }
+      placeCityMarkers()
+    }
 
     /** One WebGL2 layer, one draw call per frame, a single rAF loop. */
-    const startLive = (target: maplibregl.Map) => {
-      if (!propsRef.current.live || disposed || liveLayer) return
+    const attachLive = (target: maplibregl.Map) => {
+      if (disposed || !liveWanted || map !== target || liveLayer) return
       try {
-        liveLayer = new LiveAttackLayer()
-        target.addLayer(liveLayer as unknown as maplibregl.CustomLayerInterface)
-        liveLayer.setAttacks(liveAttacks)
+        const layer = new LiveAttackLayer()
+        target.addLayer(layer as unknown as maplibregl.CustomLayerInterface)
+        liveLayer = layer
+        layer.setAttacks(liveAttacks)
         let lastTick = 0
         let statusAt = 0
         let lastFrames = 0
         const tick = (now: number) => {
-          if (disposed) return
+          if (disposed || !liveWanted || map !== target || !liveLayer) return
           if (now - lastTick >= 16) {
             lastTick = now
             target.triggerRepaint()
           }
           if (now - statusAt >= 1000) {
-            const frames = liveLayer?.frames ?? 0
-            setLiveStatus({
+            const frames = liveLayer.frames
+            if (!disposed) setLiveStatus({
               count: liveAttacks.length,
               fps: statusAt === 0 ? 0 : Math.round((frames - lastFrames) * 1000 / (now - statusAt)),
             })
@@ -637,15 +735,42 @@ export default function Map3D(props: Map3DProps) {
         // WebGL2 unavailable: the map stays readable, the live layer is optional.
         liveLayer = null
       }
-      void fetchLiveAttacks('/api/live-map').then((list) => {
+      liveAbort?.abort()
+      liveAbort = new AbortController()
+      void fetchLiveAttacks('/api/live-map', liveAbort.signal).then((list) => {
+        if (disposed || !liveWanted || map !== target) return
         liveAttacks = list
         liveLayer?.setAttacks(list)
       }).catch(() => {})
       liveCloseFeed = connectAttackStream('/api/live-map/stream', (attack) => {
+        if (disposed || !liveWanted || map !== target) return
         liveAttacks = mergeAttacks(liveAttacks, [attack])
         liveLayer?.setAttacks(liveAttacks)
       })
     }
+    const startLive = () => {
+      liveWanted = true
+      const target = map
+      if (disposed || !target || liveLayer) return
+      if (typeof target.isStyleLoaded === 'function' && target.isStyleLoaded()) attachLive(target)
+      else target.once('load', () => attachLive(target))
+    }
+    const stopLive = () => {
+      liveWanted = false
+      if (liveRaf !== 0) cancelAnimationFrame(liveRaf)
+      liveRaf = 0
+      liveAbort?.abort()
+      liveAbort = null
+      liveCloseFeed?.()
+      liveCloseFeed = null
+      const layer = liveLayer
+      liveLayer = null
+      if (layer) {
+        try { map?.removeLayer(layer.id) } catch { layer.onRemove() }
+      }
+      if (!disposed) setLiveStatus(null)
+    }
+    liveControlRef.current = { start: startLive, stop: stopLive }
     let zoomTimer: ReturnType<typeof setTimeout> | undefined
 
     const cityFeatures = {
@@ -657,14 +782,9 @@ export default function Map3D(props: Map3DProps) {
       })),
     }
 
-    const buildMap = (ofmUrl: string) => {
-      if (disposed || !ref.current) return
-      ensurePopupStyles()
-      map = new maplibregl.Map({
-        container: ref.current,
-        style: {
-          version: 8,
-          glyphs: OFM_GLYPHS,
+    const onlineStyle = (ofmUrl: string) => ({
+      version: 8,
+      glyphs: OFM_GLYPHS,
           sources: {
             osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256, attribution: '© OpenStreetMap contributors' },
             sat: {
@@ -694,12 +814,12 @@ export default function Map3D(props: Map3DProps) {
             events: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
           },
           layers: [
-            { id: 'osm', type: 'raster', source: 'osm', layout: { visibility: 'none' }, paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
+            // Le fond demandé est actif dès la première image : l'effet
+            // [basemap] ne peut pas agir avant la création de la carte, qui
+            // attend le TileJSON. Sa valeur initiale vient donc des props ici.
+            { id: 'osm', type: 'raster', source: 'osm', layout: { visibility: propsRef.current.basemap === 'plan' ? 'visible' : 'none' }, paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
             // Imagerie satellite assombrie : lisible sous les calques de données.
-            // Masquée au départ : sans `visibility: none`, elle s'affichait
-            // jusqu'au premier changement de prop, et le fond « plan » restait
-            // couvert par l'imagerie.
-            { id: 'satellite', type: 'raster', source: 'sat', layout: { visibility: 'none' }, paint: {
+            { id: 'satellite', type: 'raster', source: 'sat', layout: { visibility: propsRef.current.basemap === 'sat' || propsRef.current.basemap === undefined ? 'visible' : 'none' }, paint: {
               'raster-saturation': -0.72, 'raster-contrast': 0.2,
               'raster-brightness-min': 0.02, 'raster-brightness-max': 0.6 } },
             {
@@ -844,18 +964,102 @@ export default function Map3D(props: Map3DProps) {
               paint: { 'text-color': MAP_TOKENS.label, 'text-halo-color': MAP_TOKENS.labelHalo, 'text-halo-width': 1.5 },
             },
           ],
-        },
-        center: [-0.4, 44.9],
-        // Le panneau du fil occupe le tiers gauche : le cadrage précédent
-        // posait la région au centre du canevas et laissait un tiers d'océan.
-        zoom: 6.7,
-        maxPitch: 70,
-        attributionControl: { compact: true },
-      })
+    }) as unknown as maplibregl.StyleSpecification
 
-      debugWindow.__radarMap = map
-      if (propsRef.current.live) map.once('load', () => startLive(map!))
-      popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true, closeOnMove: false, maxWidth: '300px', className: 'radar-popup' })
+    const applyBasemap = () => {
+      const current = map
+      if (!current?.getLayer('osm') || !current.getLayer('satellite')) return
+      const base = propsRef.current.basemap ?? 'sat'
+      try {
+        current.setLayoutProperty('satellite', 'visibility', base === 'sat' ? 'visible' : 'none')
+        current.setLayoutProperty('osm', 'visibility', base === 'plan' ? 'visible' : 'none')
+      } catch { /* style pas encore prêt */ }
+    }
+
+    /**
+     * Dernier recours : sans WebGL2, MapLibre ne peut pas créer de canevas,
+     * même avec le style embarqué. On garde un fond lisible et un message,
+     * sans laisser une exception traverser la chaîne d'initialisation.
+     */
+    const showStaticFallback = (motif: string) => {
+      if (disposed || !ref.current || webglFailed) return
+      webglFailed = true
+      console.warn(`[carte] rendu WebGL indisponible (${motif}) : fond statique embarqué`)
+      stopLive()
+      stopPulse()
+      clearCityMarkers()
+      const failed = map
+      if (failed && debugWindow.__radarMap === failed) delete debugWindow.__radarMap
+      map = null
+      mapRef.current = null
+      renderRef.current = null
+      popup?.remove()
+      popup = null
+      if (!disposed) setMapUnavailable(true)
+    }
+
+    const onMapError = (event: maplibregl.ErrorEvent) => {
+      if (disposed) return
+      const message = String(event?.error?.message ?? '')
+      if (/webgl|gpu/i.test(message)) {
+        showStaticFallback(message)
+        return
+      }
+      if (degraded) return
+      const now = Date.now()
+      if (now - tileErrorAt > 60_000) {
+        tileErrorAt = now
+        tileErrors = 0
+      }
+      tileErrors += 1
+      // Le TileJSON peut venir du cache du SW : ce sont les échecs de tuiles
+      // réels qui déclenchent le repli, pas l'échec du seul document JSON.
+      if (tileErrors >= 3) degrade('tuiles ou style indisponibles')
+    }
+
+    const buildMap = (
+      style: maplibregl.StyleSpecification,
+      options: { center?: [number, number]; zoom?: number } = {},
+    ) => {
+      if (disposed || !ref.current) return
+      stopLive()
+      stopPulse()
+      clearCityMarkers()
+      invalidateCache()
+      if (map !== null) {
+        popup?.remove()
+        map.remove()
+        if (debugWindow.__radarMap === map) delete debugWindow.__radarMap
+        map = null
+        popup = null
+        renderRef.current = null
+        mapRef.current = null
+      }
+      ensurePopupStyles()
+      try {
+        map = new maplibregl.Map({
+          container: ref.current,
+          style,
+          center: options.center ?? [-0.4, 44.9],
+          // Le panneau du fil occupe le tiers gauche : le cadrage précédent
+          // posait la région au centre du canevas et laissait un tiers d'océan.
+          zoom: options.zoom ?? 6.7,
+          maxPitch: 70,
+          attributionControl: { compact: true },
+        })
+        map.on('error', onMapError)
+        map.on('move', placeCityMarkers)
+        if (liveWanted) startLive()
+        setupMap()
+      } catch (error) {
+        showStaticFallback(error instanceof Error ? error.message : 'initialisation MapLibre')
+      }
+    }
+
+    const setupMap = () => {
+      const carte = map
+      if (!carte) return
+      debugWindow.__radarMap = carte
 
       const showPopup = (lngLat: maplibregl.LngLatLike, content: HTMLElement) => {
         popup!.setLngLat(lngLat).setDOMContent(content)
@@ -877,36 +1081,54 @@ export default function Map3D(props: Map3DProps) {
       // Mise à jour des données sans recréer la carte (le zoom est préservé).
       const renderData = () => {
         if (disposed || !map) return
+        const current = map
         const { orgs, events, families } = propsRef.current
         const stroke = MAP_TOKENS.labelHalo
         const active = families && families.length > 0 ? new Set(families) : null
+        const familiesKey = active ? [...active].sort().join('|') : ''
         const visible = active ? events.filter((e) => active!.has(e.family)) : events
         const located = visible.filter((e) => e.lat != null && e.lon != null && Number.isFinite(e.lat) && Number.isFinite(e.lon))
         const aggregate = located.length > MAX_POINTS
-        const cellDeg = cellSizeDeg(map.getZoom())
+        const cellDeg = cellSizeDeg(current.getZoom())
+        const unchanged = dataCache.orgs === orgs && dataCache.events === events
+          && dataCache.families === familiesKey && dataCache.cellDeg === cellDeg
 
-        const eventFeatures = buildEventFeatures(visible, cellDeg, aggregate, stroke)
-        ;(map.getSource('events') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: eventFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
-        ;(map.getSource('orgs') as maplibregl.GeoJSONSource | undefined)?.setData(orgCollection(orgs) as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
-        const deptCounts = countOrgsByDept(orgs)
-        const depFeatures = DEP_FEATURES.map((f) => ({
-          type: 'Feature' as const,
-          geometry: f.geometry,
-          properties: { ...f.properties, count: deptCounts.get(f.properties.code) ?? 0 },
-        }))
-        ;(map.getSource('dep') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: depFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
-        try { map.setPaintProperty('dep', 'fill-opacity', depDensityOpacity(deptCounts)) } catch { /* style pas prête */ }
-
-        const hotOrgs = new Set(visible.filter((e) => e.orgId != null).map((e) => e.orgId as number))
-        const hotFeatures = orgs.flatMap((o) => {
-          if (o.lat == null || o.lon == null || !Number.isFinite(o.lat) || !Number.isFinite(o.lon) || !hotOrgs.has(o.id)) return []
-          return [{
+        if (!unchanged) {
+          const eventFeatures = buildEventFeatures(visible, cellDeg, aggregate, stroke)
+          const orgFeatures = orgCollection(orgs)
+          const deptCounts = countOrgsByDept(orgs)
+          const depFeatures = DEP_FEATURES.map((f) => ({
             type: 'Feature' as const,
-            geometry: { type: 'Point' as const, coordinates: [o.lon, o.lat] as [number, number] },
-            properties: { color: neutralColor() },
-          }]
-        })
-        ;(map.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+            geometry: f.geometry,
+            properties: { ...f.properties, count: deptCounts.get(f.properties.code) ?? 0 },
+          }))
+          const hotOrgs = new Set(visible.filter((e) => e.orgId != null).map((e) => e.orgId as number))
+          const hotFeatures = orgs.flatMap((o) => {
+            if (o.lat == null || o.lon == null || !Number.isFinite(o.lat) || !Number.isFinite(o.lon) || !hotOrgs.has(o.id)) return []
+            return [{
+              type: 'Feature' as const,
+              geometry: { type: 'Point' as const, coordinates: [o.lon, o.lat] as [number, number] },
+              properties: { color: neutralColor() },
+            }]
+          })
+          ;(current.getSource('events') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: eventFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+          ;(current.getSource('orgs') as maplibregl.GeoJSONSource | undefined)?.setData(orgFeatures as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+          ;(current.getSource('dep') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: depFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+          ;(current.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+          try { current.setPaintProperty('dep', 'fill-opacity', depDensityOpacity(deptCounts)) } catch { /* style pas prête */ }
+          dataCache.orgs = orgs
+          dataCache.events = events
+          dataCache.families = familiesKey
+          dataCache.cellDeg = cellDeg
+          dataCache.eventFeatures = eventFeatures
+          dataCache.orgFeatures = orgFeatures
+          dataCache.depFeatures = depFeatures
+          dataCache.hotFeatures = hotFeatures
+        }
+
+        // Une pulsation sans point chaud est une boucle GPU à vide.
+        if (dataCache.hotFeatures && dataCache.hotFeatures.length > 0) startPulse()
+        else stopPulse()
 
         const orgById = new Map(orgs.map((o) => [o.id, o]))
         // Les arcs de flux (org → point d'hébergement, ou org → centroïde en
@@ -916,7 +1138,8 @@ export default function Map3D(props: Map3DProps) {
         const drafts: ArcDraft[] = flowsRef.current.length > 0
           ? flowsRef.current.map((f) => ({
               key: arcKey(f.to.lon, f.to.lat),
-              coordinates: arcPoints([f.from.lon, f.from.lat], [f.to.lon, f.to.lat]),
+              from: [f.from.lon, f.from.lat] as [number, number],
+              to: [f.to.lon, f.to.lat] as [number, number],
               family: f.family,
               nature: f.nature ?? null,
               severity: f.severity,
@@ -925,84 +1148,87 @@ export default function Map3D(props: Map3DProps) {
               if (e.lat == null || e.lon == null || e.orgId == null) return []
               const org = orgById.get(e.orgId)
               if (!org || org.lat == null || org.lon == null) return []
-              const draft: ArcDraft = {
+              return [{
                 key: arcKey(e.lon, e.lat),
-                coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]),
+                from: [org.lon, org.lat] as [number, number],
+                to: [e.lon, e.lat] as [number, number],
                 family: e.family,
                 nature: null,
                 severity: e.severity ?? 0,
-              }
-              return [draft]
+              }]
             })
-        const arcFeatures = aggregateArcs(drafts)
-        ;(map.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+        // Clé bon marché : 33 points par arc ne sont reconstruits que si une
+        // extrémité, une famille ou une sévérité change réellement.
+        const arcSignature = drafts.map((d) =>
+          `${d.key}|${d.from[0]}|${d.from[1]}|${d.to[0]}|${d.to[1]}|${d.family}|${d.nature}|${d.severity}`).join(';')
+        if (arcSignature !== dataCache.arcKey) {
+          const arcFeatures = aggregateArcs(drafts)
+          ;(current.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+          dataCache.arcKey = arcSignature
+          dataCache.arcFeatures = arcFeatures
+        }
       }
       renderRef.current = renderData
-      // Les arcs « flux » respirent : la couche de lueur pulse comme le halo
-      // des orgs (boucle rAF unique, pas de recalcul de géométrie).
 
       const syncTheme = () => {
+        invalidateCache()
+        applyBasemap()
         applyMapTheme(map!)
         renderData()
       }
-      map.on('load', syncTheme)
+      carte.on('load', syncTheme)
 
       mapRef.current = map
 
-      map.on('style.load', () => {
+      carte.on('style.load', () => {
         // Brume et lumière sont reposées à chaque rechargement du style.
+        invalidateCache()
         applyMapTheme(map!)
+        applyBasemap()
         try { map?.setTerrain({ source: 'dem', exaggeration: 1.8 }) } catch { /* style déjà prêt */ }
       })
-      map.once('load', () => map?.resize())
+      carte.once('load', () => {
+        applyBasemap()
+        map?.resize()
+      })
 
       // La taille de cellule dépend du zoom : on ré-agrège à la fin du zoom.
-      map.on('zoomend', () => {
+      carte.on('zoomend', () => {
         clearTimeout(zoomTimer)
         zoomTimer = setTimeout(() => renderRef.current?.(), 120)
       })
 
-      let frame = 0
-      const pulse = () => {
-        frame += 0.06
-        if (map && map.getLayer('hot')) {
-          try {
-            map.setPaintProperty('hot', 'circle-radius', 12 + Math.sin(frame) * 4)
-            map.setPaintProperty('hot', 'circle-opacity', 0.16 + (Math.sin(frame) + 1) * 0.06)
-          } catch { /* style pas encore prête */ }
-        }
-        raf = requestAnimationFrame(pulse)
-      }
-      pulse()
 
-      map.on('mousemove', 'events', (e) => {
+      carte.on('mousemove', 'events', (e) => {
         const feature = e.features?.[0]
         setHover(feature?.id != null ? feature.id : null)
         map?.getCanvas().style.setProperty('cursor', 'pointer')
       })
-      map.on('mouseleave', 'events', () => {
+      carte.on('mouseleave', 'events', () => {
         setHover(null)
         map?.getCanvas().style.setProperty('cursor', '')
       })
-      map.on('mousemove', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
-      map.on('mouseleave', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', '') })
-      map.on('mousemove', 'orgs-clusters', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
-      map.on('mouseleave', 'orgs-clusters', () => { map?.getCanvas().style.setProperty('cursor', '') })
+      carte.on('mousemove', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
+      carte.on('mouseleave', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', '') })
+      carte.on('mousemove', 'orgs-clusters', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
+      carte.on('mouseleave', 'orgs-clusters', () => { map?.getCanvas().style.setProperty('cursor', '') })
 
       // Un groupe n'est pas un objet : il ne s'ouvre pas, il se traverse.
-      map.on('click', 'orgs-clusters', (e) => {
+      carte.on('click', 'orgs-clusters', (e) => {
         const feature = e.features?.[0]
         const clusterId = feature?.properties?.cluster_id
         const geometry = feature?.geometry
         if (typeof clusterId !== 'number' || geometry == null || geometry.type !== 'Point') return
         const center = geometry.coordinates as [number, number]
         const source = map?.getSource('orgs') as maplibregl.GeoJSONSource | undefined
+        const target = map
         source?.getClusterExpansionZoom(clusterId).then((zoom) => {
-          map?.easeTo({ center, zoom, duration: 450 })
+          if (disposed || map !== target) return
+          target?.easeTo({ center, zoom, duration: 450 })
         }).catch(() => { /* source remplacée entre-temps */ })
       })
 
-      map.on('click', 'events', (e) => {
+      carte.on('click', 'events', (e) => {
         const feature = e.features?.[0]
         if (!feature) return
         const properties = (feature.properties ?? {}) as Record<string, any>
@@ -1013,7 +1239,7 @@ export default function Map3D(props: Map3DProps) {
         showPopup(e.lngLat, eventPopupContent(properties))
         if (properties.id != null) onSelectEventRef.current?.(String(properties.id))
       })
-      map.on('click', 'orgs', (e) => {
+      carte.on('click', 'orgs', (e) => {
         const feature = e.features?.[0]
         if (!feature) return
         const properties = (feature.properties ?? {}) as Record<string, any>
@@ -1030,54 +1256,84 @@ export default function Map3D(props: Map3DProps) {
     observer.observe(ref.current)
 
     /**
-     * Deux échecs différents, deux réponses différentes.
-     *
-     * Le TileJSON ne sert qu'aux bâtiments en 3D : sans lui, la carte est
-     * complète, simplement plate. En revanche, si le réseau est absent au point
-     * que le fetch échoue **et** que rien n'a encore été construit, on dessine
-     * le style de secours : les contours départementaux et les villes sont dans
-     * le bundle, donc la carte reste une carte.
+     * Repli hors ligne : le TileJSON peut être servi du cache du SW alors que
+     * les tuiles, elles, ne le sont pas — les erreurs de tuiles (`onMapError`)
+     * ou un navigateur hors ligne déclenchent donc aussi ce style embarqué.
+     * `buildMap` est réutilisé : la carte de secours a les mêmes sources,
+     * handlers et boucle de rendu que la carte normale.
      */
-    const degrade = (motif: string) => {
-      console.warn(`[carte] service de tuiles indisponible (${motif}) : fond vectoriel embarqué`);
-      if (map !== null) return;
-      ensurePopupStyles()
-      map = new maplibregl.Map({
-        container: ref.current as HTMLElement,
-        style: styleSecours(
-          { type: 'FeatureCollection', features: DEP_FEATURES },
-          cityFeatures as unknown as { type: 'FeatureCollection'; features: unknown[] },
-        ) as unknown as maplibregl.StyleSpecification,
-        center: [0.6, 45.2],
-        zoom: 5.4,
-      })
-      if (propsRef.current.live) map.once('load', () => startLive(map!))
+    const degrade = (motif: string, silencieux = false) => {
+      if (disposed || !ref.current || webglFailed) return
+      if (!silencieux) console.warn(`[carte] service de tuiles indisponible (${motif}) : fond vectoriel embarqué`)
+      degraded = true
+      const centre = map?.getCenter?.() ?? { lng: 0.6, lat: 45.2 }
+      const zoom = map?.getZoom?.() ?? 5.4
+      const style = styleSecours(
+        { type: 'FeatureCollection', features: DEP_FEATURES },
+        cityFeatures as unknown as { type: 'FeatureCollection'; features: unknown[] },
+      ) as unknown as maplibregl.StyleSpecification
+      buildMap(style, { center: [centre.lng, centre.lat], zoom })
+      // Aucune police n'est embarquée : les villes sont des marqueurs DOM
+      // stylés avec les jetons du pont, pas une couche `symbol` orpheline.
+      if (map) showCityMarkers()
     }
 
-    fetch(OFM_TILEJSON)
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`)
-        return r.json()
-      })
-      .then((json: { tiles?: string[] }) => {
-        const url = json.tiles?.[0]
-        if (url) buildMap(url)
-        else degrade('sans url de tuiles')
-      })
-      .catch((error: unknown) => degrade(error instanceof Error ? error.message : 'réseau'))
+    const onOffline = () => degrade('navigateur hors ligne')
+    window.addEventListener('offline', onOffline)
+
+    if (MOCK_MODE) {
+      // Aucun appel réseau en démo : ni TileJSON, ni glyphs, ni tuiles OFM.
+      degrade('mode démonstration', true)
+    } else if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      degrade('navigateur hors ligne')
+    } else {
+      tileAbort = new AbortController()
+      const signal = tileAbort.signal
+      fetch(OFM_TILEJSON, { signal })
+        .then((r) => {
+          if (disposed || signal.aborted) throw new Error('requête annulée')
+          if (!r.ok) throw new Error(`HTTP ${r.status}`)
+          return r.json()
+        })
+        .then((json: { tiles?: string[] }) => {
+          if (disposed || signal.aborted) return
+          const url = json.tiles?.[0]
+          if (url) buildMap(onlineStyle(url))
+          else degrade('sans url de tuiles')
+        })
+        .catch((error: unknown) => {
+          if (disposed || signal.aborted) return
+          degrade(error instanceof Error ? error.message : 'réseau')
+        })
+    }
 
     return () => {
       disposed = true
-      cancelAnimationFrame(raf)
-      cancelAnimationFrame(liveRaf)
-      liveCloseFeed?.()
+      stopLive()
+      stopPulse()
+      liveControlRef.current = null
+      if (debugWindow.__radarMap === map) delete debugWindow.__radarMap
+      tileAbort?.abort()
+      window.removeEventListener('offline', onOffline)
       observer.disconnect()
       clearTimeout(zoomTimer)
-
+      clearCityMarkers()
       popup?.remove()
+      popup = null
       map?.remove()
+      map = null
+      mapRef.current = null
+      renderRef.current = null
     }
   }, [])
+
+  // Démarrage et arrêt complets du flux live, indépendamment de la création
+  // de la carte (le TileJSON peut arriver après un changement de prop).
+  useEffect(() => {
+    if (props.live) liveControlRef.current?.start()
+    else liveControlRef.current?.stop()
+    return () => { liveControlRef.current?.stop() }
+  }, [props.live])
 
   // Bascule satellite / plan sans recréer la carte.
   useEffect(() => {
@@ -1095,6 +1351,18 @@ export default function Map3D(props: Map3DProps) {
   }, [props.orgs, props.events, props.families, props.flows])
 
   return <div ref={ref} style={{ width: '100%', height: '100%', position: 'relative' }}>
+    {mapUnavailable ? (
+      <div
+        className="radar-map-unavailable"
+        role="status"
+        aria-live="polite"
+        style={{ position: 'absolute', inset: 0, zIndex: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 24, textAlign: 'center', background: 'var(--bg, #0b0f14)', color: 'var(--text, #e6edf3)' }}
+      >
+        <strong>Carte interactive indisponible</strong>
+        <span>Cet appareil ne prend pas en charge WebGL2. Les données restent consultables dans les autres panneaux.</span>
+        <span>{CITY_LABELS.map(([name]) => name).join(' · ')}</span>
+      </div>
+    ) : null}
     {props.live ? <div className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</div> : null}
     <Badge label="Nouvelle-Aquitaine" className="map3d__badge" style={{ position: 'absolute', bottom: 8, left: 8, zIndex: 2, pointerEvents: 'none' }} />
   </div>

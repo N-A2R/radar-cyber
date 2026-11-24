@@ -211,6 +211,12 @@ check("detail panel: metadata and unmodified summary",
   && detail.includes("Entrée n°43") && detail.includes("Correction d&#x27;organisation")
   && detail.includes("moteur:triage") && detail.includes("Non précisée")
   && detail.includes("CHU Bordeaux : name completed") && detail.includes("name completed"));
+check("detail panel is a native Drawer, not a faux modal",
+  detail.includes("<dialog")
+  && detail.includes('aria-label="Détails de l&#x27;entrée de journal 43"')
+  && detail.includes('data-autofocus=""')
+  && !detail.includes("journal__backdrop")
+  && !detail.includes("journal__detail-wrap"));
 check("detail panel: context from the payload",
   detail.includes(">Contexte</h3>") && detail.includes("changements")
   && detail.includes("&quot;avant&quot;") && detail.includes("&quot;apres&quot;"));

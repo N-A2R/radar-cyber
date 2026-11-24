@@ -1,7 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildGazetteer, type GazetteerRow } from "../src/match/gazetteer.js";
-import { resoudreAvecVersion, DEPLOIEMENTS, moteurActifA, VERSIONS_CONNUES } from "../src/match/versions.js";
+import {
+	MOTEUR_RATTACHEMENT,
+	VERSIONS_HISTORIQUES,
+	decrireVersion,
+	resoudreAvecVersion,
+	DEPLOIEMENTS,
+	moteurActifA,
+	VERSIONS_CONNUES,
+} from "../src/match/versions.js";
 
 function gazetteerDeTest() {
 	const rows: GazetteerRow[] = [
@@ -15,10 +23,11 @@ function gazetteerDeTest() {
 	return buildGazetteer(rows);
 }
 
-test("les versions connues sont documentées et datées", () => {
+test("les versions rejouables sont documentées et datées", () => {
+	assert.equal(MOTEUR_RATTACHEMENT, "gazetteer@4");
 	assert.ok(VERSIONS_CONNUES.includes("gazetteer@1"));
-	assert.ok(VERSIONS_CONNUES.includes("gazetteer@2"));
-	assert.ok(Date.parse(DEPLOIEMENTS["gazetteer@1"]) < Date.parse(DEPLOIEMENTS["gazetteer@2"]));
+	assert.ok(VERSIONS_CONNUES.includes(MOTEUR_RATTACHEMENT));
+	assert.ok(Date.parse(DEPLOIEMENTS["gazetteer@1"]) < Date.parse(DEPLOIEMENTS[MOTEUR_RATTACHEMENT]));
 });
 
 test("moteurActifA distingue l'époque", () => {
@@ -26,45 +35,40 @@ test("moteurActifA distingue l'époque", () => {
 	assert.equal(moteurActifA("2025-11-01", "gazetteer"), "gazetteer@2");
 	assert.equal(moteurActifA("2025-10-14", "gazetteer"), "gazetteer@1");
 	assert.equal(moteurActifA("2025-10-16", "gazetteer"), "gazetteer@2");
+	assert.equal(moteurActifA("2026-11-16", "gazetteer"), MOTEUR_RATTACHEMENT);
 });
 
-test("gazetteer@2 départage sur le département, @1 reste ambigu", () => {
+test("le moteur courant départage sur le département, @1 reste ambigu", () => {
 	const gaz = gazetteerDeTest();
-	// Deux EHPAD homonymes, le texte cite le département 64 — V2 tranche, V1 non
 	const texte = "EHPAD Résidence du Parc à Bayonne (Pyrénées-Atlantiques, 64) victime d'un rançongiciel";
-	const v2 = resoudreAvecVersion(gaz, texte, "gazetteer@2");
+	const courant = resoudreAvecVersion(gaz, texte);
 	const v1 = resoudreAvecVersion(gaz, texte, "gazetteer@1");
-	// V2 doit départager par département
-	assert.equal(v2.org?.id, 5, "gazetteer@2 départage par département 64");
-	// V1 ne départage pas — ambigu ou premier venu
-	assert.ok(v1.org === null || v1.org.id === 5 || v1.org.id === 6, "V1 ambiguous or arbitrary");
+	assert.equal(courant.org?.id, 5);
+	assert.ok(v1.org === null || v1.org.id === 5 || v1.org.id === 6);
 	if (v1.org === null) assert.equal(v1.reason, "ambigu");
 });
 
-test("gazetteer@2 refuse un lieu-contredit, @1 ne sait pas le faire", () => {
+test("le moteur courant refuse un lieu-contredit, @1 ne sait pas le faire", () => {
 	const gaz = gazetteerDeTest();
 	const texte = "Mairie de Bordeaux (Ohio) piratée";
-	const v2 = resoudreAvecVersion(gaz, texte, "gazetteer@2");
+	const courant = resoudreAvecVersion(gaz, texte);
 	const v1 = resoudreAvecVersion(gaz, texte, "gazetteer@1");
-	assert.equal(v2.org, null);
-	assert.equal(v2.reason, "lieu-contredit");
-	// V1 ne connaît pas lieu-contredit
+	assert.equal(courant.org, null);
+	assert.equal(courant.reason, "lieu-contredit");
 	assert.notEqual(v1.reason, "lieu-contredit");
 });
 
-test("rejouer avec l'ancien moteur redonne l'état de l'époque", () => {
-	const avant = moteurActifA("2025-10-10", "gazetteer");
-	const apres = moteurActifA("2025-11-10", "gazetteer");
-	assert.equal(avant, "gazetteer@1");
-	assert.equal(apres, "gazetteer@2");
-	// Le texte "ville de tarnos" est un rôle — V1 est ambigu entre Ville et
-	// Commune (même nom court), V2 tranche par le rôle
+test("rejouer @2/@3 échoue explicitement au lieu d'exécuter @4", () => {
 	const gaz = gazetteerDeTest();
 	const texte = "ville de tarnos victime";
-	const a = resoudreAvecVersion(gaz, texte, avant);
-	const b = resoudreAvecVersion(gaz, texte, apres);
-	assert.equal(a.org, null, "V1 reste ambigu entre les deux Tarnos");
-	assert.equal(a.reason, "ambigu");
-	assert.ok(b.org !== null, "V2 tranche par le rôle");
-	assert.equal(b.org?.id, 1);
+	assert.equal(resoudreAvecVersion(gaz, texte, "gazetteer@1").org, null);
+	assert.equal(resoudreAvecVersion(gaz, texte, MOTEUR_RATTACHEMENT).org?.id, 1);
+	for (const version of VERSIONS_HISTORIQUES) {
+		assert.equal(VERSIONS_CONNUES.includes(version), false);
+		assert.throws(
+			() => resoudreAvecVersion(gaz, texte, version),
+			new RegExp(`${version} n'est pas rejouable`),
+		);
+		assert.match(decrireVersion(version), /non rejouable/);
+	}
 });

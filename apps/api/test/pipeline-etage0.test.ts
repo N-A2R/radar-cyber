@@ -14,6 +14,7 @@ import { query, closePools } from "../src/db.js";
 import { loadRules } from "../src/detect/engine.js";
 import { resetDetectionCursors, runDetectionPass } from "../src/detect/incremental.js";
 import { latestAlertId, selectNewAlerts } from "../src/notify/alert-feed.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `e0${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 let seq = 0;
@@ -72,7 +73,7 @@ async function makeRule(match: Record<string, unknown>): Promise<string> {
 after(async () => {
 	if (created.events.length) {
 		await query("DELETE FROM alert WHERE event_id = ANY($1::int[])", [created.events]);
-		await query("DELETE FROM event WHERE id = ANY($1::int[])", [created.events]);
+		await supprimerEvenementsArchivees("id = ANY($1::int[])", [created.events]);
 	}
 	if (created.rules.length) await query("DELETE FROM detection_rule WHERE id = ANY($1::text[])", [created.rules]);
 	if (created.orgs.length) await query("DELETE FROM org WHERE id = ANY($1::int[])", [created.orgs]);

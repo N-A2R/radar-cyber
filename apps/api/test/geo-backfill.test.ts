@@ -14,6 +14,7 @@ import {
   resolveCommune,
   type CommuneRecord,
 } from "../src/geo/commune-index.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const COMMUNE: CommuneRecord = {
   code: "TEST33",
@@ -146,7 +147,7 @@ describe("backfill write path", () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE dedup_key = 'geo-backfill-event'");
+  await supprimerEvenementsArchivees("dedup_key = $1", ["geo-backfill-event"]);
   await query("DELETE FROM org_enrichissement WHERE org_id IN (SELECT id FROM org WHERE slug LIKE 'geo-backfill-%')");
   await query("DELETE FROM org WHERE slug LIKE 'geo-backfill-%'");
 });

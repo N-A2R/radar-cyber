@@ -9,6 +9,7 @@ import {
   detectSemanticDrift,
   jensenShannon,
   type SemanticFeed,
+  type SemanticObservation,
 } from "../src/analyse/derive-semantique.js";
 import { buildSemanticDriftFixture } from "../src/analyse/derive-semantique-fixture.js";
 import { evaluateSemanticDrift } from "../src/analyse/derive-semantique-backtest.js";
@@ -24,13 +25,16 @@ test("JSD est nulle pour une distribution identique et bornée quand tout change
 });
 
 test("un pic d'une journée n'émet aucune alerte", () => {
-  const observations = Array.from({ length: 90 }, (_, index) => ({
-    day: new Date(Date.UTC(2026, 0, 1 + index)).toISOString().slice(0, 10),
-    terms: index === 60
+  const observations: SemanticObservation[] = Array.from({ length: 90 }, (_, index) => {
+    const terms: Record<string, number> = index === 60
       ? { surprise: 90, inattendu: 60 }
-      : { habituel: 20, courant: 15, normal: 10 },
-    coverage: { "ZONE-A": 20, "ZONE-B": 25 },
-  }));
+      : { habituel: 20, courant: 15, normal: 10 };
+    return {
+      day: new Date(Date.UTC(2026, 0, 1 + index)).toISOString().slice(0, 10),
+      terms,
+      coverage: { "ZONE-A": 20, "ZONE-B": 25 },
+    };
+  });
   const feed: SemanticFeed = { sourceId: "SPIKE", observations, expected: "unchanged" };
   assert.deepEqual(detectSemanticDrift([feed]), []);
 });

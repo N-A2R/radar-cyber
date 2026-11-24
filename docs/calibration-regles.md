@@ -2,6 +2,9 @@
 
 OBJECTIF : atteint — 1 242 alertes conservées sur 1 457, 166/1 402 alertes vraies supprimées (11,84 %) / < 1 457 alertes et ≤ 40 % de perte, avec 8/8 règles qualifiant (précision ≥ 0,85, rappel ≥ 0,60)
 
+Mesure du 22 novembre 2026, échelle historique majorée — à régénérer sur
+l'échelle non majorée décrite ci-dessous.
+
 Mesure du 22 novembre 2026. Objectif : réduire les **1 457 alertes** des 30
 derniers jours sans perdre plus de 40 % des incidents confirmés de la fenêtre.
 Chaque règle retient le **seuil le plus élevé** qui garde
@@ -29,11 +32,14 @@ mais pas dans `sum(alerts)`. Le vrai total après seuils est donc
 - **Vérité terrain** : verdicts déjà enregistrés, jamais rejugés ici. Une
   alerte est positive si son événement n'est ni dans `false_event` ni marqué
   `evidence.false_event` ; négative sinon.
-- **Score balayé** : note de confiance de l'alerte, majorée de **30** quand un
-  ancrage Nouvelle-Aquitaine est observable (`org_id` ou `regional`) — le
-  même signal que la porte de portée, sans donnée personnelle.
+- **Score balayé** : note de confiance **non majorée** — c'est l'échelle
+  comparée aux seuils de règle et à la porte globale `REVIEW_THRESHOLD = 65`.
+  La majoration de 30 d'un ancrage Nouvelle-Aquitaine est tracée dans
+  l'evidence, jamais comparée à un seuil.
 - **Règle de supervision** : score = durée de silence mesurée
-  (`evidence.silenceHours`), pas de note de confiance.
+  (`evidence.silenceHours`), en heures ; le seuil est lu dans
+  `rule_calibration` (14 h dans la table livrée), pas dans la constante
+  historique de 12 h.
 - **Rappel** : part des *alertes vraies déjà émises* que le seuil conserve.
   Il mesure ce que la calibration retire, pas la couverture des incidents
   qu'aucune alerte n'avait détectés — un incident jamais alerté n'est pas
@@ -53,6 +59,12 @@ mais pas dans `sum(alerts)`. Le vrai total après seuils est donc
 | `operateur-critique-vise` | 65 | 1,0000 | 1,0000 | 0 |
 
 **8/8 règles qualifient ; somme des alertes = 1 242 < 1 457.**
+> Ces chiffres datent du 22 novembre 2026 et ont été mesurés sur l'ancienne
+> échelle majorée. Depuis le passage des seuils de règle au score non majoré,
+> ils doivent être recalculés avec `scripts/measure-rule-calibration.mts`
+> avant d'être cités comme mesure de production ; la table livrée reste
+> conservatrice (seuils applicables tels quels sur la nouvelle échelle).
+
 
 Les quatre règles à 0 alerte n'ont émis aucune alerte sur la fenêtre : leur
 seuil d'origine est conservé, aucune alerte n'est supprimée, donc aucun
@@ -65,19 +77,21 @@ pas une mesure statistique — la colonne `source` porte
 Le moteur de détection (`apps/api/src/detect/engine.ts`) charge la table dans
 `loadRuleThresholds()` et compare chaque règle à son seuil :
 
-- **score calibré** = note de confiance de l'alerte + `30` quand un ancrage
-  Nouvelle-Aquitaine est observable (`org_id` ou `regional`) — exactement
-  l'échelle sur laquelle les seuils ont été mesurés ;
-- **plancher inchangé** : la porte globale `REVIEW_THRESHOLD = 65` reste
-  appliquée avant les règles. Un seuil calibré ne peut donc que resserrer,
-  jamais rouvrir une alerte que la porte refusait ;
+- **seuil de règle** : comparé à la note de confiance **non majorée** de
+  l'alerte, la même échelle que celle utilisée par la mesure ;
+- **porte globale** : `REVIEW_THRESHOLD = 65` s'applique à cette même note
+  non majorée ; l'ancrage (`org_id` ou `regional`) n'abaisse ni la porte ni
+  les seuils de règle ;
 - **règle sans mesure** : aucun seuil en table, comportement d'origine ;
-- **preuve** : l'alerte créée porte `evidence.calibration = { score, threshold,
-  anchored }` pour que la décision soit auditable.
+- **preuve** : l'alerte porte `evidence.calibration = { score,
+  calibratedScore, threshold, anchored }`. `score` est la note comparée aux
+  seuils ; `calibratedScore = score + 30 si ancrage` est une trace, pas un
+  critère.
 
 La règle de supervision lit son seuil dans la même table
-(`silent-source-monitor.ts`, en heures) et retombe sur la constante
-historique de 12 h si la mesure est absente.
+(`silent-source-monitor.ts`, en heures) ; le rejeu
+(`scripts/measure-silent-source.mts`) transmet explicitement cette valeur et
+la consigne dans son rapport. Le repli à 12 h n'est plus utilisé en production.
 
 ## Rejouer
 
@@ -101,7 +115,7 @@ pnpm verifie:objectif-calibration
 ```
 
 Projection sur les alertes réelles de la fenêtre (seuils appliqués, règles non
-calibrées conservées) — 1 457 → 1 249, 208 retirées :
+calibrées conservées) — chiffres à régénérer après recalibrage :
 
 ```sql
 WITH scored AS (
@@ -109,9 +123,8 @@ WITH scored AS (
          CASE WHEN a.rule_id = 'supervision:silent-source-24h'
               THEN (a.evidence->>'silenceHours')::numeric
               ELSE coalesce(a.evidence->'confidence'->>'score','0')::numeric
-                   + CASE WHEN a.event_id IS NOT NULL AND (e.regional OR e.org_id IS NOT NULL) THEN 30 ELSE 0 END
          END AS score
-    FROM alert a LEFT JOIN event e ON e.id = a.event_id
+    FROM alert a
    WHERE a.created_at >= now() - interval '30 days'
 )
 SELECT count(*) AS alertes_30j,

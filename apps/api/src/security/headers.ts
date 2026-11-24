@@ -7,7 +7,7 @@
  * soit les réponses JSON ; on distingue donc par type de contenu.
  */
 import helmet from "@fastify/helmet";
-import type { FastifyInstance } from "fastify";
+import type { FastifyInstance, FastifyReply } from "fastify";
 
 /** Origines externes réellement utilisées par index.html. Toute autre est bloquée. */
 const CONTENT_SECURITY_POLICY = [
@@ -61,4 +61,33 @@ export async function installSecurityHeaders(app: FastifyInstance): Promise<void
   });
 }
 
-export { CONTENT_SECURITY_POLICY };
+
+/**
+ * Les flux SSE appellent `reply.hijack()` : les hooks `onSend` ne s'exécutent
+ * pas et les en-têtes posés par Fastify ne sont pas écrits automatiquement.
+ * On reprend donc les en-têtes déjà calculés (X-Request-Id, version, Helmet)
+ * et on ajoute explicitement ceux que `installSecurityHeaders` posait en
+ * `onSend` — dont `no-store`, indispensable quand un jeton a pu transiter
+ * dans l'URL (E7).
+ */
+export function ecrireEntetesSse(reply: FastifyReply): void {
+  const existants: Record<string, string> = {};
+  for (const [nom, valeur] of Object.entries(reply.getHeaders())) {
+    if (valeur === undefined || valeur === null) continue;
+    if (["content-length", "transfer-encoding", "connection", "cache-control", "pragma", "content-type"].includes(nom.toLowerCase())) continue;
+    existants[nom] = Array.isArray(valeur) ? valeur.join(", ") : String(valeur);
+  }
+  reply.raw.writeHead(200, {
+    ...existants,
+    "Content-Type": "text/event-stream; charset=utf-8",
+    "Cache-Control": "no-store, no-cache, must-revalidate",
+    Pragma: "no-cache",
+    Connection: "keep-alive",
+    "X-Accel-Buffering": "no",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+  });
+}

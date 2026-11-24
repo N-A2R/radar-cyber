@@ -13,13 +13,13 @@ import { query, withTransaction } from "../db.js";
 import { rateLimit } from "../middleware/rate-limit.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 import { etagOu304 } from "../etag.js";
-import { evaluateEvent } from "../detect/engine.js";
+
 import { domainFromHint } from "../match/domaine.js";
 import { estSigle } from "../match/sigles.js";
 import { consignerAvec } from "../journal/index.js";
-import { createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } from "../quarantine/from-hint.js";
+import { AmbiguousHintError, createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } from "../quarantine/from-hint.js";
 import { resetReviewIndexes } from "../quarantine/review-index.js";
-import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantine/promote.js";
+import { evaluerAlertesPromotion, normalizeName, promoteOneTx, type AlertesPromotionResult, type PromoteOneResult } from "../quarantine/promote.js";
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 import { parseBody, invalidBody } from "./body-validation.js";
@@ -50,6 +50,25 @@ export const RefuserSansIndiceBody = z.object({
 	raison: z.string().trim().min(1).max(500),
 }).strict();
 
+
+/**
+ * Évaluation post-commit : la promotion est déjà irréversible. Une panne
+ * d'évaluation ne doit jamais transformer une promotion réussie en 500 ;
+ * elle rend `pending` et le marqueur permet un rejeu ciblé.
+ */
+async function evaluerApresPromotion(id: number): Promise<AlertesPromotionResult> {
+	try {
+		return await evaluerAlertesPromotion(id);
+	} catch (error) {
+		return {
+			quarantineId: id,
+			eventId: null,
+			alerts: 0,
+			pending: true,
+			error: String((error as Error)?.message ?? error).slice(0, 500),
+		};
+	}
+}
 /**
  * Traduit l'indice de quarantaine en entrée du service de création.
  * Sans domaine ni jeton alphabétique exploitable, on ne fabrique pas une
@@ -239,8 +258,8 @@ export default async function (app: FastifyInstance) {
 			const orgId = parsed.data.orgId;
 			const actor = req.user!.email;
 
-			const current = await query<{ status: string; promoted: boolean; org_hint: string | null }>(
-				"SELECT status, promoted, org_hint FROM quarantine_raw WHERE id=$1", [id],
+			const current = await query<{ status: string; promoted: boolean; org_hint: string | null; content_hash: string }>(
+				"SELECT status, promoted, org_hint, content_hash FROM quarantine_raw WHERE id=$1", [id],
 			);
 			if (!current.rows[0]) throw notFound();
 			if (current.rows[0].promoted || current.rows[0].status !== "pending") {
@@ -263,7 +282,7 @@ export default async function (app: FastifyInstance) {
 						(sql, params) => client.query(sql, params as unknown[]),
 						{
 							kind: "review.decided",
-							subject: `quarantine:${id}`,
+							subject: `quarantine:${current.rows[0].content_hash}`,
 							summary: `accepter par ${actor} — ${raison}`,
 							actor: `humain:${actor}`,
 							payload: {
@@ -282,12 +301,15 @@ export default async function (app: FastifyInstance) {
 					return result;
 				});
 				if (!promoted) throw conflict("already decided");
-				const alerts = promoted.inserted && promoted.eventId !== null
-					? await evaluateEvent(promoted.eventId, { force: true })
-					: 0;
+				// La promotion est committée : l'évaluation ne peut plus faire
+				// échouer la requête, elle rend seulement un état d'attente.
+				const suivi = await evaluerApresPromotion(id);
+				if (suivi.pending) reply.code(201);
 				return {
 					id, decision, orgId, orgName: org.rows[0].name,
-					status: "promoted", eventId: promoted.eventId, alerts,
+					status: "promoted", eventId: promoted.eventId, alerts: suivi.alerts,
+					alertesEnAttente: suivi.pending,
+					...(suivi.error ? { erreurAlertes: suivi.error } : {}),
 					reason: raison, by: actor,
 				};
 			}
@@ -314,7 +336,7 @@ export default async function (app: FastifyInstance) {
 							(sql, params) => client.query(sql, params as unknown[]),
 							{
 								kind: "review.decided",
-								subject: `quarantine:${id}`,
+								subject: `quarantine:${current.rows[0].content_hash}`,
 								summary: `creer par ${actor} — ${raison}`,
 								actor: `humain:${actor}`,
 								payload: {
@@ -338,19 +360,26 @@ export default async function (app: FastifyInstance) {
 					if (error instanceof InvalidHintError) {
 						throw badRequest("indice inexploitable", error.message);
 					}
+					if (error instanceof AmbiguousHintError) {
+						throw conflict("organisation ambiguë", {
+							criterion: error.critere,
+							orgIds: error.orgIds,
+						});
+					}
 					throw error;
 				}
 				if (!decided) throw conflict("already decided");
 				const { result: promoted, creation } = decided;
 				if (creation.created) resetReviewIndexes();
 				const org = creation.org;
-				const alerts = promoted.inserted && promoted.eventId !== null
-					? await evaluateEvent(promoted.eventId, { force: true })
-					: 0;
+				const suivi = await evaluerApresPromotion(id);
+				if (suivi.pending) reply.code(201);
 				return {
 					ok: true, id, decision, orgId: org.id, orgName: org.name,
 					eventId: promoted.eventId, cree: creation.created,
-					status: "promoted", reason: raison, by: actor, alerts,
+					status: "promoted", reason: raison, by: actor, alerts: suivi.alerts,
+					alertesEnAttente: suivi.pending,
+					...(suivi.error ? { erreurAlertes: suivi.error } : {}),
 				};
 			}
 
@@ -363,6 +392,32 @@ export default async function (app: FastifyInstance) {
 				id, decision, status: "rejected", reason: raison, by: actor,
 				journalConsignes: outcome.journalConsignes,
 				journalLacunes: outcome.journalLacunes,
+			};
+		},
+	);
+
+	/**
+	 * Rejeu ciblé des alertes d'une promotion. Répond 201 tant que l'évaluation
+	 * reste en attente (marqueur `pending`), pour que l'appelant sache que la
+	 * promotion est committée mais que les alertes ne sont pas encore prêtes.
+	 */
+	app.post<{ Params: { id: string } }>(
+		"/review/:id/rejouer-alertes",
+		{ preHandler: [ecritureRateLimit, requireAuth()] },
+		async (req, reply) => {
+			const id = Number(req.params.id);
+			if (!Number.isInteger(id) || id <= 0) throw badRequest("invalid id");
+			const row = await query<{ id: number; promoted: boolean }>(
+				"SELECT id, promoted FROM quarantine_raw WHERE id=$1", [id],
+			);
+			if (!row.rows[0]) throw notFound();
+			if (!row.rows[0].promoted) throw conflict("fait non promu");
+			const suivi = await evaluerApresPromotion(id);
+			if (suivi.pending) reply.code(201);
+			return {
+				id, eventId: suivi.eventId, alerts: suivi.alerts,
+				alertesEnAttente: suivi.pending,
+				...(suivi.error ? { erreurAlertes: suivi.error } : {}),
 			};
 		},
 	);

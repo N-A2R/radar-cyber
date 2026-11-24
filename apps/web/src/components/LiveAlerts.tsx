@@ -3,6 +3,7 @@ import type { LiveAlert } from "../api";
 import "./live-alerts.css";
 import { Banner, type BannerStatus } from "@astryxdesign/core/Banner";
 import { Badge } from "@astryxdesign/core/Badge";
+import { useAnnounce } from "@astryxdesign/core/hooks";
 import { Button } from "@astryxdesign/core/Button";
 
 /**
@@ -62,8 +63,12 @@ export function addLiveAlert(list: LiveAlert[], alert: LiveAlert, limit = LIVE_A
   return [alert, ...list.filter((a) => a.id !== alert.id)].slice(0, limit);
 }
 
+/**
+ * Le cookie de session `radar_session` (HttpOnly, SameSite=Strict, Path=/api)
+ * est envoyé automatiquement par EventSource sur une URL same-origin. Aucun
+ * jeton ne transite par la query string, où il serait journalisé.
+ */
 export type LiveAlertStreamOptions = {
-  token?: string | null;
   onAlert: (alert: LiveAlert) => void;
   onConnection?: (connected: boolean) => void;
 };
@@ -73,9 +78,9 @@ export type LiveAlertStreamOptions = {
  * autres canaux (`event: new`) via `addEventListener` ; un seul EventSource par
  * session. Retourne aussi `close`, appelé au démontage ou au changement de jeton.
  */
-export function connectLiveAlerts({ token, onAlert, onConnection }: LiveAlertStreamOptions) {
-  const url = token ? `/api/stream?token=${encodeURIComponent(token)}` : "/api/stream";
-  const stream = new EventSource(url);
+export function connectLiveAlerts({ onAlert, onConnection }: LiveAlertStreamOptions) {
+  // cookie radar_session : aucun jeton dans l'URL, aucun en-tête à poser.
+  const stream = new EventSource("/api/stream");
   stream.onopen = () => onConnection?.(true);
   stream.onerror = () => onConnection?.(false);
   stream.addEventListener("alert", (raw) => {
@@ -128,20 +133,22 @@ export default function LiveAlerts({
   onDismiss: () => void;
 }) {
   const latest = alerts[0] ?? null;
-  const lastBeeped = useRef<number | null>(null);
-
+  const lastSeen = useRef<number | null>(null);
+  const announce = useAnnounce({ hasReplace: true });
   useEffect(() => {
     if (!latest) return;
-    // Premier rendu : on ne sonne pas pour une alerte déjà là.
-    if (lastBeeped.current === null) {
-      lastBeeped.current = latest.id;
+    // Première alerte déjà présente au montage : on n'annonce pas un passé.
+    if (lastSeen.current === null) {
+      lastSeen.current = latest.id;
       return;
     }
-    if (latest.id !== lastBeeped.current) {
-      lastBeeped.current = latest.id;
-      if (soundOn && latest.severity >= 4) beep(latest.severity);
-    }
-  }, [latest, soundOn]);
+    if (latest.id === lastSeen.current) return;
+    lastSeen.current = latest.id;
+    // Banner ne porte pas de région live : l'annonce passe par le nœud dédié
+    // d'Astryx, une seule fois, et la sévérité 5 interrompt l'utilisateur.
+    announce(`Alerte de sévérité ${latest.severity} : ${latest.title}`, latest.severity >= 5 ? "assertive" : "polite");
+    if (soundOn && latest.severity >= 4) beep(latest.severity);
+  }, [latest, soundOn, announce]);
 
   const status: BannerStatus =
     latest === null ? "info" : latest.severity >= 5 ? "error" : latest.severity >= 4 ? "warning" : "info";
@@ -149,6 +156,7 @@ export default function LiveAlerts({
   return (
     <Banner
       status={status}
+      className="live-alerts__banner"
       container="section"
       title={
         latest ? (
@@ -180,8 +188,8 @@ export default function LiveAlerts({
             type="button"
             variant="ghost"
             size="sm"
+            className="live-alerts__sound"
             label={soundOn ? "Son activé" : "Son coupé"}
-            aria-pressed={soundOn}
             tooltip="Son pour les alertes de sévérité 4 et 5"
             onClick={onToggleSound}
           >
@@ -192,7 +200,6 @@ export default function LiveAlerts({
       isDismissable={latest !== null}
       dismissLabel="Masquer la bannière d'alerte"
       onDismiss={onDismiss}
-      aria-live="polite"
       data-testid="live-alerts"
       data-empty={latest === null ? "true" : "false"}
     />

@@ -1,4 +1,4 @@
-import { gunzipSync, inflateSync, brotliDecompressSync } from "node:zlib";
+import { decompressBounded, NetworkLimitError } from "../../security/network.js";
 
 function sniffCharset(contentType: string | null, buf: Buffer): string {
   const fromHeader = /charset=([\w.+-]+)/i.exec(contentType ?? "")?.[1];
@@ -20,11 +20,9 @@ function normalizeLabel(label: string): string {
 }
 
 function maybeDecompress(buf: Buffer): Buffer {
-  try {
-    if (buf.length >= 2 && buf[0] === 0x1f && buf[1] === 0x8b) return gunzipSync(buf);
-    if (buf.length >= 2 && buf[0] === 0x78 && (buf[1] === 0x01 || buf[1] === 0x9c || buf[1] === 0xda)) return inflateSync(buf);
-  } catch {
-    // keep original
+  if (buf.length >= 2 && buf[0] === 0x1f && buf[1] === 0x8b) return decompressBounded(buf, "gzip");
+  if (buf.length >= 2 && buf[0] === 0x78 && (buf[1] === 0x01 || buf[1] === 0x9c || buf[1] === 0xda)) {
+    return decompressBounded(buf, "deflate");
   }
   return buf;
 }
@@ -61,5 +59,10 @@ export function decodeBody(buf: Buffer, contentType: string | null): { text: str
 }
 
 export function tryBrotli(buf: Buffer): Buffer | null {
-  try { return brotliDecompressSync(buf); } catch { return null; }
+  try {
+    return decompressBounded(buf, "brotli");
+  } catch (error) {
+    if (error instanceof NetworkLimitError) throw error;
+    return null;
+  }
 }

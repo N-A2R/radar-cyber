@@ -32,7 +32,7 @@ const valeurs: ValeursDroitReponse = {
   pieceJointeRef: "",
 };
 
-const publiee: RectificationPubliee = {
+const publiee: RectificationPubliee & { decisionMotif: string } = {
   id: 7,
   reference: "DR-2026-000007",
   organisation: "CHU de Bordeaux",
@@ -89,6 +89,13 @@ const erreurs = lire(renderToStaticMarkup(
   />,
 ));
 check("erreurs de validation annoncées", erreurs.includes('role="alert"') && erreurs.includes("adresse e-mail invalide"));
+check("chaque champ invalide pointe vers son message",
+  erreurs.includes('id="droit-reponse-email"')
+  && erreurs.includes('aria-invalid="true"')
+  && erreurs.includes('aria-describedby="droit-reponse-email-erreur"')
+  && erreurs.includes('id="droit-reponse-email-erreur"')
+  && erreurs.includes('aria-describedby="droit-reponse-message-erreur"')
+  && erreurs.includes('id="droit-reponse-message-erreur"'));
 check("erreur serveur visible", erreurs.includes("corrigez les champs signalés"));
 
 const succes = lire(renderToStaticMarkup(

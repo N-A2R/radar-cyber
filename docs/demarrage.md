@@ -17,7 +17,7 @@
 
 ## 0. Prérequis et contraintes de l'environnement
 
-- Node 22, `pnpm@12.15.0` (`corepack enable && corepack prepare pnpm@12.15.0 --activate`).
+- Node 24, `pnpm@12.15.0` (`corepack enable && corepack prepare pnpm@12.15.0 --activate`).
 - **Réseau sortant du sandbox filtré** (TLS coupé hors github/npm/pypi) : les
   collecteurs RSS/HTTP du radar ne joignent aucune source. Conséquence assumée
   et documentée plus bas : les boucles de collecte sont débrayées

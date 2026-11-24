@@ -3,6 +3,7 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import { answerAnchored } from "../src/search/anchored-answer.js";
 import askFrRoute from "../src/routes/ask-fr.js";
 
@@ -52,7 +53,7 @@ before(async () => {
 
 after(async () => {
   await app.close();
-  await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
   await query("DELETE FROM org WHERE id IN ($1, $2)", [insideOrgId, outsideOrgId]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   await closePools();

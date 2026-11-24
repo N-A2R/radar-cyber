@@ -105,7 +105,7 @@ const baseProps = {
 	const html = renderToStaticMarkup(<NaView {...baseProps} dept="33" />);
 	check("Gironde : organisations touchées listées", html.includes("Ville de Bordeaux"), "");
 	check("accès à la fiche organisation (bouton data-org)", html.includes('data-org="1"'), "");
-	check("compteur d'organisations touchées", html.includes("2 organisation(s) touchée(s)"), "");
+	check("compteur d'organisations touchées", html.includes("2 organisations touchées"), "");
 }
 
 // 4. État vide honnête en mode chargement (ni carte fausse, ni écran blanc).
@@ -118,13 +118,13 @@ const baseProps = {
 
 // 5. Le filtre département persiste dans l'URL.
 {
-	const avecDept: AppUrlState = { ...DEFAULT_STATE, view: "na", naDept: "40" };
+	const avecDept: AppUrlState = { ...DEFAULT_STATE, view: "map", mapPanel: "regional", naDept: "40" };
 	const hash = toHash(avecDept);
-	check("toHash sérialise naDept", hash === "#/na?naDept=40", hash);
+	check("toHash sérialise naDept", hash === "#/map?panel=regional&naDept=40", hash);
 	const lu = parseHash(hash);
-	check("parseHash relit naDept", lu.naDept === "40" && lu.view === "na", JSON.stringify(lu.naDept));
-	check("sans filtre, naDept vaut null", parseHash("#/na").naDept === null, "");
-	check("naDept invalide ignoré", parseHash("#/na?naDept=abc").naDept === null, "");
+	check("parseHash relit naDept", lu.naDept === "40" && lu.view === "map" && lu.mapPanel === "regional", JSON.stringify(lu.naDept));
+	check("sans filtre, naDept vaut null", parseHash("#/map?panel=regional").naDept === null, "");
+	check("naDept invalide ignoré", parseHash("#/map?panel=regional&naDept=abc").naDept === null, "");
 }
 
 // 6. Un overview serveur (API) est préféré au calcul local.
@@ -171,8 +171,8 @@ const baseProps = {
 	check("l'organisation du fil est cliquable (data-org)", html.includes('data-org="1"'), "");
 	check("l'organisation du fil porte son nom", html.includes("Ville de Bordeaux"), "");
 	// Une org cliquée n'efface pas le filtre : l'URL garde naDept.
-	const hash = toHash({ ...DEFAULT_STATE, view: "na", naDept: "33", org: 1 });
-	check("le filtre ?naDept survit à l'ouverture d'une fiche org", hash === "#/na?org=1&naDept=33", hash);
+	const hash = toHash({ ...DEFAULT_STATE, view: "map", mapPanel: "regional", naDept: "33", org: 1 });
+	check("le filtre ?naDept survit à l'ouverture d'une fiche org", hash === "#/map?panel=regional&org=1&naDept=33", hash);
 }
 
 // 8. Fil d'un autre département ou vide : rien d'inventé.

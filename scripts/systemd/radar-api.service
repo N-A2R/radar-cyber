@@ -1,7 +1,11 @@
 # radar-api.service — modèle d'unité systemd utilisateur.
 #
-# install.sh remplace les jetons @REPO@, @PNPM@, @PATH@ et @API_PORT@ puis écrit
+# install.sh remplace les jetons @REPO@, @PNPM@, @PATH@, @API_PORT@ et @COLLECT@ puis écrit
 # le résultat dans ~/.config/systemd/user/. Ne pas installer ce fichier tel quel.
+#
+# Secrets dans %h/.config/radar-cyber/api-security.env (0600) :
+#   DATABASE_URL     = rôle applicatif, non superutilisateur ;
+#   RADAR_MIGRATE_DATABASE_URL = rôle dédié aux migrations, utilisé uniquement en ExecStartPre.
 [Unit]
 Description=Radar Cyber — API Fastify (observatoire + collecteurs)
 Documentation=file:@REPO@/docs/operations.md
@@ -13,13 +17,31 @@ Type=simple
 WorkingDirectory=@REPO@
 Environment=PATH=@PATH@
 Environment=HOME=%h
-Environment=DATABASE_URL=postgres://radar:radar@localhost:5432/radar
+Environment=HOST=127.0.0.1
 Environment=PORT=@API_PORT@
+Environment=NODE_ENV=production
+# 1 = collecte active après déploiement ; 0 = maintenance (RADAR_COLLECT=0 scripts/systemd/install.sh).
+Environment=RADAR_COLLECT=@COLLECT@
+EnvironmentFile=%h/.config/radar-cyber/api-security.env
+# Migrations avec le rôle admin, puis service avec le rôle applicatif : les deux
+# URLs ne sont jamais confondues et aucun mot de passe n'est versionné ici.
+ExecStartPre=/usr/bin/env bash -ec 'test -n "${RADAR_MIGRATE_DATABASE_URL:-}" || { echo "RADAR_MIGRATE_DATABASE_URL requis pour les migrations" >&2; exit 1; }; cd "@REPO@" && DATABASE_URL="$RADAR_MIGRATE_DATABASE_URL" exec ./apps/api/node_modules/.bin/tsx scripts/migrate.mts'
 ExecStart=@PNPM@ -F @radar/api start
 # Redémarrage auto en cas de crash, mais pas après un `systemctl stop` volontaire.
 Restart=on-failure
 RestartSec=5
 TimeoutStopSec=20
+# Durcissement compatible avec un service utilisateur : le dépôt vit sous %h,
+# donc ProtectHome n'est pas activé (il casserait WorkingDirectory).
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+LockPersonality=true
+UMask=0077
+LimitNOFILE=65536
 
 [Install]
 WantedBy=default.target

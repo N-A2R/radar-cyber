@@ -15,6 +15,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import dashboardRoute, { FENETRE_JOURS, LIMITE_CLASSEMENT, SEUIL_LENTE_MS } from "../src/routes/sources-dashboard.js";
 import { buildApp } from "../src/app.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `sdb${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -141,7 +142,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE source_id = ANY($1)", [ALL_IDS]);
+  await supprimerEvenementsArchivees("source_id = ANY($1)", [ALL_IDS]);
   await query("DELETE FROM collector_run WHERE source_id = ANY($1)", [ALL_IDS]);
   await query("DELETE FROM source WHERE id = ANY($1)", [ALL_IDS]);
   await closePools();

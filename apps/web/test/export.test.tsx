@@ -10,17 +10,14 @@ import App from "../src/App";
 import type { ViewKey } from "../src/contracts";
 import type { DataRow } from "../src/export";
 import {
-  buildPdf, EXPORT_COLUMNS, prepareRows, toCsv,
+  buildPdf, EXPORT_COLUMNS, EXPORT_TITLES, exportFilename, prepareRows, toCsv, workspaceFor,
 } from "../src/export";
 import ExportMenu, { ExportProvider, useScreenExport } from "../src/components/ExportMenu";
 
 const testGlobals = globalThis as unknown as Record<string, unknown>;
 testGlobals.IS_REACT_ACT_ENVIRONMENT = true;
 
-const VIEWS: ViewKey[] = [
-  "today", "coverage", "review", "journal", "corpus", "sources", "map",
-  "directory", "graph", "health", "alerts", "dossier", "na",
-];
+const VIEWS: ViewKey[] = ["map", "action", "sources", "journal"];
 
 function Publisher({ view, rows }: { view: ViewKey; rows: DataRow[] }) {
   useScreenExport(view, rows);
@@ -96,7 +93,9 @@ const payloads: Record<string, unknown> = {
   "/api/na/overview": { depts: [], total: { orgs: 0, orgsAvecEvenement: 0, evenements: 0, deptsSansEvenement: [] }, derniereCollecte: null },
   "/api/na/events": { dept: "33", events: [] },
   "/api/directory": { rows: [], total: 0, page: 0, limit: 50, facets: { kind: [], sector: [], dept: [] }, truncated: false, tookMs: 0 },
-  "/api/review/queue": { rows: [], total: 0, page: 0, limit: 50, window: 24, truncated: false, facets: {}, counts: {}, tookMs: 0 },
+  "/api/quarantine/queue": { rows: [], total: 0, page: 0, limit: 50, window: 24, truncated: false, facets: {}, counts: {}, tookMs: 0 },
+  "/api/quarantine/review": { action: "promote", requested: 0, changed: 0, promoted: 0, alerts: 0, skipped: [] },
+  "/api/orgs/from-hint": { org: { id: 999, name: "Alpha SAS" }, created: true, matchedBy: null },
   "/api/journal/review": { rows: [], limite: 50, avant: null },
   "/api/alerts": [], "/api/alerts/stats": [],
   "/api/dossier": {
@@ -162,14 +161,14 @@ describe("screen export", () => {
     expect(covered).toBe(VIEWS.length);
   });
 
-  it("exports only the columns declared for the current screen", () => {
-    const rows = prepareRows("directory", [{
+  it("exports only the columns declared for the current workspace", () => {
+    const rows = prepareRows("map", [{
       id: 7, organisation: "CHU de Bordeaux", department: "33", sector: "health",
       kind: "hospital", city: "Bordeaux", events: 4,
       victimName: "Jane Doe", email: "jane.doe@example.org", evidence: { secret: true },
     }]);
-    const csv = toCsv("directory", rows);
-    expect(csv.split("\r\n")[0]).toBe(EXPORT_COLUMNS.directory.map((column) => column.label).join(","));
+    const csv = toCsv("map", rows);
+    expect(csv.split("\r\n")[0]).toBe(EXPORT_COLUMNS.map.map((column) => column.label).join(","));
     expect(csv).toContain("CHU de Bordeaux");
     expect(csv).not.toMatch(/victim|email|evidence|jane|secret|example\.org/i);
   });
@@ -240,7 +239,7 @@ describe("screen export", () => {
     Object.defineProperty(URL, "createObjectURL", { configurable: true, value: (blob: Blob) => { blobs.push(blob); return "blob:test"; } });
     Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: () => {} });
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
-    await mount(<Harness view="today" rows={[{ title: "Regional incident", department: "33" }]} />);
+    await mount(<Harness view="map" rows={[{ title: "Regional incident", department: "33" }]} />);
     await settle();
     const trigger = host.querySelector<HTMLButtonElement>("button")!;
     await act(async () => { trigger.dispatchEvent(new MouseEvent("click", { bubbles: true })); });
@@ -253,4 +252,20 @@ describe("screen export", () => {
     expect(pdf.startsWith("%PDF-1.4")).toBe(true);
     expect(pdf).toContain("Regional incident");
   });
+
+  it("maps legacy screens onto their workspace without losing safe columns", () => {
+    expect(Object.keys(EXPORT_COLUMNS).sort()).toEqual(["action", "journal", "map", "sources"]);
+    expect(Object.keys(EXPORT_TITLES).sort()).toEqual(["action", "journal", "map", "sources"]);
+    expect(workspaceFor("today")).toBe("map");
+    expect(workspaceFor("couverture")).toBe("map");
+    expect(workspaceFor("review")).toBe("action");
+    expect(workspaceFor("health")).toBe("sources");
+    expect(workspaceFor("dossier")).toBe("journal");
+    const rows = prepareRows("dossier", [{ section: "Scope", detail: "Contact 06 12 34 56 78" }]);
+    expect(rows[0].Detail).toBe("Contact [redacted]");
+    expect(toCsv("today", prepareRows("today", [{ title: "Regional incident", department: "33" }])))
+      .toContain("Regional incident");
+    expect(exportFilename("today", "csv")).toMatch(/^radar-map-/);
+  });
 });
+

@@ -41,8 +41,8 @@ pnpm setup:check   # code de sortie 1 s'il manque une étape
 |---|---|---|
 | Connexion | `DATABASE_URL` | Message explicite si PG est éteint, avec la commande pour le démarrer |
 | Schéma | `db/init.sql` | Saute si la table `event` existe |
-| Migrations | `scripts/migrate.mts` | Compare `schema_migrations` au nombre de fichiers |
-| Sources | 16 catalogues `db/sources*.sql` | `INSERT … ON CONFLICT` : rejeu = `+0` |
+| Migrations | `scripts/migrate.mts` | Compare les NOMS de versions de `db/migrate-*.sql` à `schema_migrations` (hors sentinelle conteneur) |
+| Sources | 18 catalogues `db/sources*.sql` | `INSERT … ON CONFLICT` : rejeu = `+0` |
 | Règles | `db/detection-rules.sql` | Idempotent |
 | Référentiel NA | `db/data/referentiel-na.json` | Saute au-delà de 4 000 orgs |
 | Échantillon | `bench/fixtures/claims-sample.json` | `--with-sample` seulement ; refuse de mélanger à une vraie quarantaine |
@@ -92,13 +92,12 @@ blocs PL/pgSQL (un `END;` y ferme un bloc, pas une transaction).
 pnpm verify    # contrat hors base, socle, tsc api + web, tests API, tests front, build, healthcheck
 ```
 
-Une CI complète est prête dans `scripts/ci/ci.proposed.yml`, avec un job qui
-rejoue `pnpm setup` depuis une base vide puis une seconde fois pour
-l'idempotence. **Elle n'est pas appliquée** : le jeton de cette session n'a pas
-la permission GitHub `workflows`. Un mainteneur peut la copier — voir
-[scripts/ci/README.md](../scripts/ci/README.md). C'est ce job qui aurait attrapé
-le bug d'amorçage : la CI en place applique le SQL via `psql` et contourne le
-runner de migrations.
+La CI est active dans `.github/workflows/ci.yml` (jobs `verify`, `socle`,
+`supply-chain`). Le job `socle` rejoue `pnpm setup` depuis une base vide,
+vérifie `pnpm setup:check`, puis rejoue pour l'idempotence : c'est ce job qui
+aurait attrapé le bug d'amorçage. Le job `supply-chain` valide les Dockerfiles
+avec `docker build --check` et la configuration Compose. Détails :
+[scripts/ci/README.md](../scripts/ci/README.md).
 
 Les tests créent leur propre base jetable `radar_test_<pid>_<horodatage>` et la
 détruisent à la fin. Ils n'utilisent jamais la base applicative.

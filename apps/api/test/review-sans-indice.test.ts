@@ -121,8 +121,11 @@ test("trois lignes sans indice : refusées, une seule entrée de journal", async
 	assert.deepEqual(journal.rows[0].payload.quarantineIds, ids);
 
 	const parLigne = await query<{ n: number }>(
-		"SELECT count(*)::int AS n FROM journal WHERE subject = ANY($1::text[])",
-		[ids.map((id) => `quarantine:${id}`)],
+		`SELECT count(*)::int AS n FROM journal
+		  WHERE subject IN (
+		    SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id = ANY($1::bigint[])
+		  )`,
+		[ids],
 	);
 	assert.equal(parLigne.rows[0].n, 0, "aucune entrée de journal par ligne");
 });

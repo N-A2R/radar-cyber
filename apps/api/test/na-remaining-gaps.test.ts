@@ -20,6 +20,7 @@ import {
 } from "../src/technical/na-departments.js";
 import { registerApiRoutes } from "../src/routes/index.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rg${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const FINGERPRINT = `${TAG}-claim`;
@@ -39,7 +40,7 @@ let fixtureOrgId: number | undefined;
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key = $1", [`${REMAINING_DEDUP_PREFIX}${CLAIM.id}`]);
+  await supprimerEvenementsArchivees("dedup_key = $1", [`${REMAINING_DEDUP_PREFIX}${CLAIM.id}`]);
   await query("DELETE FROM leak_claim WHERE fingerprint = $1", [FINGERPRINT]);
   if (fixtureOrgId !== undefined) await query("DELETE FROM org WHERE id = $1", [fixtureOrgId]);
   await closePools();

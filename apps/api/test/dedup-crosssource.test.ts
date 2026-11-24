@@ -19,6 +19,7 @@ import {
 	normalizeTitle,
 	type EventForIdentity,
 } from "../src/dedup/event-duplicates.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const PREFIX = `dedup-cross-${Date.now()}`;
 const GREY_SOURCE = `${PREFIX}-grey`;
@@ -85,7 +86,7 @@ function event(id: number, title: string, sourceId: string, day: string): EventF
 
 after(async () => {
 	await query("DELETE FROM alert WHERE rule_id=$1", [PREFIX]).catch(() => {});
-	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIX}:%`]).catch(() => {});
+	await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${PREFIX}:%`]).catch(() => {});
 	await query("DELETE FROM journal WHERE subject LIKE $1", [`${PREFIX}:%`]).catch(() => {});
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${PREFIX}%`]).catch(() => {});
 	await query("DELETE FROM source WHERE id IN ($1,$2)", [GREY_SOURCE, STRICT_SOURCE]).catch(() => {});
@@ -128,7 +129,7 @@ test("read-only report detects a grey-source duplicate without writing", async (
 });
 
 test("apply keeps all source provenance, moves alerts and verifies the merge", async () => {
-	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIX}:report-%`]);
+	await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${PREFIX}:report-%`]);
 	const title = `Avis CERT-FR fusion ${PREFIX} — conserve les deux provenances`;
 	const first = await insertEvent({ suffix: "apply-1", title, sourceId: GREY_SOURCE, day: "2026-11-21" });
 	const copy = await insertEvent({ suffix: "apply-2", title: title.toUpperCase(), sourceId: STRICT_SOURCE, day: "2026-11-21" });

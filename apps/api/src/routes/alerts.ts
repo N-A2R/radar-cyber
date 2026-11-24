@@ -1,26 +1,63 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
-import { requireAuth, resolveUser } from "../middleware/auth.js";
-import { scoreAlert } from "../detect/confidence.js";
+import { requireAuth } from "../middleware/auth.js";
+import { scoreAlert, type AlertConfidence } from "../detect/confidence.js";
 import { loadCorroborationContext } from "../detect/engine.js";
-import { badRequest, notFound, unauthorized } from "../errors.js";
+import { badRequest, notFound } from "../errors.js";
+import { evenementPublic, evenementPublicSql } from "../security/tlp.js";
 
 import { z } from "zod";
 import { parseBody, invalidBody } from "./body-validation.js";
+
+/** Filtre TLP partagé : une alerte sans événement ne sort que si sa propre
+ *  déclaration est publique. `evenementPublicSql` reste l'unique prédicat
+ *  pour les alertes adossées à un fait (E4). */
+const ALERTE_PUBLIQUE_SQL = `(a.event_id IS NULL AND coalesce(a.evidence->>'tlp', 'CLEAR') = 'CLEAR') OR ${evenementPublicSql("e")}`;
+
+/**
+ * La confiance affichée est celle calculée à la détection et persistée dans
+ * `alert.evidence.confidence` (objet JSONB ou chaîne JSON). Le recalcul à la
+ * volée reste exposé sous `confidenceRecalcule`, à titre informatif.
+ */
+export function confidenceDeEvidence(evidence: unknown): AlertConfidence | null {
+  let brut: unknown = evidence;
+  if (typeof brut === "string") {
+    try { brut = JSON.parse(brut); } catch { return null; }
+  }
+  if (!brut || typeof brut !== "object" || Array.isArray(brut)) return null;
+  let confidence: unknown = (brut as Record<string, unknown>).confidence;
+  if (typeof confidence === "string") {
+    try { confidence = JSON.parse(confidence); } catch { return null; }
+  }
+  if (!confidence || typeof confidence !== "object" || Array.isArray(confidence)) return null;
+  const valeur = confidence as Record<string, unknown>;
+  const score = Number(valeur.score);
+  if (!Number.isFinite(score)) return null;
+  const composantes = valeur.components;
+  return {
+    score,
+    status: valeur.status === "verifie" ? "verifie" : "a_verifier",
+    components: {
+      source_reliability: Number((composantes as Record<string, unknown> | undefined)?.source_reliability ?? 0),
+      assertion_strength: Number((composantes as Record<string, unknown> | undefined)?.assertion_strength ?? 0),
+      attachment_quality: Number((composantes as Record<string, unknown> | undefined)?.attachment_quality ?? 0),
+      corroboration: Number((composantes as Record<string, unknown> | undefined)?.corroboration ?? 0),
+    },
+  };
+}
 
 /** Ces actions n'ont pas de corps : `{}` passe, une clé en trop est refusée. */
 const EmptyBody = z.strictObject({});
 
 export default async function (app: FastifyInstance) {
   app.get("/alerts", async (req: FastifyRequest, reply) => {
-    const user = await resolveUser(req);
-    if (!user) throw unauthorized();
+    // Route publique (catalogue + matrice) : aucune résolution locale ici.
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
     if (!Number.isFinite(limit)) limit = 100;
     limit = Math.min(Math.max(Math.trunc(limit), 1), 500);
     const params: unknown[] = [];
-    const where: string[] = [];
+    const where: string[] = [`(${ALERTE_PUBLIQUE_SQL})`];
     if (q.status) { params.push(q.status); where.push(`a.status=$${params.length}`); }
     if (q.severity) { params.push(Number(q.severity)); where.push(`a.severity=$${params.length}`); }
     params.push(limit);
@@ -44,15 +81,17 @@ export default async function (app: FastifyInstance) {
     const out: Record<string, unknown>[] = [];
     for (const row of r.rows) {
       const orgId = typeof row.org_id === "number" ? row.org_id : null;
+      const recalcule = scoreAlert({
+        sourceConfidence: row.event_confidence as string | null,
+        assertionType: row.event_assertion as string | null,
+        orgId,
+        orgDept: row.org_dept as string | null,
+        distinctSources: orgId === null ? 0 : (sourceCounts.get(orgId) ?? 0),
+      });
       const scored: Record<string, unknown> = {
         ...row,
-        confidence: scoreAlert({
-          sourceConfidence: row.event_confidence as string | null,
-          assertionType: row.event_assertion as string | null,
-          orgId,
-          orgDept: row.org_dept as string | null,
-          distinctSources: orgId === null ? 0 : (sourceCounts.get(orgId) ?? 0),
-        }),
+        confidence: confidenceDeEvidence(row.evidence) ?? recalcule,
+        confidenceRecalcule: recalcule,
       };
       const tlp = row.tlp === "RED" || row.event_tlp === "RED";
       if (tlp) {
@@ -73,10 +112,13 @@ export default async function (app: FastifyInstance) {
     return out;
   });
 
-  app.get("/alerts/stats", async (req: FastifyRequest, reply) => {
-    const user = await resolveUser(req);
-    if (!user) throw unauthorized();
-    const r = await query("SELECT status, severity, COUNT(*)::text AS count FROM alert GROUP BY status, severity");
+  app.get("/alerts/stats", async () => {
+    const r = await query(
+      `SELECT a.status, a.severity, COUNT(*)::text AS count
+         FROM alert a LEFT JOIN event e ON e.id = a.event_id
+        WHERE ${ALERTE_PUBLIQUE_SQL}
+        GROUP BY a.status, a.severity`,
+    );
     return r.rows;
   });
 
@@ -188,7 +230,7 @@ export default async function (app: FastifyInstance) {
             title: event.title,
             family: event.family,
             severity: event.severity,
-            summary: event.tlp === "RED" ? null : event.summary,
+            summary: evenementPublic({ tlp: event.tlp }) ? event.summary : null,
             observed_at: event.observed_at,
             source_id: event.source_id,
             confidence: event.confidence,
@@ -199,7 +241,10 @@ export default async function (app: FastifyInstance) {
         : null,
       org,
       corroboration,
-      confidence: scoreAlert({
+      // Valeur calculée à la détection ; le recalcul instantané est données
+      // informatives, pas la source de vérité affichée.
+      confidence: confidenceDeEvidence(alert.evidence) ?? null,
+      confidenceRecalcule: scoreAlert({
         sourceConfidence: event?.confidence ?? null,
         assertionType: event?.assertion_type ?? null,
         orgId,

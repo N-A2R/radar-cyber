@@ -5,6 +5,7 @@
  */
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
+import type { OutgoingHttpHeaders } from "node:http";
 import type { FastifyInstance } from "fastify";
 import { generateApiKey, hashApiKey } from "../src/api-key.js";
 import { buildApp } from "../src/app.js";
@@ -32,9 +33,9 @@ function get(key: string) {
   return app.inject({ method: "GET", url: "/api/v1/health", headers: { "x-api-key": key } });
 }
 
-function headerNumber(response: { headers: Record<string, string | string[] | undefined> }, name: string): number {
-  const value = response.headers[name.toLowerCase()];
-  assert.match(String(value), /^\d+$/, `${name} missing or invalid: ${String(value)}`);
+function headerNumber(response: { headers: OutgoingHttpHeaders }, name: string): number {
+  const value = String(response.headers[name.toLowerCase()] ?? "");
+  assert.match(value, /^\d+$/, `${name} missing or invalid: ${value}`);
   return Number(value);
 }
 

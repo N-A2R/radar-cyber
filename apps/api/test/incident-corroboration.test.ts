@@ -10,6 +10,7 @@ import {
   publisherOf,
   type CorroborationEvent,
 } from "../src/analyse/incident-corroboration.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const RANSOMLOOK = "https://www.ransomlook.io/api/recent";
 const RANSOMLOOK_FEED = "https://ransomlook.io/api/recent";
@@ -147,7 +148,7 @@ test("the loader attaches the organisation department used for NA scope", async 
     assert.equal(loaded?.orgDept, "33");
     assert.equal(loaded === undefined ? false : isNA(loaded), true);
   } finally {
-    await query("DELETE FROM event WHERE id = $1", [eventId]);
+    await supprimerEvenementsArchivees("id = $1", [eventId]);
     await query("DELETE FROM org WHERE id = $1", [orgId]);
     await query("DELETE FROM source WHERE id = $1", [sourceId]);
   }
@@ -177,7 +178,7 @@ test("a blank organisation department is treated as absent", async () => {
     const loaded = (await loadCorroborationEvents()).find((row) => row.id === eventId);
     assert.equal(loaded?.orgDept, null);
   } finally {
-    await query("DELETE FROM event WHERE id = $1", [eventId]);
+    await supprimerEvenementsArchivees("id = $1", [eventId]);
     await query("DELETE FROM org WHERE id = $1", [orgId]);
     await query("DELETE FROM source WHERE id = $1", [sourceId]);
   }

@@ -11,6 +11,7 @@ import { hashSessionToken } from "../src/auth.js";
 import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
 import reviewRoute from "../src/routes/review.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rvw${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -63,7 +64,7 @@ after(async () => {
 	const ids = events.rows.map((row) => String(row.id));
 	if (ids.length > 0) {
 		await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [ids]);
-		await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+		await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
 	}
 	await query("DELETE FROM quarantine_raw WHERE source=$1", [SOURCE]);
 	if (orgId) await query("DELETE FROM org WHERE id=$1", [orgId]);
@@ -229,8 +230,10 @@ test("accepter : rattachement dans event.org_id, sortie de file et journal sign�
 	assert.equal(quarantine.rows[0].review[0]?.reason, "domaine confirmé au registre");
 
 	const journal = await query<{ actor: string; kind: string; payload: Record<string, unknown> }>(
-		"SELECT actor, kind, payload FROM journal WHERE subject=$1 AND kind='review.decided'",
-		[`quarantine:${id}`],
+		`SELECT actor, kind, payload FROM journal
+		  WHERE kind='review.decided'
+		    AND subject=(SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id=$1)`,
+		[id],
 	);
 	assert.equal(journal.rows.length, 1);
 	assert.equal(journal.rows[0].actor, `humain:${EMAIL}`);
@@ -283,8 +286,10 @@ test("refuser : motif obligatoire, classement, journal et sortie de file", async
 	const quarantine = await query<{ status: string }>("SELECT status FROM quarantine_raw WHERE id=$1", [id]);
 	assert.equal(quarantine.rows[0].status, "rejected");
 	const journal = await query<{ actor: string; payload: Record<string, unknown> }>(
-		"SELECT actor, payload FROM journal WHERE subject=$1 AND kind='review.decided'",
-		[`quarantine:${id}`],
+		`SELECT actor, payload FROM journal
+		  WHERE kind='review.decided'
+		    AND subject=(SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id=$1)`,
+		[id],
 	);
 	assert.equal(journal.rows.length, 1);
 	assert.equal(journal.rows[0].actor, `humain:${EMAIL}`);
@@ -358,4 +363,39 @@ test("curseur : deux pages de 50 sur 120 lignes, sans doublon ni trou", async ()
 	});
 	assert.equal(compat.statusCode, 200, "?offset= reste accepté");
 	assert.equal(compat.json<{ rows: unknown[] }>().rows.length, 50);
+});
+
+test("T3 — promotion committée puis alertes en attente : réponse 201 et rejeu explicite", async () => {
+	const id = await claim(`${TAG}.example`);
+	const decision = await app.inject({
+		method: "POST",
+		url: `/api/review/${id}/decision`,
+		headers: auth,
+		payload: { decision: "accepter", orgId, raison: "domaine confirmé" },
+	});
+	assert.equal(decision.statusCode, 200, decision.body);
+	const eventId = decision.json<{ eventId: number }>().eventId;
+
+	// Simule un crash entre COMMIT et évaluation : le marqueur reste en attente
+	// après épuisement des tentatives, sans aucun appel réseau ici.
+	await query(
+		`UPDATE quarantine_raw
+		    SET extracted = jsonb_set(extracted, '{_alertes}', $2::jsonb)
+		  WHERE id=$1`,
+		[id, JSON.stringify({ eventId, statut: "abandonne", tentatives: 3 })],
+	);
+	const rejeu = await app.inject({
+		method: "POST",
+		url: `/api/review/${id}/rejouer-alertes`,
+		headers: auth,
+	});
+	assert.equal(rejeu.statusCode, 201, rejeu.body);
+	const corps = rejeu.json<{ id: number; eventId: number; alertesEnAttente: boolean }>();
+	assert.equal(corps.id, id);
+	assert.equal(corps.eventId, eventId);
+	assert.equal(corps.alertesEnAttente, true);
+	const ligne = await query<{ promoted: boolean }>(
+		"SELECT promoted FROM quarantine_raw WHERE id=$1", [id],
+	);
+	assert.equal(ligne.rows[0]?.promoted, true, "la promotion reste committée");
 });

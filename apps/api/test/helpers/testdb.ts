@@ -11,7 +11,6 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DB_DIR = fileURLToPath(new URL("../../../../db/", import.meta.url));
-const DEFAULT_ADMIN_URL = "postgres://radar:radar@localhost:5432/postgres";
 const SAFE_NAME = /^radar_test_[a-z0-9_]+$/;
 
 export type TestDb = { name: string; url: string };
@@ -27,7 +26,9 @@ function adminUrl(): string {
 		url.searchParams.delete("options");
 		return url.toString();
 	}
-	return DEFAULT_ADMIN_URL;
+	// Aucune cible implicite : la CI fournit DATABASE_URL, les postes locaux
+	// fournissent RADAR_TEST_ADMIN_URL. Un défaut faible masquerait une rotation.
+	throw new Error("RADAR_TEST_ADMIN_URL or DATABASE_URL is required for tests");
 }
 
 function databaseUrlFor(name: string): string {

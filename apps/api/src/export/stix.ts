@@ -70,7 +70,7 @@ function evidenceTags(evidence: StixEventRow["evidence"]): Record<string, unknow
 }
 
 /** Construit un objet STIX, ou null pour un fait hors du périmètre public. */
-export function buildStixObject(row: StixEventRow): StixExport | null {
+export function buildStixObject(row: StixEventRow, modifieLe?: Date): StixExport | null {
 	const evidence = evidenceTags(row.evidence);
 	const tags = normalizeTrustTags({
 		tlp: evidence.tlp ?? row.tlp,
@@ -86,6 +86,9 @@ export function buildStixObject(row: StixEventRow): StixExport | null {
 	// le fait est vrai. Les deux restent distincts dans l'objet exporté.
 	const created = row.at ?? row.observed_at ?? date;
 	const validFrom = row.valid_at ?? row.observed_at ?? created;
+	const modifiedAt = modifieLe && modifieLe.getTime() > new Date(created).getTime()
+		? modifieLe.toISOString()
+		: new Date(created).toISOString();
 	const tlpRef = `marking-definition--${stixUuid("tlp", tags.tlp)}`;
 	const papRef = `marking-definition--${stixUuid("pap", tags.pap)}`;
 
@@ -99,7 +102,7 @@ export function buildStixObject(row: StixEventRow): StixExport | null {
 			spec_version: "2.1",
 			id,
 			created,
-			modified: created,
+			modified: modifiedAt,
 			valid_from: validFrom,
 			name: `${row.family} / ${row.assertion_type}`,
 			pattern_type: "radar-event-id",
@@ -158,14 +161,16 @@ export async function listPublicEvents(sql: SqlQuery = query): Promise<StixEvent
 export async function persistStixObjects(
 	rows: readonly StixEventRow[],
 	sql: SqlQuery = query,
+	options: { modifieLe?: Date } = {},
 ): Promise<{ exported: number; skipped: number; rejected: number }> {
+	const modifieLe = options.modifieLe ?? new Date();
 	let exported = 0;
 	let skipped = 0;
 	let rejected = 0;
 	for (const row of rows) {
 		let built: StixExport | null;
 		try {
-			built = buildStixObject(row);
+			built = buildStixObject(row, modifieLe);
 		} catch (error) {
 			if (error instanceof UnknownTrustTagError) {
 				rejected++;

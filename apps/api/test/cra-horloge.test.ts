@@ -16,6 +16,7 @@ import {
   horlogeDepuisEvidence,
   renduHorlogeCra,
 } from "../src/cra/horloge-cra.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `cra${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE_NVD = `test:${TAG}:nvd`;
@@ -128,7 +129,7 @@ before(async () => {
 
 after(async () => {
   if (Object.keys(ids).length === 0) return;
-  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [Object.values(ids)]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [Object.values(ids)]);
   await query("DELETE FROM source WHERE id IN ($1, $2)", [SOURCE_NVD, SOURCE_KEV]);
 });
 

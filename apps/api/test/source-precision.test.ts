@@ -9,6 +9,7 @@ import { randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `sp${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -61,12 +62,12 @@ async function semer(id: string, admis: number, ancien = false): Promise<void> {
   );
   await query(
     `INSERT INTO event (
-       dedup_key, family, assertion_type, title, observed_at, at, collected_at,
+       dedup_key, family, assertion_type, title, observed_at, valid_at, at, collected_at,
        severity, source_id, source_url, evidence
      )
      SELECT format('precision-test:%s:%s', $1::text, n),
             'cti', 'confirmed_incident', 'Fait synthétique de test',
-            ${quand}, ${quand}, ${quand}, 3, $1::text,
+            ${quand}, ${quand}, ${quand}, ${quand}, 3, $1::text,
             format('https://example.invalid/precision/%s/%s', $1::text, n),
             jsonb_build_object(
               'run_id',
@@ -109,7 +110,7 @@ before(async () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id = ANY($1)", [SOURCES]);
+  await supprimerEvenementsArchivees("source_id = ANY($1)", [SOURCES]);
   await query("DELETE FROM quarantine_raw WHERE source = ANY($1)", [SOURCES]);
   await query("DELETE FROM collector_run WHERE source_id = ANY($1)", [SOURCES]);
   await query("DELETE FROM registre_traitement WHERE source_id = ANY($1)", [SOURCES]);

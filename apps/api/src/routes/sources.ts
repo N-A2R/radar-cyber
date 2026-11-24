@@ -1,4 +1,4 @@
-import { badRequest, notFound } from "../errors.js";
+import { badRequest, conflict, notFound, serviceUnavailable } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { query, withTransaction } from "../db.js";
@@ -8,7 +8,37 @@ import { regrouper } from "../analyse/corroboration.js";
 import { parseBody, invalidBody } from "./body-validation.js";
 import { evaluerValeur } from "../analyse/valeur-source.js";
 
-/** Une source ne meurt que sur décision explicite, avec un motif. */
+export type SourceRelance = { id: string; enabled: boolean; kind: string; pret_a_collecter: boolean | null };
+/** Exécuteur injecté par `server.ts` ; `false` = une relance est déjà en cours. */
+export type LanceurCollecte = (id: string, source: SourceRelance) => boolean;
+
+declare module "fastify" {
+  interface FastifyInstance {
+    lanceurCollecte?: LanceurCollecte;
+  }
+}
+
+/** Route de relance : enregistrée ici pour être couverte par la matrice RBAC. */
+/** Aucune relance manuelle ne contourne l'absence de collecteur branché : il
+ *  n'existe pas d'override admin explicite pour `pret_a_collecter = false`. */
+export function installRelanceSource(app: FastifyInstance): void {
+  app.post<{ Params: { id: string } }>(
+    "/sources/:id/collecte",
+    { preHandler: requireRole("admin") },
+    async (req, reply) => {
+      const id = req.params.id;
+      const { rows } = await query<SourceRelance>("SELECT id, enabled, kind, pret_a_collecter FROM source WHERE id=$1", [id]);
+      const source = rows[0];
+      if (!source) throw notFound("source introuvable");
+      if (!source.enabled) throw conflict("source désactivée");
+      if (source.pret_a_collecter === false) throw conflict("source en attente de branchement");
+      if (!app.lanceurCollecte) throw serviceUnavailable("collecte indisponible dans cette composition");
+      if (!app.lanceurCollecte(id, source)) throw conflict("collecte déjà en cours");
+      return reply.code(202).send({ id, lancee: true });
+    },
+  );
+}
+
 export const MorteBody = z.object({
   raison: z.string().trim().min(1).max(1000),
 }).strict();
@@ -24,6 +54,8 @@ type SourceRow = {
   kind: string;
   format: string;
   enabled: boolean;
+  /** DB-M8 : false = activée mais collecteur non branché ; NULL = historique. */
+  pret_a_collecter: boolean | null;
   interval_sec: number;
   last_ok_at: string | null;
   last_error_at: string | null;
@@ -54,6 +86,29 @@ type SourceRow = {
   motifs: Record<string, number> | null;
 };
 
+/** État opérationnel exposé par GET /api/sources, distinct de `enabled`. */
+export type StatutCollecteSource =
+  | "en-attente-branchement" | "en-erreur" | "ok" | "jamais-collectee" | "desactivee";
+
+/**
+ * `false` gagne sur tout le reste : une source en attente de branchement n'est
+ * ni désactivée, ni saine, même si elle porte un ancien `last_ok_at`.
+ * `null` conserve exactement la déduction historique (erreur, succès, jamais).
+ */
+export function statutCollecteSource(source: {
+  pret_a_collecter: boolean | null;
+  enabled: boolean;
+  statut: string;
+  last_ok_at: string | null;
+  last_error_at: string | null;
+}): StatutCollecteSource {
+  if (source.pret_a_collecter === false) return "en-attente-branchement";
+  if (!source.enabled || source.statut === "morte") return "desactivee";
+  if (source.last_error_at !== null) return "en-erreur";
+  if (source.last_ok_at !== null) return "ok";
+  return "jamais-collectee";
+}
+
 export default async function (app: FastifyInstance) {
   app.get("/sources", async () => {
     // Le rendement vient du collecteur (`collector_run`), pas d'une
@@ -81,7 +136,7 @@ export default async function (app: FastifyInstance) {
          GROUP BY source_id
       )
       SELECT s.id, s.name, s.family, s.url, s.kind, s.format, s.enabled, s.interval_sec,
-             s.last_ok_at, s.last_error_at, s.last_error, s.items_total, s.last_items,
+             s.last_ok_at, s.last_error_at, s.last_error, s.pret_a_collecter, s.items_total, s.last_items,
              s.disabled_at, s.disabled_reason, s.statut, s.derniere_erreur,
              r.entrees, r.rejets, r.dernier_run, r.dernier_run_statut, r.motifs,
              COALESCE(e.evenements_30j, 0) AS evenements_30j,
@@ -148,6 +203,8 @@ export default async function (app: FastifyInstance) {
         kind: s.kind,
         format: s.format,
         enabled: s.enabled,
+        pretACollecter: s.pret_a_collecter,
+        statutCollecte: statutCollecteSource(s),
         intervalSec: s.interval_sec,
         lastOkAt: s.last_ok_at,
         lastEventAt: s.last_event_at,
@@ -159,7 +216,7 @@ export default async function (app: FastifyInstance) {
         disabledReason: s.disabled_reason,
         statut: s.statut,
         derniereErreur: s.derniere_erreur,
-        ok: s.last_error_at === null && s.last_ok_at !== null,
+        ok: s.pret_a_collecter !== false && s.last_error_at === null && s.last_ok_at !== null,
         entrees,
         rejets: s.rejets === null ? null : Number(s.rejets),
         evenements30j,
@@ -191,11 +248,13 @@ export default async function (app: FastifyInstance) {
     const orgs = await query<{ n: number }>("SELECT count(*)::int AS n FROM org")
     const events = await query<{ n: number }>("SELECT count(*)::int AS n FROM event")
     const indicators = await query<{ n: number }>("SELECT count(*)::int AS n FROM indicator")
-    const sources = await query<{ total: number; active: number; ok: number; err: number }>(`
+    const sources = await query<{ total: number; active: number; ok: number; err: number; enAttente: number }>(`
       SELECT count(*)::int AS total,
              count(*) FILTER (WHERE enabled)::int AS active,
-             count(*) FILTER (WHERE enabled AND last_error_at IS NULL AND last_ok_at IS NOT NULL)::int AS ok,
-             count(*) FILTER (WHERE enabled AND last_error_at IS NOT NULL)::int AS err
+             count(*) FILTER (WHERE enabled AND pret_a_collecter IS NOT FALSE
+                                      AND last_error_at IS NULL AND last_ok_at IS NOT NULL)::int AS ok,
+             count(*) FILTER (WHERE enabled AND last_error_at IS NOT NULL)::int AS err,
+             count(*) FILTER (WHERE enabled AND pret_a_collecter IS FALSE)::int AS "enAttente"
       FROM source
     `)
     const byFamily = await query<{ family: string; n: number }>(
@@ -208,7 +267,7 @@ export default async function (app: FastifyInstance) {
       orgs: orgs.rows[0]?.n ?? 0,
       events: events.rows[0]?.n ?? 0,
       indicators: indicators.rows[0]?.n ?? 0,
-      sources: sources.rows[0] ?? { total: 0, active: 0, ok: 0, err: 0 },
+      sources: sources.rows[0] ?? { total: 0, active: 0, ok: 0, err: 0, enAttente: 0 },
       byFamily: byFamily.rows,
       byAssertion: byAssertion.rows,
     }
@@ -339,4 +398,5 @@ export default async function (app: FastifyInstance) {
       };
     },
   );
+  installRelanceSource(app);
 }

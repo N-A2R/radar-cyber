@@ -13,10 +13,16 @@ import assert from "node:assert/strict";
 import { createServer, type Server } from "node:http";
 import { query, closePools } from "../src/db.js";
 import { runGenericSources } from "../src/collectors/generic.js";
+import { fetchResilient } from "../src/collectors/http.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 after(async () => { await closePools().catch(() => {}); });
 
 type FluxLocal = { url: string; fermer: () => Promise<void>; setFlux: (xml: string) => void };
+
+/** Serveur local explicite : le client HTTP refuse les hotes prives par defaut. */
+const fluxLocal = (url: string): Promise<string> =>
+  fetchResilient(url, { allowPrivate: true }).then((res) => res.text);
 
 async function serveurFlux(sourceId: string, fluxInitial: string): Promise<FluxLocal> {
 	let flux = fluxInitial;
@@ -43,7 +49,7 @@ async function serveurFlux(sourceId: string, fluxInitial: string): Promise<FluxL
 			const ferme = Promise.withResolvers<void>();
 			serveur.close((err) => (err ? ferme.reject(err) : ferme.resolve()));
 			await ferme.promise;
-			await query("DELETE FROM event WHERE source_id=$1", [sourceId]).catch(() => {});
+			await supprimerEvenementsArchivees("source_id=$1", [sourceId]).catch(() => {});
 			await query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]).catch(() => {});
 			await query("DELETE FROM journal WHERE subject LIKE $1", [`feed:%${sourceId}%`]).catch(() => {});
 			await query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
@@ -68,7 +74,7 @@ test("deux insertions du même article, même jour, même source : une seule lig
 			sourceId,
 			fluxRss(`Rançongiciel : entreprise touchée en Nouvelle-Aquitaine ${sourceId}`, sourceId, date),
 		);
-		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true, fetchTexte: fluxLocal });
 		const premier = await query<{ id: number; fingerprint: string }>(
 			"SELECT id, fingerprint FROM event WHERE source_id=$1", [sourceId],
 		);
@@ -78,7 +84,7 @@ test("deux insertions du même article, même jour, même source : une seule lig
 		// Casse, accents conservés, ponctuation et espaces différents : titre
 		// identique après normalisation, donc même empreinte.
 		serveur.setFlux(fluxRss(`RANÇONGICIEL:  ENTREPRISE  TOUCHÉE EN  NOUVELLE-AQUITAINE ${sourceId}`, sourceId, date));
-		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true, fetchTexte: fluxLocal });
 		const apres = await query<{ id: number; fingerprint: string }>(
 			"SELECT id, fingerprint FROM event WHERE source_id=$1 ORDER BY id", [sourceId],
 		);
@@ -96,9 +102,9 @@ test("le même titre un autre jour reste un autre événement", async () => {
 	let serveur: FluxLocal | null = null;
 	try {
 		serveur = await serveurFlux(sourceId, fluxRss(titre, sourceId, new Date("2026-11-20T08:00:00Z")));
-		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true, fetchTexte: fluxLocal });
 		serveur.setFlux(fluxRss(titre, sourceId, new Date("2026-11-21T08:00:00Z")));
-		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true });
+		await runGenericSources(() => {}, { sourceIds: [sourceId], force: true, fetchTexte: fluxLocal });
 		const lignes = await query<{ fingerprint: string }>(
 			"SELECT fingerprint FROM event WHERE source_id=$1 ORDER BY id", [sourceId],
 		);

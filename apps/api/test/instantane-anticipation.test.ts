@@ -23,6 +23,7 @@ import {
 	type TotauxBrut,
 } from "../src/analyse/instantane-anticipation.js";
 import { genererRapport, type IncidentCorpus, type Instantane } from "../src/analyse/rapport-anticipation.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `antic${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const SOURCE = `${TAG}-source`;
@@ -116,16 +117,18 @@ before(async () => {
 });
 
 after(async () => {
-	await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+	await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
 	await query("DELETE FROM source WHERE id = $1", [SOURCE]);
 	if (orgId) await query("DELETE FROM org WHERE id = $1", [orgId]);
 	await closePools();
 });
 
 test("le SQL et la barrière mémoire excluent tout valid_at postérieur à J-21", async () => {
+	// Le SQL de mesure porte sur tout le corpus : on isole ici la source
+	// synthétique, sinon les faits des autres fichiers polluent l'assertion.
 	const { rows: enFenetre } = await query<EvenementBrut>(SQL.evenements, PARAMS);
 	assert.deepEqual(
-		enFenetre.map((e) => e.titre),
+		enFenetre.filter((e) => e.source_id === SOURCE).map((e) => e.titre),
 		[TITRE_AVANT, TITRE_BORNE],
 		"J-21 inclus, J-20 exclu, aucun événement postérieur",
 	);

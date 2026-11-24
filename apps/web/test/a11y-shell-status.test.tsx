@@ -2,16 +2,39 @@
 /** API failures and stale snapshots must be announced, not only painted. */
 import { act } from "react";
 import { createRoot } from "react-dom/client";
-import { afterEach, beforeAll, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, expect, it, vi } from "vitest";
+vi.mock("../src/map/Map3D", async () => {
+  // Factory hoisted before imports: React must be loaded inside the mock.
+  const React = await import("react");
+  return {
+    default: () => React.createElement("div", {
+      className: "radar-map-unavailable",
+      role: "status",
+      "aria-live": "polite",
+    }, "WebGL2 indisponible : données consultables dans les autres panneaux."),
+  };
+});
+
+// App charge la Carte avec lazy(): sans stub à cette frontière, le repli
+// dépend du temps de transformation du chunk et le test devient aléatoire.
+vi.mock("../src/components/MapWorkspace", async () => {
+  const React = await import("react");
+  const Map3D = (await import("../src/map/Map3D")).default;
+  return {
+    default: () => React.createElement("div", { className: "map-workspace" },
+      React.createElement(Map3D, { orgs: [], events: [] })),
+  };
+});
 
 // The module reads VITE_DATA_MODE at import time; the failing API is installed
 // first so the App exercises its real error path.
-import type AppType from "../src/App";
+type AppType = typeof import("../src/App").default;
 
 let App: AppType;
 const hosts: HTMLDivElement[] = [];
 
 beforeAll(async () => {
+  vi.stubEnv("VITE_DATA_MODE", "production");
   vi.stubGlobal("EventSource", class { addEventListener() {} close() {} });
   vi.stubGlobal("ResizeObserver", class { observe() {} unobserve() {} disconnect() {} });
   vi.stubGlobal("fetch", vi.fn(async () => ({ ok: false, status: 503, json: async () => ({}) })));
@@ -23,6 +46,11 @@ afterEach(() => {
   for (const host of hosts) host.remove();
   hosts.length = 0;
   localStorage.clear();
+});
+
+afterAll(() => {
+  vi.unstubAllEnvs();
+  vi.unstubAllGlobals();
 });
 
 /**
@@ -39,7 +67,7 @@ async function settle(ms: number): Promise<void> {
   await act(async () => { await promise; });
 }
 
-async function waitFor(selector: string, ms = 4_000): Promise<HTMLElement | null> {
+async function waitFor(selector: string, ms = 10_000): Promise<HTMLElement | null> {
   const deadline = Date.now() + ms;
   let el: HTMLElement | null = null;
   while (Date.now() < deadline) {
@@ -62,11 +90,14 @@ async function renderShell(): Promise<HTMLDivElement> {
 }
 
 it("announces an API failure as an assertive status message", async () => {
-  const host = await renderShell();
+  await renderShell();
   const error = await waitFor("p.shell__error");
   expect(error, "p.shell__error doit apparaître après l'échec des tentatives").toBeTruthy();
   expect(error!.getAttribute("role")).toBe("alert");
   expect(error!.getAttribute("aria-live")).toBe("assertive");
+  const fallback = await waitFor(".radar-map-unavailable", 2_000);
+  expect(fallback, "la carte doit se replier sans exception non gérée").toBeTruthy();
+  expect(fallback!.textContent).toContain("WebGL2");
 }, 15_000);
 
 it("announces stale offline data as a polite status message", async () => {

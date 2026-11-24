@@ -1,30 +1,42 @@
 # radar-web.service — modèle d'unité systemd utilisateur.
 #
-# install.sh remplace les jetons @REPO@, @PNPM@, @PATH@, @WEB_PORT@ et @API_PORT@
-# puis écrit le résultat dans ~/.config/systemd/user/. Ne pas installer ce
-# fichier tel quel.
+# install.sh remplace les jetons @REPO@, @PATH@, @WEB_PORT@ (4173 par défaut) et
+# @API_PORT@ puis écrit le résultat dans ~/.config/systemd/user/. Ne pas installer
+# ce fichier tel quel. 5173 reste le port de développement Vite (`pnpm dev:web`).
 #
-# Le serveur est `vite preview` : il sert apps/web/dist (build de production)
-# et, via scripts/systemd/preview.config.mjs, proxie /api vers l'API Fastify.
-# La racine du projet vite est apps/web (WorkingDirectory) : pas de `root`
-# absolu à configurer, les assets sont résolus depuis dist/.
+# Le serveur statique Node sert le build versionné @REPO@/apps/web/dist, qui
+# embarque le thème Astryx Stone (`data-astryx-theme="stone"`), et proxie /api
+# vers l'API. Aucun node_modules ni vite n'est nécessaire au runtime.
 [Unit]
-Description=Radar Cyber — interface web (vite preview, dist statique)
+Description=Radar Cyber — interface Stone (serveur statique Node)
 Documentation=file:@REPO@/docs/operations.md
 After=network-online.target radar-api.service
-Wants=network-online.target
+Wants=network-online.target radar-api.service
 
 [Service]
 Type=simple
 WorkingDirectory=@REPO@/apps/web
 Environment=PATH=@PATH@
 Environment=HOME=%h
+Environment=NODE_ENV=production
+Environment=WEB_DIST=@REPO@/apps/web/dist
 Environment=WEB_PORT=@WEB_PORT@
+Environment=WEB_HOST=127.0.0.1
 Environment=API_PROXY_TARGET=http://127.0.0.1:@API_PORT@
-ExecStart=@PNPM@ -F @radar/web exec vite preview --config ../../scripts/systemd/preview.config.mjs
+ExecStart=node @REPO@/apps/web/serve.mjs
 Restart=on-failure
 RestartSec=5
 TimeoutStopSec=20
+# Le dépôt est sous %h : ProtectHome reste désactivé pour préserver l'accès au build.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+LockPersonality=true
+UMask=0077
+LimitNOFILE=65536
 
 [Install]
 WantedBy=default.target

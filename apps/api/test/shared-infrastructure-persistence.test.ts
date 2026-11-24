@@ -1,12 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {
-  detectSharedInfrastructure,
-  type DatedInfrastructureObservation,
-} from "../src/analyse/shared-infrastructure.js";
+import { detectSharedInfrastructure } from "../src/analyse/shared-infrastructure.js";
 import { buildInfrastructureGeography } from "../src/analyse/shared-infrastructure-geography.js";
 import {
   buildInfrastructureTimeline,
+  type DatedInfrastructureObservation,
   type InfrastructureTimeline,
 } from "../src/analyse/shared-infrastructure-timeline.js";
 import { buildInfrastructurePersistence } from "../src/analyse/shared-infrastructure-persistence.js";

@@ -2,6 +2,7 @@
  * Bounded sitemap crawler: NA organization domains in, validated feed URLs out.
  * Each stage is time-boxed so a whole run stays well under 60 seconds.
  */
+import { assertStaticHttpUrl, fetchBounded } from "../security/network.js";
 import { ingestQuery, query } from "../db.js";
 import { parseSource } from "../collectors/parsers/formats.js";
 import {
@@ -54,25 +55,13 @@ const ACCEPT = "application/xml,text/xml,application/rss+xml,application/atom+xm
 /** Plain bounded GET: no retries, no backoff, no body larger than 512 KB. */
 export function makeFetch(timeoutMs = 4000): FetchLike {
 	return async (url) => {
-		const response = await fetch(url, {
+		const response = await fetchBounded(url, {
 			headers: { "User-Agent": USER_AGENT, Accept: ACCEPT },
-			signal: AbortSignal.timeout(timeoutMs),
-			redirect: "follow",
+			timeoutMs,
+			maxBytes: 512_000,
+			rejectIpLiteral: true,
 		});
-		const chunks: Buffer[] = [];
-		let total = 0;
-		const reader = response.body?.getReader();
-		if (reader) {
-			while (total < 512_000) {
-				const { done, value } = await reader.read();
-				if (done) break;
-				chunks.push(Buffer.from(value));
-				total += value.byteLength;
-			}
-			await reader.cancel().catch(() => {});
-		}
-		const buffer = Buffer.concat(chunks);
-		return { status: response.status, text: buffer.toString("utf8"), buffer };
+		return { status: response.status, text: response.buffer.toString("utf8"), buffer: response.buffer };
 	};
 }
 
@@ -117,6 +106,7 @@ type Stage = {
 async function probe(stage: Stage, url: string): Promise<HttpProbe | null> {
 	if (Date.now() >= stage.deadline) return null;
 	try {
+		assertStaticHttpUrl(url, { rejectIpLiteral: true });
 		const result = await stage.fetch(url);
 		return result.status >= 200 && result.status < 300 ? result : null;
 	} catch {

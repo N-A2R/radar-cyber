@@ -7,7 +7,7 @@
  *   tsx test/run.ts test/http.test.ts    # un seul fichier
  *   tsx test/run.ts --experimental-test-coverage
  */
-import { spawn } from "node:child_process";
+import { spawn, type ChildProcess } from "node:child_process";
 import { existsSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -22,18 +22,40 @@ async function testFiles(): Promise<string[]> {
 }
 
 // Un test peut laisser un handle ouvert : le processus ne sort alors jamais et
-// le step de CI reste bloqué indéfiniment. Cette borne tue la suite et échoue.
+// le step de CI reste bloqué indéfiniment. Cette borne tue le GROUPE entier,
+// puisqu'un SIGKILL au seul wrapper laissait ses enfants utiliser la base.
 const GLOBAL_TIMEOUT_MS = 20 * 60 * 1000;
+
+let enfantActif: ChildProcess | null = null;
+
+function tuerGroupe(): void {
+	const enfant = enfantActif;
+	if (!enfant || enfant.exitCode !== null || enfant.signalCode !== null) return;
+	if (process.platform !== "win32" && enfant.pid !== undefined) {
+		try {
+			process.kill(-enfant.pid, "SIGKILL");
+			return;
+		} catch (erreur) {
+			if ((erreur as NodeJS.ErrnoException).code !== "ESRCH") throw erreur;
+		}
+	}
+	enfant.kill("SIGKILL");
+}
 
 function run(cmd: string, args: string[], env: NodeJS.ProcessEnv): Promise<number> {
 	const { promise, resolve, reject } = Promise.withResolvers<number>();
-	const child = spawn(cmd, args, { stdio: "inherit", env });
+	const child = spawn(cmd, args, { stdio: "inherit", env, detached: process.platform !== "win32" });
+	enfantActif = child;
 	const garde = setTimeout(() => {
 		console.error(`Suite de tests interrompue après ${GLOBAL_TIMEOUT_MS / 60000} min : un handle est resté ouvert.`);
-		child.kill("SIGKILL");
+		tuerGroupe();
 	}, GLOBAL_TIMEOUT_MS);
 	child.on("error", (err) => { clearTimeout(garde); reject(err); });
-	child.on("close", (code, signal) => { clearTimeout(garde); resolve(signal ? 1 : (code ?? 1)); });
+	child.on("close", (code, signal) => {
+		clearTimeout(garde);
+		if (enfantActif === child) enfantActif = null;
+		resolve(signal ? 1 : (code ?? 1));
+	});
 	return promise;
 }
 
@@ -47,6 +69,7 @@ let dropping = false;
 async function cleanup(): Promise<void> {
 	if (!db || dropping) return;
 	dropping = true;
+	tuerGroupe();
 	const target = db;
 	db = null;
 	await dropTestDatabase(target);
@@ -66,14 +89,14 @@ try {
 	const cmd = existsSync(LOCAL_TSX) ? LOCAL_TSX : "tsx";
 	exitCode = await run(
 		cmd,
-		// `--test-force-exit` : la suite rend son verdict puis le processus
-		// sort, même si une connexion de collecte est restée ouverte. Sans lui,
-		// le step de CI attend 20 minutes pour rien (692 tests verts, aucune
-		// sortie), et le job est annulé.
-		["--test", "--test-concurrency=1", "--test-timeout=120000", "--test-force-exit", ...flags, ...files],
-		// Les tests d'intégration ne dépendent pas d'une TSA en ligne : le
-		// scellement est couvert par son propre test avec fournisseur injecté.
-		{ ...process.env, DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off", RADAR_EXPORT_SCELLEMENT: "0" }
+		// Pas de `--test-force-exit` : il masquait les connexions/timers non
+		// libérés en rendant un verdict vert avant la sortie. La garde ci-dessus
+		// tue désormais la suite et renvoie 1 si un handle reste ouvert.
+		["--test", "--test-concurrency=1", "--test-timeout=120000", ...flags, ...files],
+		// Le scellement est couvert par son propre test avec fournisseur injecté.
+		// `NODE_ENV=test` autorise le poivre d'audit factice : hors test, son
+		// absence fait échouer le démarrage (SEC-01).
+		{ ...process.env, NODE_ENV: "test", DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off", RADAR_EXPORT_SCELLEMENT: "0" }
 	);
 } catch (err) {
 	console.error(err);

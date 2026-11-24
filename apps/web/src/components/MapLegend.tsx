@@ -1,12 +1,11 @@
-import { FAMILY_HEX, familyHexFallback } from "../map/arcs";
 import { FAMILY_LABELS } from "../map/libelles";
 import { Badge } from "@astryxdesign/core/Badge";
 import { Card } from "@astryxdesign/core/Card";
 
 /**
  * Légende de la carte : sans elle, une couleur ne se décode pas et la carte
- * n'est qu'une image. Elle reprend exactement la palette utilisée par les
- * couches MapLibre (`FAMILY_COLORS`), donc elle ne peut pas mentir.
+ * n'est qu'une image. Les pastilles portent la famille en `data-family` ;
+ * styles.css résout ce jeton de données, exactement comme les couches MapLibre.
  */
 const SEVERITES: { n: number; label: string }[] = [
   { n: 1, label: "veille" },
@@ -24,7 +23,7 @@ export function MapLegend({ families }: { families: readonly string[] }) {
       <ul className="map-legend__sev">
         {SEVERITES.map(({ n, label }) => (
           <li key={n}>
-            <span className="map-legend__dot" style={{ background: `var(--sev-${n})` }} aria-hidden="true" />
+            <span className="map-legend__dot" data-sev={n} aria-hidden="true" />
             {n} · {label}
           </li>
         ))}
@@ -38,7 +37,7 @@ export function MapLegend({ families }: { families: readonly string[] }) {
               <li key={f}>
                 <span
                   className="map-legend__chip"
-                  style={{ background: FAMILY_HEX[f] ?? familyHexFallback() }}
+                  data-family={f}
                   aria-hidden="true"
                 />
                 <Badge label={FAMILY_LABELS[f] ?? f} variant="neutral" />

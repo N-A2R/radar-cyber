@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import mapTimelineRoute from "../src/routes/map-timeline.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `mt${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SEPTEMBER = "2026-09-15T10:00:00.000Z";
@@ -20,6 +21,12 @@ type MapEvent = {
   id: string; title: string; family: string; severity: number; lat: number; lon: number;
   observedAt: string | null;
 };
+
+/** Migration 231 : un événement ne peut être supprimé qu'après copie intégrale. */
+async function supprimerEvenementsDeTest(ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
+}
 
 const get = async <T>(url: string): Promise<T> => {
   const res = await app.inject({ method: "GET", url });
@@ -52,7 +59,8 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  const evenements = await query<{ id: string }>("SELECT id::text FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  await supprimerEvenementsDeTest(evenements.rows.map((ligne) => ligne.id));
   await query("DELETE FROM source WHERE id = $1", [TAG]);
   await closePools();
 });

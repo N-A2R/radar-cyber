@@ -16,6 +16,7 @@ import { closePools, query } from "../src/db.js";
 import { ensureSources, storeStatements } from "../src/communiques/store.js";
 import { OFFICIAL_SOURCES } from "../src/communiques/model.js";
 import custodyRoute from "../src/routes/custody.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `cust${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const SOURCE = `${TAG}-source`;
@@ -64,10 +65,11 @@ before(async () => {
     "INSERT INTO source (id, name, family, url) VALUES ($1,$2,'official_statement',$3)",
     [SOURCE, `Source ${TAG}`, PROOF_URL],
   );
-  // These two rows stand for history written before the reclassification
-  // boundary existed. Suspend that trigger only while building the fixtures;
-  // every later write in this file runs with both custody triggers enabled.
+  // These two rows stand for history written before either write-boundary
+  // trigger existed. Suspend both only while building the fixtures; every
+  // later write in this file runs with both custody triggers enabled.
   await query("ALTER TABLE event DISABLE TRIGGER event_custody_admission_on_reclassification");
+  await query("ALTER TABLE event DISABLE TRIGGER event_custody_outside_trace");
   try {
     for (const subject of [BACKFILL_SUBJECT, HTTP_SUBJECT]) {
       await query(
@@ -82,6 +84,7 @@ before(async () => {
       );
     }
   } finally {
+    await query("ALTER TABLE event ENABLE TRIGGER event_custody_outside_trace");
     await query("ALTER TABLE event ENABLE TRIGGER event_custody_admission_on_reclassification");
   }
   await query(
@@ -102,7 +105,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   await closePools();
 });
@@ -205,7 +208,7 @@ test("a raw regional insert journals its admission at write time with proof only
   assert.equal(JSON.stringify(rows[0]).includes(SECRET), false, "no victim data in the journal");
 });
 
-test("a non-regional insert writes no admission fact", async () => {
+test("a non-regional insert journals a rejection trace but no admission fact", async () => {
   const subject = `${TAG}:outside-region`;
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
@@ -213,11 +216,25 @@ test("a non-regional insert writes no admission fact", async () => {
      VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1"}'::jsonb)`,
     [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
   );
-  const { rows } = await query<{ id: number }>(
+  const admission = await query<{ id: number }>(
     "SELECT id FROM journal WHERE subject = $1 AND kind = 'event.admitted'",
     [subject],
   );
-  assert.equal(rows.length, 0);
+  assert.equal(admission.rows.length, 0);
+  const { rows } = await query<{ actor: string; payload: Record<string, unknown> }>(
+    "SELECT actor, payload FROM journal WHERE subject = $1 AND kind = 'event.rejected'",
+    [subject],
+  );
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0]?.actor, "custody:write-boundary@1");
+  assert.equal(rows[0]?.payload.reason, "outside-nouvelle-aquitaine");
+  assert.equal(rows[0]?.payload.sourceId, SOURCE);
+  assert.equal(rows[0]?.payload.sourceUrl, PROOF_URL);
+  assert.equal(iso(rows[0]?.payload.observedAt), OBSERVED);
+  assert.equal(rows[0]?.payload.family, "cti");
+  assert.equal(rows[0]?.payload.assertionType, "ambient_signal");
+  assert.equal(rows[0]?.payload.admissionRule, "custody-write-boundary@1");
+  assert.equal(JSON.stringify(rows[0]).includes(SECRET), false, "no victim data in the journal");
 });
 
 test("reclassifying an event into Nouvelle-Aquitaine journals its admission with proof only", async () => {

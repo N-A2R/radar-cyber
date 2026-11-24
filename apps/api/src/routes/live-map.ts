@@ -1,10 +1,12 @@
 /**
  * 3D live map: snapshot of ongoing attacks and SSE feed.
  *
- * No victim personal data transits: the allowlist lives in `src/live/attacks.ts`.
- * No trust filter is applied to sources (gray sources are allowed).
+ * No victim personal data transits: the allowlist lives in `src/live/attacks.ts`
+ * and the TLP predicate is the central one from `security/tlp.ts`. The hijacked
+ * SSE response carries the same headers and access audit as the REST API.
  */
 import type { FastifyInstance } from "fastify";
+import { badRequest, serviceUnavailable } from "../errors.js";
 import { query } from "../db.js";
 import {
   formatAttackEvent,
@@ -14,20 +16,32 @@ import {
   toLiveAttack,
   type LiveAttack,
 } from "../live/attacks.js";
+import { auditerFluxSse } from "../security/rbac.js";
+import { ecrireEntetesSse } from "../security/headers.js";
 
 const MAX_CLIENTS = Number(process.env.LIVE_MAP_MAX_CLIENTS ?? 50);
 const POLL_MS = 2000;
+const MAX_SNAPSHOT = 2000;
 
-async function selectAttacks(afterId: number | null = null): Promise<LiveAttack[]> {
-  const r = await query<Record<string, unknown>>(LIVE_ATTACK_SQL, liveAttackParams(afterId));
+async function selectAttacks(afterId: number | null = null, limite = 500): Promise<LiveAttack[]> {
+  const r = await query<Record<string, unknown>>(LIVE_ATTACK_SQL, liveAttackParams(afterId, limite));
   return r.rows.map(toLiveAttack).filter((a): a is LiveAttack => a !== null);
+}
+
+function curseur(brut: unknown): number {
+  if (brut === undefined || brut === null || brut === "") return 0;
+  const texte = Array.isArray(brut) ? brut[0] : brut;
+  if (typeof texte !== "string" || !/^\d+$/.test(texte)) throw badRequest("sinceId doit être un entier positif");
+  const valeur = Number(texte);
+  if (!Number.isSafeInteger(valeur)) throw badRequest("sinceId hors limites");
+  return valeur;
 }
 
 export default async function (app: FastifyInstance) {
   let clients = 0;
 
   app.get("/live-map", async () => {
-    const attacks = await selectAttacks();
+    const attacks = await selectAttacks(null, MAX_SNAPSHOT);
     return {
       capturedAt: new Date().toISOString(),
       windowDays: LIVE_WINDOW_DAYS,
@@ -37,13 +51,9 @@ export default async function (app: FastifyInstance) {
   });
 
   app.get("/live-map/stream", async (req, reply) => {
-    if (clients >= MAX_CLIENTS) {
-      return reply.code(503).send({ error: { code: "TOO_MANY_CLIENTS", message: "live map stream is full" } });
-    }
     const url = new URL(req.url ?? "/", "http://localhost");
-    let sinceId = Number(url.searchParams.get("sinceId") ?? 0);
-    if (!Number.isFinite(sinceId) || sinceId < 0) sinceId = 0;
-
+    let sinceId = curseur(url.searchParams.get("sinceId") ?? undefined);
+    if (clients >= MAX_CLIENTS) throw serviceUnavailable("live map stream is full");
     clients++;
     let closed = false;
     const cleanup = () => {
@@ -55,13 +65,10 @@ export default async function (app: FastifyInstance) {
       try { reply.raw.end(); } catch { /* already closed */ }
     };
 
+    await auditerFluxSse(req);
     reply.hijack();
-    reply.raw.writeHead(200, {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    });
-    reply.raw.write(`: connected\n\n`);
+    ecrireEntetesSse(reply);
+    reply.raw.write(": connected\n\n");
 
     const timer = setInterval(() => {
       if (closed) return;

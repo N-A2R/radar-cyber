@@ -8,8 +8,8 @@ import SourcesDashboardView, {
   formatCount,
   formatDuration,
   formatYield,
-  type SourcesDashboardViewProps,
 } from "../src/components/SourcesDashboardView";
+import type { SourcesDashboardViewProps } from "../src/contracts";
 import type { SourceRendement, SourcesDashboard } from "../src/api";
 
 let failures = 0;

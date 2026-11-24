@@ -1165,6 +1165,18 @@ export type ReviewRow = {
   org: { id: number; name: string; kind: string; city: string | null } | null;
   orgConfidence: number | null;
   review: Array<{ at: string; by: string; action: string; reason: string | null }>;
+  /** Présents sur la file humaine enrichie du serveur ; absents sur la file brute. */
+  candidates?: Array<{
+    id: number;
+    name: string;
+    score: number;
+    via: "domain" | "name";
+    city: string | null;
+    dept: string | null;
+  }>;
+  rejectRule?: string | null;
+  city?: string | null;
+  dept?: string | null;
 };
 
 export type ReviewQueueResponse = {
@@ -1374,6 +1386,12 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
+  /**
+   * Crée une organisation depuis un indice de revendication (route réelle du
+   * serveur). Utilisé par « Créer l'organisation » avant la décision de file.
+   */
+  orgFromHint: (input: { nom: string; domaine?: string | null; ville?: string | null; source: string; preuve: string }) =>
+    postJson<{ org: { id: number; name: string }; created: boolean; matchedBy: string | null }>("/orgs/from-hint", input),
   /** Append-only chain of custody for one event; no event free text. */
   custody: (subject: string, signal?: AbortSignal) =>
     get<CustodyChain>(`/custody?subject=${encodeURIComponent(subject)}`, signal),
@@ -1433,7 +1451,8 @@ export const api = {
     limit = 100,
     order: "regional" | "recent" = "regional",
     portee: "region" | "toutes" | "vulnerabilites" = "region",
-  ) => get<Event[]>(`/events?limit=${limit}&order=${order}&portee=${portee}`),
+    signal?: AbortSignal,
+  ) => get<Event[]>(`/events?limit=${limit}&order=${order}&portee=${portee}`, signal),
   /** Map timeline: monthly counts, then one page of points for a month. */
   mapTimelineBuckets: (months = 12, signal?: AbortSignal) =>
     get<MapTimelineBuckets>(`/map/timeline/buckets?months=${months}`, signal),

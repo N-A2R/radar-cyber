@@ -9,6 +9,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import liveMapRoute from "../src/routes/live-map.js";
 import { formatAttackEvent, type LiveAttack } from "../src/live/attacks.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `live3d${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const GRAY_SOURCE = `${TAG}-gray`;
@@ -71,7 +72,8 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  // Migration 231 : une copie intégrale doit précéder le DELETE d'un événement.
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
   await query("DELETE FROM org WHERE slug LIKE $1", [`%${TAG}`]);
   await query("DELETE FROM source WHERE id LIKE $1", [`${TAG}-%`]);
   await closePools();

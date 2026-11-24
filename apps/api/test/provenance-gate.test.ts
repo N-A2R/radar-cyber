@@ -15,12 +15,14 @@ import { randomBytes } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import {
   evaluateProvenanceGate,
+  CI_FIXTURE_STATE,
   PROVENANCE_SCOPE,
   REAL_STATE,
   type ProvenanceArtifact,
   type ProvenanceEntry,
 } from "../src/custody/gate.js";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const SCRIPT = fileURLToPath(new URL("../../../scripts/provenance.mts", import.meta.url));
 const TSX = fileURLToPath(new URL("../node_modules/.bin/tsx", import.meta.url));
@@ -56,7 +58,9 @@ function artifact(entries: ProvenanceEntry[]): ProvenanceArtifact {
   return {
     definition: "test ledger",
     scope: PROVENANCE_SCOPE,
-    generatedAt: OBSERVED,
+    // Le CLI refuse désormais un artefact plus vieux que 24 h : les faits
+    // gardent leurs dates fixes, seule l'horodature de mesure suit l'horloge.
+    generatedAt: new Date().toISOString(),
     organisations: REAL_STATE.organisations,
     sources: REAL_STATE.sources,
     events: REAL_STATE.events,
@@ -76,6 +80,55 @@ function brokenEntry(subject: string, overrides: Partial<ProvenanceEntry["event"
 function brokenArtifact(entry: ProvenanceEntry, gap: string): ProvenanceArtifact {
   return { ...artifact([entry]), complete: 0, withoutProvenance: 1, rate: 0, gaps: { [gap]: 1 } };
 }
+
+function fixtureArtifact(entries: ProvenanceEntry[]): ProvenanceArtifact {
+  return {
+    ...artifact(entries),
+    context: "ci-fixture",
+    organisations: CI_FIXTURE_STATE.organisations,
+    sources: CI_FIXTURE_STATE.sources,
+    events: CI_FIXTURE_STATE.events,
+  };
+}
+
+test("the CI fixture passes only through an explicitly requested pinned context", () => {
+  const ledger = fixtureArtifact([completeEntry()]);
+  assert.equal(evaluateProvenanceGate(ledger, "ci-fixture").ok, true);
+  const asReal = evaluateProvenanceGate(ledger);
+  assert.equal(asReal.ok, false);
+  assert.ok(asReal.reasons.includes("context-mode-mismatch"));
+  assert.ok(asReal.reasons.includes("context-mismatch"));
+});
+
+test("the CI fixture still blocks an event without admission", () => {
+  const entry = brokenEntry("feed:fixture-no-admission");
+  const ledger = {
+    ...fixtureArtifact([entry]),
+    complete: 0,
+    withoutProvenance: 1,
+    rate: 0,
+    gaps: { "admission-fact-missing": 1 },
+  };
+  const verdict = evaluateProvenanceGate(ledger, "ci-fixture");
+  assert.equal(verdict.ok, false);
+  assert.deepEqual(verdict.withoutProvenance, ["feed:fixture-no-admission"]);
+  assert.ok(verdict.reasons.includes("fact:admission-fact-missing"));
+});
+
+test("the CI fixture still requires proof keys and an actor", () => {
+  const entry = completeEntry("feed:fixture-no-proof");
+  entry.facts = entry.facts.map((fact) => ({ ...fact, payload: {}, actor: "" }));
+  const verdict = evaluateProvenanceGate({
+    ...fixtureArtifact([entry]),
+    complete: 0,
+    withoutProvenance: 1,
+    rate: 0,
+    gaps: { "actor-missing": 1, "proof-missing": 1 },
+  }, "ci-fixture");
+  assert.equal(verdict.ok, false);
+  assert.ok(verdict.reasons.includes("fact:actor-missing"));
+  assert.ok(verdict.reasons.includes("fact:proof-missing"));
+});
 
 test("a complete ledger passes with zero facts without provenance", () => {
   const verdict = evaluateProvenanceGate(artifact([completeEntry()]));
@@ -182,7 +235,7 @@ test("the measured ledger carries no victim title or journal summary", async () 
     assert.ok(ledger.entries.every((entry) => entry.event.title === null));
     assert.ok(ledger.entries.every((entry) => entry.facts.every((fact) => fact.summary === "")));
   } finally {
-    await query("DELETE FROM event WHERE source_id = $1", [sourceId]);
+    await supprimerEvenementsArchivees("source_id = $1", [sourceId]);
     await query("DELETE FROM source WHERE id = $1", [sourceId]);
     rmSync(dir, { recursive: true, force: true });
   }

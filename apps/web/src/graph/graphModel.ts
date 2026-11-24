@@ -8,6 +8,8 @@
  * no guessed attachment, no invented data.
  */
 
+import { parseEventTime } from '../map/timeline.js';
+
 export type GraphNodeKind =
   | 'org'
   | 'event'
@@ -147,9 +149,7 @@ export function canonicalFamily(name: string | null | undefined): string | undef
 
 /** Timestamp of an observation, or null when the date is absent/invalid. */
 export function observedTime(value: string | null | undefined): number | null {
-  if (!value) return null;
-  const time = Date.parse(value);
-  return Number.isFinite(time) ? time : null;
+  return parseEventTime(value);
 }
 
 export function endId(end: string | number | { id?: string | number } | undefined): string | undefined {
@@ -303,10 +303,8 @@ function periodAllowList(data: GraphData, days: number, now: number): Set<string
     const time = observedTime(node.observedAt)!;
     if (time >= cutoff) seeds.add(node.id);
   }
-  // Events with no usable date are kept: absence of a date is not proof of age.
-  for (const node of data.nodes) {
-    if (node.kind === 'event' && observedTime(node.observedAt) === null) seeds.add(node.id);
-  }
+  // Unparsable dates are excluded from every rolling window: keeping them
+  // would show "last 7 days" events from any period, unlike the map timeline.
 
   return contextualNeighbourhood(data, seeds);
 }

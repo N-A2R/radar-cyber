@@ -102,6 +102,20 @@ describe("HealthView — pas de zéros avant la donnée", () => {
     await flush();
   }
 
+  // Les 5xx sont rejoués après 250 ms puis 500 ms : attendre des microtâches
+  // seules ne laisse jamais l'état d'erreur s'installer.
+  async function attendreTexte(texte: string): Promise<void> {
+    const deadline = Date.now() + 4_000;
+    while (Date.now() < deadline) {
+      if (host.textContent?.includes(texte)) return;
+      await act(async () => {
+        const { promise, resolve } = Promise.withResolvers<void>();
+        setTimeout(resolve, 50);
+        await promise;
+      });
+    }
+  }
+
   it("affiche un squelette et aucun compteur tant que la réponse n'est pas arrivée", async () => {
     // Une requête qui ne se résout jamais : le premier rendu doit rester muet.
     vi.stubGlobal("fetch", vi.fn(() => new Promise<Response>(() => {})));
@@ -118,6 +132,7 @@ describe("HealthView — pas de zéros avant la donnée", () => {
     const fetchMock = vi.fn(async () => reponse({ erreur: "base indisponible" }, 503));
     vi.stubGlobal("fetch", fetchMock);
     await monter();
+    await attendreTexte("sources indisponibles");
 
     expect(host.textContent).toContain("sources indisponibles");
     expect(host.textContent).not.toContain("0 flux");

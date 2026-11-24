@@ -20,6 +20,7 @@ import {
 import { measureResaleListings } from "../src/resale/measure.js";
 import resaleListingsRoute from "../src/routes/resale-listings.js";
 import { installAccessControl } from "../src/security/rbac.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rl${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const DOMAIN = `${TAG}.example`;
@@ -60,7 +61,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE id = $1", [fixtureEventId]);
+  await supprimerEvenementsArchivees("id = $1", [fixtureEventId]);
   await query("DELETE FROM quarantine_raw WHERE content_hash = $1", [HASH]);
   await query("DELETE FROM org WHERE id = $1", [fixtureOrgId]);
   await closePools();

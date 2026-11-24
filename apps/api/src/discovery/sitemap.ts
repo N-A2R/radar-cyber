@@ -4,8 +4,9 @@
  * Every helper is pure so the crawler can be tested one behavior at a time.
  * Only URL-level metadata is ever kept: no article text, no victim names.
  */
+import { isIP } from "node:net";
 import { createHash } from "node:crypto";
-import { gunzipSync } from "node:zlib";
+import { assertStaticHttpUrl, decompressBounded } from "../security/network.js";
 
 export const NA_DEPARTMENTS = [
 	"16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87",
@@ -63,6 +64,7 @@ export function normalizeHost(input: string): string | null {
 		if (!raw) return null;
 		const parsed = new URL(raw.includes("://") ? raw : `https://${raw}`);
 		const host = parsed.hostname.replace(/\.$/, "").replace(/^www\./, "");
+		if (isIP(host) !== 0 || /^\d[\d.]*$/.test(host)) return null;
 		if (!/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/.test(host)) return null;
 		return host;
 	} catch {
@@ -91,6 +93,7 @@ export function parseRobotsSitemaps(robots: string): string[] {
 		const match = /^\s*Sitemap\s*:\s*(\S+)/i.exec(line);
 		if (!match) continue;
 		try {
+			assertStaticHttpUrl(match[1]!, { rejectIpLiteral: true });
 			const url = new URL(match[1]!);
 			if ((url.protocol === "https:" || url.protocol === "http:") && !found.includes(url.href)) {
 				found.push(url.href);
@@ -117,15 +120,14 @@ function decodeXml(value: string): string {
 export function decodeSitemapBody(body: Buffer | string, maxChars = MAX_BODY_CHARS): string {
 	const buffer = typeof body === "string" ? Buffer.from(body) : body;
 	const zipped = buffer.length > 2 && buffer[0] === 0x1f && buffer[1] === 0x8b;
-	const text = (zipped ? gunzipSync(buffer) : buffer).toString("utf8");
+	const text = (zipped ? decompressBounded(buffer, "gzip", Math.max(maxChars, 512_000)) : buffer).toString("utf8");
 	return text.slice(0, maxChars);
 }
 
 function absoluteLoc(raw: string | undefined, base: string): string | null {
 	if (!raw) return null;
 	try {
-		const url = new URL(decodeXml(raw), base);
-		if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+		const url = assertStaticHttpUrl(new URL(decodeXml(raw), base).href, { rejectIpLiteral: true }).url;
 		url.hash = "";
 		return url.href;
 	} catch {

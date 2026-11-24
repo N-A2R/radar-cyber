@@ -3,7 +3,7 @@
  *
  * Le journal fait autorité ; la projection (`event.org_id`) n'est qu'une vue.
  * Ce script rejoue une période avec le moteur demandé et compare : qu'aurait
- * décidé gazetteer@1 là où gazetteer@2 a tranché ? C'est la mesure de la
+ * décidé gazetteer@1 là où le moteur courant a tranché ? C'est la mesure de la
  * correction apportée par un changement de moteur — pas une phrase marketing,
  * un tableau.
  *
@@ -13,7 +13,7 @@
 
 import { closePools, query } from "../apps/api/src/db.js";
 import { buildGazetteer } from "../apps/api/src/match/gazetteer.js";
-import { resoudreAvecVersion, DEPLOIEMENTS, moteurActifA, type MoteurId } from "../apps/api/src/match/versions.js";
+import { resoudreAvecVersion, MOTEUR_RATTACHEMENT, DEPLOIEMENTS, moteurActifA, type MoteurId } from "../apps/api/src/match/versions.js";
 
 const argv = process.argv.slice(2);
 const MOTEUR = (argv.find((a) => a.startsWith("--moteur="))?.split("=")[1] as MoteurId | undefined) ?? "gazetteer@1";
@@ -59,7 +59,7 @@ async function main() {
 	let ancienPerdu = 0;
 
 	for (const ev of r.rows) {
-		const actuel = gaz ? resoudreAvecVersion(gaz, ev.title, "gazetteer@2") : null;
+		const actuel = gaz ? resoudreAvecVersion(gaz, ev.title, MOTEUR_RATTACHEMENT) : null;
 		const ancien = gaz ? resoudreAvecVersion(gaz, ev.title, MOTEUR) : null;
 		const actuelId = actuel?.org?.id ?? null;
 		const ancienId = ancien?.org?.id ?? null;
@@ -68,12 +68,12 @@ async function main() {
 			if (actuelId !== null && ancienId === null) nouveauTrouve++;
 			if (actuelId === null && ancienId !== null) ancienPerdu++;
 			if (COMPARER && divergences <= 20) {
-				console.log(`  ${ev.id} "${ev.title.slice(0, 60)}" : ${MOTEUR}=${ancienId ?? "null"}(${ancien?.reason ?? "?"}) → gazetteer@2=${actuelId ?? "null"}(${actuel?.reason ?? "?"}) | projection=${ev.org_id ?? "null"}`);
+				console.log(`  ${ev.id} "${ev.title.slice(0, 60)}" : ${MOTEUR}=${ancienId ?? "null"}(${ancien?.reason ?? "?"}) → ${MOTEUR_RATTACHEMENT}=${actuelId ?? "null"}(${actuel?.reason ?? "?"}) | projection=${ev.org_id ?? "null"}`);
 			}
 		} else pareils++;
 	}
 
-	console.log(`\nComparaison ${MOTEUR} vs gazetteer@2 : ${pareils} identiques, ${divergences} divergents (dont ${nouveauTrouve} nouveaux rattachements, ${ancienPerdu} perdus) sur ${r.rows.length} événements`);
+	console.log(`\nComparaison ${MOTEUR} vs ${MOTEUR_RATTACHEMENT} : ${pareils} identiques, ${divergences} divergents (dont ${nouveauTrouve} nouveaux rattachements, ${ancienPerdu} perdus) sur ${r.rows.length} événements`);
 
 	if (!COMPARER) {
 		console.log(`\nRelancer avec --comparer pour voir les 20 premiers écarts, ou --depuis/--jusqua pour cadrer la période.`);

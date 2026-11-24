@@ -9,6 +9,7 @@
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query, pool, closePools } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 after(async () => { await closePools().catch(() => {}); });
 
@@ -31,9 +32,11 @@ function jour(offset: number): Date {
 	return new Date(Date.now() + offset * 24 * 3600 * 1000);
 }
 
-const INSERT_EVENT = `INSERT INTO event (dedup_key, family, assertion_type, title, at, source_id,
+// Fait synthétique vrai au moment où le radar l'apprend : valid_at = at,
+// comme l'exige l'invariant temporel vérifié par la contrainte 242/245.
+const INSERT_EVENT = `INSERT INTO event (dedup_key, family, assertion_type, title, at, valid_at, source_id,
 	                                    source_url, evidence)
-	 VALUES ($1,'vuln','confirmed_incident',$2,$3,$4,
+	 VALUES ($1,'vuln','confirmed_incident',$2,$3,$3,$4,
 	         'https://example.invalid/premier-rapport', '{"run_id":"1"}'::jsonb)`;
 
 async function prepareSources(): Promise<void> {
@@ -66,7 +69,7 @@ async function drapeaux(fait: string): Promise<Record<string, boolean>> {
 }
 
 async function nettoyage(): Promise<void> {
-	await query("DELETE FROM event WHERE source_id = ANY($1)", [SOURCES]).catch(() => {});
+	await supprimerEvenementsArchivees("source_id = ANY($1)", [SOURCES]).catch(() => {});
 	await query("DELETE FROM source WHERE id = ANY($1)", [SOURCES]).catch(() => {});
 }
 
@@ -104,7 +107,7 @@ test("une source plus tardive ne prend pas l'avantage, une plus ancienne découv
 		);
 
 		// Supprimer le premier signalement promeut le suivant par `at`.
-		await query("DELETE FROM event WHERE dedup_key = $1", [`certfr:${FAIT_BASCULE}`]);
+		await supprimerEvenementsArchivees("dedup_key = $1", [`certfr:${FAIT_BASCULE}`]);
 		assert.deepEqual(
 			await drapeaux(FAIT_BASCULE),
 			{ kev: false, nvd: true },

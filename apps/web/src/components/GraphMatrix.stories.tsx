@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Theme } from "@astryxdesign/core/theme";
-import { gothicTheme } from "@astryxdesign/theme-gothic/built";
+import { stoneTheme } from "@astryxdesign/theme-stone/built";
 import GraphMatrix from "./GraphMatrix";
 import { graph } from "../storybook/fixtures";
 
@@ -11,7 +11,7 @@ const meta = {
   args: { nodes: graph.nodes, links: graph.links, loading: false, onRetry: () => {} },
   decorators: [
     (Story) => (
-      <Theme theme={gothicTheme} mode="dark">
+      <Theme theme={stoneTheme} mode="dark">
         <Story />
       </Theme>
     ),

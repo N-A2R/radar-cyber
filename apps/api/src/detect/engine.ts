@@ -1,9 +1,10 @@
 import { query, ingestQuery } from "../db.js";
-import { classifyScope, isConfident, isScopeGateEnabled } from "./scope.js";
+import { classifyScope, isConfident, isScopeGateEnabled, SCOPE_CONFIDENCE_THRESHOLD } from "./scope.js";
 import { REVIEW_THRESHOLD, scoreAlert } from "./confidence.js";
-import { NA_ANCHOR_BONUS } from "./calibration.js";
+import { calibratedScore } from "./calibration.js";
 import { discardIfFalse } from "./false-events.js";
 import { DEDUP_RULE_VERSION, findCrossFlowDuplicates } from "../dedup/event-pairs.js";
+import { recordDetectionDecision } from "./decision-log.js";
 
 export type RuleMatch = {
   family?: string;
@@ -195,7 +196,21 @@ export async function evaluateEvent(
   // A human promotion outranks automatic gates, including the scope gate.
   if (e.org_id == null && isScopeGateEnabled() && !ctx?.force) {
     const decision = await classifyScope(`${String(e.title ?? "")} ${String(e.summary ?? "")}`);
-    if (!isConfident(decision) || decision.scope !== "REGIONAL") return 0;
+    if (!isConfident(decision) || decision.scope !== "REGIONAL") {
+      const reason = decision === null
+        ? "modèle de portée indisponible"
+        : decision.scope !== "REGIONAL"
+          ? `portée ${decision.scope}`
+          : `confiance ${decision.confidence} < ${SCOPE_CONFIDENCE_THRESHOLD}`;
+      await recordDetectionDecision({
+        stage: "scope_gate",
+        reason,
+        verdict: decision === null ? "indisponible" : "refuse",
+        eventId: Number(e.id),
+        ...(decision ? { model: decision.model, scope: decision.scope } : {}),
+      });
+      return 0;
+    }
     regionalVerdict = decision;
   }
 
@@ -223,55 +238,52 @@ export async function evaluateEvent(
     distinctSources,
   });
 
+  // Une seule échelle décisionnelle : la note de confiance non majorée.
+  // L'ancrage Nouvelle-Aquitaine est tracé dans `globalScore`, mais ne doit
+  // ni ouvrir la porte globale ni assouplir un seuil de règle.
+  const anchored = orgId != null || e.regional === true;
+  const globalScore = calibratedScore(confidence.score, anchored);
   const confidenceEvidence = {
     score: confidence.score,
+    globalScore,
     status: confidence.status,
     threshold: REVIEW_THRESHOLD,
+    anchored,
     components: confidence.components,
     distinct_sources: distinctSources,
   };
 
   // `force` : une promotion de quarantaine est un acte humain explicite.
-  // L'analyste a choisi ce fait ; l'alerte doit exister. La porte de
-  // confiance ne s'applique qu'aux alertes automatiques.
+  // L'analyste a choisi ce fait ; la porte de confiance ne s'applique qu'aux
+  // alertes automatiques, sur la note de confiance d'origine.
   if (!ctx?.force && confidence.score < REVIEW_THRESHOLD) {
-    console.warn(
-      JSON.stringify({
-        detect: "alert_skipped_below_threshold",
-        event_id: Number(e.id),
-        score: confidence.score,
-        threshold: REVIEW_THRESHOLD,
-        components: confidence.components,
-        distinct_sources: distinctSources,
-        rule_ids: matched.map((rule) => rule.id),
-      })
-    );
+    await recordDetectionDecision({
+      stage: "global_threshold",
+      reason: `score ${confidence.score} < ${REVIEW_THRESHOLD}`,
+      verdict: "refuse",
+      eventId: Number(e.id),
+      score: confidence.score,
+      threshold: REVIEW_THRESHOLD,
+    });
     return 0;
   }
-
-  // Échelle mesurée par la calibration : note de confiance, majorée quand un
-  // ancrage régional est observable (rattachement organisation ou drapeau
-  // `regional` de l'événement). Aucun autre signal n'entre dans ce score.
-  const anchored = orgId != null || e.regional === true;
-  const calibratedScore = confidence.score + (anchored ? NA_ANCHOR_BONUS : 0);
   const ruleThresholds = await loadRuleThresholds();
 
   let created = 0;
   for (const rule of matched) {
-    // Un seuil calibré ne peut que resserrer : il s'applique après la porte
-    // globale de 65, et une promotion humaine (`force`) le conserve.
+    // Un seuil calibré ne peut que resserrer : il porte sur la note de base,
+    // jamais majorée, et une promotion humaine (`force`) le conserve.
     const threshold = ruleThresholds.get(rule.id);
-    if (!ctx?.force && threshold != null && calibratedScore < threshold) {
-      console.warn(
-        JSON.stringify({
-          detect: "alert_skipped_below_rule_threshold",
-          event_id: Number(e.id),
-          rule_id: rule.id,
-          score: calibratedScore,
-          threshold,
-          anchored,
-        })
-      );
+    if (!ctx?.force && threshold != null && confidence.score < threshold) {
+      await recordDetectionDecision({
+        stage: "rule_threshold",
+        reason: `score ${confidence.score} < ${threshold}${anchored ? " (ancrage NA exclu du seuil calibré)" : ""}`,
+        verdict: "refuse",
+        eventId: Number(e.id),
+        ruleId: rule.id,
+        score: confidence.score,
+        threshold,
+      });
       continue;
     }
     const scope = orgId != null ? "organization_incident" : "regional_advisory";
@@ -280,19 +292,18 @@ export async function evaluateEvent(
     // promotion humaine (`force`) reste un acte explicite et n'est pas filtrée.
     if (!ctx?.force && factGroup !== null && factGroup.length > 1) {
       const already = await query<{ id: number }>(
-        `SELECT id FROM alert WHERE rule_id=$1 AND event_id = ANY($2::int[]) LIMIT 1`,
+        `SELECT id FROM alert WHERE rule_id=$1 AND event_id = ANY($2::int[]) AND status IN ('open','ack') LIMIT 1`,
         [rule.id, factGroup]
       );
       if (already.rows.length > 0) {
-        console.warn(
-          JSON.stringify({
-            detect: "alert_skipped_cross_flow_duplicate",
-            event_id: Number(e.id),
-            rule_id: rule.id,
-            fact_event_ids: factGroup,
-            rule_version: DEDUP_RULE_VERSION,
-          })
-        );
+        await recordDetectionDecision({
+          stage: "cross_flow_dedup",
+          reason: `alerte ${DEDUP_RULE_VERSION} déjà ouverte sur le fait`,
+          verdict: "refuse",
+          eventId: Number(e.id),
+          ruleId: rule.id,
+          scope,
+        });
         continue;
       }
     }
@@ -302,7 +313,7 @@ export async function evaluateEvent(
       ...(factGroup !== null && factGroup.length > 1
         ? { cross_flow: { rule_version: DEDUP_RULE_VERSION, event_ids: factGroup } }
         : {}),
-      ...(threshold != null ? { calibration: { score: calibratedScore, threshold, anchored } } : {}),
+      ...(threshold != null ? { calibration: { score: confidence.score, globalScore, threshold, anchored } } : {}),
       ...(regionalVerdict ? { scope_decision: regionalVerdict } : {}),
     };
     const ins = await ingestQuery(

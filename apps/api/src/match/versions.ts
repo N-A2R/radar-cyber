@@ -1,15 +1,15 @@
 /**
- * Versions des moteurs — ce qui permet de rejouer avec un autre moteur.
+ * Versions des moteurs — historique et rejeu.
  *
- * Le journal consigne `actor: "moteur:gazetteer@2"` à chaque décision, mais
- * sans ce fichier, un `gazetteer@2` n'est qu'une étiquette : on ne sait pas ce
- * que faisait `gazetteer@1`, ni quand il a été remplacé, ni si rejouer avec lui
- * redonne l'état de l'époque. Ce module rend la version exécutable, pas
- * déclarative.
+ * `DEPLOIEMENTS` date chaque version pour `asOf`. `MOTEUR_RATTACHEMENT` est
+ * le moteur réellement exécuté par `resoudre()` : c'est la seule source de
+ * vérité pour le journal (J12).
  *
- * Règle : chaque version est une fonction pure `texte -> décision`, versionnée
- * en même temps que le code. Le déploiement est daté dans `DEPLOIEMENTS` —
- * c'est ce qui permet `asOf` côté journal.
+ * Seules les versions dont la décision est encore reproductible sont
+ * rejouables. `gazetteer@2` et `gazetteer@3` reposaient sur des règles
+ * d'indexation supprimées (alias d'usage, garde anti-toponyme, confiance par
+ * source) : les rejouer sur l'index courant donnerait une fausse vérité
+ * historique. Leurs dates restent datées mais leur rejeu échoue explicitement.
  */
 
 import { buildGazetteer, resoudre, type Gazetteer, type GazetteerMatch, type GazetteerRow } from "./gazetteer.js";
@@ -21,10 +21,13 @@ import { normaliser } from "./gazetteer.js";
 
 export type MoteurId = "gazetteer@1" | "gazetteer@2" | "gazetteer@3" | "gazetteer@4" | "contrat@1" | "regles@7";
 
+/** Moteur courant, réellement exécuté — à utiliser par les producteurs du journal. */
+export const MOTEUR_RATTACHEMENT: MoteurId = "gazetteer@4";
+
 export const DEPLOIEMENTS: Record<MoteurId, string> = {
 	"gazetteer@1": "2024-01-01T00:00:00.000Z", // rattachement initial : equal token overlap, naïf
-	"gazetteer@2": "2025-10-15T00:00:00.000Z", // index inversé + rôle + lieu-contredit
-	"gazetteer@3": "2026-11-15T13:00:00.000Z", // alias d'usage prioritaire + garde anti-toponyme (vague SIRENE)
+	"gazetteer@2": "2025-10-15T00:00:00.000Z", // index inversé + rôle + lieu-contredit (non rejouable)
+	"gazetteer@3": "2026-11-15T13:00:00.000Z", // alias d'usage + garde anti-toponyme (non rejouable)
 	"gazetteer@4": "2026-11-15T17:00:00.000Z", // confiance par source : sirene-nom exige 2 mots propres
 	"contrat@1": "2024-01-01T00:00:00.000Z",
 	"regles@7": "2025-11-01T00:00:00.000Z",
@@ -81,26 +84,30 @@ function resoudreGazetteerV1(gaz: Gazetteer, texte: string): GazetteerMatch {
 export function resoudreAvecVersion(
 	gaz: Gazetteer,
 	texte: string,
-	version: MoteurId = "gazetteer@4",
+	version: MoteurId = MOTEUR_RATTACHEMENT,
 ): GazetteerMatch {
+	if (VERSIONS_HISTORIQUES.includes(version)) {
+		throw new Error(`${version} n'est pas rejouable : l'index historique n'est plus disponible`);
+	}
 	if (version === "gazetteer@1") return resoudreGazetteerV1(gaz, texte);
 	return resoudre(gaz, texte);
 }
 
-/** Construit le gazetteer — même index pour les deux versions, seule la décision change. */
+/** Construit le gazetteer courant — la décision varie avec la version demandée. */
 export function gazetteerPourVersion(rows: GazetteerRow[]): Gazetteer {
 	return buildGazetteer(rows);
 }
 
-/** Liste des versions connues, pour l'API et le script de rejeu. */
+/** Versions dont le rejeu est reproductible, pour l'API et le script de rejeu. */
 export const VERSIONS_CONNUES: readonly MoteurId[] = [
 	"gazetteer@1",
-	"gazetteer@2",
-	"gazetteer@3",
-	"gazetteer@4",
+	MOTEUR_RATTACHEMENT,
 	"contrat@1",
 	"regles@7",
 ] as const;
+
+/** Versions passées, conservées dans `DEPLOIEMENTS` mais non rejouables. */
+export const VERSIONS_HISTORIQUES: readonly MoteurId[] = ["gazetteer@2", "gazetteer@3"] as const;
 
 /** Résumé lisible pour le dossier de reprise. */
 export function decrireVersion(version: MoteurId): string {
@@ -117,5 +124,6 @@ export function decrireVersion(version: MoteurId): string {
 						: version === "contrat@1"
 							? "contrat d'admission : filtre cyber / hors-sujet"
 							: "moteur de règles de détection";
-	return `${version} — ${base} — déployé le ${dep.slice(0, 10)}`;
+	const rejouable = VERSIONS_HISTORIQUES.includes(version) ? " — non rejouable" : "";
+	return `${version} — ${base} — déployé le ${dep.slice(0, 10)}${rejouable}`;
 }

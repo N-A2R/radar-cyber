@@ -3,9 +3,9 @@
  *
  * Fonctions pures : aucune base, aucun réseau. Le holdout est une liste
  * d'observations déjà mesurées (une alerte = un candidat, `positive` vient
- * des verdicts `false_event` enregistrés). Le score est celui que le moteur
- * peut recalculer à l'exécution : note de confiance de l'alerte, majorée de
- * 30 quand un ancrage Nouvelle-Aquitaine est observable.
+ * des verdicts `false_event` enregistrés). Le score observé est la note de
+ * confiance **non majorée** : c'est l'échelle des seuils de règle. La
+ * majoration d'ancrage Nouvelle-Aquitaine ne sert qu'à la porte globale.
  *
  * Le seuil retenu est le plus élevé qui satisfait précision >= 0,85 et
  * rappel >= 0,60 — donc le moins d'alertes possible sans perdre plus de
@@ -38,7 +38,8 @@ export const NA_ANCHOR_BONUS = 30;
 /** Seuil de revue historique, utilisé quand une règle n'a aucune observation. */
 export const DEFAULT_THRESHOLD = 65;
 
-export function ruleScore(baseScore: number | null | undefined, hasNaAnchor: boolean): number {
+/** Score de la porte globale : note de confiance + majoration d'ancrage. */
+export function calibratedScore(baseScore: number | null | undefined, hasNaAnchor: boolean): number {
 	const base = Number.isFinite(baseScore) ? Number(baseScore) : 0;
 	return base + (hasNaAnchor ? NA_ANCHOR_BONUS : 0);
 }

@@ -1,0 +1,35 @@
+# radar-backup.service — sauvegarde quotidienne de la base Radar Cyber.
+#
+# Modèle rendu par install.sh : @REPO@ et @PATH@ sont remplacés par le chemin du
+# checkout versionné et le PATH figé. Le script exécuté vient de la release,
+# jamais d'un chemin HOME divergent. Aucun secret dans l'unité.
+[Unit]
+Description=Radar Cyber — sauvegarde PostgreSQL (tunnel SSH, dump chiffré, hors site)
+Documentation=file:@REPO@/docs/exploitation.md
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=@REPO@
+Environment=PATH=@PATH@
+Environment=HOME=%h
+# DATABASE_URL, BACKUP_DIR, RETENTION, PASSPHRASE_FILE et OFFSITE sont définis
+# dans ce fichier 0600, jamais dans le dépôt. BOX_DB_PASS_FILE (0600) est lu par
+# backup-remote.sh pour le tunnel SSH vers la box hébergeant PostgreSQL.
+EnvironmentFile=%h/.config/radar-cyber/backup.env
+# Script versioné : tunnel, dump et rotation viennent de la release installée ;
+# backup-remote.sh appelle backup-db.sh du même dossier.
+ExecStart=@REPO@/scripts/backup-remote.sh
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=900
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+LockPersonality=true
+UMask=0077
+LimitNOFILE=65536

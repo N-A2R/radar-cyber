@@ -13,6 +13,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import { runRetention } from "../src/maintenance/retention.js";
 import historyRoute from "../src/routes/history.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `hist${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const SOURCE = `${TAG}-source`;
@@ -92,7 +93,7 @@ before(async () => {
 after(async () => {
   if (app) await app.close();
   await query("DELETE FROM archive_event WHERE dedup_key LIKE $1", [`${TAG}:%`]);
-  await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   await query("DELETE FROM org WHERE slug LIKE $1", [`${TAG}-%`]);
   await closePools();

@@ -21,6 +21,7 @@ import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
 import { promoteMatches, promoteOne } from "../src/quarantine/promote.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `r${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
@@ -95,7 +96,7 @@ after(async () => {
 		const evIds = ev.rows.map((x) => x.id);
 		if (evIds.length) {
 			await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [evIds]);
-			await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [evIds]);
+			await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evIds]);
 		}
 	}
 	const factIds = createdFacts.map((f) => f.id);
@@ -122,13 +123,18 @@ test("S3.1 — le cas historique wakao.co.jp → « CO & CO » ne produit plus d
 });
 
 test("S3.1 — drapeau off : l'indice masqué est rattaché (comportement livré, le tort d'origine)", async () => {
-	const org = await insertOrg(`F H ${TAG}`);
-	const fact = await insertFact(`F*****H ${TAG}`);
-	const r = await promoteMatches(false, { ids: [fact.id], log: () => {} });
-	assert.equal(r.matched, 1, "off : le rapprochement à 0,9 passe");
-	assert.equal(r.promoted, 1);
-	assert.equal(r.refusRegles["3-masquage"], undefined, "off : aucun refus");
-	assert.equal(await eventOrgId(fact.contentHash), org, "off : l'événement est rattaché (c'est le tort documenté)");
+	avecDrapeau("off");
+	try {
+		const org = await insertOrg(`F H ${TAG}`);
+		const fact = await insertFact(`F*****H ${TAG}`);
+		const r = await promoteMatches(false, { ids: [fact.id], log: () => {} });
+		assert.equal(r.matched, 1, "off : le rapprochement à 0,9 passe");
+		assert.equal(r.promoted, 1);
+		assert.equal(r.refusRegles["3-masquage"], undefined, "off : aucun refus");
+		assert.equal(await eventOrgId(fact.contentHash), org, "off : l'événement est rattaché (c'est le tort documenté)");
+	} finally {
+		sansDrapeau();
+	}
 });
 
 test("S3.1 — drapeau on : le même indice est refusé par 3-masquage et journalisé avec la règle", async () => {

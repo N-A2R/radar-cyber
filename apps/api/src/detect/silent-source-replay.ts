@@ -6,8 +6,10 @@ import {
 
 export const REPLAY_WINDOW_DAYS = 30;
 export const REPLAY_CHECK_MS = HOUR_MS;
-/** A short gap is not a silent source: the pause must be confirmed over a day. */
 export const MIN_CONFIRMED_PAUSE_HOURS = 24;
+/** Seuil calibré de `rule_calibration` (migration 200), pas le seuil historique de 12 h. */
+export const REPLAY_THRESHOLD_HOURS = 14;
+
 
 export type ProductionRow = { source_id: string; produced_at: string | Date };
 export type SilentEpisode = {
@@ -29,6 +31,7 @@ export function replaySilentSourceEpisodes(
 	production: readonly ProductionRow[],
 	windowStart: number,
 	anchor: number,
+	thresholdHours: number = REPLAY_THRESHOLD_HOURS,
 ): SilentEpisode[] {
 	const bySource = new Map<string, number[]>();
 	for (const row of production) {
@@ -44,7 +47,7 @@ export function replaySilentSourceEpisodes(
 
 	for (let checkAt = windowStart; checkAt <= anchor; checkAt += REPLAY_CHECK_MS) {
 		for (const signal of signals) {
-			const alert = detectSilentSource(signal, checkAt);
+			const alert = detectSilentSource(signal, checkAt, thresholdHours);
 			if (!alert) continue;
 			const key = `${signal.sourceId}|${alert.lastProductionAt}`;
 			if (seen.has(key)) continue;

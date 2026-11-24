@@ -1,4 +1,4 @@
-/* Map timeline: one translucent plate above the canvas, astryx gothic tokens. */
+/* Map timeline: one translucent plate above the canvas, Astryx Stone tokens. */
 .map-timeline {
   position: absolute;
   left: 50%;
@@ -91,4 +91,20 @@
   margin: 4px 0 0;
   accent-color: var(--accent);
   cursor: pointer;
+}
+
+/* Libellés de villes du fond de secours : pas de ressource `glyphs` à
+ * télécharger, uniquement des jetons du pont Astryx. */
+.radar-map-city {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--text);
+  font: 500 var(--text-micro) / var(--leading-tight) var(--font-label);
+  text-shadow: 0 var(--spacing-1) var(--spacing-2) var(--bg);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-2);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
 }

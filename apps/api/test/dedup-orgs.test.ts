@@ -10,6 +10,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { query, closePools } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const SCRIPT = fileURLToPath(new URL("../../../scripts/doublons-orgs.mts", import.meta.url));
 const TSX = fileURLToPath(new URL("../node_modules/.bin/tsx", import.meta.url));
@@ -60,7 +61,7 @@ function run(siren: string, args: string[] = []): Report {
 }
 
 after(async () => {
-	await query("DELETE FROM event WHERE source_id=$1", [SOURCE]).catch(() => {});
+	await supprimerEvenementsArchivees("source_id=$1", [SOURCE]).catch(() => {});
 	await query("DELETE FROM source WHERE id=$1", [SOURCE]).catch(() => {});
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${PREFIX}%`]).catch(() => {});
 	await closePools().catch(() => {});
