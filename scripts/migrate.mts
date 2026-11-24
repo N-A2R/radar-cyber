@@ -63,6 +63,13 @@ const SEED_APPLIED: string[] = [
   "migrate-019-press-scope.sql",
 ];
 
+/** Bases copiées après 225 dont l'historique a perdu ces trois versions. */
+const SCORE_BASELINE_APPLIED = [
+  "migrate-217-org-score.sql",
+  "migrate-222-org-score-recyf.sql",
+  "migrate-225-org-score-referentiel.sql",
+];
+
 function listMigrations(): string[] {
   return readdirSync(DB_DIR)
     .filter((f) => /^migrate-.*\.sql$/.test(f))
@@ -108,6 +115,30 @@ async function main(): Promise<void> {
               to_regclass('public.quarantine_raw') IS NOT NULL AS quarantine`,
     );
     const isLegacy = legacy.rows[0]?.org_alias === true && legacy.rows[0]?.quarantine === true;
+    // Une base peut porter le schéma final mais avoir perdu son historique de
+    // migrations (restauration/copie). Rejouer 225 serait destructeur : cette
+    // migration vide org_score avant recalcul. On n'adopte donc ces versions
+    // que si la colonne ET la clé composite sont déjà présentes.
+    const scoreSchema = await client.query<{ referentiel: boolean; composite_key: boolean }>(
+      `SELECT
+         EXISTS (
+           SELECT 1 FROM information_schema.columns
+            WHERE table_schema = 'public' AND table_name = 'org_score'
+              AND column_name = 'referentiel'
+         ) AS referentiel,
+         EXISTS (
+           SELECT 1 FROM pg_constraint c
+             JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = ANY(c.conkey)
+            WHERE c.conrelid = to_regclass('public.org_score')
+              AND c.contype = 'p' AND a.attname = 'referentiel'
+         ) AS composite_key`,
+    );
+    const scoreBaseline = scoreSchema.rows[0]?.referentiel === true
+      && scoreSchema.rows[0]?.composite_key === true;
+    const baselineVersions = scoreBaseline
+      ? SCORE_BASELINE_APPLIED.filter((v) => all.includes(v))
+      : [];
+    for (const v of baselineVersions) applied.add(v);
     const needsSeed = (tableExists ? trackingEmpty : true) && isLegacy;
 
     const seedVersions = needsSeed ? SEED_APPLIED.filter((v) => all.includes(v)) : [];
@@ -123,6 +154,9 @@ async function main(): Promise<void> {
         console.log(`Amorçage prévu (base historique reconnue): ${seedVersions.length} migration(s)`);
       } else if (!tableExists || trackingEmpty) {
         console.log(`Base neuve : les ${all.length} migrations seront jouées dans l'ordre.`);
+      }
+      if (baselineVersions.length > 0) {
+        console.log(`Schéma org_score final détecté : ${baselineVersions.length} migration(s) historique(s) à adopter.`);
       }
       console.log(`Déjà appliquées (${already.length}):`);
       for (const v of already) console.log(`  [applied] ${v}`);
@@ -149,6 +183,16 @@ async function main(): Promise<void> {
       if (seedVersions.length > 0) {
         console.log(`Amorçage: ${seedVersions.length} migration(s) marquée(s) appliquée(s).`);
       }
+    }
+
+    if (baselineVersions.length > 0) {
+      for (const v of baselineVersions) {
+        await client.query(
+          "INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT DO NOTHING",
+          [v],
+        );
+      }
+      console.log(`Historique réparé: ${baselineVersions.length} migration(s) org_score déjà présentes en base.`);
     }
 
     // Une transaction PAR migration, pas une pour tout le lot. Deux raisons,
