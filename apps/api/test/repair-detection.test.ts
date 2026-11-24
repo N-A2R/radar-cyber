@@ -222,8 +222,8 @@ test("D1 : les alertes de supervision muette sont exclues de la diffusion et du 
 	}
 });
 
-// D4 — une seule échelle : porte globale sur la note calibrée, seuil calibré sur la note de base.
-test("D4 : la porte globale s'applique au score calibré", async () => {
+// D4 — une seule échelle : la porte globale lit la note brute ; l'ancrage NA n'est qu'une preuve.
+test("D4 : la porte globale s'applique au score non majoré et l'ancrage reste tracé", async () => {
 	const ids = newIds();
 	try {
 		configureDecisionClient({ keys: [] });
@@ -232,13 +232,37 @@ test("D4 : la porte globale s'applique au score calibré", async () => {
 		await insertRule(ruleId, { family: "repair-global" });
 		const org = await insertOrg();
 		ids.orgs.push(org);
-		// A2 + signal ambiant + org géolocalisée = 55 ; +30 d'ancrage = 85 >= 65.
-		const event = await insertEvent({ family: "repair-global", title: "Rançongiciel ransomware régional", confidence: "A2", orgId: org });
-		ids.events.push(event);
+		// Corroboration vide : les notes ne dépendent que des champs insérés ci-dessous.
+		const noCorroboration = { sourcesByOrg: new Map<number, number>(), groupByEvent: new Map<number, number[]>() };
+		// A2 + signal ambiant + org géolocalisée = 54 ; +30 d'ancrage = 84.
+		// La porte globale lit 54 : l'ancrage ne l'ouvre pas.
+		const below = await insertEvent({
+			family: "repair-global", title: "Signal ambiant sur un incident régional",
+			confidence: "A2", orgId: org,
+		});
+		ids.events.push(below);
+		assert.equal(await evaluateEvent(below, { corroboration: noCorroboration }), 0, "l'ancrage NA n'ouvre pas la porte globale");
+		const gate = (await decisionsFor(below)).find((d) => d.stage === "global_threshold");
+		assert.ok(gate, "le refus par porte globale est consigné");
+		assert.equal(Number(gate.score), 54);
+		assert.equal(Number(gate.threshold), 65);
 
-		assert.equal(await evaluateEvent(event), 1, "la note calibrée franchit la porte globale");
-		const r = await query<{ id: number }>("SELECT id FROM alert WHERE rule_id=$1 AND event_id=$2", [ruleId, event]);
+		// A2 + revendication + org = 65 : la porte brute passe ; globalScore=95
+		// n'apparaît que dans la preuve de l'alerte.
+		const above = await insertEvent({
+			family: "repair-global", title: "Revendication de rançongiciel par un tiers",
+			assertionType: "third_party_claim", confidence: "A2", orgId: org,
+		});
+		ids.events.push(above);
+		assert.equal(await evaluateEvent(above, { corroboration: noCorroboration }), 1, "la note brute franchit la porte globale");
+		const r = await query<{ evidence: { confidence: { score: number; globalScore: number; anchored: boolean } } }>(
+			"SELECT evidence FROM alert WHERE rule_id=$1 AND event_id=$2", [ruleId, above],
+		);
 		assert.equal(r.rows.length, 1);
+		const evidence = r.rows[0]!.evidence.confidence;
+		assert.equal(evidence.score, 65);
+		assert.equal(evidence.globalScore, 95);
+		assert.equal(evidence.anchored, true);
 	} finally {
 		await cleanup(ids);
 	}
@@ -283,9 +307,13 @@ test("D5 : pending_delivery exclut les alertes acquittées et résolues", async 
 		const event = await insertEvent({ family: "repair-pending", title: "Rançongiciel ransomware", orgId: org });
 		ids.orgs.push(org);
 		ids.events.push(event);
-		const open = await insertAlert({ ruleId: `repair-pending-${TAG}`, eventId: event, orgId: org });
-		const acked = await insertAlert({ ruleId: `repair-pending-${TAG}`, eventId: event, orgId: org, status: "ack" });
-		const resolved = await insertAlert({ ruleId: `repair-pending-${TAG}`, eventId: event, orgId: org, status: "resolved" });
+		const ruleOpen = `repair-pending-open-${TAG}`;
+		const ruleAck = `repair-pending-ack-${TAG}`;
+		const ruleResolved = `repair-pending-resolved-${TAG}`;
+		ids.rules.push(ruleOpen, ruleAck, ruleResolved);
+		const open = await insertAlert({ ruleId: ruleOpen, eventId: event, orgId: org });
+		const acked = await insertAlert({ ruleId: ruleAck, eventId: event, orgId: org, status: "ack" });
+		const resolved = await insertAlert({ ruleId: ruleResolved, eventId: event, orgId: org, status: "resolved" });
 		ids.alerts.push(open, acked, resolved);
 
 		const pending = await fetchNotificationAlerts({ pendingOnly: true, limit: 100_000 });
@@ -449,8 +477,8 @@ test("D8 : le replay utilise par défaut les 14 h calibrées et accepte un seuil
 	assert.equal(SILENT_SOURCE_RULE, "supervision:silent-source-24h");
 });
 
-// D9 — un échec de lecture ne consomme pas le créneau horaire suivant.
-test("D9 : un check échoué reste réessayable dans l'heure", async () => {
+// D9 — un échec de lecture ne décale pas le créneau horaire suivant.
+test("D9 : un check échoué reste réessayable au créneau suivant", async () => {
 	resetSilentSourceCheckState();
 	const base = Date.parse("2026-11-21T12:00:00Z");
 	try {
@@ -459,7 +487,9 @@ test("D9 : un check échoué reste réessayable dans l'heure", async () => {
 		// Un octet nul dans un paramètre texte est refusé par PostgreSQL avant
 		// toute écriture : aucun réseau, une panne de lecture déterministe.
 		await assert.rejects(() => runSilentSourceCheck({ now: base + 10 * 60_000, force: true, sourceIds: ["mauvais\u0000id"] }));
-		const retried = await runSilentSourceCheck({ now: base + 20 * 60_000, sourceIds: [] });
+		const tooSoon = await runSilentSourceCheck({ now: base + HOUR_MS - 1, sourceIds: [] });
+		assert.equal(tooSoon.ran, false, "la cadence horaire est respectée après un succès");
+		const retried = await runSilentSourceCheck({ now: base + HOUR_MS, sourceIds: [] });
 		assert.equal(retried.ran, true, "le créneau suivant reste disponible après une erreur");
 		assert.equal(retried.alerts, 0);
 	} finally {
@@ -552,7 +582,7 @@ test("D11 : une alerte acquittée pendant le lot ne diffuse pas les canaux suiva
 		}) as typeof fetch;
 
 		const cfg: DeliveryConfig = {
-			webhookUrl: "https://example.invalid/hook",
+			webhookUrl: "https://example.invalid/webhook",
 			webhookSecret: "secret-de-test",
 			telegramBotToken: "faux-jeton",
 			telegramChatId: "faux-chat",
