@@ -32,14 +32,22 @@ function cutoffExpr(table: GenericTable): string {
 }
 
 /**
- * `alert.event_id` est un entier nu, sans clé étrangère : purger un événement
- * encore référencé laisse une alerte qui joint `null` et devient illisible
- * (plus de titre, d'organisation, de source). Ces événements restent donc en
- * base tant qu'une alerte les cite — c'est la preuve, pas le volume, qui prime.
+ * `alert.event_id` et `alert.indicator_id` sont des entiers nus, sans clé
+ * étrangère : purger une ligne encore référencée laisse une alerte qui joint
+ * `null` et devient illisible (plus de titre, d'organisation, de source, de
+ * type ou de valeur d'indicateur). Ces lignes restent donc en base tant qu'une
+ * alerte les cite — c'est la preuve, pas le volume, qui prime.
  */
 function purgeFilter(table: GenericTable): string {
   if (table === "event") {
     return " AND NOT EXISTS (SELECT 1 FROM alert a WHERE a.event_id = event.id)";
+  }
+  if (table === "indicator") {
+    // `alert.indicator_id` est, comme `alert.event_id`, un entier nu sans clé
+    // étrangère : purger un indicateur encore cité laisserait /api/alerts
+    // joindre un indicateur absent (plus de type ni de valeur). La preuve
+    // prime ici aussi : l'indicateur reste en base tant qu'une alerte le cite.
+    return " AND NOT EXISTS (SELECT 1 FROM alert a WHERE a.indicator_id = indicator.id)";
   }
   if (table === "collector_run") {
     // Un run encore cité est la preuve d'un événement : le purger laisserait
