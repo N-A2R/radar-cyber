@@ -230,3 +230,34 @@ La requête SQL de la tranche t11 redonne toujours 1 661 633 organisations de No
 
 OBJECTIF : partiel — 8 779 / 1 671 941 organisations (0,5251 %), manque 1 663 162 organisations vérifiées (99,4749 %) pour atteindre 100 %
 
+## Rattrapage — tranche t13 (2026-11-24)
+
+Le travail des tranches t1 à t12 est conservé : la branche de départ porte la mesure 8 779 / 1 671 941. La tranche t13 ouvre une **onzième route grise** : les variantes de protocole et de préfixe `www` d'une URL officielle déjà prouvée HTTP 200 par un registre public/gratuit. Les passes précédentes n'essayaient qu'une seule variante (`http` → `https` ou ajout de `www`) et manquaient les sites qui ne répondent qu'en `http`, ou seulement avec le préfixe `www` sur une URL `https`. `scripts/expand-domains-variantes.mts` ne garde que les URL dont le libellé enregistrable ou la page dédiée nomme l'organisation, essaie les quatre combinaisons du **même hôte officiel**, puis exige la preuve stricte inchangée (statut 200, racine identique après redirection, page de plus de 150 caractères, jeton distinctif du nom, URL finale nommante). Une seule organisation est proposée, même si deux formes d'URL qualifient ; rien n'est écrit sans `--apply`.
+
+Sur 390 candidats retenus, **53 domaines vérifiés et tracés** `exposition-service:variante-hote:http200` (établissements d'éducation, communes, associations, cabinets et sites Wikidata), tous issus d'URL déjà prouvées par les registres publics/gratuits. Détail : `bench/results/domains-from-host-variants.json`. 5 tests comportement (un par comportement) dans `apps/api/test/expand-domains-variantes.test.ts` ; 57 tests domaines verts au total ; typecheck `tsc --noEmit` OK ; `apps/api/src/server.ts` : 0 ligne modifiée.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-variantes -- --limit=2000 --concurrency=24 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée (mesure rejouée indépendamment après écriture) :
+
+```
+selected=390 verified=53 applied=true
+verified_domain_coverage=8779 -> 8832
+coverage_percent=0.5251 -> 0.5282
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=8890
+organisations_avec_domaine_verifie_et_provenance=8832
+couverture_pourcent=0.5282
+```
+
+La requête SQL de la tranche t11 redonne toujours 1 661 633 organisations de Nouvelle-Aquitaine sans domaine **et sans aucune URL HTTP 200** dans le corpus consolidé des sources publiques/gratuites : la tranche t13 ne fabrique aucun site, elle retente l'hôte officiel déjà prouvé par un registre. Sur les 1 663 109 organisations encore sans domaine vérifié, moins de 1 500 disposent d'une URL prouvée mais échouent à la preuve stricte. Combler le reste exigerait d'attribuer des sites inexistants, ce qui détruirait la garantie « vérifié avec provenance ». Aucune donnée personnelle, aucun service payant.
+
+OBJECTIF : partiel — 8 832 / 1 671 941 organisations (0,5282 %), manque 1 663 109 organisations vérifiées (99,4718 %) pour atteindre 100 %
+
