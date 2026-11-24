@@ -40,7 +40,13 @@ L'état de départ est celui de la base réelle : 1 673 151 organisations,
    500 sondes, 50 s de délai global). Seuls le code HTTP, le temps de réponse,
    le jour UTC et un code d'échec générique sont conservés ; aucun corps de
    réponse n'est lu.
-3. **Rejeu** : `services:measure` recombine les observations, garde une ligne par
+3. **Import de preuves HTTP réelles déjà stockées** : `source_verification`
+   contient des vérifications HTTP horodatées ; l'import borné au périmètre et à
+   la fenêtre ne conserve que 32 lignes du 22 novembre, toutes HTTP 200, sans
+   corps de réponse ni champ personnel. Elles comblent 4 service-jours absents
+   du sondage local et en corrigent 28 autres. L'import est idempotent et
+   fusionne par (service, jour) avec priorité au succès.
+4. **Rejeu** : `services:measure` recombine les observations, garde une ligne par
    couple (service, jour) — succès prioritaire, puis observation la plus
    ancienne — et calcule la disponibilité sur les sept jours calendaires UTC se
    terminant à la date d'ancrage. Le rejeu est hors réseau, hors base et
@@ -53,18 +59,18 @@ absence d'observation et panne de service.
 
 ## Chiffre obtenu
 
-**500 services publics NA suivis ; 1 920 service-jours réellement observés sur les
-3 500 attendus ; 1 334 service-jours disponibles, soit une disponibilité mesurée
-de 69,48 % sur la fenêtre du 18 au 24 novembre 2026.**
+**500 services publics NA suivis ; 1 924 service-jours réellement observés sur les
+3 500 attendus ; 1 363 service-jours disponibles, soit une disponibilité mesurée
+de 70,84 % sur la fenêtre du 18 au 24 novembre 2026.**
 
 | Indicateur | Valeur mesurée |
 |---|---:|
 | Services du périmètre | 500 |
 | Service-jours attendus (500 × 7) | 3 500 |
-| Service-jours observés | 1 920 |
-| Couverture de la fenêtre | 54,86 % |
-| Service-jours disponibles | 1 334 |
-| **Disponibilité observée** | **69,48 %** |
+| Service-jours observés | 1 924 |
+| Couverture de la fenêtre | 54,97 % |
+| Service-jours disponibles | 1 363 |
+| **Disponibilité observée** | **70,84 %** |
 | Services avec sept jours complets | 0 |
 
 Détail par jour :
@@ -75,7 +81,7 @@ Détail par jour :
 | 19 novembre | 0 | 0 | — |
 | 20 novembre | 0 | 0 | — |
 | 21 novembre | 500 | 500 | 100 % |
-| 22 novembre | 420 | 5 | 1,19 % |
+| 22 novembre | 424 | 34 | 8,02 % |
 | 23 novembre | 500 | 500 | 100 % |
 | 24 novembre | 500 | 329 | 65,80 % |
 
@@ -84,7 +90,7 @@ Résultat versionné le 24 novembre : `bench/results/service-availability-na-202
 `bench/results/service-availability-na-2026-11-22.json` et
 `bench/results/service-availability-na-2026-11-23.json`).
 Observations versionnées : `bench/results/service-availability-observations.jsonl`
-(1 920 lignes).
+(1 924 lignes).
 
 ## Ce que ce chiffre mesure, et ce qu'il ne mesure pas
 
@@ -260,6 +266,27 @@ fenêtre complète possible (23 au 29 novembre), après cinq collectes réelles
 les 25, 26, 27, 28 et 29 novembre. L'écart reste de 1 580 service-jours :
 aucune date ni aucun statut n'a été inventé pour le combler.
 
+## Rattrapage du 24 novembre (01 h 50 UTC) : preuves HTTP de la base
+
+Une fouille indépendante (171 tables PostgreSQL, worktrees, `/tmp`, artifacts
+GitHub Actions) n'a trouvé aucune observation réelle des 18, 19 et 20 novembre :
+0 service-jour gagné sur ces trois jours. Elle a en revanche identifié des
+vérifications HTTP 200 du 22 novembre déjà versées dans `source_verification`
+et jamais importées dans le jeu d'observations. L'import borné au périmètre,
+sans donnée personnelle ni service payant, a versé 32 preuves réelles :
+
+```
+db_rows=32 mapped=32 new_service_days=4 upgraded=28 total_stored=1924
+services=500 window=2026-11-18..2026-11-24 observed_service_days=1924/3500 available=1363 availability=70,84%
+OBJECTIF : partiel — 4 / 7 jours (1924 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1576 service-jours
+windows=10 max_observed_service_days=1924/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-29
+```
+
+Le gain est de **4 service-jours observés et 29 service-jours disponibles** :
+l'écart passe de 1 580 à 1 576. Les trois jours sans observation restent
+introuvables ; `feasible_windows=0` confirme qu'aucune fenêtre ancrable le
+24 novembre n'atteint 3 500 service-jours, la première restant le 29 novembre.
+
 ## Reproduire
 
 ```bash
@@ -277,6 +304,10 @@ pnpm services:verify -- --anchor=2026-11-24
 
 # Audit reproductible de toutes les fenêtres de sept jours encore ancrables
 apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# Import idempotent des preuves HTTP réelles déjà en base (lecture seule)
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/import-service-availability-db-proofs.mts \
+  --from=2026-11-18 --to=2026-11-25
 ```
 
 La commande de rejeu réécrit `bench/results/service-availability-na-<date>.json`
@@ -285,12 +316,12 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
 
 ## Contrôles
 
-- 19 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
-  quatre pour l'audit des fenêtres : un test par comportement, tous hors réseau
-  et hors base.
+- 22 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
+  quatre pour l'audit des fenêtres et trois pour l'import des preuves DB : un
+  test par comportement, tous hors réseau et hors base.
 - `tsc --noEmit -p apps/api/tsconfig.json` : aucune erreur.
 - Périmètre Nouvelle-Aquitaine uniquement ; sources grises autorisées ; aucune
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 1920 / 3500 service-jours (4 / 7 jours), manque 1580 service-jours (18, 19, 20 novembre et 80 sondes du 22 novembre) ; reproductible le 24/11/2026 : `pnpm services:verify -- --anchor=2026-11-24` renvoie `1920 / 3500`, `1580 service-jours`, et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24` renvoie `feasible_windows=0 earliest_attainable_anchor=2026-11-29`.
+OBJECTIF : partiel — 1924 / 3500 service-jours (4 / 7 jours), manque 1576 service-jours (18, 19, 20 novembre et 76 sondes du 22 novembre) ; rattrapage du 24/11/2026 : 4 service-jours réels récupérés dans `source_verification` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` (`1924 / 3500`, `1576 service-jours`) et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24` (`feasible_windows=0 earliest_attainable_anchor=2026-11-29`).
