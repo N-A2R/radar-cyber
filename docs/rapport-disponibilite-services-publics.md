@@ -59,18 +59,18 @@ absence d'observation et panne de service.
 
 ## Chiffre obtenu
 
-**500 services publics NA suivis ; 1 999 service-jours réellement observés sur les
-3 500 attendus ; 1 817 service-jours disponibles, soit une disponibilité mesurée
-de 90,90 % sur la fenêtre du 18 au 24 novembre 2026.**
+**500 services publics NA suivis ; 2 000 service-jours réellement observés sur les
+3 500 attendus ; 1 825 service-jours disponibles, soit une disponibilité mesurée
+de 91,25 % sur la fenêtre du 18 au 24 novembre 2026.**
 
 | Indicateur | Valeur mesurée |
 |---|---:|
 | Services du périmètre | 500 |
 | Service-jours attendus (500 × 7) | 3 500 |
-| Service-jours observés | 1 999 |
-| Couverture de la fenêtre | 57,11 % |
-| Service-jours disponibles | 1 817 |
-| **Disponibilité observée** | **90,90 %** |
+| Service-jours observés | 2 000 |
+| Couverture de la fenêtre | 57,14 % |
+| Service-jours disponibles | 1 825 |
+| **Disponibilité observée** | **91,25 %** |
 | Services avec sept jours complets | 0 |
 
 Détail par jour :
@@ -81,7 +81,7 @@ Détail par jour :
 | 19 novembre | 0 | 0 | — |
 | 20 novembre | 0 | 0 | — |
 | 21 novembre | 500 | 500 | 100 % |
-| 22 novembre | 499 | 488 | 97,80 % |
+| 22 novembre | 500 | 496 | 99,20 % |
 | 23 novembre | 500 | 500 | 100 % |
 | 24 novembre | 500 | 329 | 65,80 % |
 
@@ -90,13 +90,13 @@ Résultat versionné le 24 novembre : `bench/results/service-availability-na-202
 `bench/results/service-availability-na-2026-11-22.json` et
 `bench/results/service-availability-na-2026-11-23.json`).
 Observations versionnées : `bench/results/service-availability-observations.jsonl`
-(1 999 lignes).
+(2 000 lignes).
 
 ## Ce que ce chiffre mesure, et ce qu'il ne mesure pas
 
 - Il mesure une **disponibilité observée**, pas une disponibilité continue : les
   jours sans observation ne sont pas comptés comme disponibles ni comme en
-  panne. La couverture de 57,11 % est donc aussi importante que le pourcentage.
+  panne. La couverture de 57,14 % est donc aussi importante que le pourcentage.
 - La journée du 21 novembre vient d'une vérification HTTP réelle déjà versée au
   corpus ; les journées des 22, 23 et 24 novembre viennent de sondes locales.
   Les protocoles ne sont pas identiques (la sonde locale impose un timeout court).
@@ -110,13 +110,12 @@ Observations versionnées : `bench/results/service-availability-observations.jso
   C'était la première journée locale où le périmètre entier était observé.
 - **L'objectif « sur 7 jours » n'est pas tenu** : trois jours de la fenêtre
   (18 au 20 novembre) n'ont aucune observation, soit 1 500 service-jours
-  manquants, auxquels s'ajoute 1 service-jour non observé le 22 novembre
-  (1 501 au total). Aucune observation réelle n'a été trouvée pour ces dates
-  ni dans l'arbre ou l'historique Git, ni dans les sources grises testées
-  (Wayback CDX : 0 capture sur la fenêtre pour les URL du périmètre ; Common
-  Crawl : index le plus récent arrêté au 19 novembre, requêtes en échec).
-  Les compléter reviendrait à inventer des observations. Le pipeline reste
-  en place pour les collectes quotidiennes.
+  manquants. Aucune observation réelle n'a été trouvée pour ces dates ni dans
+  l'arbre ou l'historique Git, ni dans les sources grises testées (Wayback CDX :
+  0 capture sur la fenêtre pour les URL du périmètre ; Common Crawl : index le
+  plus récent arrêté au 19 novembre, requêtes en échec). Les compléter reviendrait
+  à inventer des observations. Le pipeline reste en place pour les collectes
+  quotidiennes.
 - **Contrôle indépendant des sources grises (24 novembre)** : 37 requêtes HTTP bornées vers 8 archives ouvertes, sur 14 URL exactes du périmètre et les 4 jours alors manquants (17 au 20 novembre) : 0 capture sur 56 URL-jours. Wayback CDX renvoie `[]` pour les 14 URL (contrôle sur octobre : 2 captures sur une URL, requête valide) ; `archive.org/wayback/available` ne trouve que des captures antérieures au 17 novembre ; Arquivo.pt 0/2, urlscan.io 0 (même sans filtre de date), Common Crawl (dernier index arrêté le 19 novembre) 504, Memento/BnF et `archive.ph` inaccessibles. Aucune observation rétroactive n'est donc disponible sans inventer une date.
 - **Collecte réelle du 24 novembre** : lancée à 00 h 00 min 08 s UTC avec
   `--anchor=2026-11-24 --concurrency=100 --deadline-ms=50000`, elle a sondé
@@ -348,6 +347,40 @@ laissent le fichier d'observations octet pour octet identique. Les 18, 19 et 20
 novembre restent sans aucune observation : 1 500 service-jours manquants, auxquels
 s'ajoute 1 sonde non enregistrée le 22. Aucune date ni aucun statut n'a été inventé.
 
+## Preuve sur l'URL finale du corpus (24 novembre, 03 h UTC)
+
+Une passe complémentaire a utilisé une preuve déjà versionnée et non exploitée :
+le corpus porte, pour chaque service, `preuve.url_finale` (et `url_preuve`)
+issue de la même vérification HTTP du 21 novembre. L'import n'indexait que
+`url`. Le HTTP 200 réel du 22 novembre à 03 h 25 min 37 s UTC sur
+`https://app.lycee-foyen.fr`, URL finale du lycée professionnel Paul Broca
+(`https://lycee-foyen.fr`, identifiant opaque `na-edu-0330114V`), n'était donc
+pas rattaché au service. L'import indexe désormais les deux URL publiques du
+même service, sans lire de corps de réponse ni donnée personnelle.
+
+```
+db_rows=32 db_mapped=32 exposition_rows=10746 exposition_mapped=786 new_service_days=1 upgraded=7 total_stored=2000
+services=500 window=2026-11-18..2026-11-24 observed_service_days=2000/3500 available=1825 availability=91,25%
+OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-27
+```
+
+Gain : **1 service-jour réel et 8 service-jours disponibles** ; le 22 novembre
+est désormais complet (500/500 observés). La première fenêtre sept jours
+entièrement observable avance au 27 novembre : trois collectes réelles
+(25, 26, 27 novembre) suffisent désormais, contre cinq auparavant. Les
+18, 19 et 20 novembre restent sans observation : 1 500 service-jours manquants,
+aucun n'ayant été inventé.
+
+Trois recherches indépendantes complémentaires n'ont retrouvé aucune autre
+preuve réelle : balayage de la base PostgreSQL (0 observation HTTP exploitable
+sur les 18, 19 et 20 novembre, aucun autre service du 22 non couvert) ; arbre
+et historique Git, worktrees, `/tmp`, `/var/log` et caches (0 observation datée) ;
+dix URL du périmètre interrogées sur de nouveaux endpoints ouverts —
+`calendarcaptures/2` avec requête témoin valide, replays datés, UK Web Archive,
+`advancedsearch` d'Internet Archive, Common Crawl (0 capture aux trois dates).
+Aucun service payant, aucune date ni aucun statut inventé.
+
 ## Reproduire
 
 ```bash
@@ -377,12 +410,12 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
 
 ## Contrôles
 
-- 23 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
-  quatre pour l'audit des fenêtres et quatre pour l'import des preuves DB : un
+- 24 tests de comportement (`apps/api/test/service-availability.test.ts`), dont
+  quatre pour l'audit des fenêtres et cinq pour l'import des preuves DB : un
   test par comportement, tous hors réseau et hors base.
 - `tsc --noEmit -p apps/api/tsconfig.json` : aucune erreur.
 - Périmètre Nouvelle-Aquitaine uniquement ; sources grises autorisées ; aucune
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 1999 / 3500 service-jours (4 / 7 jours), manque 1501 service-jours (18, 19, 20 novembre et 1 sonde du 22 novembre) ; rattrapage du 24/11/2026 : 75 service-jours réels récupérés dans `exposition_service` et 379 observations corrigées ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` (`1999 / 3500`, `1501 service-jours`) et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24` (`feasible_windows=0 earliest_attainable_anchor=2026-11-29`).
+OBJECTIF : partiel — 2000 / 3500 service-jours (4 / 7 jours), manque 1500 service-jours (18, 19, 20 novembre) ; rattrapage du 24/11/2026 : 1 service-jour réel récupéré sur l'URL finale du corpus, 8 observations corrigées, 22 novembre complet (500/500) ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` (`2000 / 3500`, `1500 service-jours`) et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24` (`feasible_windows=0 earliest_attainable_anchor=2026-11-27`).

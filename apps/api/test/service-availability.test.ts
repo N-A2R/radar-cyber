@@ -285,3 +285,16 @@ test("an exposition HTTP proof becomes a dated observation for every service sha
 		},
 	]);
 });
+
+test("an exposition proof on the corpus final URL maps to its service", () => {
+	const target = { ...service("na-edu-033"), url: "https://lycee-foyen.fr", proofUrl: "https://app.lycee-foyen.fr/" };
+	const rows = [
+		{ url: "https://APP.LYCEE-FOYEN.FR", status: 200, consulted_at: "2026-11-22T03:25:37.499Z" },
+	];
+	assert.deepEqual(observationsFromExpositionProofs(rows, [target]), [
+		{
+			serviceId: "na-edu-033", day: "2026-11-22", ok: true, status: 200,
+			latencyMs: 0, observedAt: "2026-11-22T03:25:37.499Z", failure: null,
+		},
+	]);
+});
