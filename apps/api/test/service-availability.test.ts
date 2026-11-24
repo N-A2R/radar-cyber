@@ -15,6 +15,7 @@ import { probeAll, probeService, type DailyObservation } from "../src/serviceAva
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
 import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
 import { auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
+import { normalizeProofUrl, observationsFromDbProofs } from "../src/serviceAvailability/dbProofs.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -223,4 +224,42 @@ test("earliest attainable anchor waits for incomplete past days to leave the win
 		observation("a", "2026-11-24", true), observation("b", "2026-11-24", true),
 	];
 	assert.equal(earliestAttainableAnchor(rows, services, "2026-11-24"), "2026-11-29");
+});
+
+test("a real database proof becomes a dated observation for the matching service", () => {
+	const target = service("na-edu-001");
+	const rows = [{
+		url: "https://EXAMPLE.FR/na-edu-001/",
+		code_http: 200,
+		verifie_at: "2026-11-22T07:18:27.202Z",
+		ms: 312,
+	}];
+	assert.deepEqual(observationsFromDbProofs(rows, [target]), [{
+		serviceId: target.id,
+		day: "2026-11-22",
+		ok: true,
+		status: 200,
+		latencyMs: 312,
+		observedAt: "2026-11-22T07:18:27.202Z",
+		failure: null,
+	}]);
+});
+
+test("a database proof with an HTTP error is unavailable, not missing", () => {
+	const target = service("na-edu-002");
+	const rows = [{ url: target.url, code_http: 503, verifie_at: "2026-11-22T09:00:00.000Z", ms: null }];
+	const [result] = observationsFromDbProofs(rows, [target]);
+	assert.equal(result.ok, false);
+	assert.equal(result.failure, "http_error");
+	assert.equal(result.status, 503);
+});
+
+test("database proofs outside the perimeter or without a valid UTC date are skipped", () => {
+	const target = service("na-edu-003");
+	const rows = [
+		{ url: "https://other.fr/", code_http: 200, verifie_at: "2026-11-22T09:00:00.000Z", ms: 10 },
+		{ url: target.url, code_http: 200, verifie_at: "not-a-date", ms: 10 },
+	];
+	assert.deepEqual(observationsFromDbProofs(rows, [target]), []);
+	assert.equal(normalizeProofUrl(" HTTPS://EXAMPLE.FR/path/ "), "https://example.fr/path");
 });
