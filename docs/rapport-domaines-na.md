@@ -1006,3 +1006,60 @@ Les 9 409 organisations avec domaine incluent 46 preuves non comptables : 14 cor
 
 OBJECTIF : partiel — 9 363 / 1 671 941 organisations (0,5600 %), manque 1 662 578 organisations vérifiées (99,4400 %) pour atteindre 100 %
 
+## Rattrapage — tranche t31 (2026-11-24) : domaines municipaux du référentiel territorial
+
+La PR #797 est toujours ouverte et son objectif chiffré (100 %) n'est pas atteint : la tranche t30 livrait 9 363 / 1 671 941. Reprise depuis `origin/ext/rattrapage-rapport-domaines-na`, seule base autorisée ; le travail des tranches t1 à t30 est conservé tel quel.
+
+Nouvelle route grise : le référentiel territorial versionné `db/data/referentiel-na.json` (4 517 communes des 12 départements de Nouvelle-Aquitaine, avec SIREN, code postal et département). `scripts/expand-domains-communes-na.mts` ne retient qu'une organisation sans domaine dont le nom désigne explicitement la commune (« Commune de », « Mairie de », « Ville de »), dans le même département. Quatre motifs publics sont essayés en passes successives : `<commune>.fr`, `mairie-<commune>.fr`, `<commune>-mairie.fr`, `ville-<commune>.fr`. La preuve live reste stricte : HTTP 200 final sur la racine attendue, contenu réel, nom de la commune dans la page, vocabulaire municipal et ancre locale (code postal ou nom du département, sans code départemental contradictoire). Une racine déjà attribuée à une autre fiche n'est jamais réemployée ; une seule racine par commune, une seule écriture par organisation. Aucun site n'est deviné au sens « attribué sans preuve » : chaque domaine accepté a été revérifié en direct et porte code commune, URL source et URL finale dans sa provenance.
+
+Commandes reproductibles (quatre passes, puis mesure indépendante) :
+
+```sh
+for motif in slug mairie slug-mairie ville; do
+  DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar \
+    pnpm domaines:etendre-communes-na -- --motif=$motif --limit=2000 --concurrency=32 --apply
+done
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées (détail : `bench/results/domains-from-communes-na-{slug,mairie,slug-mairie,ville}.json`) :
+
+```
+selected=1747 verified=65 applied=true   # 9363 -> 9428 (racine <commune>.fr)
+selected=1696 verified=7  applied=true   # 9428 -> 9435 (racine mairie-<commune>.fr)
+selected=1698 verified=0  applied=true   # 9435 -> 9435 (racine <commune>-mairie.fr)
+selected=1697 verified=0  applied=true   # 9435 -> 9435 (racine ville-<commune>.fr)
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9481
+organisations_avec_domaine_verifie_et_provenance=9435
+couverture_pourcent=0.5643
+```
+
+Soit **72 domaines supplémentaires vérifiés et tracés** (Cellefrouin, Lésignac-Durand, Londigny, Fontenille, Mesnac, Mouton, …), tous en Nouvelle-Aquitaine, sans donnée personnelle ni service payant.
+
+Deux inventaires indépendants confirment l'absence de réservoir matériel restant :
+
+- corpus locaux : aucun fichier versionné non consommé n'apparie un nom d'organisation et une URL de site sur plus de 50 lignes. Les seuls fichiers inexploités sont des catalogues de presse (`presse.jsonl`, `articles-presse-na.jsonl`) dont les racines (`actu.fr`, `sudouest.fr`, …) sont des titres de médias, pas les sites des organisations nommées dans les articles, et un extrait de 116 lignes déjà couvert par `institutions-complet.jsonl` ;
+- base PostgreSQL : `fuite_reference.domain` ne concerne que 178 organisations par nom exact et porte des domaines de services de fuite (`*.com` internationaux), `quarantine_raw.source_url` 836 organisations mais uniquement des URL `github.com`/`raw.githubusercontent.com`, `org.parent_evidence` 14 930 organisations mais uniquement l'URL de l'API recherche-entreprises (sans champ site web), et `exposition_service` 1 169 organisations supplémentaires dont l'URL échouait déjà à la preuve stricte. Les autres tables (événements, archives, réclamations de fuite, preuves WARC, DNS) totalisent moins de 150 organisations chacune et pointent vers des articles ou des places de marché.
+
+Décomposition reproductible de l'écart restant (1 662 506 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661304 | 1156 | 9481
+```
+
+Il reste donc 1 661 304 organisations de Nouvelle-Aquitaine sans domaine **et sans aucune URL HTTP 200** dans le corpus consolidé, et 1 156 dont l'URL échoue à la preuve stricte après trente et une passes. Les quatre motifs municipaux ajoutent 72 sites réels mais n'épuisent pas cet écart : les 1 661 304 organisations restantes n'ont ni site public identifiable ni ancre locale vérifiable. Les couvrir exigerait d'inventer des domaines ou d'abaisser le standard de preuve, ce qui détruirait la garantie « vérifié avec provenance ».
+
+13 tests comportement, un par comportement (`apps/api/test/expand-domains-communes-na.test.ts`), tous verts ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée ; manifeste `package.json` validé (`JSON.parse` et `pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 435 / 1 671 941 organisations (0,5643 %), manque 1 662 506 organisations vérifiées (99,4357 %) pour atteindre 100 %
+
