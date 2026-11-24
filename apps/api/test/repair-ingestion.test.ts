@@ -14,7 +14,20 @@ after(async () => closePools());
 const TAG = `ingest${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const SOURCE = `test-${TAG}-source`;
 
-function evenement(dedupKey: string, title: string, severity: number): NormalizedEvent {
+/** Une preuve résolvable : le trigger 206 exige un run réellement enregistré. */
+async function nouveauRun(): Promise<string> {
+	await query(
+		"INSERT INTO source (id, name, family, url) VALUES ($1,$2,'ransomware','https://exemple.test/flux') ON CONFLICT (id) DO NOTHING",
+		[SOURCE, `Source ${TAG}`],
+	);
+	const run = await query<{ id: number }>(
+		"INSERT INTO collector_run (source_id, started_at, finished_at, status, items_in, items_new, kind) VALUES ($1, now() - interval '1 day', now() - interval '1 day', 'ok', 0, 0, 'ingest') RETURNING id",
+		[SOURCE],
+	);
+	return String(run.rows[0]?.id);
+}
+
+function evenement(dedupKey: string, title: string, severity: number, runId: string): NormalizedEvent {
 	return {
 		dedupKey,
 		family: "ransomware",
@@ -26,7 +39,7 @@ function evenement(dedupKey: string, title: string, severity: number): Normalize
 		confidence: "B2",
 		sourceId: SOURCE,
 		sourceUrl: "https://exemple.test/incident",
-		evidence: { run_id: `run-${TAG}` },
+		evidence: { run_id: runId },
 		geoType: "unknown",
 	};
 }
@@ -50,13 +63,10 @@ async function cycle(id: string, events: NormalizedEvent[]): Promise<void> {
 }
 
 test("doublons d'admission : seul le premier passage compte un fait nouveau", async () => {
-	await query(
-		"INSERT INTO source (id, name, family, url) VALUES ($1,$2,'ransomware','https://exemple.test/flux')",
-		[SOURCE, `Source ${TAG}`],
-	);
+	const runId = await nouveauRun();
 	const cle = `${TAG}-dedup-1`;
 	const titre = "Ransomware : attaque contre un hôpital en Nouvelle-Aquitaine";
-	await cycle(SOURCE, [evenement(cle, titre, 3)]);
+	await cycle(SOURCE, [evenement(cle, titre, 3, runId)]);
 
 	const apresPremier = await query<{ id: number; title: string }>(
 		"SELECT id, title FROM event WHERE dedup_key=$1", [cle],
@@ -68,7 +78,7 @@ test("doublons d'admission : seul le premier passage compte un fait nouveau", as
 	assert.equal(admis.rows.length, 1, "un seul fait admis pour une seule insertion");
 
 	const titreCorrige = "Ransomware : attaque confirmée contre un hôpital en Nouvelle-Aquitaine";
-	await cycle(SOURCE, [evenement(cle, titreCorrige, 5)]);
+	await cycle(SOURCE, [evenement(cle, titreCorrige, 5, runId)]);
 
 	const apresCorrection = await query<{ id: number; title: string; severity: number }>(
 		"SELECT id, title, severity FROM event WHERE dedup_key=$1", [cle],
@@ -92,7 +102,7 @@ test("doublons d'admission : seul le premier passage compte un fait nouveau", as
 	);
 	assert.deepEqual(runs.rows.map((r) => r.items_new).sort(), [0, 1], "items_new mesure les insertions");
 
-	await cycle(SOURCE, [evenement(cle, titreCorrige, 5)]);
+	await cycle(SOURCE, [evenement(cle, titreCorrige, 5, runId)]);
 	const sansChangement = await query(
 		"SELECT subject FROM journal WHERE subject=$1 AND kind IN ('event.admitted','event.updated')", [cle],
 	);
@@ -100,9 +110,10 @@ test("doublons d'admission : seul le premier passage compte un fait nouveau", as
 });
 
 test("rafraîchissement : les décisions enrichies en aval ne sont pas écrasées", async () => {
+	const runId = await nouveauRun();
 	const cle = `${TAG}-dedup-2`;
 	const titre = "Campagne phishing visant une commune de Nouvelle-Aquitaine";
-	const original = evenement(cle, titre, 2);
+	const original = evenement(cle, titre, 2, runId);
 	original.family = "phishing";
 	await cycle(SOURCE, [original]);
 	const org = await query<{ id: number }>(
@@ -112,10 +123,10 @@ test("rafraîchissement : les décisions enrichies en aval ne sont pas écrasée
 	const orgId = Number(org.rows[0]?.id);
 	await query(
 		"UPDATE event SET org_id=$1, evidence=$2::jsonb, tlp='AMBER' WHERE dedup_key=$3",
-		[orgId, JSON.stringify({ enrichi: true }), cle],
+		[orgId, JSON.stringify({ run_id: runId, enrichi: true }), cle],
 	);
 
-	const corrige = evenement(cle, `${titre} — mise à jour`, 3);
+	const corrige = evenement(cle, `${titre} — mise à jour`, 3, runId);
 	corrige.family = "phishing";
 	await cycle(SOURCE, [corrige]);
 	const ligne = await query<{ org_id: number | null; evidence: { enrichi?: boolean }; tlp: string; title: string }>(
@@ -128,6 +139,7 @@ test("rafraîchissement : les décisions enrichies en aval ne sont pas écrasée
 });
 
 test("rejet du contrat : le motif, la source et l'extrait restent auditables", async () => {
+	await nouveauRun();
 	const brut = {
 		dedupKey: `${TAG}-dedup-rejete`,
 		family: "famille-inexistante",
