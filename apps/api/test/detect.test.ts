@@ -10,7 +10,7 @@ import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import Fastify from "fastify";
 import { query, closePools } from "../src/db.js";
-import { loadRules, evaluateEvent, evaluateIndicator } from "../src/detect/engine.js";
+import { loadRules, evaluateEvent, evaluateIndicator, loadCorroborationContext } from "../src/detect/engine.js";
 import type { RuleMatch } from "../src/detect/engine.js";
 import alertsRoute from "../src/routes/alerts.js";
 import { hashSessionToken } from "../src/auth.js";
@@ -29,10 +29,37 @@ type TestIds = {
   indicators: number[];
   alerts: number[];
   users: number[];
+  sources: string[];
 };
 
 function newIds(): TestIds {
-  return { events: [], orgs: [], rules: [], indicators: [], alerts: [], users: [] };
+  return { events: [], orgs: [], rules: [], indicators: [], alerts: [], users: [], sources: [] };
+}
+
+async function insertSource(label: string): Promise<string> {
+  const id = `${TAG}-src-${label}`;
+  await query(
+    "INSERT INTO source (id, name, family, url) VALUES ($1,$2,'test','https://example.invalid/source')",
+    [id, `Source ${label} ${TAG}`],
+  );
+  return id;
+}
+
+async function insertDatedEvent(input: {
+  family: string;
+  sourceId: string;
+  orgId: number;
+  title: string;
+  at: Date;
+}): Promise<number> {
+  const r = await query<{ id: number }>(
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence,
+                        source_id, org_id, evidence, source_url, observed_at)
+     VALUES ($1,$2,'third_party_claim',$3,4,'C3',$4,$5,'{"run_id":"1"}'::jsonb,
+             'https://example.invalid/asof',$6) RETURNING id`,
+    [next(), input.family, input.title, input.sourceId, input.orgId, input.at],
+  );
+  return r.rows[0].id;
 }
 
 let cachedSourceId: string | null = null;
@@ -141,6 +168,7 @@ async function cleanup(ids: TestIds): Promise<void> {
   if (ids.indicators.length > 0) await query("DELETE FROM indicator WHERE id = ANY($1::bigint[])", [ids.indicators]);
   if (ids.rules.length > 0) await query("DELETE FROM detection_rule WHERE id = ANY($1::text[])", [ids.rules]);
   if (ids.users.length > 0) await query("DELETE FROM app_user WHERE id = ANY($1::int[])", [ids.users]);
+  if (ids.sources.length > 0) await query("DELETE FROM source WHERE id = ANY($1::text[])", [ids.sources]);
   // Repousse l'état du cache vers la base (règles de test supprimées).
   await loadRules(true);
 }
@@ -529,6 +557,80 @@ test("seuil : sous 65, aucune alerte n'est créée mais l'événement reste cons
 
     const stillThere = await query<{ id: number }>("SELECT id FROM event WHERE id=$1", [ev]);
     assert.equal(stillThere.rows.length, 1, "l'événement doit rester dans le fil");
+  } finally {
+    await cleanup(ids);
+  }
+});
+
+test("rejeu as-of : la corroboration ignore les sources postérieures à la date", async () => {
+  const ids = newIds();
+  const before = new Date(Date.now() - 20 * 86_400_000);
+  const after = new Date(Date.now() - 2 * 86_400_000);
+  const pastSource = await insertSource("asof-past");
+  const futureSource1 = await insertSource("asof-future-1");
+  const futureSource2 = await insertSource("asof-future-2");
+  ids.sources.push(pastSource, futureSource1, futureSource2);
+  try {
+    const org = await insertOrg(`Org as-of ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const past = await insertDatedEvent({
+      family: "testasof", sourceId: pastSource, orgId: org,
+      title: `alpha ${TAG}`, at: before,
+    });
+    ids.events.push(past);
+    for (const [label, source] of [["premier", futureSource1], ["second", futureSource2]] as const) {
+      ids.events.push(await insertDatedEvent({
+        family: "testasof", sourceId: source, orgId: org,
+        title: `${label} ${TAG}`, at: after,
+      }));
+    }
+
+    const asOf = await loadCorroborationContext([org], before);
+    assert.equal(asOf.sourcesByOrg.get(org), 1, "une seule source était observable à la date du rejeu");
+    const current = await loadCorroborationContext([org]);
+    assert.equal(current.sourcesByOrg.get(org), 3, "les trois sources existent bien dans la base");
+  } finally {
+    await cleanup(ids);
+  }
+});
+
+test("rejeu as-of : une vérité future n'ouvre pas d'alerte historique", async () => {
+  const ids = newIds();
+  const ruleId = `test-asof-detect-${TAG}`;
+  ids.rules.push(ruleId);
+  const before = new Date(Date.now() - 20 * 86_400_000);
+  const after = new Date(Date.now() - 2 * 86_400_000);
+  const claimSource = await insertSource("detect-claim");
+  const futureSource1 = await insertSource("detect-future-1");
+  const futureSource2 = await insertSource("detect-future-2");
+  const futureSource3 = await insertSource("detect-future-3");
+  ids.sources.push(claimSource, futureSource1, futureSource2, futureSource3);
+  try {
+    await insertRule(ruleId, { family: "testasofdetect" });
+    const org = await insertOrg(`Org as-of détection ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const claim = await insertDatedEvent({
+      family: "testasofdetect", sourceId: claimSource, orgId: org,
+      title: `claim ${TAG}`, at: before,
+    });
+    ids.events.push(claim);
+    for (const [label, source] of [["un", futureSource1], ["deux", futureSource2], ["trois", futureSource3]] as const) {
+      ids.events.push(await insertDatedEvent({
+        family: "testasofbruit", sourceId: source, orgId: org,
+        title: `${label} ${TAG}`, at: after,
+      }));
+    }
+
+    // La revendication historique : C3 + third_party_claim + org géolocalisée.
+    // Une seule source donne 54 (< 65) ; quatre sources donnent 69 (>= 65).
+    const asOf = await loadCorroborationContext([org], before);
+    assert.equal(await evaluateEvent(claim, { corroboration: asOf }), 0);
+    assert.equal(await countAlerts("rule_id=$1 AND event_id=$2", [ruleId, claim]), 0);
+
+    const current = await loadCorroborationContext([org]);
+    assert.equal(current.sourcesByOrg.get(org), 4);
+    assert.equal(await evaluateEvent(claim, { corroboration: current }), 1);
+    assert.equal(await countAlerts("rule_id=$1 AND event_id=$2", [ruleId, claim]), 1);
   } finally {
     await cleanup(ids);
   }
