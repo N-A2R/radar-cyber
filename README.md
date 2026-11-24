@@ -160,6 +160,49 @@ BASE_URL=http://localhost:8080 \
 
 > `db/checks.sql` et `scripts/smoke.sh` existent ; `bash -n scripts/smoke.sh` OK. Le mot de passe n'est jamais versionné : il vient de `DATABASE_URL` / d'un fichier d'environnement protégé.
 
+### CI par étapes parallèles
+
+`.github/workflows/ci.yml` exécute en parallèle : contrats/typechecks/migrations (`contracts`), API (`api-tests`, matrix de 6 shards), web unitaire/render/dom (`web-unit`), Playwright (`playwright`), SDK/Python (`sdks-python`), provenance (`provenance`) et build (`build`). Le job `verify` reste l'agrégateur attendu par la protection de branche : il a `needs` sur ces sept étapes **et** sur `socle` et `supply-chain`, qui restent bloquantes.
+
+Le découpage API est déterministe (liste triée, tranches contiguës) et auditable sans base :
+
+```bash
+./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=6 --list --check
+# observé : vérification OK : 442 fichiers, 442 assignés, 0 doublon (2026-11-24)
+```
+
+Chaque job de la matrix a son propre PostgreSQL ; `test/run.ts` y crée une base jetable par shard. Un shard vide échoue (jamais de repli sur la suite complète) et `fail-fast: false` laisse tous les verdicts s'exprimer. Commandes exactes des étapes :
+
+```bash
+# contracts
+./apps/api/node_modules/.bin/tsx --test apps/api/test/contract-admit.test.ts apps/api/test/contract-families.test.ts
+pnpm -F @radar/api typecheck && pnpm -F @radar/web typecheck && pnpm typecheck:tests && pnpm typecheck:sdk
+pnpm test:migrations
+
+# api-tests : i ∈ 1..6, DATABASE_URL pointant le PostgreSQL du job
+./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=6 --index=$i > /tmp/api-shard.txt
+(cd apps/api && mapfile -t files < /tmp/api-shard.txt && ./node_modules/.bin/tsx test/run.ts "${files[@]}")
+
+# web-unit
+pnpm -F @radar/web run test:unit && pnpm -F @radar/web run test:offline-pwa && pnpm -F @radar/web run test:render && pnpm -F @radar/web run test:dom && pnpm -F @radar/web run storybook:coverage
+
+# playwright
+pnpm -F @radar/web exec playwright install --with-deps chromium && pnpm -F @radar/web run test:e2e
+
+# sdks-python
+pnpm test:sdks && pnpm test:python
+
+# provenance (base préparée comme dans l'ancien job verify)
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
+pnpm migrate
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
+pnpm provenance:measure && pnpm provenance:check
+
+# build
+pnpm -F @radar/web build
+```
+
 Scripts de mesure/revue (fichiers présents) :
 
 ```bash
