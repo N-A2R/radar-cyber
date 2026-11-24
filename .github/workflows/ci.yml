@@ -14,13 +14,134 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+# Nombre de shards API : identique à la matrix `api-tests` et au plan vérifié
+# par `shard-files.ts --list --check`.
+env:
+  API_SHARDS: "6"
 
-    # Les tests API (detect, quarantine, alerts) écrivent dans PostgreSQL :
-    # la base de test est créée et migrée avant la suite.
+jobs:
+  # Contrats, typechecks et migrations : aucune base nécessaire.
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: ./.github/actions/ci-setup
+
+      - name: Contrat hors base (en premier)
+        run: |
+          ./apps/api/node_modules/.bin/tsx --test \
+            apps/api/test/contract-admit.test.ts \
+            apps/api/test/contract-families.test.ts
+
+      - name: Typechecks (API, web, tests, SDK)
+        run: |
+          pnpm -F @radar/api typecheck
+          pnpm -F @radar/web typecheck
+          pnpm typecheck:tests
+          pnpm typecheck:sdk
+
+      - name: Tests migrations et outillage
+        run: pnpm test:migrations
+
+      - name: Plan des shards API (sans base)
+        run: |
+          ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
+            --shards="$API_SHARDS" --list --check
+
+  # Chaque matrix job a son propre service PostgreSQL et `test/run.ts` y crée
+  # une base jetable dédiée : une base par shard, aucun état partagé.
+  # fail-fast: false laisse tous les verdicts s'exprimer ; un shard en échec
+  # fait échouer la matrix, puis le job agrégateur `verify`.
+  api-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6]
+
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
+        env:
+          POSTGRES_USER: radar
+          POSTGRES_PASSWORD: radar
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U radar -d radar"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://radar:radar@localhost:5432/radar
+
+    steps:
+      - uses: ./.github/actions/ci-setup
+
+      - name: Fichiers du shard ${{ matrix.shard }}
+        run: |
+          ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
+            --shards="$API_SHARDS" --index=${{ matrix.shard }} > /tmp/api-shard.txt
+          # Sans garde, `run.ts` sans argument lancerait toute la suite.
+          test -s /tmp/api-shard.txt || { echo "shard ${{ matrix.shard }} vide" >&2; exit 1; }
+          echo "$(wc -l < /tmp/api-shard.txt) fichier(s) — shard ${{ matrix.shard }}/$API_SHARDS"
+
+      - name: Tests API (shard ${{ matrix.shard }})
+        shell: bash
+        working-directory: apps/api
+        run: |
+          mapfile -t files < /tmp/api-shard.txt
+          ./node_modules/.bin/tsx test/run.ts "${files[@]}"
+
+  web-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests web (Vitest, jsdom, rendu)
+        run: |
+          pnpm -F @radar/web run test:unit
+          pnpm -F @radar/web run test:offline-pwa
+          pnpm -F @radar/web run test:render
+          pnpm -F @radar/web run test:dom
+          pnpm -F @radar/web run storybook:coverage
+
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests web de bout en bout (Playwright)
+        run: |
+          pnpm -F @radar/web exec playwright install --with-deps chromium
+          pnpm -F @radar/web run test:e2e
+
+  sdks-python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests SDK TypeScript et Python
+        run: pnpm test:sdks
+
+      - name: Tests Python du socle
+        run: pnpm test:python
+
+  provenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # La mesure lit la base de test préparée comme dans l'ancien job `verify`.
     services:
       postgres:
         image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
@@ -40,72 +161,26 @@ jobs:
       DATABASE_URL: postgres://radar:radar@localhost:5432/radar
 
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
 
-      - name: pnpm
-        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-        with:
-          version: 12.15.0
-
-      - name: Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: 24
-      - name: Installation des dépendances
-        run: pnpm install --frozen-lockfile --store-dir .pnpm-store
-
-      # Un seul schéma (db/init.sql) et un seul chemin de migrations (le runner)
-      # pour la CI, les tests et Docker. Le job socle vérifie ce chemin depuis
-      # une base vide ; ici on prépare la base partagée des mesures.
-      - name: Schéma et migrations (base de test)
+      - name: Schéma et migrations (base de mesure)
         run: |
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
           pnpm migrate
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
 
-      - name: Contrat hors base (en premier)
-        run: |
-          ./apps/api/node_modules/.bin/tsx --test \
-            apps/api/test/contract-admit.test.ts \
-            apps/api/test/contract-families.test.ts
-
-      - name: Typechecks (API, web, tests, SDK)
-        run: |
-          pnpm -F @radar/api typecheck
-          pnpm -F @radar/web typecheck
-          pnpm typecheck:tests
-          pnpm typecheck:sdk
-
-      - name: Tests migrations et outillage
-        run: pnpm test:migrations
-
-      - name: Tests API
-        run: pnpm -F @radar/api test
-
-      - name: Tests web (Vitest, jsdom, rendu)
-        run: |
-          pnpm -F @radar/web run test:unit
-          pnpm -F @radar/web run test:offline-pwa
-          pnpm -F @radar/web run test:render
-          pnpm -F @radar/web run test:dom
-          pnpm -F @radar/web run storybook:coverage
-
-      - name: Tests web de bout en bout (Playwright)
-        run: |
-          pnpm -F @radar/web exec playwright install --with-deps chromium
-          pnpm -F @radar/web run test:e2e
-
-      - name: Tests SDK TypeScript et Python
-        run: pnpm test:sdks
-
-      - name: Tests Python du socle
-        run: pnpm test:python
-
       - name: Provenance sur mesure fraîche (blocking)
         run: |
           pnpm provenance:measure
           pnpm provenance:check
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: ./.github/actions/ci-setup
 
       - name: Build web
         run: pnpm -F @radar/web build
@@ -225,3 +300,39 @@ jobs:
           docker build --check -f apps/api/Dockerfile .
           docker build --check -f apps/web/Dockerfile .
           docker build --check -f docker/tor/Dockerfile .
+
+  # Nom conservé pour la protection de branche : agrège TOUTES les étapes,
+  # y compris `socle` et `supply-chain` qui restent bloquantes. `always()`
+  # garantit un verdict même lorsqu'une étape a échoué ou été annulée.
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: always()
+    needs:
+      - contracts
+      - api-tests
+      - web-unit
+      - playwright
+      - sdks-python
+      - provenance
+      - build
+      - socle
+      - supply-chain
+
+    steps:
+      - name: Toutes les étapes requises doivent être vertes
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e '
+            const results = JSON.parse(process.env.RESULTS);
+            const failing = Object.entries(results)
+              .filter(([, value]) => value.result !== "success")
+              .map(([name, value]) => `${name}:${value.result}`);
+            if (failing.length) {
+              console.error(`Étapes non vertes : ${failing.join(", ")}`);
+              process.exitCode = 1;
+            } else {
+              console.log("Toutes les étapes requises sont vertes.");
+            }
+          '
