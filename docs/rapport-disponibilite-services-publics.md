@@ -783,4 +783,52 @@ service-jours manquants (18, 19 et 20 novembre) exigeraient trois collectes
 réelles les 25, 26 et 27 novembre. Aucune date ni aucun statut n'a été inventé ;
 le jeu d'observations, `server.ts` et le manifeste sont inchangés.
 
+## Reprise du 24 novembre (04 h UTC) — pistes résiduelles
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main`. Trois balayages
+indépendants n'ont trouvé aucune observation HTTP réelle des 18, 19 et 20
+novembre :
+
+- **Base `radar`** : les 280 colonnes `timestamptz` et 36 colonnes `date` ont
+  été interrogées sur la fenêtre. `source_verification` (7 236 lignes) ne couvre
+  que les 21 et 22 novembre, `exposition_service` (11 514) les 21 au 23,
+  `exposition_service_detection` (10 839) les 21 au 23, `warc_proof` (167) les
+  21 et 22. Le seul `source.last_ok_at` du 20 novembre (`univ-lr.fr`) est hors
+  périmètre. 0 service-jour nouveau.
+- **Artefacts locaux** : 0 ligne datée du 18, 19 ou 20 novembre dans
+  `bench/results/service-availability-observations.jsonl` (2 000 lignes), ses
+  copies (`/tmp/merge-gate` : 1 999, `/tmp/qa-fix3` et `/home/jolt/radar-serve`
+  : 920), les refs/reflogs Git et les 20 000 premiers blobs non référencés.
+  0 service-jour nouveau.
+- **Sources grises** : le calendrier Wayback (`__wb/calendarcaptures/2`) répond
+  (témoin `example.com` : captures du 18 au 20 novembre) mais renvoie `{}` pour
+  dix URL du périmètre ; l'API OONI répond (témoin France au 20 novembre) avec
+  0 mesure sur cinq URL du périmètre ; Arquivo.pt renvoie 0 capture. Le CDX
+  Common Crawl reste injoignable (connexion refusée) alors que
+  `collinfo.json` confirme une collection couvrant le 18 et le 19 novembre :
+  `verdict=indeterminate`, aucune conclusion d'absence n'en est tirée.
+
+```
+mcp__postgres_query --sql "SELECT count(*) FROM exposition_service WHERE consulted_at >= '2026-11-18+00' AND consulted_at < '2026-11-21+00'"
+# rows=0
+curl -s --max-time 15 'https://web.archive.org/__wb/calendarcaptures/2?url=etab.ac-poitiers.fr&date=202611'
+# {}
+curl -s --max-time 15 'https://web.archive.org/__wb/calendarcaptures/2?url=example.com&date=202611'
+# captures réelles du 18 au 20 novembre (témoin positif)
+curl -s --max-time 15 'https://api.ooni.io/api/v1/measurements?input=https%3A%2F%2Flgtguezdebalzac.fr&since=2026-11-18&until=2026-11-21&limit=3'
+# 0 mesure
+git fsck --unreachable --no-reflogs 2>/dev/null | awk '$2=="blob"{print $3}' | head -20000 | git cat-file --batch 2>/dev/null | grep -cE '"day":"2026-11-(18|19|20)"'
+# 0
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+```
+
+0 service-jour réel gagné : l'écart reste de 1 500. Aucune date ni aucun statut
+n'a été inventé ; le jeu d'observations, `server.ts` et le manifeste sont
+inchangés. La première fenêtre entièrement réelle reste ancrée au 27 novembre,
+après trois collectes réelles les 25, 26 et 27 novembre.
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
