@@ -596,4 +596,48 @@ Bilan de la reprise : 0 service-jour réel supplémentaire, écart inchangé à
 1 500 service-jours ; `pnpm services:verify -- --anchor=2026-11-24` rapporte
 toujours 2 000 / 3 500 et `feasible_windows=0`.
 
+## Vérification finale du 24 novembre (03 h 30 UTC)
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main`. Trois balayages
+indépendants, tous en lecture seule, n'ont retrouvé aucune observation réelle
+datée des 18, 19 ou 20 novembre :
+
+- **Base PostgreSQL** : seul le schéma `public` contient des tables. Aucune
+  table ni colonne JSONB ne porte de statut HTTP horodaté sur ces trois jours.
+  Dans `exposition_service`, les champs de `evidence` sont `url`, `domain`,
+  `status` et `provider` : aucun timestamp antérieur à la collecte. Les seules
+  réponses HTTP 200 du périmètre sont UTC le 21 (768 lignes), le 22 (10 328)
+  et le 23 (418), 0 les 18, 19 et 20. `source_verification`, `warc_proof`,
+  `quarantine_raw` et les autres tables horodatées inventoriées confirment 0
+  ligne exploitable sur la fenêtre manquante.
+- **Arbre, Git, worktrees et artifacts** : 82 copies du jeu d'observations sous
+  `/mnt/data/agent-runs/*` et 4 sous `/tmp`, toutes à 500 lignes par jour du
+  21 au 24 novembre et 0 ligne les 18, 19 et 20. Les refs, le reflog, les
+  objets non référencés et l'API GitHub (0 artifact) ne contiennent aucune
+  observation antérieure.
+- **Sources grises** : 13 requêtes bornées. Le rejeu Wayback aux dates
+  20261118, 20261119 et 20261120 renvoie les captures réelles les plus proches
+  en juillet, mai et octobre 2026 ; `__wb/calendarcaptures` répond `{}` pour
+  novembre ; CDX 429, Common Crawl 504 (index arrêté le 19 novembre à 07 h 53,
+  donc jamais de capture du 20), arquivo.pt vide, Memento non résolu. Aucune
+  capture 2xx/3xx dans la fenêtre : 0 service-jour récupérable.
+
+Sorties observées le 24 novembre à 03 h 27 UTC :
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-27
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-archive-captures.mts --from=2026-11-18 --to=2026-11-20
+# hosts=308 window=2026-11-18..2026-11-20 captures=0 capturable_service_days=0 cdx_unavailable=308 verdict=indeterminate
+```
+
+Bilan : 0 service-jour réel supplémentaire. L'écart reste de 1 500
+service-jours. Atteindre 3 500 exigerait trois jours d'observations réelles
+qui n'existent pas encore ; la première fenêtre complète reste ancrée au
+27 novembre, après les collectes réelles des 25, 26 et 27 novembre. Aucune
+date ni aucun statut n'a été inventé pour combler l'écart.
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
