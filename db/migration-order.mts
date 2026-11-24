@@ -87,6 +87,7 @@ export const REPAIR_VERSIONS: readonly string[] = [
   "migrate-245-temporal-benchmark-exemption.sql",
   "migrate-246-fixture-temporal-normalisation.sql",
   "migrate-247-access-log-no-truncate.sql",
+  "migrate-248-event-write-trace.sql",
 ];
 
 function numericPrefix(file: string): number {

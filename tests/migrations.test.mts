@@ -266,6 +266,29 @@ test("SEC-14 : TRUNCATE du journal des accès interdit et privilège retiré (24
   }
 });
 
+test("248 : trace d'écriture de chaque événement, sans donnée de victime", () => {
+  const sql = read("db/migrate-248-event-write-trace.sql");
+  assert.ok(REPAIR_VERSIONS.includes("migrate-248-event-write-trace.sql"));
+  assert.match(sql, /AFTER INSERT ON event/);
+  assert.match(sql, /IF NEW\.regional IS TRUE THEN\s+RETURN NULL;/);
+  assert.match(sql, /j\.subject = NEW\.dedup_key\s+AND j\.kind = 'event\.rejected'/);
+  assert.match(sql, /WHERE NOT EXISTS \(\s*SELECT 1 FROM journal j WHERE j\.subject = ev\.dedup_key\s*\)/);
+  assert.match(sql, /'event\.rejected'/);
+  assert.match(sql, /'event\.admitted'/);
+  assert.match(sql, /'outside-nouvelle-aquitaine'/);
+  assert.match(sql, /'custody:write-boundary@1'/);
+  for (const champ of ["sourceId", "sourceUrl", "observedAt", "family", "assertionType", "admissionRule"]) {
+    assert.ok(sql.includes(`'${champ}'`), `preuve ${champ} absente du journal`);
+  }
+  assert.doesNotMatch(sql, /NEW\.(title|summary)/, "aucune donnée de victime dans le journal");
+  assert.doesNotMatch(sql, /evenement\.(title|summary)/, "aucune donnée de victime dans le backfill");
+  for (const version of listMigrations(`${ROOT}db`)) {
+    if (compareMigrations(version, "migrate-248-event-write-trace.sql") <= 0) continue;
+    const later = read(`db/${version}`);
+    assert.doesNotMatch(later, /DROP TRIGGER IF EXISTS event_custody_admission\b/);
+  }
+});
+
 test("206 : la chaîne de preuve de event reste complète après l'historique", () => {
   const sql = read("db/migrate-206-event-proof-chain.sql");
   assert.match(sql, /ADD CONSTRAINT event_source_url_required/);
@@ -307,7 +330,8 @@ test("dérive d'historique et état du schéma sur la base cible", { skip: !INTE
     const vue = await client.query<{ definition: string }>(
       "SELECT pg_get_viewdef('public.v_event_all'::regclass, true) AS definition",
     );
-    assert.match(vue.rows[0].definition, /NOT EXISTS/);
+    // PostgreSQL 18 déparse l'anti-join en `NOT (EXISTS …)` ; même garde.
+    assert.match(vue.rows[0].definition, /NOT (?:\(EXISTS|EXISTS)/);
     const trigger = await client.query<{ n: string }>(
       `SELECT count(*)::text AS n FROM pg_trigger
         WHERE tgrelid = 'public.event'::regclass
@@ -346,9 +370,9 @@ test("dérive d'historique et état du schéma sur la base cible", { skip: !INTE
       journal: boolean; jetonSelect: boolean; jetonInsert: boolean; jetonDelete: boolean;
     }>(
       `SELECT has_table_privilege('radar_retention', 'public.access_log', 'DELETE') AS journal,
-              has_table_privilege('radar_retention', 'public.access_log_purge_token', 'SELECT') AS jeton_select,
-              has_table_privilege('radar_retention', 'public.access_log_purge_token', 'INSERT') AS jeton_insert,
-              has_table_privilege('radar_retention', 'public.access_log_purge_token', 'DELETE') AS jeton_delete`,
+              has_table_privilege('radar_retention', 'public.access_log_purge_token', 'SELECT') AS "jetonSelect",
+              has_table_privilege('radar_retention', 'public.access_log_purge_token', 'INSERT') AS "jetonInsert",
+              has_table_privilege('radar_retention', 'public.access_log_purge_token', 'DELETE') AS "jetonDelete"`,
     );
     const p = privileges.rows[0]!;
     assert.deepEqual([p.journal, p.jetonSelect, p.jetonInsert, p.jetonDelete], [true, true, true, true]);
@@ -402,8 +426,8 @@ test("dérive d'historique et état du schéma sur la base cible", { skip: !INTE
       await client.query(`GRANT USAGE ON SCHEMA public TO ${sonde}`);
       await client.query(`GRANT SELECT, INSERT, UPDATE ON TABLE public.access_log TO ${sonde}`);
       const droits = await client.query<{ insertOk: boolean; truncateOk: boolean }>(
-        `SELECT has_table_privilege('${sonde}', 'public.access_log', 'INSERT') AS insert_ok,
-                has_table_privilege('${sonde}', 'public.access_log', 'TRUNCATE') AS truncate_ok`,
+        `SELECT has_table_privilege('${sonde}', 'public.access_log', 'INSERT') AS "insertOk",
+                has_table_privilege('${sonde}', 'public.access_log', 'TRUNCATE') AS "truncateOk"`,
       );
       assert.deepEqual([droits.rows[0].insertOk, droits.rows[0].truncateOk], [true, false]);
 
@@ -450,7 +474,8 @@ test("dérive d'historique et état du schéma sur la base cible", { skip: !INTE
       `SELECT pg_get_constraintdef(oid) AS definition FROM pg_constraint
         WHERE conrelid = 'public.event'::regclass AND conname = 'event_at_not_before_valid_at'`,
     );
-    assert.match(timeDefinition.rows[0].definition, /5 seconds/);
+    // PG18 normalise `interval '5 seconds'` en `'00:00:05'::interval`.
+    assert.match(timeDefinition.rows[0].definition, /5 seconds|00:00:05/);
     assert.match(timeDefinition.rows[0].definition, /bench-%/);
     assert.match(timeDefinition.rows[0].definition, /precision-eval-%/);
     assert.match(timeDefinition.rows[0].definition, /zz-fixture-%/);
@@ -470,6 +495,17 @@ test("dérive d'historique et état du schéma sur la base cible", { skip: !INTE
         WHERE source_id LIKE 'zz-fixture-%' AND at < valid_at - interval '5 seconds'`,
     );
     assert.equal(fixtureRestantes.rows[0].n, "0");
+    // 248 : aucun événement ne doit rester sans sujet dans le journal. Le
+    // contrôle porte sur la totalité de la table, sans exemption ni filtre.
+    const couverture = await client.query<{ total: string; manquants: string }>(`
+      SELECT count(*)::text AS total,
+             count(*) FILTER (WHERE NOT EXISTS (
+               SELECT 1 FROM journal j WHERE j.subject = e.dedup_key
+             ))::text AS manquants
+        FROM event e
+    `);
+    assert.ok(Number(couverture.rows[0]?.total) > 0, "le socle doit porter des événements à couvrir");
+    assert.equal(couverture.rows[0]?.manquants, "0", "événement sans trace de journal après migrations");
     // Les sources de mesure gardent leur inversion : la contrainte 245 les
     // exempte, tandis qu'une source réelle reste bloquée au-delà de 5 s.
     await client.query("BEGIN");
@@ -480,17 +516,41 @@ test("dérive d'historique et état du schéma sur la base cible", { skip: !INTE
            ('precision-eval-99', 'precision verif', 'cti', 'https://example.invalid/precision')
          ON CONFLICT (id) DO NOTHING`,
       );
+      // La chaîne de preuve (206) exige un run et une URL : la sonde 245 ne
+      // doit pas buter sur une autre garde avant la contrainte temporelle.
       await client.query(
-        `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, valid_at, at) VALUES
-           ('verif:bench:inversion', 'cti', 'ambient_signal', 'bench', 'bench-verif', now() + interval '10 hours', now()),
-           ('verif:precision:inversion', 'cti', 'ambient_signal', 'precision', 'precision-eval-99', now() + interval '20 hours', now()),
-           ('verif:skew:5s', 'ransomware', 'ambient_signal', 'skew', 'cert_fr', now() + interval '3 seconds', now())`,
+        `INSERT INTO collector_run (source_id, started_at, status, kind)
+         SELECT id, now(), 'ok', 'verif' FROM source
+          WHERE id IN ('bench-verif', 'precision-eval-99', 'cert_fr')`,
+      );
+      await client.query(
+        `INSERT INTO event (dedup_key, family, assertion_type, title, source_id,
+                            source_url, valid_at, at, evidence)
+         SELECT v.dedup_key, v.family, 'ambient_signal', v.title, v.source_id,
+                'https://example.invalid/verif', v.valid_at, now(),
+                jsonb_build_object('run_id', (
+                  SELECT cr.id FROM collector_run cr
+                   WHERE cr.source_id = v.source_id AND cr.kind = 'verif'
+                   ORDER BY cr.id DESC LIMIT 1
+                )::text)
+           FROM (VALUES
+             ('verif:bench:inversion', 'cti', 'bench', 'bench-verif', now() + interval '10 hours'),
+             ('verif:precision:inversion', 'cti', 'precision', 'precision-eval-99', now() + interval '20 hours'),
+             ('verif:skew:5s', 'ransomware', 'skew', 'cert_fr', now() + interval '3 seconds')
+           ) AS v(dedup_key, family, title, source_id, valid_at)`,
       );
       await client.query("SAVEPOINT verif");
       await assert.rejects(
         client.query(
-          `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, valid_at, at)
-           VALUES ('verif:reel:inversion', 'cti', 'ambient_signal', 'reel', 'cert_fr', now() + interval '1 hour', now())`,
+          `INSERT INTO event (dedup_key, family, assertion_type, title, source_id,
+                              source_url, valid_at, at, evidence)
+           VALUES ('verif:reel:inversion', 'cti', 'ambient_signal', 'reel', 'cert_fr',
+                   'https://example.invalid/verif', now() + interval '1 hour', now(),
+                   jsonb_build_object('run_id', (
+                     SELECT cr.id FROM collector_run cr
+                      WHERE cr.source_id = 'cert_fr' AND cr.kind = 'verif'
+                      ORDER BY cr.id DESC LIMIT 1
+                   )::text))`,
         ),
         /event_at_not_before_valid_at/,
       );
