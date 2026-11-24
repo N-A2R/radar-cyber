@@ -795,3 +795,45 @@ Un recoupement exhaustif des tables porteuses d'URL montre 15 974 organisations 
 17 tests comportement, un par comportement (`apps/api/test/expand-domains-identite-structuree.test.ts` : 9 tests ; `apps/api/test/expand-domains-securite.test.ts` : 8 tests), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline` après ajout des deux commandes).
 
 OBJECTIF : partiel — 9 302 / 1 671 941 organisations (0,5564 %), manque 1 662 639 organisations vérifiées (99,4436 %) pour atteindre 100 %
+
+## Rattrapage — tranche t26 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t25 : 9 302 / 1 671 941), seule base autorisée : la PR #797 existe toujours mais son objectif chiffré (100 %) n'est pas atteint. Le travail des tranches t1 à t25 est conservé tel quel. La tranche t26 ouvre une **vingtième route grise** : les URL officielles des 167 corpus sectoriels versionnés `bench/corpus/sources-*.jsonl` (5 117 lignes, 5 102 entrées exploitables, 1 728 racines distinctes : agriculture, banque, bâtiment, collectivités, commerce, énergie, industrie, juridique, numérique, santé, transport...). La route du catalogue (t18b/t23) ne lisait que `sources-na-population.jsonl` (mairies et établissements scolaires) et n'appariait que des désignations explicites.
+
+`scripts/expand-domains-corpus-sectoriel.mts` n'accepte une entrée que si son libellé, normalisé sans accents, nomme **exactement** une organisation sans domaine du même département, et une seule (les homonymes comme les quatre `AXA` de la 64 sont écartés). Les racines de plateformes tierces (`sites.google.com`, `index-education.net`, ...), les racines déjà attribuées et les redirections hors racine sont rejetées. La preuve stricte reste inchangée : HTTP 200 en direct, racine stable après redirection, page de plus de 150 caractères, hors parking, jeton distinctif du nom de l'organisation. Sur 33 candidats retenus, **30 sites ont été revérifiés en direct** et tracés `source:corpus-sectoriel:http200` (9 302 → 9 332). Détail complet (organisation, racine, page, corpus, libellé) : `bench/results/domains-from-corpus-sectoriel.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-corpus-sectoriel -- --limit=200 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées (`selected=33 verified=30 applied=true`, `verified_domain_coverage=9302 -> 9332`), puis mesure rejouée indépendamment après écritures :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9378
+organisations_avec_domaine_verifie_et_provenance=9332
+couverture_pourcent=0.5582
+```
+
+Décomposition reproductible de l'écart restant (1 662 609 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661377 | 1186 | 9378
+```
+
+Sur les 9 378 organisations avec domaine, 46 échouent encore à la mesure (correspondances génériques d'articles, non réparables sans fabrication). Le bloc de 1 661 377 organisations sans aucune URL HTTP 200 est structurel : le recoupement des tables porteuses d'URL (t25, confirmé ici) ne trouve que 15 974 organisations sans domaine avec une URL ailleurs que dans `exposition_service` HTTP 200, toutes issues d'annuaires parents, d'alias d'identité ou d'articles, sans site officiel prouvé. Les 1 186 autres ont une URL qui échoue à la preuve stricte après vingt passes. Atteindre 1 671 941 exigerait d'attribuer plus de 1,66 million de sites inexistants ou d'abaisser le standard de preuve : la cible de 100 % n'est pas livrable avec des sources publiques/gratuites et une preuve vérifiée. Aucune donnée personnelle, aucun service payant, Nouvelle-Aquitaine uniquement.
+
+12 tests comportement, un par comportement (`apps/api/test/expand-domains-corpus-sectoriel.test.ts`), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé après ajout de la commande (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 332 / 1 671 941 organisations (0,5582 %), manque 1 662 609 organisations vérifiées (99,4418 %) pour atteindre 100 %
