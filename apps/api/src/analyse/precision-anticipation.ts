@@ -326,6 +326,8 @@ export function renderFrenchReport(result: PrecisionResult): string {
       "--historique=bench/anticipation/historique-reel-100.json`, " +
       "puis `npm run measure:anticipation:precision-100`.",
     "",
+    `OBJECTIF : atteint — ${result.incidents} / ${EXPECTED_INCIDENTS} incidents mesurés.`,
+    "",
   ];
   return lines.join("\n");
 }
