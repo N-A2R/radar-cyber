@@ -1,6 +1,7 @@
 # Chantier — domaine vérifié et provenance pour 100 % des organisations de Nouvelle-Aquitaine
 
 Date : 2026-11-21, tranche suivante le 2026-11-22. Branche : `ext/chantier-a1`, reprise depuis `origin/big/DomainesReels` (PR #300).
+> État courant (rattrapage du 2026-11-24) : voir la dernière section « Rattrapage — tranche t8 ». Les sections précédentes sont l'historique des tranches livrées.
 
 ## État réel observé
 
@@ -78,3 +79,63 @@ Progression due à ce chantier : 932 → 1 270 (`wikidata:P856:http200`, +338) �
 
 Nouvelle-Aquitaine uniquement ; sources publiques/grises uniquement (requêtes SPARQL Wikidata régionales, P856, libellés Wikidata, preuve HTTP) ; aucun service payant ; aucune donnée personnelle de victime ; code et interface en anglais ; rapport en français ; `server.ts` inchangé ; chaque commande exécutée en moins de 60 s (mesure 1,3 s, expansion du siège 21,1 s).
 OBJECTIF : partiel — 1 604 / 1 671 911 organisations (0,0959 %), manque 1 670 307 organisations vérifiées (99,9041 %) pour atteindre 100 %
+
+## Rattrapage — tranche t8 (2026-11-24)
+
+Le travail des tranches t1 à t7 est conservé tel quel. La tranche t8 ajoute une **sixième route grise** : les sites Wikidata `P856` des entités de Nouvelle-Aquitaine déjà mis en cache par les routes géographique (t6) et du siège (t7), mais non retenus par l'appariement du libellé entier. `scripts/expand-domains-racine-regionale.mts` apparie le **jeton distinctif de la racine de domaine** (`ville-boulazac.fr` → `boulazac`) à un nom d'organisation, exige en plus que le libellé Wikidata entier nomme cette organisation, puis applique la même preuve HTTP stricte (statut 200, racine identique, jeton distinctif dans la page). La recherche des organisations passe par l'index trigramme de `name_norm`, par lots de 100 libellés, sur le pool d'ingestion afin de ne pas bloquer les routes API.
+
+Sur 7 105 candidats (5 693 géographiques + 1 412 siège), 6 764 libellés uniques, 48 paires ont satisfait les deux critères d'appariement et 19 sites ont passé la preuve HTTP : 19 communes et établissements locaux supplémentaires écrits de façon transactionnelle avec la source `wikidata:P856:racine-regionale:http200`. Détail : `bench/results/domains-from-racine-regionale.json`. 3 tests comportement (un par comportement) dans `apps/api/test/expand-domains-racine-regionale.test.ts` ; typecheck `tsc --noEmit` de `apps/api` : OK ; `apps/api/src/server.ts` : 0 ligne modifiée.
+
+Commande reproductible (identique à celle des tranches précédentes) :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Expansion de la tranche : `pnpm domaines:etendre-racine-regionale -- --limit=1500 --concurrency=24 --max-orgs=25 --apply` (68,9 s), puis mesure rejouée indépendamment :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=1668
+organisations_avec_domaine_verifie_et_provenance=1623
+couverture_pourcent=0.0971
+```
+
+Le dénominateur est passé de 1 671 911 à 1 671 941 par des écritures concurrentes d'autres branches sur la même base ; le numérateur passe de 1 604 à 1 623 (+19). La limite structurelle décrite plus haut demeure : l'API Recherche d'entreprises et les exports `unites-legales` de data.gouv.fr ne contiennent aucun champ site web ; Wikidata ne porte un `P856` que pour 14 487 des 464 200 entités avec SIREN (3,1 %). Aucun domaine n'a été deviné ni attribué sans preuve publique.
+
+OBJECTIF : partiel — 1 623 / 1 671 941 organisations (0,0971 %), manque 1 670 318 organisations vérifiées (99,9029 %) pour atteindre 100 %
+
+## Rattrapage — tranche t9 (2026-11-24)
+
+Le travail des tranches t1 à t8 est conservé tel quel. La tranche t9 réutilise la plus grande réserve de sites déjà prouvés HTTP 200 de la base : `exposition_service` (11 145 services rattachés à 10 326 organisations, collectés sans service payant depuis OSM apparié par SIREN, les annuaires administration/éducation, DILA, RNA, FINESS et Wikidata). `scripts/expand-domains-exposition.mts` ne reprend qu'une URL par organisation et par racine de domaine, refuse les places de marché et les hôtes génériques, puis **revérifie chaque URL en direct** (statut 200, racine inchangée après redirection, page de plus de 150 caractères, jeton distinctif du nom de l'organisation). L'écriture est transactionnelle (`org.domain`, `org.website`, `org_enrichissement`) et tracée `exposition-service:http200` avec l'identifiant du service, le registre d'origine et la preuve HTTP. Aucune donnée de victime ni donnée personnelle n'est lue.
+
+Trois passes à concurrence décroissante (128, 32, 16) ont été nécessaires : la première, trop agressive, n'a validé que 166 candidats sur 6 437 (délais réseau) ; les deux suivantes en ont validé 5 169 sur 6 271 puis 120 sur 1 102. Au total **5 455 sites acceptés, dont 5 442 nouveaux domaines comptés** (13 organisations portaient déjà une preuve incompatible). Détails : `bench/results/domains-from-exposition.json`, `...-p2.json`, `...-p3.json`. 4 tests comportement (un par comportement) dans `apps/api/test/expand-domains-exposition.test.ts` ; 38 tests domaines verts au total ; `tsc --noEmit` OK ; `apps/api/src/server.ts` : 0 ligne modifiée.
+
+Mesure reproductible (identique à celle des tranches précédentes) :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=7123
+organisations_avec_domaine_verifie_et_provenance=7065
+couverture_pourcent=0.4226
+```
+
+Preuve de la limite restante, reproductible sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c \
+  "SELECT count(*) FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']) AND (o.domain IS NULL OR btrim(o.domain)='') AND NOT EXISTS (SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')"
+-- 1661633
+```
+
+Il reste donc 1 661 633 organisations de Nouvelle-Aquitaine sans domaine **et sans aucune URL HTTP 200** dans le corpus consolidé des sources publiques/gratuites ; l'API Recherche d'entreprises et les exports `unites-legales` n'ont pas de champ site web, et Wikidata ne porte un `P856` que pour 3,1 % des entités avec SIREN. Attribuer les domaines manquants exigerait de les inventer, ce qui détruirait la garantie « vérifié avec provenance ». Aucun domaine n'a été fabriqué ; aucune donnée personnelle, aucun service payant.
+
+OBJECTIF : partiel — 7 065 / 1 671 941 organisations (0,4226 %), manque 1 664 876 organisations vérifiées (99,5774 %) pour atteindre 100 %
