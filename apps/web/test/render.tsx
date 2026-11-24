@@ -61,7 +61,8 @@ check("URL Aller-retour conserve la fiche ouverte", back.org === 412);
 check("URL par défaut reste courte", toHash({ ...DEFAULT_STATE, view: "map", directory: DEFAULT_DIRECTORY, org: null }) === "#/map");
 check("URL invalide neutralisée", parseHash("#/nimportequoi?dept=zzz&page=-4&org=abc&size=9999").directory.dept === null);
 check("URL invalide : page et fiche rejetées", parseHash("#/directory?page=-4&org=abc").org === null && parseHash("#/directory?page=-4").directory.page === 0);
-check("lien partageable absolu", shareableUrl(round, "https://radar.exemple", "/") .startsWith("https://radar.exemple/#/directory?"));
+const lienAbsolu = shareableUrl(round, "https://radar.exemple", "/");
+check("lien partageable absolu", lienAbsolu === "https://radar.exemple/#/map?panel=directory&q=mairie+de+pessac&dept=33&page=2&size=100&org=412", lienAbsolu);
 check("état vide absent", !html.includes("Aucune organisation ne correspond"));
 
 const empty = renderToStaticMarkup(
