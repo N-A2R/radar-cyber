@@ -61,6 +61,8 @@
     "verifie:derive-semantique": "apps/api/node_modules/.bin/tsx scripts/verifie-derive-semantique.mts",
     "mesure:risk-decay": "apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts",
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
+    "mesure:bandit-sources": "apps/api/node_modules/.bin/tsx scripts/verifie-bandit-sources.mts",
+    "verifie:bandit-sources": "apps/api/node_modules/.bin/tsx scripts/verifie-bandit-sources.mts",
     "mesure:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/mesure-org-risk-prospectif.mts",
     "verifie:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/verifie-org-risk-prospectif.mts",
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",

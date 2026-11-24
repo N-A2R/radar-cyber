@@ -1,0 +1,40 @@
+{
+  "genereLe": "2026-11-23T23:00:27.949Z",
+  "question": "Allouer l'effort de collecte par décisions tracées, avec regret mesuré contre un oracle rétrospectif",
+  "run_id": "thompson-beta-c28168826954",
+  "corpus": {
+    "fichier": "bench/corpus/bandit-sources-2026-11-23.json",
+    "provenance": "Postgres de développement (radar, 5433), 2026-11-23 : collector_run sur 180 jours, joint à source (enabled et statut actif), au moins 5 runs et 100 items lus avec au moins un événement nouveau. Identifiants synthétiques bench-/injection-/test-/eval-/fixture- exclus. Aucun titre, URL, organisation ou donnée personnelle : seulement des agrégats publics par source.",
+    "sourcesActives": 95,
+    "fenetreJours": 180
+  },
+  "methode": {
+    "algorithme": "Thompson sampling Beta, prior pondéré par l'historique 180 j",
+    "graine": 20261123,
+    "prior_pondere": 0.005,
+    "items_par_decision": 100,
+    "oracle": "meilleure source du corpus gelé, connue seulement après la campagne",
+    "regret": "attendu : somme (taux oracle - taux de la source choisie), rapportée à 1000 × taux oracle"
+  },
+  "metriques": {
+    "decisions": 1000,
+    "itemsLus": 100000,
+    "evenementsNouveaux": 63371,
+    "rendement": 0.63371,
+    "tauxReference": 0.088,
+    "tauxCible": 0.176,
+    "tauxOracle": 0.6786389413988658,
+    "oracleSourceId": "cert-fr-alerte",
+    "sourcesExplorees": 77,
+    "regretCumule": 44.704872718124534,
+    "regretPct": 0.06587431105261246,
+    "regretCiblePct": 0.2
+  },
+  "verdict": {
+    "atteint": true,
+    "decisionsOk": true,
+    "rendementOk": true,
+    "regretOk": true
+  },
+  "trace": "bench/results/bandit-decisions.jsonl"
+}
