@@ -837,3 +837,46 @@ Sur les 9 378 organisations avec domaine, 46 échouent encore à la mesure (corr
 12 tests comportement, un par comportement (`apps/api/test/expand-domains-corpus-sectoriel.test.ts`), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé après ajout de la commande (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
 
 OBJECTIF : partiel — 9 332 / 1 671 941 organisations (0,5582 %), manque 1 662 609 organisations vérifiées (99,4418 %) pour atteindre 100 %
+
+## Rattrapage — tranche t27 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t26 : 9 332 / 1 671 941), seule base autorisée : la PR #797 existe toujours mais son objectif chiffré (100 %) n'est pas atteint. Le travail des tranches t1 à t26 est conservé tel quel. La tranche t27 ouvre une vingt-et-unième route grise : les **annuaires officiels versionnés** (`institutions-complet.jsonl` de l'éducation, `sante-enseignement.jsonl`, `communes.jsonl`) publient le SIREN, le nom de l'établissement et l'URL de son site. Sur 1 741 entrées exploitables, **32 organisations de Nouvelle-Aquitaine sans domaine** portent exactement un de ces SIREN publics. `scripts/expand-domains-siren-officiel.mts` exige en outre la concordance du département, un mot distinctif du libellé officiel (pas un type d'établissement ni une ville), une racine tierce exclue et l'absence d'un chemin qui ne nomme pas l'établissement. Une racine déjà attribuée à une autre organisation est acceptée seulement ici parce que le SIREN officiel et la page dédiée identifient l'organisation visée ; une seule organisation par SIREN et par racine est retenue par passe.
+
+La preuve stricte reste inchangée : HTTP 200 en direct, racine stable après redirection, page de plus de 150 caractères, hors parking, libellé officiel publié par la page. Sur 21 candidats retenus, **19 domaines ont été revérifiés en direct** et tracés `source:annuaire-officiel:siren:http200` (9 332 → 9 351). Détail (SIREN, organisation, racine, page) : `bench/results/domains-from-annuaire-officiel.json`. Le SIREN est un identifiant légal d'organisation, jamais une donnée personnelle ; aucune URL n'a été devinée.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-siren-officiel -- --limit=200 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées (`selected=21 verified=19 applied=true`, `verified_domain_coverage=9332 -> 9351`), puis mesure rejouée indépendamment après écriture :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9397
+organisations_avec_domaine_verifie_et_provenance=9351
+couverture_pourcent=0.5593
+```
+
+Décomposition reproductible de l'écart restant (1 662 590 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661373 | 1171 | 9397
+```
+
+Le recoupement des tables porteuses d'URL (t25, rejoué ici sur `source`, `source_verification`, `org_nis2_reference_siren`, `exposition_risque`, `dns_domaine`, `asset`, `org_alias`, `parent_evidence`, `event_archive`, `leak_claim`, `warc_proof`) ne révèle aucun autre réservoir rattachable : 1 661 373 organisations n'ont aucune URL HTTP 200 dans les sources publiques/gratuites et 1 171 ont une URL qui échoue à la preuve stricte après vingt-et-une passes. Les 46 organisations avec domaine non comptable sont des correspondances génériques d'articles, non réparables sans fabrication. Combler 1 662 590 organisations exigerait d'attribuer des sites inexistants ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+14 tests comportement, un par comportement (`apps/api/test/expand-domains-siren-officiel.test.ts`), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé après ajout de la commande (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 351 / 1 671 941 organisations (0,5593 %), manque 1 662 590 organisations vérifiées (99,4407 %) pour atteindre 100 %
+

@@ -1,0 +1,192 @@
+{
+  "selected": 21,
+  "verified": 19,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9378,
+    "withVerifiedProvenance": 9332,
+    "coveragePercent": 0.5582
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9397,
+    "withVerifiedProvenance": 9351,
+    "coveragePercent": 0.5593
+  },
+  "domains": [
+    {
+      "orgId": 76384,
+      "name": "OGEC DE CHAVAGNES ST JOSEPH",
+      "siren": "300315157",
+      "domain": "etab.ac-poitiers.fr",
+      "page": "https://etab.ac-poitiers.fr/coll-chavagnes-st-joseph/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Chavagnes Saint-Joseph"
+    },
+    {
+      "orgId": 94506,
+      "name": "ASS FAMILLE RURALE",
+      "siren": "334873353",
+      "domain": "lyceesaintchristophe.com",
+      "page": "https://www.lyceesaintchristophe.com/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée agricole privé Saint-Christophe"
+    },
+    {
+      "orgId": 116291,
+      "name": "OGEC STE MARTHE ST FRONT",
+      "siren": "379359110",
+      "domain": "smsf-bergerac.com",
+      "page": "https://smsf-bergerac.com/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Sainte-Marthe Saint-Front"
+    },
+    {
+      "orgId": 191422,
+      "name": "ASSOC MANEX ERDOZAINTZI ETXART",
+      "siren": "424833002",
+      "domain": "meekolegioa.eus",
+      "page": "https://meekolegioa.eus/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Manex Erdozaintzi Etxart"
+    },
+    {
+      "orgId": 217951,
+      "name": "ASSOCIATION LO COLLEGI",
+      "siren": "441710779",
+      "domain": "calandreta-pau.org",
+      "page": "https://www.calandreta-pau.org/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Lo Collègi Calandreta Gasconha"
+    },
+    {
+      "orgId": 232739,
+      "name": "O.G.E.C. SAINT JACQUES DE COMPOSTELLE",
+      "siren": "449232537",
+      "domain": "sjdc-dax.fr",
+      "page": "https://sjdc-dax.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Saint-Jacques de Compostelle"
+    },
+    {
+      "orgId": 317410,
+      "name": "OGEC LE BEAU RAMEAU",
+      "siren": "513207332",
+      "domain": "beau-rameau.org",
+      "page": "https://beau-rameau.org/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Le Beau Rameau"
+    },
+    {
+      "orgId": 368921,
+      "name": "OGEC CHARLES DE FOUCAULD",
+      "siren": "775716723",
+      "domain": "chdf.fr",
+      "page": "https://www.chdf.fr/colleges/college-ozanam/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Ozanam"
+    },
+    {
+      "orgId": 369108,
+      "name": "ORGAN GES INSTITUT NOTRE-DAME-PROVIDENCE",
+      "siren": "777970153",
+      "domain": "college-lycee.com",
+      "page": "https://college-lycee.com/college-notre-dame-de-la-providence/Ussel-0190782X",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé de Notre-Dame de la Providence"
+    },
+    {
+      "orgId": 370364,
+      "name": "OGEC EDUCATION POPULAIRE ST SACREMENT",
+      "siren": "781263942",
+      "domain": "stsa17.org",
+      "page": "https://www.stsa17.org/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé du Saint-Sacrement"
+    },
+    {
+      "orgId": 372133,
+      "name": "OGEC INSTITUTION ST GABRIEL NOTRE DAME",
+      "siren": "781513551",
+      "domain": "st-gab.com",
+      "page": "https://www.st-gab.com/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée professionnel privé Saint-Gabriel Notre-Dame"
+    },
+    {
+      "orgId": 372791,
+      "name": "OGEC INSTITUTION ST JOSEPH",
+      "siren": "781702329",
+      "domain": "stjo-24.fr",
+      "page": "https://stjo-24.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Saint-Joseph"
+    },
+    {
+      "orgId": 372868,
+      "name": "OGEC JEANNE D ARC",
+      "siren": "781711411",
+      "domain": "jda24.fr",
+      "page": "https://www.jda24.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Jeanne d'Arc"
+    },
+    {
+      "orgId": 373131,
+      "name": "OGEC JEANNE D ARC SAINT ROMAIN",
+      "siren": "781780895",
+      "domain": "jdarcsr.com",
+      "page": "https://jdarcsr.com/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Jeanne d'Arc Saint-Romain"
+    },
+    {
+      "orgId": 373255,
+      "name": "OGEC SAINTE MARIE LA BASTIDE",
+      "siren": "781842521",
+      "domain": "smb33.fr",
+      "page": "https://smb33.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Sainte-Marie Bastide"
+    },
+    {
+      "orgId": 375092,
+      "name": "OGEC ADELE DE TRENQUELLEON",
+      "siren": "782151732",
+      "domain": "institutionadt.fr",
+      "page": "https://www.institutionadt.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Adèle de Trenquelléon"
+    },
+    {
+      "orgId": 375603,
+      "name": "OGEC ST MARTIN",
+      "siren": "782272314",
+      "domain": "immac-btz.fr",
+      "page": "https://immac-btz.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Collège privé Immaculée Conception"
+    },
+    {
+      "orgId": 375930,
+      "name": "OGEC IMMACULEE CONCEPTION",
+      "siren": "782355168",
+      "domain": "immac-pau.com",
+      "page": "https://www.immac-pau.com/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Immaculée Conception"
+    },
+    {
+      "orgId": 376157,
+      "name": "OGEC ST JOSEPH",
+      "siren": "782382147",
+      "domain": "saintjo64.fr",
+      "page": "https://www.saintjo64.fr/",
+      "corpus": "institutions-complet.jsonl",
+      "label": "Lycée privé Saint-Joseph"
+    }
+  ]
+}

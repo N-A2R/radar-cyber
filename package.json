@@ -142,6 +142,7 @@
     "domaines:etendre-identite-structuree": "apps/api/node_modules/.bin/tsx scripts/expand-domains-identite-structuree.mts",
     "domaines:etendre-securite": "apps/api/node_modules/.bin/tsx scripts/expand-domains-securite.mts",
     "domaines:etendre-corpus-sectoriel": "apps/api/node_modules/.bin/tsx scripts/expand-domains-corpus-sectoriel.mts",
+    "domaines:etendre-siren-officiel": "apps/api/node_modules/.bin/tsx scripts/expand-domains-siren-officiel.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "sources:verifier": "apps/api/node_modules/.bin/tsx scripts/verifier-sources-http.mts",
