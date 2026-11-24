@@ -128,6 +128,7 @@
     "measure:hosting-outage": "apps/api/node_modules/.bin/tsx scripts/measure-hosting-outage.mts",
     "verifie:objectif-enrich-job": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-enrich-job.mts",
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
+    "verifie:stealer-domain-stat": "apps/api/node_modules/.bin/tsx scripts/verifie-stealer-domain-stat.mts"
     "dora:exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts",
     "verifie:dora-exports": "apps/api/node_modules/.bin/tsx scripts/genere-exports-dora.mts --check",
     "verifie:objectif-dora": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-dora.mts"
