@@ -1,0 +1,1349 @@
+{
+  "selected": 6437,
+  "verified": 166,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 1668,
+    "withVerifiedProvenance": 1623,
+    "coveragePercent": 0.0971
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 1834,
+    "withVerifiedProvenance": 1789,
+    "coveragePercent": 0.107
+  },
+  "domains": [
+    {
+      "orgId": 4918,
+      "siren": null,
+      "name": "EHPAD - COS LES FINS BOIS",
+      "domain": "fondationcos.org",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4753,
+      "siren": null,
+      "name": "EHPAD CHARLES D'ORLEANS",
+      "domain": "residence-charles-dorleans.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5092,
+      "siren": null,
+      "name": "MAS LE LAGON",
+      "domain": "adapei-charente.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4650,
+      "siren": null,
+      "name": "EHPAD CHATEAU DE CRESSE",
+      "domain": "chateaudecresse.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5363,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER JONZAC",
+      "domain": "ch-jonzac.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5907,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER ST JEAN D'ANGELY",
+      "domain": "angely.gh-saintesangely.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6048,
+      "siren": null,
+      "name": "CH DE SAINTONGE - SAINTES",
+      "domain": "saintes.gh-saintesangely.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5322,
+      "siren": null,
+      "name": "EHPAD LE LOGIS DE MONTIGNAC",
+      "domain": "logisdemontignac.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5719,
+      "siren": null,
+      "name": "MAS LE PERTHUIS",
+      "domain": "apajh17.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5320,
+      "siren": null,
+      "name": "EHPAD VILLA FLORIUS",
+      "domain": "villa-florius.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 5993,
+      "siren": null,
+      "name": "EHPAD LA VILLA AMELIE",
+      "domain": "villa-amelie.lna-sante.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5937,
+      "siren": null,
+      "name": "EHPAD RESIDENCE L'OMBRIERE",
+      "domain": "residence-ombriere.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5952,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LA TONNELLE",
+      "domain": "residence-la-tonnelle.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 5453,
+      "siren": null,
+      "name": "EHPAD LA MIRAMBELLE",
+      "domain": "alprado.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6025,
+      "siren": null,
+      "name": "PUV RESIDENCE BELLEVUE",
+      "domain": "santeenfrance.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5144,
+      "siren": null,
+      "name": "EHPAD RESIDENCE DU PARC",
+      "domain": "residence-du-parc.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6779,
+      "siren": null,
+      "name": "EHPAD LES BOUQUETS",
+      "domain": "ehpad-les-bouquets.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6816,
+      "siren": null,
+      "name": "EHPAD LA CHAPELAUDE",
+      "domain": "ehpad-lachapelaude.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 6949,
+      "siren": null,
+      "name": "SITE CROIX BLANCHE",
+      "domain": "fr.mappy.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6881,
+      "siren": null,
+      "name": "CHU LIMOGES - SITE CH GUERET",
+      "domain": "ch-gueret.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 6781,
+      "siren": null,
+      "name": "EHPAD PELISSON FONTANIER",
+      "domain": "ehpadbenevent.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6833,
+      "siren": null,
+      "name": "RESIDENCE PIERRE BAZENERYE",
+      "domain": "ehpad-dun.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6776,
+      "siren": null,
+      "name": "EHPAD LE MONASTERE",
+      "domain": "cemavie.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7002,
+      "siren": null,
+      "name": "EHPAD LE LOGIS DE VALRIC",
+      "domain": "ch-st-vaury.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7032,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER DE BELVES",
+      "domain": "etablissements.fhf.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7209,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER DE DOMME",
+      "domain": "ch-domme.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7514,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DE STE-ALVERE",
+      "domain": "ljdh-alvere.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7014,
+      "siren": null,
+      "name": "EHPAD LE VERGER DES BALANS",
+      "domain": "vergerdesbalans.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7634,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DE THENON",
+      "domain": "ljdh-thenon.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9746,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER D'ARCACHON",
+      "domain": "ch-arcachon.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7794,
+      "siren": null,
+      "name": "EHPAD LA MAISON DES COTONNIERS",
+      "domain": "adef-residences.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9783,
+      "siren": null,
+      "name": "MAS LES JONQUILLES DE BIRE",
+      "domain": "hapogys.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8224,
+      "siren": null,
+      "name": "MAS APF MONSEJOUR",
+      "domain": "foyer-monsejour.apf-francehandicap.org",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8803,
+      "siren": null,
+      "name": "EHPAD RESIDENCE DU TERTRE",
+      "domain": "residence-du-tertre.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 8546,
+      "siren": null,
+      "name": "MAS ADAPT GIRONDE",
+      "domain": "camblanes-et-meynac.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9688,
+      "siren": null,
+      "name": "EHPAD RESIDENCE TALANSSA",
+      "domain": "talanssa.lna-sante.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7740,
+      "siren": null,
+      "name": "EHPAD SAINT DOMINIQUE",
+      "domain": "saint-dominique33.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8825,
+      "siren": null,
+      "name": "EHPAD RES BTP RMS FONTAINES DE MONJOUS",
+      "domain": "btprms.probtp.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9338,
+      "siren": null,
+      "name": "EHPAD VILLA BOURGAILH",
+      "domain": "villabourgailh.lna-sante.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7760,
+      "siren": null,
+      "name": "EHPAD MGEN ARES",
+      "domain": "proximite.mgen.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8574,
+      "siren": null,
+      "name": "EHPAD LES MURIERS",
+      "domain": "residence-les-muriers.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4923,
+      "siren": null,
+      "name": "EHPAD LE BENETOU",
+      "domain": "ehpad-montbron.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9858,
+      "siren": null,
+      "name": "EHPAD MA RESIDENCE",
+      "domain": "maresidence.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8887,
+      "siren": null,
+      "name": "EHPAD LA CLAIRIERE DE BEL AIR",
+      "domain": "clairiere-de-bel-air.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8856,
+      "siren": null,
+      "name": "EHPAD LE TEMPS DE VIVRE",
+      "domain": "tempsdevivre-grignols.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8868,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LA SAVANE",
+      "domain": "residence-la-savane.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8900,
+      "siren": null,
+      "name": "EHPAD DES GRAVES",
+      "domain": "lesgraves-illats.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9166,
+      "siren": null,
+      "name": "EHPAD DU BOURG",
+      "domain": "residencedubourg.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9196,
+      "siren": null,
+      "name": "EHPAD RESIDENCE PAUL CLAUDEL",
+      "domain": "paul-claudel.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11940,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER OLORON",
+      "domain": "ch-oloron.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11343,
+      "siren": null,
+      "name": "EHPAD RESIDENCE ALBODI",
+      "domain": "residence-albodi.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12088,
+      "siren": null,
+      "name": "EHPAD RESIDENCE  L'ECUREUIL",
+      "domain": "ehpad-ecureuil-pau.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13253,
+      "siren": null,
+      "name": "EHPAD RESIDENCE SANTA MONICA",
+      "domain": "residence-santa-monica.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 13722,
+      "siren": null,
+      "name": "EHPAD LES JARDINS D'EDEN",
+      "domain": "residence-medicalisee-maison-de-retraite.les-jardins-deden.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13884,
+      "siren": null,
+      "name": "EHPAD LA PIERRE MEULIERE",
+      "domain": "pierre-meuliere.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13518,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LES CEDRES",
+      "domain": "residence-lescedres.com",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13440,
+      "siren": null,
+      "name": "EHPAD - THEODORE ARNAULT",
+      "domain": "theodore-arnault.org",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1964,
+      "siren": "213301138",
+      "name": "Commune de Cauvignac",
+      "domain": "cauvignac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3556,
+      "siren": "216405332",
+      "name": "Commune de Tardets-Sorholus",
+      "domain": "tardets.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1654,
+      "siren": "212403554",
+      "name": "Commune de La Roque-Gageac",
+      "domain": "laroquegageac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1735,
+      "siren": "212404537",
+      "name": "Commune de Saint-Martin-de-Fressengeas",
+      "domain": "saint-martin-de-fressengeas.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 587,
+      "siren": "211702402",
+      "name": "Commune de Montendre",
+      "domain": "ville-montendre.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3760,
+      "siren": "217902543",
+      "name": "Commune de Saint-Georges-de-Rex",
+      "domain": "saintgeorgesderex.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1986,
+      "siren": "213301351",
+      "name": "Commune de Courpiac",
+      "domain": "mairiedecourpiac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2008,
+      "siren": "213301575",
+      "name": "Commune de Espiet",
+      "domain": "espiet.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2549,
+      "siren": "214001646",
+      "name": "Commune de Retjons",
+      "domain": "retjons.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4238,
+      "siren": "218714608",
+      "name": "Commune de Saint-Germain-les-Belles",
+      "domain": "saint-germain-les-belles.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3082,
+      "siren": "216400481",
+      "name": "Commune de Arnos",
+      "domain": "mairiearnos.wordpress.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3171,
+      "siren": "216401398",
+      "name": "Commune de Bosdarros",
+      "domain": "mairie-bosdarros.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1341,
+      "siren": "212325302",
+      "name": "Commune de Thauron",
+      "domain": "communethauron.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2810,
+      "siren": "214700932",
+      "name": "Commune de Fargues-sur-Ourbise",
+      "domain": "fargues-sur-ourbise.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2729,
+      "siren": "214700122",
+      "name": "Commune de Anzex",
+      "domain": "anzex.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 553,
+      "siren": "211702055",
+      "name": "Commune de Loire-les-Marais",
+      "domain": "loire-les-marais.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2176,
+      "siren": "213303308",
+      "name": "Commune de Pompignac",
+      "domain": "pompignac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1934,
+      "siren": "213300791",
+      "name": "Commune de Cadarsac",
+      "domain": "cadarsac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4059,
+      "siren": "218602555",
+      "name": "Commune de Savigné",
+      "domain": "savigne.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4235,
+      "siren": "218714301",
+      "name": "Commune de Saint-Gence",
+      "domain": "saint-gence.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4171,
+      "siren": "218707602",
+      "name": "Commune de Jabreilles-les-Bordes",
+      "domain": "mairie-de-jabreilles-les-bordes.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1235,
+      "siren": "212314306",
+      "name": "Commune de Noth",
+      "domain": "mairie-noth.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 701,
+      "siren": "211703582",
+      "name": "Commune de Saint-Mandé-sur-Brédoire",
+      "domain": "stmandesurbredoire.free.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 103,
+      "siren": "211601166",
+      "name": "Commune de Criteuil-la-Magdeleine",
+      "domain": "mairie-criteuillamagdeleine.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4130,
+      "siren": "218703403",
+      "name": "Commune de Champagnac-la-Rivière",
+      "domain": "champagnaclariviere.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4083,
+      "siren": "218602852",
+      "name": "Commune de Verrières",
+      "domain": "verrieres-vienne.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4161,
+      "siren": "218706604",
+      "name": "Commune de Flavignac",
+      "domain": "flavignac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1527,
+      "siren": "212402085",
+      "name": "Commune de Grun-Bordas",
+      "domain": "mairie-de-grun-bordas.jimdofree.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3647,
+      "siren": "217900968",
+      "name": "Commune de Combrand",
+      "domain": "combrand79.wordpress.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1665,
+      "siren": "212403703",
+      "name": "Commune de Saint-Antoine-de-Breuilh",
+      "domain": "saintantoinedebreuilh.wordpress.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4218,
+      "siren": "218712503",
+      "name": "Commune de Rilhac-Rancon",
+      "domain": "rilhac-rancon.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1728,
+      "siren": "212404453",
+      "name": "Commune de Saint-Marcel-du-Périgord",
+      "domain": "saintmarcelduperigord.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1537,
+      "siren": "212402184",
+      "name": "Commune de Jumilhac-le-Grand",
+      "domain": "jumilhac-le-grand.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 409,
+      "siren": "211700539",
+      "name": "Commune de Bords",
+      "domain": "bords17.free.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3123,
+      "siren": "216400911",
+      "name": "Commune de Baliros",
+      "domain": "mairiebaliros.wordpress.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4123,
+      "siren": "218702702",
+      "name": "Commune de Bussière-Galant",
+      "domain": "bussiere-galant.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1409,
+      "siren": "200084127",
+      "name": "Commune de Brantôme en Périgord",
+      "domain": "brantomeenperigord.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1474,
+      "siren": "200059756",
+      "name": "Commune de Coux et Bigaroque-Mouzens",
+      "domain": "couxetbigaroque-mouzens.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1229,
+      "siren": "212313704",
+      "name": "Commune de Mourioux-Vieilleville",
+      "domain": "mouriouxvieilleville.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 948,
+      "siren": "211913009",
+      "name": "Commune de Maussac",
+      "domain": "mairiemaussac.wixsite.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4222,
+      "siren": "218712909",
+      "name": "Commune de Royères",
+      "domain": "royeres87.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1799,
+      "siren": "212405237",
+      "name": "Commune de Saussignac",
+      "domain": "saussignac-perigord.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1666,
+      "siren": "212403711",
+      "name": "Commune de Saint-Aquilin",
+      "domain": "saintaquilin.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2153,
+      "siren": "213303068",
+      "name": "Commune de Noaillac",
+      "domain": "noaillac.org",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1977,
+      "siren": "213301260",
+      "name": "Commune de Civrac-de-Blaye",
+      "domain": "civrac-de-blaye.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 873,
+      "siren": "211905302",
+      "name": "Commune de Chaveroche",
+      "domain": "chaveroche19.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1795,
+      "siren": "212405195",
+      "name": "Commune de Sarlande",
+      "domain": "mairiesarlande.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4209,
+      "siren": "218711604",
+      "name": "Commune de Peyrat-de-Bellac",
+      "domain": "peyratdebellac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 613,
+      "siren": "211702675",
+      "name": "Commune de Nuaillé-d'Aunis",
+      "domain": "nuaille-daunis.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 181,
+      "siren": "211602057",
+      "name": "Commune de Manot",
+      "domain": "manot.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2238,
+      "siren": "213303969",
+      "name": "Commune de Saint-Étienne-de-Lisse",
+      "domain": "saintetiennedelisse.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2344,
+      "siren": "213305097",
+      "name": "Commune de Savignac-de-l'Isle",
+      "domain": "savignac-sur-lisle.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2331,
+      "siren": "213304942",
+      "name": "Commune de Salaunes",
+      "domain": "mairie-salaunes.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1882,
+      "siren": "213300262",
+      "name": "Commune de Balizac",
+      "domain": "balizac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2868,
+      "siren": "214701542",
+      "name": "Commune de Lusignan-Petit",
+      "domain": "lusignanpetit.wixsite.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1629,
+      "siren": "200096378",
+      "name": "Commune de Pechs-de-l'Espérance",
+      "domain": "pechs-esperance.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 962,
+      "siren": "211914403",
+      "name": "Commune de Montgibaud",
+      "domain": "montgibaud.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3053,
+      "siren": "216400176",
+      "name": "Commune de Alos-Sibas-Abense",
+      "domain": "alos-sibas-abense.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3643,
+      "siren": "217900919",
+      "name": "Commune de Cirières",
+      "domain": "cirieres.wixsite.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3664,
+      "siren": "217901198",
+      "name": "Commune de Fenioux",
+      "domain": "fenioux79.free.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4110,
+      "siren": "218701308",
+      "name": "Commune de Bersac-sur-Rivalier",
+      "domain": "bersacsurrivalier.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1,
+      "siren": "211600010",
+      "name": "Commune de Abzac",
+      "domain": "abzac-16.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 486,
+      "siren": "211701347",
+      "name": "Commune de Crazannes",
+      "domain": "crazannes.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2939,
+      "siren": "214702268",
+      "name": "Commune de Roumagne",
+      "domain": "mairiederoumagne.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4141,
+      "siren": "218704500",
+      "name": "Commune de Cieux",
+      "domain": "mairiedecieux.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3750,
+      "siren": "217902410",
+      "name": "Commune de Saint-Christophe-sur-Roc",
+      "domain": "stchristophesurroc.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3023,
+      "siren": "214703142",
+      "name": "Commune de Trémons",
+      "domain": "mairie-tremons.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2175,
+      "siren": "213303290",
+      "name": "Commune de Pompéjac",
+      "domain": "pompejac.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1681,
+      "siren": "212403869",
+      "name": "Commune de Saint-Cernin-de-l'Herm",
+      "domain": "saint-cernin-de-lherm-24.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1368,
+      "siren": "212400188",
+      "name": "Commune de Auriac-du-Périgord",
+      "domain": "auriac-du-perigord.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1810,
+      "siren": "212405351",
+      "name": "Commune de Simeyrols",
+      "domain": "simeyrols.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 963,
+      "siren": "211914502",
+      "name": "Commune de Moustier-Ventadour",
+      "domain": "moustier-ventadour.blog4ever.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2863,
+      "siren": "214701476",
+      "name": "Commune de Lévignac-de-Guyenne",
+      "domain": "levignac-de-guyenne.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2011,
+      "siren": "213301609",
+      "name": "Commune de Eynesse",
+      "domain": "eynesse.gironde.free.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2002,
+      "siren": "213301518",
+      "name": "Commune de Donnezac",
+      "domain": "donnezac.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1509,
+      "siren": "212401848",
+      "name": "Commune de Florimont-Gaumier",
+      "domain": "florimont-gaumier.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1766,
+      "siren": "212404875",
+      "name": "Commune de Saint-Pierre-d'Eyraud",
+      "domain": "stpierredeyraud.jimdofree.com",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1493,
+      "siren": "212401624",
+      "name": "Commune de Escoire",
+      "domain": "escoire.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 203,
+      "siren": "211602313",
+      "name": "Commune de Montrollet",
+      "domain": "montrollet.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1715,
+      "siren": "212404255",
+      "name": "Commune de Saint-Jean-de-Côle",
+      "domain": "ville-saint-jean-de-cole.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1241,
+      "siren": "933644478",
+      "name": "Commune de Parsac",
+      "domain": "mairie-parsac-rimondeix.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4182,
+      "siren": "218708709",
+      "name": "Commune de Lussac-les-Églises",
+      "domain": "lussac-les-eglises.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 577,
+      "siren": "211702295",
+      "name": "Commune de Mérignac",
+      "domain": "merignac17.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 733,
+      "siren": "211703947",
+      "name": "Commune de Saint-Saturnin-du-Bois",
+      "domain": "saintsaturnindubois.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1053,
+      "siren": "211924204",
+      "name": "Commune de Saint-Solve",
+      "domain": "saint-solve.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4097,
+      "siren": "218602993",
+      "name": "Commune de Vouzailles",
+      "domain": "mairie.vouzailles.free.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 630302,
+      "siren": "932403561",
+      "name": "SARL RW",
+      "domain": "lagoulette-bordeaux.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 323167,
+      "siren": "518339601",
+      "name": "ADONIS",
+      "domain": "adonis-restaurant.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 532657,
+      "siren": "887472678",
+      "name": "LAGOM",
+      "domain": "suzzikafe.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 464588,
+      "siren": "831159884",
+      "name": "ATLANTIC BROKER",
+      "domain": "agence.abcourtage.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 530744,
+      "siren": "884564196",
+      "name": "CARALIS",
+      "domain": "coutras.cavavin.co",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 149309,
+      "siren": "400238549",
+      "name": "OTTOMAN",
+      "domain": "ottoman-bordeaux.eatbu.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 401985,
+      "siren": "801469008",
+      "name": "GUEDEAU-CHABRIER",
+      "domain": "guedeau-chabrier.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21766,
+      "siren": "889297453",
+      "name": "YAAL COOP",
+      "domain": "yaal.coop",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 502687,
+      "siren": "850028960",
+      "name": "OTTAVIANI TRAITEUR",
+      "domain": "ottavianitraiteur.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 335156,
+      "siren": "524774361",
+      "name": "BDE ENSEIRB MATMECA",
+      "domain": "bde.eirb.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 396408,
+      "siren": "799117395",
+      "name": "APHRODITE TAVA",
+      "domain": "aphrodite.eatbu.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 588269,
+      "siren": "913039830",
+      "name": "REPAROS",
+      "domain": "reparos.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1624122,
+      "siren": "510465693",
+      "name": "GABARD GUILLAUME",
+      "domain": "cueillettefabull.canalblog.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2383823,
+      "siren": "841101355",
+      "name": "LE BOCAL 105",
+      "domain": "le-bocal-105.eatbu.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 186342,
+      "siren": "422542605",
+      "name": "SARL AZAY CHAUFFAGE",
+      "domain": "azay-chauffage.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 354,
+      "siren": "211604202",
+      "name": "Commune de Voulgézac",
+      "domain": "voulgezac16.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 137711,
+      "siren": "392360624",
+      "name": "GARANKA SUD OUEST",
+      "domain": "garanka.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 619417,
+      "siren": "928072958",
+      "name": "15 NOTRE DAME",
+      "domain": "picklesbordeaux.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 301750,
+      "siren": "504151804",
+      "name": "CAROTTES ET GINGEMBRE",
+      "domain": "carottesgingembre.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 484976,
+      "siren": "841072903",
+      "name": "LES WOODBROTHERS",
+      "domain": "leswoodbrothers.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 562298,
+      "siren": "901488460",
+      "name": "L'INSTANT COSY",
+      "domain": "linstantcosy79.wixsite.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 683445,
+      "siren": "982695942",
+      "name": "MK",
+      "domain": "monsieurlekebabier.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 324512,
+      "siren": "519004782",
+      "name": "2D MOTO",
+      "domain": "2dmoto.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    }
+  ]
+}

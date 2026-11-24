@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-11-23T23:30:51.794Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "victims": 16,
+  "sources": 1,
+  "pairs": 16,
+  "priorSignalPairs": 2,
+  "victimsWithAnyPriorSignal": 2,
+  "coverage": 0.125,
+  "coveredOrgIds": [
+    688670,
+    2230758
+  ],
+  "attachments": 75,
+  "ambiguousBrands": 71,
+  "unmatchedBrands": 35024,
+  "baseline": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 16
+  },
+  "injected": {
+    "predictions": 60,
+    "hits": 1,
+    "victims": 16
+  },
+  "perWindow": [
+    {
+      "cutoff": "2026-05-26",
+      "baselineHits": 0,
+      "injectedHits": 0,
+      "hitOrgIds": [],
+      "victims": 2,
+      "signalOrgs": 51,
+      "signalsAtCutoff": 62
+    },
+    {
+      "cutoff": "2026-06-25",
+      "baselineHits": 0,
+      "injectedHits": 0,
+      "hitOrgIds": [],
+      "victims": 3,
+      "signalOrgs": 51,
+      "signalsAtCutoff": 62
+    },
+    {
+      "cutoff": "2026-07-25",
+      "baselineHits": 0,
+      "injectedHits": 0,
+      "hitOrgIds": [],
+      "victims": 6,
+      "signalOrgs": 52,
+      "signalsAtCutoff": 63
+    },
+    {
+      "cutoff": "2026-08-24",
+      "baselineHits": 0,
+      "injectedHits": 0,
+      "hitOrgIds": [],
+      "victims": 0,
+      "signalOrgs": 53,
+      "signalsAtCutoff": 67
+    },
+    {
+      "cutoff": "2026-09-23",
+      "baselineHits": 0,
+      "injectedHits": 1,
+      "hitOrgIds": [
+        2230758
+      ],
+      "victims": 3,
+      "signalOrgs": 56,
+      "signalsAtCutoff": 70
+    },
+    {
+      "cutoff": "2026-10-23",
+      "baselineHits": 0,
+      "injectedHits": 0,
+      "hitOrgIds": [],
+      "victims": 2,
+      "signalOrgs": 57,
+      "signalsAtCutoff": 71
+    }
+  ],
+  "bonusSweep": [
+    {
+      "factor": 0.5,
+      "hits": 1
+    },
+    {
+      "factor": 1,
+      "hits": 1
+    },
+    {
+      "factor": 2,
+      "hits": 1
+    }
+  ],
+  "caveat": "A brand-family signal is a claim against a different organisation whose name shares the exact first two normalised tokens with a single NA organisation. Only claims published before the cutoff are injected; the published victim forecast is not changed."
+}

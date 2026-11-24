@@ -13,6 +13,9 @@ import {
 import { dayKeys, mergeDaily, parseObservations, serializeObservations } from "../src/serviceAvailability/observations.js";
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
+import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
+import { auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
+import { normalizeProofUrl, observationsFromDbProofs } from "../src/serviceAvailability/dbProofs.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -166,4 +169,97 @@ test("full seven-day coverage is reported separately from partial coverage", () 
 	assert.equal(summary.servicesFullyObserved, 1);
 	assert.equal(summary.coveragePct, 100);
 	assert.equal(summary.perDay.length, 7);
+});
+
+test("coverage status counts unobserved days and service-days without extrapolating", () => {
+	const rows = [
+		observation("a", "2026-11-21", true),
+		observation("a", "2026-11-22", false),
+		observation("a", "2026-11-23", true),
+	];
+	const summary = measureAvailability(rows, [service("a")], "2026-11-23");
+	const status = evaluateCoverage(summary);
+	assert.equal(status.label, "partiel");
+	assert.equal(status.daysObserved, 3);
+	assert.equal(status.missingDays.length, 4);
+	assert.equal(status.observedServiceDays, 3);
+	assert.equal(status.missingServiceDays, 4);
+});
+
+test("candidate anchors span each observed day and the six following days", () => {
+	const rows = [observation("a", "2026-11-21", true), observation("a", "2026-11-22", true)];
+	assert.deepEqual(candidateAnchors(rows), [
+		"2026-11-21", "2026-11-22", "2026-11-23", "2026-11-24",
+		"2026-11-25", "2026-11-26", "2026-11-27", "2026-11-28",
+	]);
+});
+
+test("partial observations never mark a candidate window as attained", () => {
+	const services = [service("a"), service("b")];
+	const rows = [
+		observation("a", "2026-11-21", true), observation("b", "2026-11-21", true),
+		observation("a", "2026-11-23", true), observation("b", "2026-11-23", true),
+	];
+	const audits = auditWindows(rows, services);
+	assert.equal(audits.length, 9);
+	assert.ok(audits.every((window) => window.status === "partiel"));
+	assert.equal(Math.max(...audits.map((window) => window.observedServiceDays)), 4);
+});
+
+test("seven observed days produce one fully covered candidate window", () => {
+	const services = [service("a"), service("b")];
+	const days = dayKeys("2026-11-28", 7);
+	const rows = days.flatMap((day) => services.map((item) => observation(item.id, day, true)));
+	const attained = auditWindows(rows, services).filter((window) => window.status === "atteint");
+	assert.deepEqual(attained.map((window) => window.anchor), ["2026-11-28"]);
+	assert.equal(attained[0]?.observedServiceDays, 14);
+});
+
+test("earliest attainable anchor waits for incomplete past days to leave the window", () => {
+	const services = [service("a"), service("b")];
+	const rows = [
+		observation("a", "2026-11-21", true), observation("b", "2026-11-21", true),
+		observation("a", "2026-11-22", true),
+		observation("a", "2026-11-23", true), observation("b", "2026-11-23", true),
+		observation("a", "2026-11-24", true), observation("b", "2026-11-24", true),
+	];
+	assert.equal(earliestAttainableAnchor(rows, services, "2026-11-24"), "2026-11-29");
+});
+
+test("a real database proof becomes a dated observation for the matching service", () => {
+	const target = service("na-edu-001");
+	const rows = [{
+		url: "https://EXAMPLE.FR/na-edu-001/",
+		code_http: 200,
+		verifie_at: "2026-11-22T07:18:27.202Z",
+		ms: 312,
+	}];
+	assert.deepEqual(observationsFromDbProofs(rows, [target]), [{
+		serviceId: target.id,
+		day: "2026-11-22",
+		ok: true,
+		status: 200,
+		latencyMs: 312,
+		observedAt: "2026-11-22T07:18:27.202Z",
+		failure: null,
+	}]);
+});
+
+test("a database proof with an HTTP error is unavailable, not missing", () => {
+	const target = service("na-edu-002");
+	const rows = [{ url: target.url, code_http: 503, verifie_at: "2026-11-22T09:00:00.000Z", ms: null }];
+	const [result] = observationsFromDbProofs(rows, [target]);
+	assert.equal(result.ok, false);
+	assert.equal(result.failure, "http_error");
+	assert.equal(result.status, 503);
+});
+
+test("database proofs outside the perimeter or without a valid UTC date are skipped", () => {
+	const target = service("na-edu-003");
+	const rows = [
+		{ url: "https://other.fr/", code_http: 200, verifie_at: "2026-11-22T09:00:00.000Z", ms: 10 },
+		{ url: target.url, code_http: 200, verifie_at: "not-a-date", ms: 10 },
+	];
+	assert.deepEqual(observationsFromDbProofs(rows, [target]), []);
+	assert.equal(normalizeProofUrl(" HTTPS://EXAMPLE.FR/path/ "), "https://example.fr/path");
 });

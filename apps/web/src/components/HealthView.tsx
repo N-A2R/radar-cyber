@@ -1,3 +1,4 @@
+import { Badge } from "@astryxdesign/core/Badge";
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import {
   api,
@@ -35,6 +36,12 @@ const COLUMNS: { key: SortKey; label: string; num?: boolean }[] = [
 const BADGE_TONE: Record<SourceStatus, string> = {
   ok: "success",
   error: "danger",
+  pending: "info",
+};
+
+const BADGE_VARIANT: Record<SourceStatus, "success" | "error" | "info"> = {
+  ok: "success",
+  error: "error",
   pending: "info",
 };
 
@@ -181,8 +188,10 @@ export default function HealthView({ sources = [], loading: chargementParent = f
 
   const items = data?.items ?? [];
   const counts = data?.counts;
-  const premier = data === null || data.items.length === 0 ? 0 : (data.page - 1) * data.pageSize + 1;
-  const dernier = data === null ? 0 : premier + data.items.length - 1;
+  // `items` local (avec repli) plutôt que data.items : une réponse sans le
+  // champ ne doit pas faire crasher la vue — l'export Jeu d'or le garantit.
+  const premier = data === null || items.length === 0 ? 0 : (data.page - 1) * data.pageSize + 1;
+  const dernier = data === null ? 0 : premier + items.length - 1;
 
   return (
     <section className="health-view" aria-label="santé des sources">
@@ -287,9 +296,12 @@ export default function HealthView({ sources = [], loading: chargementParent = f
               {items.map((s) => (
                 <tr key={s.id}>
                   <td>
-                    <span className="badge" data-tone={BADGE_TONE[s.status]}>
-                      {SOURCE_STATUS_LABEL[s.status]}
-                    </span>
+                    <Badge
+                      label={SOURCE_STATUS_LABEL[s.status]}
+                      variant={BADGE_VARIANT[s.status]}
+                      className="badge"
+                      data-tone={BADGE_TONE[s.status]}
+                    />
                   </td>
                   <td>
                     <div>

@@ -1,0 +1,352 @@
+[
+  {
+    "domaine": "etab-01.bordeaux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-01-18",
+    "derniereVue": "2023-02-16"
+  },
+  {
+    "domaine": "etab-02.limoges.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-02-04",
+    "derniereVue": "2023-04-03"
+  },
+  {
+    "domaine": "etab-03.poitiers.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-02-21",
+    "derniereVue": "2023-02-21"
+  },
+  {
+    "domaine": "etab-04.angouleme.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-03-10",
+    "derniereVue": "2023-04-08"
+  },
+  {
+    "domaine": "etab-05.perigueux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-03-27",
+    "derniereVue": "2023-05-24"
+  },
+  {
+    "domaine": "etab-06.la-rochelle.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-04-13",
+    "derniereVue": "2023-04-13"
+  },
+  {
+    "domaine": "etab-07.niort.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-04-30",
+    "derniereVue": "2023-05-29"
+  },
+  {
+    "domaine": "etab-08.brive.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-05-17",
+    "derniereVue": "2023-07-14"
+  },
+  {
+    "domaine": "etab-09.pau.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-06-03",
+    "derniereVue": "2023-06-03"
+  },
+  {
+    "domaine": "etab-10.agen.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-06-20",
+    "derniereVue": "2023-07-19"
+  },
+  {
+    "domaine": "etab-11.bordeaux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-07-07",
+    "derniereVue": "2023-09-03"
+  },
+  {
+    "domaine": "etab-12.limoges.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-07-24",
+    "derniereVue": "2023-07-24"
+  },
+  {
+    "domaine": "etab-13.poitiers.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-08-10",
+    "derniereVue": "2023-09-08"
+  },
+  {
+    "domaine": "etab-14.angouleme.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-08-27",
+    "derniereVue": "2023-10-24"
+  },
+  {
+    "domaine": "etab-15.perigueux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-09-13",
+    "derniereVue": "2023-09-13"
+  },
+  {
+    "domaine": "etab-16.la-rochelle.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-09-30",
+    "derniereVue": "2023-10-29"
+  },
+  {
+    "domaine": "etab-17.niort.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-10-17",
+    "derniereVue": "2023-12-14"
+  },
+  {
+    "domaine": "etab-18.brive.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-11-03",
+    "derniereVue": "2023-11-03"
+  },
+  {
+    "domaine": "etab-19.pau.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2023-11-20",
+    "derniereVue": "2023-12-19"
+  },
+  {
+    "domaine": "etab-20.agen.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-12-07",
+    "derniereVue": "2024-02-03"
+  },
+  {
+    "domaine": "etab-21.bordeaux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2023-12-24",
+    "derniereVue": "2023-12-24"
+  },
+  {
+    "domaine": "etab-22.limoges.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-01-10",
+    "derniereVue": "2024-02-08"
+  },
+  {
+    "domaine": "etab-23.poitiers.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-01-27",
+    "derniereVue": "2024-03-25"
+  },
+  {
+    "domaine": "etab-24.angouleme.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-02-13",
+    "derniereVue": "2024-02-13"
+  },
+  {
+    "domaine": "etab-25.perigueux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-03-01",
+    "derniereVue": "2024-03-30"
+  },
+  {
+    "domaine": "etab-26.la-rochelle.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-03-18",
+    "derniereVue": "2024-05-15"
+  },
+  {
+    "domaine": "etab-27.niort.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-04-04",
+    "derniereVue": "2024-04-04"
+  },
+  {
+    "domaine": "etab-28.brive.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-04-21",
+    "derniereVue": "2024-05-20"
+  },
+  {
+    "domaine": "etab-29.pau.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-05-08",
+    "derniereVue": "2024-07-05"
+  },
+  {
+    "domaine": "etab-30.agen.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-05-25",
+    "derniereVue": "2024-05-25"
+  },
+  {
+    "domaine": "etab-31.bordeaux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-06-11",
+    "derniereVue": "2024-07-10"
+  },
+  {
+    "domaine": "etab-32.limoges.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-06-28",
+    "derniereVue": "2024-08-25"
+  },
+  {
+    "domaine": "etab-33.poitiers.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-07-15",
+    "derniereVue": "2024-07-15"
+  },
+  {
+    "domaine": "etab-34.angouleme.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-08-01",
+    "derniereVue": "2024-08-30"
+  },
+  {
+    "domaine": "etab-35.perigueux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-08-18",
+    "derniereVue": "2024-10-15"
+  },
+  {
+    "domaine": "etab-36.la-rochelle.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-09-04",
+    "derniereVue": "2024-09-04"
+  },
+  {
+    "domaine": "etab-37.niort.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-09-21",
+    "derniereVue": "2024-10-20"
+  },
+  {
+    "domaine": "etab-38.brive.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-10-08",
+    "derniereVue": "2024-12-05"
+  },
+  {
+    "domaine": "etab-39.pau.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-10-25",
+    "derniereVue": "2024-10-25"
+  },
+  {
+    "domaine": "etab-40.agen.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2024-11-11",
+    "derniereVue": "2024-12-10"
+  },
+  {
+    "domaine": "etab-41.bordeaux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2024-11-28",
+    "derniereVue": "2025-01-25"
+  },
+  {
+    "domaine": "etab-42.limoges.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2024-12-15",
+    "derniereVue": "2024-12-15"
+  },
+  {
+    "domaine": "etab-43.poitiers.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2025-01-01",
+    "derniereVue": "2025-01-30"
+  },
+  {
+    "domaine": "etab-44.angouleme.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2025-01-18",
+    "derniereVue": "2025-03-17"
+  },
+  {
+    "domaine": "etab-45.perigueux.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2025-02-04",
+    "derniereVue": "2025-02-04"
+  },
+  {
+    "domaine": "etab-46.la-rochelle.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2025-02-21",
+    "derniereVue": "2025-03-22"
+  },
+  {
+    "domaine": "etab-47.niort.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2025-03-10",
+    "derniereVue": "2025-05-07"
+  },
+  {
+    "domaine": "etab-48.brive.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 1,
+    "premiereVue": "2025-03-27",
+    "derniereVue": "2025-03-27"
+  },
+  {
+    "domaine": "etab-49.pau.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 2,
+    "premiereVue": "2025-04-13",
+    "derniereVue": "2025-05-12"
+  },
+  {
+    "domaine": "etab-50.agen.example",
+    "source": "hibp-domain-search-fixture",
+    "occurrences": 3,
+    "premiereVue": "2023-01-09",
+    "derniereVue": "2025-05-29"
+  }
+]
