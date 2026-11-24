@@ -710,4 +710,49 @@ apps/api/node_modules/.bin/tsx --test apps/api/test/service-availability.test.ts
 # 28 tests, 28 réussis
 ```
 
+## Vérification indépendante du 24 novembre (04 h UTC)
+
+Une quatrième passe, menée depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 9 commits, 2 000 / 3 500), a interrogé en lecture seule six bases
+PostgreSQL (416 tables au total), l'historique Git et de nouvelles archives
+ouvertes. Aucune observation HTTP réelle des 18, 19 et 20 novembre n'a été
+trouvée : **0 service-jour réel gagné**, l'écart reste de 1 500.
+
+- **Bases** : `verifie_at` (`source_verification`), `consulted_at`
+  (`exposition_service`) et `captured_at` (`warc_proof`) n'ont aucune ligne dans
+  la fenêtre, dans aucune des six bases. Les seules dates présentes sont des
+  dates de publication ou de réception (`event.observed_at`,
+  `source.last_ok_at`, `source_verification.derniere_item_at`,
+  `quarantine_raw.received_at`) : elles ne portent aucun statut HTTP vérifié et
+  sont donc refusées, sans extrapolation.
+- **Arbre et historique** : 0 observation datée des trois jours dans l'arbre,
+  les 8 commits touchant le fichier, les 82 copies de worktrees et les 4 runs
+  GitHub Actions de la fenêtre (0 artifact). Le corpus ne porte que
+  `verifie_le=2026-11-21`, y compris dans `url_preuve` et `preuve.url_finale`.
+- **Sources grises** : 29 URL exactes du périmètre interrogées sur Wayback CDX
+  avec `from=20261118&to=20261120` renvoient `[]`, tandis qu'un témoin
+  `www.google.com` renvoie 30 captures sur la même fenêtre (endpoint fonctionnel).
+  `available` donne une capture la plus proche au 15 septembre 2026 ;
+  arquivo.pt, UK Web Archive et timemap sont vides, urlscan.io renvoie 0 avec un
+  témoin à 10 000 résultats, Common Crawl est injoignable. Aucune date ni aucun
+  statut n'a été inventé.
+
+```
+for db in radar radar_verif shadow_bench; do
+  psql "postgres://radar:radar@localhost:5433/$db" -Atc \
+    "SELECT '$db', count(*) FROM source_verification \
+     WHERE verifie_at >= '2026-11-18' AND verifie_at < '2026-11-21';"
+done
+# radar|0, radar_verif|0, shadow_bench|0
+# Les trois autres bases n'ont pas de table source_verification (vérifié via information_schema).
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+```
+
+La première fenêtre entièrement réelle reste ancrée au 27 novembre, après trois
+collectes réelles les 25, 26 et 27 novembre. Aucune modification du jeu
+d'observations, d'`server.ts` ou du manifeste n'a été nécessaire.
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
