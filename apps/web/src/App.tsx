@@ -1,12 +1,13 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Badge } from "@astryxdesign/core/Badge";
+import { TopNav, TopNavItem, TopNavMenu } from "@astryxdesign/core/TopNav";
 import { Banner } from "@astryxdesign/core/Banner";
 import { Button } from "@astryxdesign/core/Button";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { lastOfflineFallback, offlineStatus, onOfflineFallback } from "./offline/pwa";
 import { type DataRow } from "./export";
 import ExportMenu, { ExportProvider, useScreenExport } from "./components/ExportMenu";
-import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type SourcesDashboard, type Stats, type TodayResponse } from "./api";
 import type { ActorAttributionsResponse } from "./api";
 import type { MapTimelineBucket, MapTimelineEvent } from "./api";
 import { mockData } from "./mock";
@@ -17,7 +18,6 @@ const SourcesView = lazy(() => import("./components/SourcesView"));
 const SourcesDashboardView = lazy(() => import("./components/SourcesDashboardView"));
 const HealthView = lazy(() => import("./components/HealthView"));
 const HealthDetailView = lazy(() => import("./components/HealthDetailView"));
-const CollecteMetricsView = lazy(() => import("./components/CollecteMetricsView"));
 const EventList = lazy(() => import("./components/EventList"));
 const Inspector = lazy(() => import("./components/Inspector"));
 const OrgSheet = lazy(() => import("./components/OrgSheet"));
@@ -57,21 +57,32 @@ function ViewSkeleton() {
 // Mode démonstration : données simulées, jamais d'appel API.
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
-const VIEWS: { id: ViewKey; label: string }[] = [
-  { id: "today", label: "Aujourd'hui" },
-  { id: "coverage", label: "Couverture" },
-  { id: "review", label: "Revue" },
-  { id: "journal", label: "Journal" },
-  { id: "corpus", label: "Corpus" },
-  { id: "sources", label: "Sources" },
-  { id: "sources-dashboard", label: "Tableau de bord sources" },
-  { id: "map", label: "Carte" },
-  { id: "graph", label: "Graphe" },
-  { id: "health", label: "Santé" },
-  { id: "alerts", label: "Alertes" },
-  { id: "na", label: "Nouvelle-Aquitaine" },
-  { id: "affected", label: "Suis-je concerné ?" },
-  { id: "attributions", label: "Attributions" },
+const VIEW_LABELS: Record<ViewKey, string> = {
+  today: "Aujourd'hui",
+  coverage: "Couverture",
+  review: "Revue",
+  journal: "Journal",
+  corpus: "Corpus",
+  sources: "Sources",
+  "sources-dashboard": "Tableau de bord sources",
+  map: "Carte",
+  directory: "Annuaire",
+  graph: "Graphe",
+  health: "Santé",
+  alerts: "Alertes",
+  dossier: "Dossier",
+  na: "Nouvelle-Aquitaine",
+  affected: "Suis-je concerné ?",
+  attributions: "Attributions",
+};
+
+const NAV_GROUPS: { label: string; items: ViewKey[] }[] = [
+  { label: "Observatoire", items: ["today", "coverage", "na", "affected"] },
+  { label: "Analyse", items: ["review", "journal", "corpus", "dossier"] },
+  { label: "Sources", items: ["sources", "sources-dashboard", "health"] },
+  { label: "Explorer", items: ["map", "graph", "directory"] },
+  { label: "Alertes", items: ["alerts"] },
+  { label: "Attributions", items: ["attributions"] },
 ];
 
 const FEED_LIMIT = 300;
@@ -150,7 +161,6 @@ export default function App() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [healthDetail, setHealthDetail] = useState<HealthDetail | null>(null);
   const [healthCauses, setHealthCauses] = useState<HealthCauses | null>(null);
-  const [collecteMetrics, setCollecteMetrics] = useState<CollecteMetrics | null>(null);
   const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
   const [naFil, setNaFil] = useState<NaFil | null>(null);
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
@@ -262,6 +272,11 @@ export default function App() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [liveAlerts, setLiveAlerts] = useState<LiveAlert[]>([]);
   const [unseenAlerts, setUnseenAlerts] = useState(0);
+
+  const navigate = useCallback((next: ViewKey) => {
+    setView(next);
+    if (next === "alerts") setUnseenAlerts(0);
+  }, [setView]);
   const [alertSignal, setAlertSignal] = useState(0);
   const [soundOn, setSoundOn] = useState(() => {
     try {
@@ -405,7 +420,7 @@ export default function App() {
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
     // événements, sources et statistiques n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "supervision de la collecte", "graphe temporel"] as const;
+      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "graphe temporel"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
         api.events(FEED_LIMIT, "regional", portee),
@@ -415,10 +430,9 @@ export default function App() {
         api.naOverview(),
         api.healthDetail(),
         api.healthCauses(),
-        api.collecteMetrics(),
         api.graphTemporal(),
       ]);
-      const [o, e, s, st, g, na, hd, hc, cm, tg] = results;
+      const [o, e, s, st, g, na, hd, hc, tg] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
       if (o.status === "fulfilled" && e.status === "fulfilled") {
@@ -435,7 +449,6 @@ export default function App() {
       if (na.status === "fulfilled") setNaOverview(na.value);
       if (hd.status === "fulfilled") setHealthDetail(hd.value);
       if (hc.status === "fulfilled") setHealthCauses(hc.value);
-      if (cm.status === "fulfilled") setCollecteMetrics(cm.value);
       if (tg.status === "fulfilled") setTemporalGraph(tg.value);
       const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
       setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
@@ -454,7 +467,6 @@ export default function App() {
       api.graph(90).then(setGraph).catch(() => {});
       api.healthDetail().then(setHealthDetail).catch(() => {});
       api.healthCauses().then(setHealthCauses).catch(() => {});
-      api.collecteMetrics().then(setCollecteMetrics).catch(() => {});
       api.naOverview().then(setNaOverview).catch(() => {});
       loadFlows().then(setFlows).catch(() => {});
     }, 30000);
@@ -641,7 +653,7 @@ export default function App() {
       .then(setCouvertureData)
       .catch((err: unknown) => {
         if (!controller.signal.aborted) {
-          setCouvertureError(err instanceof Error ? err.message : "unavailable");
+          setCouvertureError(err instanceof Error ? err.message : "indisponible");
         }
       })
       .finally(() => {
@@ -660,7 +672,7 @@ export default function App() {
       .then(setAttributionsData)
       .catch((err: unknown) => {
         if (!controller.signal.aborted) {
-          setAttributionsError(err instanceof Error ? err.message : "unavailable");
+          setAttributionsError(err instanceof Error ? err.message : "indisponible");
         }
       })
       .finally(() => {
@@ -821,7 +833,7 @@ export default function App() {
       .catch((err: unknown) => {
         if (!controller.signal.aborted) {
           setAffectedReport(null);
-          setAffectedError(err instanceof Error ? err.message : "unavailable");
+          setAffectedError(err instanceof Error ? err.message : "indisponible");
         }
       })
       .finally(() => {
@@ -834,13 +846,11 @@ export default function App() {
   const inspectorOpen =
     selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
 
-  // Le fil occupe un tiers de la largeur sur tous les onglets. Sur Sources,
-  // Santé ou Dossier — des vues qui ont besoin de toute la largeur — il se
-  // replie en un rail de 44 px. La largeur des colonnes vit dans styles.css :
-  // un style inline écrasait les media queries et laissait une colonne vide
-  // de 352 px sous 1024 px.
+  // Le fil n'est utile qu'aux vues spatiales. Ailleurs, chaque écran garde
+  // toute la largeur : pas de colonne permanente qui parasite la lecture.
+  const feedVisible = view === "map" || view === "graph";
   const [feedOpen, setFeedOpen] = useState(true);
-  const feedState = view === "today" ? "none" : feedOpen ? "open" : "rail";
+  const feedState = !feedVisible ? "none" : feedOpen ? "open" : "rail";
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
   // l'écran de connexion est rendu, aucune requête authentifiée ne part.
@@ -853,9 +863,9 @@ export default function App() {
   return (
     <ExportProvider>
     <div className="shell">
-      <a className="skip-link" href="#main">Skip to content</a>
+      <a className="skip-link" href="#main">Aller au contenu</a>
       {MOCK_MODE ? (
-        <Banner status="info" container="section" title="Demo mode, simulated data" />
+        <Banner status="info" container="section" title="Mode démonstration, données simulées" />
       ) : null}
 
       <header className="rail">
@@ -864,24 +874,62 @@ export default function App() {
           <span>Nouvelle-Aquitaine</span>
         </div>
 
-        <nav className="rail__nav" aria-label="views">
-          {VIEWS.map((v) => (
-            <button
-              key={v.id}
-              type="button"
-              onClick={() => {
-                setView(v.id);
-                if (v.id === "alerts") setUnseenAlerts(0);
-              }}
-              aria-current={view === v.id ? "page" : undefined}
-            >
-              {v.label}
-              {v.id === "alerts" && unseenAlerts > 0 ? (
-                <Badge variant="error" label={String(unseenAlerts)} />
-              ) : null}
-            </button>
-          ))}
-        </nav>
+        <TopNav
+          className="rail__nav"
+          label="Navigation principale"
+          startContent={NAV_GROUPS.map((group) => {
+            const active = group.items.includes(view);
+            if (group.items.length === 1) {
+              const id = group.items[0];
+              return (
+                <TopNavItem
+                  key={group.label}
+                  label={group.label}
+                  href={toHash({ ...urlState, view: id })}
+                  isSelected={active}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(id);
+                  }}
+                >
+                  {id === "alerts" && unseenAlerts > 0 ? (
+                    <span className="rail__nav-label">
+                      {group.label}
+                      <Badge variant="error" label={String(unseenAlerts)} />
+                    </span>
+                  ) : undefined}
+                </TopNavItem>
+              );
+            }
+            return (
+              <TopNavMenu
+                key={group.label}
+                label={group.label}
+                data-active={active ? "true" : undefined}
+                aria-current={active ? "page" : undefined}
+                items={group.items.map((id) => ({
+                  title: VIEW_LABELS[id],
+                  description: id === "today" ? "Synthèse du jour et activité récente"
+                    : id === "coverage" ? "Couverture territoriale et sources"
+                    : id === "na" ? "Vue régionale détaillée"
+                    : id === "affected" ? "Recherche par organisation ou commune"
+                    : id === "review" ? "File de revue et décisions"
+                    : id === "journal" ? "Journal des décisions et preuves"
+                    : id === "corpus" ? "Corpus d'incidents et archivage"
+                    : id === "dossier" ? "Dossier d'analyse consolidé"
+                    : id === "sources" ? "Registre des sources"
+                    : id === "sources-dashboard" ? "Indicateurs de collecte"
+                    : id === "health" ? "Santé et causes d'indisponibilité"
+                    : id === "map" ? "Carte territoriale et temporelle"
+                    : id === "graph" ? "Relations et graphe temporel"
+                    : "Annuaire des organisations",
+                  href: toHash({ ...urlState, view: id }),
+                  onClick: () => navigate(id),
+                }))}
+              />
+            );
+          })}
+        />
 
         <span className="rail__spacer" />
 
@@ -916,8 +964,7 @@ export default function App() {
         soundOn={soundOn}
         onToggleSound={toggleSound}
         onOpenAlerts={() => {
-          setView("alerts");
-          setUnseenAlerts(0);
+          navigate("alerts");
         }}
         onDismiss={() => {
           setLiveAlerts([]);
@@ -936,7 +983,7 @@ export default function App() {
       {!offline && error && instantaneData ? (
         <p className="shell__offline" data-etat={instantaneData.etat} role="status" aria-live="polite">
           {instantaneData.libelle}
-          {instantaneData.etat === "perime" ? " — map frozen on the last response received" : null}
+          {instantaneData.etat === "perime" ? " — carte figée sur la dernière réponse reçue" : null}
         </p>
       ) : null}
 
@@ -945,26 +992,26 @@ export default function App() {
         data-feed={feedState}
         data-inspector={inspectorOpen ? "open" : "closed"}
       >
-        {view === "today" ? null : feedOpen ? (
+        {!feedVisible ? null : feedOpen ? (
         <aside className="shell__feed">
             <button
               type="button"
               className="shell__feed-collapse"
               onClick={() => setFeedOpen(false)}
-              aria-label="Collapse the event feed"
-              title="Collapse feed"
+              aria-label="Replier le fil d'événements"
+              title="Replier le fil"
             >
               ‹
             </button>
-            <div className="family-filter" role="group" aria-label="Feed scope">
-              <span className="family-filter__label">Scope</span>
+            <div className="family-filter" role="group" aria-label="Périmètre du fil">
+              <span className="family-filter__label">Périmètre</span>
               <button
                 type="button"
                 className="family-filter__btn"
                 aria-pressed={portee === "region"}
                 onClick={() => { setPortee("region"); setRegionalFirst(true); }}
               >
-                <span>Region</span>
+                <span>Région</span>
               </button>
               <button
                 type="button"
@@ -972,16 +1019,16 @@ export default function App() {
                 aria-pressed={portee === "toutes"}
                 onClick={() => { setPortee("toutes"); setRegionalFirst(false); }}
               >
-                <span>All</span>
+                <span>Tout</span>
               </button>
               <button
                 type="button"
                 className="family-filter__btn"
                 aria-pressed={portee === "vulnerabilites"}
                 onClick={() => { setPortee("vulnerabilites"); setRegionalFirst(false); }}
-                title="Vulnerability bulletins: 87% of the raw feed, no regional event"
+                title="Bulletins de vulnérabilités : 87 % du flux brut, sans événement régional"
               >
-                <span>Vulnerabilities</span>
+                <span>Vulnérabilités</span>
               </button>
             </div>
             <Suspense fallback={<ViewSkeleton />}>
@@ -1006,10 +1053,10 @@ export default function App() {
             type="button"
             className="shell__feed-rail"
             onClick={() => setFeedOpen(true)}
-            aria-label="Expand the event feed"
-            title="Expand feed"
+            aria-label="Déployer le fil d'événements"
+            title="Déployer le fil"
           >
-            Feed
+            Fil
           </button>
         )}
 

@@ -1,11 +1,8 @@
-/**
- * États asynchrones partagés par les vues : trois lignes animées pendant un
- * appel réseau, et un état vide qui propose toujours une action concrète.
- * Le texte est rendu en clair dans les deux cas : jamais un squelette muet
- * pour les lecteurs d'écran, jamais une liste vide sans suite possible.
- */
-import type { ReactNode } from "react";
+/** États asynchrones partagés : le rendu visuel appartient à Astryx. */
 import "./skeleton.css";
+import { Button } from "@astryxdesign/core/Button";
+import { EmptyState as AstryxEmptyState } from "@astryxdesign/core/EmptyState";
+import { Skeleton as AstryxSkeleton } from "@astryxdesign/core/Skeleton";
 
 type SkeletonProps = {
   label?: string;
@@ -14,37 +11,34 @@ type SkeletonProps = {
 
 export function LoadingSkeleton({ label = "Chargement…", className }: SkeletonProps) {
   return (
-    <div
-      className={className ? `skeleton ${className}` : "skeleton"}
-      role="status"
-      aria-live="polite"
-    >
-      <span className="skeleton__line" aria-hidden="true" />
-      <span className="skeleton__line" aria-hidden="true" />
-      <span className="skeleton__line" aria-hidden="true" />
+    <div className={className ? `skeleton ${className}` : "skeleton"} role="status" aria-live="polite">
+      {[0, 1, 2].map((i) => (
+        <AstryxSkeleton key={i} className="skeleton__line" aria-hidden="true" />
+      ))}
       <span className="skeleton__label">{label}</span>
     </div>
   );
 }
 
 type EmptyStateProps = {
-  message: ReactNode;
+  message: string;
+  description?: string;
   actionLabel: string;
   onAction: () => void;
   className?: string;
   role?: "status" | "alert";
 };
 
-export function EmptyState({ message, actionLabel, onAction, className, role = "status" }: EmptyStateProps) {
+export function EmptyState({ message, description, actionLabel, onAction, className, role = "status" }: EmptyStateProps) {
   return (
-    <div
-      className={className ? `empty-state ${className}` : "empty-state"}
+    <AstryxEmptyState
+      className={className}
       role={role}
-    >
-      <p className="empty-state__message">{message}</p>
-      <button type="button" className="empty-state__action" onClick={onAction}>
-        {actionLabel}
-      </button>
-    </div>
+      title={message}
+      description={description}
+      headingLevel={3}
+      isCompact
+      actions={<Button label={actionLabel} onClick={onAction} />}
+    />
   );
 }

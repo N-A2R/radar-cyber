@@ -12,6 +12,8 @@ import type { TodayViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./today.css";
 import LieesCard from "./LieesCard";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 /** Date lisible et sans ambiguïté : UTC affichée, jamais une heure locale devinée. */
 export function dateLisible(iso: string | null): string {
@@ -151,6 +153,7 @@ export default function TodayView({
         <div>
           <p className="today__kicker">veille du jour</p>
           <h1 className="today__titre" id="today-titre">Aujourd'hui</h1>
+          <Badge label="24 h" className="today__badge" />
           <p className="today__sous-titre">Les 24 dernières heures, telles que collectées.</p>
         </div>
         <div className="today__compteurs" aria-label="Compteurs en direct">
@@ -240,16 +243,10 @@ export default function TodayView({
       {vide ? (
         <EmptyState
           className="today__vide"
-          message={
-            <>
-              <strong className="today__vide-titre">Aucun incident sur cette période</strong>
-              <span className="today__vide-detail">
-                {family || dept
-                  ? `Filtres actifs : ${family ? `famille « ${family} »` : ""}${family && dept ? ", " : ""}${dept ? `département ${dept}` : ""}.`
-                  : "Aucun filtre actif."}
-              </span>
-            </>
-          }
+          message="Aucun incident sur cette période"
+          description={family || dept
+            ? `Filtres actifs : ${family ? `famille « ${family} »` : ""}${family && dept ? ", " : ""}${dept ? `département ${dept}` : ""}.`
+            : "Aucun filtre actif."}
           actionLabel={onRetry ? "Recharger la période" : "Effacer les filtres"}
           onAction={onRetry ?? (() => { onFamily(null); onDept(null); })}
         />
@@ -257,7 +254,7 @@ export default function TodayView({
 
       {evenementsAffiches.length > 0 ? (
         <div className="today__table-wrap">
-          <table className="today__table">
+          <Table className="today__table" density="compact" dividers="rows">
             <thead>
               <tr>
                 <th scope="col">date</th>
@@ -316,7 +313,7 @@ export default function TodayView({
                 );
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       ) : null}
     </section>

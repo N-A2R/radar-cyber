@@ -2,6 +2,9 @@ import { useMemo, type CSSProperties } from "react";
 import type { GraphLink, GraphNode } from "../graph/graphModel";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./graphmatrix.css";
+import { Card } from "@astryxdesign/core/Card";
+import { Table } from "@astryxdesign/core/Table";
+
 
 type Props = {
   nodes: readonly GraphNode[];
@@ -134,7 +137,7 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
   }
 
   return (
-    <div className="gm-root">
+    <Card variant="transparent" padding={0} className="gm-root">
       {summary}
       <div className="gm-legend" aria-label="Lecture de la matrice">
         <span className="gm-legend-title">Lecture</span>
@@ -152,7 +155,7 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
         <span className="gm-legend-text">totaux dans les en-têtes de ligne et de colonne</span>
       </div>
       <div className="gm-scroll">
-        <table className="gm-table" aria-label="Organisations par famille et département">
+        <Table className="gm-table" aria-label="Organisations par famille et département" density="compact" dividers="rows">
           <thead>
             <tr>
               <th scope="col" className="gm-corner">
@@ -193,8 +196,8 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
-    </div>
+    </Card>
   );
 }

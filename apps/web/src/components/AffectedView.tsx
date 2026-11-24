@@ -16,6 +16,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { api, type AffectedReport, type DirectoryRow } from "../api";
 import "./affected.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 
 type Statement = AffectedReport["statements"][number];
 type Category = Statement["category"];
@@ -230,7 +231,7 @@ export default function AffectedView({
             autoComplete="off"
           />
           <button className="affected__check" type="submit" disabled={loading}>
-            {loading ? "Vérification…" : "Vérifier"}
+            Vérifier
           </button>
         </div>
         <p className="affected__hint">
@@ -239,6 +240,7 @@ export default function AffectedView({
       </form>
 
       {examples === null || examples.length > 0 ? (
+        <Card variant="transparent" className="affected__examples-card">
         <section className="affected__examples" aria-labelledby="affected-examples-title">
           <h3 className="affected__examples-title" id="affected-examples-title">
             Exemples réels du référentiel
@@ -269,6 +271,7 @@ export default function AffectedView({
             </ul>
           )}
         </section>
+        </Card>
       ) : null}
 
       <div className="affected__stage" aria-live="polite">

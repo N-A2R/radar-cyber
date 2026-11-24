@@ -5,6 +5,9 @@ import { mockOrgDetail } from "../mock";
 import { DroitReponseBloc } from "./DroitReponseSection";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./orgsheet.css";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Button } from "@astryxdesign/core/Button";
+import { Drawer, DrawerHeader } from "@astryxdesign/core/Drawer";
 
 type LoadState =
   | { status: "loading" }
@@ -110,18 +113,31 @@ export function OrgSheetContenu({
   };
 
   return (
-    <aside className="orgsheet" aria-label="Fiche organisation">
-      <header className="orgsheet__header">
-        <h2 className="orgsheet__title">{title}</h2>
-        {state.status === "ready" && (
-          <button type="button" className="orgsheet__report" onClick={() => onDownload(state.data.org.id)}>
-            Download 10-page report (PDF)
-          </button>
-        )}
-        <button type="button" className="orgsheet__close" onClick={onClose} aria-label="Fermer la fiche">
-          fermer
-        </button>
-      </header>
+    <Drawer
+      isOpen
+      label="Fiche organisation"
+      onOpenChange={(open) => { if (!open) onClose(); }}
+      data-testid="orgsheet"
+    >
+      <DrawerHeader
+        title={title}
+        endContent={
+          <>
+            <Badge label="fiche" />
+            {state.status === "ready" && (
+              <Button
+                label="Download 10-page report (PDF)"
+                variant="secondary"
+                size="sm"
+                onClick={() => onDownload(state.data.org.id)}
+              />
+            )}
+            <Button label="Fermer la fiche" variant="ghost" size="sm" onClick={onClose}>
+              fermer
+            </Button>
+          </>
+        }
+      />
       {reportError ? <p className="orgsheet__report-error" role="alert">{reportError}</p> : null}
 
       {state.status === "loading" && <LoadingSkeleton label="chargement de la fiche…" />}
@@ -137,7 +153,7 @@ export function OrgSheetContenu({
         />
       )}
       {state.status === "ready" && <OrgSheetBody data={state.data} onClose={onClose} />}
-    </aside>
+    </Drawer>
   );
 }
 

@@ -1,10 +1,12 @@
 /**
  * Palette et couleur des arcs (org → hébergement/événement).
  *
- * `Map3D.tsx` consomme `FAMILY_HEX`, `FAMILY_HEX_FALLBACK`, `arcHex` et le type
+ * `Map3D.tsx` consomme `FAMILY_HEX`, `familyHexFallback`, `arcHex` et le type
  * `FlowArc`. Les helpers de rendu animé ont été supprimés : le rendu
  * des arcs est fait directement dans Map3D.
  */
+
+import { tokenVar } from "@astryxdesign/core/theme";
 
 export type FlowArc = {
   id: string
@@ -19,41 +21,72 @@ export type FlowArc = {
   sourceUrl?: string | null
 }
 
-/** Palette unique des familles, alignée sur la maquette et `FAMILY_COLORS` de Map3D. */
-export const FAMILY_HEX: Record<string, string> = {
-  ransomware: '#e0483c',
-  vuln: '#e8833a',
-  phishing: '#e0b341',
-  malware: '#c964b0',
-  cert: '#4a90d9',
-  cert_fr: '#67e8f9',
-  typosquat: '#a855f7',
-  reputation: '#22c55e',
-  cti: '#3b82f6',
-  presse: '#94a3b8',
-  presse_locale: '#7d8ea3',
+/** MapLibre ne sait pas lire `var(...)` dans une paint property : on résout le
+ * jeton du thème gothic actif via le CSS, y compris ses alias. Sans DOM (SSR,
+ * tests), on garde la référence `var(...)`, que le CSS sait consommer. */
+function resoudre(jeton: string, styles?: CSSStyleDeclaration): string {
+  const feuilles = styles ?? (typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement));
+  let valeur = jeton;
+  for (let passe = 0; passe < 4 && valeur.includes("var("); passe += 1) {
+    valeur = valeur.replace(/var\((--[\w-]+)\)/g, (_, nom: string) => feuilles?.getPropertyValue(nom).trim() ?? "");
+  }
+  return valeur || jeton;
 }
 
-export const FAMILY_HEX_FALLBACK = '#7dd3fc'
+/** Couleur concrète d'un jeton du pont, pour MapLibre et le canvas. */
+export function resolveTokenColor(nom: string): string {
+  return resoudre(tokenVar(nom));
+}
+
+function dynamicPalette(tokens: Record<string, string>): Record<string, string> {
+  return new Proxy(tokens, {
+    get: (target, name: string) => {
+      const token = target[name];
+      return token ? resoudre(tokenVar(token)) : undefined;
+    },
+  });
+}
+
+const FAMILY_TOKENS: Record<string, string> = {
+  ransomware: "--family-ransomware",
+  vuln: "--family-vuln",
+  phishing: "--family-phishing",
+  malware: "--family-malware",
+  cert: "--family-cert",
+  cert_fr: "--family-cert-fr",
+  typosquat: "--family-typosquat",
+  reputation: "--family-reputation",
+  cti: "--family-cti",
+  presse: "--family-presse",
+  presse_locale: "--family-presse-locale",
+};
+
+/** Palette dynamique : le CSS peut être injecté après l'import du module. */
+export const FAMILY_HEX = dynamicPalette(FAMILY_TOKENS);
+
+/** Famille inconnue : teinte de repli du pont de données. */
+export function familyHexFallback(): string {
+  return resoudre(tokenVar("--family-cert-fr"));
+}
 
 /**
- * Palette des natures d'organisation, alignée sur `--org-*` de styles.css /
- * `ORG_KIND_COLORS` de Map3D. `ess` reste neutre. `operateur_critique` est un
- * alias normalisé de la valeur OSM `opérateur critique`.
+ * Palette des natures d'organisation : jetons `--org-*` du pont gothic.
+ * `ess` reste neutre via `--sev-1`. `operateur_critique` est un alias
+ * normalisé de la valeur OSM `opérateur critique`.
  */
-const NATURE_HEX: Record<string, string> = {
-  sante: '#f05545',
-  collectivite: '#4a90d9',
-  entreprise: '#f0a63c',
-  enseignement: '#a855f7',
-  recherche: '#22c55e',
-  'opérateur critique': '#e0483c',
-  operateur_critique: '#e0483c',
-  ess: '#8b93a1',
-}
+const NATURE_HEX = dynamicPalette({
+  sante: "--org-sante",
+  collectivite: "--org-collectivite",
+  entreprise: "--org-entreprise",
+  enseignement: "--org-enseignement",
+  recherche: "--org-recherche",
+  "opérateur critique": "--org-operateur",
+  operateur_critique: "--org-operateur",
+  ess: "--sev-1",
+});
 
 /** Couleur d'un arc : nature d'organisation si connue, sinon famille. */
 export function arcHex(family: string, nature?: string | null): string {
   if (nature && NATURE_HEX[nature]) return NATURE_HEX[nature]
-  return FAMILY_HEX[family] ?? FAMILY_HEX_FALLBACK
+  return FAMILY_HEX[family] ?? familyHexFallback()
 }

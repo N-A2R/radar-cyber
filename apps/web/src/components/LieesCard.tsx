@@ -10,6 +10,8 @@ import { api, type HistoriquePoint, type OrgsLiees } from "../api";
 export type { HistoriquePoint, OrgsLiees };
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./liees.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 
 type LieesContenuProps = LieesEtat & {
@@ -78,6 +80,7 @@ export function LieesContenu({ data, loading, error, historique = [], onRetry }:
   const mesure = data !== null && !loading && !error && !vide;
 
   return (
+    <Card variant="transparent" padding={0}>
     <article className="liees" aria-labelledby="liees-titre">
       <header className="liees__head">
         <h2 className="liees__titre" id="liees-titre">Organisations reliées — 7 jours</h2>
@@ -133,6 +136,7 @@ export function LieesContenu({ data, loading, error, historique = [], onRetry }:
         <MicroCourbe points={historique} />
       ) : null}
     </article>
+    </Card>
   );
 }
 

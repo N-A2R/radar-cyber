@@ -13,17 +13,32 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import axe from "axe-core";
 import { keepFocusInDialog } from "../src/a11y/dialog-focus";
+vi.mock("../src/map/Map3D", () => ({
+  default: () => <div role="img" aria-label="Carte territoriale" />,
+}));
 
 // The module reads VITE_DATA_MODE at import time: a static import would fix
 // the environment before the stub is installed.
 import type AppType from "../src/App";
 
-// Libellés du rail (App.tsx, VIEWS) — l'UI est en français : le test a été
-// écrit avec des libellés anglais avant la traduction et échouait depuis.
+// Libellés métier audités ; le rail Astryx les regroupe en six entrées.
 const SCREEN_LABELS = [
   "Aujourd'hui", "Couverture", "Revue", "Journal", "Corpus",
   "Sources", "Carte", "Graphe", "Santé", "Alertes", "Nouvelle-Aquitaine",
 ] as const;
+
+const NAV_GROUP: Record<string, string> = {
+  "Aujourd'hui": "Observatoire",
+  Couverture: "Observatoire",
+  "Nouvelle-Aquitaine": "Observatoire",
+  Revue: "Analyse",
+  Journal: "Analyse",
+  Corpus: "Analyse",
+  Sources: "Sources",
+  Santé: "Sources",
+  Carte: "Explorer",
+  Graphe: "Explorer",
+};
 
 const AA_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
 const RESULT_FILE = "../../bench/results/na-a11y-aa.json";
@@ -40,11 +55,20 @@ async function settle(ms = 40): Promise<void> {
 }
 
 async function selectScreen(label: string): Promise<void> {
-  const button = [...host.querySelectorAll<HTMLButtonElement>("nav.rail__nav button")]
-    .find((candidate) => candidate.textContent?.trim() === label);
-  expect(button, `navigation button "${label}"`).toBeTruthy();
+  const group = NAV_GROUP[label];
+  const button = [...host.querySelectorAll<HTMLElement>("nav.rail__nav button, nav.rail__nav a")]
+    .find((candidate) => candidate.textContent?.trim() === (group ?? label));
+  expect(button, `navigation button "${group ?? label}"`).toBeTruthy();
   await act(async () => {
     button!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+  if (!group) return;
+  await settle();
+  const item = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')]
+    .find((candidate) => candidate.textContent?.includes(label));
+  expect(item, `menu item "${label}"`).toBeTruthy();
+  await act(async () => {
+    item!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
   await settle();
 }
@@ -118,13 +142,13 @@ describe("WCAG AA audit", () => {
     expect(host.querySelector("main#main")).toBeTruthy();
   });
 
-  it("declares English as the page language", () => {
-    expect(readFileSync(resolve(INDEX_FILE), "utf8")).toContain('<html lang="en"');
+  it("declares French as the page language", () => {
+    expect(readFileSync(resolve(INDEX_FILE), "utf8")).toContain('<html lang="fr-FR"');
   });
 
   it("gives feed rows a valid pressed state instead of aria-selected", async () => {
     await mountApp();
-    await selectScreen("Couverture");
+    await selectScreen("Carte");
     const rows = host.querySelectorAll<HTMLButtonElement>("button.feed__row");
     expect(rows.length).toBeGreaterThan(0);
     for (const row of rows) {
@@ -135,8 +159,8 @@ describe("WCAG AA audit", () => {
 
   it("names the global search combobox", async () => {
     await openPalette();
-    const input = host.querySelector<HTMLInputElement>(".palette input[role='combobox']");
-    expect(input?.getAttribute("aria-label")).toBe("Global search");
+    const input = document.querySelector<HTMLInputElement>("input[role='combobox']");
+    expect(input?.getAttribute("aria-label")).toBe("Recherche globale");
   });
 
   it("wraps Tab focus inside a modal dialog", () => {
@@ -195,7 +219,7 @@ describe("WCAG AA audit", () => {
     await act(async () => {
       section.dispatchEvent(new KeyboardEvent("keydown", { key: "?", bubbles: true }));
     });
-    const dialog = host.querySelector<HTMLElement>(".revue__help")!;
+    const dialog = host.querySelector<HTMLElement>(".revue__help")!.closest("dialog")!;
     expect(dialog.getAttribute("aria-modal")).toBe("true");
     expect(document.activeElement).toBe(dialog.querySelector("button"));
   });

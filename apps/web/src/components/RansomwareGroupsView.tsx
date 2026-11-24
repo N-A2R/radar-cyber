@@ -3,6 +3,7 @@
  * only. No claim hint, e-mail address or person name is displayed here.
  */
 import type { RansomwareGroupsResponse } from "../api";
+import { Table } from "@astryxdesign/core/Table";
 
 type Props = {
   data: RansomwareGroupsResponse | null;
@@ -46,35 +47,41 @@ export default function RansomwareGroupsView({ data, loading, error }: Props) {
 
       <section className="corpus__panel" aria-labelledby="ransomware-groups-list">
         <h2 id="ransomware-groups-list">Groups and victims</h2>
-        <table className="corpus__table">
-          <thead>
-            <tr>
-              <th scope="col">Group</th>
-              <th scope="col">Claims</th>
-              <th scope="col">NA victims</th>
-              <th scope="col">Organisations</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.groups.map((group) => (
-              <tr key={group.slug}>
-                <th scope="row">{group.name}</th>
-                <td>{numberFormat.format(group.claims)}</td>
-                <td>{numberFormat.format(group.naVictims)}</td>
-                <td>
-                  {group.victims.length === 0 ? "—" : group.victims.map((victim) => (
-                    <div key={`${victim.orgId}-${victim.matchType}`}>
-                      {victim.orgName} (dept {victim.department ?? "?"}, {victim.matchType}, {formatDate(victim.claimedAt)})
-                      {victim.sourceUrl ? (
-                        <> · <a href={victim.sourceUrl} target="_blank" rel="noreferrer noopener">source</a></>
-                      ) : null}
-                    </div>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table
+          className="corpus__table"
+          data={data.groups as unknown as Record<string, unknown>[]}
+          idKey="slug"
+          density="compact"
+          dividers="rows"
+          columns={[
+            { key: "name", header: "Group" },
+            { key: "claims", header: "Claims", renderCell: (row) => numberFormat.format(Number(row.claims)) },
+            { key: "naVictims", header: "NA victims", renderCell: (row) => numberFormat.format(Number(row.naVictims)) },
+            {
+              key: "victims",
+              header: "Organisations",
+              renderCell: (row) => {
+                const victims = (row.victims ?? []) as Array<{
+                  orgId: string;
+                  orgName: string;
+                  department: string | null;
+                  matchType: string;
+                  claimedAt: string | null;
+                  sourceUrl: string | null;
+                }>;
+                if (victims.length === 0) return "—";
+                return victims.map((victim) => (
+                  <div key={`${victim.orgId}-${victim.matchType}`}>
+                    {victim.orgName} (dept {victim.department ?? "?"}, {victim.matchType}, {formatDate(victim.claimedAt)})
+                    {victim.sourceUrl ? (
+                      <> · <a href={victim.sourceUrl} target="_blank" rel="noreferrer noopener">source</a></>
+                    ) : null}
+                  </div>
+                ));
+              },
+            },
+          ]}
+        />
       </section>
     </section>
   );

@@ -77,7 +77,7 @@ export default async function (app: FastifyInstance) {
       params
     );
 
-    const index = (await reviewSnapshot()).orgIndex;
+    const index = (await reviewSnapshot(r.rows.map((row) => String(row.org_hint ?? "")))).orgIndex;
     const orgById = new Map(index.map((e) => [e.id, e]));
     const out: Record<string, unknown>[] = [];
     for (const row of r.rows) {

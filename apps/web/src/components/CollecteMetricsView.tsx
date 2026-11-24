@@ -1,5 +1,8 @@
 import type { AlerteSupervision, CollecteMetrics, CycleCollecte } from "../api";
 import { formatDate, formatNumber, formatRelative } from "./SourcesView";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
+
 
 export type CollecteMetricsViewProps = {
   metrics: CollecteMetrics | null;
@@ -69,7 +72,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
         <p className="health-detail__legend">aucune alerte sur les cycles affichés.</p>
       ) : (
         <div className="health-detail__scroll">
-          <table className="data">
+          <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
                 <th scope="col">alerte</th>
@@ -90,7 +93,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       )}
 
@@ -99,7 +102,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
         <p className="health-detail__legend">aucun cycle enregistré.</p>
       ) : (
         <div className="health-detail__scroll">
-          <table className="data">
+          <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
                 <th scope="col">cycle</th>
@@ -119,7 +122,9 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
                     <td className="mono">#{cycle.id}</td>
                     <td className="mono" title={formatDate(cycle.finishedAt)}>{formatRelative(cycle.finishedAt)}</td>
                     <td>
-                      <span className="health-detail__tone" data-tone={statut.tone}>{statut.label}</span>
+                      <Badge className="health-detail__tone" data-tone={statut.tone}
+                        variant={statut.tone === "green" ? "success" : statut.tone === "orange" ? "warning" : "error"}
+                        label={statut.label} />
                     </td>
                     <td className="mono">{duree(cycle.dureeMs)}</td>
                     <td className="num">{cycle.sourcesOk} / {cycle.sourcesError}</td>
@@ -129,7 +134,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
                 );
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       )}
     </section>

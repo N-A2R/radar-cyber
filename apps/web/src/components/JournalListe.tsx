@@ -7,6 +7,9 @@
 import type { JournalDecision } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./journal.css";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
+
 
 /** Select value for facts with no recorded decision. */
 export const DECISION_UNSPECIFIED = "unspecified";
@@ -303,7 +306,7 @@ export default function JournalList({
         aria-label="Entrées du journal"
         tabIndex={0}
       >
-        <table className="journal__table">
+        <Table className="journal__table" density="compact" dividers="rows">
           <colgroup>
             <col />
             <col />
@@ -345,9 +348,12 @@ export default function JournalList({
                 </td>
                 <td>{row.acteur}</td>
                 <td>
-                  <span className="journal__decision" data-decision={row.decision ?? DECISION_UNSPECIFIED}>
-                    {row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
-                  </span>
+                  <Badge
+                    className="journal__decision"
+                    data-decision={row.decision ?? DECISION_UNSPECIFIED}
+                    variant={row.decision === "accepter" ? "success" : row.decision === "refuser" ? "error" : row.decision === "creer" ? "info" : "neutral"}
+                    label={row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
+                  />
                 </td>
                 <td title={row.resume ?? row.raison ?? row.indice ?? "—"}>
                   {row.resume ?? row.raison ?? row.indice ?? "—"}
@@ -365,7 +371,7 @@ export default function JournalList({
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
 
       <footer className="journal__foot">

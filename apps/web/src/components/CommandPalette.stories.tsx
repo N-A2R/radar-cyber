@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import CommandPalette from "./CommandPalette";
 import { events, orgs } from "../storybook/fixtures";
 
@@ -13,6 +15,13 @@ const meta = {
     onOpenEvent: () => {},
     mock: { orgs, events },
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof CommandPalette>;
 
 export default meta;

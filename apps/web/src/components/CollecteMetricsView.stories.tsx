@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import CollecteMetricsView from "./CollecteMetricsView";
 import { collecte } from "../storybook/fixtures";
 
@@ -7,6 +9,13 @@ const meta = {
   component: CollecteMetricsView,
   parameters: { docs: { description: { component: "Collection cycles, memory use and supervision alerts." } } },
   args: { metrics: collecte, loading: false, error: null },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof CollecteMetricsView>;
 
 export default meta;

@@ -3,6 +3,8 @@ import type { KeyboardEvent } from "react";
 /**
  * Keep Tab and Shift+Tab inside an open modal dialog. The dialog itself owns
  * the keydown handler; only its first and last controls need wrap-around.
+ * Astryx-compatible : piège de focus uniquement, sans surface de design
+ * (ni couleur, ni chrome) à tokeniser.
  */
 export function keepFocusInDialog(event: KeyboardEvent<HTMLElement>): void {
   if (event.key !== "Tab") return;

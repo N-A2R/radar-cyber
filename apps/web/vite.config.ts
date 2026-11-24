@@ -38,6 +38,7 @@ export default defineConfig({
     // `test/offline.spec.ts` est un spec Playwright (voir playwright.config.ts),
     // pas un test vitest : on ne collecte que les *.test.*.
     include: ["test/**/*.test.{ts,tsx}"],
+    setupFiles: ["./test/setup-polyfills.ts"],
     alias: [
       // `?worker&url` n'est pas résolu par le pipeline vitest ; la carte réelle
       // n'est jamais montée dans les tests, un module vide suffit.

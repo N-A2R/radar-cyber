@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import { DroitReponseBloc, DroitReponseSection } from "./DroitReponseSection";
 import { orgDetail, rectifications } from "../storybook/fixtures";
 
@@ -28,6 +30,13 @@ const meta = {
     onChanger: () => {},
     onEnvoyer: () => {},
   },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof DroitReponseSection>;
 
 export default meta;

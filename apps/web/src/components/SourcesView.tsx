@@ -6,6 +6,7 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./sources.css";
 import RelancerButton from "./RelancerButton";
 import { Button } from "@astryxdesign/core/Button";
+import { Table } from "@astryxdesign/core/Table";
 
 /** Libellés français des familles de sources (le reste est affiché brut). */
 export const FAMILY_LABEL: Record<string, string> = {
@@ -356,7 +357,6 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       <div className="sources-view__toolbar">
         <Button
           label={exportEnCours ? "Export en cours…" : "Registre des traitements (CSV)"}
-          className="ds-button"
           onClick={() => void exporterRegistre()}
           isDisabled={exportEnCours}
           aria-busy={exportEnCours}
@@ -381,12 +381,12 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       </div>
 
       {exportErreur ? (
-        <p role="alert" className="sources-view__summary" style={{ color: "#b42318" }}>
+        <p role="alert" className="sources-view__summary" style={{ color: "var(--color-text-error)" }}>
           {exportErreur}
         </p>
       ) : null}
       <div className="sources-view__scroll">
-        <table className="sources-table">
+        <Table className="sources-table" density="compact" dividers="rows">
           <caption className="sources-view__caption">
             Registre des sources surveillées
           </caption>
@@ -548,7 +548,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
               </tr>
             )}
           </tbody>
-        </table>
+        </Table>
       </div>
 
       {pageCount > 1 && (

@@ -109,6 +109,21 @@ const SELECT_FIELDS = `
   o.entity_code, o.entity_source,
   (SELECT COUNT(*)::int FROM event e WHERE e.org_id = o.id) AS event_count`;
 
+/**
+ * Chemin sans recherche : le décompte par organisation est agrégé une seule
+ * fois depuis `event` (27 000 lignes en production) puis joint à `org`. La
+ * sous-requête corrélée de `SELECT_FIELDS` était évaluée pour chacune des
+ * 1,67 M organisations, même pour un `LIMIT 50` trié par `event_count`.
+ */
+const EVENT_COUNTS_CTE = `WITH event_counts AS MATERIALIZED (
+  SELECT org_id, COUNT(*)::int AS n FROM event WHERE org_id IS NOT NULL GROUP BY org_id
+)`;
+
+const SELECT_FIELDS_FROM_COUNTS = `
+  o.id, o.name, o.slug, o.kind, o.sector, o.city, o.dept, o.website, o.domain, o.lat, o.lon,
+  o.entity_code, o.entity_source,
+  COALESCE(ec.n, 0)::int AS event_count`;
+
 function mapRow(row: RawRow): DirectoryOrg {
 	return {
 		// org.id est un serial mais les jointures renvoient parfois des chaînes :
@@ -211,7 +226,10 @@ export async function queryDirectory(params: DirectoryParams): Promise<Directory
 		const order = `ORDER BY ${column} ${dir.toUpperCase()} NULLS LAST, o.id`;
 		const [rowsResult, countResult, kind, sector, dept] = await Promise.all([
 			query<RawRow>(
-				`SELECT ${SELECT_FIELDS} FROM org o ${sql} ${order} LIMIT $${values.length + 1} OFFSET $${values.length + 2}`,
+				`${EVENT_COUNTS_CTE}
+				 SELECT ${SELECT_FIELDS_FROM_COUNTS}
+				   FROM org o LEFT JOIN event_counts ec ON ec.org_id = o.id
+				   ${sql} ${order} LIMIT $${values.length + 1} OFFSET $${values.length + 2}`,
 				[...values, limit, page * limit],
 			),
 			query<{ n: string }>(`SELECT COUNT(*)::text AS n FROM org o ${sql}`, values),

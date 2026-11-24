@@ -6,6 +6,9 @@ import type { DirectoryProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./directory.css";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
+
 
 /**
  * Annuaire des organisations — pagination, facettes et recherche côté serveur.
@@ -396,7 +399,7 @@ export default function DirectoryView({
 					aria-label="Tableau des organisations"
 					data-busy={busy}
 				>
-					<table>
+					<Table aria-label="Organisations du référentiel" density="compact" dividers="rows">
 						<caption className="sr-only">
 							Organisations du référentiel. Flèches pour parcourir, Entrée pour ouvrir la fiche.
 						</caption>
@@ -470,15 +473,18 @@ export default function DirectoryView({
 									<td><span className="directory__mono">{row.dept || "—"}</span></td>
 									<td><span className="directory__count" data-zero={row.eventCount === 0}>{row.eventCount}</span></td>
 									<td>
-										<span className="directory__flag" data-on={row.lat !== null && row.lon !== null}>
-											{row.lat !== null && row.lon !== null ? "géolocalisée" : "non située"}
-										</span>
+										<Badge
+											className="directory__flag"
+											data-on={String(row.lat !== null && row.lon !== null)}
+											variant={row.lat !== null && row.lon !== null ? "success" : "neutral"}
+											label={row.lat !== null && row.lon !== null ? "géolocalisée" : "non située"}
+										/>
 									</td>
 								</tr>
 							))}
 							{paddingBottom > 0 ? <tr style={{ height: paddingBottom }} aria-hidden="true"><td colSpan={COLUMNS.length} /></tr> : null}
 						</tbody>
-					</table>
+					</Table>
 				</div>
 			)}
 

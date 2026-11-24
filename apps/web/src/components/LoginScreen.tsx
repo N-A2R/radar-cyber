@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { api } from "../api";
 import "./login.css";
+import { Button } from "@astryxdesign/core/Button";
+import { Card } from "@astryxdesign/core/Card";
+import { Field } from "@astryxdesign/core/Field";
+import { TextInput } from "@astryxdesign/core/TextInput";
 
 type LoginScreenProps = {
   /** Appelé avec le jeton de session dès que l'API l'a délivré. */
@@ -179,132 +183,138 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
 
   return (
     <main className="login">
-      <form
-        className="login__form"
-        onSubmit={submit}
-        noValidate
-        aria-busy={busy}
-        aria-labelledby="login-title"
-      >
-        <section className="login__identity">
-          <header className="login__head">
-            <p className="login__kicker">
-              <span className="login__mark" aria-hidden="true" />
-              Nouvelle-Aquitaine
-            </p>
-            <h1 className="login__title" id="login-title">
-              Radar Cyber
-            </h1>
-            <p className="login__subtitle">
-              L&apos;observatoire des incidents cyber signalés dans la région.
-            </p>
-          </header>
+      <Card className="login__form" padding={0}>
+        <form
+          className="login__form-body"
+          onSubmit={submit}
+          noValidate
+          aria-busy={busy}
+          aria-labelledby="login-title"
+        >
+          <section className="login__identity">
+            <header className="login__head">
+              <p className="login__kicker">
+                <span className="login__mark" aria-hidden="true" />
+                Nouvelle-Aquitaine
+              </p>
+              <h1 className="login__title" id="login-title">
+                Radar Cyber
+              </h1>
+              <p className="login__subtitle">
+                L&apos;observatoire des incidents cyber signalés dans la région.
+              </p>
+            </header>
 
-          {faits ? (
-            <dl className="login__facts" role="group" aria-label="Le radar en chiffres">
-              <div className="login__fact">
-                <dt>sources suivies</dt>
-                <dd>{NOMBRE.format(faits.sources)}</dd>
+            {faits ? (
+              <dl className="login__facts" role="group" aria-label="Le radar en chiffres">
+                <div className="login__fact">
+                  <dt>sources suivies</dt>
+                  <dd>{NOMBRE.format(faits.sources)}</dd>
+                </div>
+                <div className="login__fact">
+                  <dt>incidents sur 7 jours</dt>
+                  <dd>{NOMBRE.format(faits.incidents7j)}</dd>
+                </div>
+                <div className="login__fact">
+                  <dt>départements couverts</dt>
+                  <dd>
+                    {NOMBRE.format(faits.departements)}
+                    <span className="login__fact-of">/12</span>
+                  </dd>
+                </div>
+              </dl>
+            ) : null}
+
+            <Card variant="transparent">
+              <figure className="login__map" aria-hidden="true">
+                <svg viewBox="0 0 331 445" focusable="false">
+                  {Object.entries(CARTE_NA).map(([code, trace]) => (
+                    <path key={code} d={trace} />
+                  ))}
+                </svg>
+              </figure>
+            </Card>
+          </section>
+
+          <section className="login__panel">
+            <Field
+              label="Identifiants"
+              labelID="login-credentials-label"
+              inputID="login-email"
+              isGroupLabel
+              isLabelHidden
+            >
+              <div
+                className="login__fields"
+                role="group"
+                aria-labelledby="login-credentials-label"
+              >
+                <TextInput
+                  id="login-email"
+                  ref={emailRef}
+                  label="adresse e-mail"
+                  type="email"
+                  htmlName="email"
+                  autoComplete="username"
+                  inputMode="email"
+                  autoCapitalize="none"
+                  hasSpellCheck={false}
+                  value={email}
+                  onChange={(value) => {
+                    setEmail(value);
+                    if (fieldErrors.email) {
+                      setFieldErrors((prev) => ({ ...prev, email: undefined }));
+                    }
+                  }}
+                  isDisabled={busy}
+                  isRequired
+                  status={fieldErrors.email ? { type: "error", message: fieldErrors.email } : undefined}
+                />
+                <TextInput
+                  id="login-password"
+                  ref={passwordRef}
+                  label="mot de passe"
+                  type="password"
+                  htmlName="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(value) => {
+                    setPassword(value);
+                    if (fieldErrors.password) {
+                      setFieldErrors((prev) => ({ ...prev, password: undefined }));
+                    }
+                  }}
+                  isDisabled={busy}
+                  isRequired
+                  status={fieldErrors.password ? { type: "error", message: fieldErrors.password } : undefined}
+                />
               </div>
-              <div className="login__fact">
-                <dt>incidents sur 7 jours</dt>
-                <dd>{NOMBRE.format(faits.incidents7j)}</dd>
-              </div>
-              <div className="login__fact">
-                <dt>départements couverts</dt>
-                <dd>
-                  {NOMBRE.format(faits.departements)}
-                  <span className="login__fact-of">/12</span>
-                </dd>
-              </div>
-            </dl>
-          ) : null}
+            </Field>
 
-          <figure className="login__map" aria-hidden="true">
-            <svg viewBox="0 0 331 445" focusable="false">
-              {Object.entries(CARTE_NA).map(([code, trace]) => (
-                <path key={code} d={trace} />
-              ))}
-            </svg>
-          </figure>
-        </section>
+            {error ? (
+              <Card variant="muted" className="login__error" role="alert">
+                {error}
+              </Card>
+            ) : null}
 
-        <section className="login__panel">
-          <div className="login__fields">
-            <div className="login__field">
-              <label htmlFor="login-email">adresse e-mail</label>
-              <input
-                id="login-email"
-                ref={emailRef}
-                type="email"
-                name="email"
-                autoComplete="username"
-                inputMode="email"
-                autoCapitalize="none"
-                spellCheck={false}
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }));
-                }}
-                disabled={busy}
-                aria-invalid={Boolean(fieldErrors.email)}
-                aria-describedby={fieldErrors.email ? "login-email-error" : undefined}
-                required
-              />
-              {fieldErrors.email ? (
-                <p className="login__field-error" id="login-email-error">
-                  {fieldErrors.email}
-                </p>
-              ) : null}
-            </div>
+            <Button
+              type="submit"
+              label={busy ? "Connexion…" : "Se connecter"}
+              variant="primary"
+              className="login__submit"
+              isLoading={busy}
+            />
 
-            <div className="login__field">
-              <label htmlFor="login-password">mot de passe</label>
-              <input
-                id="login-password"
-                ref={passwordRef}
-                type="password"
-                name="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (fieldErrors.password) setFieldErrors((prev) => ({ ...prev, password: undefined }));
-                }}
-                disabled={busy}
-                aria-invalid={Boolean(fieldErrors.password)}
-                aria-describedby={fieldErrors.password ? "login-password-error" : undefined}
-                required
-              />
-              {fieldErrors.password ? (
-                <p className="login__field-error" id="login-password-error">
-                  {fieldErrors.password}
-                </p>
-              ) : null}
-            </div>
-          </div>
-
-          {error ? (
-            <p className="login__error" role="alert">
-              {error}
+            <p className="login__status" role="status" aria-live="polite">
+              {busy ? "Vérification des identifiants…" : ""}
             </p>
-          ) : null}
 
-          <button type="submit" className="login__submit" disabled={busy}>
-            {busy ? <span className="login__spinner" aria-hidden="true" /> : null}
-            {busy ? "Connexion…" : "Se connecter"}
-          </button>
-
-          <p className="login__status" role="status" aria-live="polite">
-            {busy ? "Vérification des identifiants…" : ""}
-          </p>
-
-          <p className="login__note">
-            Accès réservé aux agents habilités. Les actions effectuées dans l'outil sont tracées.
-          </p>
-        </section>
-      </form>
+            <p className="login__note">
+              Accès réservé aux agents habilités. Les actions effectuées dans l'outil sont tracées.
+            </p>
+          </section>
+        </form>
+      </Card>
     </main>
   );
 }

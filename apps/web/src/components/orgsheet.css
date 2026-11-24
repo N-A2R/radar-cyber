@@ -1,88 +1,11 @@
-/* Fiche organisation — même système que l'inspecteur : plat, sans encadré,
-   aucune couleur littérale, densité maximale. */
-
-.orgsheet {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-  background: var(--surface);
-  color: var(--text);
-}
-
-.orgsheet__header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px 10px;
-  border-bottom: 1px solid var(--line);
-}
-
-.orgsheet__title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.25;
-  overflow-wrap: break-word;
-  min-width: 0;
-}
-
-.orgsheet__close {
-  display: inline-flex;
-  align-items: center;
-  flex: none;
-  min-height: 24px;
-  min-width: 24px;
-  padding: 2px 0;
-  border: 0;
-  background: none;
-  color: var(--muted);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.orgsheet__close:hover {
-  color: var(--text);
-}
-
-.orgsheet__close:active {
-  color: var(--accent);
-}
-
-.orgsheet__close:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.orgsheet__report {
-  flex: none;
-  padding: 4px 8px;
-  border: 1px solid var(--line);
-  background: none;
-  color: var(--text);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.orgsheet__report:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
+/* La fiche s'ouvre dans un Drawer Astryx : surface, en-tête, boutons et
+   défilement sont fournis par le design system. Ne restent que les états
+   locaux du rapport et les accents de données du corps. */
 
 .orgsheet__report-error {
-  margin: 6px 16px;
-  color: var(--danger, var(--text));
-  font-size: 12px;
-}
-
-.orgsheet__body {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 0 16px 24px;
+  margin: var(--space-2) var(--space-4);
+  color: var(--color-text-danger, var(--sev-5));
+  font: 400 var(--text-label)/1.4 var(--font-sans);
 }
 
 .orgsheet__status {

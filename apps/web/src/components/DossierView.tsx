@@ -3,6 +3,8 @@ import { api } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./dossier.css";
+import { Card } from "@astryxdesign/core/Card";
+
 
 type DossierPayload = {
 	etat: {
@@ -61,6 +63,7 @@ export default function DossierView() {
 	if (!data) return null;
 
 	return (
+		<Card variant="transparent" padding={0}>
 		<section className="dossier" aria-label="Dossier de reprise">
 			<header className="dossier__head">
 				<h1>Dossier de reprise</h1>
@@ -95,6 +98,7 @@ export default function DossierView() {
 				<pre className="dossier__json">{JSON.stringify(data.etat, null, 2)}</pre>
 			</section>
 		</section>
+		</Card>
 	);
 }
 

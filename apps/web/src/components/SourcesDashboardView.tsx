@@ -1,23 +1,30 @@
 /**
- * Écran Sources dashboard — état mesuré des sources, en anglais comme le
- * reste de l'interface. Composant purement présentatif : chaque chiffre vient
- * de `GET /api/sources/dashboard`, calculé en base à l'appel. Aucune valeur
- * par défaut, aucun pourcentage inventé, aucune agrégation dans le navigateur.
+ * Écran du tableau de bord des sources — état mesuré des sources, en français.
+ * Composant purement présentatif : chaque chiffre vient de
+ * `GET /api/sources/dashboard`, calculé en base à l'appel. Aucune valeur par
+ * défaut, aucun pourcentage inventé, aucune agrégation dans le navigateur.
  */
 import type { SourceRendement, SourcesDashboard } from "../api";
 import type { SourcesDashboardViewProps } from "../contracts";
 import "./sources-dashboard.css";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
-const countFormat = new Intl.NumberFormat("en-GB");
+const countFormat = new Intl.NumberFormat("fr-FR");
 
 export function formatCount(value: number): string {
   return countFormat.format(value);
 }
 
+const yieldFormat = new Intl.NumberFormat("fr-FR", {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+});
+
 /** Un rendement est un ratio (0,2 = 20 %). `null` : rien n'a été lu. */
 export function formatYield(value: number | null): string {
-  if (value === null) return "not measurable";
-  return `${(value * 100).toFixed(1)}%`;
+  if (value === null) return "non mesurable";
+  return `${yieldFormat.format(value * 100)} %`;
 }
 
 /** Durée cumulée réellement mesurée, avec son unité lisible. */
@@ -34,19 +41,19 @@ export function formatDuration(ms: number): string {
 }
 
 const ETATS = [
-  { key: "ok200", label: "OK 200", note: "Successful run in the last 7 days, under the slow threshold, with new output." },
-  { key: "muette", label: "Silent", note: "Collected in the last 7 days and already produced events, but none in that window." },
-  { key: "morte", label: "Dead", note: "Explicitly declared dead. This decision takes priority over every other state." },
-  { key: "lente", label: "Slow", note: "Last successful run in the last 7 days exceeded the slow threshold." },
-  { key: "dormante", label: "Dormant", note: "No successful run in the last 7 days — not proven healthy." },
+  { key: "ok200", label: "OK 200", note: "Exécution réussie au cours des 7 derniers jours, sous le seuil de lenteur, avec une nouvelle production." },
+  { key: "muette", label: "Silencieuse", note: "Collectée au cours des 7 derniers jours et ayant déjà produit des événements, mais aucun sur cette fenêtre." },
+  { key: "morte", label: "Morte", note: "Déclarée morte explicitement. Cette décision prime sur tous les autres états." },
+  { key: "lente", label: "Lente", note: "Dernière exécution réussie au cours des 7 derniers jours au-delà du seuil de lenteur." },
+  { key: "dormante", label: "Dormante", note: "Aucune exécution réussie au cours des 7 derniers jours — santé non prouvée." },
 ] as const;
 
 function etatsPanel(data: SourcesDashboard) {
   return (
     <section className="sdb__panel" aria-labelledby="sdb-states-title">
       <div className="sdb__panel-head">
-        <h2 id="sdb-states-title">Sources by state</h2>
-        <span className="sdb__meta">{formatCount(data.totalSources)} declared sources</span>
+        <h2 id="sdb-states-title">Sources par état</h2>
+        <span className="sdb__meta">{formatCount(data.totalSources)} sources déclarées</span>
       </div>
       <dl className="sdb__states">
         {ETATS.map((etat) => (
@@ -58,7 +65,7 @@ function etatsPanel(data: SourcesDashboard) {
         ))}
       </dl>
       <p className="sdb__note">
-        The five states partition the declared sources: a source is counted once, never twice.
+        Les cinq états partitionnent les sources déclarées : une source est comptée une fois, jamais deux.
       </p>
     </section>
   );
@@ -70,19 +77,19 @@ function classement(data: SourcesDashboard, titre: string, id: string, lignes: S
       <div className="sdb__panel-head">
         <h2 id={id}>{titre}</h2>
         <span className="sdb__meta">
-          {formatCount(lignes.length)} of {data.limiteClassement} measured · last {data.fenetreRendementJours} days
+          {formatCount(lignes.length)} sur {data.limiteClassement} mesurées · {data.fenetreRendementJours} derniers jours
         </span>
       </div>
       {lignes.length === 0 ? (
-        <p className="sdb__empty">No source has produced a measurable yield in this window.</p>
+        <p className="sdb__empty">Aucune source n'a produit un rendement mesurable sur cette fenêtre.</p>
       ) : (
-        <table className="sdb__table">
+        <Table className="sdb__table" density="compact" dividers="rows">
           <thead>
             <tr>
               <th scope="col">Source</th>
-              <th scope="col" className="sdb__num">Entries</th>
-              <th scope="col" className="sdb__num">Events</th>
-              <th scope="col" className="sdb__num">Yield</th>
+              <th scope="col" className="sdb__num">Entrées</th>
+              <th scope="col" className="sdb__num">Événements</th>
+              <th scope="col" className="sdb__num">Rendement</th>
             </tr>
           </thead>
           <tbody>
@@ -99,11 +106,11 @@ function classement(data: SourcesDashboard, titre: string, id: string, lignes: S
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       )}
       <p className="sdb__note">
-        Yield = events retained over entries read, on the same window. “not measurable” means no entry was
-        read — never 0 %.
+        Rendement = événements retenus sur entrées lues, sur la même fenêtre. « non mesurable » signifie
+        qu'aucune entrée n'a été lue — jamais 0 %.
       </p>
     </section>
   );
@@ -114,19 +121,19 @@ function evolutionPanel(data: SourcesDashboard) {
   return (
     <section className="sdb__panel sdb__evolution" aria-labelledby="sdb-evolution-title">
       <div className="sdb__panel-head">
-        <h2 id="sdb-evolution-title">Last {data.fenetreJours} days</h2>
-        <span className="sdb__meta">UTC days, including today</span>
+        <h2 id="sdb-evolution-title">{data.fenetreJours} derniers jours</h2>
+        <span className="sdb__meta">Jours UTC, aujourd'hui inclus</span>
       </div>
       {data.evolution.length === 0 ? (
-        <p className="sdb__empty">No daily measurement available.</p>
+        <p className="sdb__empty">Aucune mesure quotidienne disponible.</p>
       ) : (
-        <table className="sdb__table">
+        <Table className="sdb__table" density="compact" dividers="rows">
           <thead>
             <tr>
-              <th scope="col">Day</th>
-              <th scope="col" className="sdb__num">Events</th>
-              <th scope="col" className="sdb__num">Entries</th>
-              <th scope="col" className="sdb__num">Sources with events</th>
+              <th scope="col">Jour</th>
+              <th scope="col" className="sdb__num">Événements</th>
+              <th scope="col" className="sdb__num">Entrées</th>
+              <th scope="col" className="sdb__num">Sources avec événements</th>
               <th scope="col">Volume</th>
             </tr>
           </thead>
@@ -141,7 +148,7 @@ function evolutionPanel(data: SourcesDashboard) {
                   <span
                     className="sdb__bar"
                     role="img"
-                    aria-label={`${jour.evenements} events on ${jour.date}`}
+                    aria-label={`${formatCount(jour.evenements)} événements le ${jour.date}`}
                   >
                     <span style={{ width: `${(jour.evenements / max) * 100}%` }} />
                   </span>
@@ -149,10 +156,10 @@ function evolutionPanel(data: SourcesDashboard) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       )}
       <p className="sdb__note">
-        Days without events are measured zeros, not missing rows. Entries come from successful collector runs.
+        Les jours sans événements sont des zéros mesurés, pas des lignes manquantes. Les entrées proviennent des exécutions réussies des collecteurs.
       </p>
     </section>
   );
@@ -162,15 +169,15 @@ function collectePanel(data: SourcesDashboard) {
   return (
     <section className="sdb__panel" aria-labelledby="sdb-collecte-title">
       <div className="sdb__panel-head">
-        <h2 id="sdb-collecte-title">Total collection time</h2>
-        <span className="sdb__meta">finished runs, last {data.fenetreJours} days</span>
+        <h2 id="sdb-collecte-title">Temps de collecte cumulé</h2>
+        <span className="sdb__meta">exécutions terminées, {data.fenetreJours} derniers jours</span>
       </div>
       <div className="sdb__duration">{formatDuration(data.collecte.dureeTotaleMs)}</div>
       <p className="sdb__duration-caption">
-        {formatCount(data.collecte.dureeTotaleMs)} ms summed over {formatCount(data.collecte.runs)} finished runs.
+        {formatCount(data.collecte.dureeTotaleMs)} ms cumulées sur {formatCount(data.collecte.runs)} exécutions terminées.
       </p>
       <p className="sdb__note">
-        This is cumulative collector time, not wall-clock time: concurrent runs overlap and are each counted.
+        Il s'agit du temps cumulé des collecteurs, et non du temps écoulé : les exécutions simultanées se chevauchent et sont chacune comptées.
       </p>
     </section>
   );
@@ -180,26 +187,27 @@ export default function SourcesDashboardView({ data, loading = false, error = nu
   return (
     <div className="sdb">
       <header className="sdb__header">
-        <span className="micro">Sources / dashboard</span>
-        <h1>Sources dashboard</h1>
-        <p>What the collectors actually do — every figure comes from the sources dashboard endpoint.</p>
+        <span className="micro">Sources / tableau de bord</span>
+        <Badge label="mesuré" className="sdb__badge" />
+        <h1>Tableau de bord des sources</h1>
+        <p>Ce que les collecteurs font réellement — chaque chiffre provient de l'endpoint du tableau de bord des sources.</p>
       </header>
 
-      {error ? <p className="sdb__error" role="alert">Could not load the sources dashboard: {error}</p> : null}
+      {error ? <p className="sdb__error" role="alert">Impossible de charger le tableau de bord des sources : {error}</p> : null}
       {data === null ? (
         <p className="sdb__state" role="status">
-          {loading ? "Loading the sources dashboard…" : "Sources dashboard is not available in demo mode."}
+          {loading ? "Chargement du tableau de bord des sources…" : "Le tableau de bord des sources n'est pas disponible en mode démo."}
         </p>
       ) : (
         <>
-          {error ? <p className="sdb__stale" role="status">Showing the last successful snapshot.</p> : null}
+          {error ? <p className="sdb__stale" role="status">Affichage du dernier instantané réussi.</p> : null}
           <div className="sdb__kpis">
             <div className="sdb__kpi">
-              <span className="micro">Declared sources</span>
+              <span className="micro">Sources déclarées</span>
               <strong>{formatCount(data.totalSources)}</strong>
             </div>
             <div className="sdb__kpi">
-              <span className="micro">Total collection time</span>
+              <span className="micro">Temps de collecte cumulé</span>
               <strong>{formatDuration(data.collecte.dureeTotaleMs)}</strong>
             </div>
           </div>
@@ -207,12 +215,12 @@ export default function SourcesDashboardView({ data, loading = false, error = nu
           {collectePanel(data)}
           {evolutionPanel(data)}
           <div className="sdb__grid">
-            {classement(data, "10 best sources by yield", "sdb-best-title", data.meilleures)}
-            {classement(data, "10 worst sources by yield", "sdb-worst-title", data.pires)}
+            {classement(data, "10 meilleures sources par rendement", "sdb-best-title", data.meilleures)}
+            {classement(data, "10 pires sources par rendement", "sdb-worst-title", data.pires)}
           </div>
           <footer className="sdb__footer">
-            Source: <code>GET /api/sources/dashboard</code> · measured at {data.generatedAt} · states {data.fenetreJours} d ·
-            yield {data.fenetreRendementJours} d · slow above {formatCount(data.seuilLenteMs)} ms · read-only, no estimated values.
+            Source : <code>GET /api/sources/dashboard</code> · mesuré le {data.generatedAt} · états {data.fenetreJours} j ·
+            rendement {data.fenetreRendementJours} j · seuil de lenteur au-delà de {formatCount(data.seuilLenteMs)} ms · lecture seule, aucune valeur estimée.
           </footer>
         </>
       )}

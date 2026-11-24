@@ -5,11 +5,17 @@ import "@astryxdesign/core/reset.css";
 import "@astryxdesign/core/astryx.css";
 import "@astryxdesign/theme-gothic/fonts.css";
 import "@astryxdesign/theme-gothic/theme.css";
+import { InternationalizationProvider } from "@astryxdesign/core";
+import frFR from "@astryxdesign/core/locales/fr-FR.generated.js";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./styles.css";
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <InternationalizationProvider locale="fr-FR" messages={{ "fr-FR": frFR }}>
+    <App />
+  </InternationalizationProvider>,
+);
 
 /**
  * Le service worker est enregistré en dev comme en prod : c'est ce qui permet

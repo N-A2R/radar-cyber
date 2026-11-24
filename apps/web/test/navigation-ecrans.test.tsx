@@ -86,12 +86,26 @@ async function waitForText(text: string): Promise<void> {
   throw new Error(`"${text}" never appeared in the DOM`);
 }
 
+const NAV_GROUP: Record<string, string> = {
+  Couverture: "Observatoire",
+  Corpus: "Analyse",
+};
+
 async function clickRail(label: string): Promise<void> {
-  const buttons = [...host.querySelectorAll<HTMLButtonElement>("nav.rail__nav button")];
-  const button = buttons.find((candidate) => candidate.textContent?.trim() === label);
-  expect(button, `navigation button "${label}"`).toBeTruthy();
+  const group = NAV_GROUP[label];
+  const trigger = [...host.querySelectorAll<HTMLElement>("nav.rail__nav button, nav.rail__nav a")]
+    .find((candidate) => candidate.textContent?.trim() === (group ?? label));
+  expect(trigger, `navigation button "${group ?? label}"`).toBeTruthy();
   await act(async () => {
-    button!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    trigger!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+  if (!group) return;
+  await settle();
+  const item = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')]
+    .find((candidate) => candidate.textContent?.includes(label));
+  expect(item, `menu item "${label}"`).toBeTruthy();
+  await act(async () => {
+    item!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
 }
 
@@ -123,14 +137,13 @@ afterEach(async () => {
 describe("Coverage and Corpus navigation", () => {
   it("lists the screens in the product order", async () => {
     await mount("#/coverage");
-    const labels = [...host.querySelectorAll("nav.rail__nav button")]
-      .map((button) => button.textContent?.trim());
-    // L'ordre attendu suit VIEWS dans App.tsx : « Tableau de bord sources »
-    // a été ajouté après « Sources » (PR tableau de bord) sans mettre à jour
-    // cette assertion — le test échouait donc sur main. On fige l'ordre réel.
-    expect(labels.slice(0, 11)).toEqual([
-      "Aujourd'hui", "Couverture", "Revue", "Journal", "Corpus",
-      "Sources", "Tableau de bord sources", "Carte", "Graphe", "Santé", "Alertes",
+    const labels = [...host.querySelectorAll<HTMLElement>("nav.rail__nav button, nav.rail__nav a")]
+      .filter((element) => !element.closest('[role="menu"]'))
+      .map((element) => element.textContent?.trim() ?? "")
+      .filter((label) => label && label !== "Close popover");
+    // Le rail est regroupé en six entrées Astryx plutôt qu'en une liste plate.
+    expect(labels).toEqual([
+      "Observatoire", "Analyse", "Sources", "Explorer", "Alertes", "Attributions",
     ]);
   });
 

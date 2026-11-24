@@ -10,6 +10,8 @@ import ForceGraph2D, { type ForceGraphMethods, type LinkObject, type NodeObject 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import GraphMatrix from '../components/GraphMatrix';
 import { LoadingSkeleton } from '../components/Skeleton';
+import { Badge } from '@astryxdesign/core/Badge';
+import { tokenVar } from '@astryxdesign/core/theme';
 import {
   buildGraph,
   canonicalFamily,
@@ -42,15 +44,16 @@ export { buildGraph, canonicalFamily, filterGraph, selectNeighborhood } from './
 
 const KIND_ORDER = ['org', 'event', 'source', 'family', 'dept', 'group', 'asset', 'ip'];
 
-const KIND_COLOR: Record<string, string> = {
-  org: '#38bdf8',
-  event: '#f59e0b',
-  source: '#22c55e',
-  family: '#fb923c',
-  dept: '#a78bfa',
-  group: '#ef4444',
-  asset: '#22c55e',
-  ip: '#22d3ee',
+/** Types de nœuds : jetons du pont Astryx, une seule palette pour le thème gothic. */
+const KIND_VAR: Record<string, string> = {
+  org: '--data-steel',
+  event: '--family-phishing',
+  source: '--data-green',
+  family: '--family-vuln',
+  dept: '--family-malware',
+  group: '--family-ransomware',
+  asset: '--data-green',
+  ip: '--data-teal',
 };
 
 const KIND_LABEL: Record<string, string> = {
@@ -64,46 +67,25 @@ const KIND_LABEL: Record<string, string> = {
   ip: 'adresse IP',
 };
 
-const FALLBACK_PALETTE = ['#38bdf8', '#f59e0b', '#22c55e', '#a78bfa', '#ef4444', '#e3b341', '#db61a2'];
-
-/** Repli par jeton CSS lorsque la variable de famille n'est pas déclarée. */
-const FAMILY_FALLBACK_VAR: Record<string, string> = {
-  ransomware: '--sev-5',
-  vuln: '--sev-3',
-  phishing: '--sev-4',
-  malware: '--sev-4',
-  cert_fr: '--sev-2',
-  cert: '--sev-2',
-  typosquat: '--sev-3',
-  reputation: '--muted',
-  cti: '--faint',
-};
-
 const FAMILY_VAR: Record<string, string> = {
-  ransomware: '--ransomware',
-  vuln: '--vuln',
-  phishing: '--phishing',
-  malware: '--malware',
-  cert_fr: '--cert',
-  cert: '--cert',
-  typosquat: '--typosquat',
-  reputation: '--reputation',
-  cti: '--cti',
+  ransomware: '--family-ransomware',
+  vuln: '--family-vuln',
+  phishing: '--family-phishing',
+  malware: '--family-malware',
+  cert: '--family-cert',
+  cert_fr: '--family-cert-fr',
+  typosquat: '--family-typosquat',
+  reputation: '--family-reputation',
+  cti: '--family-cti',
+  presse: '--family-presse',
+  presse_locale: '--family-presse-locale',
 };
 
-const BG_BY_THEME: Record<string, string> = {
-  clair: '#f5f6f8',
-  souverain: '#0c0a09',
-  terminal: '#000000',
-  observatoire: '#0a0e14',
-};
-
-const LINK_COLOR_BY_THEME: Record<string, string> = {
-  clair: 'rgba(71,85,105,0.35)',
-  souverain: 'rgba(148,163,184,0.30)',
-  terminal: 'rgba(148,163,184,0.30)',
-  observatoire: 'rgba(148,163,184,0.30)',
-};
+/** Repli déterministe : uniquement des jetons, jamais une couleur littérale. */
+const FALLBACK_VARS = [
+  '--data-steel', '--family-phishing', '--data-green', '--family-malware',
+  '--family-ransomware', '--family-cert-fr', '--family-cert',
+];
 
 const PERIODS: { label: string; days: number | null }[] = [
   { label: 'Tout', days: null },
@@ -119,16 +101,25 @@ const COUNT: CSSProperties = { color: 'var(--faint)', fontSize: 10 };
 
 // ── Helpers ──────────────────────────────────────────────────────
 
+/**
+ * Le canvas ne comprend pas `var(...)` : on résout les jetons (y compris les
+ * alias qui pointent vers d'autres jetons) depuis la feuille active.
+ */
+function resolveColor(name: string): string {
+  const reference = tokenVar(name);
+  if (typeof window === 'undefined') return reference;
+  const styles = window.getComputedStyle(document.documentElement);
+  let value = reference;
+  for (let depth = 0; depth < 4 && value.includes('var('); depth += 1) {
+    value = value.replace(/var\((--[\w-]+)\)/g, (_, token: string) => styles.getPropertyValue(token).trim());
+  }
+  return value || reference;
+}
+
 function fallbackColor(key: string): string {
   let hash = 0;
   for (let i = 0; i < key.length; i += 1) hash = (hash * 31 + key.charCodeAt(i)) | 0;
-  return FALLBACK_PALETTE[Math.abs(hash) % FALLBACK_PALETTE.length];
-}
-
-function readThemeVar(name: string, fallback: string): string {
-  if (typeof window === 'undefined') return fallback;
-  const value = window.getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  return value || fallback;
+  return resolveColor(FALLBACK_VARS[Math.abs(hash) % FALLBACK_VARS.length]);
 }
 
 function formatDate(value: string | null | undefined): string {
@@ -169,15 +160,14 @@ type DetailRow = { label: string; value: string; color?: string };
 
 export default function GraphView(props: GraphViewProps) {
   const { nodes, links, eventsById, orgsById, sourcesById, onSelect, now, temporal } = props;
-  const theme =
-    props.theme ??
-    (typeof document === 'undefined' ? 'observatoire' : document.documentElement.dataset.theme ?? 'observatoire');
-  const bg = BG_BY_THEME[theme] ?? BG_BY_THEME.observatoire;
-  const accent = readThemeVar('--accent', '#4da3ff');
-  const linkBase = LINK_COLOR_BY_THEME[theme] ?? LINK_COLOR_BY_THEME.observatoire;
-  const faintLink = theme === 'clair' ? 'rgba(71,85,105,0.10)' : 'rgba(148,163,184,0.10)';
-  const labelInk = readThemeVar('--text', '#e6e9ef');
-  const labelBg = readThemeVar('--surface', '#0e1014');
+  // Une seule palette gothic : l'ancien argument `theme` reste accepté mais
+  // n'influe plus sur le rendu.
+  const bg = resolveColor('--bg');
+  const accent = resolveColor('--accent');
+  const linkBase = resolveColor('--line');
+  const faintLink = resolveColor('--surface-2');
+  const labelInk = resolveColor('--text');
+  const labelBg = resolveColor('--surface');
 
   const [familyFilter, setFamilyFilter] = useState<Set<string>>(() => new Set());
   const [kindFilter, setKindFilter] = useState<Set<string>>(() => new Set());
@@ -235,15 +225,17 @@ export default function GraphView(props: GraphViewProps) {
     return () => observer.disconnect();
   }, [containerEl]);
 
+  const kindColors = useMemo(() => {
+    const palette: Record<string, string> = {};
+    for (const [kind, name] of Object.entries(KIND_VAR)) palette[kind] = resolveColor(name);
+    return palette;
+  }, []);
+
   const familyColors = useMemo(() => {
     const palette: Record<string, string> = {};
-    for (const [key, varName] of Object.entries(FAMILY_VAR)) {
-      const fallbackVar = FAMILY_FALLBACK_VAR[key];
-      const fallback = fallbackVar ? readThemeVar(fallbackVar, fallbackColor(key)) : fallbackColor(key);
-      palette[key] = readThemeVar(varName, fallback);
-    }
+    for (const [key, name] of Object.entries(FAMILY_VAR)) palette[key] = resolveColor(name);
     return palette;
-  }, [theme]);
+  }, []);
 
   const enriched = useMemo(
     () => buildGraph({ nodes: sourceNodes, links: sourceLinks, eventsById, sourcesById }),
@@ -276,10 +268,10 @@ export default function GraphView(props: GraphViewProps) {
       .map(([kind, count]) => ({
         kind,
         count,
-        color: KIND_COLOR[kind] ?? fallbackColor(kind),
+        color: kindColors[kind] ?? fallbackColor(kind),
         label: KIND_LABEL[kind] ?? kind,
       }));
-  }, [enriched.nodes]);
+  }, [enriched.nodes, kindColors]);
 
   const visible = useMemo(
     () => filterGraph(enriched, { families: familyFilter, kinds: kindFilter, periodDays, search, now }),
@@ -460,7 +452,7 @@ export default function GraphView(props: GraphViewProps) {
   }, [keyboardFocusId, keyboardOrder]);
 
   // Colour encodes the node type only, so the legend stays truthful.
-  const nodeColor = useCallback((node: GraphNode): string => KIND_COLOR[node.kind] ?? fallbackColor(node.kind), []);
+  const nodeColor = useCallback((node: GraphNode): string => kindColors[node.kind] ?? fallbackColor(node.kind), [kindColors]);
 
   const paintNode = useCallback(
     (node: NodeObject<GraphNode>, ctx: CanvasRenderingContext2D, globalScale: number) => {
@@ -607,6 +599,7 @@ export default function GraphView(props: GraphViewProps) {
         <button type="button" className="gv-collapse" onClick={() => persistFiltersOpen(!filtersOpen)} aria-expanded={filtersOpen}>
           Filtres {filtersOpen ? '▾' : '▸'}
         </button>
+        <Badge label={`${visible.nodes.length} nœuds`} className="gv-count-badge" />
         {filtersOpen && (
           <>
             <label className="gv-search-label" htmlFor="gv-search">Recherche</label>

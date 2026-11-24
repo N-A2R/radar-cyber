@@ -5,6 +5,8 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { FAMILY_LABEL } from "./SourcesView";
 import { useScreenExport } from "./ExportMenu";
 import "./alerts.css";
+import { Badge } from "@astryxdesign/core/Badge";
+
 
 /** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
 type AlertDetail = {
@@ -359,9 +361,12 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                   {confidenceWord(alert.confidence.score)} · {alert.confidence.score}
                 </span>
               ) : null}
-              <span className="alerts__state" data-state={alert.status}>
-                {STATE_LABEL[alert.status]}
-              </span>
+              <Badge
+                className="alerts__state"
+                data-state={alert.status}
+                variant={alert.status === "open" ? "warning" : alert.status === "ack" ? "info" : "success"}
+                label={STATE_LABEL[alert.status]}
+              />
             </button>
 
             <span className="alerts__actions">
@@ -501,20 +506,8 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
       {!loading && visibleRows.length === 0 ? (
         <EmptyState
           className="alerts__empty"
-          message={
-            <>
-              <strong className="alerts__empty-title">Aucune alerte sur ce filtre</strong>
-              <span className="alerts__empty-text">
-                Le radar n'alerte que sur un score suffisant : un fait isolé, sans corroboration ni incident
-                confirmé, reste dans le fil d'événements. Une alerte apparaît quand la même organisation est
-                touchée par plusieurs sources, quand l'incident est confirmé, ou quand un agent de détection
-                identifie une rupture.
-              </span>
-              <span className="alerts__empty-hint">
-                Les événements admis mais non alertés se lisent dans Carte → Fil d'événements.
-              </span>
-            </>
-          }
+          message="Aucune alerte sur ce filtre"
+          description="Le radar n'alerte que sur un score suffisant : un fait isolé, sans corroboration ni incident confirmé, reste dans le fil d'événements. Une alerte apparaît quand la même organisation est touchée par plusieurs sources, quand l'incident est confirmé, ou quand un agent de détection identifie une rupture. Les événements admis mais non alertés se lisent dans Carte → Fil d'événements."
           actionLabel="Voir toutes les alertes"
           onAction={() => { setStatus("all"); setSeverity(null); }}
         />

@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Theme } from "@astryxdesign/core/theme";
+import { gothicTheme } from "@astryxdesign/theme-gothic/built";
 import OrgSheet, { OrgSheetBody, OrgSheetContenu } from "./OrgSheet";
 import { orgDetail } from "../storybook/fixtures";
 
@@ -7,6 +9,13 @@ const meta = {
   component: OrgSheet,
   parameters: { docs: { description: { component: "Organisation sheet: facts, assets, exposure and right of reply." } } },
   args: { orgId: orgDetail.org.id, mock: true, onClose: () => {} },
+  decorators: [
+    (Story) => (
+      <Theme theme={gothicTheme} mode="dark">
+        <Story />
+      </Theme>
+    ),
+  ],
 } satisfies Meta<typeof OrgSheet>;
 
 export default meta;

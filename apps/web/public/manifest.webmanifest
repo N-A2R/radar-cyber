@@ -1,13 +1,13 @@
 {
   "name": "Radar Cyber — Nouvelle-Aquitaine",
   "short_name": "Radar NA",
-  "description": "Offline-first cyber watch for Nouvelle-Aquitaine organisations.",
+  "description": "Veille cyber hors ligne de Nouvelle-Aquitaine pour les organisations de la région.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#080b10",
   "theme_color": "#080b10",
-  "lang": "en",
+  "lang": "fr-FR",
   "icons": [
     {
       "src": "/icon.svg",

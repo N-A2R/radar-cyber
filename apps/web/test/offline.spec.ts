@@ -1,4 +1,4 @@
-import { expect, test, type BrowserContext, type Route } from "@playwright/test";
+import { expect, test, type BrowserContext, type Page, type Route } from "@playwright/test";
 
 /**
  * Bascule réseau réelle : la carte charge ses données en ligne, puis le
@@ -202,36 +202,39 @@ async function installeReseau(context: BrowserContext, baseURL: string, etat: { 
 	});
 }
 
+const NAV_GROUP: Record<string, string> = {
+	"Aujourd'hui": "Observatoire",
+	Couverture: "Observatoire",
+	"Nouvelle-Aquitaine": "Observatoire",
+	Revue: "Analyse",
+	Journal: "Analyse",
+	Corpus: "Analyse",
+	Sources: "Sources",
+	Santé: "Sources",
+	Carte: "Explorer",
+	Graphe: "Explorer",
+};
+
+async function openView(page: Page, label: string) {
+	const group = NAV_GROUP[label];
+	if (group) {
+		await page.locator(".rail__nav").getByRole("button", { name: group, exact: true }).click();
+		await page.getByRole("menuitem", { name: new RegExp(label) }).click();
+		return;
+	}
+	await page.locator(".rail__nav").getByRole("link", { name: label, exact: true }).click();
+}
+
 test("la barre contient les vues dans l'ordre du produit", async ({ page, context, baseURL }) => {
 	const etat = { offline: false };
 	await installeReseau(context, baseURL!, etat);
-
 	await page.goto("/");
 	await expect(page.locator(".shell")).toBeVisible();
-
-	// On lit les nœuds texte des boutons : le compteur d'alertes est un enfant
-	// séparé et ne doit pas changer le libellé attendu.
-	const labels = await page.locator(".rail__nav button").evaluateAll((buttons) =>
-		buttons.map((button) =>
-			Array.from(button.childNodes)
-				.filter((node) => node.nodeType === Node.TEXT_NODE)
-				.map((node) => node.textContent ?? "")
-				.join("")
-				.trim(),
-		),
+	const labels = await page.locator(".rail__nav button, .rail__nav a").evaluateAll((elements) =>
+		elements.map((element) => element.textContent?.trim() ?? "").filter((label) => label && label !== "Close popover"),
 	);
 	expect(labels).toEqual([
-		"Aujourd'hui",
-		"Couverture",
-		"Revue",
-		"Journal",
-		"Corpus",
-		"Sources",
-		"Carte",
-		"Graphe",
-		"Santé",
-		"Alertes",
-		"Nouvelle-Aquitaine",
+		"Observatoire", "Analyse", "Sources", "Explorer", "Alertes", "Attributions",
 	]);
 });
 
@@ -253,11 +256,11 @@ test("la carte garde ses organisations et son indicateur hors ligne après recha
 
 	// On visite aussi la vue région en ligne : son chunk chargé à la demande
 	// sera disponible hors ligne, où il servira à compter les organisations.
-	await page.getByRole("button", { name: "Nouvelle-Aquitaine" }).click();
+	await openView(page, "Nouvelle-Aquitaine");
 	await page.locator('button.na-ligne[data-dept="33"]').click();
 	await expect.poll(() => page.locator("button.na-ligne-org").count()).toBeGreaterThanOrEqual(10);
 	await page.getByRole("button", { name: /toute la région/ }).click();
-	await page.getByRole("button", { name: "Map" }).click();
+	await openView(page, "Carte");
 
 	// Un instantané tout frais est volontairement présenté comme « à jour » :
 	// on le vieillit pour observer l'état « hors ligne » revendiqué par l'UI.
@@ -280,7 +283,7 @@ test("la carte garde ses organisations et son indicateur hors ligne après recha
 	await expect(indicateur).toHaveAttribute("data-etat", "perime");
 	await expect(indicateur).toContainText("Offline ·");
 
-	await page.getByRole("button", { name: "Nouvelle-Aquitaine" }).click();
+	await openView(page, "Nouvelle-Aquitaine");
 	await page.locator('button.na-ligne[data-dept="33"]').click();
 	await expect.poll(() => page.locator("button.na-ligne-org").count()).toBeGreaterThanOrEqual(10);
 });
@@ -289,16 +292,16 @@ test("every product view replays from cache after the network is cut", async ({ 
 	const etat = { offline: false };
 	await installeReseau(context, baseURL!, etat);
 	const vues: Array<[string, string]> = [
-		["Today", ".today__compteurs"],
-		["Coverage", ".coverage"],
-		["Review", ".revue"],
+		["Aujourd'hui", ".today__compteurs"],
+		["Couverture", ".coverage"],
+		["Revue", ".revue"],
 		["Journal", ".journal"],
 		["Corpus", ".corpus__panel"],
 		["Sources", ".sources-view"],
-		["Map", "canvas"],
-		["Graph", ".gv-root"],
-		["Health", ".sources"],
-		["Alerts", ".alerts"],
+		["Carte", "canvas"],
+		["Graphe", ".gv-root"],
+		["Santé", ".sources"],
+		["Alertes", ".alerts"],
 		["Nouvelle-Aquitaine", ".na-view"],
 	];
 
@@ -306,7 +309,7 @@ test("every product view replays from cache after the network is cut", async ({ 
 	await expect(page.locator(".shell")).toBeVisible();
 	const enLigne: string[] = [];
 	for (const [label, selecteur] of vues) {
-		await page.locator(".rail__nav").getByRole("button", { name: label, exact: true }).click();
+		await openView(page, label);
 		await expect(page.locator(selecteur).first()).toBeVisible({ timeout: 8000 });
 		enLigne.push(label);
 	}
@@ -320,7 +323,7 @@ test("every product view replays from cache after the network is cut", async ({ 
 
 	const horsLigne: string[] = [];
 	for (const [label, selecteur] of vues) {
-		await page.locator(".rail__nav").getByRole("button", { name: label, exact: true }).click();
+		await openView(page, label);
 		await expect(page.locator(selecteur).first()).toBeVisible({ timeout: 8000 });
 		horsLigne.push(label);
 	}
