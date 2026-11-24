@@ -128,6 +128,8 @@
     "domaines:etendre-domaine-nomme": "apps/api/node_modules/.bin/tsx scripts/expand-domains-domain-label.mts",
     "domaines:etendre-variantes": "apps/api/node_modules/.bin/tsx scripts/expand-domains-variantes.mts",
     "domaines:etendre-annuaire": "apps/api/node_modules/.bin/tsx scripts/expand-domains-annuaire.mts",
+    "domaines:reparer-sous-domaine": "apps/api/node_modules/.bin/tsx scripts/expand-domains-sous-domaine.mts",
+    "domaines:etendre-siren": "apps/api/node_modules/.bin/tsx scripts/expand-domains-siren.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "sources:verifier": "apps/api/node_modules/.bin/tsx scripts/verifier-sources-http.mts",
