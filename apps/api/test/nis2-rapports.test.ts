@@ -20,6 +20,7 @@ import {
   NIS2_REGIMES,
   NIS2_SECTIONS,
 } from "../src/report/nis2-rapports.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `nis2${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const DEDUP_KEY = `test:${TAG}:incident-confirme`;
@@ -41,24 +42,8 @@ let dossier: string;
 /** Migration 231 : un événement ne peut être supprimé qu'après copie intégrale. */
 async function supprimerEvenementsDeTest(ids: string[]): Promise<void> {
   if (ids.length === 0) return;
-  const copies = await query<{ dedup_key: string }>(
-    `INSERT INTO archive_event
-       (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
-        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
-        lat, lon, org_id, asset_id, created_at)
-     SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
-            valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
-            lat, lon, org_id, asset_id, created_at
-       FROM event WHERE id = ANY($1::bigint[])
-     ON CONFLICT DO NOTHING
-     RETURNING dedup_key`,
-    [ids],
-  );
-  const clefs = copies.rows.map((ligne) => ligne.dedup_key);
   await query("DELETE FROM notification_brouillon WHERE source_event_id = ANY($1::bigint[])", [ids]);
-  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
-  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
-  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
 }
 
 before(async () => {

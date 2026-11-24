@@ -144,7 +144,9 @@ test("le collecteur écrit presse_locale, son département, et une assertion non
 			serveur.close((err) => (err ? ferme.reject(err) : ferme.resolve()));
 			await ferme.promise;
 		}
-		await db.query("DELETE FROM event WHERE source_id=$1", [sourceId]).catch(() => {});
+		// Import différé : db.ts lit DATABASE_URL au chargement (voir `before`).
+		const { supprimerEvenementsArchivees } = await import("./helpers/archive-delete.js");
+		await supprimerEvenementsArchivees("source_id=$1", [sourceId]).catch(() => {});
 		await db.query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]).catch(() => {});
 		await db.query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
 	}

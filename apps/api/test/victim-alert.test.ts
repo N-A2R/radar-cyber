@@ -2,6 +2,7 @@ import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const orgIds: number[] = [];
 const eventIds: number[] = [];
@@ -62,7 +63,7 @@ async function alertsFor(eventId: number): Promise<Array<Record<string, unknown>
 
 after(async () => {
   if (eventIds.length > 0) await query("DELETE FROM alert WHERE event_id = ANY($1)", [eventIds]);
-  if (eventIds.length > 0) await query("DELETE FROM event WHERE id = ANY($1)", [eventIds]);
+  if (eventIds.length > 0) await supprimerEvenementsArchivees("id = ANY($1)", [eventIds]);
   if (orgIds.length > 0) await query("DELETE FROM org WHERE id = ANY($1)", [orgIds]);
 });
 

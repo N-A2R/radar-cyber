@@ -11,6 +11,7 @@ import { hashSessionToken } from "../src/auth.js";
 import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
 import reviewRoute from "../src/routes/review.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rvw${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -63,7 +64,7 @@ after(async () => {
 	const ids = events.rows.map((row) => String(row.id));
 	if (ids.length > 0) {
 		await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [ids]);
-		await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+		await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
 	}
 	await query("DELETE FROM quarantine_raw WHERE source=$1", [SOURCE]);
 	if (orgId) await query("DELETE FROM org WHERE id=$1", [orgId]);

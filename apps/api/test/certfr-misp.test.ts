@@ -13,6 +13,7 @@ import {
 	enregistrerCorpusMisp, CERTFR_MISP_SOURCE_ID, CERTFR_MISP_MANIFEST_URL,
 } from "../src/collectors/certfr-misp.collector.js";
 import { correlaterIndicateursCertfrMisp } from "../src/collectors/certfr-misp-correlate.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const UUID_CLEAR = "11111111-2222-4333-8444-555555555555";
 const UUID_AMBER = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
@@ -270,11 +271,8 @@ after(async () => {
 		`DELETE FROM relation WHERE evidence ->> 'mispUuid' = ANY($1::text[])`,
 		[[UUID_CLEAR, UUID_MAZE]],
 	).catch(() => {});
-	await query(
-		`DELETE FROM event WHERE source_id = $1 AND dedup_key LIKE 'certfr-misp-correlation:%'`,
-		[CERTFR_MISP_SOURCE_ID],
-	).catch(() => {});
-	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`regional-${TAG}%`]).catch(() => {});
+	await supprimerEvenementsArchivees("source_id = $1 AND dedup_key LIKE 'certfr-misp-correlation:%'", [CERTFR_MISP_SOURCE_ID]).catch(() => {});
+	await supprimerEvenementsArchivees("dedup_key LIKE $1", [`regional-${TAG}%`]).catch(() => {});
 	await query("DELETE FROM org WHERE slug = $1", [`org-${TAG}`]).catch(() => {});
 	await query("DELETE FROM certfr_misp_event").catch(() => {});
 	await query("DELETE FROM indicator WHERE source_id = $1", [CERTFR_MISP_SOURCE_ID]).catch(() => {});

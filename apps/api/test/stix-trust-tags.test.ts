@@ -12,13 +12,14 @@ import {
 	normalizeTrustTags,
 	stixConfidence,
 } from "../src/export/trust-tags.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const PREFIXE = `stix-tags-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 const evenements: number[] = [];
 
 after(async () => {
 	if (evenements.length > 0) {
-		await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [evenements]);
+		await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evenements]);
 	}
 	await closePools();
 });

@@ -4,6 +4,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import sourcePrimaireRoute from "../src/routes/source-primaire.js";
 import { REFUS_SOURCE_MANCANTE } from "../src/analyse/publication-decisions.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `src${Date.now().toString(36)}`;
 const PUBLIC_SOURCE = `${TAG}-public`;
@@ -51,7 +52,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  if (eventIds.length > 0) await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [eventIds]);
+  if (eventIds.length > 0) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [eventIds]);
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [[PUBLIC_SOURCE, ONION_SOURCE]]);
   await closePools();
 });

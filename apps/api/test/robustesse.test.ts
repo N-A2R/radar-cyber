@@ -12,6 +12,7 @@ import { mediane } from "../src/analyse/mediane.js";
 import { compareQueueEntries } from "../src/quarantine/triage.js";
 import { decodeBody } from "../src/collectors/parsers/decode.js";
 import { runRetention } from "../src/maintenance/retention.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `${Date.now()}-${process.pid}`;
 
@@ -85,7 +86,7 @@ test("rétention : un événement cité par une alerte survit, les autres parten
 		assert.ok(!ids.includes(libre), "l'événement non cité doit être purgé");
 	} finally {
 		await query("DELETE FROM alert WHERE rule_id=$1", [`test-${TAG}`]).catch(() => {});
-		await query("DELETE FROM event WHERE id = ANY($1::int[])", [[cite, libre]]).catch(() => {});
+		await supprimerEvenementsArchivees("id = ANY($1::int[])", [[cite, libre]]).catch(() => {});
 		await query("DELETE FROM source WHERE id=$1", [`retention-${TAG}`]).catch(() => {});
 	}
 });
@@ -122,8 +123,9 @@ test("rétention : cinq événements de 100 jours finissent dans archive_event",
 		assert.equal(restants.rows[0]?.n, 0, "aucun événement centenaire ne doit rester en brut");
 		assert.equal(archives.rows[0]?.n, 5, "les cinq événements doivent être archivés entièrement");
 	} finally {
+		await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${prefix}%`]).catch(() => {});
 		await query("DELETE FROM archive_event WHERE dedup_key LIKE $1", [`${prefix}%`]).catch(() => {});
-		await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${prefix}%`]).catch(() => {});
+		await query("DELETE FROM event_archive WHERE dedup_key LIKE $1", [`${prefix}%`]).catch(() => {});
 		await query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
 	}
 });

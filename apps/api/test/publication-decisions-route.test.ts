@@ -8,6 +8,7 @@ import { publicationVerdicts } from "../src/analyse/incident-corroboration-48h.j
 import { buildPublicationJournal, verifyPublicationJournal } from "../src/analyse/publication-decisions.js";
 import { enregistrerDecisionsPublication } from "../src/journal/publication.js";
 import publicationDecisionsRoute from "../src/routes/publication-decisions.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `publi${Date.now().toString(36)}`;
 const SOURCES = [`${TAG}-a`, `${TAG}-b`];
@@ -63,7 +64,7 @@ before(async () => {
 after(async () => {
   if (app) await app.close();
   if (eventIds.length > 0) {
-    await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [eventIds]);
+    await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [eventIds]);
   }
   await query("DELETE FROM org WHERE id = $1", [orgId]);
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [SOURCES]);

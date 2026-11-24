@@ -23,6 +23,7 @@ import {
   enregistrerVerification,
 } from "../src/siren/verification-db.js";
 import { sirenUnique } from "./helpers/siren.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `sirc${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const orgIds: number[] = [];
@@ -173,7 +174,7 @@ test("la vérification horodatée retire l'organisation du critère, le retrait 
 
 after(async () => {
   if (dedupKeys.length) {
-    await query("DELETE FROM event WHERE dedup_key = ANY($1::text[])", [dedupKeys]);
+    await supprimerEvenementsArchivees("dedup_key = ANY($1::text[])", [dedupKeys]);
   }
   if (orgIds.length) {
     await query("DELETE FROM org WHERE id = ANY($1::int[])", [orgIds]);

@@ -3,6 +3,7 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
 import { answerAnchored } from "../src/search/anchored-answer.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rejeu${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -43,7 +44,7 @@ before(async () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
   await query("DELETE FROM org WHERE id = ANY($1::bigint[])", [orgIds]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   await closePools();

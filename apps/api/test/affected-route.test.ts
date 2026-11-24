@@ -12,6 +12,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import affectedRoute from "../src/routes/affected.js";
 import { sirenUnique } from "./helpers/siren.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `aff${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const SIREN = sirenUnique("affected-route");
@@ -69,22 +70,7 @@ after(async () => {
   // Le trigger `victim_alert_on_event` crée une alerte pour la revendication :
   // elle référence encore l'organisation supprimée si on ne la retire pas.
   await query("DELETE FROM alert WHERE org_id = ANY($1::int[])", [[naId, outId]]);
-  const copies = await query<{ dedup_key: string }>(
-    `INSERT INTO archive_event
-       (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
-        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
-        lat, lon, org_id, asset_id, created_at)
-     SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
-            valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
-            lat, lon, org_id, asset_id, created_at
-       FROM event WHERE source_id = $1
-     ON CONFLICT DO NOTHING RETURNING dedup_key`,
-    [SOURCE],
-  );
-  const clefs = copies.rows.map((ligne) => ligne.dedup_key);
-  await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
-  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
-  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]);
   await query("DELETE FROM org WHERE slug = ANY($1::text[])", [[NA_SLUG, OUT_SLUG]]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   await closePools();

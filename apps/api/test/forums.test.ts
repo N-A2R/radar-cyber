@@ -12,6 +12,7 @@ import {
 import { collectForums, parseForumFeed, persistForumMessages, readForumStats } from "../src/forums/collect.js";
 import { FORUM_SOURCES, forumSourceById, isPublicFreeForum, NA_SCOPES } from "../src/forums/sources.js";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const message = (sourceId: string, title: string, extra: Partial<ForumMessage> = {}): ForumMessage => ({
   id: `${sourceId}:${title}`,
@@ -142,7 +143,7 @@ test("the API counts registered forum sources and admitted messages from the dat
     }), { status: 200 })) as unknown as typeof fetch,
   });
   const testKey = collection.verdicts.find((v) => v.relevant)?.dedupKey ?? "";
-  await query("DELETE FROM event WHERE dedup_key = $1", [testKey]);
+  await supprimerEvenementsArchivees("dedup_key = $1", [testKey]);
   const before = await readForumStats();
   assert.equal(before.followedForums, 9);
   const inserted = await persistForumMessages(collection);

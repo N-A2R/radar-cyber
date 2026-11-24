@@ -26,6 +26,7 @@ import {
 	type DeliveryConfig,
 } from "../src/notify/alert-delivery.js";
 import { fetchNotificationAlerts } from "../src/notify/notification-alerts.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `repair-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
@@ -48,7 +49,7 @@ async function cleanup(ids: Ids): Promise<void> {
 	if (ids.alerts.length > 0) await query("DELETE FROM alert WHERE id = ANY($1::int[])", [ids.alerts]);
 	if (ids.events.length > 0) {
 		await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [ids.events]);
-		await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids.events]);
+		await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids.events]);
 	}
 	if (ids.orgs.length > 0) await query("DELETE FROM org WHERE id = ANY($1::int[])", [ids.orgs]);
 	if (ids.rules.length > 0) await query("DELETE FROM detection_rule WHERE id = ANY($1::text[])", [ids.rules]);

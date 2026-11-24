@@ -14,6 +14,7 @@ import { closePools, query } from "../src/db.js";
 import { executerCollecteur } from "../src/collectors/index.js";
 import { hashSessionToken } from "../src/auth.js";
 import sourcesRoute from "../src/routes/sources.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `mortauto${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE_ID = `test-${TAG}`;
@@ -207,7 +208,7 @@ test("réactivation admin : source active, compteur remis à zéro, historique c
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id = ANY($1)", [[SOURCE_ID, RESET_ID]]).catch(() => {});
+  await supprimerEvenementsArchivees("source_id = ANY($1)", [[SOURCE_ID, RESET_ID]]).catch(() => {});
   await query("DELETE FROM source WHERE id = ANY($1)", [[SOURCE_ID, RESET_ID]]).catch(() => {});
   await query("DELETE FROM app_session WHERE user_id IN (SELECT id FROM app_user WHERE email = ANY($1))", [[ADMIN_EMAIL, LECTEUR_EMAIL]]).catch(() => {});
   await query("DELETE FROM app_user WHERE email = ANY($1)", [[ADMIN_EMAIL, LECTEUR_EMAIL]]).catch(() => {});

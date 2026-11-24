@@ -9,6 +9,7 @@ import { randomBytes } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `sp${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -109,7 +110,7 @@ before(async () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id = ANY($1)", [SOURCES]);
+  await supprimerEvenementsArchivees("source_id = ANY($1)", [SOURCES]);
   await query("DELETE FROM quarantine_raw WHERE source = ANY($1)", [SOURCES]);
   await query("DELETE FROM collector_run WHERE source_id = ANY($1)", [SOURCES]);
   await query("DELETE FROM registre_traitement WHERE source_id = ANY($1)", [SOURCES]);

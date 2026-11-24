@@ -14,6 +14,7 @@ import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
 import reviewRoute from "../src/routes/review.js";
 import { installErrorHandler } from "../src/errors.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `rc${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -48,7 +49,7 @@ after(async () => {
 	if (app) await app.close();
 	for (const eventId of createdEventIds) {
 		await query("DELETE FROM alert WHERE event_id=$1", [eventId]);
-		await query("DELETE FROM event WHERE id=$1", [eventId]);
+		await supprimerEvenementsArchivees("id=$1", [eventId]);
 		const rest = await query<{ n: number }>("SELECT count(*)::int AS n FROM event WHERE id=$1", [eventId]);
 		assert.equal(rest.rows[0]?.n, 0, `événement ${eventId} supprimé`);
 	}

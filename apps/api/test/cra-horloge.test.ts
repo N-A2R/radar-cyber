@@ -16,6 +16,7 @@ import {
   horlogeDepuisEvidence,
   renduHorlogeCra,
 } from "../src/cra/horloge-cra.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `cra${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE_NVD = `test:${TAG}:nvd`;
@@ -128,22 +129,7 @@ before(async () => {
 
 after(async () => {
   if (Object.keys(ids).length === 0) return;
-  const copies = await query<{ dedup_key: string }>(
-    `INSERT INTO archive_event
-       (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
-        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
-        lat, lon, org_id, asset_id, created_at)
-     SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
-            valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
-            lat, lon, org_id, asset_id, created_at
-       FROM event WHERE id = ANY($1::bigint[])
-     ON CONFLICT DO NOTHING RETURNING dedup_key`,
-    [Object.values(ids)],
-  );
-  const clefs = copies.rows.map((ligne) => ligne.dedup_key);
-  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [Object.values(ids)]);
-  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
-  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
+  await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [Object.values(ids)]);
   await query("DELETE FROM source WHERE id IN ($1, $2)", [SOURCE_NVD, SOURCE_KEV]);
 });
 

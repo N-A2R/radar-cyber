@@ -19,6 +19,7 @@ import { hashSessionToken } from "../src/auth.js";
 import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
 import orgsLieesRoute from "../src/routes/orgs-liees.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `liees${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const EMAIL = `${TAG}@orgs-liees.test`;
@@ -102,7 +103,7 @@ after(async () => {
   if (app) await app.close();
   // Le journal est append-only : ses sujets restent préfixés par TAG, la base
   // de test est détruite à la fin de la suite.
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-event-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-event-%`]);
   await query("DELETE FROM quarantine_raw WHERE source=$1", [`${TAG}-source`]);
   await query("DELETE FROM org WHERE id = ANY($1::int[])", [orgIds]);
   await query("DELETE FROM app_session WHERE token=$1", [hashSessionToken(TOKEN)]);

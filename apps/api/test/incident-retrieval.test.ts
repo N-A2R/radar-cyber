@@ -21,6 +21,7 @@ import {
 	countTokens,
 	type EmbeddingRow,
 } from "../src/retrieval/incident-embedding.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = "incident-retrieval-test";
 const ACTORS = ["alphaactor", "betaactor", "gammaactor"] as const;
@@ -142,6 +143,6 @@ test("le voisinage retrouve l'analogue annoté et le critère agrège les rappel
 });
 
 after(async () => {
-	await query(`DELETE FROM event WHERE id = ANY($1::bigint[])`, [CREATED_IDS]).catch(() => {});
+	await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [CREATED_IDS]).catch(() => {});
 	await closePools().catch(() => {});
 });

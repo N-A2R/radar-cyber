@@ -14,6 +14,7 @@ import { hashSessionToken } from "../src/auth.js";
 import { closePools, query } from "../src/db.js";
 import orgsRoute from "../src/routes/orgs.js";
 import { installErrorHandler } from "../src/errors.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `fiche${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const EMAIL = `${TAG}@orgs-fiche.test`;
@@ -105,7 +106,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-event-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-event-%`]);
   await query("DELETE FROM org_alias WHERE org_id=$1", [orgId]);
   await query("DELETE FROM org WHERE id=$1", [orgId]); // les actifs partent en cascade
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [SOURCES]);
