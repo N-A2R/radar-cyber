@@ -435,3 +435,48 @@ FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47'
 Sur ces 9 058 organisations avec domaine, 46 échouent encore à la mesure : 14 preuves `lien-article` issues de mots génériques extraits d'articles (`CHROMIUM`, `DELL`, `SHELL`, ...), manifestement sans lien avec l'organisation locale, et 32 sans preuve comptable. Elles ne doivent pas être « réparées » : le faire reviendrait à fabriquer une attribution. Les autres réservoirs ont été instruits et écartés : les 5 preuves `url_testee` sans domaine sont les mêmes correspondances génériques d'articles, les 14 935 pages SIRENE de `org.parent_evidence` ne publient aucun site, et `org_history` ne recèle que des groupes déjà repris. Il reste donc 1 661 633 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites et 1 250 dont l'URL échoue à la preuve stricte après sept passes de réemploi : combler ce solde exigerait d'inventer des sites ou d'abaisser le standard de preuve, ce qui est refusé. Aucune donnée personnelle, aucun service payant, Nouvelle-Aquitaine uniquement.
 
 OBJECTIF : partiel — 9 012 / 1 671 941 organisations (0,5390 %), manque 1 662 929 organisations vérifiées (99,4610 %) pour atteindre 100 %
+
+## Rattrapage — tranche t18 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t17 : 9 012 / 1 671 941), seule base autorisée : la PR #794 existe mais son objectif chiffré (100 %) n'était pas atteint. Le travail des tranches t1 à t17 est conservé tel quel. La tranche t18 ouvre deux routes grises sans baisser la preuve stricte, sans donnée personnelle et sans service payant.
+
+**t18a — identifiant légal publié.** Sur 180 pages d'établissement déjà prouvées HTTP 200 par un registre public et hébergées sur une racine partagée, `scripts/expand-domains-identifiant.mts` n'accepte une page que si elle publie le **FINESS** (9 chiffres) ou le **SIRET** (14 chiffres) exact de l'organisation, avec au plus trois identifiants sur la page. Deux pages `retab.fr` publient le FINESS géographique attendu : 9 012 → 9 014. Détail : `bench/results/domains-from-identifiant.json`.
+
+**t18b — catalogue officiel.** `scripts/expand-domains-catalogue.mts` reprend 1 295 entrées HTTP 200 du catalogue `source` et du corpus versionné `bench/corpus/sources-na-population.jsonl` : seules les entrées qui désignent explicitement une commune (« Mairie de X ») ou un établissement scolaire nommant exactement une organisation de Nouvelle-Aquitaine sont appariées (12 retenues). Chaque URL est revérifiée en direct (statut 200, racine inchangée, contenu réel, nom de la commune ou de l'établissement dans la page, racine non déjà attribuée) : 6 sites officiels supplémentaires, 9 014 → 9 020. Détail : `bench/results/domains-from-catalogue.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-identifiant -- --limit=500 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-catalogue -- --limit=1000 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Mesure rejouée indépendamment après écriture :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9066
+organisations_avec_domaine_verifie_et_provenance=9020
+couverture_pourcent=0.5395
+```
+
+Décomposition reproductible de l'écart restant (1 662 921 organisations) :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661629 | 1246 | 9066
+```
+
+Il reste 1 661 629 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites, et 1 246 avec une URL mais qui échouent à la preuve stricte. Les 46 dernières preuves `lien-article` sont des correspondances génériques (`CHROMIUM`, `DELL`, `SHELL`, ...) sans lien avec l'organisation locale : les compter reviendrait à fabriquer une attribution. Combler 1 662 921 organisations exigerait d'inventer des sites ou d'abaisser le standard de preuve. Aucun domaine n'a été fabriqué ; Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+16 tests comportement (un par comportement) dans `apps/api/test/expand-domains-identifiant.test.ts` et `apps/api/test/expand-domains-catalogue.test.ts` ; 125 tests domaines verts au total ; typecheck `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 020 / 1 671 941 organisations (0,5395 %), manque 1 662 921 organisations vérifiées (99,4605 %) pour atteindre 100 %
