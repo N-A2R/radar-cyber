@@ -1,10 +1,11 @@
 // Routage Tor des URL `.onion` : reconnaissance, refus immédiat sans proxy,
 // et non-régression du chemin clearnet. Aucun accès réseau externe.
 
-import { test } from "node:test";
+import { mock, test } from "node:test";
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { fetchResilient, isOnionUrl } from "../src/collectors/http.js";
+import { fetchResilient, isOnionUrl, SourceBlockedError } from "../src/collectors/http.js";
+import { resetTorBackoff } from "../src/collectors/tor/tor-circuit.js";
 
 function withEnvUnset(name: string, fn: () => Promise<void>): Promise<void> {
   const saved = process.env[name];
@@ -27,13 +28,30 @@ test("isOnionUrl ignore les URL invalides", () => {
   assert.equal(isOnionUrl(""), false);
 });
 
-test("fetchResilient rejette une URL .onion sans RADAR_TOR_SOCKS, immédiatement", async () => {
-  await withEnvUnset("RADAR_TOR_SOCKS", async () => {
-    const t0 = Date.now();
-    await assert.rejects(fetchResilient("http://abc.onion/"), /RADAR_TOR_SOCKS/);
-    const elapsed = Date.now() - t0;
-    assert.ok(elapsed < 500, `échec non immédiat : ${elapsed} ms`);
-  });
+test("fetchResilient rejette une URL .onion sans proxy, sans aucun dispatch", async () => {
+  await withEnvUnset("RADAR_TOR_SOCKS_LIST", () => withEnvUnset("RADAR_TOR_SOCKS", async () => {
+    const source = "test:onion:sans-proxy";
+    resetTorBackoff(source);
+    // Aucun repli clearnet : si un jour la garde saute, le spy le voit.
+    const fetchSpy = mock.method(globalThis, "fetch", () => {
+      throw new Error("dispatch clearnet interdit pour une URL .onion");
+    });
+    try {
+      await assert.rejects(
+        fetchResilient("http://abc.onion/", { source, maxAttempts: 3 }),
+        (err: unknown) => {
+          assert.ok(err instanceof SourceBlockedError, "refus explicite, pas une erreur réseau");
+          assert.equal(err.permanent, true, "refus permanent : aucune tentative réseau");
+          assert.match(err.message, /RADAR_TOR_SOCKS/);
+          return true;
+        },
+      );
+      assert.equal(fetchSpy.mock.callCount(), 0, "aucun appel fetch, aucun repli clearnet");
+    } finally {
+      fetchSpy.mock.restore();
+      resetTorBackoff(source);
+    }
+  }));
 });
 
 test("fetchResilient refuse loopback et IP privées par défaut", async () => {

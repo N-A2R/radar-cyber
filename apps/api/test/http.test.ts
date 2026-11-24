@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { mock, test } from "node:test";
 import assert from "node:assert/strict";
 import {
   HostLimiter,
@@ -12,6 +12,14 @@ import {
   setValidators,
   sourceBackoffRemainingMs,
 } from "../src/collectors/http.js";
+
+// `setImmediate` n'est pas simulé : il laisse la chaîne de `.then` de la file
+// s'inscrire avant qu'on avance l'horloge fictive.
+const flush = () => {
+  const { promise, resolve } = Promise.withResolvers<void>();
+  setImmediate(resolve);
+  return promise;
+};
 
 test("backoffDelayMs : six cas, paliers puis plafond", () => {
   const cases: Array<[number, number, string]> = [
@@ -106,27 +114,70 @@ test("fetchResilient : un 404 n'est jamais rendu comme contenu", async () => {
 });
 
 test("HostLimiter espaces appels même hôte", async () => {
-  const limiter = new HostLimiter(50);
-  const times: number[] = [];
-  const run = async () => {
-    const t0 = Date.now();
-    await limiter.schedule("a", async () => { times.push(Date.now()); });
-  };
-  await Promise.all([run(), run(), run()]);
-  // séquentiels via queue; vérifie écarts
-  times.sort((x,y)=>x-y);
-  assert.ok(times[1]-times[0] >= 45, `gap1 ${times[1]-times[0]}`);
-  assert.ok(times[2]-times[1] >= 45, `gap2 ${times[2]-times[1]}`);
+  // Horloge et minuteur fictifs : on vérifie la file d'attente et l'espacement
+  // sans dépendre de la charge de la machine ni d'un seuil de wall-clock.
+  mock.timers.enable({ apis: ["Date", "setTimeout"], now: 1_700_000_000_000 });
+  try {
+    const limiter = new HostLimiter(50);
+    const started: string[] = [];
+    const gates: Array<() => void> = [];
+    let inFlight = 0;
+    let maxInFlight = 0;
+    const calls = ["a1", "a2", "a3"].map((id) => limiter.schedule("a", async () => {
+      started.push(id);
+      inFlight++;
+      maxInFlight = Math.max(maxInFlight, inFlight);
+      const { promise, resolve } = Promise.withResolvers<void>();
+      gates.push(resolve);
+      await promise;
+      inFlight--;
+    }));
+
+    await mock.timers.tick(0);
+    assert.deepEqual(started, ["a1"], "premier appel immédiat");
+    gates[0]();
+    await flush();
+    await mock.timers.tick(49);
+    assert.deepEqual(started, ["a1"], "aucun appel suivant avant la fin de l'intervalle");
+    await mock.timers.tick(1);
+    assert.deepEqual(started, ["a1", "a2"], "second appel dès l'intervalle écoulé");
+    gates[1]();
+    await flush();
+    await mock.timers.tick(50);
+    assert.deepEqual(started, ["a1", "a2", "a3"], "troisième appel espacé à son tour");
+    gates[2]();
+    await flush();
+    await Promise.all(calls);
+    assert.equal(maxInFlight, 1, "un seul appel en vol pour un même hôte");
+  } finally {
+    mock.timers.reset();
+  }
 });
 
 test("HostLimiter hôte différent non bloqué", async () => {
-  const limiter = new HostLimiter(200);
-  const start = Date.now();
-  await Promise.all([
-    limiter.schedule("x", async () => {}),
-    limiter.schedule("y", async () => {}),
-  ]);
-  assert.ok(Date.now() - start < 100);
+  mock.timers.enable({ apis: ["Date", "setTimeout"], now: 1_700_000_000_000 });
+  try {
+    const limiter = new HostLimiter(200);
+    const started: string[] = [];
+    const gates = new Map<string, () => void>();
+    const calls = ["x", "y"].map((host) => limiter.schedule(host, async () => {
+      started.push(host);
+      const { promise, resolve } = Promise.withResolvers<void>();
+      gates.set(host, resolve);
+      await promise;
+    }));
+
+    // Sans avance d'horloge : deux hôtes distincts ne se partagent pas la file.
+    await mock.timers.tick(0);
+    assert.deepEqual(started.sort(), ["x", "y"], "les deux hôtes démarrent sans timer");
+    gates.get("y")?.();
+    await mock.timers.tick(0);
+    gates.get("x")?.();
+    await Promise.all(calls);
+    assert.deepEqual(started, ["x", "y"], "chaque hôte a bien terminé son appel");
+  } finally {
+    mock.timers.reset();
+  }
 });
 
 test("getValidators par défaut undefined", () => {
