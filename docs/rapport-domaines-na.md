@@ -435,3 +435,23 @@ FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47'
 Sur ces 9 058 organisations avec domaine, 46 échouent encore à la mesure : 14 preuves `lien-article` issues de mots génériques extraits d'articles (`CHROMIUM`, `DELL`, `SHELL`, ...), manifestement sans lien avec l'organisation locale, et 32 sans preuve comptable. Elles ne doivent pas être « réparées » : le faire reviendrait à fabriquer une attribution. Les autres réservoirs ont été instruits et écartés : les 5 preuves `url_testee` sans domaine sont les mêmes correspondances génériques d'articles, les 14 935 pages SIRENE de `org.parent_evidence` ne publient aucun site, et `org_history` ne recèle que des groupes déjà repris. Il reste donc 1 661 633 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites et 1 250 dont l'URL échoue à la preuve stricte après sept passes de réemploi : combler ce solde exigerait d'inventer des sites ou d'abaisser le standard de preuve, ce qui est refusé. Aucune donnée personnelle, aucun service payant, Nouvelle-Aquitaine uniquement.
 
 OBJECTIF : partiel — 9 012 / 1 671 941 organisations (0,5390 %), manque 1 662 929 organisations vérifiées (99,4610 %) pour atteindre 100 %
+
+## Tranche t33 (2026-11-24) — candidats Wikidata restants, contrôle DNS et API officielle
+
+Nouvelle route `scripts/expand-domains-candidats-officiels.mts` : les 7 105 lignes déjà versionnées dans `bench/domain-candidates/wikidata-na-sites.tsv` et `wikidata-na-hq-sites.tsv` sont reparcourues intégralement ; les passes antérieures s'arrêtaient à une limite. Chaque URL doit encore être publiée comme P856 par l'API officielle Wikidata, avoir un hostname RFC sans IP littérale, credentials ni port, résoudre uniquement vers des adresses publiques (REF1918, loopback, link-local, CGNAT, documentation, ULA exclus), et répondre en HTTP 200 sur la même racine après vérification manuelle de chaque redirection. La preuve stricte inchangée (contenu réel, jeton distinctif du nom) est conservée.
+
+Mesure à sec sur la base de production, sans aucune écriture : `candidates=7105 selected=80 verified=39`, couverture inchangée à 9 440. Refus comptés et publiés dans l'artefact : 6 865 candidats hors pré-filtre, 159 P856 non confirmés, 13 HTTP hors 200, 9 pages trop courtes, 6 hôtes privés sur redirection, 6 échecs de fetch, 5 redirections hors racine, 2 sans jeton distinctif. Aucun refus n'est transformé en domaine.
+
+Écriture vérifiée uniquement dans une base `radar_test_*` dédiée, avec trois organisations publiques prélevées telles quelles sur la base de production (nom, ville, département, SIREN) : `selected=4 verified=3 applied=true`, couverture mesurée `0 -> 3` pour 13 organisations de Nouvelle-Aquitaine. Les trois domaines (`burdis-volley.fr`, `lesrequinsmarteaux.com`, `girondins.com`) portent la provenance `wikidata:P856:candidats-officiels:http200`, le statut 200, l'URL finale et le QID. Détails reproductibles : `bench/results/domains-from-candidats-officiels.json` (mesure à sec) et `bench/results/domains-from-candidats-officiels-test.json` (écriture test). La base `radar` de production n'a pas été modifiée.
+
+Commandes reproductibles (secrets lus depuis l'environnement, jamais affichés) :
+
+```sh
+set -a; . /home/jolt/.config/radar-cyber/api-security.env; set +a
+apps/api/node_modules/.bin/tsx scripts/expand-domains-candidats-officiels.mts \
+  --limit=80 --concurrency=8 --output=bench/results/domains-from-candidats-officiels.json
+DATABASE_URL=<url-de-la-base-de-test> apps/api/node_modules/.bin/tsx scripts/domain-coverage.mts
+```
+
+OBJECTIF : partiel — le réservoir public vérifiable fournit encore des dizaines de domaines réels, mais les 1,66 million d'organisations sans URL HTTP 200 restent hors de portée sans invention ; aucun placeholder n'est ajouté.
+

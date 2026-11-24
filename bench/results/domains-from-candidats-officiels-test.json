@@ -1,0 +1,71 @@
+{
+  "source": "wikidata:P856:candidats-officiels:http200",
+  "candidates": 7105,
+  "prefiltered": 4,
+  "wikidataClaimsConfirmed": 4,
+  "selected": 4,
+  "verified": 3,
+  "applied": true,
+  "refusals": {
+    "not-prefiltered": 7101,
+    "http-not-200": 1
+  },
+  "before": {
+    "organisations": 34,
+    "nouvelleAquitaine": 13,
+    "withDomain": 0,
+    "withVerifiedProvenance": 0,
+    "coveragePercent": 0
+  },
+  "after": {
+    "organisations": 34,
+    "nouvelleAquitaine": 13,
+    "withDomain": 3,
+    "withVerifiedProvenance": 3,
+    "coveragePercent": 23.0769
+  },
+  "domains": [
+    {
+      "orgId": 52,
+      "name": "BORDEAUX MERIGNAC VOLLEY",
+      "siren": "988010583",
+      "domain": "burdis-volley.fr",
+      "qid": "Q16626987",
+      "urlVersionnee": "http://burdis-volley.fr/",
+      "urlP856": "http://burdis-volley.fr/",
+      "urlFinale": "https://www.burdis-volley.fr/",
+      "statut": 200,
+      "token": "merignac",
+      "confidence": 0.95,
+      "redirections": 2
+    },
+    {
+      "orgId": 53,
+      "name": "LES REQUINS MARTEAUX",
+      "siren": "392114880",
+      "domain": "lesrequinsmarteaux.com",
+      "qid": "Q16655292",
+      "urlVersionnee": "https://www.lesrequinsmarteaux.com/",
+      "urlP856": "https://www.lesrequinsmarteaux.com/",
+      "urlFinale": "https://www.lesrequinsmarteaux.com/livres",
+      "statut": 200,
+      "token": "requins",
+      "confidence": 0.95,
+      "redirections": 1
+    },
+    {
+      "orgId": 54,
+      "name": "GIRONDINS DE BORDEAUX",
+      "siren": "322053547",
+      "domain": "girondins.com",
+      "qid": "Q3055036",
+      "urlVersionnee": "http://www.girondins.com/",
+      "urlP856": "http://www.girondins.com/",
+      "urlFinale": "https://www.girondins.com/fr",
+      "statut": 200,
+      "token": "girondins",
+      "confidence": 0.95,
+      "redirections": 2
+    }
+  ]
+}
