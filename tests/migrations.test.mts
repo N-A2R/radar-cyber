@@ -7,7 +7,20 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import {
+  chmodSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { createServer, type Server } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import {
@@ -20,6 +33,80 @@ import {
 
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
 const read = (path: string) => readFileSync(`${ROOT}${path}`, "utf8");
+
+/** Exécute le routage de sauvegarde sans jamais lancer de dump ou de réseau. */
+async function runBackupRouter(
+  options: { databaseUrl?: string },
+): Promise<{ output: string; mode: "configured" | "tunnel"; url?: string; pgpass?: string }> {
+  const dir = mkdtempSync(join(tmpdir(), "radar-backup-router-"));
+  const script = join(dir, "backup-remote.sh");
+  const bin = join(dir, "bin");
+  const capture = join(dir, "capture");
+  copyFileSync(join(ROOT, "scripts/backup-remote.sh"), script);
+  chmodSync(script, 0o755);
+  writeFileSync(join(dir, "backup-db.sh"), [
+    "#!/usr/bin/env bash",
+    "printf 'backup\\n%s\\n%s\\n' \"${DATABASE_URL:-}\" \"${PGPASSFILE:-}\" >> \"$RADAR_BACKUP_CAPTURE\"",
+    "",
+  ].join("\n"), { mode: 0o755 });
+  mkdirSync(bin, { recursive: true });
+  writeFileSync(join(bin, "ssh"), [
+    "#!/usr/bin/env bash",
+    "printf 'ssh\\n' >> \"$RADAR_BACKUP_CAPTURE\"",
+    "exec sleep 30",
+    "",
+  ].join("\n"), { mode: 0o755 });
+  const env: NodeJS.ProcessEnv = {
+    PATH: `${bin}:/usr/bin:/bin`,
+    HOME: dir,
+    RADAR_BACKUP_CAPTURE: capture,
+    BOX_DB_PASS_FILE: join(dir, "db.pass"),
+  };
+  if (options.databaseUrl !== undefined) env.DATABASE_URL = options.databaseUrl;
+  let server: Server | undefined;
+  try {
+    if (options.databaseUrl === undefined) {
+      writeFileSync(join(dir, "db.pass"), "secret:jetable\n", { mode: 0o600 });
+      server = createServer((socket) => socket.end());
+      await new Promise<void>((resolve, reject) => {
+        server?.once("error", reject);
+        server?.listen(0, "127.0.0.1", () => resolve());
+      });
+      const address = server.address();
+      assert.ok(address && typeof address === "object", "le serveur de test doit écouter sur TCP");
+      env.TUNNEL_PORT = String(address.port);
+    }
+    const result = spawnSync("bash", [script], { env, encoding: "utf8", timeout: 10_000 });
+    assert.equal(result.status, 0, result.stderr || result.error?.message || "sauvegarde de test en échec");
+    const output = `${result.stdout}${result.stderr}`;
+    const lines = existsSync(capture) ? readFileSync(capture, "utf8").trim().split("\n") : [];
+    if (options.databaseUrl !== undefined) {
+      assert.deepEqual(lines, ["backup", options.databaseUrl], "le tunnel ne doit jamais remplacer la cible configurée");
+      return { output, mode: "configured", url: lines[1] };
+    }
+    assert.equal(lines[0], "ssh", "le repli doit ouvrir le tunnel SSH");
+    assert.equal(lines[1], "backup", "le tunnel doit ensuite lancer la sauvegarde");
+    assert.match(lines[2] ?? "", /^postgres:\/\/radar@127\.0\.0\.1:\d+\/radar$/);
+    assert.ok((lines[3] ?? "").length > 0, "le mot de passe reste dans PGPASSFILE");
+    assert.doesNotMatch(output, /secret:jetable/, "aucun secret dans les journaux");
+    return { mode: "tunnel", output, url: lines[2], pgpass: lines[3] };
+  } finally {
+    if (server) await new Promise<void>((resolve) => server?.close(() => resolve()));
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+test("la sauvegarde utilise la base configurée sans ouvrir de tunnel", async () => {
+  const result = await runBackupRouter({ databaseUrl: "postgres://app@127.0.0.1:5433/radar" });
+  assert.equal(result.mode, "configured");
+  assert.equal(result.url, "postgres://app@127.0.0.1:5433/radar");
+});
+
+test("la sauvegarde conserve le tunnel en repli sans exposer son mot de passe", async () => {
+  const result = await runBackupRouter({});
+  assert.equal(result.mode, "tunnel");
+  assert.ok(result.pgpass);
+});
 
 test("les versions de migrations sont uniques et ordonnées par préfixe numérique", () => {
   const migrations = listMigrations(`${ROOT}db`);
