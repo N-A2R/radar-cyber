@@ -1,5 +1,7 @@
 # Alias d'acteurs et de programmes rançongiciel
 
+OBJECTIF : atteint — 963 canoniques avec >= 2 alias / cible >= 20
+
 `actor_alias` réunit les graphies d'un même acteur ou programme rançongiciel
 issues de **MISP Galaxy** :
 
@@ -48,6 +50,7 @@ La forme canonique est la valeur de grappe la plus référencée de la composant
 ```bash
 pnpm genere:actor-alias     # réécrit db/migrate-211-actor-alias.sql depuis MISP Galaxy
 pnpm verifie:actor-alias    # crée une base de test, exécute le critère, la détruit
+pnpm verifie:objectif-actor-alias  # mesure l'objectif et vérifie cette déclaration
 ```
 
 Le générateur accepte `MISP_RANSOMWARE_URL` et `MISP_THREAT_ACTOR_URL` pour lire
@@ -60,5 +63,5 @@ SELECT count(*)
   FROM (
     SELECT canonique FROM actor_alias GROUP BY canonique HAVING count(*) >= 2
   ) AS groupes;
--- attendu : >= 20
+-- cible : >= 20 ; mesuré : 963
 ```

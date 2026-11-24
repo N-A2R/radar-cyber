@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://radar.exemple.invalid/schemas/dora-eba-annexe-i.json",
+  "title": "DORA — avis initial d'incident majeur, modèle EBA Annexe I",
+  "description": "Champs 1.1 à 2.10 de l'Annexe I du règlement d'exécution (UE) 2025/302 ; valeurs de listes fermées de l'Annexe II. Les champs conditionnels sont renseignés comme les obligatoires dans le dossier pré-rempli.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type_of_submission",
+    "submitting_entity_name",
+    "submitting_entity_id",
+    "affected_entity_types",
+    "affected_entity_name",
+    "affected_entity_lei",
+    "primary_contact_name",
+    "primary_contact_email",
+    "primary_contact_phone",
+    "secondary_contact_name",
+    "secondary_contact_email",
+    "secondary_contact_phone",
+    "ultimate_parent_name",
+    "ultimate_parent_lei",
+    "reporting_currency",
+    "incident_reference_code",
+    "detected_at",
+    "classified_as_major_at",
+    "incident_description",
+    "classification_criteria",
+    "affected_eea_countries",
+    "discovery_source",
+    "third_party_origin",
+    "business_continuity_plan_activated",
+    "other_information"
+  ],
+  "properties": {
+    "type_of_submission": {
+      "type": "string",
+      "enum": [
+        "initial notification",
+        "intermediate report",
+        "final report",
+        "major incident reclassified as non-major"
+      ]
+    },
+    "submitting_entity_name": { "type": "string", "minLength": 1 },
+    "submitting_entity_id": { "$ref": "#/definitions/lei" },
+    "affected_entity_types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "credit institution",
+          "payment institution",
+          "exempted payment institution",
+          "account information service provider",
+          "electronic money institution",
+          "exempted electronic money institution",
+          "investment firm",
+          "crypto-asset service provider",
+          "issuer of asset-referenced tokens",
+          "central securities depository",
+          "central counterparty",
+          "trading venue",
+          "trade repository",
+          "manager of alternative investment fund",
+          "management company",
+          "data reporting service provider",
+          "insurance and reinsurance undertaking",
+          "insurance intermediary, reinsurance intermediary and ancillary insurance intermediary",
+          "institution for occupational retirement provision",
+          "credit rating agency",
+          "administrator of critical benchmarks",
+          "crowdfunding service provider",
+          "securitisation repository"
+        ]
+      }
+    },
+    "affected_entity_name": { "type": "string", "minLength": 1 },
+    "affected_entity_lei": { "$ref": "#/definitions/lei" },
+    "primary_contact_name": { "type": "string", "minLength": 1 },
+    "primary_contact_email": { "$ref": "#/definitions/contactEmail" },
+    "primary_contact_phone": { "$ref": "#/definitions/phone" },
+    "secondary_contact_name": { "type": "string", "minLength": 1 },
+    "secondary_contact_email": { "$ref": "#/definitions/contactEmail" },
+    "secondary_contact_phone": { "$ref": "#/definitions/phone" },
+    "ultimate_parent_name": { "type": "string", "minLength": 1 },
+    "ultimate_parent_lei": { "$ref": "#/definitions/lei" },
+    "reporting_currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "incident_reference_code": { "type": "string", "minLength": 1 },
+    "detected_at": { "$ref": "#/definitions/utcInstant" },
+    "classified_as_major_at": { "$ref": "#/definitions/utcInstant" },
+    "incident_description": { "type": "string", "minLength": 1 },
+    "classification_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "clients, financial counterparts and transactions affected",
+          "reputational impact",
+          "duration and service downtime",
+          "geographical spread",
+          "data losses",
+          "critical services affected",
+          "economic impact"
+        ]
+      }
+    },
+    "affected_eea_countries": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[A-Z]{2}$" }
+    },
+    "discovery_source": {
+      "type": "string",
+      "enum": [
+        "IT Security",
+        "staff",
+        "internal audit",
+        "external audit",
+        "clients",
+        "financial counterparts",
+        "third-party provider",
+        "attacker",
+        "monitoring systems",
+        "authority/agency/law enforcement body",
+        "other"
+      ]
+    },
+    "third_party_origin": { "type": "string", "minLength": 1 },
+    "business_continuity_plan_activated": { "type": "boolean" },
+    "other_information": { "type": "string", "minLength": 1 }
+  },
+  "definitions": {
+    "lei": { "type": "string", "pattern": "^[A-Z0-9]{20}$" },
+    "utcInstant": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "contactEmail": {
+      "type": "string",
+      "pattern": "^[a-z-]+@[a-z-]+\\.invalid$"
+    },
+    "phone": { "type": "string", "pattern": "^\\+[0-9][0-9 ]+$" }
+  }
+}

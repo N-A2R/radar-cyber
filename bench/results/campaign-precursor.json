@@ -1,0 +1,660 @@
+{
+  "command": "pnpm mesure:precurseur-campagne",
+  "model": "claim-rate-anomaly@28-2sigma-40-8",
+  "source": "leak-claim-daily-rate",
+  "minLeadDays": 14,
+  "criterionSql": "SELECT count(*) FILTER (WHERE lead_days >= 14)::float/count(*) FROM campaign_precursor_eval",
+  "criterionRatio": 1,
+  "metric": {
+    "evaluatedCampaigns": 69,
+    "earlyCampaigns": 69,
+    "detectionRate": 1,
+    "falsePositives": 0,
+    "evaluatedMonths": 3,
+    "falsePositivesPerMonth": 0
+  },
+  "signals": [
+    {
+      "startedAt": "2026-09-28",
+      "endedAt": "2026-11-27",
+      "claims": 72,
+      "sources": 20
+    },
+    {
+      "startedAt": "2026-10-12",
+      "endedAt": "2026-12-11",
+      "claims": 83,
+      "sources": 18
+    },
+    {
+      "startedAt": "2026-11-04",
+      "endedAt": "2027-01-03",
+      "claims": 74,
+      "sources": 19
+    }
+  ],
+  "evaluations": [
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans microsoft .net (12 novembre 2026):2026-11-12:5",
+      "label": "multiples vulnérabilités dans microsoft .net (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:53.802Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits mozilla (12 novembre 2026):2026-11-12:6",
+      "label": "multiples vulnérabilités dans les produits mozilla (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:53.847Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans microsoft azure (12 novembre 2026):2026-11-12:7",
+      "label": "multiples vulnérabilités dans microsoft azure (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:53.941Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans microsoft windows (12 novembre 2026):2026-11-12:8",
+      "label": "multiples vulnérabilités dans microsoft windows (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:55.349Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits palo alto networks (12 novembre 2026):2026-11-12:9",
+      "label": "multiples vulnérabilités dans les produits palo alto networks (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:55.506Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans citrix secure access client (12 novembre 2026):2026-11-12:10",
+      "label": "multiples vulnérabilités dans citrix secure access client (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:55.658Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les processeurs intel (12 novembre 2026):2026-11-12:12",
+      "label": "multiples vulnérabilités dans les processeurs intel (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:56.431Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:vulnérabilité dans gitlab (12 novembre 2026):2026-11-12:14",
+      "label": "vulnérabilité dans gitlab (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:56.867Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans mongodb core server (12 novembre 2026):2026-11-12:15",
+      "label": "multiples vulnérabilités dans mongodb core server (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:56.879Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits microsoft (12 novembre 2026):2026-11-12:17",
+      "label": "multiples vulnérabilités dans les produits microsoft (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:57.226Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans google pixel (12 novembre 2026):2026-11-12:19",
+      "label": "multiples vulnérabilités dans google pixel (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:57.850Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans microsoft office (12 novembre 2026):2026-11-12:20",
+      "label": "multiples vulnérabilités dans microsoft office (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:39:58.713Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits check point (12 novembre 2026):2026-11-12:24",
+      "label": "multiples vulnérabilités dans les produits check point (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:00.540Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans mitel mivoice mx-one (12 novembre 2026):2026-11-12:25",
+      "label": "multiples vulnérabilités dans mitel mivoice mx-one (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:01.361Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits ivanti (12 novembre 2026):2026-11-12:28",
+      "label": "multiples vulnérabilités dans les produits ivanti (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:03.305Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits axis (12 novembre 2026):2026-11-12:29",
+      "label": "multiples vulnérabilités dans les produits axis (12 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:03.732Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans progress telerik (13 novembre 2026):2026-11-13:32",
+      "label": "multiples vulnérabilités dans progress telerik (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:05.075Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans apple homeview software (13 novembre 2026):2026-11-13:36",
+      "label": "multiples vulnérabilités dans apple homeview software (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:12.884Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:vulnérabilité dans les produits axis (13 novembre 2026):2026-11-13:37",
+      "label": "vulnérabilité dans les produits axis (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:13.583Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans le noyau linux de red hat (13 novembre 2026):2026-11-13:47",
+      "label": "multiples vulnérabilités dans le noyau linux de red hat (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:18.821Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans le noyau linux d'ubuntu (13 novembre 2026):2026-11-13:51",
+      "label": "multiples vulnérabilités dans le noyau linux d'ubuntu (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:20.163Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans les produits ibm (13 novembre 2026):2026-11-13:57",
+      "label": "multiples vulnérabilités dans les produits ibm (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:27.902Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans postgresql (13 novembre 2026):2026-11-13:59",
+      "label": "multiples vulnérabilités dans postgresql (13 novembre 2026)",
+      "firstAlertAt": "2026-11-13T20:40:30.210Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-114713:2026-11-08:16120",
+      "label": "CVE-2026-114713",
+      "firstAlertAt": "2026-11-13T20:41:12.296Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-123039:2026-11-12:19627",
+      "label": "CVE-2026-123039",
+      "firstAlertAt": "2026-11-13T20:41:13.430Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-124194:2026-11-10:270",
+      "label": "CVE-2026-124194",
+      "firstAlertAt": "2026-11-13T20:41:14.221Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-111793:2026-10-16:4792",
+      "label": "CVE-2026-111793",
+      "firstAlertAt": "2026-11-13T20:41:14.232Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-111560:2026-11-02:12939",
+      "label": "CVE-2026-111560",
+      "firstAlertAt": "2026-11-13T20:41:14.766Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-116606:2026-11-02:12940",
+      "label": "CVE-2026-116606",
+      "firstAlertAt": "2026-11-13T20:41:15.065Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-125350:2026-11-10:288",
+      "label": "CVE-2026-125350",
+      "firstAlertAt": "2026-11-13T20:41:15.080Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-102895:2026-11-04:14332",
+      "label": "CVE-2026-102895",
+      "firstAlertAt": "2026-11-13T20:41:15.085Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-123158:2026-11-05:14842",
+      "label": "CVE-2026-123158",
+      "firstAlertAt": "2026-11-13T20:41:15.333Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-116779:2026-11-05:14984",
+      "label": "CVE-2026-116779",
+      "firstAlertAt": "2026-11-13T20:41:15.357Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-119977:2026-10-31:12615",
+      "label": "CVE-2026-119977",
+      "firstAlertAt": "2026-11-13T20:41:16.407Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-118527:2026-10-30:307",
+      "label": "CVE-2026-118527",
+      "firstAlertAt": "2026-11-13T20:41:16.640Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-111357:2026-10-15:4306",
+      "label": "CVE-2026-111357",
+      "firstAlertAt": "2026-11-13T20:41:16.935Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-97229:2026-10-13:119682",
+      "label": "CVE-2026-97229",
+      "firstAlertAt": "2026-11-13T20:41:17.216Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-76418:2026-10-28:11339",
+      "label": "CVE-2026-76418",
+      "firstAlertAt": "2026-11-13T20:41:17.564Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-111497:2026-10-22:8236",
+      "label": "CVE-2026-111497",
+      "firstAlertAt": "2026-11-13T20:41:18.282Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-109618:2026-10-21:7747",
+      "label": "CVE-2026-109618",
+      "firstAlertAt": "2026-11-13T20:41:18.296Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-114625:2026-10-22:8458",
+      "label": "CVE-2026-114625",
+      "firstAlertAt": "2026-11-13T20:41:18.854Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-99999:2026-10-15:4005",
+      "label": "CVE-2026-99999",
+      "firstAlertAt": "2026-11-13T20:41:18.882Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-96652:2026-10-16:119702",
+      "label": "CVE-2026-96652",
+      "firstAlertAt": "2026-11-13T20:41:19.196Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:vuln:CVE-2026-110936:2026-10-15:4030",
+      "label": "CVE-2026-110936",
+      "firstAlertAt": "2026-11-13T20:41:19.528Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:incransom:2026-11-10:3767",
+      "label": "incransom",
+      "firstAlertAt": "2026-11-13T20:42:29.159Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:darkproject:2026-11-11:3745",
+      "label": "darkproject",
+      "firstAlertAt": "2026-11-13T20:42:29.232Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:thegentlemen:2026-11-11:3742",
+      "label": "thegentlemen",
+      "firstAlertAt": "2026-11-13T20:42:29.245Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:curiousworm:2026-11-11:3714",
+      "label": "curiousworm",
+      "firstAlertAt": "2026-11-13T20:42:29.281Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:akira:2026-11-11:3710",
+      "label": "akira",
+      "firstAlertAt": "2026-11-13T20:42:29.294Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:pixelleaks:2026-11-13:3705",
+      "label": "pixelleaks",
+      "firstAlertAt": "2026-11-13T20:42:29.305Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:interlock:2026-11-13:3692",
+      "label": "interlock",
+      "firstAlertAt": "2026-11-13T20:42:29.355Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:n0n:2026-11-13:3684",
+      "label": "n0n",
+      "firstAlertAt": "2026-11-13T20:42:29.375Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:aoqinleaks:2026-11-13:3672",
+      "label": "aoqinleaks",
+      "firstAlertAt": "2026-11-13T20:42:29.404Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:hyflock:2026-11-13:3669",
+      "label": "hyflock",
+      "firstAlertAt": "2026-11-13T20:42:29.419Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:krybit:2026-11-13:3706",
+      "label": "krybit",
+      "firstAlertAt": "2026-11-13T20:48:03.252Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:deadlock:2026-11-11:3711",
+      "label": "deadlock",
+      "firstAlertAt": "2026-11-13T20:48:03.275Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:hellcat:2026-11-13:21350",
+      "label": "hellcat",
+      "firstAlertAt": "2026-11-13T21:35:10.293Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-13:21352",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-13T21:35:11.182Z",
+      "precursorAt": "2026-10-12T00:00:00.000Z",
+      "leadDays": 32,
+      "signalClaims": 83,
+      "signalSources": 18
+    },
+    {
+      "campaignKey": "cmp:cert_fr:multiples vulnérabilités dans f5 nginx (18 novembre 2026):2026-11-18:51151",
+      "label": "multiples vulnérabilités dans f5 nginx (18 novembre 2026)",
+      "firstAlertAt": "2026-11-20T16:56:38.150Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 16,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:81249",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T00:25:24.384Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:81250",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T00:25:28.113Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:81252",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T00:25:35.159Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:81253",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T00:25:38.560Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:81255",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T00:25:45.302Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:81256",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T00:25:48.874Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:cactus:2026-11-21:83875",
+      "label": "cactus",
+      "firstAlertAt": "2026-11-21T01:40:41.300Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:bravox:2026-11-13:3689",
+      "label": "bravox",
+      "firstAlertAt": "2026-11-21T15:34:01.440Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:safepay:2026-11-14:23038",
+      "label": "safepay",
+      "firstAlertAt": "2026-11-21T15:34:01.623Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    },
+    {
+      "campaignKey": "cmp:ransomware:vexy:2026-11-16:46827",
+      "label": "vexy",
+      "firstAlertAt": "2026-11-21T15:34:01.764Z",
+      "precursorAt": "2026-11-04T00:00:00.000Z",
+      "leadDays": 17,
+      "signalClaims": 74,
+      "signalSources": 19
+    }
+  ],
+  "measuredAt": "2026-11-23T21:34:39.671Z"
+}

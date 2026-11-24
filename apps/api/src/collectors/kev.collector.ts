@@ -52,6 +52,8 @@ export const collector: Collector = {
         sourceUrl: `https://nvd.nist.gov/vuln/detail/${cveID}`,
         evidence: {
           vendor: String(v.vendorProject ?? "").trim(),
+          // Le flux KEV recense des vulnérabilités activement exploitées.
+          exploited: true,
           product: String(v.product ?? "").trim(),
           ransomware,
           description: String(v.shortDescription ?? "").trim(),

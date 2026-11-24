@@ -389,3 +389,27 @@ function chooseCanonical(nodes: readonly string[], info: Map<string, NodeInfo>):
 	})[0]!;
 	return info.get(best)?.display ?? best;
 }
+
+/** Objectif déclaré : au moins 20 canoniques avec deux alias ou plus. */
+export const OBJECTIF_CANONIQUES_MIN = 20;
+
+export type ObjectifActorAlias = {
+	valeur: number;
+	cible: number;
+	atteint: boolean;
+	ligne: string;
+};
+
+/** Produit la ligne OBJECTIF à partir du critère mesuré, sans arrondi. */
+export function mesurerObjectifActorAlias(valeur: number): ObjectifActorAlias {
+	const atteint = valeur >= OBJECTIF_CANONIQUES_MIN;
+	const ligne = atteint
+		? `OBJECTIF : atteint — ${valeur} canoniques avec >= 2 alias / cible >= ${OBJECTIF_CANONIQUES_MIN}`
+		: `OBJECTIF : partiel — ${valeur} canoniques avec >= 2 alias / cible >= ${OBJECTIF_CANONIQUES_MIN}, manque ${OBJECTIF_CANONIQUES_MIN - valeur} canoniques`;
+	return { valeur, cible: OBJECTIF_CANONIQUES_MIN, atteint, ligne };
+}
+
+/** La déclaration publiée doit être exacte et unique, jamais une variante périmée. */
+export function verifierDeclarationObjectifActorAlias(rapport: string, ligne: string): boolean {
+	return rapport.split(/\r?\n/).filter((publiee) => publiee === ligne).length === 1;
+}
