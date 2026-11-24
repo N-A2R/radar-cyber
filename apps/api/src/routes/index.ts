@@ -69,6 +69,7 @@ import insuranceScoreRoute from "./insurance-score.js";
 import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
 import attestationsNegativesRoute from "./attestations-negatives.js";
+import certificatIgnoranceRoute from "./certificat-ignorance.js";
 import watchlistsRoute from "./watchlists.js";
 import exportMispRoute from "./export-misp.js";
 import reviewAssistantRoute from "./review-assistant.js";
@@ -102,7 +103,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     mapTimelineRoute,
     hostingOutageRoute,
     liveMapRoute,
-    publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
+    publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, certificatIgnoranceRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
     prestatairesQualifiesRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,
