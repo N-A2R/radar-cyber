@@ -47,6 +47,31 @@ région, `internationale` sinon. Une source nationale n'est donc jamais
 présentée comme locale. `pnpm verifie:registre-traitements` rejoue le contrôle
 de complétude sur la base courante.
 
+### Registre des violations de données personnelles (article 33)
+
+Depuis la migration 216, toute violation suspectée issue d'un fait public
+qualifié (`event` des familles `leaks`, `phishing`, `ransomware`, `fuite`,
+`donnees` avec organisation) ou d'une fuite publiquement rattachée à une
+organisation (`fuite_org`) est inscrite dans `violation_rgpd`. Un trigger
+calcule l'échéance de notification à **prise de connaissance + 72 heures** et
+un second horodate la date de notification dès le passage au statut
+`notifiee`. Les quatre champs contrôlés sont `NOT NULL` par construction ; la
+vue `violation_rgpd_chronologie` expose les trois jalons ordonnés de chaque
+violation. Aucun titre de fait, victime, courriel, IP ni corps brut n'est
+stocké : seulement des identifiants publics, le type d'organisation, son
+département et des dates. Le département décrit l'organisation, jamais la
+portée d'une source.
+
+`GET /api/violations-rgpd/export.csv?mois=AAAA-MM` (et son alias `/api/v1/…`)
+publie `violations_AAAA-MM.csv` : une ligne par violation du mois, avec
+date de prise de connaissance, échéance, statut et notification. L'en-tête
+`X-Sha256` porte l'empreinte SHA-256 des octets exacts du fichier. La même
+fonction d'export alimente `pnpm export:violations-rgpd --mois=AAAA-MM`, qui
+écrit le CSV et son `.sha256` au format `sha256sum` dans `exports/violations/`
+(`--check` vérifie le fichier sur disque). `pnpm verifie:violations-rgpd`
+exécute la requête du contrôle externe mot pour mot, affiche `count =`, puis
+vérifie le nombre de lignes et l'empreinte de l'export du mois.
+
 Les sources externes sont des données publiques ou diffusées sous licence ; le
 radar n'ajoute pas de catégorie particulière de données au sens de l'article 9
 sans justification préalable. En cas de doute sur une donnée sensible, la
@@ -305,6 +330,8 @@ pnpm -F @radar/api test -- test/droit-reponse.test.ts \
   test/securite-rbac.test.ts test/securite-headers.test.ts \
   test/securite-couverture.test.ts
 pnpm verifie:registre-traitements  # 0 source active sans registre complet
+pnpm verifie:violations-rgpd  # 0 violation incomplète + export mensuel contrôlé
+pnpm export:violations-rgpd --mois=AAAA-MM  # CSV + empreinte .sha256
 pnpm -F @radar/web typecheck
 pnpm -F @radar/web run test:droit-reponse
 pnpm -F @radar/web run test:orgsheet
@@ -316,6 +343,8 @@ jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
 
-OBJECTIF : atteint — 214 / 214 routes API avec une décision d'accès explicite (HEAD inclus ; 118 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
+OBJECTIF : atteint — 218 / 218 routes API avec une décision d'accès explicite (HEAD inclus ; 120 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm -F @radar/api test -- test/securite-couverture.test.ts`, qui compte les routes du routeur et les lignes de `POLITIQUE_ACCES`.
 
 OBJECTIF : atteint — 0 source active sans registre complet / 0 attendu ; 1 ligne par source active dans `registre_traitements_AAAA-MM-JJ.csv`.
+
+OBJECTIF : atteint — 0 violation incomplète / 0 attendue ; 1 ligne par violation dans `violations_AAAA-MM.csv` avec empreinte SHA-256 du fichier. Mesure reproductible : `pnpm verifie:violations-rgpd`.

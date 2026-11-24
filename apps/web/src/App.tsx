@@ -1,4 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Banner } from "@astryxdesign/core/Banner";
+import { Button } from "@astryxdesign/core/Button";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { lastOfflineFallback, offlineStatus, onOfflineFallback } from "./offline/pwa";
 import { type DataRow } from "./export";
@@ -851,7 +854,9 @@ export default function App() {
     <ExportProvider>
     <div className="shell">
       <a className="skip-link" href="#main">Skip to content</a>
-      {MOCK_MODE ? <div className="shell__mock">Demo mode, simulated data</div> : null}
+      {MOCK_MODE ? (
+        <Banner status="info" container="section" title="Demo mode, simulated data" />
+      ) : null}
 
       <header className="rail">
         <div className="wordmark">
@@ -872,7 +877,7 @@ export default function App() {
             >
               {v.label}
               {v.id === "alerts" && unseenAlerts > 0 ? (
-                <span className="rail__badge" aria-label={`${unseenAlerts} unread alerts`}>{unseenAlerts}</span>
+                <Badge variant="error" label={String(unseenAlerts)} />
               ) : null}
             </button>
           ))}
@@ -880,14 +885,7 @@ export default function App() {
 
         <span className="rail__spacer" />
 
-        <button
-          type="button"
-          className="rail__toggle"
-          onClick={() => setPaletteOpen(true)}
-          aria-keyshortcuts="Meta+K Control+K"
-        >
-          Rechercher ⌘K
-        </button>
+        <Button label="Rechercher ⌘K" variant="ghost" size="sm" onClick={() => setPaletteOpen(true)} />
         <ExportMenu />
 
         {view === "map" ? (
@@ -907,9 +905,7 @@ export default function App() {
         </span>
 
         {token ? (
-          <button type="button" className="rail__toggle" onClick={onUnauthorized}>
-            Déconnexion
-          </button>
+          <Button label="Déconnexion" variant="ghost" size="sm" onClick={onUnauthorized} />
         ) : null}
       </header>
 
