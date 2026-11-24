@@ -1,0 +1,77 @@
+{
+  "selected": 7,
+  "verified": 7,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8890,
+    "withVerifiedProvenance": 8832,
+    "coveragePercent": 0.5282
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8890,
+    "withVerifiedProvenance": 8839,
+    "coveragePercent": 0.5287
+  },
+  "domains": [
+    {
+      "orgId": 73,
+      "name": "Commune de Charmé",
+      "domain": "mairie-charme.fr",
+      "page": "https://www.mairie-charme.fr/",
+      "token": "charme",
+      "previousSource": "nom:mairie-<slug>.fr"
+    },
+    {
+      "orgId": 74,
+      "name": "Commune de Charras",
+      "domain": "mairie-charras.fr",
+      "page": "https://mairie-charras.fr/",
+      "token": "charras",
+      "previousSource": "nom:mairie-<slug>.fr"
+    },
+    {
+      "orgId": 78,
+      "name": "Commune de Chassors",
+      "domain": "mairie-chassors.fr",
+      "page": "https://www.mairie-chassors.fr/",
+      "token": "chassors",
+      "previousSource": "nom:mairie-<slug>.fr"
+    },
+    {
+      "orgId": 94,
+      "name": "Commune de Confolens",
+      "domain": "mairie-confolens.fr",
+      "page": "https://www.mairie-confolens.fr/",
+      "token": "confolens",
+      "previousSource": "nom:mairie-<slug>.fr"
+    },
+    {
+      "orgId": 118,
+      "name": "Commune de Étriac",
+      "domain": "mairie-etriac.fr",
+      "page": "https://mairie-etriac.fr/",
+      "token": "etriac",
+      "previousSource": "nom:mairie-<slug>.fr"
+    },
+    {
+      "orgId": 89,
+      "name": "Commune de Claix",
+      "domain": "ville-claix.fr",
+      "page": "https://www.ville-claix.fr/",
+      "token": "claix",
+      "previousSource": "nom:ville-<slug>.fr"
+    },
+    {
+      "orgId": 90,
+      "name": "Commune de Cognac",
+      "domain": "ville-cognac.fr",
+      "page": "https://www.ville-cognac.fr/",
+      "token": "cognac",
+      "previousSource": "nom:ville-<slug>.fr"
+    }
+  ]
+}
