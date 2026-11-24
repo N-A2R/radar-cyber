@@ -61,6 +61,7 @@
     "mesure:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/mesure-org-risk-prospectif.mts",
     "verifie:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/verifie-org-risk-prospectif.mts",
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",
+    "mesure:retard-verite": "apps/api/node_modules/.bin/tsx scripts/mesure-retard-verite.mts",
     "mesure:precurseur-campagne": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-precursor.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
     "mesure:injection": "apps/api/node_modules/.bin/tsx scripts/mesure-injection.mts",
