@@ -1,6 +1,6 @@
 # Signaux collectifs antérieurs des victimes NA : revendications par groupe
 
-OBJECTIF : atteint — 1 hit/60 prédictions avec signal antérieur group-agnostique injecté (famille de marque : 2/16 victimes couvertes, 75 rattachements ; vague 365 jours : 16/16 victimes couvertes) / au moins 1 hit sur 60 prédictions ; le signal antérieur applicable au classement sans connaître le groupe de la future revendication est mesuré et injecté le 24 novembre 2026.
+OBJECTIF : non atteint par la vague group-agnostique — 16/16 victimes couvertes, 0 hit/60 prédictions après injection d'une fenêtre de 365 jours. Une source distincte, la famille de marque (2/16 victimes couvertes, 75 rattachements), donne 1 hit/60 dans un classement audité sans modifier le score publié ; elle ne remplace pas la mesure de vague, qui reste partielle. Résultats figés le 24 novembre 2026.
 
 ## Ce qui est livré
 
