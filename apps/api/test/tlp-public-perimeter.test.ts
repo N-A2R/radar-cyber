@@ -171,6 +171,9 @@ test("écrans publics : today, département et flux ne portent aucune valeur AMB
 	// Les mêmes écrans rendent bien le témoin public : le filtre n'est pas vide.
 	const today = await app.inject({ method: "GET", url: "/api/v1/today" });
 	assert.ok(today.body.includes("Indicateur public"), "l'événement CLEAR témoin doit rester visible dans /today");
+	const todayData = today.json<{ compteurs: { evenements24h: number }; evenements: unknown[] }>();
+	assert.equal(todayData.compteurs.evenements24h, todayData.evenements.length,
+		"le compteur public doit correspondre à la liste publique affichée");
 	const na = await app.inject({ method: "GET", url: "/api/v1/na/events?dept=33" });
 	assert.ok(na.body.includes("Indicateur public"), "l'événement CLEAR témoin doit rester visible dans /na/events");
 	const flows = await app.inject({ method: "GET", url: "/api/v1/flows?days=7" });

@@ -47,8 +47,9 @@ export default async function (app: FastifyInstance) {
 		// Compteurs en tête : en direct, sans rapport avec les filtres — ce sont
 		// les chiffres de la situation, pas ceux de la sélection.
 		const compteurs = await query<CompteurRow>(
-			`SELECT (SELECT count(*)::int FROM event
-			          WHERE COALESCE(observed_at, collected_at) >= now() - interval '24 hours') AS "evenements24h",
+			`SELECT (SELECT count(*)::int FROM event e
+			          WHERE COALESCE(e.observed_at, e.collected_at) >= now() - interval '24 hours'
+			            AND ${evenementPublicSql("e")}) AS "evenements24h",
 			        (SELECT count(DISTINCT org_id)::int FROM event
 			          WHERE org_id IS NOT NULL
 			            AND COALESCE(observed_at, collected_at) >= now() - interval '7 days') AS "organisations7j",
