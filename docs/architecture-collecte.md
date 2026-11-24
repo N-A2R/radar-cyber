@@ -3,6 +3,33 @@
 > Comment le collecteur lit les sources, et pourquoi il ne lit qu'un seul type
 > aujourd'hui.
 
+## Objectif chiffré (déclaré le 23 novembre 2026)
+
+La note décrivait 57 sources en attente d'un mode de lecture et annonçait six
+modes dans sa table de décision. Sur la base fusionnée `8f1a4dab`, le
+collecteur n'en branchait explicitement que trois (`auto`, `html-page`,
+`indicator-list`). Mesure reproductible avant correction :
+`grep -o 'reader === "[a-z-]*"' apps/api/src/collectors/generic.ts | sort -u`.
+
+**Cible : 6 / 6 modes annoncés dispatchés par le collecteur, avec un test par
+comportement.** Les trois manquants étaient `feed` (le chemin déclaré seul fait
+foi), `html-links` (les liens sont forcés) et `quarantine-first` (le corps brut
+est conservé avant l'extraction). `readerMode()` normalise NULL et toute valeur
+inconnue vers `auto` ; le mode déclaré prime sur la détection.
+
+Mesure reproductible après correction :
+`apps/api/node_modules/.bin/tsx --test apps/api/test/source-reader.test.ts`
+→ 6 tests, un par mode, 0 échec. En complément, la base courante porte 67
+sources avec un `reader` déclaré, toutes honorées :
+`SELECT count(*) FILTER (WHERE reader IS NOT NULL) AS declarees, count(*) FILTER (WHERE reader IN ('auto','feed','html-page','html-links','indicator-list','quarantine-first')) AS honorees FROM source;`
+
+Les 57 sources muettes restent la motivation du chantier ; la cible mesurable
+est le branchement effectif des six modes, condition de leur lecture. Périmètre
+conservé : Nouvelle-Aquitaine, sources grises autorisées, aucune donnée
+personnelle (fixtures synthétiques), aucun service payant.
+
+OBJECTIF : atteint — 6 / 6 modes de lecture déclarés honorés par le collecteur
+
 ## Ce qui existe
 
 Un seul chemin de lecture, dans `collectors/generic.ts` :

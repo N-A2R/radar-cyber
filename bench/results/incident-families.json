@@ -1,0 +1,127 @@
+{
+  "generatedAt": "2026-11-23T20:34:56.380Z",
+  "model": "semantic-tfidf@1",
+  "source": "benchmark-semantique@1",
+  "input": {
+    "corpus": 500,
+    "annotatedFamilies": 10
+  },
+  "clustering": {
+    "k": 10,
+    "threshold": 0.2
+  },
+  "metrics": {
+    "nmi": 0.9563830300783346,
+    "silhouette": 0.7770045296285071,
+    "largestFamilyShare": 0.12,
+    "largestAnnotatedShare": 0.1
+  },
+  "clusters": [
+    {
+      "clusterId": "F01",
+      "clusterLabel": "credential_abuse + intrusion",
+      "size": 50,
+      "share": 0.1,
+      "concepts": [
+        "credential_abuse",
+        "intrusion"
+      ]
+    },
+    {
+      "clusterId": "F02",
+      "clusterLabel": "disclosure + credential_abuse + intrusion",
+      "size": 50,
+      "share": 0.1,
+      "concepts": [
+        "disclosure",
+        "credential_abuse",
+        "intrusion"
+      ]
+    },
+    {
+      "clusterId": "F03",
+      "clusterLabel": "saturation",
+      "size": 40,
+      "share": 0.08,
+      "concepts": [
+        "saturation"
+      ]
+    },
+    {
+      "clusterId": "F04",
+      "clusterLabel": "defacement + saturation + payment_fraud",
+      "size": 60,
+      "share": 0.12,
+      "concepts": [
+        "defacement",
+        "saturation",
+        "payment_fraud"
+      ]
+    },
+    {
+      "clusterId": "F05",
+      "clusterLabel": "intrusion",
+      "size": 50,
+      "share": 0.1,
+      "concepts": [
+        "intrusion"
+      ]
+    },
+    {
+      "clusterId": "F06",
+      "clusterLabel": "payment_fraud",
+      "size": 60,
+      "share": 0.12,
+      "concepts": [
+        "payment_fraud"
+      ]
+    },
+    {
+      "clusterId": "F07",
+      "clusterLabel": "deception",
+      "size": 40,
+      "share": 0.08,
+      "concepts": [
+        "deception"
+      ]
+    },
+    {
+      "clusterId": "F08",
+      "clusterLabel": "extortion + intrusion + payment_fraud",
+      "size": 50,
+      "share": 0.1,
+      "concepts": [
+        "extortion",
+        "intrusion",
+        "payment_fraud"
+      ]
+    },
+    {
+      "clusterId": "F09",
+      "clusterLabel": "supply_chain + intrusion + defacement",
+      "size": 50,
+      "share": 0.1,
+      "concepts": [
+        "supply_chain",
+        "intrusion",
+        "defacement"
+      ]
+    },
+    {
+      "clusterId": "F10",
+      "clusterLabel": "vulnerability + intrusion",
+      "size": 50,
+      "share": 0.1,
+      "concepts": [
+        "vulnerability",
+        "intrusion"
+      ]
+    }
+  ],
+  "targets": {
+    "nmi": 0.7,
+    "silhouette": 0.4,
+    "maxFamilyShare": 0.3,
+    "minN": 500
+  }
+}
