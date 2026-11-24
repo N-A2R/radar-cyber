@@ -16,7 +16,8 @@ valide (`^[A-F][1-6]$`) ; la cible était d'au moins 50.
 | Lignes dans `attribution_audit` | 35 171 | > 0 |
 | Contestations enregistrées (`operation = 'UPDATE'`) | 1 | ≥ 1 |
 | Revendications sans preuve http(s) | 9 802 | — |
-| Revendications sans preuve restées `non attribué` / `F6` | 15 386 | toutes |
+| Revendications sans preuve restées `non attribué` / `F6` | 9 802 / 9 802 | toutes |
+| Lignes non attribuées, tout motif confondu | 15 386 | — |
 
 Les 35 170 lignes conformes incluent les attributions non résolues, codées
 `F6` (« inconnu » de l'échelle Admiralty) : ce ne sont pas 35 170 attributions
