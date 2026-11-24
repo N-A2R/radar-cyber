@@ -10,6 +10,7 @@
     "campagnes:build": "apps/api/node_modules/.bin/tsx scripts/build-campagnes.mts",
     "mesure:campagnes": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-quality.mts",
     "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
+    "verifie:stix-projection": "apps/api/node_modules/.bin/tsx scripts/verifie-stix-projection.mts",
     "test": "pnpm -F @radar/api test",
     "provenance:check": "apps/api/node_modules/.bin/tsx scripts/provenance.mts check --json=bench/results/provenance-na.json",
     "org-report:measure": "apps/api/node_modules/.bin/tsx scripts/measure-org-reports.mts",
