@@ -1,0 +1,61 @@
+{
+  "selected": 8,
+  "verified": 5,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9481,
+    "withVerifiedProvenance": 9435,
+    "coveragePercent": 0.5643
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9486,
+    "withVerifiedProvenance": 9440,
+    "coveragePercent": 0.5646
+  },
+  "domains": [
+    {
+      "orgId": 534,
+      "name": "Commune de Le Gua",
+      "commune": "Le Gua",
+      "codeCommune": "17185",
+      "domain": "le-gua.com",
+      "page": "https://www.le-gua.com/"
+    },
+    {
+      "orgId": 2474,
+      "name": "Commune de Dax",
+      "commune": "Dax",
+      "codeCommune": "40088",
+      "domain": "dax.fr",
+      "page": "https://www.dax.fr/"
+    },
+    {
+      "orgId": 3267,
+      "name": "Commune de Ger",
+      "commune": "Ger",
+      "codeCommune": "64238",
+      "domain": "ger.fr",
+      "page": "https://www.ger.fr/"
+    },
+    {
+      "orgId": 3441,
+      "name": "Commune de Nay",
+      "commune": "Nay",
+      "codeCommune": "64417",
+      "domain": "villedenay.fr",
+      "page": "https://villedenay.fr/"
+    },
+    {
+      "orgId": 3568,
+      "name": "Commune de Urt",
+      "commune": "Urt",
+      "codeCommune": "64546",
+      "domain": "urt.fr",
+      "page": "https://www.urt.fr/"
+    }
+  ]
+}

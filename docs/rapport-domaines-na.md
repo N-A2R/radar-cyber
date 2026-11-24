@@ -1063,3 +1063,46 @@ Il reste donc 1 661 304 organisations de Nouvelle-Aquitaine sans domaine **et sa
 
 OBJECTIF : partiel — 9 435 / 1 671 941 organisations (0,5643 %), manque 1 662 506 organisations vérifiées (99,4357 %) pour atteindre 100 %
 
+
+## Rattrapage — tranche t32 (2026-11-24) : URL municipales citées par le corpus
+
+La PR #797 reste ouverte avec un objectif chiffré de 100 % non atteint : la branche de départ porte 9 435 / 1 671 941 (t31). Le travail des tranches t1 à t31 est conservé tel quel ; la branche locale a d'abord intégré `origin/ext/rattrapage-rapport-domaines-na` (17 commits) pour repartir de la base de la PR, puis y a conservé les tranches de disponibilité déjà présentes.
+
+Nouvelle route grise : `bench/corpus/presse-communale.jsonl` publie 559 lignes avec une URL officielle de commune déjà observée en HTTP 200. `scripts/expand-domains-communes-citees.mts` ne devine aucune racine : il ne reprend que `source_candidat`, exige une correspondance exacte du nom de commune (`Commune de`, `Mairie de`, `Ville de`), du département et d'une racine qui nomme la commune. Une racine déjà attribuée est exclue. La preuve live reste stricte : HTTP 200 final sur la racine citée, contenu municipal, nom exact de la commune et ancre locale (code postal ou département). Le jeton d'identité est le nom de la commune lui-même, ce qui permet les communes de trois lettres (Dax, Ger, Nay, Urt) que le seuil de quatre lettres de t31 excluait ; toutes les autres gardes-fous de t31 sont conservées.
+
+Sur 8 candidats retenus, **5 domaines vérifiés en direct et tracés** `source:presse-communale:url-citee:http200` : Le Gua, Dax, Ger, Nay et Urt. Détail avec le code commune et l'URL finale : `bench/results/domains-from-communes-citees.json`. 10 tests comportement, un par comportement (`apps/api/test/expand-domains-communes-citees.test.ts`), tous verts ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` et `package.json` inchangés ; aucune donnée personnelle, aucun service payant.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/expand-domains-communes-citees.mts \
+  -- --limit=500 --concurrency=8 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées, puis mesure rejouée indépendamment :
+
+```
+selected=8 verified=5 applied=true
+verified_domain_coverage=9435 -> 9440
+coverage_percent=0.5643 -> 0.5646
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9486
+organisations_avec_domaine_verifie_et_provenance=9440
+couverture_pourcent=0.5646
+```
+
+Décomposition reproductible de l'écart restant (1 662 501 organisations) :
+
+```sh
+mcp__postgres_query --sql "SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200, count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200, count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661304 | 1151 | 9486
+```
+
+Un inventaire indépendant des corpus locaux et des tables PostgreSQL (scripts, `db/data`, `bench/corpus`, racines non attribuées de `org`, `exposition_service`) ne trouve aucun réservoir d'au moins 50 sites officiels supplémentaires appariables à une organisation : il reste 1 661 304 organisations sans aucune URL HTTP 200 et 1 151 dont l'URL échoue à la preuve stricte. Combler 1 662 501 organisations exigerait d'inventer des sites ou d'abaisser le standard de preuve ; aucune racine n'a été fabriquée.
+
+OBJECTIF : partiel — 9 440 / 1 671 941 organisations (0,5646 %), manque 1 662 501 organisations vérifiées (99,4354 %) pour atteindre 100 %
+
