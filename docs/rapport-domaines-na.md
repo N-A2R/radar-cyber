@@ -1,7 +1,7 @@
 # Chantier — domaine vérifié et provenance pour 100 % des organisations de Nouvelle-Aquitaine
 
 Date : 2026-11-21, tranche suivante le 2026-11-22. Branche : `ext/chantier-a1`, reprise depuis `origin/big/DomainesReels` (PR #300).
-> État courant (rattrapage du 2026-11-24) : voir la dernière section « Rattrapage — tranche t8 ». Les sections précédentes sont l'historique des tranches livrées.
+> État courant (rattrapage du 2026-11-24) : voir la dernière section « Rattrapage — tranche t15 ». Les sections précédentes sont l'historique des tranches livrées.
 
 ## État réel observé
 
@@ -304,3 +304,46 @@ FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47'
 Les deux premiers seaux totalisent 1 662 051 organisations : 1 661 633 n'ont **aucune URL HTTP 200** dans le corpus consolidé des registres publics/gratuits, et les 1 418 restantes ont une URL mais échouent à la preuve stricte après cinq passes de réemploi. Le troisième seau contient 8 890 organisations avec domaine dont 8 839 seulement portent une preuve comptable. Combler 1 663 102 organisations exigerait d'attribuer des sites inexistants ou de baisser le standard de preuve, ce qui détruirait la garantie « vérifié avec provenance ». La cible chiffrée de 100 % n'est donc pas livrable avec les sources autorisées ; elle est mesurée et documentée ici sans fabrication.
 
 OBJECTIF : partiel — 8 839 / 1 671 941 organisations (0,5287 %), manque 1 663 102 organisations vérifiées (99,4713 %) pour atteindre 100 %
+
+## Rattrapage — tranche t15 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t14 : 8 839 / 1 671 941). La tranche t15 ouvre une onzième route grise : les pages dédiées d'un établissement hébergées sur le site d'un groupe (emeis.fr, retab.fr, colisee.fr, cmso.com, medilab-group.eu). Ces URL sont déjà prouvées HTTP 200 par FINESS ou OSM dans `exposition_service`, mais les passes précédentes écartaient leur racine comme place de marché. `scripts/expand-domains-groupe.mts` n'accepte une page que si son adresse porte un jeton distinctif du **nom de l'organisation** — la ville seule ne suffit pas —, si la racine reste la même après redirection et si la preuve stricte inchangée passe (statut 200, contenu réel, jeton du nom dans la page). Les places de marché (orpi.com, planity.com, intramuros.org) restent exclues. Écriture transactionnelle `org` + `org_enrichissement`, provenance `exposition-service:page-groupe:http200`, rien sans `--apply`.
+
+Sur 97 candidats retenus, 97 pages vérifiées en direct et comptées : **97 domaines supplémentaires** (8 839 → 8 936). Détail : `bench/results/domains-from-group-pages.json`. 5 tests comportement, un par comportement, dans `apps/api/test/expand-domains-groupe.test.ts` (dont le rejet d'une page nommée par la seule ville) ; 107 tests domaines verts ; `tsc --noEmit` de `apps/api` : OK ; `apps/api/src/server.ts` : 0 ligne modifiée. `package.json` inchangé.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar apps/api/node_modules/.bin/tsx scripts/expand-domains-groupe.mts -- --limit=1000 --concurrency=24 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée après écriture, puis mesure rejouée indépendamment :
+
+```
+selected=97 verified=97 applied=true
+verified_domain_coverage=8839 -> 8936
+coverage_percent=0.5287 -> 0.5345
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=8987
+organisations_avec_domaine_verifie_et_provenance=8936
+couverture_pourcent=0.5345
+```
+
+Décomposition reproductible de l'écart restant (1 663 005 organisations), sur la même base :
+
+```sh
+mcp__postgres_query --sql "SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661633 | 1321 | 8987
+```
+
+Les deux premiers seaux totalisent 1 662 954 organisations : 1 661 633 n'ont aucune URL HTTP 200 dans le corpus consolidé des registres publics/gratuits, et 1 321 ont une URL mais échouent à la preuve stricte après six passes de réemploi. Aucun réservoir caché n'existe dans la base : le recoupement de toutes les tables porteuses d'URL ne couvrait que 1 559 organisations sans domaine sur 1 663 051 avant cette tranche, et les 1 418 premières sont précisément celles de `exposition_service`. Les sources gratuites vérifiées ne changent pas cette limite : l'annuaire DILA (86 193 lignes, champ `coordonneesnum_url`) ne concerne que les établissements publics, le RNA national (121 686 lignes) ne publie un site web que pour 4 475 associations, FINESS et l'API Recherche d'entreprises n'ont aucun champ site web. Combler 1 663 005 organisations exigerait d'inventer des sites ou de baisser le standard de preuve ; aucun domaine n'a été fabriqué, aucune donnée personnelle ni service payant utilisé. La cible de 100 % reste donc non livrable avec les sources autorisées, et elle est mesurée ici sans fabrication.
+
+OBJECTIF : partiel — 8 936 / 1 671 941 organisations (0,5345 %), manque 1 663 005 organisations vérifiées (99,4655 %) pour atteindre 100 %
