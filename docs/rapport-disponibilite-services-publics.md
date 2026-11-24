@@ -287,6 +287,42 @@ l'écart passe de 1 580 à 1 576. Les trois jours sans observation restent
 introuvables ; `feasible_windows=0` confirme qu'aucune fenêtre ancrable le
 24 novembre n'atteint 3 500 service-jours, la première restant le 29 novembre.
 
+## Contrôle de non-atteignabilité du 24 novembre (02 h UTC)
+
+La PR #793 déclare elle-même `OBJECTIF : partiel — 1924 / 3500` : son objectif
+chiffré n'est pas atteint. Reprise depuis
+`origin/ext/rattrapage-rapport-disponibilite-services-publics`, sans repartir de
+`main`, toutes les dates ci-dessous en UTC :
+
+- `source_verification` : 44 lignes le 21 novembre, 7 192 le 22, 0 ligne les
+  18, 19 et 20. Le 22 novembre, 125 réponses 2xx/3xx concernent 42 hôtes du
+  périmètre ; après normalisation hôte + chemin (schéma et `www.` ignorés), 33
+  services du périmètre sont couverts, **tous déjà observés ce jour-là** :
+  0 service-jour supplémentaire. Aucune réponse 4xx/5xx sur l'URL exacte d'un
+  service du périmètre.
+- `warc_proof` : 145 lignes le 21, 22 le 22, 0 avant le 21.
+  `org_enrichissement` : 0 ligne avant le 21. `source.last_ok_at` : une seule
+  ligne le 20 novembre (`univ-lr.fr`), hors périmètre.
+- `git grep` sur les refs distantes : 0 observation datée des 18, 19 et 20
+  novembre, ni des 25 au 29 novembre. Aucune fenêtre de sept jours complète
+  n'existe dans les données versionnées.
+
+Sorties observées le 24/11/2026 :
+
+```
+pnpm services:measure -- --anchor=2026-11-24
+services=500 window=2026-11-18..2026-11-24 observed_service_days=1924/3500 available=1363 availability=70,84%
+pnpm services:verify -- --anchor=2026-11-24
+OBJECTIF : partiel — 4 / 7 jours (1924 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1576 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+windows=10 max_observed_service_days=1924/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-29
+```
+
+L'objectif de 3 500 service-jours ne peut donc pas être atteint le 24 novembre
+sans inventer des dates : les trois premiers jours n'ont aucune observation
+réelle et la première fenêtre complète reste ancrée au 29 novembre, après cinq
+collectes réelles.
+
 ## Reproduire
 
 ```bash
