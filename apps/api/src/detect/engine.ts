@@ -230,21 +230,21 @@ export async function evaluateEvent(
     components: confidence.components,
     distinct_sources: distinctSources,
   };
-  // Deux échelles distinctes : la porte globale porte sur la note majorée
-  // d'un ancrage Nouvelle-Aquitaine, les seuils de règle sur la note brute.
+  // Une seule échelle décisionnelle : la note de confiance non majorée.
+  // L'ancrage Nouvelle-Aquitaine est tracé dans `globalScore`, mais ne doit
+  // ni ouvrir la porte globale ni assouplir un seuil de règle.
   const anchored = orgId != null || e.regional === true;
   const globalScore = calibratedScore(confidence.score, anchored);
-
   // `force` : une promotion de quarantaine est un acte humain explicite.
-  // L'analyste a choisi ce fait ; la porte globale ne s'applique qu'aux
-  // alertes automatiques et porte sur la note majorée de l'ancrage NA.
-  if (!ctx?.force && globalScore < REVIEW_THRESHOLD) {
+  // L'analyste a choisi ce fait ; la porte de confiance ne s'applique qu'aux
+  // alertes automatiques, sur la note de confiance d'origine.
+  if (!ctx?.force && confidence.score < REVIEW_THRESHOLD) {
     console.warn(
       JSON.stringify({
         detect: "alert_skipped_below_threshold",
         event_id: Number(e.id),
-        score: globalScore,
-        base_score: confidence.score,
+        score: confidence.score,
+        globalScore,
         threshold: REVIEW_THRESHOLD,
         anchored,
         components: confidence.components,

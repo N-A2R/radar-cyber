@@ -31,8 +31,9 @@ le holdout et la projection, jamais dans les métriques par règle.
   aucun verdict et si `evidence` ne porte pas `false_event` ; négative sinon.
 - **Score balayé** : note de confiance **non majorée**
   (`evidence->'confidence'->>'score'`) — c'est l'échelle comparée aux seuils
-  de règle par le moteur. La majoration de 30 d'un ancrage Nouvelle-Aquitaine
-  ne sert qu'à la porte globale `REVIEW_THRESHOLD = 65`.
+  de règle et à la porte globale `REVIEW_THRESHOLD = 65`. La majoration de 30
+  d'un ancrage Nouvelle-Aquitaine est tracée dans l'evidence, jamais comparée
+  à un seuil.
 - **Règle de supervision** : score = durée de silence mesurée
   (`evidence.silenceHours`), en heures.
 - **Seuil retenu** : le plus élevé qui garde `precision >= 0,85` et
@@ -80,11 +81,13 @@ Le moteur (`apps/api/src/detect/engine.ts`) charge la table dans
 
 - **seuil de règle** : comparé à la note de confiance **non majorée** de
   l'alerte, la même échelle que la mesure ;
-- **porte globale** : `REVIEW_THRESHOLD = 65` s'applique à la note + 30 quand
-  un ancrage Nouvelle-Aquitaine est observable (`org_id` ou `regional`) ;
+- **porte globale** : `REVIEW_THRESHOLD = 65` s'applique à cette même note
+  non majorée ; l'ancrage (`org_id` ou `regional`) n'abaisse ni la porte ni
+  les seuils de règle ;
 - **règle sans mesure** : aucun seuil en table, comportement d'origine ;
 - **preuve** : l'alerte porte `evidence.calibration = { score, globalScore,
-  threshold, anchored }`, `score` étant la note non majorée comparée au seuil.
+  threshold, anchored }`. `score` est la note comparée aux seuils ;
+  `globalScore = score + 30 si ancrage` est une trace, pas un critère.
 
 La règle de supervision lit son seuil dans la même table, en heures. Ce rejeu
 ne modifie ni la table, ni le comportement de production : appliquer les
