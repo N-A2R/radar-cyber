@@ -311,10 +311,9 @@ fichier référencé nulle part) ; `migrate.mts` / `create-admin.mts` /
 et l'amorçage des migrations marquait **17 migrations appliquées sans les jouer**
 sur une base neuve, puis échouait sur `org_alias`. Ce dernier bug était invisible
 des tests et de la CI, qui appliquent le SQL via un autre chemin. Corrigé par un
-amorçage conditionnel et une transaction par migration. Un job CI `socle` qui
-rejoue l'installation depuis le vide, deux fois, est prêt et simulé en local dans
-`scripts/ci/ci.proposed.yml` — **non appliqué** : le jeton de la session n'a pas
-la permission GitHub `workflows` (voir `scripts/ci/README.md`).
+amorçage conditionnel et une transaction par migration. Le job CI `socle` est
+désormais actif dans `.github/workflows/ci.yml` : il rejoue l'installation
+depuis le vide, deux fois (voir `scripts/ci/README.md`).
 
 **Contrat.** `EventSchema` est appelé aux **cinq** chemins d'écriture, via
 `apps/api/src/contract/admit.ts` : réparations tracées (13 codes) d'un côté,

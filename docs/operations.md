@@ -7,13 +7,14 @@ sauvegarde et restauration.
 
 | Composant | Rôle | Port par défaut |
 |---|---|---|
-| `radar-api` | API Fastify, collecteurs, quarantaine | 8080 |
-| `radar-web` | Interface React (dist de production via `vite preview`) | 5173 |
-| PostgreSQL | Stockage (events, indicateurs, orgs, quarantaine) | 5432 |
+| `radar-api` | API Fastify, collecteurs, quarantaine | 8080 (`RADAR_API_PORT`, boucle locale) |
+| `radar-web` | Interface React Stone (serveur statique Node `serve.mjs`, proxy `/api`) | 5173 en systemd/installateur, 4173 en Compose (`RADAR_WEB_PORT`) |
+| PostgreSQL | Stockage (events, indicateurs, orgs, quarantaine) | 5432 dans le conteneur, 5433 sur l'hôte (`RADAR_DB_PORT`) |
+| Tor | SOCKS5 pour les sources `.onion` | 9050 (interne au réseau Compose ; `127.0.0.1:9050` pour le service utilisateur) |
 
 Fichiers d'exploitation :
 
-- `scripts/systemd/` — modèles d'unités, config `vite preview`, installateur
+- `scripts/systemd/` — modèles d'unités et installateur
 - `scripts/healthcheck.sh` — sonde de supervision
 - `scripts/verify-all.sh` — vérification locale complète
 - `scripts/backup-db.sh` — sauvegarde quotidienne de la base
@@ -26,28 +27,77 @@ Fichiers d'exploitation :
 - PostgreSQL 17+ accessible via `DATABASE_URL`
 - Client `psql`, `curl`, `jq`
 
-Par défaut, l'API se connecte à `postgres://radar:radar@localhost:5432/radar`
-(variable `DATABASE_URL`, voir `apps/api/src/db.ts`).
+L'API exige `DATABASE_URL` (`apps/api/src/db.ts` refuse tout repli implicite) ;
+les scripts de migration l'exigent aussi. En local :
+`postgres://radar:CHANGE_ME@localhost:5433/radar` (base Docker `radar-db18` de
+compute-2) ; à l'intérieur de Compose : `postgres://radar:…@db:5432/radar`.
+Le port 5432 n'est donc plus l'adresse de production par défaut.
+
+### Comptes PostgreSQL et SCRAM
+
+Séparation des rôles, sans superutilisateur pour l'application :
+
+| Rôle | Usage |
+|---|---|
+| `radar` / `radar_app` | rôle applicatif (propriétaire des tables à l'installation, `radar_app` sur la base live) ; `LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE` |
+| administration migrations | URL d'administration distincte (`RADAR_MIGRATE_DATABASE_URL` dans les unités utilisateur), passée comme `DATABASE_URL` à `ExecStartPre` et `pnpm migrate` |
+| `radar_retention` | `NOLOGIN`, propriétaire des jetons de purge et exécuteur `SECURITY DEFINER` (migrations 239/244) |
+
+Les mots de passe PostgreSQL sont stockés en **SCRAM-SHA-256** ; `md5` est
+refusé dans `pg_hba.conf`. Aucun secret n'est versionné : ils viennent de
+`~/.config/radar-cyber/api-security.env` (0600) ou de
+`/etc/radar-cyber/radar.env` (0640). Contrôle avec un rôle administrateur :
+
+```bash
+SHOW password_encryption;                    # scram-sha-256
+psql "$RADAR_MIGRATE_DATABASE_URL" -c \
+  "SELECT rolname, rolsuper, rolcreatedb, rolcreaterole FROM pg_roles
+    WHERE rolname IN ('radar', 'radar_app', 'radar_retention');"
+psql "$RADAR_MIGRATE_DATABASE_URL" -c \
+  "SELECT rolname, left(rolpassword, 14) AS algo FROM pg_authid
+    WHERE rolname IN ('radar', 'radar_app') AND rolpassword IS NOT NULL;"
+# algo doit commencer par SCRAM-SHA-256$
+```
 
 ## Installation initiale
 
 ```bash
 cd ~/radar-cyber
-pnpm install
+pnpm install --frozen-lockfile
 
-# Base : schéma, migrations, sources et règles de détection
-psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/schema.sql
-for f in db/migrate-*.sql; do
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"
-done
+# DATABASE_URL est obligatoire : aucun port ni mot de passe implicite.
+# Un seul point d'entrée pour le schéma : db/init.sql (db/schema.sql n'existe plus).
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
+# Le runner applique les migrations dans l'ordre numérique (db/migration-order.mts)
+# et enregistre chaque version dans le MÊME commit. Sur une base copiée dont
+# l'historique manque, il adopte les versions déjà présentes plutôt que de
+# rejouer des migrations destructrices.
+pnpm migrate
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
 
-# Référentiel des organisations (optionnel)
-ORGS_CSV=/chemin/orgs-na.csv pnpm tsx db/seed.ts
+# Jeu NA complet et vérification du socle (idempotents)
+pnpm setup
+pnpm setup:check
 ```
 
-Les migrations sont idempotentes (`IF NOT EXISTS`) : les rejouer sans risque.
+Une migration déjà appliquée ne doit pas être rejouée à la main : certaines
+étaient destructrices. Le runner est le seul chemin d'application ; il consigne
+les versions dans `schema_migrations` dans la même transaction que le SQL.
+
+Le lot `migrate-231` à `migrate-246` est déclaré dans `REPAIR_VERSIONS`
+(`db/migration-order.mts`) : incidents d'archivage, déduplication de
+`v_event_all`, périmètre des scores d'organisation, index `org_unknown`,
+`ANALYZE`, workflow RGPD, état `partial` des enrichissements, version des
+règles de confiance, journal des accès append-only et droits de rétention,
+disponibilité des sources, index de clé étrangère en tête et invariants
+temporels. Les versions historiques sans SQL restent des tombstones
+explicites. Contrôle :
+
+```bash
+psql "$DATABASE_URL" -tAc \
+  "SELECT version FROM schema_migrations WHERE version ~ 'migrate-2(3[1-9]|4[0-6])' ORDER BY version;"
+```
 
 ## Services systemd
 
@@ -143,35 +193,44 @@ RADAR_TEST_ADMIN_URL=postgres://radar:radar@127.0.0.1:5433/postgres \
   ./node_modules/.bin/tsx test/run.ts test/veille-quotidienne.test.ts
 ```
 
-Le service lit `DATABASE_URL` (défaut local `postgres://radar:radar@localhost:5432/radar`) ;
-adapter cette variable dans l'unité si PostgreSQL n'écoute pas sur 5432.
+Le service lit `DATABASE_URL` depuis son fichier d'environnement protégé; aucun
+mot de passe fonctionnel n'est versionné. Les migrations utilisent un rôle
+administrateur séparé du rôle runtime.
 
 ### Rôle précis des unités
 
-- `radar-api.service` — `pnpm -F @radar/api start` depuis la racine du dépôt,
-  avec `DATABASE_URL` et `PORT`. La boucle de collecte est active (désactivable
-  via `RADAR_COLLECT=0`).
-- `radar-web.service` — `vite preview` depuis `apps/web`, qui sert
-  `apps/web/dist` **et** proxie `/api` vers l'API
-  (`scripts/systemd/preview.config.mjs`) : l'UI appelle `/api` en same-origin,
-  comme en développement.
+- `radar-api.service` — unité utilisateur locale : API Fastify avec
+  `RADAR_COLLECT=0`, poivre d'audit obligatoire et rôle PostgreSQL non
+  superutilisateur. **L'intention de déploiement est inverse** : la production
+  (`scripts/deploy/install.sh`, Compose, box `compute-2`) garde
+  `RADAR_COLLECT=1` par défaut pour la collecte continue. `--no-collect` /
+  `RADAR_COLLECT=0` sont réservés aux environnements sans sortie réseau et aux
+  vérifications. Contrôle : `grep RADAR_COLLECT /etc/radar-cyber/radar.env`
+  (installation système) ou `systemctl show -p Environment radar-api.service`.
+- `radar-web.service` — `node apps/web/serve.mjs` sert `apps/web/dist` et proxie
+  `/api` vers l'API. Aucun `node_modules` ni Vite n'est nécessaire au runtime.
 
 ## Vérification
 
 ```bash
-scripts/verify-all.sh
+pnpm verify                 # équivalent : bash scripts/verify-all.sh
+pnpm setup:check            # socle complet, sans écriture
+pnpm test:migrations        # contrats de migration, dont 231-246
+API_URL=http://127.0.0.1:8080 WEB_URL=http://127.0.0.1:5173 \
+  scripts/healthcheck.sh
+ss -ltnp | grep -E ':(8080|5173|4173|5433|9050)\b'
 ```
 
 Enchaîne, en comptant les échecs et en rendant un code de sortie non nul :
 
-1. `pnpm -F @radar/api typecheck`
-2. `pnpm -F @radar/web typecheck`
-3. `pnpm -F @radar/api test`
-4. `pnpm -F @radar/web build`
-5. `scripts/healthcheck.sh`
+1. Contrat hors base et diagnostic du socle
+2. Typechecks API, web, tests et SDK
+3. Suites API, web Vitest/PWA/Playwright/Storybook, SDK TS/Python et migrations
+4. Build web et provenance fraîche
+5. Healthcheck réel API + web
 
 Le healthcheck utilise l'API et le web **déjà en cours** ; sinon il en démarre
-un exemplaire temporaire (API avec `RADAR_COLLECT=0`, web avec `vite preview`),
+un exemplaire temporaire (API avec `RADAR_COLLECT=0`, web via `serve.mjs`),
 puis le nettoie en fin de script. Aucun fichier persistant n'est laissé dehors
 des sorties de build.
 
@@ -289,10 +348,10 @@ cd ~/radar-cyber
 git pull
 pnpm install --frozen-lockfile
 
-# Nouvelles migrations éventuelles
-for f in db/migrate-*.sql; do
-  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"
-done
+# Nouvelles migrations éventuelles, y compris le lot de réparation 231-246
+# (jamais d'application manuelle de db/migrate-*.sql)
+pnpm migrate
+pnpm setup:check
 
 # Le web sert dist/ : reconstruire si le front a changé
 pnpm -F @radar/web build
@@ -302,7 +361,10 @@ scripts/systemd/install.sh
 systemctl --user restart radar-api.service radar-web.service
 ```
 
-Vérifier ensuite : `scripts/verify-all.sh`.
+Vérifier ensuite : `pnpm verify`, puis
+`API_URL=http://127.0.0.1:8080 WEB_URL=http://127.0.0.1:5173 scripts/healthcheck.sh`
+(4173 au lieu de 5173 si le front tourne sous Compose).
+
 
 ## Tor (collecte `.onion`)
 
@@ -333,8 +395,9 @@ curl --socks5-hostname 127.0.0.1:9050 -o /dev/null -w '%{http_code}\n' \
 # 200 (43 s : premier circuit, les suivants sont plus rapides)
 ```
 
-Le collecteur ne sort **jamais** une URL `.onion` vers le clearnet : sans
-`RADAR_TOR_SOCKS`, la requête échoue immédiatement avec un message explicite.
+
+En Compose, le profil `tor` n'expose aucun port sur l'hôte : l'API utilise
+`RADAR_TOR_SOCKS=socks5h://tor:9050` sur le réseau interne du compose.
 
 
 
@@ -342,12 +405,20 @@ Le collecteur ne sort **jamais** une URL `.onion` vers le clearnet : sans
 
 `scripts/backup-db.sh` réalise un dump custom compressé
 (`pg_dump --format=custom --compress=9`), vérifie son intégrité
-(`pg_restore --list`) et rotate les 14 derniers dumps.
+(`pg_restore --list`), écrit son empreinte SHA-256 et rotate les 14 derniers
+dumps. Le répertoire est `~/.local/share/radar-cyber/backups/` sur le
+ThinkBook ; sur une installation `scripts/deploy/install.sh`, c'est
+`/var/lib/radar-cyber/backups/` (snapshots `pre-*.dump` compris). La cible
+hors site de la base de production est `/data/home/backups/radar` sur
+`compute-3`. `scripts/backup-remote.sh` lit
+`~/.config/radar-cyber/backup.env` (`BOX_HOST`, `BOX_DB_PASS_FILE`,
+`TUNNEL_PORT=55433`), ouvre un tunnel SSH vers `127.0.0.1:5433` sur
+`compute-2` et appelle `backup-db.sh` : le mot de passe n'apparaît jamais dans
+une URL ni dans `ps`.
 
 ```bash
-scripts/backup-db.sh
-# Dumps dans ~/.local/share/radar-cyber/backups/radar-<horodatage>.dump
-BACKUP_DIR=/mnt/sauvegardes RETENTION=30 scripts/backup-db.sh
+BACKUP_DIR=/var/lib/radar-cyber/backups RETENTION=30 scripts/backup-db.sh
+PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass scripts/backup-remote.sh
 ```
 
 ### Chiffrement et sortie hors site
@@ -358,12 +429,12 @@ exactement comme avant :
 | Variable | Effet |
 |---|---|
 | `PASSPHRASE_FILE` | chiffre l'archive en AES-256 (gpg symétrique) et supprime le clair |
-| `OFFSITE` | copie l'archive chiffrée (`hôte:répertoire` par scp, sinon rsync) et vérifie sa taille à distance |
+| `OFFSITE` | copie l'archive chiffrée (`hôte:répertoire` par scp, sinon rsync) et vérifie son empreinte SHA-256 local et distant |
 | `OFFSITE_SANDBOX` | réveille la sandbox InstaBox nommée avant la copie (`instabox wake`) |
 
 ```bash
 PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass \
-OFFSITE=hermes:/srv/backups/radar \
+OFFSITE=instabox-compute-3:/data/home/backups/radar \
   scripts/backup-db.sh
 ```
 
@@ -390,7 +461,8 @@ OFFSITE_SANDBOX=compute-3 \
 ```
 
 La configuration vit dans `~/.config/radar-cyber/backup.env`, chargée par
-`radar-backup.service` (timer quotidien).
+`radar-backup.service` : le timer quotidien appelle **backup-remote.sh** (tunnel
+et sauvegarde de la base de production), qui délègue à `backup-db.sh`.
 
 ### Preuve de restauration
 
@@ -407,19 +479,19 @@ PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass scripts/restore-verify.sh
 C'est le seul contrôle qui prouve qu'une sauvegarde vaut quelque chose ; il
 coûte quelques secondes et ne touche jamais la base `radar`.
 
-Sur cette machine, un timer utilisateur `radar-backup.timer` (quotidien, 03:17)
-appelle déjà ce script ; ses fichiers sont locaux, pas dans le dépôt. Pour le
-reproduire :
+Sur le ThinkBook, le timer utilisateur `radar-backup.timer` (03:17,
+`Persistent=true`) appelle `backup-remote.sh` ; les modèles sont versionnés
+dans `scripts/systemd/`. Reproduction :
 
 ```ini
 # ~/.config/systemd/user/radar-backup.service
 [Unit]
-Description=Radar Cyber daily DB backup
+Description=Radar Cyber daily DB backup (tunnel + chiffrement)
 
 [Service]
 Type=oneshot
-ExecStart=%h/radar-cyber/scripts/backup-db.sh
-Environment=DATABASE_URL=postgres://radar:radar@localhost:5432/radar
+EnvironmentFile=%h/.config/radar-cyber/backup.env
+ExecStart=%h/radar-cyber/scripts/backup-remote.sh
 
 # ~/.config/systemd/user/radar-backup.timer
 [Unit]
@@ -438,6 +510,7 @@ WantedBy=timers.target
 systemctl --user daemon-reload
 systemctl --user enable --now radar-backup.timer
 ```
+
 
 ### Restauration
 
@@ -505,7 +578,7 @@ unité séparée. Le dire précisément :
 | Symptôme | Piste |
 |---|---|
 | `radar-api.service` en `failed` | `journalctl --user -u radar-api.service -n 50` ; vérifier `psql "$DATABASE_URL" -c 'select 1'` |
-| `bind: Address already in use` | un processus manuel tient 8080 : `ss -ltnp \| grep 8080` ; l'arrêter ou changer `RADAR_API_PORT` |
+| `bind: Address already in use` | un processus manuel tient le port : `ss -ltnp \| grep -E ':(8080\|5173\|4173\|5433)\b'` ; l'arrêter ou changer `RADAR_API_PORT` / `RADAR_WEB_PORT` / `RADAR_DB_PORT` |
 | L'UI charge mais `/api` renvoie 404 | le web n'est pas servi par `radar-web.service` (proxy `/api` absent) : `systemctl --user restart radar-web.service` |
 | L'API ne démarre qu'en manuel | linger désactivé : `loginctl show-user "$USER" -p Linger` ; `loginctl enable-linger "$USER"` |
 | `pnpm introuvable` dans les logs | le `PATH` figé de l'unité est périmé (changement d'install node/pnpm) : relancer `scripts/systemd/install.sh` |
@@ -538,15 +611,11 @@ Variables d'environnement (voir `.env.example`) :
 At least one complete channel is required: webhook, Telegram token+chat, or
 email host+from+to. Without one, no delivery loop is registered.
 The public RSS feed is always available at `GET /api/alerts/rss.xml`.
-<<<<<<< ours
-
 Le canal webhook signe le corps JSON brut en HMAC-SHA256 et ajoute
 `x-radar-timestamp` (secondes Unix) et `x-radar-signature` (`sha256=<hex>`).
 Le client recalcule `HMAC-SHA256(secret, timestamp + "." + corps brut)` et refuse
 une signature absente, différente ou dont le timestamp sort de ±300 secondes.
 Sans secret configuré, aucun `POST` n'est envoyé et l'alerte passe en échec.
-=======
->>>>>>> theirs
 
 ### Comportement
 
