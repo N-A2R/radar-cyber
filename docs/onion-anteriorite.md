@@ -31,8 +31,9 @@ SELECT count(*) FROM onion_lead WHERE lead_days>=3 AND confirmed_event_id IS NOT
 -- 24
 ```
 
-Vérification reproductible sur une base éphémère reconstruite depuis les
-migrations (aucune donnée de production lue ou modifiée) :
+OBJECTIF : atteint — 24 / 20 leads `.onion` géolocalisés à au moins 3 jours de la première victime régionale confirmée. Mesure reproductible : `pnpm verifie:onion-anteriorite` (base éphémère reconstruite depuis les migrations ; aucune donnée de production lue ou modifiée).
+
+Vérification reproductible sur une base éphémère reconstruite depuis les migrations (aucune donnée de production lue ou modifiée) :
 
 ```sh
 apps/api/node_modules/.bin/tsx scripts/verifie-onion-anteriorite.mts
