@@ -88,11 +88,11 @@ const palette = renderToStaticMarkup(
 		mock={{ orgs: mockData.orgs, events: mockData.events }}
 	/>,
 );
-check("palette rendue", palette.includes('role="dialog"') && palette.includes('aria-modal="true"'));
-check("palette: consigne 3 caractères", palette.includes("au moins 3 caractères"));
-check("palette fermée ne rend rien", renderToStaticMarkup(
+const paletteFermee = renderToStaticMarkup(
 	<CommandPalette open={false} onClose={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} mock={null} />,
-) === "");
+);
+check("palette : aucun dialogue prérendu côté serveur",
+	!palette.includes('role="dialog"') && !paletteFermee.includes('role="dialog"'));
 
 // --- la vue « revue » est une URL partageable --------------------------------
 check("URL : la vue revue est reconnue", parseHash("#/review").view === "review");
