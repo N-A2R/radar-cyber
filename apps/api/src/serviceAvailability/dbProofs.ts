@@ -67,9 +67,10 @@ export function normalizeExpositionProofUrl(url: string): string {
 
 /**
  * Map real HTTP proofs from `exposition_service` onto the fixed perimeter.
- * Several services can share one public URL; each gets its own observation.
- * A row without a perimeter URL or a valid UTC timestamp is skipped: no day
- * or status is ever inferred.
+ * A service is matched by its public URL and by the final URL recorded in the
+ * corpus proof; several services can share either URL and each gets its own
+ * observation. A row without a perimeter URL or a valid UTC timestamp is
+ * skipped: no day or status is ever inferred.
  */
 export function observationsFromExpositionProofs(
 	rows: ExpositionProofRow[],
@@ -77,10 +78,13 @@ export function observationsFromExpositionProofs(
 ): DailyObservation[] {
 	const byUrl = new Map<string, string[]>();
 	for (const service of services) {
-		const key = normalizeExpositionProofUrl(service.url);
-		const ids = byUrl.get(key) ?? [];
-		ids.push(service.id);
-		byUrl.set(key, ids);
+		const keys = new Set([service.url, service.proofUrl].filter((url): url is string => Boolean(url)));
+		for (const key of keys) {
+			const normalized = normalizeExpositionProofUrl(key);
+			const ids = byUrl.get(normalized) ?? [];
+			if (!ids.includes(service.id)) ids.push(service.id);
+			byUrl.set(normalized, ids);
+		}
 	}
 	const observations: DailyObservation[] = [];
 	for (const row of rows) {

@@ -199,7 +199,7 @@
 {"serviceId":"na-edu-0170025K","day":"2026-11-23","ok":true,"status":200,"latencyMs":1184,"observedAt":"2026-11-23T23:07:04.214Z","failure":null}
 {"serviceId":"na-edu-0170025K","day":"2026-11-24","ok":true,"status":200,"latencyMs":5832,"observedAt":"2026-11-24T00:00:16.089Z","failure":null}
 {"serviceId":"na-edu-0170029P","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0170029P","day":"2026-11-22","ok":false,"status":null,"latencyMs":6001,"observedAt":"2026-11-22T03:25:04.532Z","failure":"timeout"}
+{"serviceId":"na-edu-0170029P","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T00:51:56.958Z","failure":null}
 {"serviceId":"na-edu-0170029P","day":"2026-11-23","ok":true,"status":200,"latencyMs":2518,"observedAt":"2026-11-23T23:07:28.372Z","failure":null}
 {"serviceId":"na-edu-0170029P","day":"2026-11-24","ok":false,"status":null,"latencyMs":6008,"observedAt":"2026-11-24T00:00:28.747Z","failure":"timeout"}
 {"serviceId":"na-edu-0170031S","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -735,6 +735,7 @@
 {"serviceId":"na-edu-0330108N","day":"2026-11-23","ok":true,"status":200,"latencyMs":1281,"observedAt":"2026-11-23T23:07:16.374Z","failure":null}
 {"serviceId":"na-edu-0330108N","day":"2026-11-24","ok":false,"status":null,"latencyMs":6001,"observedAt":"2026-11-24T00:00:22.587Z","failure":"timeout"}
 {"serviceId":"na-edu-0330114V","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
+{"serviceId":"na-edu-0330114V","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T03:25:37.499Z","failure":null}
 {"serviceId":"na-edu-0330114V","day":"2026-11-23","ok":true,"status":200,"latencyMs":1958,"observedAt":"2026-11-23T23:08:03.194Z","failure":null}
 {"serviceId":"na-edu-0330114V","day":"2026-11-24","ok":false,"status":null,"latencyMs":6001,"observedAt":"2026-11-24T00:00:35.045Z","failure":"timeout"}
 {"serviceId":"na-edu-0330119A","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -766,7 +767,7 @@
 {"serviceId":"na-edu-0330163Y","day":"2026-11-23","ok":true,"status":200,"latencyMs":959,"observedAt":"2026-11-23T23:06:52.227Z","failure":null}
 {"serviceId":"na-edu-0330163Y","day":"2026-11-24","ok":true,"status":200,"latencyMs":1206,"observedAt":"2026-11-24T00:00:09.765Z","failure":null}
 {"serviceId":"na-edu-0331419N","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0331419N","day":"2026-11-22","ok":false,"status":null,"latencyMs":6000,"observedAt":"2026-11-22T03:24:34.292Z","failure":"timeout"}
+{"serviceId":"na-edu-0331419N","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T02:57:04.441Z","failure":null}
 {"serviceId":"na-edu-0331419N","day":"2026-11-23","ok":true,"status":200,"latencyMs":1355,"observedAt":"2026-11-23T23:06:56.401Z","failure":null}
 {"serviceId":"na-edu-0331419N","day":"2026-11-24","ok":true,"status":200,"latencyMs":3742,"observedAt":"2026-11-24T00:00:09.851Z","failure":null}
 {"serviceId":"na-edu-0331433D","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -874,7 +875,7 @@
 {"serviceId":"na-edu-0331667H","day":"2026-11-23","ok":true,"status":200,"latencyMs":848,"observedAt":"2026-11-23T23:07:01.161Z","failure":null}
 {"serviceId":"na-edu-0331667H","day":"2026-11-24","ok":true,"status":200,"latencyMs":1297,"observedAt":"2026-11-24T00:00:15.943Z","failure":null}
 {"serviceId":"na-edu-0331752A","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0331752A","day":"2026-11-22","ok":false,"status":null,"latencyMs":6000,"observedAt":"2026-11-22T03:24:28.265Z","failure":"timeout"}
+{"serviceId":"na-edu-0331752A","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T00:51:56.958Z","failure":null}
 {"serviceId":"na-edu-0331752A","day":"2026-11-23","ok":true,"status":200,"latencyMs":2448,"observedAt":"2026-11-23T23:06:52.245Z","failure":null}
 {"serviceId":"na-edu-0331752A","day":"2026-11-24","ok":true,"status":200,"latencyMs":5642,"observedAt":"2026-11-24T00:00:09.789Z","failure":null}
 {"serviceId":"na-edu-0331753B","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -910,7 +911,7 @@
 {"serviceId":"na-edu-0332189A","day":"2026-11-23","ok":true,"status":200,"latencyMs":5581,"observedAt":"2026-11-23T23:07:04.173Z","failure":null}
 {"serviceId":"na-edu-0332189A","day":"2026-11-24","ok":true,"status":200,"latencyMs":3915,"observedAt":"2026-11-24T00:00:16.005Z","failure":null}
 {"serviceId":"na-edu-0332190B","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0332190B","day":"2026-11-22","ok":false,"status":null,"latencyMs":6000,"observedAt":"2026-11-22T03:24:28.268Z","failure":"timeout"}
+{"serviceId":"na-edu-0332190B","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T00:51:56.958Z","failure":null}
 {"serviceId":"na-edu-0332190B","day":"2026-11-23","ok":true,"status":200,"latencyMs":1629,"observedAt":"2026-11-23T23:06:52.258Z","failure":null}
 {"serviceId":"na-edu-0332190B","day":"2026-11-24","ok":true,"status":200,"latencyMs":2051,"observedAt":"2026-11-24T00:00:09.806Z","failure":null}
 {"serviceId":"na-edu-0332191C","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -926,7 +927,7 @@
 {"serviceId":"na-edu-0332342S","day":"2026-11-23","ok":true,"status":200,"latencyMs":1700,"observedAt":"2026-11-23T23:07:01.181Z","failure":null}
 {"serviceId":"na-edu-0332342S","day":"2026-11-24","ok":true,"status":200,"latencyMs":3282,"observedAt":"2026-11-24T00:00:15.987Z","failure":null}
 {"serviceId":"na-edu-0332344U","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0332344U","day":"2026-11-22","ok":false,"status":null,"latencyMs":6000,"observedAt":"2026-11-22T03:24:34.293Z","failure":"timeout"}
+{"serviceId":"na-edu-0332344U","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T00:51:56.958Z","failure":null}
 {"serviceId":"na-edu-0332344U","day":"2026-11-23","ok":true,"status":200,"latencyMs":2979,"observedAt":"2026-11-23T23:06:56.405Z","failure":null}
 {"serviceId":"na-edu-0332344U","day":"2026-11-24","ok":true,"status":200,"latencyMs":3437,"observedAt":"2026-11-24T00:00:09.857Z","failure":null}
 {"serviceId":"na-edu-0332345V","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -978,7 +979,7 @@
 {"serviceId":"na-edu-0332657J","day":"2026-11-23","ok":true,"status":200,"latencyMs":610,"observedAt":"2026-11-23T23:07:33.068Z","failure":null}
 {"serviceId":"na-edu-0332657J","day":"2026-11-24","ok":true,"status":200,"latencyMs":2467,"observedAt":"2026-11-24T00:00:34.847Z","failure":null}
 {"serviceId":"na-edu-0332706M","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0332706M","day":"2026-11-22","ok":false,"status":null,"latencyMs":6000,"observedAt":"2026-11-22T03:24:40.361Z","failure":"timeout"}
+{"serviceId":"na-edu-0332706M","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T00:51:56.958Z","failure":null}
 {"serviceId":"na-edu-0332706M","day":"2026-11-23","ok":true,"status":200,"latencyMs":2021,"observedAt":"2026-11-23T23:07:01.179Z","failure":null}
 {"serviceId":"na-edu-0332706M","day":"2026-11-24","ok":false,"status":null,"latencyMs":6001,"observedAt":"2026-11-24T00:00:15.983Z","failure":"timeout"}
 {"serviceId":"na-edu-0332723F","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
@@ -1490,7 +1491,7 @@
 {"serviceId":"na-edu-0641535W","day":"2026-11-23","ok":true,"status":200,"latencyMs":422,"observedAt":"2026-11-23T23:07:04.179Z","failure":null}
 {"serviceId":"na-edu-0641535W","day":"2026-11-24","ok":true,"status":200,"latencyMs":3995,"observedAt":"2026-11-24T00:00:16.019Z","failure":null}
 {"serviceId":"na-edu-0641538Z","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
-{"serviceId":"na-edu-0641538Z","day":"2026-11-22","ok":false,"status":null,"latencyMs":6003,"observedAt":"2026-11-22T03:24:34.296Z","failure":"timeout"}
+{"serviceId":"na-edu-0641538Z","day":"2026-11-22","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-22T02:56:46.793Z","failure":null}
 {"serviceId":"na-edu-0641538Z","day":"2026-11-23","ok":true,"status":200,"latencyMs":1493,"observedAt":"2026-11-23T23:06:56.414Z","failure":null}
 {"serviceId":"na-edu-0641538Z","day":"2026-11-24","ok":true,"status":200,"latencyMs":3624,"observedAt":"2026-11-24T00:00:09.869Z","failure":null}
 {"serviceId":"na-edu-0641545G","day":"2026-11-21","ok":true,"status":200,"latencyMs":0,"observedAt":"2026-11-21T12:00:00.000Z","failure":null}
