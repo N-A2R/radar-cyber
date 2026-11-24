@@ -831,4 +831,42 @@ n'a été inventé ; le jeu d'observations, `server.ts` et le manifeste sont
 inchangés. La première fenêtre entièrement réelle reste ancrée au 27 novembre,
 après trois collectes réelles les 25, 26 et 27 novembre.
 
+## Vérification du 24 novembre (04 h 47 UTC) — trois balayages indépendants
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main`. Trois passes en lecture
+seule n'ont trouvé aucune observation HTTP réelle des 18, 19 et 20 novembre :
+**0 service-jour gagné**, l'écart reste de 1 500.
+
+- **Données locales** : balayage dynamique de toutes les colonnes `timestamptz`
+  et `date` du schéma public de PostgreSQL ; `source_verification`,
+  `exposition_service`, `exposition_risque`, `warc_proof` et `leak_site` n'ont
+  aucune ligne 2xx/3xx datée des trois jours pour le périmètre ; 0 preuve
+  inédite dans les 2 000 observations, le corpus (preuves au 21) ou les
+  artefacts Git.
+- **Sources grises** : 12 sources ou formes de requête inédites (CDX filtré
+  `statuscode:200` et `collapse=urlkey`, `calendarcaptures/2?groupby=day`,
+  `sparkline`, arquivo.pt, UK Web Archive, Common Crawl, Memento, archive.ph…)
+  renvoient 0 capture sur la fenêtre. Le `sparkline` Wayback de l'URL du
+  périmètre `lgtguezdebalzac.fr` donne `novembre=0` et
+  `last_ts=20261012072018` : aucune capture après octobre.
+- **Métrique** : tous les ancres possibles plafonnent à 2 000 / 3 500 ; aucun
+  résultat versionné ne contient sept jours complets.
+
+```
+grep -cE '"day":"2026-11-(18|19|20)"' bench/results/service-availability-observations.jsonl
+# 0
+curl -sS --max-time 12 'https://web.archive.org/cdx/search/cdx?url=lgtguezdebalzac.fr&from=20261118&to=20261120&output=json&filter=statuscode:200&collapse=urlkey'
+# []
+curl -sS --max-time 12 'https://web.archive.org/__wb/sparkline?url=lgtguezdebalzac.fr&collection=web&year=2026'
+# {"years":{"2026":[7,63,65,60,43,4,5,4,0,2,0,0]},...,"last_ts":"20261012072018"}
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+```
+
+Aucune modification du jeu d'observations, de `server.ts` (0 ligne) ni du
+manifeste. La première fenêtre entièrement réelle reste ancrée au 27 novembre.
+
 OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
