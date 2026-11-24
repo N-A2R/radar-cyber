@@ -1,0 +1,994 @@
+{
+  "runId": "injection-eval-v1",
+  "attempt": "1795470031718-1063546",
+  "scenarios": [
+    {
+      "scenario": {
+        "id": "SC-01",
+        "rule": "ransomware-revendication",
+        "family": "ransomware",
+        "assertionType": "third_party_claim",
+        "title": "Injection contrôlée SC-01 — revendication de rançongiciel visant un service municipal fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique ransomware-revendication-mun : exercice de mesure sur un service municipal fictif (Bordeaux). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif MUN-01",
+        "kind": "collectivite",
+        "city": "Bordeaux",
+        "dept": "33"
+      },
+      "eventIds": [
+        142874,
+        142875,
+        142876
+      ],
+      "alertIds": [
+        2709,
+        2710,
+        2711,
+        2712
+      ],
+      "detected": true,
+      "latencyS": 0.618
+    },
+    {
+      "scenario": {
+        "id": "SC-02",
+        "rule": "ransomware-revendication",
+        "family": "ransomware",
+        "assertionType": "third_party_claim",
+        "title": "Injection contrôlée SC-02 — revendication de rançongiciel visant un établissement de santé fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique ransomware-revendication-san : exercice de mesure sur un établissement de santé fictif (Limoges). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif SAN-02",
+        "kind": "sante",
+        "city": "Limoges",
+        "dept": "87"
+      },
+      "eventIds": [
+        142877,
+        142878,
+        142879
+      ],
+      "alertIds": [
+        2713,
+        2714,
+        2715,
+        2716
+      ],
+      "detected": true,
+      "latencyS": 0.068
+    },
+    {
+      "scenario": {
+        "id": "SC-03",
+        "rule": "ransomware-revendication",
+        "family": "ransomware",
+        "assertionType": "third_party_claim",
+        "title": "Injection contrôlée SC-03 — revendication de rançongiciel visant un établissement scolaire fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique ransomware-revendication-ens : exercice de mesure sur un établissement scolaire fictif (Poitiers). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ENS-03",
+        "kind": "enseignement",
+        "city": "Poitiers",
+        "dept": "86"
+      },
+      "eventIds": [
+        142880,
+        142881,
+        142882
+      ],
+      "alertIds": [
+        2717,
+        2718,
+        2719,
+        2720
+      ],
+      "detected": true,
+      "latencyS": 0.052
+    },
+    {
+      "scenario": {
+        "id": "SC-04",
+        "rule": "ransomware-revendication",
+        "family": "ransomware",
+        "assertionType": "third_party_claim",
+        "title": "Injection contrôlée SC-04 — revendication de rançongiciel visant un opérateur régional fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique ransomware-revendication-ope : exercice de mesure sur un opérateur régional fictif (Angoulême). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif OPE-04",
+        "kind": "entreprise",
+        "city": "Angoulême",
+        "dept": "16"
+      },
+      "eventIds": [
+        142883,
+        142884,
+        142885
+      ],
+      "alertIds": [
+        2721,
+        2722,
+        2723,
+        2724
+      ],
+      "detected": true,
+      "latencyS": 0.059
+    },
+    {
+      "scenario": {
+        "id": "SC-05",
+        "rule": "ransomware-revendication",
+        "family": "ransomware",
+        "assertionType": "third_party_claim",
+        "title": "Injection contrôlée SC-05 — revendication de rançongiciel visant un association locale fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique ransomware-revendication-ass : exercice de mesure sur un association locale fictif (La Rochelle). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ASS-05",
+        "kind": "association",
+        "city": "La Rochelle",
+        "dept": "17"
+      },
+      "eventIds": [
+        142886,
+        142887,
+        142888
+      ],
+      "alertIds": [
+        2725,
+        2726,
+        2727,
+        2728
+      ],
+      "detected": true,
+      "latencyS": 0.066
+    },
+    {
+      "scenario": {
+        "id": "SC-06",
+        "rule": "incident-confirme",
+        "family": "cti",
+        "assertionType": "confirmed_incident",
+        "title": "Injection contrôlée SC-06 — intrusion confirmée chez un service municipal fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique incident-confirme-mun : exercice de mesure sur un service municipal fictif (Bordeaux). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif MUN-06",
+        "kind": "collectivite",
+        "city": "Bordeaux",
+        "dept": "33"
+      },
+      "eventIds": [
+        142889,
+        142890,
+        142891
+      ],
+      "alertIds": [
+        2729
+      ],
+      "detected": true,
+      "latencyS": 0.078
+    },
+    {
+      "scenario": {
+        "id": "SC-07",
+        "rule": "incident-confirme",
+        "family": "cti",
+        "assertionType": "confirmed_incident",
+        "title": "Injection contrôlée SC-07 — intrusion confirmée chez un établissement de santé fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique incident-confirme-san : exercice de mesure sur un établissement de santé fictif (Limoges). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif SAN-07",
+        "kind": "sante",
+        "city": "Limoges",
+        "dept": "87"
+      },
+      "eventIds": [
+        142892,
+        142893,
+        142894
+      ],
+      "alertIds": [
+        2730
+      ],
+      "detected": true,
+      "latencyS": 0.055
+    },
+    {
+      "scenario": {
+        "id": "SC-08",
+        "rule": "incident-confirme",
+        "family": "cti",
+        "assertionType": "confirmed_incident",
+        "title": "Injection contrôlée SC-08 — intrusion confirmée chez un établissement scolaire fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique incident-confirme-ens : exercice de mesure sur un établissement scolaire fictif (Poitiers). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ENS-08",
+        "kind": "enseignement",
+        "city": "Poitiers",
+        "dept": "86"
+      },
+      "eventIds": [
+        142895,
+        142896,
+        142897
+      ],
+      "alertIds": [
+        2731
+      ],
+      "detected": true,
+      "latencyS": 0.06
+    },
+    {
+      "scenario": {
+        "id": "SC-09",
+        "rule": "incident-confirme",
+        "family": "cti",
+        "assertionType": "confirmed_incident",
+        "title": "Injection contrôlée SC-09 — intrusion confirmée chez un opérateur régional fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique incident-confirme-ope : exercice de mesure sur un opérateur régional fictif (Angoulême). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif OPE-09",
+        "kind": "entreprise",
+        "city": "Angoulême",
+        "dept": "16"
+      },
+      "eventIds": [
+        142898,
+        142899,
+        142900
+      ],
+      "alertIds": [
+        2732
+      ],
+      "detected": true,
+      "latencyS": 0.052
+    },
+    {
+      "scenario": {
+        "id": "SC-10",
+        "rule": "incident-confirme",
+        "family": "cti",
+        "assertionType": "confirmed_incident",
+        "title": "Injection contrôlée SC-10 — intrusion confirmée chez un association locale fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique incident-confirme-ass : exercice de mesure sur un association locale fictif (La Rochelle). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ASS-10",
+        "kind": "association",
+        "city": "La Rochelle",
+        "dept": "17"
+      },
+      "eventIds": [
+        142901,
+        142902,
+        142903
+      ],
+      "alertIds": [
+        2733
+      ],
+      "detected": true,
+      "latencyS": 0.057
+    },
+    {
+      "scenario": {
+        "id": "SC-11",
+        "rule": "fuite-donnees",
+        "family": "cti",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-11 — fuite de données concernant un service municipal fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique fuite-donnees-mun : exercice de mesure sur un service municipal fictif (Bordeaux). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif MUN-11",
+        "kind": "collectivite",
+        "city": "Bordeaux",
+        "dept": "33"
+      },
+      "eventIds": [
+        142904,
+        142905,
+        142906
+      ],
+      "alertIds": [
+        2734
+      ],
+      "detected": true,
+      "latencyS": 0.044
+    },
+    {
+      "scenario": {
+        "id": "SC-12",
+        "rule": "fuite-donnees",
+        "family": "cti",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-12 — fuite de données concernant un établissement de santé fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique fuite-donnees-san : exercice de mesure sur un établissement de santé fictif (Limoges). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif SAN-12",
+        "kind": "sante",
+        "city": "Limoges",
+        "dept": "87"
+      },
+      "eventIds": [
+        142907,
+        142908,
+        142909
+      ],
+      "alertIds": [
+        2735
+      ],
+      "detected": true,
+      "latencyS": 0.047
+    },
+    {
+      "scenario": {
+        "id": "SC-13",
+        "rule": "fuite-donnees",
+        "family": "cti",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-13 — fuite de données concernant un établissement scolaire fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique fuite-donnees-ens : exercice de mesure sur un établissement scolaire fictif (Poitiers). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ENS-13",
+        "kind": "enseignement",
+        "city": "Poitiers",
+        "dept": "86"
+      },
+      "eventIds": [
+        142910,
+        142911,
+        142912
+      ],
+      "alertIds": [
+        2736
+      ],
+      "detected": true,
+      "latencyS": 0.05
+    },
+    {
+      "scenario": {
+        "id": "SC-14",
+        "rule": "fuite-donnees",
+        "family": "cti",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-14 — fuite de données concernant un opérateur régional fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique fuite-donnees-ope : exercice de mesure sur un opérateur régional fictif (Angoulême). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif OPE-14",
+        "kind": "entreprise",
+        "city": "Angoulême",
+        "dept": "16"
+      },
+      "eventIds": [
+        142913,
+        142914,
+        142915
+      ],
+      "alertIds": [
+        2737
+      ],
+      "detected": true,
+      "latencyS": 0.048
+    },
+    {
+      "scenario": {
+        "id": "SC-15",
+        "rule": "fuite-donnees",
+        "family": "cti",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-15 — fuite de données concernant un association locale fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique fuite-donnees-ass : exercice de mesure sur un association locale fictif (La Rochelle). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ASS-15",
+        "kind": "association",
+        "city": "La Rochelle",
+        "dept": "17"
+      },
+      "eventIds": [
+        142916,
+        142917,
+        142918
+      ],
+      "alertIds": [
+        2738
+      ],
+      "detected": true,
+      "latencyS": 0.046
+    },
+    {
+      "scenario": {
+        "id": "SC-16",
+        "rule": "avis-cert-fr",
+        "family": "cert_fr",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-16 — avis de sécurité (famille CERT-FR) relatif à un service municipal fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique avis-cert-fr-mun : exercice de mesure sur un service municipal fictif (Bordeaux). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif MUN-16",
+        "kind": "collectivite",
+        "city": "Bordeaux",
+        "dept": "33"
+      },
+      "eventIds": [
+        142919,
+        142920,
+        142921
+      ],
+      "alertIds": [
+        2739
+      ],
+      "detected": true,
+      "latencyS": 0.055
+    },
+    {
+      "scenario": {
+        "id": "SC-17",
+        "rule": "avis-cert-fr",
+        "family": "cert_fr",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-17 — avis de sécurité (famille CERT-FR) relatif à un établissement de santé fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique avis-cert-fr-san : exercice de mesure sur un établissement de santé fictif (Limoges). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif SAN-17",
+        "kind": "sante",
+        "city": "Limoges",
+        "dept": "87"
+      },
+      "eventIds": [
+        142922,
+        142923,
+        142924
+      ],
+      "alertIds": [
+        2740
+      ],
+      "detected": true,
+      "latencyS": 0.051
+    },
+    {
+      "scenario": {
+        "id": "SC-18",
+        "rule": "avis-cert-fr",
+        "family": "cert_fr",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-18 — avis de sécurité (famille CERT-FR) relatif à un établissement scolaire fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique avis-cert-fr-ens : exercice de mesure sur un établissement scolaire fictif (Poitiers). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ENS-18",
+        "kind": "enseignement",
+        "city": "Poitiers",
+        "dept": "86"
+      },
+      "eventIds": [
+        142925,
+        142926,
+        142927
+      ],
+      "alertIds": [
+        2741
+      ],
+      "detected": true,
+      "latencyS": 0.049
+    },
+    {
+      "scenario": {
+        "id": "SC-19",
+        "rule": "avis-cert-fr",
+        "family": "cert_fr",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-19 — avis de sécurité (famille CERT-FR) relatif à un opérateur régional fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique avis-cert-fr-ope : exercice de mesure sur un opérateur régional fictif (Angoulême). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif OPE-19",
+        "kind": "entreprise",
+        "city": "Angoulême",
+        "dept": "16"
+      },
+      "eventIds": [
+        142928,
+        142929,
+        142930
+      ],
+      "alertIds": [
+        2742
+      ],
+      "detected": true,
+      "latencyS": 0.044
+    },
+    {
+      "scenario": {
+        "id": "SC-20",
+        "rule": "avis-cert-fr",
+        "family": "cert_fr",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-20 — avis de sécurité (famille CERT-FR) relatif à un association locale fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique avis-cert-fr-ass : exercice de mesure sur un association locale fictif (La Rochelle). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ASS-20",
+        "kind": "association",
+        "city": "La Rochelle",
+        "dept": "17"
+      },
+      "eventIds": [
+        142931,
+        142932,
+        142933
+      ],
+      "alertIds": [
+        2743
+      ],
+      "detected": true,
+      "latencyS": 0.043
+    },
+    {
+      "scenario": {
+        "id": "SC-21",
+        "rule": "certificat-observé",
+        "family": "cert",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-21 — certificat TLS observé pour un service municipal fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique certificat-observé-mun : exercice de mesure sur un service municipal fictif (Bordeaux). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif MUN-21",
+        "kind": "collectivite",
+        "city": "Bordeaux",
+        "dept": "33"
+      },
+      "eventIds": [
+        142934,
+        142935,
+        142936
+      ],
+      "alertIds": [
+        2744
+      ],
+      "detected": true,
+      "latencyS": 0.039
+    },
+    {
+      "scenario": {
+        "id": "SC-22",
+        "rule": "certificat-observé",
+        "family": "cert",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-22 — certificat TLS observé pour un établissement de santé fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique certificat-observé-san : exercice de mesure sur un établissement de santé fictif (Limoges). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif SAN-22",
+        "kind": "sante",
+        "city": "Limoges",
+        "dept": "87"
+      },
+      "eventIds": [
+        142937,
+        142938,
+        142939
+      ],
+      "alertIds": [
+        2745
+      ],
+      "detected": true,
+      "latencyS": 0.042
+    },
+    {
+      "scenario": {
+        "id": "SC-23",
+        "rule": "certificat-observé",
+        "family": "cert",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-23 — certificat TLS observé pour un établissement scolaire fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique certificat-observé-ens : exercice de mesure sur un établissement scolaire fictif (Poitiers). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ENS-23",
+        "kind": "enseignement",
+        "city": "Poitiers",
+        "dept": "86"
+      },
+      "eventIds": [
+        142940,
+        142941,
+        142942
+      ],
+      "alertIds": [
+        2746
+      ],
+      "detected": true,
+      "latencyS": 0.044
+    },
+    {
+      "scenario": {
+        "id": "SC-24",
+        "rule": "certificat-observé",
+        "family": "cert",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-24 — certificat TLS observé pour un opérateur régional fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique certificat-observé-ope : exercice de mesure sur un opérateur régional fictif (Angoulême). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif OPE-24",
+        "kind": "entreprise",
+        "city": "Angoulême",
+        "dept": "16"
+      },
+      "eventIds": [
+        142943,
+        142944,
+        142945
+      ],
+      "alertIds": [
+        2747
+      ],
+      "detected": true,
+      "latencyS": 0.045
+    },
+    {
+      "scenario": {
+        "id": "SC-25",
+        "rule": "certificat-observé",
+        "family": "cert",
+        "assertionType": "technical_indicator",
+        "title": "Injection contrôlée SC-25 — certificat TLS observé pour un association locale fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique certificat-observé-ass : exercice de mesure sur un association locale fictif (La Rochelle). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ASS-25",
+        "kind": "association",
+        "city": "La Rochelle",
+        "dept": "17"
+      },
+      "eventIds": [
+        142946,
+        142947,
+        142948
+      ],
+      "alertIds": [
+        2748
+      ],
+      "detected": true,
+      "latencyS": 0.044
+    },
+    {
+      "scenario": {
+        "id": "SC-26",
+        "rule": "presse-cyber",
+        "family": "presse",
+        "assertionType": "ambient_signal",
+        "title": "Injection contrôlée SC-26 — article de presse cyber sur un service municipal fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique presse-cyber-mun : exercice de mesure sur un service municipal fictif (Bordeaux). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif MUN-26",
+        "kind": "collectivite",
+        "city": "Bordeaux",
+        "dept": "33"
+      },
+      "eventIds": [
+        142949,
+        142950,
+        142951
+      ],
+      "alertIds": [
+        2749
+      ],
+      "detected": true,
+      "latencyS": 0.055
+    },
+    {
+      "scenario": {
+        "id": "SC-27",
+        "rule": "presse-cyber",
+        "family": "presse",
+        "assertionType": "ambient_signal",
+        "title": "Injection contrôlée SC-27 — article de presse cyber sur un établissement de santé fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique presse-cyber-san : exercice de mesure sur un établissement de santé fictif (Limoges). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif SAN-27",
+        "kind": "sante",
+        "city": "Limoges",
+        "dept": "87"
+      },
+      "eventIds": [
+        142952,
+        142953,
+        142954
+      ],
+      "alertIds": [
+        2750
+      ],
+      "detected": true,
+      "latencyS": 0.044
+    },
+    {
+      "scenario": {
+        "id": "SC-28",
+        "rule": "presse-cyber",
+        "family": "presse",
+        "assertionType": "ambient_signal",
+        "title": "Injection contrôlée SC-28 — article de presse cyber sur un établissement scolaire fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique presse-cyber-ens : exercice de mesure sur un établissement scolaire fictif (Poitiers). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ENS-28",
+        "kind": "enseignement",
+        "city": "Poitiers",
+        "dept": "86"
+      },
+      "eventIds": [
+        142955,
+        142956,
+        142957
+      ],
+      "alertIds": [
+        2751
+      ],
+      "detected": true,
+      "latencyS": 0.043
+    },
+    {
+      "scenario": {
+        "id": "SC-29",
+        "rule": "presse-cyber",
+        "family": "presse",
+        "assertionType": "ambient_signal",
+        "title": "Injection contrôlée SC-29 — article de presse cyber sur un opérateur régional fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique presse-cyber-ope : exercice de mesure sur un opérateur régional fictif (Angoulême). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif OPE-29",
+        "kind": "entreprise",
+        "city": "Angoulême",
+        "dept": "16"
+      },
+      "eventIds": [
+        142958,
+        142959,
+        142960
+      ],
+      "alertIds": [
+        2752
+      ],
+      "detected": true,
+      "latencyS": 0.043
+    },
+    {
+      "scenario": {
+        "id": "SC-30",
+        "rule": "presse-cyber",
+        "family": "presse",
+        "assertionType": "ambient_signal",
+        "title": "Injection contrôlée SC-30 — article de presse cyber sur un association locale fictif de Nouvelle-Aquitaine",
+        "summary": "Scénario synthétique presse-cyber-ass : exercice de mesure sur un association locale fictif (La Rochelle). Aucune victime réelle, aucune donnée personnelle.",
+        "orgName": "Organisme fictif ASS-30",
+        "kind": "association",
+        "city": "La Rochelle",
+        "dept": "17"
+      },
+      "eventIds": [
+        142961,
+        142962,
+        142963
+      ],
+      "alertIds": [
+        2753
+      ],
+      "detected": true,
+      "latencyS": 0.044
+    }
+  ],
+  "control": [
+    {
+      "controlDay": 1,
+      "observedDay": "2026-10-25",
+      "eventIds": [
+        142964
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 2,
+      "observedDay": "2026-10-26",
+      "eventIds": [
+        142965
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 3,
+      "observedDay": "2026-10-27",
+      "eventIds": [
+        142966
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 4,
+      "observedDay": "2026-10-28",
+      "eventIds": [
+        142967
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 5,
+      "observedDay": "2026-10-29",
+      "eventIds": [
+        142968
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 6,
+      "observedDay": "2026-10-30",
+      "eventIds": [
+        142969
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 7,
+      "observedDay": "2026-10-31",
+      "eventIds": [
+        142970
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 8,
+      "observedDay": "2026-11-01",
+      "eventIds": [
+        142971
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 9,
+      "observedDay": "2026-11-02",
+      "eventIds": [
+        142972
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 10,
+      "observedDay": "2026-11-03",
+      "eventIds": [
+        142973
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 11,
+      "observedDay": "2026-11-04",
+      "eventIds": [
+        142974
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 12,
+      "observedDay": "2026-11-05",
+      "eventIds": [
+        142975
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 13,
+      "observedDay": "2026-11-06",
+      "eventIds": [
+        142976
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 14,
+      "observedDay": "2026-11-07",
+      "eventIds": [
+        142977
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 15,
+      "observedDay": "2026-11-08",
+      "eventIds": [
+        142978
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 16,
+      "observedDay": "2026-11-09",
+      "eventIds": [
+        142979
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 17,
+      "observedDay": "2026-11-10",
+      "eventIds": [
+        142980
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 18,
+      "observedDay": "2026-11-11",
+      "eventIds": [
+        142981
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 19,
+      "observedDay": "2026-11-12",
+      "eventIds": [
+        142982
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 20,
+      "observedDay": "2026-11-13",
+      "eventIds": [
+        142983
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 21,
+      "observedDay": "2026-11-14",
+      "eventIds": [
+        142984
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 22,
+      "observedDay": "2026-11-15",
+      "eventIds": [
+        142985
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 23,
+      "observedDay": "2026-11-16",
+      "eventIds": [
+        142986
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 24,
+      "observedDay": "2026-11-17",
+      "eventIds": [
+        142987
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 25,
+      "observedDay": "2026-11-18",
+      "eventIds": [
+        142988
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 26,
+      "observedDay": "2026-11-19",
+      "eventIds": [
+        142989
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 27,
+      "observedDay": "2026-11-20",
+      "eventIds": [
+        142990
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 28,
+      "observedDay": "2026-11-21",
+      "eventIds": [
+        142991
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 29,
+      "observedDay": "2026-11-22",
+      "eventIds": [
+        142992
+      ],
+      "alerts": 0
+    },
+    {
+      "controlDay": 30,
+      "observedDay": "2026-11-23",
+      "eventIds": [
+        142993
+      ],
+      "alerts": 0
+    }
+  ],
+  "detected": 30,
+  "rate": 1,
+  "latencyMaxS": 0.618,
+  "controlAlerts": 0,
+  "critere": {
+    "taux": 1,
+    "total": 30,
+    "alertes_controle": 0,
+    "jours_controle": 30,
+    "alertes_jours_controle": 0
+  }
+}

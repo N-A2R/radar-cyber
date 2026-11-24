@@ -1,0 +1,981 @@
+{
+  "selected": 1102,
+  "verified": 120,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 7003,
+    "withVerifiedProvenance": 6946,
+    "coveragePercent": 0.4154
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 7123,
+    "withVerifiedProvenance": 7065,
+    "coveragePercent": 0.4226
+  },
+  "domains": [
+    {
+      "orgId": 11760,
+      "siren": null,
+      "name": "EPS GARAZI",
+      "domain": "eps-garazi.fr",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18454,
+      "siren": null,
+      "name": "Collège privé Adèle de Trenquelléon",
+      "domain": "institutionadt.fr",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2375,
+      "siren": "213305402",
+      "name": "Commune de Vendays-Montalivet",
+      "domain": "vendays-montalivet.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 116,
+      "siren": "211601315",
+      "name": "Commune de Esse",
+      "domain": "esse-16.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 350272,
+      "siren": "534279179",
+      "name": "AIXE RUGBY ATHLETIQUE",
+      "domain": "aixerugby.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 357132,
+      "siren": "539406017",
+      "name": "COROLLE",
+      "domain": "fleurs-corolle.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4190,
+      "siren": "218709509",
+      "name": "Commune de Meuzac",
+      "domain": "meuzac.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 208664,
+      "siren": "437843899",
+      "name": "POMPES FUNEBRES CHALUMEAU",
+      "domain": "pfchalumeau.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 218585,
+      "siren": "441969615",
+      "name": "BRULERIE DU VALOIS",
+      "domain": "brulerieduvalois.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 286456,
+      "siren": "497914416",
+      "name": "PHARMACIE AGORA",
+      "domain": "pharmacieagora-boulazac.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 568137,
+      "siren": "903815728",
+      "name": "LMCP1",
+      "domain": "lamiecaline.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2199018,
+      "siren": "442875266",
+      "name": "MUTUALITE FRANCAISE VIENNE",
+      "domain": "magasins.ecoutervoir.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 125768,
+      "siren": "384118782",
+      "name": "BAGNERES BOIS",
+      "domain": "batiland.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 585128,
+      "siren": "911954022",
+      "name": "BS CLINIC AGEN",
+      "domain": "lazeo.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 741,
+      "siren": "211704036",
+      "name": "Commune de Saint-Simon-de-Bordes",
+      "domain": "saintsimondebordes.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 402594,
+      "siren": "801733650",
+      "name": "EARL DE L'ARBRE",
+      "domain": "fermedelarbre.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2928,
+      "siren": "214702151",
+      "name": "Commune de Pujols",
+      "domain": "pujols47.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 894,
+      "siren": "211907407",
+      "name": "Commune de L'Église-aux-Bois",
+      "domain": "legliseauxbois.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 496466,
+      "siren": "847640273",
+      "name": "AUTO ECOLE DE LA GARE 79",
+      "domain": "autoecoledelagare79.com",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 99490,
+      "siren": "342230380",
+      "name": "FAURIE MOTOR CHARENTE-MARITIME",
+      "domain": "faurie.fr",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 387738,
+      "siren": "793447996",
+      "name": "ASSO DES CHEMINS DE ST JACQUES DE COMPOSTELLE EN AUNIS SAINTONGE",
+      "domain": "saint-jacques-pons.com",
+      "registry": "rna-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 103008,
+      "siren": "345238398",
+      "name": "SOLIDARITE ET ENTRAIDE",
+      "domain": "aase.fr",
+      "registry": "rna-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 610437,
+      "siren": "923088546",
+      "name": "CRUS ET TERROIRS ACADEMIE DU PAYS GABAYE",
+      "domain": "academie-du-pays-gabaye.e-monsite.com",
+      "registry": "rna-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2163617,
+      "siren": "421176504",
+      "name": "MANA",
+      "domain": "cliniquetransculturelle-mana.org",
+      "registry": "rna-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 167903,
+      "siren": "411914989",
+      "name": "FRACAS",
+      "domain": "fracas.fr",
+      "registry": "rna-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2356020,
+      "siren": "810326959",
+      "name": "ECURIE PANDORA",
+      "domain": "ecuriepandora.fr",
+      "registry": "rna-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2572,
+      "siren": "214001877",
+      "name": "Commune de Moliets-et-Maa",
+      "domain": "mairiedemoliets.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3648,
+      "siren": "217901008",
+      "name": "Commune de Coulon",
+      "domain": "ville-coulon.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1916,
+      "siren": "213300619",
+      "name": "Commune de Bonnetan",
+      "domain": "bonnetan.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1243,
+      "siren": "212315105",
+      "name": "Commune de Peyrat-la-Nonière",
+      "domain": "peyrat-la-noniere.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3247,
+      "siren": "216402180",
+      "name": "Commune de Estérençuby",
+      "domain": "esterencuby.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4429,
+      "siren": "244000857",
+      "name": "Communauté de communes Côte Landes Nature",
+      "domain": "cc-cln.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 3165,
+      "siren": "216401331",
+      "name": "Commune de Boeil-Bezing",
+      "domain": "boeil-bezing.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3466,
+      "siren": "216404426",
+      "name": "Commune de Parbayse",
+      "domain": "parbayse.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 379,
+      "siren": "211700224",
+      "name": "Commune de Asnières-la-Giraud",
+      "domain": "asniereslagiraud17.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3888,
+      "siren": "218600625",
+      "name": "Commune de Chasseneuil-du-Poitou",
+      "domain": "chasseneuildupoitou.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1786,
+      "siren": "212405104",
+      "name": "Commune de Saint-Vincent-de-Cosse",
+      "domain": "saint-vincent-de-cosse.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1732,
+      "siren": "212404503",
+      "name": "Commune de Saint-Martial-de-Nabirat",
+      "domain": "saintmartialdenabirat.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2653,
+      "siren": "214002693",
+      "name": "Commune de Saint-Lon-les-Mines",
+      "domain": "saintlonlesmines.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2173,
+      "siren": "213303274",
+      "name": "Commune de Podensac",
+      "domain": "podensac.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 4017,
+      "siren": "218602027",
+      "name": "Commune de La Puye",
+      "domain": "lapuye.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3056,
+      "siren": "216400218",
+      "name": "Commune de Andoins",
+      "domain": "andoins.com",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1932,
+      "siren": "213300775",
+      "name": "Commune de Cabanac-et-Villagrains",
+      "domain": "cabanacetvillagrains.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3418,
+      "siren": "216403931",
+      "name": "Commune de Monein",
+      "domain": "monein.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1408,
+      "siren": "212400634",
+      "name": "Commune de Bouzic",
+      "domain": "bouzic.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1996,
+      "siren": "213301450",
+      "name": "Commune de Cursan",
+      "domain": "cursan.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 273251,
+      "siren": "490585262",
+      "name": "MAISON DE L EMPLOI DE L INSERTION ECONOMIQUE ET DE L ENTREPRISE DE BORDEAUX",
+      "domain": "emploi-bordeaux.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 3634,
+      "siren": "217900810",
+      "name": "Commune de Chauray",
+      "domain": "ville-de-chauray.fr",
+      "registry": "dila-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 8998,
+      "siren": null,
+      "name": "LBM BIO LAB 33 - LEOGNAN LECLERC",
+      "domain": "biolab33.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 258161,
+      "siren": "482481728",
+      "name": "CARRIERES & INSERTION",
+      "domain": "carrieresetinsertion.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 275593,
+      "siren": "491522033",
+      "name": "CHAMBRE REGIONALE DE SURENDETTEMENT SOCIAL DU POITOU CHARENTES",
+      "domain": "cresuspoitoucharentes.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 175806,
+      "siren": "417972213",
+      "name": "ASS REAPPRENDRE COMPTER LIRE ECRIRE A RE",
+      "domain": "reclere.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 130823,
+      "siren": "388602732",
+      "name": "BASSIN SOLIDARITE EMPLOI",
+      "domain": "bassin-solidarite-emploi.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 148854,
+      "siren": "399990704",
+      "name": "ASS ENVIRONNEMENT PLUS",
+      "domain": "enviplus.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 94852,
+      "siren": "335257234",
+      "name": "ASS PLACEMENT PERSONNEL UTILIS INTERCOMM",
+      "domain": "appui86.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 89739,
+      "siren": "329208649",
+      "name": "BEAUSOLEIL",
+      "domain": "latabledecanabordeaux.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 454541,
+      "siren": "827612425",
+      "name": "NICOLAS LELAURE - NL - CONSEIL RESSOURCES HUMAINES",
+      "domain": "a2forces.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 144324,
+      "siren": "397822586",
+      "name": "CHANTIERS PEUPINS",
+      "domain": "chantierspeupins.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 486186,
+      "siren": "841511223",
+      "name": "SIFU GROUP",
+      "domain": "groupesifu.com",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 171976,
+      "siren": "414126441",
+      "name": "GROUPEMENT D EMPLOYEURS D INSERTION ET DE QUALIFICATION BTP LIBOURNAIS HAUTE GIRONDE",
+      "domain": "geiq-libournais-hautegironde.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1957564,
+      "siren": null,
+      "name": "SERVICE EAU DE SCIECQ (SCIECQ)",
+      "domain": "sciecq.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 161681,
+      "siren": "408626455",
+      "name": "SERVICE CHALOSSE TURSAN",
+      "domain": "sct-landes.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 429943,
+      "siren": "814634994",
+      "name": "GEMS 23 - GROUPEMENT D'EMPLOYEURS MEDICO-SOCIAL",
+      "domain": "gems23.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 576654,
+      "siren": "908885965",
+      "name": "ASSOCIATION POUR LE REEMPLOI DES MATERIAUX DU BATIMENT EN CREUSE",
+      "domain": "remabat.fr",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2999,
+      "siren": "214702904",
+      "name": "Commune de La Sauvetat-du-Dropt",
+      "domain": "la-sauvetat-du-dropt.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2110,
+      "siren": "213302607",
+      "name": "Commune de Lugos",
+      "domain": "commune-lugos.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2341,
+      "siren": "213305063",
+      "name": "Commune de Sauveterre-de-Guyenne",
+      "domain": "sauveterre-de-guyenne.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 474,
+      "siren": "211701214",
+      "name": "Commune de La Couarde-sur-Mer",
+      "domain": "lacouardesurmer.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2244,
+      "siren": "213304025",
+      "name": "Commune de Sainte-Foy-la-Grande",
+      "domain": "saintefoylagrande.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1997,
+      "siren": "213301468",
+      "name": "Commune de Cussac-Fort-Médoc",
+      "domain": "cussac-fort-medoc.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 3902,
+      "siren": "218600781",
+      "name": "Commune de Civray",
+      "domain": "civray.fr",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 123288,
+      "siren": "382865699",
+      "name": "SARL J. PAINTURAUD",
+      "domain": "cognacpainturaud.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 464811,
+      "siren": "831227186",
+      "name": "COURTAGE 47",
+      "domain": "negotaux.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 216396,
+      "siren": "441092848",
+      "name": "TOURNER MANEGE",
+      "domain": "youpiparc.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 265493,
+      "siren": "487492068",
+      "name": "AUTO ECOLE MARTINEZ",
+      "domain": "autoecolemartinez.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 382237,
+      "siren": "791083884",
+      "name": "GARAGE PICTAVE",
+      "domain": "boschcarservice.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 471642,
+      "siren": "833977127",
+      "name": "MELIBIOSE",
+      "domain": "surgeres.biocoop.net",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 233224,
+      "siren": "449398742",
+      "name": "HADJIM",
+      "domain": "hadjime.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 105969,
+      "siren": "349441071",
+      "name": "SARL ANICRYS",
+      "domain": "crysboutique.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 174496,
+      "siren": "415259761",
+      "name": "EURL L'OLIVETTE",
+      "domain": "mv-lodge.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 773,
+      "siren": "211704366",
+      "name": "Commune de Taillebourg",
+      "domain": "taillebourg17.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 428,
+      "siren": "211700729",
+      "name": "Commune de Burie",
+      "domain": "mairie-burie.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 495,
+      "siren": "211701438",
+      "name": "Commune de Le Douhet",
+      "domain": "ledouhet.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 647,
+      "siren": "211703020",
+      "name": "Commune de Romegoux",
+      "domain": "mairie-romegoux.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 310473,
+      "siren": "509569398",
+      "name": "RAMONDOU. E.",
+      "domain": "bijouterie-agen-1064.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2148,
+      "siren": "213303019",
+      "name": "Commune de Naujan-et-Postiac",
+      "domain": "naujan-et-postiac.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 296024,
+      "siren": "501835250",
+      "name": "BROC'ANTIQUITES BOUTIQUE",
+      "domain": "chambaud-antiquites.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 675661,
+      "siren": "979064789",
+      "name": "KET ENERGIE",
+      "domain": "ket-energie.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 194071,
+      "siren": "428689665",
+      "name": "SAS MAXIME PINARD",
+      "domain": "maxime-pinard.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 374,
+      "siren": "211700174",
+      "name": "Commune de Archingeay",
+      "domain": "archingeay.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2365597,
+      "siren": "820244804",
+      "name": "CANDIZ BY M",
+      "domain": "candiz-by-m.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 622719,
+      "siren": "929433159",
+      "name": "BOR-BURGER",
+      "domain": "quick.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 303290,
+      "siren": "504776931",
+      "name": "MATSAI MARA",
+      "domain": "matsai-mara.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 347897,
+      "siren": "533142451",
+      "name": "FINANCIERE JDS",
+      "domain": "talents-trajectoires.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2284333,
+      "siren": "511502098",
+      "name": "PEGI",
+      "domain": "domaineduchatelard.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 661890,
+      "siren": "949428171",
+      "name": "UMA",
+      "domain": "umarestaurant.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 425292,
+      "siren": "812845287",
+      "name": "SAS DE BEL AIR",
+      "domain": "lesoleillevantpizza.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 256989,
+      "siren": "482000270",
+      "name": "LES ORANGERS",
+      "domain": "immobilier-orangerie.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 143344,
+      "siren": "395260474",
+      "name": "SOCIETE D'EXPLOITATION CARROSSERIE CLEMENCEAU",
+      "domain": "carrosserieclemenceau.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 90044,
+      "siren": "329544936",
+      "name": "SARL GARAGE RABAULT",
+      "domain": "garage-rabault.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 681283,
+      "siren": "981828239",
+      "name": "KOBBO BELVEDERE",
+      "domain": "sushikobbo.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 673201,
+      "siren": "977905421",
+      "name": "KALIMERA BORDEAUX",
+      "domain": "eatkalimera.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 294346,
+      "siren": "501123632",
+      "name": "AVENUE 73",
+      "domain": "avenue73.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 166605,
+      "siren": "411256399",
+      "name": "BERGES DE GARONNE AUTO SARL",
+      "domain": "bgalocation.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 491316,
+      "siren": "843625021",
+      "name": "VALENTIN",
+      "domain": "laverievalentin.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 443851,
+      "siren": "821746385",
+      "name": "EVANESCENCE",
+      "domain": "evanescence-institut.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 459145,
+      "siren": "829194901",
+      "name": "UNION SYNDICALE SOLIDAIRES NOUVELLE AQUITAINE",
+      "domain": "solidaires33.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 667214,
+      "siren": "952123784",
+      "name": "NELLS",
+      "domain": "restaurantlesaisonnier.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 344683,
+      "siren": "531620284",
+      "name": "NOUNOUS HOME SERVICES",
+      "domain": "kangouroukids.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 556417,
+      "siren": "899317002",
+      "name": "IKE POKE",
+      "domain": "ikepoke.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 597710,
+      "siren": "918481144",
+      "name": "AUTOUR D'UN GATEAU",
+      "domain": "autour-dun-gateau.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 526701,
+      "siren": "882797665",
+      "name": "SC VISION",
+      "domain": "tournyoptique.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 144304,
+      "siren": "397814823",
+      "name": "AGC CERFRANCE POITOU-CHARENTES",
+      "domain": "poitoucharentes.cerfrance.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 593794,
+      "siren": "915061279",
+      "name": "2GLV",
+      "domain": "restaurantdemeter.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 420202,
+      "siren": "810924936",
+      "name": "LE GARAGE",
+      "domain": "legarageaubeterre.com",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 324327,
+      "siren": "518923289",
+      "name": "TSP",
+      "domain": "camping-montalivet.fr",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 162523,
+      "siren": "409085347",
+      "name": "SARL DU MUS DE LOUP",
+      "domain": "lemusdeloup.com",
+      "registry": "osm-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 19252,
+      "siren": null,
+      "name": "ECOLE PRIMAIRE PRIVEE GURE  IKASTOLA",
+      "domain": "gureikastola.eus",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 300021,
+      "siren": "503464299",
+      "name": "BORDEAUX HISTORIA VINI   MUSEE DES NEGOCIANTS",
+      "domain": "museeduvinbordeaux.com",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 2147317,
+      "siren": "410906655",
+      "name": "CHAOS",
+      "domain": "chaos.com",
+      "registry": "site-zone-http-200",
+      "confidence": 0.95
+    }
+  ]
+}

@@ -140,6 +140,6 @@ test("org_score ne stocke que des identifiants et des agrégats", async () => {
 	);
 	assert.deepEqual(
 		rows.map((row) => row.column_name),
-		["calcule_le", "confirmees", "criticite", "org_id", "regle", "score", "services"],
+		["calcule_le", "confidence", "confirmees", "criticite", "formule", "methode", "methode_sha256", "org_id", "referentiel", "regle", "score", "services"],
 	);
 });
