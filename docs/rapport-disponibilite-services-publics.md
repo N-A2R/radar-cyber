@@ -956,4 +956,52 @@ grep -cE '"day":"2026-11-(18|19|20)"' bench/results/service-availability-observa
 Aucune date ni statut n'a été inventé ; le jeu d'observations, le manifeste et
 `server.ts` (0 ligne) sont inchangés.
 
-OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 10 UTC : 0 service-jour récupéré, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24`.
+## Reprise du 24 novembre (05 h 20 UTC) — quatrième vérification croisée
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main` : **0 service-jour récupéré**,
+l'écart reste de 1 500. Trois balayages complémentaires, sur des angles non
+couverts par les passes précédentes :
+
+- **Base PostgreSQL** : 171 tables et vues `public`, 789 colonnes `text`,
+  `varchar`, `json` ou `jsonb` (les passes antérieures ne couvraient que les
+  colonnes `timestamptz`/`date`), 167 enregistrements WARC désencodés. Les
+  tables de preuves HTTP (`source_verification`, `exposition_service`,
+  `warc_proof`, `leak_site`) ont **0 ligne UTC les 18, 19 et 20 novembre** ;
+  les rares occurrences de ces dates sont des dates de publication RSS, des
+  échéances OSINT ou des corps de réponse, jamais un `WARC-Date` ni un statut
+  HTTP. Aucune URL du périmètre n'est concernée.
+- **Arbre et historique** : les 2 000 lignes versionnées restent réparties en
+  500 observations par jour du 21 au 24 novembre ; aucun worktree local, ref
+  Git, fichier WARC/HAR ou dump SQL ne contient d'observation HTTP pour les
+  trois jours manquants.
+- **Sources grises ouvertes** : 10 sources (Wayback CDX et API `available`,
+  calendrier, arquivo.pt, UK Web Archive, urlscan.io, Memento, archive.ph,
+  Common Crawl) testées sur 5 URL du périmètre : 0 capture dans la fenêtre.
+  Le balayage séquentiel de 10 hôtes supplémentaires donne 9 réponses `[]` et
+  1 timeout. Le balayage parallèle de 308 hôtes a été limité par le serveur
+  (`captures=0 cdx_unavailable=308 verdict=indeterminate`) : aucune conclusion
+  d'absence n'en est tirée. Common Crawl reste injoignable (`ECONNREFUSED`).
+
+Un rejeu exhaustif de 92 ancres possibles (1er octobre au 31 décembre 2026)
+avec `measureAvailability` confirme `max_observed=2000/3500`, `full_windows=0` :
+aucune fenêtre de sept jours, pas même une fenêtre future, ne peut atteindre
+3 500 service-jours avec les seules observations réelles disponibles ce jour.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-archive-captures.mts --from=2026-11-18 --to=2026-11-20
+# hosts=308 window=2026-11-18..2026-11-20 captures=0 capturable_service_days=0 cdx_unavailable=308 verdict=indeterminate
+cd apps/api && DATABASE_URL=postgres://radar:radar@localhost:5433/radar node_modules/.bin/tsx test/run.ts test/service-availability.test.ts
+# ℹ tests 28 · pass 28 · fail 0
+```
+
+Jeu d'observations, manifeste et `server.ts` (0 ligne) inchangés. La première
+fenêtre entièrement réelle reste ancrée au 27 novembre, après trois collectes
+réelles ; inventer les 18, 19 et 20 novembre reste la seule autre issue, ce que
+la méthode interdit.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 20 UTC : 0 service-jour récupéré lors de la quatrième vérification croisée, `feasible_windows=0`, `max_observed=2000/3500` sur 92 ancres, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24`.
