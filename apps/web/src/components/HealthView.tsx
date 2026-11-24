@@ -1,6 +1,6 @@
 import { Badge } from "@astryxdesign/core/Badge";
 import { Table } from "@astryxdesign/core/Table";
-import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   api,
   sourceStatus,
@@ -50,20 +50,6 @@ const PAGE_SIZE = 50;
 /** Délai de saisie avant d'interroger l'API : 300 ms, pas une requête par touche. */
 const DELAI_RECHERCHE_MS = 300;
 
-const TOOLBAR_STYLE: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "var(--space-3)",
-  flexWrap: "wrap",
-};
-
-const FIELD_STYLE: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: "var(--space-2)",
-  fontSize: 12,
-  color: "var(--muted)",
-};
 
 function isStatus(value: string): value is SourceStatus | "all" {
   return value === "all" || value === "ok" || value === "error" || value === "pending";
@@ -211,8 +197,8 @@ export default function HealthView({ sources = [], loading: chargementParent = f
         )}
       </header>
 
-      <div className="health-view__toolbar" style={TOOLBAR_STYLE}>
-        <label style={FIELD_STYLE}>
+      <div className="health-view__toolbar">
+        <label>
           famille
           <select value={family} onChange={(e) => changerFamille(e.target.value)}>
             <option value="all">toutes{data === null ? "" : ` (${(data.families ?? []).length})`}</option>
@@ -223,7 +209,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
             ))}
           </select>
         </label>
-        <label style={FIELD_STYLE}>
+        <label>
           état
           <select value={status} onChange={(e) => changerStatut(e.target.value)}>
             <option value="all">tous{data === null ? "" : ` (${formatNumber(data.total ?? null)})`}</option>
@@ -234,7 +220,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
             </option>
           </select>
         </label>
-        <label style={FIELD_STYLE}>
+        <label>
           recherche
           <input
             type="search"
@@ -244,7 +230,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
           />
         </label>
         {data === null ? null : (
-          <span className="health-view__compte" style={{ fontSize: 12 }}>
+          <span className="health-view__compte">
             {items.length === 0
               ? "0 flux affiché"
               : `${formatNumber(premier)}–${formatNumber(dernier)} sur ${formatNumber(data.matching ?? null)} affichés`}
@@ -273,10 +259,10 @@ export default function HealthView({ sources = [], loading: chargementParent = f
                 {COLUMNS.map((col) => (
                   <th
                     key={col.key}
+                    data-num={col.num ? "true" : undefined}
                     aria-sort={
                       sortKey === col.key ? (sortDir === "asc" ? "ascending" : "descending") : "none"
                     }
-                    style={{ textAlign: col.num ? "right" : undefined }}
                   >
                     <button
                       type="button"

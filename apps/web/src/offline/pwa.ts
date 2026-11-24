@@ -1,9 +1,9 @@
 /**
  * Offline-first API cache for the PWA.
  *
- * The map snapshot in `../offline.ts` covers one screen. This module covers the
- * read-only API traffic of every screen: responses seen online are kept in a
- * bounded local cache and replayed, explicitly dated, when the network fails.
+ * The map snapshot in `../offline.ts` covers one panel. This module covers the
+ * read-only API traffic of the four destinations: responses seen online are
+ * kept in a bounded local cache and replayed, dated, when the network fails.
  *
  * Rules that must never be relaxed:
  *   - GET only, and only on an allowlist of read-only routes;
@@ -24,35 +24,78 @@ export const MAX_BYTES = 2_500_000;
 export const MAX_ENTRY_BYTES = 600_000;
 export const MAX_ENTRIES = 120;
 
-/** Every product view must own at least one replayable read route. */
-export const OFFLINE_VIEWS = [
-	"today", "coverage", "review", "journal", "corpus", "sources",
-	"map", "graph", "health", "alerts", "na",
+/**
+ * Free-text casework and moderation queues must never reach localStorage:
+ * they contain names, accusations and evidence. They stay online-only even
+ * though the corresponding views have offline shells.
+ */
+export const CONFIDENTIAL_ROUTES = ["/journal", "/quarantine"] as const;
+
+const FREE_TEXT_FRAGMENTS = [
+	"raison", "reason", "resume", "sujet", "subject", "preuve", "proof",
+	"motif", "commentaire", "comment", "message", "note", "detail",
+	"description", "texte", "text", "contenu", "content", "extrait",
+	"justification", "temoignage", "declaration",
 ] as const;
+
+/**
+ * Aggregate breakdowns are schema, not prose: `parMotif` carries the coded
+ * reasons CouvertureView renders and `motifs` the rejection counters. They
+ * must be traversed rather than replaced, so the cached view keeps its arrays.
+ */
+const AGGREGATE_KEYS: Record<string, true> = {
+	motifs: true,
+	parmotif: true,
+};
+
+/** A controlled code inside an aggregate, never a victim's own words. */
+const AGGREGATE_ENUM_KEYS: Record<string, true> = { motif: true };
+
+const CODE_PATTERN = /^[a-z0-9_:-]+$/i;
+
+/** Compare keys without accents or separators: `résumé` and `resume` agree. */
+function cleNormee(cle: string): string {
+	return cle
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.replace(/[^a-z0-9]/g, "");
+}
+
+/**
+ * The four destinations of the shell. Legacy screens are panels or tabs inside
+ * them: their API endpoints stay cacheable as data, but are not offline views.
+ */
+export const OFFLINE_VIEWS = ["map", "action", "sources", "journal"] as const;
 
 export type OfflineRoute = { prefix: string; views: readonly string[] };
 
-/** Read-only routes used by the interface, grouped by the view that needs them. */
+/** Read-only routes used by the shell, grouped by destination. */
 export const OFFLINE_ROUTES: readonly OfflineRoute[] = [
-	{ prefix: "/orgs", views: ["map", "na", "today"] },
-	{ prefix: "/events", views: ["map", "today"] },
-	{ prefix: "/sources", views: ["sources", "health"] },
-	{ prefix: "/stats", views: ["health", "today"] },
-	{ prefix: "/graph", views: ["graph", "map"] },
-	{ prefix: "/na", views: ["na", "today"] },
-	{ prefix: "/today", views: ["today"] },
-	{ prefix: "/corpus", views: ["corpus"] },
-	{ prefix: "/couverture", views: ["coverage"] },
-	{ prefix: "/health", views: ["health"] },
+	{ prefix: "/orgs", views: ["map"] },
+	{ prefix: "/events", views: ["map"] },
+	{ prefix: "/map", views: ["map"] },
+
+	{ prefix: "/sources", views: ["sources"] },
+	{ prefix: "/stats", views: ["map", "sources"] },
+	{ prefix: "/graph", views: ["map"] },
+	{ prefix: "/na", views: ["map"] },
+	{ prefix: "/today", views: ["map"] },
+	{ prefix: "/corpus", views: ["sources"] },
+	{ prefix: "/couverture", views: ["map"] },
+	{ prefix: "/health", views: ["sources"] },
 	{ prefix: "/flows", views: ["map"] },
-	{ prefix: "/collecte", views: ["health"] },
+	{ prefix: "/collecte", views: ["sources"] },
 	{ prefix: "/directory", views: ["map"] },
 	{ prefix: "/search", views: ["map"] },
-	{ prefix: "/alerts", views: ["alerts"] },
-	{ prefix: "/review", views: ["review"] },
-	{ prefix: "/quarantine", views: ["review"] },
+	{ prefix: "/alerts", views: ["action"] },
+	{ prefix: "/review", views: ["action"] },
+	{ prefix: "/quarantine", views: ["action"] },
 	{ prefix: "/journal", views: ["journal"] },
 	{ prefix: "/enrich", views: ["map"] },
+	{ prefix: "/actor-attributions", views: ["map"] },
+	{ prefix: "/warc/proofs", views: ["sources"] },
+	{ prefix: "/custody", views: ["journal"] },
 ];
 
 /** Routes that can carry identity or message bodies: never written to disk. */
@@ -74,7 +117,7 @@ function matches(path: string, prefix: string): boolean {
 export function isCacheable(method: string, path: string): boolean {
 	if (method.toUpperCase() !== "GET") return false;
 	const clean = path.split("?")[0] || "/";
-	if (REFUSED_ROUTES.some((prefix) => matches(clean, prefix))) return false;
+	if ([...REFUSED_ROUTES, ...CONFIDENTIAL_ROUTES].some((prefix) => matches(clean, prefix))) return false;
 	return OFFLINE_ROUTES.some((route) => matches(clean, route.prefix));
 }
 
@@ -89,18 +132,41 @@ export function normalizePath(path: string): string {
 	return query ? `${base}?${query}` : base;
 }
 
-/** Remove identity-bearing fields recursively, including inside arrays. */
-export function redactPersonalData(value: unknown): unknown {
-	if (Array.isArray(value)) return value.map((item) => redactPersonalData(item));
+type RedactionContext = { confidential: boolean; aggregate: boolean };
+
+function redact(value: unknown, context: RedactionContext): unknown {
+	if (Array.isArray(value)) return value.map((item) => redact(item, context));
 	if (value !== null && typeof value === "object") {
 		const clean: Record<string, unknown> = {};
 		for (const [key, item] of Object.entries(value)) {
-			clean[key] = PERSONAL_KEYS[key.toLowerCase()] ? "[redacted]" : redactPersonalData(item);
+			const normee = cleNormee(key);
+			const aggregate = AGGREGATE_KEYS[normee] === true;
+			const code = context.aggregate && AGGREGATE_ENUM_KEYS[normee] === true
+				&& typeof item === "string" && CODE_PATTERN.test(item);
+			const confidentiel = !aggregate && !code && (
+				PERSONAL_KEYS[key.toLowerCase()] === true || PERSONAL_KEYS[normee] === true
+				|| FREE_TEXT_FRAGMENTS.some((fragment) => normee.includes(fragment))
+			);
+			clean[key] = redact(item, {
+				confidential: context.confidential || confidentiel,
+				aggregate: context.aggregate || aggregate,
+			});
 		}
 		return clean;
 	}
-	return value;
+	return context.confidential && typeof value === "string" ? "[redacted]" : value;
 }
+
+/**
+ * Remove identity-bearing fields and any free-text field recursively,
+ * including inside arrays. The marker replaces scalar values only: arrays
+ * and objects keep their shape, so a cached view still renders its counters,
+ * its aggregate breakdowns and its timestamp.
+ */
+export function redactPersonalData(value: unknown): unknown {
+	return redact(value, { confidential: false, aggregate: false });
+}
+
 
 type IndexEntry = { key: string; at: number; bytes: number };
 type Stored<T> = { value: T; at: number };
@@ -127,7 +193,29 @@ export class OfflineApiCache {
 	constructor(
 		private readonly storage: OfflineStorage | null,
 		private readonly now: () => number = Date.now,
-	) {}
+	) {
+		this.purgeConfidential();
+	}
+
+	/** An older build may have written confidential entries: drop them now. */
+	private purgeConfidential(): void {
+		if (this.storage === null) return;
+		const index = this.readIndex();
+		const kept = index.filter((entry) => {
+			try {
+				const path = normalizePath(decodeURIComponent(entry.key)).split("?")[0] || "/";
+				return !CONFIDENTIAL_ROUTES.some((prefix) => matches(path, prefix));
+			} catch {
+				return false;
+			}
+		});
+		if (kept.length === index.length) return;
+		for (const entry of index) {
+			if (!kept.includes(entry)) this.drop(entry.key);
+		}
+		this.writeIndex(kept);
+	}
+
 
 	private entryKey(key: string): string {
 		return `${CACHE_PREFIX}entry:${encodeURIComponent(key)}`;

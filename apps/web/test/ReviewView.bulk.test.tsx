@@ -2,10 +2,10 @@
 /**
  * Revue de masse — test du composant monté en DOM.
  *
- * Prouve le fait observable demandé : sélectionner trois lignes puis
- * « Accepter la sélection » envoie trois POST, un par ligne, en série, avec
- * le même motif, puis relit la file. Le premier POST est retenu le temps de
- * vérifier l'indicateur de progression.
+ * Fait observable : sélectionner trois lignes puis « Accepter la sélection »
+ * envoie trois appels au client API central (`/quarantine/review`), un par
+ * ligne, en série, avec le même motif, puis relit la file. Le premier POST est
+ * retenu le temps de vérifier l'indicateur de progression.
  */
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
@@ -16,27 +16,40 @@ import ReviewView, { type RevueQueue, type RevueRow } from "../src/components/Re
 const testGlobals = globalThis as unknown as Record<string, unknown>;
 testGlobals.IS_REACT_ACT_ENVIRONMENT = true;
 
-type DecisionBody = { decision: string; raison: string; orgId?: number };
+type DecisionBody = { ids: number[]; action: string; reason: string };
 type Call = { url: string; method: string; body: DecisionBody | null };
 
 function row(id: number, hint: string): RevueRow {
   return {
-    id, source: "jeu-test", sourceUrl: null, groupe: null, orgHint: hint,
+    id, source: "jeu-test", sourceUrl: "https://exemple.test/a", groupe: null, orgHint: hint,
     claimedAt: "2026-11-10T12:00:00Z", receivedAt: "2026-11-10T10:00:00Z", tlp: "AMBER",
-    triage: { score: 42, bucket: "tiede", suggested: "review", reasons: [] },
+    status: "pending", promoted: false, promotedBy: null, promotedAt: null, hasDescription: false,
+    triage: {
+      score: 42, bucket: "tiede", suggested: "review", reasons: [],
+      declaredCountry: null, domainOnly: false, disagreement: false, referentialGap: false,
+    },
+    org: { id: 100 + id, name: `Organisation ${id}`, kind: "commune", city: null },
+    orgConfidence: 0.8,
+    review: [],
     candidates: [{ id: 100 + id, name: `Organisation ${id}`, score: 0.8, via: "domain", city: null, dept: null }],
-    rejectRule: null, city: null, dept: null, review: [],
+    rejectRule: null, city: null, dept: null,
   };
 }
 
 const initialRows = [row(11, "Commune de Pessac"), row(12, "acme.com"), row(13, "autre.fr")];
 const queue: RevueQueue = {
   rows: initialRows, total: initialRows.length, page: 0, limit: 50,
-  window: 500, truncated: false, counts: { pending: 3 }, tookMs: 4,
+  window: 500, truncated: false,
+  facets: { source: [], groupe: [], bucket: [], status: [] },
+  counts: { pending: 3, reviewed: 0, rejected: 0, promoted: 0 }, tookMs: 4,
 };
 
 function response(body: unknown, status = 200): Response {
   return { ok: status >= 200 && status < 300, status, json: async () => body } as unknown as Response;
+}
+
+function decisionResponse(ids: number[], action: string): Response {
+  return response({ action, requested: ids.length, changed: ids.length, promoted: 0, alerts: 0, skipped: [] });
 }
 
 function setField(element: HTMLTextAreaElement, value: string): void {
@@ -67,13 +80,15 @@ describe("ReviewView — décisions groupées", () => {
       const url = String(input);
       const body = typeof init?.body === "string" ? JSON.parse(init.body) as DecisionBody : null;
       calls.push({ url, method: init?.method ?? "GET", body });
-      if (url.includes("/api/review/queue")) return response(queue);
-      if (/\/api\/review\/\d+\/decision/.test(url)) {
+      if (url.includes("/api/quarantine/queue")) return response(queue);
+      if (url.includes("/api/quarantine/review") && body) {
         active += 1;
         maxActive = Math.max(maxActive, active);
         try {
-          if (calls.filter((call) => call.url.includes("/decision")).length === 1) await firstDecision.promise;
-          return response({ ok: true });
+          if (calls.filter((call) => call.url.includes("/quarantine/review")).length === 1) {
+            await firstDecision.promise;
+          }
+          return decisionResponse(body.ids, body.action);
         } finally {
           active -= 1;
         }
@@ -118,21 +133,17 @@ describe("ReviewView — décisions groupées", () => {
       await act(async () => { firstDecision.resolve(); });
       await flush();
 
-      const decisions = calls.filter((call) => call.url.includes("/decision"));
+      const decisions = calls.filter((call) => call.url.includes("/quarantine/review"));
       expect(decisions).toHaveLength(3);
-      expect(decisions.map((call) => call.url)).toEqual([
-        "/api/review/11/decision",
-        "/api/review/12/decision",
-        "/api/review/13/decision",
-      ]);
+      expect(decisions.every((call) => call.url === "/api/quarantine/review")).toBe(true);
       expect(decisions.every((call) => call.method === "POST")).toBe(true);
       expect(decisions.map((call) => call.body)).toEqual([
-        { decision: "accepter", raison: "rattachement vérifié au registre", orgId: 111 },
-        { decision: "accepter", raison: "rattachement vérifié au registre", orgId: 112 },
-        { decision: "accepter", raison: "rattachement vérifié au registre", orgId: 113 },
+        { ids: [11], action: "promote", reason: "rattachement vérifié au registre" },
+        { ids: [12], action: "promote", reason: "rattachement vérifié au registre" },
+        { ids: [13], action: "promote", reason: "rattachement vérifié au registre" },
       ]);
       expect(maxActive).toBe(1);
-      expect(calls.filter((call) => call.url.includes("/api/review/queue"))).toHaveLength(2);
+      expect(calls.filter((call) => call.url.includes("/api/quarantine/queue"))).toHaveLength(2);
       expect(host.querySelector(".revue__notice")?.textContent).toContain("Acceptations enregistrées");
       expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 sélectionnée sur 3");
     } finally {

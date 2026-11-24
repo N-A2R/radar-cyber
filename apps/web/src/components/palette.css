@@ -29,3 +29,30 @@
 .palette__result[data-kind="indicator"] .palette__tag {
   color: var(--muted);
 }
+
+/* La recherche globale garde la surface du shell : verre épais, champ calme,
+   hiérarchie lisible. Le dialogue et le focus restent gérés par Astryx. */
+.astryx-dialog[aria-label="Recherche globale"] {
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
+  background: var(--glass-strong);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--raise);
+}
+
+.astryx-command-palette-input {
+  border-bottom: 1px solid var(--glass-line);
+  background: var(--surface-3);
+}
+
+.astryx-command-palette-input input {
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+.astryx-command-palette-input input::placeholder { color: var(--muted); }
+
+.astryx-command-palette-footer {
+  color: var(--muted);
+  font-size: var(--text-micro);
+}

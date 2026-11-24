@@ -11,10 +11,9 @@ import { expect, test } from "@playwright/test";
  *   - le conteneur défilant déborde horizontalement ;
  *   - le corps rend une cellule de plus que l'en-tête.
  *
- * `PLAYWRIGHT_BASE_URL` permet de viser la branche à vérifier quand le serveur
- * 5173 sert un autre arbre.
+ * `PLAYWRIGHT_BASE_URL` est lu une seule fois, dans playwright.config.ts :
+ * la fixture `baseURL` porte l'origine réellement visitée par les specs.
  */
-const BASE = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:5173";
 const NB_SOURCES = 2506;
 
 function source(index: number) {
@@ -100,7 +99,7 @@ test.beforeEach(async ({ page }) => {
 for (const largeur of [1280, 1024, 900]) {
   test(`aucun débordement horizontal et en-têtes alignés à ${largeur} px`, async ({ page }) => {
     await page.setViewportSize({ width: largeur, height: 880 });
-    await page.goto(`${BASE}/#/sources`);
+    await page.goto("/#/sources");
     await page.locator(".sources-table tbody th[scope='row']").first().waitFor({ state: "visible" });
 
     const mesure = await page.evaluate(() => {

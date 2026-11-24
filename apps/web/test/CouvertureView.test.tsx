@@ -217,12 +217,16 @@ describe("CouvertureView", () => {
     expect(lignes[0].departement).toBe("B"); // la fonction ne mute pas la réponse
   });
 
-  it("expose Couverture et Corpus comme routes partageables", () => {
-    expect(parseHash("#/coverage").view).toBe("coverage");
-    expect(parseHash("#/corpus").view).toBe("corpus");
-    // Un ancien lien partagé `#/couverture` ouvre toujours l'écran Couverture.
-    expect(parseHash("#/couverture").view).toBe("coverage");
-    expect(toHash({ ...parseHash("#/coverage"), view: "coverage" })).toBe("#/coverage");
-    expect(toHash({ ...parseHash("#/corpus"), view: "corpus" })).toBe("#/corpus");
+  it("exposes Couverture and Corpus as shareable panels", () => {
+    expect(parseHash("#/coverage").view).toBe("map");
+    expect(parseHash("#/coverage").mapPanel).toBe("couverture");
+    expect(parseHash("#/corpus").view).toBe("sources");
+    expect(parseHash("#/corpus").sourcesTab).toBe("corpus");
+    // Un ancien lien partagé `#/couverture` ouvre toujours le même panneau.
+    expect(parseHash("#/couverture").mapPanel).toBe("couverture");
+    expect(toHash({ ...parseHash("#/coverage"), view: "map", mapPanel: "couverture" }))
+      .toBe("#/map?panel=couverture");
+    expect(toHash({ ...parseHash("#/corpus"), view: "sources", sourcesTab: "corpus" }))
+      .toBe("#/sources?tab=corpus");
   });
 });

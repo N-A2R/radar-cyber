@@ -1,4 +1,4 @@
-import type { Event, Graph, Health, Org, OrgDetail, Source, Stats } from "./api";
+import type { CouvertureResponse, Event, Graph, Health, Org, OrgDetail, Source, Stats } from "./api";
 
 /**
  * Données simulées — exclusivement pour la démonstration.
@@ -221,6 +221,46 @@ const MOCK_HEALTH: Health = {
   ok: true,
   sources: MOCK_SOURCES.map((s) => s.id),
 };
+/** La couverture simulée se déduit des faits simulés : aucun chiffre inventé. */
+function mockLignesCouverture(cle: (evenement: Event) => string) {
+  const groupes = new Map<string, { vus: number; total: number }>();
+  for (const evenement of MOCK_EVENTS) {
+    const k = cle(evenement);
+    const ligne = groupes.get(k) ?? { vus: 0, total: 0 };
+    ligne.total += 1;
+    if (evenement.orgId !== null) ligne.vus += 1;
+    groupes.set(k, ligne);
+  }
+  return [...groupes.entries()].map(([key, ligne]) => ({
+    key,
+    ...ligne,
+    taux: Number(((ligne.vus / ligne.total) * 100).toFixed(1)),
+  }));
+}
+
+const MOCK_VUS = MOCK_EVENTS.filter((evenement) => evenement.orgId !== null).length;
+const MOCK_TOTAL = MOCK_EVENTS.length;
+function mockPart(n: number): number {
+  return Number(((n / MOCK_TOTAL) * 100).toFixed(1));
+}
+
+const MOCK_COUVERTURE: CouvertureResponse = {
+  dateCalcul: new Date(now).toISOString(),
+  hashCorpus: "mock-couverture-52540025",
+  fenetre: { debut: ago(7 * 24 * 60), fin: new Date(now).toISOString() },
+  global: { vus: MOCK_VUS, total: MOCK_TOTAL, taux: mockPart(MOCK_VUS) },
+  parMotif: [
+    { motif: "vu", incidents: MOCK_VUS, part: mockPart(MOCK_VUS) },
+    { motif: "pas_rattache", incidents: MOCK_TOTAL - MOCK_VUS, part: mockPart(MOCK_TOTAL - MOCK_VUS) },
+  ],
+  parDepartement: mockLignesCouverture((e) =>
+    MOCK_ORGS.find((o) => o.id === e.orgId)?.dept ?? "non renseigné",
+  ).map(({ key, ...ligne }) => ({ departement: key, ...ligne })),
+  parType: mockLignesCouverture((e) =>
+    MOCK_ORGS.find((o) => o.id === e.orgId)?.kind ?? "non renseigné",
+  ).map(({ key, ...ligne }) => ({ type: key, ...ligne })),
+  stale: false,
+};
 
 export const mockData = {
   orgs: MOCK_ORGS,
@@ -229,6 +269,7 @@ export const mockData = {
   stats: MOCK_STATS,
   graph: MOCK_GRAPH,
   health: MOCK_HEALTH,
+  couverture: MOCK_COUVERTURE,
 };
 
 /**

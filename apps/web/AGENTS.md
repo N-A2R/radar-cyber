@@ -1,13 +1,13 @@
 # apps/web — règles de front (Astryx)
 
-Le design system du front est **Astryx** : `@astryxdesign/core` + `@astryxdesign/theme-gothic`.
+Le design system du front est **Astryx** : `@astryxdesign/core` + `@astryxdesign/theme-stone`.
 Ce fichier lie toute PR sur ce workspace, humaine ou agent : l'objectif est qu'un écran écrit par deux auteurs différents soit indiscernable.
 
 ## La cascade CSS (main.tsx)
 
 1. `@astryxdesign/core/reset.css`
 2. `@astryxdesign/core/astryx.css` — variables du système
-3. `@astryxdesign/theme-gothic/fonts.css` + `theme.css` — le thème actif
+3. `@astryxdesign/theme-stone/fonts.css` + `theme.css` — le thème actif
 4. `InternationalizationProvider locale="fr-FR"` + catalogue français Astryx
 5. `./styles.css` — le pont de jetons radar
 
@@ -74,8 +74,8 @@ La fondation et les écrans existants utilisent Astryx. Le fil d'événements n'
 - [x] `FamilyFilter` → `SegmentedControl`
 - [x] `ExportMenu` → `DropdownMenu`
 - [x] `ds-card` / `ds-field` / `ds-button` (styles.css) → `Card` / `Field` / `Button`, puis suppression du CSS mort
-- [x] Re-audit AA des couleurs de données sur les surfaces gothic (`test:a11y`)
+- [x] Re-audit AA des couleurs de données sur les surfaces stone (`test:a11y`)
 
 ## Thème
 
-Le thème actif est `@astryxdesign/theme-gothic`. Les anciens thèmes `terminal`, `souverain` et `clair` ont été supprimés ; ne pas réintroduire une seconde feuille de thème.
+Le thème actif est `@astryxdesign/theme-stone`. Les anciens thèmes `terminal`, `souverain` et `clair` ont été supprimés ; ne pas réintroduire une seconde feuille de thème.

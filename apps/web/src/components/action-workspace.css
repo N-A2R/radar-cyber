@@ -1,0 +1,96 @@
+/* Espace Action : deux écrans historiques sous une seule destination.
+   La barre d'onglets est un contrôle segmenté, le panneau un plateau de
+   verre discret — les jetons restent ceux des quatre thèmes du produit. */
+
+.action-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.action-workspace__tabs {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 6px);
+  background: color-mix(in oklab, var(--surface-2) 82%, transparent);
+  box-shadow: inset 0 1px 0 var(--line-strong), 0 6px 18px var(--shadow-ink-soft, rgba(0, 0, 0, 0.3));
+  backdrop-filter: blur(12px) saturate(140%);
+}
+
+.action-workspace__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  min-height: 32px;
+  padding: 7px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font: 500 var(--text-body)/var(--leading-tight) var(--font-sans);
+  letter-spacing: var(--tracking-normal);
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.action-workspace__tab:hover:not([aria-selected="true"]) {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.action-workspace__tab[aria-selected="true"] {
+  border-color: var(--line-strong);
+  background: var(--surface-active);
+  box-shadow: inset 0 1px 0 var(--line-strong), 0 1px 3px var(--shadow-ink-soft, rgba(0, 0, 0, 0.3));
+  color: var(--accent);
+}
+
+.action-workspace__tab:focus-visible,
+.action-workspace__panel:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: var(--focus-offset);
+}
+
+.action-workspace__panel {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 6px);
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  box-shadow: 0 12px 32px var(--shadow-ink-soft, rgba(0, 0, 0, 0.3)), inset 0 1px 0 var(--line-strong);
+  backdrop-filter: blur(10px);
+}
+
+.action-workspace__panel[hidden] {
+  display: none;
+}
+
+.action-workspace__panel > * {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-workspace__tab { transition: none; }
+}
+
+@media (max-width: 720px) {
+  .action-workspace { padding: 8px; gap: 8px; }
+  .action-workspace__tabs { align-self: stretch; }
+  .action-workspace__tab { flex: 1 1 auto; }
+}

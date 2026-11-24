@@ -8,6 +8,7 @@ import type { JournalDecision } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./journal.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Drawer } from "@astryxdesign/core/Drawer";
 import { Table } from "@astryxdesign/core/Table";
 
 
@@ -389,19 +390,25 @@ export default function JournalList({
       </footer>
 
       {selected ? (
-        <>
-          <div className="journal__backdrop" onClick={onCloseDetail} aria-hidden="true" />
-          <div className="journal__detail-wrap">
-            <button
-              type="button"
-              className="journal__detail-close"
-              onClick={onCloseDetail}
-            >
-              Fermer le détail
-            </button>
-            <EntryDetails row={selected} />
-          </div>
-        </>
+        <Drawer
+          isOpen
+          label={`Détails de l'entrée de journal ${selected.id}`}
+          side="end"
+          width={560}
+          padding={3}
+          onOpenChange={(open) => { if (!open) onCloseDetail(); }}
+          data-testid="journal-detail"
+        >
+          <button
+            type="button"
+            className="journal__detail-close"
+            data-autofocus=""
+            onClick={onCloseDetail}
+          >
+            Fermer le détail
+          </button>
+          <EntryDetails row={selected} />
+        </Drawer>
       ) : null}
     </section>
   );

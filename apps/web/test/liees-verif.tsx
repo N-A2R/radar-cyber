@@ -86,7 +86,7 @@ const carte = renderToStaticMarkup(<LieesCard />);
 check("carte autonome en chargement avant réponse", carte.includes("chargement des organisations reliées"));
 
 const ecran = renderToStaticMarkup(
-  <TodayView data={null} loading error={null} family={null} dept={null}
+  <TodayView data={null} loading error={null} family={null} dept={null} departements={[]}
     onFamily={() => {}} onDept={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} />,
 );
 check("carte montée en haut de l'écran Aujourd'hui",

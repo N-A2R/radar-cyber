@@ -101,18 +101,21 @@ describe("flux SSE des alertes", () => {
   });
 
   afterEach(() => vi.unstubAllGlobals());
-
   it("reçoit les alertes, ignore les charges invalides, déduplique et se ferme", () => {
+    localStorage.setItem("radar_token", "tok en");
     const received: LiveAlert[] = [];
     const connection: boolean[] = [];
+    // Le jeton de session voyage dans le cookie HttpOnly posé par /auth/login :
+    // EventSource same-origin l'envoie seul, aucune valeur ne doit fuir dans l'URL.
     const handle = connectLiveAlerts({
-      token: "tok en",
       onAlert: (alert) => { received.push(alert); },
       onConnection: (on) => { connection.push(on); },
     });
 
     const stream = FakeEventSource.instances[0]!;
-    expect(stream.url).toBe("/api/stream?token=tok%20en");
+    expect(stream.url).toBe("/api/stream");
+    expect(stream.url).not.toContain("tok");
+    localStorage.removeItem("radar_token");
 
     stream.onopen?.();
     stream.emit("alert", JSON.stringify(liveAlert(7)));

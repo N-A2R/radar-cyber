@@ -54,7 +54,7 @@ it("shows the measured English counters without archived bodies", async () => {
   expect(warcProofs).toHaveBeenCalledTimes(1);
   expect(text).toContain("Facts with an archivable proof");
   expect(text).toContain("Nouvelle-Aquitaine");
-  expect(text).toContain("100.0%");
+  expect(text).toContain("100,0\u00a0%"); // format fr-FR, espace insécable
   expect(text).toContain("271");
   expect(text).toContain("1 file(s)");
   expect(text).not.toMatch(/@|<html|victime|preuve archivable/i);

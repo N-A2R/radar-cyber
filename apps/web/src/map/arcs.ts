@@ -21,16 +21,34 @@ export type FlowArc = {
   sourceUrl?: string | null
 }
 
-/** MapLibre ne sait pas lire `var(...)` dans une paint property : on résout le
- * jeton du thème gothic actif via le CSS, y compris ses alias. Sans DOM (SSR,
- * tests), on garde la référence `var(...)`, que le CSS sait consommer. */
+const tokenCache = new Map<string, string>()
+
+/** Le thème peut changer : le cache est invalidé au rechargement du style. */
+export function clearTokenCache(): void {
+  tokenCache.clear()
+}
+
+/** MapLibre ne sait pas lire `var(...)` ni `light-dark(...)` dans une paint
+ * property : on résout le jeton Stone actif en couleur concrète. Sans DOM
+ * (SSR, tests), on garde la référence `var(...)`, que le CSS sait consommer. */
 function resoudre(jeton: string, styles?: CSSStyleDeclaration): string {
+  if (styles === undefined) {
+    const connu = tokenCache.get(jeton)
+    if (connu !== undefined) return connu
+  }
   const feuilles = styles ?? (typeof document === "undefined" ? undefined : getComputedStyle(document.documentElement));
   let valeur = jeton;
   for (let passe = 0; passe < 4 && valeur.includes("var("); passe += 1) {
     valeur = valeur.replace(/var\((--[\w-]+)\)/g, (_, nom: string) => feuilles?.getPropertyValue(nom).trim() ?? "");
   }
-  return valeur || jeton;
+  const lightDark = valeur.trim().match(/^light-dark\(([^,]+),\s*([^)]+)\)$/);
+  if (lightDark) {
+    const sombre = typeof document !== "undefined" && document.documentElement.dataset.theme !== "light";
+    valeur = (sombre ? lightDark[2] : lightDark[1]).trim();
+  }
+  const resolu = valeur || jeton;
+  tokenCache.set(jeton, resolu);
+  return resolu;
 }
 
 /** Couleur concrète d'un jeton du pont, pour MapLibre et le canvas. */
@@ -70,8 +88,8 @@ export function familyHexFallback(): string {
 }
 
 /**
- * Palette des natures d'organisation : jetons `--org-*` du pont gothic.
- * `ess` reste neutre via `--sev-1`. `operateur_critique` est un alias
+ * Palette des natures d'organisation : jetons `--org-*` du pont Stone.
+ * `ess` reste neutre via `--sev-1`; `operateur_critique` est un alias
  * normalisé de la valeur OSM `opérateur critique`.
  */
 const NATURE_HEX = dynamicPalette({

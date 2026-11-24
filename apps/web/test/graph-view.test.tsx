@@ -120,13 +120,6 @@ async function flush() {
 }
 
 beforeEach(() => {
-  testGlobals.ResizeObserver = class {
-    constructor(private readonly callback: (entries: unknown[]) => void) {}
-    observe() {
-      this.callback([{ contentRect: { width: 800, height: 600 } }]);
-    }
-    disconnect() {}
-  };
   localStorage.clear();
 });
 

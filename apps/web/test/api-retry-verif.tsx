@@ -15,10 +15,12 @@ type ReponseSimulee = { statut: number; corps?: unknown; erreur?: Error };
 let file: ReponseSimulee[] = [];
 let appels = 0;
 let urls: string[] = [];
+let methodes: string[] = [];
 
-globalThis.fetch = (async (input: RequestInfo | URL) => {
+globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
   appels += 1;
   urls.push(String(input));
+  methodes.push(init?.method ?? "GET");
   const reponse = file.shift();
   if (!reponse) throw new Error("fetch appelé plus de fois que prévu");
   if (reponse.erreur) throw reponse.erreur;
@@ -33,6 +35,7 @@ function prepare(reponses: ReponseSimulee[]) {
   file = [...reponses];
   appels = 0;
   urls = [];
+  methodes = [];
 }
 
 const succes = { ok: true, sources: [] };
@@ -75,8 +78,8 @@ check("400 : une seule requête", appels === 1, `${appels} appels`);
 
 // --- Les pannes réseau se rejouent, comme les 5xx ----------------------------
 prepare([
-  { erreur: new TypeError("fetch failed") },
-  { erreur: new TypeError("fetch failed") },
+  { statut: 0, erreur: new TypeError("fetch failed") },
+  { statut: 0, erreur: new TypeError("fetch failed") },
   { statut: 200, corps: succes },
 ]);
 const apresReseau = await api.health();
@@ -94,5 +97,11 @@ try {
 }
 check("signal annulé : aucune requête envoyée", appels === 0 && echec !== null);
 
+// --- Déconnexion : la révocation passe bien par la route serveur -------------
+prepare([{ statut: 200, corps: { ok: true } }]);
+const deconnexion = await api.logout();
+check("logout : POST /api/auth/logout", deconnexion.ok === true
+  && urls[0] === "/api/auth/logout" && methodes[0] === "POST" && appels === 1,
+  JSON.stringify({ url: urls[0], methode: methodes[0], appels }));
 console.log(failures === 0 ? "\napi-retry: tout est vert" : `\napi-retry: ${failures} échec(s)`);
 process.exit(failures === 0 ? 0 : 1);

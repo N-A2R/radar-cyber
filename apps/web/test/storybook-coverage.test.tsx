@@ -8,7 +8,7 @@ import { events, orgs, rectifications } from "../src/storybook/fixtures";
 
 const { components, storyFiles, storyFiles: fileCount } = inventory();
 const NA_DEPARTMENTS: Record<string, true> = {
-  "16": true, "17": true, "18": true, "19": true, "23": true, "24": true,
+  "16": true, "17": true, "19": true, "23": true, "24": true,
   "33": true, "40": true, "47": true, "64": true, "79": true, "86": true, "87": true,
 };
 
@@ -28,7 +28,10 @@ describe("Documented design system", () => {
 
   it("keeps organisation fixtures inside Nouvelle-Aquitaine", () => {
     expect(orgs.length).toBeGreaterThan(0);
-    for (const org of orgs) expect(NA_DEPARTMENTS[org.dept ?? ""]).toBe(true);
+    expect(NA_DEPARTMENTS["18"], "le Cher n'est pas en Nouvelle-Aquitaine").toBeUndefined();
+    for (const org of orgs) {
+      expect(NA_DEPARTMENTS[org.dept ?? ""], `département ${org.dept} hors NA`).toBe(true);
+    }
   });
 
   it("keeps event fixtures free of victim personal data", () => {

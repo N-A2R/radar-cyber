@@ -10,10 +10,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   padding: var(--space-6);
-  background:
-    radial-gradient(1100px 520px at 50% -10%, var(--surface-2), transparent 70%),
-    radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0 / 24px 24px,
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
 }

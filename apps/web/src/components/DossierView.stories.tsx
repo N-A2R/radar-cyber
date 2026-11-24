@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Theme } from "@astryxdesign/core/theme";
-import { gothicTheme } from "@astryxdesign/theme-gothic/built";
+import { stoneTheme } from "@astryxdesign/theme-stone/built";
 import DossierView from "./DossierView";
 
 const meta = {
@@ -9,7 +9,7 @@ const meta = {
   parameters: { docs: { description: { component: "Case file screen grouping events into corroborated facts." } } },
   decorators: [
     (Story) => (
-      <Theme theme={gothicTheme} mode="dark">
+      <Theme theme={stoneTheme} mode="dark">
         <Story />
       </Theme>
     ),

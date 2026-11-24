@@ -1,6 +1,30 @@
 /* Le bandeau est un Banner Astryx : ne restent ici que les accents de
    sévérité et la densité du flux, sans chrome ni couleur figée. */
 
+/* Le fond `info` d'Astryx est trop clair pour le texte en thème sombre.
+   On garde la sémantique Banner, mais la surface est le verre du shell. */
+.live-alerts__banner {
+  margin: 0;
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-panel);
+  background: var(--glass-strong);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--raise), inset 0 1px 0 var(--glass-line);
+  color: var(--text);
+}
+
+.live-alerts__banner .astryx-banner-title,
+.live-alerts__banner .live-alerts__sound {
+  color: var(--text);
+}
+
+.live-alerts__badge {
+  border: 1px solid var(--glass-line);
+  border-radius: var(--radius-full);
+  background: var(--surface-3);
+  color: var(--text);
+}
+
 .live-alerts__hit {
   display: inline-flex;
   align-items: center;

@@ -1,8 +1,8 @@
 /**
- * Screen export: CSV and PDF, generated locally with no external service.
+ * Workspace export: CSV and PDF, generated locally with no external service.
  *
  * Safety rules, in order:
- * 1. Only the columns declared for a screen leave the browser. No free-text
+ * 1. Only the columns declared for a workspace leave the browser. No free-text
  *    payload, raw event evidence or journal proof is ever exported.
  * 2. Rows outside Nouvelle-Aquitaine are dropped. Grey/uncertain sources are
  *    kept: uncertainty is information, not a reason to hide a row.
@@ -20,96 +20,72 @@ export const NA_DEPARTMENTS: Record<string, true> = {
   "40": true, "47": true, "64": true, "79": true, "85": true, "86": true,
 };
 
-/** Explicit allowlist: one entry per screen, English labels for both formats. */
+/** Anciens écrans encore acceptés, rouverts vers leur destination courante. */
+export const LEGACY_VIEW_WORKSPACE: Record<string, ViewKey> = {
+  today: "map", coverage: "map", couverture: "map", na: "map",
+  affected: "map", graph: "map", directory: "map", attributions: "map",
+  review: "action", alerts: "action",
+  sources: "sources", "sources-dashboard": "sources", health: "sources",
+  corpus: "sources", journal: "journal", dossier: "journal",
+};
+
+/** Resolve a current view or a legacy screen name to its workspace. */
+export function workspaceFor(view: string): ViewKey {
+  if (view === "map" || view === "action" || view === "sources" || view === "journal") return view;
+  return LEGACY_VIEW_WORKSPACE[view] ?? "map";
+}
+
+/**
+ * Explicit allowlist: one entry per destination. Legacy screens keep their
+ * safe fields through the union of the panels they now live in; English labels
+ * are shared by CSV and PDF.
+ */
 export const EXPORT_COLUMNS: Record<ViewKey, Column[]> = {
-  today: [
-    { field: "date", label: "Date" }, { field: "family", label: "Family" },
-    { field: "title", label: "Title" }, { field: "organisation", label: "Organisation" },
-    { field: "department", label: "Department" }, { field: "source", label: "Source" },
-    { field: "severity", label: "Severity" },
-  ],
-  coverage: [
-    { field: "department", label: "Department" }, { field: "seen", label: "Seen" },
+  map: [
+    { field: "id", label: "ID" }, { field: "date", label: "Date" },
+    { field: "family", label: "Family" }, { field: "title", label: "Title" },
+    { field: "organisation", label: "Organisation" }, { field: "department", label: "Department" },
+    { field: "source", label: "Source" }, { field: "severity", label: "Severity" },
+    { field: "latitude", label: "Latitude" }, { field: "longitude", label: "Longitude" },
+    { field: "events", label: "Events" }, { field: "seen", label: "Seen" },
     { field: "total", label: "Total" }, { field: "rate", label: "Rate (%)" },
+    { field: "organisations", label: "Organisations" }, { field: "withEvents", label: "With events" },
+    { field: "sector", label: "Sector" }, { field: "kind", label: "Kind" },
+    { field: "city", label: "City" }, { field: "label", label: "Label" },
+    { field: "statement", label: "Statement" }, { field: "status", label: "Status" },
+    { field: "actor", label: "Actor" }, { field: "groupName", label: "Group" },
+    { field: "confidence", label: "Confidence" }, { field: "level", label: "Level" },
+    { field: "method", label: "Method" }, { field: "sources", label: "Sources" },
+    { field: "claims", label: "Claims" },
   ],
-  review: [
+  action: [
     { field: "id", label: "ID" }, { field: "title", label: "Title" },
     { field: "organisation", label: "Organisation" }, { field: "department", label: "Department" },
     { field: "family", label: "Family" }, { field: "source", label: "Source" },
     { field: "status", label: "Status" }, { field: "bucket", label: "Bucket" },
-  ],
-  journal: [
     { field: "date", label: "Date" }, { field: "kind", label: "Kind" },
-    { field: "actor", label: "Actor" }, { field: "target", label: "Target" },
-    { field: "decision", label: "Decision" },
-  ],
-  corpus: [
-    { field: "department", label: "Department" }, { field: "label", label: "Label" },
-    { field: "total", label: "Total" },
+    { field: "severity", label: "Severity" }, { field: "scope", label: "Scope" },
   ],
   sources: [
     { field: "id", label: "ID" }, { field: "name", label: "Name" },
     { field: "family", label: "Family" }, { field: "kind", label: "Kind" },
     { field: "status", label: "Status" }, { field: "lastSeen", label: "Last seen" },
     { field: "items", label: "Items" }, { field: "events", label: "Events (30d)" },
-  ],
-  map: [
-    { field: "id", label: "ID" }, { field: "organisation", label: "Organisation" },
-    { field: "department", label: "Department" }, { field: "family", label: "Family" },
-    { field: "latitude", label: "Latitude" }, { field: "longitude", label: "Longitude" },
-    { field: "events", label: "Events" },
-  ],
-  directory: [
-    { field: "id", label: "ID" }, { field: "organisation", label: "Organisation" },
-    { field: "department", label: "Department" }, { field: "sector", label: "Sector" },
-    { field: "kind", label: "Kind" }, { field: "city", label: "City" },
-    { field: "events", label: "Events" },
-  ],
-  graph: [
-    { field: "id", label: "ID" }, { field: "label", label: "Label" },
-    { field: "kind", label: "Kind" }, { field: "department", label: "Department" },
-  ],
-  health: [
-    { field: "id", label: "ID" }, { field: "name", label: "Name" },
-    { field: "family", label: "Family" }, { field: "status", label: "Status" },
-    { field: "lastSeen", label: "Last seen" }, { field: "events", label: "Events (30d)" },
-  ],
-  alerts: [
-    { field: "id", label: "ID" }, { field: "date", label: "Date" },
-    { field: "kind", label: "Kind" }, { field: "severity", label: "Severity" },
-    { field: "status", label: "Status" }, { field: "scope", label: "Scope" },
-    { field: "organisation", label: "Organisation" },
-    { field: "department", label: "Department" }, { field: "title", label: "Title" },
-  ],
-  dossier: [
-    { field: "section", label: "Section" }, { field: "detail", label: "Detail" },
-  ],
-  na: [
-    { field: "department", label: "Department" }, { field: "organisations", label: "Organisations" },
-    { field: "withEvents", label: "With events" }, { field: "events", label: "Events" },
-  ],
-  affected: [
-    { field: "organisation", label: "Organisation" }, { field: "department", label: "Department" },
-    { field: "statement", label: "Statement" }, { field: "status", label: "Status" },
-  ],
-  "sources-dashboard": [
     { field: "date", label: "Date" }, { field: "sourcesActives", label: "Active sources" },
     { field: "evenements", label: "Events" }, { field: "entrees", label: "Entries" },
+    { field: "department", label: "Department" }, { field: "label", label: "Label" },
+    { field: "total", label: "Total" },
   ],
-  attributions: [
-    { field: "actor", label: "Actor" }, { field: "groupName", label: "Group" },
-    { field: "confidence", label: "Confidence" }, { field: "level", label: "Level" },
-    { field: "method", label: "Method" }, { field: "sources", label: "Sources" },
-    { field: "claims", label: "Claims" },
+  journal: [
+    { field: "date", label: "Date" }, { field: "kind", label: "Kind" },
+    { field: "actor", label: "Actor" }, { field: "target", label: "Target" },
+    { field: "decision", label: "Decision" }, { field: "section", label: "Section" },
+    { field: "detail", label: "Detail" },
   ],
 };
 
 export const EXPORT_TITLES: Record<ViewKey, string> = {
-  today: "Today", coverage: "Coverage", review: "Review", journal: "Journal",
-  corpus: "Corpus", sources: "Sources", map: "Map", directory: "Directory",
-  graph: "Graph", health: "Health", alerts: "Alerts", dossier: "Dossier",
-  na: "Nouvelle-Aquitaine", affected: "Am I affected?",
-  "sources-dashboard": "Sources dashboard", attributions: "Actor attributions",
+  map: "Map", action: "Action", sources: "Sources", journal: "Journal",
 };
 function departmentCode(row: DataRow): string | null {
   for (const key of ["department", "dept", "departement"]) {
@@ -123,7 +99,7 @@ function departmentCode(row: DataRow): string | null {
 
 function isRegional(row: DataRow): boolean {
   const code = departmentCode(row);
-  // Aggregates carry no department: every screen feeding the registry is an
+  // Aggregates carry no department: every workspace feeding the registry is an
   // NA-scoped endpoint, so a missing code is not a reason to drop the row.
   return code === null || NA_DEPARTMENTS[code] === true;
 }
@@ -148,9 +124,9 @@ function cell(value: unknown): string | number | null {
   return clean ? redact(clean).slice(0, 200) : null;
 }
 
-/** Project a screen's rows onto its allowlist, after the regional filter. */
-export function prepareRows(view: ViewKey, rows: DataRow[]): PreparedRow[] {
-  const columns = EXPORT_COLUMNS[view] ?? [];
+/** Project a workspace's rows onto its allowlist, after the regional filter. */
+export function prepareRows(view: string, rows: DataRow[]): PreparedRow[] {
+  const columns = EXPORT_COLUMNS[workspaceFor(view)];
   return rows.filter(isRegional).map((row) => {
     const prepared: PreparedRow = {};
     for (const column of columns) prepared[column.label] = cell(row[column.field]);
@@ -164,8 +140,8 @@ function csvCell(value: string | number | null): string {
   return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
-export function toCsv(view: ViewKey, rows: PreparedRow[]): string {
-  const labels = (EXPORT_COLUMNS[view] ?? []).map((column) => column.label);
+export function toCsv(view: string, rows: PreparedRow[]): string {
+  const labels = EXPORT_COLUMNS[workspaceFor(view)].map((column) => column.label);
   const lines = [labels.map(csvCell).join(",")];
   for (const row of rows) lines.push(labels.map((label) => csvCell(row[label] ?? null)).join(","));
   return lines.join("\r\n") + "\r\n";
@@ -205,8 +181,8 @@ const PAGE_LINES = 48;
 const LINE_WIDTH = 108;
 
 /** Build a valid PDF 1.4 file: local, deterministic, no paid service. */
-export function buildPdf(view: ViewKey, title: string, rows: PreparedRow[]): Uint8Array {
-  const labels = (EXPORT_COLUMNS[view] ?? []).map((column) => column.label);
+export function buildPdf(view: string, title: string, rows: PreparedRow[]): Uint8Array {
+  const labels = EXPORT_COLUMNS[workspaceFor(view)].map((column) => column.label);
   const width = Math.max(24, Math.floor(LINE_WIDTH / Math.max(1, labels.length)));
   const lines: string[] = [ascii(title).toUpperCase(), `${rows.length} rows - Nouvelle-Aquitaine`, ""];
   if (labels.length) lines.push(labels.map((label) => String(label).slice(0, width)).join(" | "));
@@ -250,7 +226,7 @@ export function buildPdf(view: ViewKey, title: string, rows: PreparedRow[]): Uin
   return new TextEncoder().encode(pdf);
 }
 
-export function toPdfBlob(view: ViewKey, title: string, rows: PreparedRow[]): Blob {
+export function toPdfBlob(view: string, title: string, rows: PreparedRow[]): Blob {
   const bytes = buildPdf(view, title, rows);
   const buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
   return new Blob([buffer], { type: "application/pdf" });
@@ -267,7 +243,7 @@ export function downloadBlob(blob: Blob, filename: string): void {
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
-export function exportFilename(view: ViewKey, format: ExportFormat): string {
+export function exportFilename(view: string, format: ExportFormat): string {
   const date = new Date().toISOString().slice(0, 10);
-  return `radar-${view}-${date}.${format}`;
+  return `radar-${workspaceFor(view)}-${date}.${format}`;
 }

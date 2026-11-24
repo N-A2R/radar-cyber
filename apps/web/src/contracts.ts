@@ -1,8 +1,8 @@
-import type { Alert, CouverturePublique, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, SourcesDashboard, Stats, TodayResponse } from "./api";
+import type { Alert, CouverturePublique, DeptStat, Event, Graph, NaFil, NaOverview, Org, Source, SourcesDashboard, TodayResponse } from "./api";
 import type { DirectoryUrlState } from "./url-state";
 
-/** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "today" | "coverage" | "review" | "journal" | "corpus" | "sources" | "sources-dashboard" | "map" | "directory" | "graph" | "health" | "alerts" | "dossier" | "na" | "affected" | "attributions";
+/** Les quatre destinations du rail. Les anciens écrans sont des panneaux/onglets. */
+export type ViewKey = "map" | "action" | "sources" | "journal";
 
 
 /** Contrat de l'écran d'accueil « Aujourd'hui ». */
@@ -100,13 +100,6 @@ export type SourcesDashboardViewProps = {
   data: SourcesDashboard | null;
   loading: boolean;
   error: string | null;
-};
-
-/** Contrat de la vue santé. */
-export type HealthViewProps = {
-  health: Health | null;
-  stats: Stats | null;
-  sources: Source[];
 };
 
 /** Contrat de la vue graphe. */

@@ -104,8 +104,10 @@ function timestamp(value: string | null): number | null {
   return Number.isNaN(parsed) ? null : parsed;
 }
 
-export function formatNumber(value: number | null): string {
-  return value === null ? "—" : value.toLocaleString("fr-FR");
+export function formatNumber(value: number | null | undefined): string {
+  return value === null || value === undefined || !Number.isFinite(value)
+    ? "—"
+    : value.toLocaleString("fr-FR");
 }
 
 /** « il y a 12 min », « il y a 3 h », « il y a 2 j »… */
@@ -381,7 +383,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       </div>
 
       {exportErreur ? (
-        <p role="alert" className="sources-view__summary" style={{ color: "var(--color-text-error)" }}>
+        <p role="alert" className="sources-view__summary" data-tone="error">
           {exportErreur}
         </p>
       ) : null}

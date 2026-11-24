@@ -2,7 +2,7 @@
  * Écran Revue — vérification en DOM (jsdom).
  *
  * On intercepte `fetch` et on monte le composant pour contrôler ce qui part
- * vers /api/review/*. Ce test prouve les faits observables : paramètres de
+ * vers /api/quarantine/*. Ce test prouve les faits observables : paramètres de
  * la file, états chargement/erreur/vide, motif saisi (jamais codé en dur),
  * corps des trois décisions et retrait local de la ligne.
  *
@@ -60,9 +60,7 @@ function check(label: string, ok: boolean, detail?: unknown): void {
 type Call = { url: string; method: string; body: Record<string, unknown> | null };
 const calls: Call[] = [];
 let queueStatus = 200;
-let queueErrorBody: Record<string, unknown> = { error: "queue unavailable" };
 let decisionStatus = 200;
-let decisionErrorBody: Record<string, unknown> = { error: "decision rejected" };
 let holdQueue = false;
 let releaseQueue: (() => void) | null = null;
 let unauthorized = 0;
@@ -72,14 +70,21 @@ function row(id: number, hint: string, bucket: "chaud" | "tiede" | "froid"): Rev
   return {
     id, source: "jeu-test", sourceUrl: "https://exemple.test/a", groupe: "lockbit3",
     orgHint: hint, claimedAt: "2025-01-05T12:00:00Z", receivedAt: "2026-11-10T12:00:00Z",
-    tlp: "RED",
-    triage: { score: id * 3, bucket, suggested: "review", reasons: [{ label: "domaine déclaré", weight: 20 }] },
+    tlp: "RED", status: "pending", promoted: false, promotedBy: null, promotedAt: null,
+    hasDescription: false,
+    triage: {
+      score: id * 3, bucket, suggested: "review", reasons: [{ label: "domaine déclaré", weight: 20 }],
+      declaredCountry: "France", domainOnly: false, disagreement: false, referentialGap: bucket !== "froid",
+    },
+    org: id === 11 ? { id: 7, name: "Mairie de Pessac", kind: "commune", city: "Pessac" } : null,
+    orgConfidence: id === 11 ? 0.85 : null,
+    review: [],
     candidates: id === 11
-      ? [{ id: 7, name: "Mairie de Pessac", score: 0.86, via: "domain", city: "Pessac", dept: "33" }]
+      ? [{ id: 7, name: "Mairie de Pessac", score: 0.86, via: "domain" as const, city: "Pessac", dept: "33" }]
       : id === 12
-        ? [{ id: 8, name: "ACME SAS", score: 0.42, via: "alias", city: "Bordeaux", dept: "33" }]
+        ? [{ id: 8, name: "ACME SAS", score: 0.42, via: "alias" as const, city: "Bordeaux", dept: "33" }]
         : [],
-    rejectRule: null, city: null, dept: null, review: [],
+    rejectRule: null, city: null, dept: null,
   };
 }
 
@@ -91,16 +96,27 @@ const initialRows: RevueRow[] = [
 function payload(rows: RevueRow[] = initialRows): RevueQueue {
   return {
     rows, total: rows.length, page: 0, limit: 50, window: 500, truncated: false,
-    counts: { pending: rows.length }, tookMs: 12,
+    facets: { source: [], groupe: [], bucket: [], status: [] },
+    counts: { pending: rows.length, reviewed: 0, rejected: 0, promoted: 0 },
+    tookMs: 12,
   };
 }
 let queueBody: RevueQueue = payload();
 
+function outcome(body: Record<string, unknown> | null): Record<string, unknown> {
+  const ids = Array.isArray(body?.ids) ? body!.ids as number[] : [];
+  return {
+    action: String(body?.action ?? "review"), requested: ids.length, changed: ids.length,
+    promoted: 0, alerts: 0, skipped: [],
+  };
+}
+
 g.fetch = async (input: unknown, init?: { method?: string; body?: string }) => {
   const url = String(input);
   const method = init?.method ?? "GET";
-  calls.push({ url, method, body: init?.body ? JSON.parse(init.body) as Record<string, unknown> : null });
-  if (url.includes("/api/review/queue")) {
+  const body = init?.body ? JSON.parse(init.body) as Record<string, unknown> : null;
+  calls.push({ url, method, body });
+  if (url.includes("/api/quarantine/queue")) {
     if (holdQueue) {
       holdQueue = false;
       const gate = Promise.withResolvers<void>();
@@ -108,17 +124,17 @@ g.fetch = async (input: unknown, init?: { method?: string; body?: string }) => {
       await gate.promise;
     }
     const ok = queueStatus === 200;
-    return {
-      ok, status: queueStatus,
-      json: async () => (ok ? queueBody : queueErrorBody),
-    };
+    return { ok, status: queueStatus, json: async () => (ok ? queueBody : { error: "queue unavailable" }) };
   }
-  if (/\/api\/review\/\d+\/decision/.test(url)) {
+  if (url.includes("/api/quarantine/review")) {
     const ok = decisionStatus === 200;
     return {
       ok, status: decisionStatus,
-      json: async () => (ok ? { ok: true, status: "promoted" } : decisionErrorBody),
+      json: async () => (ok ? outcome(body) : { error: "decision rejected" }),
     };
+  }
+  if (url.includes("/api/orgs/from-hint")) {
+    return { ok: true, status: 201, json: async () => ({ org: { id: 7, name: String(body?.nom ?? "") }, created: true, matchedBy: null }) };
   }
   throw new Error(`appel inattendu : ${url}`);
 };
@@ -184,15 +200,15 @@ function lastCall(urlPart: string): Call | undefined {
   return [...calls].reverse().find((item) => item.url.includes(urlPart));
 }
 function queueCalls(): number {
-  return calls.filter((item) => item.url.includes("/api/review/queue")).length;
+  return calls.filter((item) => item.url.includes("/api/quarantine/queue")).length;
 }
 function decisionCalls(): number {
-  return calls.filter((item) => item.url.includes("/decision")).length;
+  return calls.filter((item) => item.url.includes("/api/quarantine/review")).length;
 }
 
 // Même câblage que l'App : le composant annonce ses filtres, le hash les porte.
 function onReviewUrlStateChange(next: ReviewUrlState): void {
-  const hash = toHash({ ...parseHash(dom.window.location.hash), view: "review", review: next });
+  const hash = toHash({ ...parseHash(dom.window.location.hash), view: "action", actionTab: "review", review: next });
   if (dom.window.location.hash !== hash) dom.window.history.replaceState(null, "", hash);
 }
 async function wait(ms: number): Promise<void> {
@@ -213,8 +229,8 @@ async function main(): Promise<void> {
   holdQueue = true;
   await mount();
   check("chargement affiché", (container.textContent ?? "").includes("Chargement de la file de revue…"));
-  const firstGet = lastCall("/api/review/queue");
-  check("GET /api/review/queue en 50 par page", firstGet?.url.includes("limit=50") === true && firstGet?.url.includes("page=0") === true, firstGet?.url);
+  const firstGet = lastCall("/api/quarantine/queue");
+  check("GET /api/quarantine/queue en 50 par page", firstGet?.url.includes("limit=50") === true && firstGet?.url.includes("page=0") === true, firstGet?.url);
   await release();
   check("trois lignes rendues", rows().length === 3);
   check("indice, source et date visibles", (container.textContent ?? "").includes("Commune de Pessac")
@@ -228,7 +244,7 @@ async function main(): Promise<void> {
   // --- filtres, debounce et persistance dans l'URL ---------------------
   click(buttonIn(container.querySelector(".revue__buckets")!, "Tiède"));
   await flush();
-  check("filtre bucket envoyé", lastCall("/api/review/queue")?.url.includes("bucket=tiede") === true, lastCall("/api/review/queue")?.url);
+  check("filtre bucket envoyé", lastCall("/api/quarantine/queue")?.url.includes("bucket=tiede") === true, lastCall("/api/quarantine/queue")?.url);
   check("bucket persisté dans l'URL", dom.window.location.hash.includes("bucket=tiede"), dom.window.location.hash);
 
   const beforeDebounce = queueCalls();
@@ -237,23 +253,24 @@ async function main(): Promise<void> {
   check("debounce : aucun appel pendant la frappe", queueCalls() === beforeDebounce, { appels: queueCalls() - beforeDebounce });
   await wait(340);
   await flush();
-  check("recherche q envoyée après 300 ms", lastCall("/api/review/queue")?.url.includes("q=acme") === true, lastCall("/api/review/queue")?.url);
+  check("recherche q envoyée après 300 ms", lastCall("/api/quarantine/queue")?.url.includes("q=acme") === true, lastCall("/api/quarantine/queue")?.url);
   check("q et bucket dans l'URL après interaction",
     dom.window.location.hash.includes("q=acme") && dom.window.location.hash.includes("bucket=tiede"), dom.window.location.hash);
 
   setField(container.querySelector("#revue-q") as HTMLInputElement, "");
   click(buttonIn(container.querySelector(".revue__search")!, "Rechercher"));
   await flush();
-  check("effacement immédiat de la recherche", lastCall("/api/review/queue")?.url.includes("q=") !== true
+  check("effacement immédiat de la recherche", lastCall("/api/quarantine/queue")?.url.includes("q=") !== true
     && dom.window.location.hash.includes("q=") !== true, dom.window.location.hash);
   click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
 
   // --- états erreur et vide --------------------------------------------
-  queueStatus = 500;
+  queueStatus = 403;
   click(buttonIn(container.querySelector(".revue__buckets")!, "Froid"));
   await flush();
-  check("message d'erreur affiché", (container.querySelector(".revue__error")?.textContent ?? "").includes("queue unavailable"));
+  check("message d'erreur typé affiché", (container.querySelector(".revue__error")?.textContent ?? "").includes("HTTP 403"),
+    container.querySelector(".revue__error")?.textContent);
   queueStatus = 200;
   click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
@@ -266,7 +283,7 @@ async function main(): Promise<void> {
   click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
 
-  // --- accepter : motif libre + orgId choisi ---------------------------
+  // --- accepter : motif libre, action promote ---------------------------
   const beforeDecision = queueCalls();
   click(buttonIn(rowByHint("Commune de Pessac"), "Accepter"));
   await flush();
@@ -276,23 +293,18 @@ async function main(): Promise<void> {
   check("confirmation bloquée sans motif", buttonIn(form, "Confirmer").disabled);
   setField(reason, "domaine confirmé au registre");
   await flush();
-  check("confirmation bloquée sans organisation choisie", buttonIn(form, "Confirmer").disabled);
-  const radio = form.querySelector("input[type=radio]") as HTMLInputElement;
-  check("radio candidat présent", radio !== null && radio.value === "7");
-  click(radio);
-  await flush();
-  check("confirmation activée après motif et candidat", !buttonIn(form, "Confirmer").disabled);
+  check("confirmation activée après motif", !buttonIn(form, "Confirmer").disabled);
   click(buttonIn(form, "Confirmer"));
   await flush();
-  const accepted = lastCall("/decision");
-  check("POST accepter avec le motif saisi et l'orgId choisi",
-    accepted?.url === "/api/review/11/decision"
-      && JSON.stringify(accepted?.body) === JSON.stringify({ decision: "accepter", raison: "domaine confirmé au registre", orgId: 7 }),
+  const accepted = lastCall("/api/quarantine/review");
+  check("POST promote avec le motif saisi",
+    accepted?.url === "/api/quarantine/review"
+      && JSON.stringify(accepted?.body) === JSON.stringify({ ids: [11], action: "promote", reason: "domaine confirmé au registre" }),
     accepted);
   check("la ligne décidée disparaît sans recharger la file",
     rows().length === 2 && queueCalls() === beforeDecision, { lignes: rows().length, gets: queueCalls() - beforeDecision });
 
-  // --- refuser : aucun orgId -------------------------------------------
+  // --- refuser : aucune organisation -----------------------------------
   click(buttonIn(rowByHint("acme.com"), "Rejeter"));
   await flush();
   form = container.querySelector(".revue__decision")!;
@@ -300,15 +312,13 @@ async function main(): Promise<void> {
   check("motif revolé vide pour une nouvelle décision", reason.value === "");
   setField(reason, "hors périmètre régional");
   await flush();
-  check("aucune organisation à choisir pour refuser", form.querySelector("input[type=radio]") === null);
   click(buttonIn(form, "Confirmer"));
   await flush();
-  const refused = lastCall("/decision");
-  check("POST refuser sans orgId",
-    JSON.stringify(refused?.body) === JSON.stringify({ decision: "refuser", raison: "hors périmètre régional" }), refused?.body);
+  const refused = lastCall("/api/quarantine/review");
+  check("POST reject", JSON.stringify(refused?.body) === JSON.stringify({ ids: [12], action: "reject", reason: "hors périmètre régional" }), refused?.body);
   check("deuxième ligne retirée", rows().length === 1);
 
-  // --- créer : aucun orgId, motif libre --------------------------------
+  // --- créer : organisation réelle depuis l'indice, puis promote --------
   click(buttonIn(rowByHint("autre.fr"), "Créer l'organisation"));
   await flush();
   form = container.querySelector(".revue__decision")!;
@@ -317,12 +327,14 @@ async function main(): Promise<void> {
   await flush();
   click(buttonIn(form, "Confirmer"));
   await flush();
-  const created = lastCall("/decision");
-  check("POST creer sans orgId",
-    JSON.stringify(created?.body) === JSON.stringify({ decision: "creer", raison: "organisation absente du référentiel" }), created?.body);
+  const created = lastCall("/api/quarantine/review");
+  check("POST promote après création depuis l'indice",
+    JSON.stringify(created?.body) === JSON.stringify({ ids: [13], action: "promote", reason: "organisation absente du référentiel" }), created?.body);
+  check("création passée par la route réelle /orgs/from-hint",
+    lastCall("/api/orgs/from-hint")?.body?.nom === "autre.fr", lastCall("/api/orgs/from-hint")?.body);
   check("toutes les décisions ont un motif saisi",
-    [accepted, refused, created].every((call) => typeof call?.body?.raison === "string" && String(call.body.raison).length > 0)
-      && new Set([accepted?.body?.raison, refused?.body?.raison, created?.body?.raison]).size === 3);
+    [accepted, refused, created].every((call) => typeof call?.body?.reason === "string" && String(call.body.reason).length > 0)
+      && new Set([accepted?.body?.reason, refused?.body?.reason, created?.body?.reason]).size === 3);
   check("dernière ligne retirée, état vide visible",
     rows().length === 0 && (container.textContent ?? "").includes("Aucune revendication restante à examiner."));
   check("trois décisions envoyées, aucune relecture de la file", decisionCalls() === 3 && queueCalls() === beforeDecision);
@@ -339,7 +351,7 @@ async function main(): Promise<void> {
   await flush();
   click(buttonIn(form, "Confirmer"));
   await flush();
-  check("erreur de décision affichée", (container.querySelector(".revue__error")?.textContent ?? "").includes("decision rejected"));
+  check("erreur de décision affichée", (container.querySelector(".revue__error")?.textContent ?? "").includes("HTTP 400"));
   check("ligne conservée après échec", rows().length === beforeFailed);
   decisionStatus = 200;
 
@@ -348,7 +360,7 @@ async function main(): Promise<void> {
   click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
   check("401 signalée à l'application", unauthorized > 0);
-  check("401 : message d'erreur rendu", (container.querySelector(".revue__error")?.textContent ?? "").includes("queue unavailable"));
+  check("401 : message d'erreur rendu", (container.querySelector(".revue__error")?.textContent ?? "").includes("HTTP 401"));
   queueStatus = 200;
 
   // --- lecture seule et mode sans API ---------------------------------
@@ -373,8 +385,8 @@ async function main(): Promise<void> {
   check("lien profond : bucket coché", buttonIn(container.querySelector(".revue__buckets")!, "Froid").getAttribute("aria-pressed") === "true");
   check("lien profond : q dans le champ", (container.querySelector("#revue-q") as HTMLInputElement).value === "depuislien");
   check("lien profond : API filtrée",
-    lastCall("/api/review/queue")?.url.includes("q=depuislien") === true
-      && lastCall("/api/review/queue")?.url.includes("bucket=froid") === true, lastCall("/api/review/queue")?.url);
+    lastCall("/api/quarantine/queue")?.url.includes("q=depuislien") === true
+      && lastCall("/api/quarantine/queue")?.url.includes("bucket=froid") === true, lastCall("/api/quarantine/queue")?.url);
   await unmount();
   dom.window.history.replaceState(null, "", "#/");
 

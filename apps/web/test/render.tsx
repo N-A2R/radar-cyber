@@ -10,7 +10,7 @@ import CommandPalette from "../src/components/CommandPalette";
 import QuarantineReviewView from "../src/components/QuarantineReviewView";
 import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } from "../src/review-keys";
 import { mockData, mockOrgDetail } from "../src/mock";
-import { DEFAULT_DIRECTORY, parseHash, shareableUrl, toHash } from "../src/url-state";
+import { DEFAULT_DIRECTORY, DEFAULT_STATE, parseHash, shareableUrl, toHash } from "../src/url-state";
 
 let failures = 0;
 function check(label: string, ok: boolean, detail = "") {
@@ -50,15 +50,15 @@ const serverSide = renderToStaticMarkup(
 check("mode serveur rendu sans données locales", serverSide.includes("Chargement du référentiel"));
 
 // --- état d'URL : liens profonds -------------------------------------------
-const round = { view: "directory" as const, directory: { ...DEFAULT_DIRECTORY, q: "mairie de pessac", dept: "33", page: 2, size: 100 }, org: 412 };
+const round = { ...DEFAULT_STATE, view: "map" as const, mapPanel: "directory" as const, directory: { ...DEFAULT_DIRECTORY, q: "mairie de pessac", dept: "33", page: 2, size: 100 }, org: 412 };
 const hash = toHash(round);
 const back = parseHash(hash);
-check("URL Aller-retour conserve la vue", back.view === "directory");
+check("URL Aller-retour conserve la vue", back.view === "map" && back.mapPanel === "directory");
 check("URL Aller-retour conserve la recherche", back.directory.q === "mairie de pessac");
 check("URL Aller-retour conserve le département", back.directory.dept === "33");
 check("URL Aller-retour conserve la page et la taille", back.directory.page === 2 && back.directory.size === 100);
 check("URL Aller-retour conserve la fiche ouverte", back.org === 412);
-check("URL par défaut reste courte", toHash({ view: "map", directory: DEFAULT_DIRECTORY, org: null }) === "#/map");
+check("URL par défaut reste courte", toHash({ ...DEFAULT_STATE, view: "map", directory: DEFAULT_DIRECTORY, org: null }) === "#/map");
 check("URL invalide neutralisée", parseHash("#/nimportequoi?dept=zzz&page=-4&org=abc&size=9999").directory.dept === null);
 check("URL invalide : page et fiche rejetées", parseHash("#/directory?page=-4&org=abc").org === null && parseHash("#/directory?page=-4").directory.page === 0);
 check("lien partageable absolu", shareableUrl(round, "https://radar.exemple", "/") .startsWith("https://radar.exemple/#/directory?"));
@@ -95,13 +95,13 @@ check("palette : aucun dialogue prérendu côté serveur",
 	!palette.includes('role="dialog"') && !paletteFermee.includes('role="dialog"'));
 
 // --- la vue « revue » est une URL partageable --------------------------------
-check("URL : la vue revue est reconnue", parseHash("#/review").view === "review");
-check("URL : la vue revue survit à un aller-retour", parseHash(toHash({ ...parseHash("#/review"), view: "review" })).view === "review");
+check("URL : la vue revue est reconnue", parseHash("#/review").view === "action");
+check("URL : la vue revue survit à un aller-retour", parseHash(toHash({ ...parseHash("#/review"), view: "action", actionTab: "review" })).actionTab === "review");
 const revueHash = "#/review?bucket=tiede&q=acme";
 const revueState = parseHash(revueHash);
 check("URL revue : bucket et q relus", revueState.review.bucket === "tiede" && revueState.review.q === "acme");
-check("URL revue : bucket et q sérialisés", toHash({ ...revueState, view: "review" }) === revueHash,
-	toHash({ ...revueState, view: "review" }));
+const revueCanonical = toHash({ ...revueState, view: "action", actionTab: "review" });
+check("URL revue : bucket et q sérialisés", revueCanonical === "#/action?tab=review&bucket=tiede&q=acme", revueCanonical);
 check("URL revue : bucket invalide neutralisé", parseHash("#/review?bucket=nimportequoi").review.bucket === "");
 
 // --- clavier de la file de revue (fonction pure) ---------------------------
