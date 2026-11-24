@@ -347,3 +347,41 @@ FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47'
 Les deux premiers seaux totalisent 1 662 954 organisations : 1 661 633 n'ont aucune URL HTTP 200 dans le corpus consolidé des registres publics/gratuits, et 1 321 ont une URL mais échouent à la preuve stricte après six passes de réemploi. Aucun réservoir caché n'existe dans la base : le recoupement de toutes les tables porteuses d'URL ne couvrait que 1 559 organisations sans domaine sur 1 663 051 avant cette tranche, et les 1 418 premières sont précisément celles de `exposition_service`. Les sources gratuites vérifiées ne changent pas cette limite : l'annuaire DILA (86 193 lignes, champ `coordonneesnum_url`) ne concerne que les établissements publics, le RNA national (121 686 lignes) ne publie un site web que pour 4 475 associations, FINESS et l'API Recherche d'entreprises n'ont aucun champ site web. Combler 1 663 005 organisations exigerait d'inventer des sites ou de baisser le standard de preuve ; aucun domaine n'a été fabriqué, aucune donnée personnelle ni service payant utilisé. La cible de 100 % reste donc non livrable avec les sources autorisées, et elle est mesurée ici sans fabrication.
 
 OBJECTIF : partiel — 8 936 / 1 671 941 organisations (0,5345 %), manque 1 663 005 organisations vérifiées (99,4655 %) pour atteindre 100 %
+
+## Rattrapage — tranche t16 (2026-11-24)
+
+Le travail des tranches t1 à t15 est conservé : la branche de départ porte la mesure 8 936 / 1 671 941. La tranche t16 ouvre une **seizième route grise** : les pages dédiées déjà prouvées HTTP 200 par les registres publics qui sont hébergées sur une racine d'annuaire ou d'enseigne (Orpi, Planity, Intramuros, sites de groupes). Les routes t11/t15 écartaient ces racines par principe (`PLATFORM_ROOTS`) ou ne retenaient que cinq groupes. Ici la racine redevient éligible **uniquement si l'adresse porte un jeton distinctif du nom de l'organisation** (jeton d'au moins 5 lettres, hors jetons de ville et hors mots génériques), si la réponse reste sur la même racine et si la page contient elle aussi un jeton du nom — pas seulement de la ville. Les pages génériques d'annuaire et les pages nommées par la seule commune restent donc refusées ; la preuve stricte (statut 200, contenu réel, jeton distinctif, URL finale nommante) est inchangée. `scripts/expand-domains-annuaire.mts` n'écrit rien sans `--apply`.
+
+Sur 246 pages dédiées retenues, **51 domaines vérifiés et tracés** `exposition-service:page-annuaire:http200` (agences Orpi, salons Planity, établissements de groupes), tous issus d'URL déjà prouvées par un registre public/gratuit (OSM/SIREN, FINESS, DILA, RNA, Wikidata, annuaires). Détail avec jeton et titre de chaque page : `bench/results/domains-from-annuaire.json`. 8 tests comportement (`apps/api/test/expand-domains-annuaire.test.ts`), `tsc --noEmit` OK, `apps/api/src/server.ts` : 0 ligne modifiée. Le manifeste `package.json` a été validé après l'ajout de la commande `domaines:etendre-annuaire`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-annuaire -- --limit=500 --concurrency=32 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée, puis mesure rejouée indépendamment :
+
+```
+selected=246 verified=51 applied=true
+verified_domain_coverage=8936 -> 8987
+coverage_percent=0.5345 -> 0.5375
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9038
+organisations_avec_domaine_verifie_et_provenance=8987
+couverture_pourcent=0.5375
+```
+
+Écart restant (1 662 954 organisations), décomposé par la même requête que la tranche t15 :
+
+```
+-- sans_domaine_sans_200 | sans_domaine_avec_200 | avec_domaine
+-- 1661633 | 1270 | 9038
+```
+
+Sur les 9038 organisations avec domaine, 51 seulement échouent encore à la mesure (preuve incomplète ou racine de l'URL finale différente) ; 1 661 633 n'ont aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites, et 1 270 ont une URL mais ne passent pas la preuve stricte. Ces deux derniers seaux ne peuvent être comblés qu'en inventant des sites ou en abaissant le standard de preuve, ce qui est refusé. Aucune donnée personnelle, aucun service payant, Nouvelle-Aquitaine uniquement.
+
+OBJECTIF : partiel — 8 987 / 1 671 941 organisations (0,5375 %), manque 1 662 954 organisations vérifiées (99,4625 %) pour atteindre 100 %
