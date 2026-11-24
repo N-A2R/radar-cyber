@@ -1,4 +1,5 @@
 # Certificats CT : wildcards, émetteurs hors liste, certificats étendus
+OBJECTIF : atteint — 52 lignes ct_anomalie, liste blanche 2026-11-22 (17 émetteurs), 4 certificats synthétiques classés / ≥ 15 lignes, liste blanche versionnée, 4 certificats synthétiques
 
 Établi le 22 novembre 2026. Migration `db/migrate-200-ct-anomalies.sql`, code
 `apps/api/src/ctlogs/anomalies.ts`, vérification `pnpm verifie:ct-anomalies`.
@@ -81,8 +82,10 @@ pnpm verifie:ct-anomalies
 Le script crée une base dédiée, applique `init.sql`, toutes les migrations et
 le jeu de test, charge les inventaires versionnés, détecte et persiste, exécute
 la requête du juge mot pour mot, puis rejoue quatre certificats synthétiques
-(wildcard, émetteur inconnu, étendu, propre) sans les insérer. Il échoue si le
-compte est `< 15` ou si un cas synthétique n'est pas classé comme attendu.
+(wildcard, émetteur inconnu, étendu, propre) sans les insérer, puis vérifie la
+ligne OBJECTIF déclarée ci-dessus. Il échoue si le compte est `< 15`, si un cas
+synthétique n'est pas classé comme attendu, ou si la déclaration est absente.
 
 Tests unitaires : `apps/api/test/ctlogs-anomalies.test.ts` (4 certificats
-synthétiques, idempotence, normalisation des DN, regroupement par certificat).
+synthétiques, idempotence, normalisation des DN, regroupement par certificat,
+ligne OBJECTIF calculée et déclaration unique dans ce rapport).
