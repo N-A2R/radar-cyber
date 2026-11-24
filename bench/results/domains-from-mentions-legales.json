@@ -1,0 +1,157 @@
+{
+  "selected": 667,
+  "verified": 17,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9213,
+    "withVerifiedProvenance": 9167,
+    "coveragePercent": 0.5483
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9230,
+    "withVerifiedProvenance": 9184,
+    "coveragePercent": 0.5493
+  },
+  "domains": [
+    {
+      "orgId": 24683,
+      "name": "BRANCHEZRUGBY.FR",
+      "alias": "BRANCHEZRUGBY.FR",
+      "domain": "branchezrugby.fr",
+      "identifier": "801403858",
+      "page": "https://www.branchezrugby.fr/mentions-legales"
+    },
+    {
+      "orgId": 183846,
+      "name": "CABINET PUJOL- CREDIT UNIQUE",
+      "alias": "CABINET PUJOL - CREDITUNIQUE.COM",
+      "domain": "creditunique.com",
+      "identifier": "421529751",
+      "page": "https://creditunique.com/mentions-legales/"
+    },
+    {
+      "orgId": 210949,
+      "name": "SOULAS-ENERGIES.FR",
+      "alias": "SOULAS-ENERGIES.FR",
+      "domain": "soulas-energies.fr",
+      "identifier": "438869265",
+      "page": "https://www.soulas-energies.fr/pages/legals"
+    },
+    {
+      "orgId": 244101,
+      "name": "PASSION-JETSKI.COM",
+      "alias": "PASSION-JETSKI.COM",
+      "domain": "passion-jetski.com",
+      "identifier": "453714602",
+      "page": "https://passion-jetski.com/mentions-legales/"
+    },
+    {
+      "orgId": 269562,
+      "name": "ASSIETTES ET COMPAGNIE",
+      "alias": "ASSIETTESETCOMPAGNIE.COM",
+      "domain": "assiettesetcompagnie.com",
+      "identifier": "489166439",
+      "page": "https://www.assiettesetcompagnie.com/mentions-legales/"
+    },
+    {
+      "orgId": 282666,
+      "name": "RAYON-BASQUE.COM",
+      "alias": "RAYON-BASQUE.COM",
+      "domain": "rayon-basque.com",
+      "identifier": "494413560",
+      "page": "https://www.rayon-basque.com/content/2-mentions-legales"
+    },
+    {
+      "orgId": 323183,
+      "name": "WORLD ENERGY COMPANY",
+      "alias": "WORLD-ENERGY.COM",
+      "domain": "world-energy.com",
+      "identifier": "518346820",
+      "page": "https://world-energy.com/mentions-legales"
+    },
+    {
+      "orgId": 367047,
+      "name": "SANITAIRE-DISTRIBUTION.FR",
+      "alias": "SANITAIRE-DISTRIBUTION.FR",
+      "domain": "sanitaire-distribution.fr",
+      "identifier": "753301415",
+      "page": "https://www.sanitaire-distribution.fr/forms/mentions_legales.aspx"
+    },
+    {
+      "orgId": 428174,
+      "name": "TPLP",
+      "alias": "TOUTPOURLAPLONGE.FR",
+      "domain": "toutpourlaplonge.fr",
+      "identifier": "813954310",
+      "page": "https://www.toutpourlaplonge.fr/content/2-mentions-legales"
+    },
+    {
+      "orgId": 439267,
+      "name": "PHILEAS GOLF",
+      "alias": "COURSDEGOLF.NET",
+      "domain": "coursdegolf.net",
+      "identifier": "820072379",
+      "page": "https://www.coursdegolf.net/mentions-legales"
+    },
+    {
+      "orgId": 508365,
+      "name": "ECOLEDESURF.COM",
+      "alias": "ECOLEDESURF.COM",
+      "domain": "ecoledesurf.com",
+      "identifier": "852233378",
+      "page": "https://ecoledesurf.com/mentions-legales/"
+    },
+    {
+      "orgId": 509988,
+      "name": "IBDEO",
+      "alias": "CREATION-LOGO.NET",
+      "domain": "creation-logo.net",
+      "identifier": "852831098",
+      "page": "https://www.creation-logo.net/mentions-legales"
+    },
+    {
+      "orgId": 542378,
+      "name": "KIDYNEO",
+      "alias": "NANNY-CARE.COM ALARME-PISCINE.COM",
+      "domain": "alarme-piscine.com",
+      "identifier": "891752719",
+      "page": "https://www.alarme-piscine.com/content/2-mentions-legales"
+    },
+    {
+      "orgId": 610990,
+      "name": "SAUVETEUR-AQUATIQUE.FR - SA.FR",
+      "alias": "SAUVETEUR-AQUATIQUE.FR - SA.FR",
+      "domain": "sauveteur-aquatique.fr",
+      "identifier": "923266894",
+      "page": "https://www.sauveteur-aquatique.fr/mentions-legales/"
+    },
+    {
+      "orgId": 679518,
+      "name": "DR-ECOENERGY.FR",
+      "alias": "DR-ECOENERGY.FR",
+      "domain": "dr-ecoenergy.fr",
+      "identifier": "980959431",
+      "page": "https://www.dr-ecoenergy.fr/mentions-legales"
+    },
+    {
+      "orgId": 2184632,
+      "name": "DENTAL NETWORKS",
+      "alias": "WWW.DENTISTE-REMPLACANT.COM",
+      "domain": "dentiste-remplacant.com",
+      "identifier": "434580841",
+      "page": "https://www.dentiste-remplacant.com/mentions-legales"
+    },
+    {
+      "orgId": 2353654,
+      "name": "MATERIEL-ARROSAGE.FR",
+      "alias": "MATERIEL-ARROSAGE.FR",
+      "domain": "materiel-arrosage.fr",
+      "identifier": "808244669",
+      "page": "https://materiel-arrosage.fr/mentions-legales/"
+    }
+  ]
+}
