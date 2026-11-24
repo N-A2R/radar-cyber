@@ -14,6 +14,7 @@ const TAG = `audit${randomBytes(6).toString("hex")}`;
 const EMAIL = `${TAG}@journal.test`;
 const TOKEN = `tok-${TAG}`;
 let app: FastifyInstance;
+let reference: { instant: Date; jour: string };
 
 type Reponse = {
   rows: Array<{
@@ -34,15 +35,18 @@ async function get(url: string): Promise<{ statusCode: number; json: Reponse }> 
   return { statusCode: res.statusCode, json: res.json<Reponse>() };
 }
 
-async function ecrire(kind: string, sujet: string, acteur: string, payload: unknown): Promise<void> {
+async function ecrire(kind: string, sujet: string, acteur: string, payload: unknown, recordedAt: Date): Promise<void> {
   await query(
-    `INSERT INTO journal (kind, subject, summary, actor, payload)
-     VALUES ($1,$2,$3,$4,$5::jsonb)`,
-    [kind, sujet, `summary ${TAG}`, acteur, JSON.stringify(payload)],
+    `INSERT INTO journal (kind, subject, summary, actor, payload, recorded_at)
+     VALUES ($1,$2,$3,$4,$5::jsonb,$6::timestamptz)`,
+    [kind, sujet, `summary ${TAG}`, acteur, JSON.stringify(payload), recordedAt],
   );
 }
 
 before(async () => {
+  reference = (await query<{ instant: Date; jour: string }>(
+    `SELECT now() AS instant, (now() AT TIME ZONE 'UTC')::date::text AS jour`,
+  )).rows[0]!;
   await query(
     "INSERT INTO app_user (email, password_hash, role) VALUES ($1,'x','lecteur')",
     [EMAIL],
@@ -53,19 +57,19 @@ before(async () => {
   );
   await ecrire("review.decided", `quarantine:${TAG}-1`, `humain:${EMAIL}`, {
     decision: "accepter", reason: `${TAG}-accept`, orgId: 10,
-  });
+  }, reference.instant);
   await ecrire("review.decided", `quarantine:${TAG}-2`, `moteur:${TAG}`, {
     action: "reject", reason: `${TAG}-reject`,
-  });
+  }, reference.instant);
   await ecrire("org.created", `org:${TAG}`, `moteur:${TAG}`, {
     preuve: `${TAG}-proof`, orgId: 11,
-  });
+  }, reference.instant);
   await ecrire("org.changed", `org:${TAG}`, `moteur:${TAG}`, {
     changements: { name: `${TAG}-rename` },
-  });
+  }, reference.instant);
   await ecrire("alert.changed", `alert:${TAG}`, `moteur:${TAG}`, {
     agent: TAG, score: 0.9,
-  });
+  }, reference.instant);
   app = Fastify();
   await app.register(journalRoute, { prefix: "/api" });
   await app.ready();
@@ -134,7 +138,7 @@ test("route audit: actor and search reach the raw evidence", async () => {
 });
 
 test("route audit: inclusive date bounds on the UTC day", async () => {
-  const jour = new Date().toISOString().slice(0, 10);
+  const jour = reference.jour;
   const dans = await get(
     `/api/journal/review?acteur=${encodeURIComponent(TAG)}&du=${jour}&au=${jour}&limite=500`,
   );

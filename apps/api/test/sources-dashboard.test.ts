@@ -44,9 +44,27 @@ type Dashboard = {
 };
 
 let app: FastifyInstance;
+let reference: { instant: Date; jour: string };
+let jourAvantLecture: string;
+let jourApresLecture: string;
 let avant: Dashboard;
 let apres: Dashboard;
 let apresRecolte: Dashboard;
+
+/** Jour UTC de la base, sans dépendre de l'horloge du client de test. */
+async function jourUtc(): Promise<string> {
+  const { rows } = await query<{ jour: string }>(
+    "SELECT (now() AT TIME ZONE 'UTC')::date::text AS jour",
+  );
+  return rows[0]!.jour;
+}
+
+/** Index du jour UTC des écritures, stable même si la lecture franchit minuit. */
+function indexJourReference(dashboard: Dashboard): number {
+  const index = dashboard.evolution.findIndex((jour) => jour.date === reference.jour);
+  assert.ok(index >= 0, `jour UTC de référence ${reference.jour} absent de l'évolution`);
+  return index;
+}
 
 async function lire(): Promise<Dashboard> {
   const res = await app.inject({ method: "GET", url: "/sources/dashboard" });
@@ -66,33 +84,39 @@ async function ajouterSource(id: string, nom: string, statut = "active"): Promis
   );
 }
 
-/** `debutSecondes` = début du run avant maintenant, `dureeSecondes` = durée réelle. */
+/** `debutSecondes` = début du run avant l'instant de référence, `dureeSecondes` = durée réelle. */
 async function ajouterRun(
   sourceId: string,
   debutSecondes: number,
   dureeSecondes: number,
   entrees: number,
+  maintenant: Date,
   statut = "ok",
 ): Promise<void> {
   await query(
     `INSERT INTO collector_run (source_id, started_at, finished_at, status, items_in)
      VALUES ($1,
-             now() - ($2::numeric * interval '1 second'),
-             now() - (($2::numeric - $3::numeric) * interval '1 second'),
+             $6::timestamptz - ($2::numeric * interval '1 second'),
+             $6::timestamptz - (($2::numeric - $3::numeric) * interval '1 second'),
              $4, $5)`,
-    [sourceId, debutSecondes, dureeSecondes, statut, entrees],
+    [sourceId, debutSecondes, dureeSecondes, statut, entrees, maintenant],
   );
 }
 
-async function ajouterEvenement(sourceId: string, suffixe: string, ageSecondes: number): Promise<void> {
+async function ajouterEvenement(
+  sourceId: string,
+  suffixe: string,
+  ageSecondes: number,
+  maintenant: Date,
+): Promise<void> {
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, evidence,
                         observed_at, collected_at, severity)
      VALUES ($1,'cti','ambient_signal',$2,$3,$5,'{"run_id":"1"}'::jsonb,
-             now() - ($4::numeric * interval '1 second'),
-             now() - ($4::numeric * interval '1 second'), 2)`,
+             $6::timestamptz - ($4::numeric * interval '1 second'),
+             $6::timestamptz - ($4::numeric * interval '1 second'), 2)`,
     [`${TAG}:${suffixe}`, `Événement de test ${suffixe}`, sourceId, ageSecondes,
-     `https://exemple.invalid/${suffixe}`],
+     `https://exemple.invalid/${suffixe}`, maintenant],
   );
 }
 
@@ -100,6 +124,9 @@ before(async () => {
   app = Fastify();
   await app.register(dashboardRoute);
   await app.ready();
+  reference = (await query<{ instant: Date; jour: string }>(
+    `SELECT now() AS instant, (now() AT TIME ZONE 'UTC')::date::text AS jour`,
+  )).rows[0]!;
   avant = await lire();
 
   await ajouterSource(IDS.ok, `Alpha ${TAG}`);
@@ -109,34 +136,36 @@ before(async () => {
   await ajouterSource(IDS.dormante, `Epsilon ${TAG}`);
 
   // Un run sain de 5 s et deux événements récents : 2 / 10 = 20 %.
-  await ajouterRun(IDS.ok, 360, 5, 10);
-  await ajouterEvenement(IDS.ok, "ok1", 0);
-  await ajouterEvenement(IDS.ok, "ok2", 0);
+  await ajouterRun(IDS.ok, 360, 5, 10, reference.instant);
+  await ajouterEvenement(IDS.ok, "ok1", 0, reference.instant);
+  await ajouterEvenement(IDS.ok, "ok2", 0, reference.instant);
 
   // 40 entrées lues, un seul événement vieux de 60 jours : muette, 0 %.
-  await ajouterRun(IDS.muette, 7200, 1, 40);
-  await ajouterEvenement(IDS.muette, "ancien", 5_184_000);
+  await ajouterRun(IDS.muette, 7200, 1, 40, reference.instant);
+  await ajouterEvenement(IDS.muette, "ancien", 5_184_000, reference.instant);
 
   // 45 s : au-dessus du seuil, mais avec un événement dans les 7 jours.
-  await ajouterRun(IDS.lente, 10800, 45, 10);
-  await ajouterEvenement(IDS.lente, "lente", 0);
+  await ajouterRun(IDS.lente, 10800, 45, 10, reference.instant);
+  await ajouterEvenement(IDS.lente, "lente", 0, reference.instant);
 
   // Morte : sa décision prime, même si son run est rapide et productif.
-  await ajouterRun(IDS.morte, 3600, 2, 100);
-  await ajouterEvenement(IDS.morte, "morte", 0);
+  await ajouterRun(IDS.morte, 3600, 2, 100, reference.instant);
+  await ajouterEvenement(IDS.morte, "morte", 0, reference.instant);
 
   // Dormant : dernier run il y a 10 jours, hors fenêtre de 7 jours.
-  await ajouterRun(IDS.dormante, 864_000, 3, 5);
+  await ajouterRun(IDS.dormante, 864_000, 3, 5, reference.instant);
 
   // Un run en erreur compte dans le temps de collecte cumulé, pas dans « ok ».
-  await ajouterRun(IDS.ok, 1800, 12, 0, "error");
+  await ajouterRun(IDS.ok, 1800, 12, 0, reference.instant, "error");
 
+  jourAvantLecture = await jourUtc();
   apres = await lire();
+  jourApresLecture = await jourUtc();
 
   // Troisième écriture : le dormant redevient actif. Si un chiffre était
   // figé ou calculé une seule fois, ce test le verrait.
-  await ajouterRun(IDS.dormante, 240, 4, 20);
-  await ajouterEvenement(IDS.dormante, "reveil", 0);
+  await ajouterRun(IDS.dormante, 240, 4, 20, reference.instant);
+  await ajouterEvenement(IDS.dormante, "reveil", 0, reference.instant);
   apresRecolte = await lire();
 });
 
@@ -215,8 +244,15 @@ test("l'évolution porte sept jours, y compris les zéro", () => {
     "seules les entrées des runs réussis sur 7 j comptent",
   );
   const dernier = apres.evolution[apres.evolution.length - 1]!;
-  assert.equal(dernier.date, new Date().toISOString().slice(0, 10), "le dernier jour est aujourd'hui en UTC");
-  assert.equal(dernier.sourcesActives - avant.evolution[avant.evolution.length - 1]!.sourcesActives, 3);
+  assert.ok(
+    [jourAvantLecture, jourApresLecture].includes(dernier.date),
+    `dernier jour ${dernier.date} hors des jours UTC observés autour de la lecture`,
+  );
+  const index = indexJourReference(apres);
+  assert.equal(
+    apres.evolution[index]!.sourcesActives - avant.evolution[index]!.sourcesActives,
+    3,
+  );
 });
 
 test("le temps de collecte cumule les runs terminés, tous statuts confondus", () => {
@@ -230,9 +266,9 @@ test("une nouvelle collecte change les chiffres sans redémarrer la route", () =
   assert.equal(apresRecolte.collecte.dureeTotaleMs, apres.collecte.dureeTotaleMs + 4_000);
   assert.equal(apresRecolte.collecte.runs, apres.collecte.runs + 1);
 
-  const dernier = apresRecolte.evolution[apresRecolte.evolution.length - 1]!;
-  assert.equal(dernier.evenements - apres.evolution[apres.evolution.length - 1]!.evenements, 1);
-  assert.equal(dernier.entrees - apres.evolution[apres.evolution.length - 1]!.entrees, 20);
+  const index = indexJourReference(apresRecolte);
+  assert.equal(apresRecolte.evolution[index]!.evenements - apres.evolution[index]!.evenements, 1);
+  assert.equal(apresRecolte.evolution[index]!.entrees - apres.evolution[index]!.entrees, 20);
 
   const reveil = apresRecolte.meilleures.find((r) => r.id === IDS.dormante);
   assert.ok(reveil, "la source réveillée doit entrer dans le classement mesuré");
