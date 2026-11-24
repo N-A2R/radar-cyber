@@ -1,0 +1,61 @@
+{
+  "selected": 5,
+  "verified": 5,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9038,
+    "withVerifiedProvenance": 8987,
+    "coveragePercent": 0.5375
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9038,
+    "withVerifiedProvenance": 8992,
+    "coveragePercent": 0.5378
+  },
+  "domains": [
+    {
+      "orgId": 407588,
+      "name": "FONDATION BORDEAUX UNIVERSITE",
+      "domain": "fondation.univ-bordeaux.fr",
+      "previousDomain": "univ-bordeaux.fr",
+      "page": "https://www.fondation.univ-bordeaux.fr/",
+      "token": "fondation"
+    },
+    {
+      "orgId": 668071,
+      "name": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "domain": "notaires-wilson-carnot-bordeaux.notaires.fr",
+      "previousDomain": "notaires.fr",
+      "page": "https://notaires-wilson-carnot-bordeaux.notaires.fr/",
+      "token": "selarl"
+    },
+    {
+      "orgId": 265810,
+      "name": "AEROPORT DE BORDEAUX MERIGNAC",
+      "domain": "bordeaux.aeroport.fr",
+      "previousDomain": "aeroport.fr",
+      "page": "https://www.bordeaux.aeroport.fr/",
+      "token": "aeroport"
+    },
+    {
+      "orgId": 17771,
+      "name": "Lycée professionnel Jehan Dupérier",
+      "domain": "jehan.lyc-duperier.fr",
+      "previousDomain": "lyc-duperier.fr",
+      "page": "https://jehan.lyc-duperier.fr/",
+      "token": "lycee"
+    },
+    {
+      "orgId": 17469,
+      "name": "Lycée Fernand Daguin",
+      "domain": "rentree.lycee-daguin.com",
+      "previousDomain": "lycee-daguin.com",
+      "page": "https://rentree.lycee-daguin.com/",
+      "token": "lycee"
+    }
+  ]
+}
