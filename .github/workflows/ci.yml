@@ -160,14 +160,20 @@ jobs:
         run: pnpm setup
 
       - name: Diagnostic (doit annoncer toutes les étapes en place)
-        run: pnpm setup:check
+        run: |
+          pnpm setup:check | tee /tmp/socle-diagnostic.txt
+          grep -Eq 'référentiel NA +[1-9][0-9]* orgs / [0-9]+ alias' /tmp/socle-diagnostic.txt
 
       - name: Rejeu (idempotence)
         run: |
           pnpm setup > /tmp/rejeu.txt 2>&1
           cat /tmp/rejeu.txt
           grep -E 'sources .*\(\+0\)' /tmp/rejeu.txt
-          test "$(grep -c '4462 orgs' /tmp/rejeu.txt)" -ge 1
+          test "$(grep -Ec 'référentiel NA +[1-9][0-9]* orgs / [0-9]+ alias' /tmp/rejeu.txt)" -ge 1
+          reference_before="$(sed -nE 's/.*référentiel NA +([0-9]+) orgs \/ ([0-9]+) alias.*/\1 \2/p' /tmp/socle-diagnostic.txt)"
+          reference_after="$(sed -nE 's/.*référentiel NA +([0-9]+) orgs \/ ([0-9]+) alias.*/\1 \2/p' /tmp/rejeu.txt)"
+          test -n "$reference_before"
+          test "$reference_before" = "$reference_after"
 
       - name: Base copiée — migrations sans rejeu destructif
         env:
