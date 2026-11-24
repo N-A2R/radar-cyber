@@ -4,6 +4,8 @@
  */
 import type { ActorAttributionsResponse } from "../api";
 import "./actor-attributions.css";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Table } from "@astryxdesign/core/Table";
 
 type Props = {
   data: ActorAttributionsResponse | null;
@@ -52,34 +54,30 @@ export default function ActorAttributionsView({ data, loading, error }: Props) {
         </article>
       </div>
 
-      <table className="attrib__table">
-        <thead>
-          <tr>
-            <th scope="col">Actor label</th>
-            <th scope="col">Attributed group</th>
-            <th scope="col">Method</th>
-            <th scope="col">Sources</th>
-            <th scope="col">Claims</th>
-            <th scope="col">Confidence</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.attributions.map((item) => (
-            <tr key={item.actor}>
-              <td>{item.actor}</td>
-              <td>{item.groupName}</td>
-              <td>{item.method}</td>
-              <td>{numberFormat.format(item.sources)}</td>
-              <td>{numberFormat.format(item.claims)}</td>
-              <td>
-                <span className={`attrib__badge attrib__badge--${item.level}`}>
-                  {item.confidence} · {item.level}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table
+        className="attrib__table"
+        data={data.attributions as unknown as Record<string, unknown>[]}
+        idKey="actor"
+        density="compact"
+        dividers="rows"
+        columns={[
+          { key: "actor", header: "Actor label" },
+          { key: "groupName", header: "Attributed group" },
+          { key: "method", header: "Method" },
+          { key: "sources", header: "Sources", renderCell: (row) => numberFormat.format(Number(row.sources)) },
+          { key: "claims", header: "Claims", renderCell: (row) => numberFormat.format(Number(row.claims)) },
+          {
+            key: "confidence",
+            header: "Confidence",
+            renderCell: (row) => (
+              <Badge
+                variant={row.level === "high" ? "success" : row.level === "medium" ? "warning" : "neutral"}
+                label={`${String(row.confidence)} · ${String(row.level)}`}
+              />
+            ),
+          },
+        ]}
+      />
     </section>
   );
 }
