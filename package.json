@@ -60,6 +60,8 @@
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",
     "mesure:precurseur-campagne": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-precursor.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
+    "mesure:injection": "apps/api/node_modules/.bin/tsx scripts/mesure-injection.mts",
+    "verifie:injection": "apps/api/node_modules/.bin/tsx scripts/verifie-injection.mts",
     "verifie:prestataires-qualifies": "apps/api/node_modules/.bin/tsx scripts/verifie-prestataires-qualifies.mts",
     "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
