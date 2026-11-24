@@ -120,6 +120,7 @@
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",
     "mesure:typosquat": "apps/api/node_modules/.bin/tsx scripts/phishing-typosquat.mts",
+    "mesure:typosquat-confirmations": "apps/api/node_modules/.bin/tsx scripts/typosquat-confirmations.mts",
     "mesure:faux": "apps/api/node_modules/.bin/tsx scripts/measure-false-events.mts",
     "enrichissement:rapport": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --rapport",
     "enrichissement:appliquer": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --appliquer",
