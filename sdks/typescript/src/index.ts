@@ -80,9 +80,9 @@ type RawNaOverview = {
   };
 };
 
-/** Wire shape of GET /na/events: the route serialises observedAt/collectedAt. */
+/** Wire shape of GET /na/events: camelCase dates and a bigint id as string. */
 type RawNaEvent = {
-  id: number;
+  id: string | number;
   title: string;
   family: string;
   observedAt: string | null;
@@ -172,7 +172,7 @@ export class RadarClient {
     const raw = await this.get<{ dept: string; events: RawNaEvent[] }>("/na/events", { dept: department });
     // Drop title and orgName: free text can name a victim, which is out of scope.
     return raw.events.map((event) => ({
-      id: event.id,
+      id: Number(event.id),
       family: event.family,
       observedAt: event.observedAt,
       collectedAt: event.collectedAt,

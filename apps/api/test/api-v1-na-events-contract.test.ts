@@ -90,10 +90,12 @@ test("la publication documente dept et la forme camelCase renvoyée par la route
 test("réponse HTTP, client généré et SDK partagent le même contrat", async () => {
   const response = await app.inject({ method: "GET", url: "/api/v1/na/events?dept=33" });
   assert.equal(response.statusCode, 200, response.body);
-  const body = response.json<{ dept: string; events: Array<Doc & { id: number }> }>();
+  const body = response.json<{ dept: string; events: Array<Doc & { id: string | number }> }>();
   assert.equal(body.dept, "33");
-  const wire = body.events.find((item) => item.id === eventId);
+  // `event.id` est un bigint : pg le sérialise en chaîne sur le fil.
+  const wire = body.events.find((item) => String(item.id) === String(eventId));
   assert.ok(wire, "l'événement témoin doit être publié");
+  assert.equal(typeof wire!.id, "string");
   const parsed = NaEventFeedSchema.safeParse(body);
   assert.ok(parsed.success, parsed.success ? "" : JSON.stringify(parsed.error.issues));
   assert.equal(Object.hasOwn(wire!, "observedAt"), true);

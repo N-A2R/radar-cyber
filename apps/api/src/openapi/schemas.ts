@@ -29,7 +29,7 @@ export const EventList = z.object({ events: z.array(Event) }).passthrough();
 export const EventRows = z.array(Event);
 /** Fil /na/events : la route publie des clés camelCase, pas les clés SQL snake_case. */
 export const NaEventRow = z.object({
-  id: z.number().int(),
+  id: Id,
   title: z.string(),
   family: z.string(),
   observedAt: nullableString,
