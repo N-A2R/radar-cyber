@@ -1,5 +1,7 @@
 # Calibration des 8 règles actives — seuils sur courbe précision/rappel
 
+OBJECTIF : atteint — 1 242 alertes conservées sur 1 457, 166/1 402 alertes vraies supprimées (11,84 %) / < 1 457 alertes et ≤ 40 % de perte, avec 8/8 règles qualifiant (précision ≥ 0,85, rappel ≥ 0,60)
+
 Mesure du 22 novembre 2026. Objectif : réduire les **1 457 alertes** des 30
 derniers jours sans perdre plus de 40 % des incidents confirmés de la fenêtre.
 Chaque règle retient le **seuil le plus élevé** qui garde
@@ -90,6 +92,12 @@ Le script met à jour `rule_calibration`, publie
 ```sql
 SELECT count(*) FROM rule_calibration WHERE precision>=0.85 AND recall>=0.6; -- 8
 SELECT sum(alerts) FROM rule_calibration;                                   -- 1242
+```
+
+La ligne OBJECTIF est vérifiée en lecture seule depuis l'artefact JSON publié :
+
+```bash
+pnpm verifie:objectif-calibration
 ```
 
 Projection sur les alertes réelles de la fenêtre (seuils appliqués, règles non

@@ -227,3 +227,20 @@ test("le registre est lisible par l'API, avec vérification du sceau", async () 
 	assert.equal(bad.statusCode, 400);
 	assert.equal(bad.json<{ error: { code: string } }>().error.code, "BAD_REQUEST");
 });
+
+test("la clé d'unicité du registre porte sur l'organisation et la fenêtre", async () => {
+	const colonnes = await query<{ colonne: string }>(
+		`SELECT a.attname AS colonne
+		   FROM pg_constraint c
+		   CROSS JOIN LATERAL unnest(c.conkey) WITH ORDINALITY AS k(attnum, ord)
+		   JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = k.attnum
+		  WHERE c.conrelid = 'public.negative_attestation'::regclass
+		    AND c.conname = 'negative_attestation_unique'
+		    AND c.contype = 'u'
+		  ORDER BY k.ord`,
+	);
+	assert.deepEqual(
+		colonnes.rows.map((row) => row.colonne),
+		["org_slug", "window_start", "window_end", "method"],
+	);
+});

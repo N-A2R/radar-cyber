@@ -2,6 +2,7 @@
  * Calibration des seuils de règles : mathématiques de la courbe PR, contenu
  * de la table livrée, et effet réel du seuil dans le moteur de détection.
  */
+import { readFileSync } from "node:fs";
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query, closePools } from "../src/db.js";
@@ -9,12 +10,24 @@ import { evaluateEvent, loadRuleThresholds, loadRules } from "../src/detect/engi
 import { DAY_MS, HOUR_MS, SILENT_SOURCE_RULE, detectSilentSource } from "../src/detect/silent-source.js";
 import {
 	chooseThreshold,
+	mesurerObjectifCalibration,
 	noObservationPoint,
 	precisionRecallCurve,
 	ruleScore,
+	verifierDeclarationObjectifCalibration,
 } from "../src/detect/calibration.js";
 
 const TAG = `c${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
+
+function objectifPublie() {
+	const artefact = JSON.parse(
+		readFileSync(new URL("../../../bench/results/rule-calibration-30d.json", import.meta.url), "utf8"),
+	) as {
+		holdout: { alerts: number };
+		rules: Parameters<typeof mesurerObjectifCalibration>[0];
+	};
+	return mesurerObjectifCalibration(artefact.rules, artefact.holdout.alerts);
+}
 
 test("la courbe PR choisit le seuil le plus élevé qui qualifie la règle", () => {
 	const observations = [
@@ -140,6 +153,22 @@ test("le moteur applique le seuil calibré de la règle", async () => {
 	}
 });
 
+test("l'objectif se mesure depuis l'artefact 30 jours", () => {
+	const objectif = objectifPublie();
+	assert.equal(objectif.alertes, 1242);
+	assert.equal(objectif.qualifiantes, 8);
+	assert.equal(objectif.perte, 166);
+	assert.equal(objectif.partPerte <= 0.4, true);
+	assert.equal(objectif.atteint, true);
+	assert.match(objectif.ligne, /^OBJECTIF : atteint — .+ \/ .+$/);
+});
+
+test("le rapport déclare une seule fois la ligne OBJECTIF mesurée", () => {
+	const rapport = readFileSync(new URL("../../../docs/calibration-regles.md", import.meta.url), "utf8");
+	const ligne = objectifPublie().ligne;
+	assert.equal(verifierDeclarationObjectifCalibration(rapport, ligne), true);
+	assert.equal(verifierDeclarationObjectifCalibration(rapport, "OBJECTIF : atteint — 1 / 1"), false);
+});
 after(async () => {
 	await closePools();
 });
