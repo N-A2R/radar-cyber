@@ -8,8 +8,10 @@ import { test } from "node:test";
 import { ingestQuery, query } from "../src/db.js";
 import {
   analyserCibles,
+  certificatDepuisCertSpotter,
   enregistrerResultats,
   rattacherUrl,
+  sondeReelle,
   type Cible,
   type Sonde,
 } from "../src/detect/phishing-scan.js";
@@ -88,6 +90,46 @@ test("les variantes couvrent omission, transposition, tiret et homoglyphe punyco
   assert.ok(domaines.includes("univ-poitiers.com") === false, "le TLD n'est pas dans les variantes locales");
   assert.ok(variantes.some((v) => v.kind === "tiret"));
   assert.ok(variantes.some((v) => v.domain.startsWith("xn--")), "homoglyphe encodé en punycode");
+});
+
+const CERTSPOTTER_REEL = {
+  issuer: { friendly_name: "Let's Encrypt", name: "C=US, O=Let's Encrypt, CN=YE1" },
+  not_before: "2026-10-01T05:31:16Z",
+  not_after: "2026-12-30T05:31:15Z",
+  dns_names: ["univpoitiers.fr", "www.univpoitiers.fr"],
+};
+
+test("Cert Spotter restitue un certificat CT réel quand crt.sh est muet", async () => {
+  const cert = await certificatDepuisCertSpotter("univpoitiers.fr", async (input) => {
+    assert.match(String(input), /api\.certspotter\.com/);
+    return new Response(JSON.stringify([CERTSPOTTER_REEL]), { status: 200 });
+  });
+  assert.deepEqual(cert, {
+    issuer: "Let's Encrypt",
+    notBefore: "2026-10-01T05:31:16Z",
+    notAfter: "2026-12-30T05:31:15Z",
+    dnsNames: ["univpoitiers.fr", "www.univpoitiers.fr"],
+    source: "certspotter",
+  });
+  const verdict = classerUsurpation(finding({ domain: "univpoitiers.fr", cert, page: null }), MAINTENANT);
+  assert.ok(verdict.motifs.includes("certificat-recent"));
+  assert.ok(!verdict.motifs.includes("certificat-absent-ou-ancien"));
+});
+
+test("la sonde réelle retombe sur Cert Spotter après un crt.sh en échec", async () => {
+  const fetchOriginal = globalThis.fetch;
+  globalThis.fetch = (async (input: unknown) =>
+    String(input).includes("crt.sh")
+      ? new Response("<html>502 Bad Gateway</html>", { status: 502 })
+      : new Response(JSON.stringify([CERTSPOTTER_REEL]), { status: 200 })) as typeof fetch;
+  try {
+    const cert = await sondeReelle.certificat("univpoitiers.fr");
+    assert.equal(cert?.source, "certspotter");
+    assert.equal(cert?.issuer, "Let's Encrypt");
+    assert.equal(cert?.notBefore, "2026-10-01T05:31:16Z");
+  } finally {
+    globalThis.fetch = fetchOriginal;
+  }
 });
 
 test("une page officielle ou un domaine de vente n'est pas une usurpation", () => {

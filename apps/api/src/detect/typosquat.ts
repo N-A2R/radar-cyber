@@ -20,6 +20,8 @@ export interface CertSnapshot {
   notBefore: string;
   notAfter: string;
   dnsNames: string[];
+  /** Journal CT qui a fourni la preuve : `crt.sh` ou Cert Spotter. */
+  source?: "crtsh" | "certspotter";
 }
 
 export interface PageSnapshot {
