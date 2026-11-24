@@ -14,6 +14,8 @@
     "test": "pnpm -F @radar/api test",
     "provenance:measure": "apps/api/node_modules/.bin/tsx scripts/provenance.mts measure --json=/tmp/radar-provenance-ci.json",
     "provenance:check": "apps/api/node_modules/.bin/tsx scripts/provenance.mts check --json=/tmp/radar-provenance-ci.json --max-age-minutes=1440",
+    "provenance:measure:ci": "apps/api/node_modules/.bin/tsx scripts/provenance.mts measure --context=ci-fixture --json=/tmp/radar-provenance-ci.json",
+    "provenance:check:ci": "apps/api/node_modules/.bin/tsx scripts/provenance.mts check --context=ci-fixture --json=/tmp/radar-provenance-ci.json --max-age-minutes=1440",
     "org-report:measure": "apps/api/node_modules/.bin/tsx scripts/measure-org-reports.mts",
     "api:client": "apps/api/node_modules/.bin/tsx scripts/generate-api-client.mts",
     "dev": "pnpm -r --parallel dev",

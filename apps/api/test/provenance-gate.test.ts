@@ -15,6 +15,7 @@ import { randomBytes } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import {
   evaluateProvenanceGate,
+  CI_FIXTURE_STATE,
   PROVENANCE_SCOPE,
   REAL_STATE,
   type ProvenanceArtifact,
@@ -79,6 +80,55 @@ function brokenEntry(subject: string, overrides: Partial<ProvenanceEntry["event"
 function brokenArtifact(entry: ProvenanceEntry, gap: string): ProvenanceArtifact {
   return { ...artifact([entry]), complete: 0, withoutProvenance: 1, rate: 0, gaps: { [gap]: 1 } };
 }
+
+function fixtureArtifact(entries: ProvenanceEntry[]): ProvenanceArtifact {
+  return {
+    ...artifact(entries),
+    context: "ci-fixture",
+    organisations: CI_FIXTURE_STATE.organisations,
+    sources: CI_FIXTURE_STATE.sources,
+    events: CI_FIXTURE_STATE.events,
+  };
+}
+
+test("the CI fixture passes only through an explicitly requested pinned context", () => {
+  const ledger = fixtureArtifact([completeEntry()]);
+  assert.equal(evaluateProvenanceGate(ledger, "ci-fixture").ok, true);
+  const asReal = evaluateProvenanceGate(ledger);
+  assert.equal(asReal.ok, false);
+  assert.ok(asReal.reasons.includes("context-mode-mismatch"));
+  assert.ok(asReal.reasons.includes("context-mismatch"));
+});
+
+test("the CI fixture still blocks an event without admission", () => {
+  const entry = brokenEntry("feed:fixture-no-admission");
+  const ledger = {
+    ...fixtureArtifact([entry]),
+    complete: 0,
+    withoutProvenance: 1,
+    rate: 0,
+    gaps: { "admission-fact-missing": 1 },
+  };
+  const verdict = evaluateProvenanceGate(ledger, "ci-fixture");
+  assert.equal(verdict.ok, false);
+  assert.deepEqual(verdict.withoutProvenance, ["feed:fixture-no-admission"]);
+  assert.ok(verdict.reasons.includes("fact:admission-fact-missing"));
+});
+
+test("the CI fixture still requires proof keys and an actor", () => {
+  const entry = completeEntry("feed:fixture-no-proof");
+  entry.facts = entry.facts.map((fact) => ({ ...fact, payload: {}, actor: "" }));
+  const verdict = evaluateProvenanceGate({
+    ...fixtureArtifact([entry]),
+    complete: 0,
+    withoutProvenance: 1,
+    rate: 0,
+    gaps: { "actor-missing": 1, "proof-missing": 1 },
+  }, "ci-fixture");
+  assert.equal(verdict.ok, false);
+  assert.ok(verdict.reasons.includes("fact:actor-missing"));
+  assert.ok(verdict.reasons.includes("fact:proof-missing"));
+});
 
 test("a complete ledger passes with zero facts without provenance", () => {
   const verdict = evaluateProvenanceGate(artifact([completeEntry()]));

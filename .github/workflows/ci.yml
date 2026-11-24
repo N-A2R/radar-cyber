@@ -146,7 +146,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
-    # La mesure lit la base de test préparée comme dans l'ancien job `verify`.
+    # La mesure porte sur une base jetable migrée puis peuplée d'une fixture
+    # NA déterministe : le jeu réel ne peut pas être cloné dans le CI.
     services:
       postgres:
         image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
@@ -176,10 +177,13 @@ jobs:
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/sources.sql
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/detection-rules.sql
 
+      - name: Fixture Nouvelle-Aquitaine (provenance réelle, sans donnée personnelle)
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/fixtures/provenance-ci.sql
+
       - name: Provenance sur mesure fraîche (blocking)
         run: |
-          pnpm provenance:measure
-          pnpm provenance:check
+          pnpm provenance:measure:ci
+          pnpm provenance:check:ci
 
   build:
     runs-on: ubuntu-latest
