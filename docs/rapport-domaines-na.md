@@ -570,3 +570,50 @@ Il reste 1 661 465 organisations sans aucune URL HTTP 200 dans le corpus consoli
 12 tests comportement (un par comportement) dans `apps/api/test/expand-domains-mentions.test.ts` ; 141 tests domaines verts au total ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
 
 OBJECTIF : partiel — 9 184 / 1 671 941 organisations (0,5493 %), manque 1 662 757 organisations vérifiées (99,4507 %) pour atteindre 100 %
+
+## Rattrapage — tranche t21 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t20 : 9 184 / 1 671 941), seule base autorisée : la PR #797 existe mais son objectif chiffré (100 %) n'était pas atteint. Le travail des tranches t1 à t20 est conservé tel quel. La tranche t21 ouvre une **quatorzième route grise** : les variantes de protocole et de préfixe `www` d'un domaine déclaré par un alias SIRENE public. Les passes t19 et t20 ne tentaient que `https://<domaine>/` et manquaient les sites qui ne répondent qu'en `http`, ou seulement avec le préfixe `www`.
+
+`scripts/expand-domains-alias-variantes.mts` reprend les 657 racines d'alias encore sans domaine, essaie les quatre combinaisons du **même hôte officiel**, puis exige la preuve stricte inchangée (statut 200, racine identique après redirection, contenu réel, identité publiée par le site lui-même : jeton distinctif du nom ou identifiant légal). Sur 657 candidats, **8 domaines vérifiés et tracés** `sirene:alias-domaine:variante-hote:http200` (9 184 → 9 192) : cinq racines ne répondaient qu'en `http` et trois seulement en `https://www`. Détail avec la variante ayant répondu et les tentatives : `bench/results/domains-from-alias-variantes.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-alias-variantes -- --limit=657 --concurrency=24 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée, puis mesure rejouée indépendamment après écriture :
+
+```
+selected=657 verified=8 applied=true
+verified_domain_coverage=9184 -> 9192
+coverage_percent=0.5493 -> 0.5498
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9238
+organisations_avec_domaine_verifie_et_provenance=9192
+couverture_pourcent=0.5498
+```
+
+Décomposition reproductible de l'écart restant (1 662 749 organisations), par la requête des tranches précédentes :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661457 | 1246 | 9238
+```
+
+Il reste 1 661 457 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites, 1 246 avec une URL qui échoue encore à la preuve stricte, et 46 avec un domaine sans preuve comptable (correspondances génériques d'articles, non réparables sans fabrication). Une recherche complémentaire dans le catalogue des sources par nom d'organisation a été instruite puis abandonnée : la requête de recoupement n'a pas abouti en 300 s sur la base de production, aucun résultat n'a donc été écrit. Combler 1 662 749 organisations exigerait d'inventer des sites ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+5 tests comportement (un par comportement) dans `apps/api/test/expand-domains-alias-variantes.test.ts`, tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`). La suite complète `tsx test/run.ts` n'a pas pu être rejouée ici : son lanceur exige un PostgreSQL de test sur `127.0.0.1:5432`, absent de cet environnement.
+
+OBJECTIF : partiel — 9 192 / 1 671 941 organisations (0,5498 %), manque 1 662 749 organisations vérifiées (99,4502 %) pour atteindre 100 %
+

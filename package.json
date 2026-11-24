@@ -134,6 +134,7 @@
     "domaines:etendre-catalogue": "apps/api/node_modules/.bin/tsx scripts/expand-domains-catalogue.mts",
     "domaines:etendre-alias-domaine": "apps/api/node_modules/.bin/tsx scripts/expand-domains-alias-domaine.mts",
     "domaines:etendre-mentions": "apps/api/node_modules/.bin/tsx scripts/expand-domains-mentions.mts",
+    "domaines:etendre-alias-variantes": "apps/api/node_modules/.bin/tsx scripts/expand-domains-alias-variantes.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "sources:verifier": "apps/api/node_modules/.bin/tsx scripts/verifier-sources-http.mts",
