@@ -1,42 +1,46 @@
 {
-  "generatedAt": "2026-11-22T04:31:12.229Z",
+  "generatedAt": "2026-11-24T00:08:46.958Z",
   "asOf": "2026-11-22",
   "windowStart": "2026-05-26",
   "windowEnd": "2026-11-22",
   "windows": 6,
   "horizonDays": 30,
   "lookbackDays": 30,
-  "victims": 15,
+  "victims": 16,
   "sources": 3,
-  "pairs": 45,
-  "priorSignalPairs": 18,
-  "victimsWithAnyPriorSignal": 11,
-  "coverage": 0.7333,
-  "claimsRead": 74,
+  "pairs": 48,
+  "priorSignalPairs": 19,
+  "victimsWithAnyPriorSignal": 12,
+  "coverage": 0.75,
+  "claimsRead": 77,
   "perSource": [
     {
       "scope": "departement",
-      "victims": 15,
-      "pairs": 15,
-      "victimsWithPriorSignal": 4,
-      "priorSignals": 5
+      "victims": 16,
+      "pairs": 16,
+      "victimsWithPriorSignal": 5,
+      "priorSignals": 6
     },
     {
       "scope": "secteur",
-      "victims": 15,
-      "pairs": 15,
+      "victims": 16,
+      "pairs": 16,
       "victimsWithPriorSignal": 4,
       "priorSignals": 4
     },
     {
       "scope": "secteur_groupe",
-      "victims": 15,
-      "pairs": 15,
+      "victims": 16,
+      "pairs": 16,
       "victimsWithPriorSignal": 10,
       "priorSignals": 24
     }
   ],
   "activeSectorGroupsAtAsOf": [
+    {
+      "key": "construction",
+      "count": 1
+    },
     {
       "key": "services",
       "count": 1
@@ -45,17 +49,38 @@
   "baseline": {
     "predictions": 60,
     "hits": 0,
-    "victims": 15
+    "victims": 16
   },
   "injected": {
     "predictions": 60,
     "hits": 0,
-    "victims": 15
+    "victims": 16
+  },
+  "brandFamily": {
+    "attachments": 75,
+    "ambiguousBrands": 71,
+    "unmatchedBrands": 35024,
+    "priorSignalPairs": 4,
+    "victimsWithPriorSignal": 2,
+    "coveredOrgIds": [
+      688670,
+      2230758
+    ]
+  },
+  "brandInjected": {
+    "predictions": 60,
+    "hits": 1,
+    "victims": 16
+  },
+  "combinedInjected": {
+    "predictions": 60,
+    "hits": 1,
+    "victims": 16
   },
   "dataset": {
-    "organisationsNA": 1671906,
-    "sources": 771,
-    "events": 26770
+    "organisationsNA": 1671936,
+    "sources": 3140,
+    "events": 27218
   },
-  "caveat": "A wave signal is a claim by another NA organisation in the same scope within 30 days, strictly before the victim's claim. No group label of the future claim is used. The injected ranking adds a bounded sector-group bonus to the published score; it is an audit, not a change to the published forecast."
+  "caveat": "A wave signal is a claim by another NA organisation in the same scope within 30 days, strictly before the victim's claim. No group label of the future claim is used. The brand-family signal is a claim against a different organisation whose name shares an exact two-token prefix with a single NA organisation, published strictly before the cutoff. Both injected rankings add bounded bonuses to the published score; they are audits, not a change to the published forecast."
 }
