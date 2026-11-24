@@ -880,3 +880,45 @@ Le recoupement des tables porteuses d'URL (t25, rejoué ici sur `source`, `sourc
 
 OBJECTIF : partiel — 9 351 / 1 671 941 organisations (0,5593 %), manque 1 662 590 organisations vérifiées (99,4407 %) pour atteindre 100 %
 
+## Rattrapage — tranche t28 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t27 : 9 351 / 1 671 941), seule base autorisée : la PR #797 existe toujours mais son objectif chiffré (100 %) n'est pas atteint. Le travail des tranches t1 à t27 est conservé tel quel. La tranche t28 ouvre une vingt-deuxième route grise, inexploitée par les expansions précédentes : l'export versionné `bench/results/registry-id-sites-2026-11-22.tsv` (1 910 paires SIRET data.inclusion / FINESS OSM → site public). `scripts/expand-domains-registre.mts` n'accepte une paire que si l'identifiant légal public apparie exactement une organisation de Nouvelle-Aquitaine sans domaine, si un mot distinctif de sa raison sociale figure à la fois dans l'hôte et dans le titre de la page, et si sa racine n'est ni une place de marché ni un hébergeur. Les libellés ambigus (mot partagé par deux organisations retenues, variante `(4)` d'un groupe) sont écartés.
+
+La preuve stricte reste inchangée : HTTP 200 en direct, racine stable après redirection, page de plus de 150 caractères, hors parking, identité publiée par le titre et le corps. Sur 74 candidats retenus, **11 domaines ont été revérifiés en direct** et tracés `source:registre-identifiant:http200` (9 351 → 9 362). Détail (identifiant, organisation, racine) : `bench/results/domains-from-registre.json`. Le SIRET et le FINESS sont des identifiants d'organisation, jamais des données personnelles ; aucune URL n'a été devinée.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-registre -- --limit=500 --concurrency=24 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées (`selected=74 verified=11 applied=true`, `verified_domain_coverage=9351 -> 9362`), puis mesure rejouée indépendamment après écriture :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9408
+organisations_avec_domaine_verifie_et_provenance=9362
+couverture_pourcent=0.5599
+```
+
+Décomposition reproductible de l'écart restant (1 662 579 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661362 | 1171 | 9408
+```
+
+Le recoupement des tables porteuses d'URL (t25/t27, rejoué en t28) ne révèle aucun autre réservoir rattachable : 1 661 362 organisations n'ont aucune URL HTTP 200 dans les sources publiques/gratuites et 1 171 ont une URL qui échoue à la preuve stricte après vingt-deux passes. Combler 1 662 579 organisations exigerait d'attribuer des sites inexistants ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+12 tests comportement, un par comportement (`apps/api/test/expand-domains-registre.test.ts`), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée ; manifeste `package.json` validé après ajout de la commande (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 362 / 1 671 941 organisations (0,5599 %), manque 1 662 579 organisations vérifiées (99,4401 %) pour atteindre 100 %
+

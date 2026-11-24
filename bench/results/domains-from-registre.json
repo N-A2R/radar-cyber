@@ -1,0 +1,98 @@
+{
+  "selected": 74,
+  "verified": 11,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9397,
+    "withVerifiedProvenance": 9351,
+    "coveragePercent": 0.5593
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9408,
+    "withVerifiedProvenance": 9362,
+    "coveragePercent": 0.5599
+  },
+  "domains": [
+    {
+      "orgId": 615401,
+      "name": "OXALYS",
+      "identifier": "siret:92457293600012",
+      "domain": "oxalys-ebe.fr",
+      "page": "https://oxalys-ebe.fr/"
+    },
+    {
+      "orgId": 167123,
+      "name": "REGIE DE QUARTIER HABITER BACALAN",
+      "identifier": "siret:41150489700025",
+      "domain": "regie-de-quartier-habiter-bacalan.fr",
+      "page": "https://regie-de-quartier-habiter-bacalan.fr/"
+    },
+    {
+      "orgId": 14329,
+      "name": "PHARMACIE  DESVIGNES",
+      "identifier": "finess:870013240",
+      "domain": "pharmacie-desvignes.fr",
+      "page": "https://pharmacie-desvignes.fr/"
+    },
+    {
+      "orgId": 10889,
+      "name": "PHARMACIE  DE  LOLYA",
+      "identifier": "finess:470010133",
+      "domain": "pharmaciedelolya-marmande.fr",
+      "page": "https://pharmaciedelolya-marmande.fr/"
+    },
+    {
+      "orgId": 13626,
+      "name": "PHARMACIE DE LA GIBAUDERIE",
+      "identifier": "finess:860789247",
+      "domain": "pharmacie-gibauderie.fr",
+      "page": "https://pharmacie-gibauderie.fr/"
+    },
+    {
+      "orgId": 8282,
+      "name": "PHARMACIE DU STADE LESCURE",
+      "identifier": "finess:330041930",
+      "domain": "pharmacie-stadelescure.fr",
+      "page": "https://www.pharmacie-stadelescure.fr/"
+    },
+    {
+      "orgId": 11174,
+      "name": "PHARMACIE LUTETIA",
+      "identifier": "finess:470012584",
+      "domain": "pharmacielutetia.fr",
+      "page": "https://pharmacielutetia.fr/la-pharmacie/"
+    },
+    {
+      "orgId": 13412,
+      "name": "ALIZE DOMICILE",
+      "identifier": "finess:860014661",
+      "domain": "alize-domicile.fr",
+      "page": "https://www.alize-domicile.fr/"
+    },
+    {
+      "orgId": 9913,
+      "name": "SELARL PHARMACIE  SAINT   EXUPERY",
+      "identifier": "finess:400007571",
+      "domain": "pharmacie-saint-exupery-biscarrosse.giropharm.fr",
+      "page": "https://pharmacie-saint-exupery-biscarrosse.giropharm.fr/"
+    },
+    {
+      "orgId": 5889,
+      "name": "SOS OXYGENE GRAND OUEST",
+      "identifier": "finess:170025431",
+      "domain": "sosoxygene.com",
+      "page": "https://sosoxygene.com/"
+    },
+    {
+      "orgId": 14019,
+      "name": "PHARMACIE JARRY-LACOMBE",
+      "identifier": "finess:870011343",
+      "domain": "pharmaciejarry-lacombe.fr",
+      "page": "https://www.pharmaciejarry-lacombe.fr/"
+    }
+  ]
+}
