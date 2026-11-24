@@ -42,6 +42,13 @@ export function parsePublishedDate(value: string | null | undefined): Date | nul
   if (iso) return dateFromParts(Number(iso[1]), Number(iso[2]), Number(iso[3]));
   const numeric = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(raw);
   if (numeric) return dateFromParts(Number(numeric[3]), Number(numeric[2]), Number(numeric[1]));
+  // Institutional sites also print short years, e.g. "23/11/26".
+  const shortNumeric = /^(\d{1,2})\/(\d{1,2})\/(\d{2})$/.exec(raw);
+  if (shortNumeric) {
+    const twoDigits = Number(shortNumeric[3]);
+    const year = twoDigits >= 50 ? 1900 + twoDigits : 2000 + twoDigits;
+    return dateFromParts(year, Number(shortNumeric[2]), Number(shortNumeric[1]));
+  }
   const textual = /^(\d{1,2})\s+([a-z]+)\s+(\d{4})$/i.exec(raw.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
   if (textual && MONTHS[textual[2]!.toLowerCase()]) {
     return dateFromParts(Number(textual[3]), MONTHS[textual[2]!.toLowerCase()]!, Number(textual[1]));
@@ -132,7 +139,7 @@ export function parseFeed(xmlText: string, source: OfficialSource): OfficialStat
   return out;
 }
 
-const DATE_PATTERN = /(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}\s+[a-zûéèêàç]+\s+\d{4})/gi;
+const DATE_PATTERN = /(\d{1,2}\/\d{1,2}\/\d{4}|\d{1,2}\/\d{1,2}\/\d{2}|\d{4}-\d{2}-\d{2}|\d{1,2}\s+[a-zûéèêàç]+\s+\d{4})/gi;
 
 function nearestDate(before: string, after: string): Date | null {
   let best: { date: Date; distance: number } | null = null;
@@ -172,6 +179,36 @@ export function parseListing(htmlText: string, source: OfficialSource): Official
     const after = htmlText.slice(match.index, Math.min(htmlText.length, match.index + match[0].length + 1800));
     const publishedAt = nearestDate(before, after);
     if (!publishedAt) continue;
+    const candidate = statement(source, title, url, publishedAt);
+    if (candidate) out.push(candidate);
+  }
+  return out;
+}
+
+/**
+ * Bordeaux University Hospital news cards keep the title in an <h2> and the
+ * link in "En savoir plus", so a generic anchor reader sees neither. Only a
+ * "point de situation" title carries its own explicit publication date; cards
+ * that merely mention an event date are left undated rather than misdated.
+ */
+export function parseChuListing(htmlText: string, source: OfficialSource): OfficialStatement[] {
+  const out: OfficialStatement[] = [];
+  const cards = htmlText.split(/<div\s+class="news">/i).slice(1);
+  for (const card of cards) {
+    const titleNode = /<h2[^>]*class="[^"]*news__titre[^"]*"[^>]*>([\s\S]*?)<\/h2>/i.exec(card);
+    const linkNode = /<p[^>]*class="more"[^>]*>[\s\S]*?<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>/i.exec(card);
+    if (!titleNode || !linkNode) continue;
+    const title = cleanTitle(titleNode[1]);
+    const dateNode = /point de situation\s+(\d{1,2}\/\d{1,2}\/\d{2,4})/i.exec(title);
+    if (!dateNode) continue;
+    const publishedAt = parsePublishedDate(dateNode[1]);
+    if (!publishedAt) continue;
+    let url: string;
+    try {
+      url = new URL(decodeHtml(linkNode[1]!), source.url).toString();
+    } catch {
+      continue;
+    }
     const candidate = statement(source, title, url, publishedAt);
     if (candidate) out.push(candidate);
   }

@@ -1,6 +1,6 @@
 import { dedupeStatements } from "./dedupe.js";
 import { isNouvelleAquitaine, OFFICIAL_SOURCES, type OfficialStatement } from "./model.js";
-import { parseFeed, parseListing } from "./parse.js";
+import { parseChuListing, parseFeed, parseListing } from "./parse.js";
 import { inWindow } from "./window.js";
 
 export type CollectReport = {
@@ -40,7 +40,11 @@ export async function collectStatements(
       continue;
     }
     scanned += 1;
-    const parsed = source.format === "rss" ? parseFeed(text, source) : parseListing(text, source);
+    const parsed = source.format === "rss"
+      ? parseFeed(text, source)
+      : source.parser === "chu"
+        ? parseChuListing(text, source)
+        : parseListing(text, source);
     const fresh = inWindow(parsed, now, days);
     bySource[source.id] = fresh.length;
     admitted.push(...fresh);

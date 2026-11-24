@@ -11,6 +11,8 @@ export type OfficialSource = {
   name: string;
   url: string;
   format: "rss" | "html";
+  /** Listing-specific reader, for publishers whose cards do not expose dates as link text. */
+  parser?: "chu";
   department: string;
   departmentLabel: string;
   officialDomain: string;
@@ -38,6 +40,7 @@ const INSTITUTIONAL_DOMAINS: Readonly<Record<string, true>> = {
   "www.grandpoitiers.fr": true,
   "www.ville-lasouterraine.fr": true,
   "www.univ-larochelle.fr": true,
+  "www.chu-bordeaux.fr": true,
 };
 
 export const OFFICIAL_SOURCES: readonly OfficialSource[] = [
@@ -120,6 +123,17 @@ export const OFFICIAL_SOURCES: readonly OfficialSource[] = [
     departmentLabel: "Charente-Maritime",
     officialDomain: "www.univ-larochelle.fr",
     pressOnly: true,
+  },
+  {
+    id: "official-na-chu-bordeaux-actualites",
+    name: "Bordeaux University Hospital - news",
+    url: "https://www.chu-bordeaux.fr/Espace-m%C3%A9dia/Actualit%C3%A9s/",
+    format: "html",
+    parser: "chu",
+    department: "33",
+    departmentLabel: "Gironde",
+    officialDomain: "www.chu-bordeaux.fr",
+    pressOnly: false,
   },
 ];
 
