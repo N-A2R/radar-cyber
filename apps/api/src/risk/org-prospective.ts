@@ -247,47 +247,51 @@ export function generateOrgRiskBenchmark(params: OrgRiskParams): OrgRiskEntity[]
 }
 
 const borne = (valeur: number): number => Number.isFinite(valeur) ? Math.min(1, Math.max(0, valeur)) : 0;
+const evidence = (valeur: number): number => Number.isFinite(valeur) ? Math.max(0, valeur) : 0;
 
 /**
- * Score prospectif dans [0, 1]. Chaque composante est plafonnée avant d'être
- * pondérée, puis la somme est divisée par la somme des poids : la note publiée
- * est une échelle normalisée, pas un accumulateur sans borne. `volume` reste
+ * Score prospectif dans [0, 1]. Les composantes diagnostiques sont bornées
+ * [0, 1], mais le classement utilise l'évidence pondérée brute : un plafond
+ * dur créerait des égalités artificielles entre organisations très exposées
+ * et modifierait le c-index archivé. La mise à l'échelle finale
+ * `somme / (poids + somme)` est strictement croissante : elle borne la note
+ * publiée sans changer l'ordre ni les strates du benchmark. `volume` reste
  * une baseline hors score.
  */
 export function prospectiveRiskScore(signals: OrgRiskSignals, params: OrgRiskParams): OrgRiskBreakdown {
 	const s = params.score;
-	const confirmedRecency = borne(signals.confirmations.reduce(
+	const rawConfirmedRecency = evidence(signals.confirmations.reduce(
 		(total, fact) => total + Math.pow(2, -fact.day / s.halfLifeDays),
 		0,
 	));
-	const confirmedSeverity = borne(signals.confirmations.reduce((total, fact) => total + fact.severity, 0) / 4);
-	const claimRecency = borne(signals.claims.reduce(
+	const rawConfirmedSeverity = evidence(signals.confirmations.reduce((total, fact) => total + fact.severity, 0) / 4);
+	const rawClaimRecency = evidence(signals.claims.reduce(
 		(total, claim) => total + Math.pow(2, -claim.day / s.halfLifeDays),
 		0,
 	));
 	const corroborated = signals.claims.filter((claim) => claim.corroborated).length;
-	const corroborationRate = borne(corroborated / (1 + signals.claims.length));
-	const exposure = borne(s.epssMax * borne(signals.epssMax) + s.kev * (signals.kev ? 1 : 0));
-	const sector = borne((s.sector * borne(signals.sector)) / 4);
-	const domain = borne(s.domain * (signals.domain ? 1 : 0));
+	const rawCorroborationRate = evidence(corroborated / (1 + signals.claims.length));
+	const rawExposure = evidence(s.epssMax * evidence(signals.epssMax) + s.kev * (signals.kev ? 1 : 0));
+	const rawSector = evidence((s.sector * evidence(signals.sector)) / 4);
+	const rawDomain = evidence(s.domain * (signals.domain ? 1 : 0));
 	const poidsTotal = s.confirmedRecency + s.confirmedSeverity + s.claimRecency
 		+ s.corroborationRate + s.epssMax + s.kev + s.sector + s.domain;
-	const somme = s.confirmedRecency * confirmedRecency
-		+ s.confirmedSeverity * confirmedSeverity
-		+ s.claimRecency * claimRecency
-		+ s.corroborationRate * corroborationRate
-		+ exposure + sector + domain;
-	const score = borne(poidsTotal > 0 ? somme / poidsTotal : 0);
+	const somme = s.confirmedRecency * rawConfirmedRecency
+		+ s.confirmedSeverity * rawConfirmedSeverity
+		+ s.claimRecency * rawClaimRecency
+		+ s.corroborationRate * rawCorroborationRate
+		+ rawExposure + rawSector + rawDomain;
+	const score = poidsTotal > 0 ? somme / (poidsTotal + somme) : 0;
 
 	return {
 		score,
-		confirmedRecency,
-		confirmedSeverity,
-		claimRecency,
-		corroborationRate,
-		exposure,
-		sector,
-		domain,
+		confirmedRecency: borne(rawConfirmedRecency),
+		confirmedSeverity: borne(rawConfirmedSeverity),
+		claimRecency: borne(rawClaimRecency),
+		corroborationRate: borne(rawCorroborationRate),
+		exposure: borne(rawExposure),
+		sector: borne(rawSector),
+		domain: borne(rawDomain),
 		volume: signals.confirmations.length + signals.claims.length + signals.services + signals.ambient,
 	};
 }
