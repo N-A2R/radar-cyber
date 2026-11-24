@@ -1,6 +1,6 @@
 {
   "command": "cd apps/web && ./node_modules/.bin/vitest run test/a11y-audit.test.tsx test/a11y-shell-status.test.tsx --reporter=dot",
-  "screens": 11,
+  "screens": 16,
   "axeTags": [
     "wcag2a",
     "wcag2aa",
@@ -20,6 +20,16 @@
       "rules": []
     },
     {
+      "label": "Nouvelle-Aquitaine",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Suis-je concerné ?",
+      "violations": 0,
+      "rules": []
+    },
+    {
       "label": "Revue",
       "violations": 0,
       "rules": []
@@ -35,7 +45,22 @@
       "rules": []
     },
     {
+      "label": "Dossier",
+      "violations": 0,
+      "rules": []
+    },
+    {
       "label": "Sources",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Tableau de bord sources",
+      "violations": 0,
+      "rules": []
+    },
+    {
+      "label": "Santé",
       "violations": 0,
       "rules": []
     },
@@ -50,7 +75,7 @@
       "rules": []
     },
     {
-      "label": "Santé",
+      "label": "Annuaire",
       "violations": 0,
       "rules": []
     },
@@ -60,7 +85,7 @@
       "rules": []
     },
     {
-      "label": "Nouvelle-Aquitaine",
+      "label": "Attributions",
       "violations": 0,
       "rules": []
     }

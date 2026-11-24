@@ -23,21 +23,26 @@ import type AppType from "../src/App";
 
 // Libellés métier audités ; le rail Astryx les regroupe en six entrées.
 const SCREEN_LABELS = [
-  "Aujourd'hui", "Couverture", "Revue", "Journal", "Corpus",
-  "Sources", "Carte", "Graphe", "Santé", "Alertes", "Nouvelle-Aquitaine",
+  "Aujourd'hui", "Couverture", "Nouvelle-Aquitaine", "Suis-je concerné ?",
+  "Revue", "Journal", "Corpus", "Dossier", "Sources", "Tableau de bord sources",
+  "Santé", "Carte", "Graphe", "Annuaire", "Alertes", "Attributions",
 ] as const;
 
 const NAV_GROUP: Record<string, string> = {
   "Aujourd'hui": "Observatoire",
   Couverture: "Observatoire",
   "Nouvelle-Aquitaine": "Observatoire",
+  "Suis-je concerné ?": "Observatoire",
   Revue: "Analyse",
   Journal: "Analyse",
   Corpus: "Analyse",
+  Dossier: "Analyse",
   Sources: "Sources",
+  "Tableau de bord sources": "Sources",
   Santé: "Sources",
   Carte: "Explorer",
   Graphe: "Explorer",
+  Annuaire: "Explorer",
 };
 
 const AA_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
@@ -111,7 +116,7 @@ async function openPalette(): Promise<void> {
 }
 
 describe("WCAG AA audit", () => {
-  it("measures zero axe A/AA violations on all eleven screens", async () => {
+  it("measures zero axe A/AA violations on all sixteen screens", async () => {
     await mountApp();
     const screens: { label: string; violations: number; rules: string[] }[] = [];
     for (const label of SCREEN_LABELS) {
@@ -134,7 +139,7 @@ describe("WCAG AA audit", () => {
     writeFileSync(resolve(RESULT_FILE), `${JSON.stringify(summary, null, 2)}\n`);
     console.log(`A11Y_AA_AUDIT screens=${summary.screens} violations=${violations}`);
     expect(violations).toBe(0);
-  }, 50_000);
+  }, 90_000);
 
   it("bypasses the rail with a skip link to the main landmark", async () => {
     await mountApp();

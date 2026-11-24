@@ -4,6 +4,8 @@
 -- organisation mérite une validation humaine en premier. `org_score` porte
 -- cette décision de triage, une ligne par organisation ayant au moins une
 -- exposition mesurée.
+-- Chaque ligne porte son référentiel : 'ctem-priorite@1' ici. La migration 222
+-- ajoute le référentiel ReCyF-2.5 et fait de (org_id, referentiel) la clé.
 --
 -- Règle `ctem-priorite@1` :
 --   * exposé     : service cité (source_url http(s)) et consulté il y a < 7 j ;
@@ -31,10 +33,21 @@ CREATE TABLE IF NOT EXISTS org_score (
   confirmees   integer NOT NULL CHECK (confirmees >= 0 AND confirmees <= services),
   criticite    double precision NOT NULL CHECK (criticite >= 0),
   regle        text NOT NULL DEFAULT 'ctem-priorite@1',
+  referentiel  text NOT NULL,
   calcule_le   timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS org_score_score_idx ON org_score (score DESC, org_id);
+
+-- Une base créée par une version antérieure de cette migration peut avoir la
+-- table sans colonne referentiel (ou avec des NULL laissés par la migration
+-- 222). On normalise la colonne sans toucher à la clé primaire déjà posée :
+-- le référentiel historique suit la même règle métier qu'en 222.
+ALTER TABLE org_score ADD COLUMN IF NOT EXISTS referentiel text;
+UPDATE org_score
+   SET referentiel = CASE WHEN regle LIKE 'ReCyF%' THEN 'ReCyF-2.5' ELSE 'ctem-priorite@1' END
+ WHERE referentiel IS NULL;
+ALTER TABLE org_score ALTER COLUMN referentiel SET NOT NULL;
 
 COMMENT ON TABLE org_score IS
   'Priorité de validation CTEM par organisation : score 0-1 issu de l''exposition_service mesurée, citée et récente.';
@@ -77,7 +90,7 @@ BEGIN
       FROM service
      GROUP BY org_id
   )
-  INSERT INTO org_score (org_id, score, services, confirmees, criticite, regle, calcule_le)
+  INSERT INTO org_score (org_id, score, services, confirmees, criticite, regle, referentiel, calcule_le)
   SELECT org_id,
          CASE
            WHEN confirmees = 0
@@ -87,6 +100,7 @@ BEGIN
          services,
          confirmees,
          criticite,
+         'ctem-priorite@1',
          'ctem-priorite@1',
          now()
     FROM agr;
