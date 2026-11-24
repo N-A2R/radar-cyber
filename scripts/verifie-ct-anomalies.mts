@@ -4,8 +4,9 @@
  * Crée une base dédiée, applique `db/init.sql`, toutes les migrations et le
  * jeu de test, charge les inventaires CT versionnés, détecte puis persiste les
  * anomalies, exécute mot pour mot la requête du juge et affiche sa sortie
- * brute. Échoue si le compte est < 15 ou si l'un des quatre certificats
- * synthétiques n'est pas classé comme attendu.
+ * brute. Échoue si le compte est < 15, si l'un des quatre certificats
+ * synthétiques n'est pas classé comme attendu, ou si le rapport ne déclare
+ * pas exactement une fois la ligne OBJECTIF mesurée.
  *
  * Les quatre certificats synthétiques passent par la détection pure : ils ne
  * sont pas insérés et ne gonflent donc jamais le compte de l'inventaire réel.
@@ -19,6 +20,7 @@ import {
 	createTestDatabase,
 	dropTestDatabase,
 } from "../apps/api/test/helpers/testdb.js";
+import { ligneObjectifCt, verifierDeclarationObjectifCt } from "../apps/api/src/ctlogs/objectif.js";
 
 // pnpm cloisonne `pg` dans apps/api : depuis la racine, un import statique
 // échoue en ERR_MODULE_NOT_FOUND (même piège que scripts/migrate.mts).
@@ -29,6 +31,8 @@ const SNAPSHOTS = [
 	new URL("../bench/results/ctlogs-inventaire-2026-11-21.json", import.meta.url),
 	new URL("../bench/results/ctlogs-inventaire-2026-11-22.json", import.meta.url),
 ];
+
+const RAPPORT = new URL("../docs/certificats-wildcards.md", import.meta.url);
 
 /** Requête du juge, reprise mot pour mot. */
 const CRITERE = `SELECT count(*)::int AS n
@@ -204,6 +208,18 @@ async function main(): Promise<void> {
 		} else {
 			console.log(`OK : ${n} >= ${SEUIL} et ${CAS.length}/${CAS.length} certificats synthétiques classés.`);
 		}
+
+		const ligne = ligneObjectifCt({
+			anomalies: n,
+			versionWhitelist: liste.version,
+			emetteurs: liste.emetteurs.size,
+			certificatsClasses: CAS.length - casEchoues,
+		});
+		const declaree = verifierDeclarationObjectifCt(readFileSync(RAPPORT, "utf8"), ligne);
+		console.log("");
+		console.log(ligne);
+		console.log(`report declaration : ${declaree ? "ok" : "missing"}`);
+		if (!declaree) process.exitCode = 1;
 	} finally {
 		await client.end();
 		await closePools();
