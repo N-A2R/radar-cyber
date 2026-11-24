@@ -106,6 +106,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/export/misp", niveau: "public", motif: "flux MISP des faits TLP:CLEAR/GREEN, sans donnée personnelle" },
   { methode: "GET", route: "/api/na/provider-spof", niveau: "public" },
   { methode: "GET", route: "/api/na/providers", niveau: "public" },
+  { methode: "GET", route: "/api/na/prestataires-qualifies", niveau: "public", motif: "fiches ANSSI : référence de décision, dates et extrait daté publiés, source nationale" },
   { methode: "GET", route: "/api/attack-path", niveau: "public", motif: "plus court chemin d'attaque entre deux organisations" },
   { methode: "GET", route: "/api/early-warning/global-to-regional", niveau: "public" },
   { methode: "GET", route: "/api/siret/establishments/count", niveau: "public", motif: "compteur public : établissements SIRET rattachés aux sièges" },
@@ -119,6 +120,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/risk/organisations/:id", niveau: "public", motif: "score numérique d'une organisation NA, sans donnée de victime" },
   { methode: "GET", route: "/api/attestations-negatives", niveau: "public", motif: "registre public des absences signées, vérifiable sans secret" },
   { methode: "GET", route: "/api/registre-traitements/export.csv", niveau: "public", motif: "registre des traitements : identifiants et noms de sources publiques, sans donnée personnelle" },
+  { methode: "GET", route: "/api/violations-rgpd/export.csv", niveau: "public", motif: "registre des violations suspectées : identifiants publics, dates et statut, aucune donnée personnelle" },
 
   // --- Lectures authentifiées ----------------------------------------------
   { methode: "GET", route: "/api/alerts/:id", niveau: "lecteur" },

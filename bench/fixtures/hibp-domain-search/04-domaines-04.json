@@ -1,0 +1,182 @@
+[
+  {
+    "domaine": "etab-31.bordeaux.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 31 — Bordeaux #1",
+        "Domain": "etab-31.bordeaux.example",
+        "BreachDate": "2024-06-11",
+        "PwnCount": 2147
+      },
+      {
+        "Name": "Fuite domaine 31 — Bordeaux #2",
+        "Domain": "etab-31.bordeaux.example",
+        "BreachDate": "2024-07-10",
+        "PwnCount": 2158
+      }
+    ]
+  },
+  {
+    "domaine": "etab-32.limoges.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 32 — Limoges #1",
+        "Domain": "etab-32.limoges.example",
+        "BreachDate": "2024-06-28",
+        "PwnCount": 2184
+      },
+      {
+        "Name": "Fuite domaine 32 — Limoges #2",
+        "Domain": "etab-32.limoges.example",
+        "BreachDate": "2024-07-27",
+        "PwnCount": 2195
+      },
+      {
+        "Name": "Fuite domaine 32 — Limoges #3",
+        "Domain": "etab-32.limoges.example",
+        "BreachDate": "2024-08-25",
+        "PwnCount": 2206
+      }
+    ]
+  },
+  {
+    "domaine": "etab-33.poitiers.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 33 — Poitiers #1",
+        "Domain": "etab-33.poitiers.example",
+        "BreachDate": "2024-07-15",
+        "PwnCount": 2221
+      }
+    ]
+  },
+  {
+    "domaine": "etab-34.angouleme.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 34 — Angouleme #1",
+        "Domain": "etab-34.angouleme.example",
+        "BreachDate": "2024-08-01",
+        "PwnCount": 2258
+      },
+      {
+        "Name": "Fuite domaine 34 — Angouleme #2",
+        "Domain": "etab-34.angouleme.example",
+        "BreachDate": "2024-08-30",
+        "PwnCount": 2269
+      }
+    ]
+  },
+  {
+    "domaine": "etab-35.perigueux.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 35 — Perigueux #1",
+        "Domain": "etab-35.perigueux.example",
+        "BreachDate": "2024-08-18",
+        "PwnCount": 2295
+      },
+      {
+        "Name": "Fuite domaine 35 — Perigueux #2",
+        "Domain": "etab-35.perigueux.example",
+        "BreachDate": "2024-09-16",
+        "PwnCount": 2306
+      },
+      {
+        "Name": "Fuite domaine 35 — Perigueux #3",
+        "Domain": "etab-35.perigueux.example",
+        "BreachDate": "2024-10-15",
+        "PwnCount": 2317
+      }
+    ]
+  },
+  {
+    "domaine": "etab-36.la-rochelle.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 36 — La-Rochelle #1",
+        "Domain": "etab-36.la-rochelle.example",
+        "BreachDate": "2024-09-04",
+        "PwnCount": 2332
+      }
+    ]
+  },
+  {
+    "domaine": "etab-37.niort.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 37 — Niort #1",
+        "Domain": "etab-37.niort.example",
+        "BreachDate": "2024-09-21",
+        "PwnCount": 2369
+      },
+      {
+        "Name": "Fuite domaine 37 — Niort #2",
+        "Domain": "etab-37.niort.example",
+        "BreachDate": "2024-10-20",
+        "PwnCount": 2380
+      }
+    ]
+  },
+  {
+    "domaine": "etab-38.brive.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 38 — Brive #1",
+        "Domain": "etab-38.brive.example",
+        "BreachDate": "2024-10-08",
+        "PwnCount": 2406
+      },
+      {
+        "Name": "Fuite domaine 38 — Brive #2",
+        "Domain": "etab-38.brive.example",
+        "BreachDate": "2024-11-06",
+        "PwnCount": 2417
+      },
+      {
+        "Name": "Fuite domaine 38 — Brive #3",
+        "Domain": "etab-38.brive.example",
+        "BreachDate": "2024-12-05",
+        "PwnCount": 2428
+      }
+    ]
+  },
+  {
+    "domaine": "etab-39.pau.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 39 — Pau #1",
+        "Domain": "etab-39.pau.example",
+        "BreachDate": "2024-10-25",
+        "PwnCount": 2443
+      }
+    ]
+  },
+  {
+    "domaine": "etab-40.agen.example",
+    "status": 200,
+    "breaches": [
+      {
+        "Name": "Fuite domaine 40 — Agen #1",
+        "Domain": "etab-40.agen.example",
+        "BreachDate": "2024-11-11",
+        "PwnCount": 2480
+      },
+      {
+        "Name": "Fuite domaine 40 — Agen #2",
+        "Domain": "etab-40.agen.example",
+        "BreachDate": "2024-12-10",
+        "PwnCount": 2491
+      }
+    ]
+  }
+]

@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
@@ -5,7 +6,9 @@ import {
 	UnionFind,
 	actorAliasKey,
 	clusterActorAliases,
+	mesurerObjectifActorAlias,
 	normalizeActorAlias,
+	verifierDeclarationObjectifActorAlias,
 } from "../src/ransomware/actor-alias.js";
 
 after(async () => {
@@ -141,4 +144,21 @@ test("table actor_alias : LockBit, Lockbit3 et .LockBit partagent un canonique",
 	assert.equal(rows.length, 1, `un seul canonique attendu, obtenu : ${rows.map((r) => r.canonique).join(", ")}`);
 	assert.equal(rows[0]!.canonique, "LockBit");
 	assert.ok(rows[0]!.n >= 3, `graphies LockBit : ${rows[0]!.n}, attendu >= 3`);
+});
+
+test("objectif : la mesure sur la table produit la ligne déclarée", async () => {
+	const { rows } = await query<{ n: number }>(
+		`SELECT count(*)::int AS n
+		   FROM (SELECT canonique FROM actor_alias GROUP BY canonique HAVING count(*) >= 2) AS groupes`,
+	);
+	const objectif = mesurerObjectifActorAlias(rows[0]!.n);
+	assert.equal(objectif.atteint, true);
+	assert.equal(objectif.ligne, `OBJECTIF : atteint — ${rows[0]!.n} canoniques avec >= 2 alias / cible >= 20`);
+});
+
+test("rapport : la ligne OBJECTIF mesurée est déclarée une seule fois", () => {
+	const rapport = readFileSync(new URL("../../../docs/actor-alias-misp-galaxy.md", import.meta.url), "utf8");
+	const ligne = mesurerObjectifActorAlias(963).ligne;
+	assert.equal(verifierDeclarationObjectifActorAlias(rapport, ligne), true);
+	assert.equal(verifierDeclarationObjectifActorAlias(rapport, "OBJECTIF : atteint — 1 / 1"), false);
 });

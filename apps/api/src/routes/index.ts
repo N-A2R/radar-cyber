@@ -44,6 +44,7 @@ import cyberContractsRoute from "./cyber-contracts.js";
 import reviewRoute from "./review.js";
 import journalRoute from "./journal.js";
 import registreTraitementsRoute from "./registre-traitements.js";
+import violationsRgpdRoute from "./violations-rgpd.js";
 import orgsLieesRoute from "./orgs-liees.js";
 import orgsLieesHistoriqueRoute from "./orgs-liees-historique.js";
 import ingestRoute from "./ingest.js";
@@ -76,6 +77,7 @@ import c2ServersRoute from "./c2-servers.js";
 import contagionRoute from "./contagion.js";
 import dnsPassiveRoute from "./dns-passive.js";
 import providersRoute from "./providers.js";
+import prestatairesQualifiesRoute from "./prestataires-qualifies.js";
 import newExposedServicesRoute from "./exposition-new-services.js";
 import earlyWarningRoute from "./early-warning.js";
 import siretEstablishmentsRoute from "./siret-establishments.js";
@@ -91,6 +93,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute, scanCampaignsRoute, enrichRoute, authRoute,
     alertsRoute, quarantineRoute, reviewRoute, alertsRssRoute, askRoute, askFrRoute, journalRoute,
     registreTraitementsRoute,
+    violationsRgpdRoute,
     orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, rectificationRoute, auditRoute,
     confidenceRoute, actorAttributionsRoute, ransomwareGroupsRoute, organisationRiskRoute, leaksByDomainRoute, resaleListingsRoute, cyberContractsRoute, publicMandatesRoute,
     technicalCoverageRoute, naDepartmentsRoute, onionIndexRoute, thehiveRoute, custodyRoute, insuranceScoreRoute,
@@ -100,6 +103,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     liveMapRoute,
     publicDataContainersRoute, affectedRoute, attestationsNegativesRoute, watchlistsRoute, exportMispRoute, reviewAssistantRoute,
     providerSpofRoute, attackPathRoute, providersRoute, newExposedServicesRoute, earlyWarningRoute, siretEstablishmentsRoute,
+    prestatairesQualifiesRoute,
     c2ServersRoute, contagionRoute, dnsPassiveRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
