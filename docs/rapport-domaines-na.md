@@ -385,3 +385,53 @@ couverture_pourcent=0.5375
 Sur les 9038 organisations avec domaine, 51 seulement échouent encore à la mesure (preuve incomplète ou racine de l'URL finale différente) ; 1 661 633 n'ont aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites, et 1 270 ont une URL mais ne passent pas la preuve stricte. Ces deux derniers seaux ne peuvent être comblés qu'en inventant des sites ou en abaissant le standard de preuve, ce qui est refusé. Aucune donnée personnelle, aucun service payant, Nouvelle-Aquitaine uniquement.
 
 OBJECTIF : partiel — 8 987 / 1 671 941 organisations (0,5375 %), manque 1 662 954 organisations vérifiées (99,4625 %) pour atteindre 100 %
+
+## Rattrapage — tranche t17 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t16 : 8 987 / 1 671 941). Le travail des tranches t1 à t16 est conservé tel quel. La tranche t17 ajoute deux routes grises distinctes, sans toucher au standard de preuve HTTP (statut 200, racine stable après redirection, page réelle, identité publiée).
+
+**t17a — réalignement sur l'hôte qui a répondu.** Cinq organisations portaient la racine d'un groupe (`aeroport.fr`) alors que la preuve HTTP 200 enregistrée pointait vers un sous-domaine nommé (`bordeaux.aeroport.fr`) : la mesure ne les comptait pas, l'hôte final n'étant pas la racine enregistrée. `scripts/expand-domains-sous-domaine.mts` ne reprend que ces preuves, exige que l'hôte final soit bien un sous-domaine de la racine mémorisée, **revérifie la page en direct** avec la preuve stricte inchangée, puis n'écrit que l'hôte exact ayant répondu (`org.domain`, `org_enrichissement.valeur` et `preuve`, source `domaine:sous-domaine-verifie:http200`). Les cinq pages ont répondu 200 et nommé l'organisation : **5 domaines supplémentaires comptés** (8 987 → 8 992). Détail : `bench/results/domains-from-sous-domaine.json`.
+
+**t17b — ancrage par SIREN public.** Sur les 1 270 organisations sans domaine mais disposant d'une URL prouvée HTTP 200 par un registre public, 343 pages d'établissement sont hébergées sur une racine partagée dont l'adresse ne nomme pas l'organisation (agences Orpi, MMA, AXA, franchise, concessions). `scripts/expand-domains-siren.mts` accepte une page seulement si sa réponse publie le **SIREN de l'organisation** (identifiant légal public, aucune donnée personnelle), si elle ne répertorie pas plus de trois SIREN distincts (page annuaire rejetée), et si la preuve HTTP stricte passe en direct sur la même racine. Le SIREN est un ancrage plus fort qu'un jeton de ville : aucune preuve n'est affaiblie et aucune URL n'est devinée. Sur 343 candidats, **20 domaines vérifiés et tracés** `exposition-service:siren-page:http200` (8 992 → 9 012). Détail : `bench/results/domains-from-siren.json`.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:reparer-sous-domaine -- --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-siren -- --limit=500 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sorties observées, puis mesure rejouée indépendamment après écritures :
+
+```
+selected=5 verified=5 applied=true
+verified_domain_coverage=8987 -> 8992
+selected=343 verified=20 applied=true
+verified_domain_coverage=8992 -> 9012
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9058
+organisations_avec_domaine_verifie_et_provenance=9012
+couverture_pourcent=0.539
+```
+
+Dix tests comportement, un par comportement (`apps/api/test/expand-domains-sous-domaine.test.ts` : 4 tests ; `apps/api/test/expand-domains-siren.test.ts` : 6 tests, dont le rejet d'une page annuaire listant plusieurs SIREN). Suite domaines : 84 tests réussis ; typecheck `tsc --noEmit` de `apps/api` : OK ; `apps/api/src/server.ts` : 0 ligne modifiée ; `package.json` validé après ajout des deux commandes (`pnpm install --frozen-lockfile --offline`).
+
+Décomposition reproductible de l'écart restant (1 662 929 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661633 | 1250 | 9058
+```
+
+Sur ces 9 058 organisations avec domaine, 46 échouent encore à la mesure : 14 preuves `lien-article` issues de mots génériques extraits d'articles (`CHROMIUM`, `DELL`, `SHELL`, ...), manifestement sans lien avec l'organisation locale, et 32 sans preuve comptable. Elles ne doivent pas être « réparées » : le faire reviendrait à fabriquer une attribution. Les autres réservoirs ont été instruits et écartés : les 5 preuves `url_testee` sans domaine sont les mêmes correspondances génériques d'articles, les 14 935 pages SIRENE de `org.parent_evidence` ne publient aucun site, et `org_history` ne recèle que des groupes déjà repris. Il reste donc 1 661 633 organisations sans aucune URL HTTP 200 dans le corpus consolidé des sources publiques/gratuites et 1 250 dont l'URL échoue à la preuve stricte après sept passes de réemploi : combler ce solde exigerait d'inventer des sites ou d'abaisser le standard de preuve, ce qui est refusé. Aucune donnée personnelle, aucun service payant, Nouvelle-Aquitaine uniquement.
+
+OBJECTIF : partiel — 9 012 / 1 671 941 organisations (0,5390 %), manque 1 662 929 organisations vérifiées (99,4610 %) pour atteindre 100 %
