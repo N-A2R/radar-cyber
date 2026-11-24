@@ -56,6 +56,7 @@
     "verifie:stl-pics": "apps/api/node_modules/.bin/tsx scripts/verifie-stl-pics.mts",
     "genere:iforest": "apps/api/node_modules/.bin/tsx scripts/build-iforest-fixture.mts",
     "verifie:iforest": "apps/api/node_modules/.bin/tsx scripts/verifie-iforest.mts",
+    "verifie:derive-semantique": "apps/api/node_modules/.bin/tsx scripts/verifie-derive-semantique.mts",
     "mesure:risk-decay": "apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts",
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
     "mesure:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/mesure-org-risk-prospectif.mts",
