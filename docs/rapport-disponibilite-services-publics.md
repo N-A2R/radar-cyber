@@ -1095,3 +1095,39 @@ collectes réelles ; combler les 18, 19 et 20 novembre exigerait d'inventer une
 date, ce que la méthode interdit.
 
 OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond confirmé le 24/11/2026 à 05 h 35 UTC par trois balayages indépendants et un audit DB reproductible (`rows_in_window=0`, `new_service_days=0`), `feasible_windows=0`, `full_windows=0` sur 92 ancres, `earliest_attainable_anchor=2026-11-27`.
+
+## Reprise du 24 novembre (05 h 50 UTC) — index Common Crawl brut
+
+`index.commoncrawl.org` reste injoignable depuis le bac à sable, mais l'index
+brut servi par `data.commoncrawl.org` est accessible : `CC-MAIN-2026-47` contient
+900 670 lignes couvrant le 8 au 19 novembre 2026 (68 854 captures le 18, 21 420
+le 19). Un contrôle positif sur une ligne synthétique d'une URL du périmètre
+retourne bien 1 service-jour : l'absence de capture n'est donc pas un défaut de
+lecture de l'index.
+
+Un filtre par hôte seul donnerait 5 lignes sur les 18 et 19 novembre, toutes
+sur des pages sans rapport (`sites.google.com`, `padlet.com`) hébergeant
+quelques services du périmètre : elles ne prouvent aucune observation de ces
+services. La classification retient l'URL exacte normalisée (schéma, `www.` et
+slash final ignorés) : **0 capture sur les 475 URL du périmètre**, soit 0
+service-jour récupéré de plus. Aucune date ni aucun statut n'est inventé.
+
+```
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-commoncrawl.mts --from=2026-11-18 --to=2026-11-20
+# index=https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2026-47/indexes/cluster.idx lines=900670 perimeter_urls=475 window=2026-11-18..2026-11-20 rows_in_window=0 perimeter_rows=0 capturable_service_days=0 new_service_days=0 verdict=no_captures
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31
+# scan=2026-10-01..2026-12-31 scanned_anchors=92 max_observed_service_days=2000/3500 full_windows=0
+cd apps/api && DATABASE_URL=postgres://radar:radar@localhost:5433/radar node_modules/.bin/tsx test/run.ts test/service-availability.test.ts
+# ℹ tests 35 · pass 35 · fail 0
+node_modules/.bin/tsc --noEmit -p tsconfig.json
+# 0 erreur
+```
+
+`server.ts` (0 ligne), le manifeste et le jeu d'observations sont inchangés.
+La première fenêtre entièrement réelle reste ancrée au 27 novembre, après trois
+collectes réelles ; combler les 18, 19 et 20 novembre exigerait d'inventer une
+date, ce que la méthode interdit.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; sixième vérification croisée le 24/11/2026 à 05 h 50 UTC : 0 capture exploitable sur 475 URL du périmètre dans l'index Common Crawl brut (900 670 lignes), 0 service-jour récupéré, `verdict=no_captures`, `feasible_windows=0`, `full_windows=0` sur 92 ancres, `earliest_attainable_anchor=2026-11-27`.

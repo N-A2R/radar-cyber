@@ -26,6 +26,10 @@ import {
 	capturableServiceDays,
 	parseArchiveCaptures,
 } from "../src/serviceAvailability/archiveProofs.js";
+import {
+	classifyCrawlCaptures,
+	crawlUtcDay,
+} from "../src/serviceAvailability/crawlProofs.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -410,4 +414,29 @@ test("one shared real proof yields one service-day for each perimeter service", 
 		`na-gap-003\u00002026-11-18`,
 		`na-gap-004\u00002026-11-18`,
 	]);
+});
+
+test("a crawl capture is dated from its UTC timestamp, never a nearby day", () => {
+	assert.equal(crawlUtcDay("20261118123456"), "2026-11-18");
+	assert.equal(crawlUtcDay("20261120"), null);
+	assert.equal(crawlUtcDay("20260230120000"), null);
+});
+
+test("only in-window captures of the perimeter URL fill service-days", () => {
+	const first = { ...service("na-cc-001"), url: "https://example.fr/a" };
+	const second = { ...service("na-cc-002"), url: "https://www.example.fr/b" };
+	const audit = classifyCrawlCaptures([
+		{ url: "http://EXAMPLE.FR/a/", timestamp: "20261118100000" },
+		{ url: "https://example.fr/a", timestamp: "20261122100000" },
+		{ url: "https://example.fr/unrelated", timestamp: "20261120100000" },
+		{ url: "https://other.fr/a", timestamp: "20261120100000" },
+	], [first, second], "2026-11-18", "2026-11-20");
+	assert.equal(audit.rowsInWindow, 3);
+	assert.equal(audit.perimeterRows, 1);
+	assert.equal(audit.capturableServiceDays, 1);
+	assert.deepEqual(audit.byDay, [
+		{ day: "2026-11-18", rows: 1, perimeterRows: 1 },
+		{ day: "2026-11-20", rows: 2, perimeterRows: 0 },
+	]);
+	assert.deepEqual(audit.serviceDayKeys, [`na-cc-001\u00002026-11-18`]);
 });
