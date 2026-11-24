@@ -23,14 +23,6 @@ function trunc(s: unknown, n = 60): string {
   return t.length > n ? t.slice(0, n) : t;
 }
 
-function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 6371;
-  const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180;
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(a));
-}
-
 export default async function (app: FastifyInstance) {
   app.get("/flows", async (req) => {
     const q = req.query as Record<string, string | undefined>;
@@ -48,28 +40,46 @@ export default async function (app: FastifyInstance) {
     const minSeverity = q.minSeverity ? Number(q.minSeverity) : null;
 
     if (mode === "orgs") {
-      // arcs entre orgs et leur département centroïde
-      const r = await query<{ id: number; name: string; kind: string; dept: string | null; lat: number; lon: number }>(
-        `SELECT o.id, o.name, o.kind, o.dept, o.lat, o.lon FROM org o WHERE o.lat IS NOT NULL AND o.lon IS NOT NULL`
+      const params: unknown[] = [];
+      const centroidRows = Object.entries(NA_CENTROIDS).map(([dept, c]) => {
+        const base = params.length;
+        params.push(dept, c.lat, c.lon, c.label);
+        return `($${base + 1}::text, $${base + 2}::double precision, $${base + 3}::double precision, $${base + 4}::text)`;
+      }).join(", ");
+      params.push(limit);
+      const r = await query<{
+        id: number; name: string; kind: string; lat: number; lon: number;
+        clat: number; clon: number; clabel: string; total_count: string;
+      }>(
+        `WITH centroids(dept, lat, lon, label) AS (VALUES ${centroidRows}),
+         eligible AS (
+           SELECT o.id, o.name, o.kind, o.lat, o.lon, c.lat AS clat, c.lon AS clon, c.label AS clabel
+             FROM org o JOIN centroids c ON c.dept = o.dept
+            WHERE o.lat IS NOT NULL AND o.lon IS NOT NULL
+              AND 2 * 6371 * asin(sqrt(
+                power(sin(radians(c.lat - o.lat) / 2), 2) +
+                cos(radians(o.lat)) * cos(radians(c.lat)) *
+                power(sin(radians(c.lon - o.lon) / 2), 2)
+              )) >= 1
+         )
+         SELECT *, count(*) OVER () AS total_count
+           FROM eligible ORDER BY id LIMIT $${params.length}`,
+        params,
       );
-      const arcs: Record<string, unknown>[] = [];
-      for (const row of r.rows) {
-        const c = NA_CENTROIDS[String(row.dept)];
-        if (!c) continue;
-        if (haversineKm(row.lat, row.lon, c.lat, c.lon) < 1) continue;
-        arcs.push({
-          id: `org-${row.id}`,
-          from: { lat: row.lat, lon: row.lon, label: trunc(row.name) },
-          to: { lat: c.lat, lon: c.lon, label: trunc(c.label) },
-          family: "cti",
-          nature: row.kind,
-          severity: 3,
-          observedAt: new Date().toISOString(),
-          title: trunc(row.name),
-          sourceUrl: null,
-        });
-      }
-      return { arcs: arcs.slice(0, limit), total: arcs.length, truncated: arcs.length > limit };
+      const observedAt = new Date().toISOString();
+      const arcs = r.rows.map((row) => ({
+        id: `org-${row.id}`,
+        from: { lat: row.lat, lon: row.lon, label: trunc(row.name) },
+        to: { lat: row.clat, lon: row.clon, label: trunc(row.clabel) },
+        family: "cti",
+        nature: row.kind,
+        severity: 3,
+        observedAt,
+        title: trunc(row.name),
+        sourceUrl: null,
+      }));
+      const total = Number(r.rows[0]?.total_count ?? 0);
+      return { arcs, total, truncated: total > limit };
     }
 
     const params: unknown[] = [];
@@ -86,15 +96,24 @@ export default async function (app: FastifyInstance) {
     }
     where.push(`e.lat IS NOT NULL AND e.lon IS NOT NULL`);
     where.push(`o.lat IS NOT NULL AND o.lon IS NOT NULL`);
+    where.push(`e.geo_type IN ('hosting_estimate', 'claimed_origin')`);
+    where.push(`2 * 6371 * asin(sqrt(
+      power(sin(radians(e.lat - o.lat) / 2), 2) +
+      cos(radians(o.lat)) * cos(radians(e.lat)) *
+      power(sin(radians(e.lon - o.lon) / 2), 2)
+    )) >= 1`);
     where.push(evenementPublicSql("e"));
+    params.push(limit);
 
     const sql = `
       SELECT e.id, e.dedup_key, e.family, e.title, e.severity, e.observed_at, e.source_url,
-             e.lat AS elat, e.lon AS elon, e.geo_type,
-             o.lat AS olat, o.lon AS olon, o.name AS oname
+             e.lat AS elat, e.lon AS elon,
+             o.lat AS olat, o.lon AS olon, o.name AS oname,
+             count(*) OVER () AS total_count
       FROM event e JOIN org o ON o.id = e.org_id
       WHERE ${where.join(" AND ")}
       ORDER BY e.observed_at DESC NULLS LAST, e.id DESC
+      LIMIT $${params.length}
     `;
     const r = await query<{
       dedup_key: string;
@@ -103,31 +122,24 @@ export default async function (app: FastifyInstance) {
       observed_at: string | null;
       title: string;
       source_url: string | null;
-      geo_type: string;
       olat: number;
       olon: number;
       oname: string;
       elat: number;
       elon: number;
+      total_count: string;
     }>(sql, params);
-    const arcs: Record<string, unknown>[] = [];
-    for (const row of r.rows) {
-      const geoOk = row.geo_type === "hosting_estimate" || row.geo_type === "claimed_origin";
-      if (!geoOk) continue;
-      if (haversineKm(row.olat, row.olon, row.elat, row.elon) < 1) continue;
-      arcs.push({
-        id: row.dedup_key,
-        from: { lat: row.olat, lon: row.olon, label: trunc(row.oname) },
-        to: { lat: row.elat, lon: row.elon, label: trunc("hébergement estimé") },
-        family: row.family,
-        severity: row.severity,
-        observedAt: row.observed_at,
-        title: trunc(row.title),
-        sourceUrl: row.source_url,
-      });
-    }
-    const total = arcs.length;
-    const truncated = total > limit;
-    return { arcs: arcs.slice(0, limit), total, truncated };
+    const arcs = r.rows.map((row) => ({
+      id: row.dedup_key,
+      from: { lat: row.olat, lon: row.olon, label: trunc(row.oname) },
+      to: { lat: row.elat, lon: row.elon, label: trunc("hébergement estimé") },
+      family: row.family,
+      severity: row.severity,
+      observedAt: row.observed_at,
+      title: trunc(row.title),
+      sourceUrl: row.source_url,
+    }));
+    const total = Number(r.rows[0]?.total_count ?? 0);
+    return { arcs, total, truncated: total > limit };
   });
 }
