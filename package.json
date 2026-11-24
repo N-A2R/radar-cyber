@@ -138,6 +138,7 @@
     "domaines:etendre-pages-identite": "apps/api/node_modules/.bin/tsx scripts/expand-domains-pages-identite.mts",
     "domaines:etendre-identite-legale": "apps/api/node_modules/.bin/tsx scripts/expand-domains-identite-legale.mts",
     "domaines:etendre-communiques": "apps/api/node_modules/.bin/tsx scripts/expand-domains-communiques.mts",
+    "domaines:etendre-alias-wikidata": "apps/api/node_modules/.bin/tsx scripts/expand-domains-alias-wikidata.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "sources:verifier": "apps/api/node_modules/.bin/tsx scripts/verifier-sources-http.mts",

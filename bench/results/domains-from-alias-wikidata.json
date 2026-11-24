@@ -1,0 +1,541 @@
+{
+  "selected": 436,
+  "verified": 52,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9293,
+    "withVerifiedProvenance": 9247,
+    "coveragePercent": 0.5531
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9345,
+    "withVerifiedProvenance": 9299,
+    "coveragePercent": 0.5562
+  },
+  "domains": [
+    {
+      "orgId": 2371,
+      "name": "Commune de Le Tuzan",
+      "qid": "Q1007250",
+      "label": "Le Tuzan",
+      "alias": "Ville de Le Tuzan",
+      "domain": "mairie-letuzan.fr",
+      "page": "https://www.mairie-letuzan.fr",
+      "token": "tuzan"
+    },
+    {
+      "orgId": 1558,
+      "name": "Commune de Lisle",
+      "qid": "Q1077268",
+      "label": "Lisle",
+      "alias": "Ville de Lisle",
+      "domain": "mairie-de-lisle.fr",
+      "page": "https://www.mairie-de-lisle.fr/",
+      "token": "lisle"
+    },
+    {
+      "orgId": 597,
+      "name": "Commune de Mosnac",
+      "qid": "Q1144431",
+      "label": "Mosnac",
+      "alias": "Ville de Mosnac",
+      "domain": "mairiedemosnac.fr",
+      "page": "https://www.mairiedemosnac.fr/",
+      "token": "mosnac"
+    },
+    {
+      "orgId": 442,
+      "name": "Commune de Chaniers",
+      "qid": "Q1349664",
+      "label": "Chaniers",
+      "alias": "Ville de Chaniers",
+      "domain": "chaniers.fr",
+      "page": "https://chaniers.fr",
+      "token": "chaniers"
+    },
+    {
+      "orgId": 748,
+      "name": "Commune de Saint-Thomas-de-Conac",
+      "qid": "Q1351250",
+      "label": "Saint-Thomas-de-Conac",
+      "alias": "Ville de Saint-Thomas-de-Conac",
+      "domain": "saintthomasdeconac.fr",
+      "page": "https://saintthomasdeconac.fr",
+      "token": "thomas"
+    },
+    {
+      "orgId": 9375,
+      "name": "PHARMACIE DE L'HARMONIE",
+      "qid": "Q139679701",
+      "label": "Pharmacie de l'Harmonie",
+      "alias": "PHARMACIE DE L'HARMONIE",
+      "domain": "pharmacieharmonie.santalis.fr",
+      "page": "https://pharmacieharmonie.santalis.fr/",
+      "token": "pharmacie"
+    },
+    {
+      "orgId": 185,
+      "name": "Commune de Marillac-le-Franc",
+      "qid": "Q1436916",
+      "label": "Marillac-le-Franc",
+      "alias": "Ville de Marillac-le-Franc",
+      "domain": "marillaclefranc.fr",
+      "page": "https://www.marillaclefranc.fr",
+      "token": "marillac"
+    },
+    {
+      "orgId": 2294,
+      "name": "Commune de Saint-Palais",
+      "qid": "Q201420",
+      "label": "Saint-Palais",
+      "alias": "Ville de Saint-Palais",
+      "domain": "mairiestpalais33.wixsite.com",
+      "page": "https://mairiestpalais33.wixsite.com/mairiestpalais33",
+      "token": "palais"
+    },
+    {
+      "orgId": 4451,
+      "name": "Département de la Charente-Maritime",
+      "qid": "Q3278",
+      "label": "Charente-Maritime",
+      "alias": "Charente-Maritime",
+      "domain": "la.charente-maritime.fr",
+      "page": "https://la.charente-maritime.fr/",
+      "token": "charente"
+    },
+    {
+      "orgId": 793,
+      "name": "Commune de La Devise",
+      "qid": "Q43631692",
+      "label": "La Devise",
+      "alias": "Ville de La Devise",
+      "domain": "la-devise.fr",
+      "page": "https://www.la-devise.fr",
+      "token": "devise"
+    },
+    {
+      "orgId": 2019,
+      "name": "Commune de Flaujagues",
+      "qid": "Q578093",
+      "label": "Flaujagues",
+      "alias": "Ville de Flaujagues",
+      "domain": "flaujagues.fr",
+      "page": "https://flaujagues.fr",
+      "token": "flaujagues"
+    },
+    {
+      "orgId": 3757,
+      "name": "Commune de Marcillé",
+      "qid": "Q59539628",
+      "label": "Marcillé",
+      "alias": "Ville de Marcillé",
+      "domain": "mairie-marcille.fr",
+      "page": "https://mairie-marcille.fr",
+      "token": "marcille"
+    },
+    {
+      "orgId": 2133,
+      "name": "Commune de Mombrier",
+      "qid": "Q602534",
+      "label": "Mombrier",
+      "alias": "Ville de Mombrier",
+      "domain": "mombrier.fr",
+      "page": "https://www.mombrier.fr",
+      "token": "mombrier"
+    },
+    {
+      "orgId": 2107,
+      "name": "Commune de Lugaignac",
+      "qid": "Q662293",
+      "label": "Lugaignac",
+      "alias": "Ville de Lugaignac",
+      "domain": "lugaignac.fr",
+      "page": "https://www.lugaignac.fr/",
+      "token": "lugaignac"
+    },
+    {
+      "orgId": 2896,
+      "name": "Commune de Montauriol",
+      "qid": "Q680154",
+      "label": "Montauriol",
+      "alias": "Ville de Montauriol",
+      "domain": "montauriol.eu",
+      "page": "https://montauriol.eu/",
+      "token": "montauriol"
+    },
+    {
+      "orgId": 20233,
+      "name": "Institut des hautes études de l'éducation et de la formation",
+      "qid": "Q3578452",
+      "label": "Institut des hautes études de l'éducation et de la formation",
+      "alias": "Institut des hautes études de l'éducation et de la formation",
+      "domain": "ih2ef.gouv.fr",
+      "page": "https://www.ih2ef.gouv.fr/",
+      "token": "institut"
+    },
+    {
+      "orgId": 1708,
+      "name": "Commune de Saint-Germain-du-Salembre",
+      "qid": "Q1077018",
+      "label": "Saint-Germain-du-Salembre",
+      "alias": "Ville de Saint-Germain-du-Salembre",
+      "domain": "saintgermaindusalembre.fr",
+      "page": "http://www.saintgermaindusalembre.fr",
+      "token": "germain"
+    },
+    {
+      "orgId": 1095,
+      "name": "Commune de Vignols",
+      "qid": "Q1079248",
+      "label": "Vignols",
+      "alias": "Ville de Vignols",
+      "domain": "vignols.fr",
+      "page": "http://www.vignols.fr",
+      "token": "vignols"
+    },
+    {
+      "orgId": 390,
+      "name": "Commune de La Barde",
+      "qid": "Q1081469",
+      "label": "La Barde",
+      "alias": "Ville de La Barde",
+      "domain": "la-barde.fr",
+      "page": "http://www.la-barde.fr",
+      "token": "barde"
+    },
+    {
+      "orgId": 2812,
+      "name": "Commune de Fauillet",
+      "qid": "Q1108002",
+      "label": "Fauillet",
+      "alias": "Ville de Fauillet",
+      "domain": "fauillet47.fr",
+      "page": "http://www.fauillet47.fr",
+      "token": "fauillet"
+    },
+    {
+      "orgId": 2820,
+      "name": "Commune de Fréchou",
+      "qid": "Q1110511",
+      "label": "Fréchou",
+      "alias": "Ville de Fréchou",
+      "domain": "lefrechou.fr",
+      "page": "http://www.lefrechou.fr/",
+      "token": "frechou"
+    },
+    {
+      "orgId": 3675,
+      "name": "Commune de Frontenay-Rohan-Rohan",
+      "qid": "Q1149082",
+      "label": "Frontenay-Rohan-Rohan",
+      "alias": "Ville de Frontenay-Rohan-Rohan",
+      "domain": "frontenayrr.fr",
+      "page": "http://www.frontenayrr.fr",
+      "token": "frontenay"
+    },
+    {
+      "orgId": 4457,
+      "name": "Département du Lot-et-Garonne",
+      "qid": "Q12578",
+      "label": "Lot-et-Garonne",
+      "alias": "Lot-et-Garonne",
+      "domain": "lot-et-garonne.gouv.fr",
+      "page": "http://www.lot-et-garonne.gouv.fr/",
+      "token": "garonne"
+    },
+    {
+      "orgId": 3896,
+      "name": "Commune de Chenevelles",
+      "qid": "Q1354021",
+      "label": "Chenevelles",
+      "alias": "Ville de Chenevelles",
+      "domain": "chenevelles.fr",
+      "page": "http://www.chenevelles.fr",
+      "token": "chenevelles"
+    },
+    {
+      "orgId": 612,
+      "name": "Commune de Les Nouillers",
+      "qid": "Q1418104",
+      "label": "Les Nouillers",
+      "alias": "Ville de Les Nouillers",
+      "domain": "lesnouillers.fr",
+      "page": "http://www.lesnouillers.fr",
+      "token": "nouillers"
+    },
+    {
+      "orgId": 237,
+      "name": "Commune de Raix",
+      "qid": "Q1624301",
+      "label": "Raix",
+      "alias": "Ville de Raix",
+      "domain": "villefagnan.wifeo.com",
+      "page": "http://villefagnan.wifeo.com/raix.php",
+      "token": "raix"
+    },
+    {
+      "orgId": 247,
+      "name": "Commune de Rougnac",
+      "qid": "Q1624397",
+      "label": "Rougnac",
+      "alias": "Ville de Rougnac",
+      "domain": "rougnac16.fr",
+      "page": "http://www.rougnac16.fr",
+      "token": "rougnac"
+    },
+    {
+      "orgId": 3096,
+      "name": "Commune de Arzacq-Arraziguet",
+      "qid": "Q174239",
+      "label": "Arzacq-Arraziguet",
+      "alias": "Ville d'Arzacq-Arraziguet",
+      "domain": "arzacq.com",
+      "page": "http://www.arzacq.com",
+      "token": "arzacq"
+    },
+    {
+      "orgId": 3153,
+      "name": "Commune de Beyrie-en-Béarn",
+      "qid": "Q174485",
+      "label": "Beyrie-en-Béarn",
+      "alias": "Ville de Beyrie-en-Béarn",
+      "domain": "mairie-beyrie.com",
+      "page": "http://www.mairie-beyrie.com",
+      "token": "beyrie"
+    },
+    {
+      "orgId": 1227,
+      "name": "Commune de Le Monteil-au-Vicomte",
+      "qid": "Q177842",
+      "label": "Le Monteil-au-Vicomte",
+      "alias": "Ville de Le Monteil-au-Vicomte",
+      "domain": "monteilauvicomte.fr",
+      "page": "http://www.monteilauvicomte.fr",
+      "token": "monteil"
+    },
+    {
+      "orgId": 1211,
+      "name": "Commune de Mainsat",
+      "qid": "Q190945",
+      "label": "Mainsat",
+      "alias": "Ville de Mainsat",
+      "domain": "commune-mainsat.fr",
+      "page": "http://www.commune-mainsat.fr",
+      "token": "mainsat"
+    },
+    {
+      "orgId": 1699,
+      "name": "Commune de Saint-Front-de-Pradoux",
+      "qid": "Q194254",
+      "label": "Saint-Front-de-Pradoux",
+      "alias": "Ville de Saint-Front-de-Pradoux",
+      "domain": "saintfrontdepradoux.fr",
+      "page": "http://www.saintfrontdepradoux.fr",
+      "token": "front"
+    },
+    {
+      "orgId": 2309,
+      "name": "Commune de Saint-Sauveur-de-Puynormand",
+      "qid": "Q194345",
+      "label": "Saint-Sauveur-de-Puynormand",
+      "alias": "Ville de Saint-Sauveur-de-Puynormand",
+      "domain": "saintsauveurdepuynormand.fr",
+      "page": "http://www.saintsauveurdepuynormand.fr",
+      "token": "sauveur"
+    },
+    {
+      "orgId": 2350,
+      "name": "Commune de Soulignac",
+      "qid": "Q194789",
+      "label": "Soulignac",
+      "alias": "Ville de Soulignac",
+      "domain": "soulignac.fr",
+      "page": "http://www.soulignac.fr",
+      "token": "soulignac"
+    },
+    {
+      "orgId": 640,
+      "name": "Commune de Réaux sur Trèfle",
+      "qid": "Q21294431",
+      "label": "Réaux sur Trèfle",
+      "alias": "Ville de Réaux sur Trèfle",
+      "domain": "reauxsurtrefle.fr",
+      "page": "http://www.reauxsurtrefle.fr",
+      "token": "reaux"
+    },
+    {
+      "orgId": 1862,
+      "name": "Commune de Anglade",
+      "qid": "Q239327",
+      "label": "Anglade",
+      "alias": "Ville d'Anglade",
+      "domain": "mairie-anglade.fr",
+      "page": "http://www.mairie-anglade.fr",
+      "token": "anglade"
+    },
+    {
+      "orgId": 1063,
+      "name": "Commune de Sarroux - Saint Julien",
+      "qid": "Q25391242",
+      "label": "Sarroux - Saint Julien",
+      "alias": "Ville de Sarroux - Saint Julien",
+      "domain": "sarroux-saint-julien.fr",
+      "page": "http://www.sarroux-saint-julien.fr/",
+      "token": "sarroux"
+    },
+    {
+      "orgId": 2180,
+      "name": "Commune de Portets",
+      "qid": "Q379674",
+      "label": "Portets",
+      "alias": "Ville de Portets",
+      "domain": "mairie-portets.fr",
+      "page": "http://www.mairie-portets.fr",
+      "token": "portets"
+    },
+    {
+      "orgId": 1792,
+      "name": "Commune de Salignac-Eyvigues",
+      "qid": "Q474604",
+      "label": "Salignac-Eyvigues",
+      "alias": "Ville de Salignac-Eyvigues",
+      "domain": "salignac-eyvigues.fr",
+      "page": "http://www.salignac-eyvigues.fr/",
+      "token": "salignac"
+    },
+    {
+      "orgId": 255,
+      "name": "Commune de Saint-Amant-de-Boixe",
+      "qid": "Q581939",
+      "label": "Saint-Amant-de-Boixe",
+      "alias": "Ville de Saint-Amant-de-Boixe",
+      "domain": "saint-amant-de-boixe.fr",
+      "page": "http://www.saint-amant-de-boixe.fr",
+      "token": "amant"
+    },
+    {
+      "orgId": 3343,
+      "name": "Commune de Larrau",
+      "qid": "Q608335",
+      "label": "Larrau",
+      "alias": "Ville de Larrau",
+      "domain": "larrau.org",
+      "page": "http://www.larrau.org",
+      "token": "larrau"
+    },
+    {
+      "orgId": 4167,
+      "name": "Commune de Glanges",
+      "qid": "Q613235",
+      "label": "Glanges",
+      "alias": "Ville de Glanges",
+      "domain": "mairieglanges.wixsite.com",
+      "page": "http://mairieglanges.wixsite.com/mairie-glanges",
+      "token": "glanges"
+    },
+    {
+      "orgId": 436,
+      "name": "Commune de Chambon",
+      "qid": "Q673227",
+      "label": "Chambon",
+      "alias": "Ville de Chambon",
+      "domain": "mairie-chambon17.fr",
+      "page": "http://www.mairie-chambon17.fr",
+      "token": "chambon"
+    },
+    {
+      "orgId": 226,
+      "name": "Commune de Pérignac",
+      "qid": "Q688116",
+      "label": "Pérignac",
+      "alias": "Ville de Pérignac",
+      "domain": "perignac17.com",
+      "page": "http://www.perignac17.com",
+      "token": "perignac"
+    },
+    {
+      "orgId": 1908,
+      "name": "Commune de Birac",
+      "qid": "Q715806",
+      "label": "Birac",
+      "alias": "Ville de Birac",
+      "domain": "birac.fr",
+      "page": "http://birac.fr",
+      "token": "birac"
+    },
+    {
+      "orgId": 2191,
+      "name": "Commune de Puynormand",
+      "qid": "Q720248",
+      "label": "Puynormand",
+      "alias": "Ville de Puynormand",
+      "domain": "puynormand.fr",
+      "page": "http://www.puynormand.fr",
+      "token": "puynormand"
+    },
+    {
+      "orgId": 2177,
+      "name": "Commune de Pondaurat",
+      "qid": "Q823084",
+      "label": "Pondaurat",
+      "alias": "Ville de Pondaurat",
+      "domain": "pondaurat.fr",
+      "page": "http://pondaurat.fr",
+      "token": "pondaurat"
+    },
+    {
+      "orgId": 3563,
+      "name": "Commune de Urcuit",
+      "qid": "Q838728",
+      "label": "Urcuit",
+      "alias": "Ville d'Urcuit",
+      "domain": "urcuit.fr",
+      "page": "http://www.urcuit.fr",
+      "token": "urcuit"
+    },
+    {
+      "orgId": 3229,
+      "name": "Commune de Doazon",
+      "qid": "Q843336",
+      "label": "Doazon",
+      "alias": "Ville de Doazon",
+      "domain": "lepetitdoazonais.blogspot.com",
+      "page": "http://lepetitdoazonais.blogspot.com",
+      "token": "doazon"
+    },
+    {
+      "orgId": 1361,
+      "name": "Commune de Anlhiac",
+      "qid": "Q861406",
+      "label": "Anlhiac",
+      "alias": "Ville d'Anlhiac",
+      "domain": "anlhiac.wixsite.com",
+      "page": "http://anlhiac.wixsite.com/mairie",
+      "token": "anlhiac"
+    },
+    {
+      "orgId": 3934,
+      "name": "Commune de Ingrandes",
+      "qid": "Q971474",
+      "label": "Ingrandes",
+      "alias": "Ville d'Ingrandes",
+      "domain": "ingrandes-sur-vienne.fr",
+      "page": "http://www.ingrandes-sur-vienne.fr/",
+      "token": "ingrandes"
+    },
+    {
+      "orgId": 1417,
+      "name": "Commune de Calviac-en-Périgord",
+      "qid": "Q978173",
+      "label": "Calviac-en-Périgord",
+      "alias": "Ville de Calviac-en-Périgord",
+      "domain": "calviacenperigord.fr",
+      "page": "http://www.calviacenperigord.fr/",
+      "token": "calviac"
+    }
+  ]
+}

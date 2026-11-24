@@ -703,3 +703,45 @@ Le bloc de 1 661 456 organisations sans aucune URL HTTP 200 reste inchangé. Les
 11 tests comportement, un par comportement (`apps/api/test/expand-domains-identite-legale.test.ts` : 6 tests ; `apps/api/test/expand-domains-communiques.test.ts` : 5 tests), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline`).
 
 OBJECTIF : partiel — 9 247 / 1 671 941 organisations (0,5531 %), manque 1 662 694 organisations vérifiées (99,4469 %) pour atteindre 100 %
+
+## Rattrapage — tranche t24 (2026-11-24)
+
+Reprise depuis `origin/ext/rattrapage-rapport-domaines-na` (t23 : 9 247 / 1 671 941), seule base autorisée : la PR #797 existe mais son objectif chiffré (100 %) n'est pas atteint. Le travail des tranches t1 à t23 est conservé tel quel. La tranche t24 ouvre une **dix-septième route grise** : les libellés des sites `P856` déjà mis en cache par les routes géographiques (t6) et du siège (t7) sont appariés aux **alias publics d'identité** (`referentiel-na`, FINESS, annuaire de l'éducation, annuaire des entreprises). Les routes précédentes appariaient le libellé entier ou le jeton de la racine : les communes dont le libellé ne nommait qu'une partie de l'alias (« Ville de X », « Mairie de X ») restaient sans domaine. Les QID déjà écrits par une route antérieure et les racines déjà attribuées sont exclus ; la preuve HTTP reste stricte et inchangée (statut 200, racine stable après redirection, contenu réel, jeton distinctif du libellé publié par la page). Aucune écriture sans `--apply`.
+
+Sur 7 105 libellés Wikidata mis en cache et 22 308 alias publics, 436 candidats inédits ont été retenus, dont **52 sites vérifiés en direct** et tracés `wikidata:P856:alias-public:http200` (9 247 → 9 299). Détail (QID, libellé, alias, page) : `bench/results/domains-from-alias-wikidata.json`. Un résultat de dry-run n'est plus considéré comme une écriture : les QID qu'il contient restent réessayés, afin qu'une passe sans `--apply` ne consomme pas le réservoir.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-alias-wikidata -- --limit=2000 --concurrency=32 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée (`selected=436 verified=52 applied=true`, `verified_domain_coverage=9247 -> 9299`), puis mesure rejouée indépendamment après écriture :
+
+```
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9345
+organisations_avec_domaine_verifie_et_provenance=9299
+couverture_pourcent=0.5562
+```
+
+Décomposition reproductible de l'écart restant (1 662 642 organisations) :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661409 | 1187 | 9345
+```
+
+Le bloc de 1 661 409 organisations sans aucune URL HTTP 200 dans les sources publiques/gratuites est inchangé : la tranche t24 n'invente aucun site, elle ne fait que lever une ambiguïté de libellé sur des sites Wikidata déjà collectés et revérifiés en direct. Sur 9 345 organisations avec domaine, 46 échouent encore à la mesure (correspondances génériques d'articles, non réparables sans fabrication). Combler 1 662 642 organisations exigerait d'attribuer des sites inexistants ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle lue ou écrite, aucun service payant.
+
+8 tests comportement, un par comportement (`apps/api/test/expand-domains-alias-wikidata.test.ts`), tous verts en exécution directe ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée. Manifeste `package.json` validé (`node -e JSON.parse` et `pnpm install --frozen-lockfile --offline` après ajout de la commande).
+
+OBJECTIF : partiel — 9 299 / 1 671 941 organisations (0,5562 %), manque 1 662 642 organisations vérifiées (99,4438 %) pour atteindre 100 %
