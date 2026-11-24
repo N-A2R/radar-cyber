@@ -178,6 +178,39 @@ jours, le snapshot le plus proche étant toujours antérieur. Le 22 novembre
 reste à 420/500 : 80 sondes n'ont jamais été enregistrées. Aucun jour ni
 statut n'a été inventé pour combler l'écart.
 
+## Nouvelle passe de rattrapage (24 novembre, 01 h 21 UTC)
+
+Rejeu, vérification et audit relancés à 01 h 21 UTC : aucun changement,
+`services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500
+available=1334 availability=69,48 %`, `OBJECTIF : partiel — 4 / 7 jours (1920 /
+3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580
+service-jours` et `windows=10 max_observed_service_days=1920/3500
+feasible_windows=0` (trois codes 0).
+
+Deux recherches indépendantes complémentaires n'ont retrouvé aucune observation
+réelle supplémentaire :
+
+- 72 copies de worktrees du jeu d'observations : 0 ligne pour les 18, 19 et 20
+  novembre, 420 sondes le 22 ; corpus identique (1 442 preuves, toutes du 21) ;
+  `/var/log`, caches HTTP locaux et tables PostgreSQL horodatées
+  (`source_verification`, `warc_proof`, `leak_site`, `exposition_service`) : 0
+  ligne sur la fenêtre manquante.
+- Sept URL exactes du périmètre interrogées sur 21 URL-jours via les endpoints
+  internes de Wayback `__wb/sparkline` et `__wb/calendarcaptures`, non utilisés
+  lors des passes précédentes : 0 capture sur les 18, 19 et 20 novembre,
+  `last_ts` maximal au 12 octobre 2026. Archives ouvertes alternatives, données
+  publiques et recherche de code public : 0 observation datée.
+
+```
+grep -hE '"day":"2026-11-(18|19|20)"' bench/results/service-availability-observations.jsonl | wc -l  # 0
+grep -c '"day":"2026-11-22"' bench/results/service-availability-observations.jsonl  # 420
+```
+
+0 service-jour réel gagné, l'écart reste de 1 580. La première fenêtre de sept
+jours entièrement observable reste celle du 23 au 29 novembre, après cinq
+collectes réelles (25 au 29) : toute fenêtre incluant le 22 novembre reste
+limitée à 420 sondes ce jour-là. Aucun jour ni statut n'a été inventé.
+
 ## Reproduire
 
 ```bash
@@ -211,4 +244,4 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 4 / 7 jours (1 920 / 3 500 service-jours), manque 3 jours d'observation (18, 19 et 20 novembre) et 80 sondes du 22 novembre, soit 1 580 service-jours ; rejoué le 24/11/2026 à 01 h 07 UTC avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-24` (code 0) : `services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48 %` ; statut reproductible `pnpm services:verify -- --anchor=2026-11-24` (code 0) : `OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours` ; audit des 10 fenêtres ancrables `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts` (code 0) : `windows=10 max_observed_service_days=1920/3500 feasible_windows=0` ; 0 service-jour réel supplémentaire retrouvé dans l'arbre, les worktrees, l'historique Git, PostgreSQL ou les sources grises testées.
+OBJECTIF : partiel — 1920 / 3500 service-jours (4 / 7 jours), manque 1580 service-jours (18, 19, 20 novembre et 80 sondes du 22 novembre).
