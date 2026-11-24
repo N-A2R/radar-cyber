@@ -1,97 +1,62 @@
-# Mode hors ligne PWA — fonctionnement complet vérifié
+# Mode hors ligne PWA — état vérifié et plafond du chantier
 
-**Chiffre obtenu : 22 / 22 comportements hors ligne vérifiés**, et **11 / 11 vues du produit
-utilisables après coupure réseau**. Mesure rejouable avec :
+## Deux états à ne pas confondre
 
-```bash
-pnpm measure:offline-pwa
-# dans ce worktree aux liens `node_modules` partagés :
-apps/api/node_modules/.bin/tsx scripts/measure-offline-pwa.mts
-```
-
-Résultat versionné : `bench/results/offline-pwa-2026-11-22.json`. Sortie de la mesure :
-
-```
-Real state (Nouvelle-Aquitaine (12 departments), 2026-11-21): 1673151 organisations, 312 sources, 26719 events
-OFFLINE_PWA_BEHAVIOURS 22/22
-```
-
-## État de départ et périmètre
-
-La mesure part de l'état réel documenté de la base de travail au 21 novembre 2026,
-et non d'un jeu de données inventé : **1 673 151 organisations**, **312 sources**,
-**26 719 événements** (soit ~28 000 avec les 4 710 événements archivés), sur les
-12 départements de Nouvelle-Aquitaine. Références : `docs/couverture-mesuree.md` et
-`docs/agents-cpu.md` ; instantané versionné dans `bench/fixtures/offline-baseline-na.json`.
-Les sources grises restent autorisées : le cache ne filtre pas les sources par couleur.
-Aucune donnée personnelle de victime n'est collectée, mise en cache ou publiée.
-
-Le service `GET /api/orgs` est paginé à 500 lignes (cf. `docs/defauts-ui.md`). Le mode
-hors ligne conserve donc **les réponses effectivement consultées**, pas les 1,67 M
-d'organisations d'un coup : c'est la seule promesse vérifiable, et l'interface affiche
-l'âge de chaque réponse au lieu de la présenter comme fraîche.
-
-## Ce qui a été livré
-
-1. **Cache de lecture allowlisté** (`apps/web/src/offline/pwa.ts`) : seules les requêtes
-   `GET` des routes de lecture sont stockées. Les routes d'identité (`/auth`,
-   `/rectifications`, `/dossier`) sont refusées ; les champs nominatifs
-   (`victim`, `email`, `acteur`, `by`, `contactNom`, …) sont remplacés par
-   `[redacted]` avant écriture, y compris dans les tableaux imbriqués.
-2. **Rejeu daté** : en cas d'échec réseau, `apps/web/src/api.ts` rend la dernière
-   réponse mémorisée de la même requête (clé normalisée : l'ordre des filtres ne crée
-   pas de doublon). Sans réponse mémorisée, l'erreur remonte : pas de donnée fictive.
-3. **Bornes explicites** : 600 Ko par réponse, 2,5 Mo au total, 120 entrées, 7 jours
-   d'ancienneté maximale, éviction du plus ancien. Un stockage plein ou corrompu ne
-   casse jamais le chemin en ligne.
-4. **Shell PWA** : le service worker (`apps/web/public/radar-sw.js`, cache v2) précache
-   `/`, `index.html`, le manifeste et l'icône ; les modules Vite et les tuiles restent
-   en cache avec rafraîchissement en arrière-plan. Manifeste et icône ajoutés, sans
-   service payant ni dépendance externe supplémentaire.
-5. **Derniers appels directs migrés** : `LieesCard`, `ReviewView` (file de relecture)
-   et `AlertsView` (détail d'alerte) passent désormais par le client API, donc par le
-   même cache. C'était le trou réel : ces écrans semblaient « en ligne only » alors
-   que le reste de l'application était caché.
-6. **Interface anglaise pour la nouveauté** : bandeau `Offline · cached data from
-   45 min ago`, `Offline · no cached data for this view`. Le code ajouté et les tests
-   sont en anglais ; le présent rapport est en français. Les opérations d'écriture
-   (acquittement, décision de revue, rectification) restent explicitement en ligne :
-   aucun acquittement fantôme n'est simulé.
-
-## Tests — un comportement par test
-
-- `pnpm test:offline-pwa` : 22 contrôles unitaires, un par comportement (allowlist,
-  refus des écritures et des routes d'identité, normalisation des filtres, rejeu,
-  âge, quota, éviction, corruption, redaction, effacement à la déconnexion,
-  notification du bandeau, libellés anglais). Résultat : **22/22**.
-- `pnpm test:offline` (Playwright) : 3 scénarios, dont un nouveau qui visite les
-  11 vues en ligne, coupe le réseau (`context.setOffline(true)`), recharge l'application
-  et revisite les 11 vues. Aucune réponse API n'est simulée après la coupure :
-  les données viennent du cache local. Résultat : **3/3**, **11/11 vues**.
+Ce rapport décrivait, au 22 novembre, l'état d'`origin/main` : **22 / 22 contrôles
+unitaires** et **11 / 11 vues** rejouées après coupure réseau. Ce chiffre reste
+rejouable sur une branche issue de `origin/main` :
 
 ```bash
 apps/api/node_modules/.bin/tsx apps/web/test/offline-pwa-verif.ts
-cd apps/web && node node_modules/@playwright/test/cli.js test test/offline.spec.ts
+# Observé le 24/11/2026 dans /tmp/radar-parallel2/offline-pwa : 22/22
 ```
 
-## Contraintes
+La PR #810, réservée au parent, remplace ce périmètre : 4 destinations (Carte,
+Action, Sources, Journal) et 13 panneaux vérifiés par `apps/web/test/offline.spec.ts`,
+27 contrôles dans `apps/web/test/offline-pwa-checks.ts`. La documentation doit donc
+lire **4 destinations / 13 panneaux et 27 contrôles après intégration de #810**, et
+non plus « 11 vues » : ce dernier chiffre décrit l'ancien produit et induit le
+lecteur en erreur.
 
-| Contrainte | Vérification |
-| --- | --- |
-| Nouvelle-Aquitaine uniquement | Périmètre du jeu de référence (12 départements), aucun périmètre élargi |
-| Sources grises autorisées | Aucun filtre de couleur de source dans le cache |
-| Aucune donnée personnelle de victime | Routes nominatives refusées + champs redactés + test dédié |
-| Aucun service payant | Cache navigateur, manifeste local, icône SVG versionnée |
-| Code et interface en anglais | Modules, tests, manifeste et bandeau hors ligne en anglais |
-| Rapport en français | Ce document |
-| `server.ts` ≤ 10 lignes de diff | **0 ligne modifiée** : tout est côté web |
-| Aucune commande > 60 s | Mesure ~1 s, contrôles unitaires ~1 s, Playwright ~20 s |
+## Ce qui a été audité sur le parcours réel
+
+Le parcours hors ligne a trois étages, tous examinés :
+
+1. **Données** (`apps/web/src/offline/pwa.ts`, `apps/web/src/api.ts`) : seules les
+   réponses `GET` allowlistées sont écrites, avec date, bornes (600 Ko par réponse,
+   2,5 Mo au total, 120 entrées, 7 jours) et rejeu uniquement après échec réseau.
+   Le rejeu notifie le bandeau via `onOfflineFallback`.
+2. **Coquille** (`apps/web/public/radar-sw.js`) : précache `/`, `/index.html`,
+   manifeste et icône ; navigation réseau d'abord, cache en repli ; modules Vite
+   en stale-while-revalidate ; tuiles et polices en cache-first borné.
+3. **Affichage** (`apps/web/src/App.tsx`) : le bandeau `Offline · …` annonce l'âge
+   de la réponse rejouée ; aucune écriture n'est simulée hors ligne.
+
+## Défaut prouvé — et pourquoi il n'est pas corrigé ici
+
+Sur `origin/main`, `radar-sw.js` utilise `RACINE` aux lignes 109, 110, 118 et 119
+sans le définir. Conséquence observable, sans serveur lancé : avec un service worker
+contrôlant la page et une navigation après coupure réseau (`Cache-Control: no-store`
+sur les réponses, toutes les requêtes refusées côté navigateur), `page.goto()`
+échoue en `net::ERR_FAILED`. Le précache de l'installation existe bien, mais la
+repli navigation ne peut pas le retrouver ; avec le cache HTTP du navigateur
+activé, le même scénario passe et masque le défaut.
+
+Scénario rejoué le 24/11/2026 : routes Playwright servant une coquille statique sur
+`https://radar.test`, enregistrement de `/radar-sw.js`, attente de
+`navigator.serviceWorker.controller`, bascule `enLigne = false`, puis navigation
+vers `/carte`. Résultat sur `origin/main` : `net::ERR_FAILED`. Le fichier
+`apps/web/public/radar-sw.js` est modifié par la PR #810 (constante `RACINE`,
+repli 503 explicite, rafraîchissement du shell à chaque navigation) : le correctif
+appartient donc au parent. Aucune duplication n'a été ajoutée dans cette branche.
 
 ## Limites assumées
 
 Le rejeu s'arrête à 7 jours : au-delà, l'interface affiche « no cached data » plutôt
 qu'un chiffre trop ancien. Les écritures ne sont pas mises en file d'attente : sans
-accord de conflits, un accusé hors ligne serait un mensonge. Le cache contient les
-dernières réponses des écrans ouverts, ce qui est mesurable et suffisant pour une
-tournée de terrain, mais ne remplace pas une réplication locale des 1,67 M
-d'organisations.
+accord de conflits, un accusé hors ligne serait un mensonge. Après #810, les files
+de modération et les dossiers (`/journal`, `/quarantine`, `/dossier`) restent
+en ligne only et les anciennes entrées sont purgées au démarrage : c'est une
+restriction voulue, pas une régression du cache. Le cache contient les dernières
+réponses des panneaux ouverts, ce qui est mesurable et suffisant pour une tournée
+de terrain, mais ne remplace pas une réplication locale du corpus.
