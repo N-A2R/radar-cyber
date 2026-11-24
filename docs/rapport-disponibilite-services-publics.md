@@ -125,6 +125,36 @@ Observations versionnées : `bench/results/service-availability-observations.jso
   aucune observation pour le 18, le 19 ou le 20 novembre. Aucun jour manquant
   ne peut être observé rétroactivement sans inventer une date.
 
+## Contre-vérification du 24 novembre (rattrapage)
+
+Une seconde recherche indépendante, exécutée le 24 novembre à 00 h 35 UTC,
+n'a retrouvé aucune observation réelle supplémentaire :
+
+- **Arbre et historique** : `bench/results/service-availability-observations.jsonl`
+  contient 1 920 lignes, uniquement les 21, 22 (420), 23 et 24 novembre ; le
+  corpus ne porte que `verifie_le=2026-11-21`. Les refs Git, le reflog et
+  l'API GitHub ne montrent aucune version antérieure du jeu d'observations ;
+  environ 100 worktrees locaux contiennent les mêmes données.
+- **Base PostgreSQL** : `source_verification` (7 236 lignes) et `warc_proof`
+  (167) ne couvrent que les 21 et 22 novembre ; `source.last_ok_at` n'a qu'une
+  ligne le 20 novembre (`univ-lr.fr`, hors périmètre) et `leak_site` (20
+  lignes, 21 novembre) ne recoupe aucune URL du périmètre.
+- **Sources grises et archives gratuites** : RIPE Atlas (`count=0` sur une URL
+  du périmètre), Wayback CDX et timemap (`[]`, capture la plus proche en
+  juillet ou octobre), Common Crawl (`collinfo.json` : dernier index arrêté le
+  19 novembre à 07 h 53, CDX en 504), check-host.net (sondes live seulement),
+  data.gouv.fr (`total=0` pour `uptime`), GDELT (`{}`), UptimeRobot (405),
+  statuspage.io (401), Archive-It (404), instatus (404), Memento et Mozilla
+  Observatory (noms non résolus). Aucune observation datée des 18, 19 ou 20
+  novembre.
+
+**Verdict** : 0 service-jour réel récupéré, l'écart reste de 1 580
+service-jours. Une couverture complète 7/7 ne pourra être atteinte qu'après
+cinq collectes réelles supplémentaires (25 au 29 novembre), avec une fenêtre
+glissante du 23 au 29 novembre : la collecte du 22 novembre étant incomplète
+(420/500), aucune fenêtre incluant cette date ne peut totaliser 3 500
+service-jours. Aucune date ne peut être inventée pour combler l'écart aujourd'hui.
+
 ## Reproduire
 
 ```bash
@@ -154,4 +184,4 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 4 / 7 jours de la fenêtre réellement observés (1 920 / 3 500 service-jours), manque 3 jours d'observation (18 au 20 novembre, 1 500 service-jours, soit 1 580 service-jours manquants au total avec les 80 sondes absentes du 22 novembre) ; rejoué le 24/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-24` (code 0) : `services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48 %`, résultat versionné `bench/results/service-availability-na-2026-11-24.json` ; statut reproductible `pnpm services:verify -- --anchor=2026-11-24` (code 0) : `OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours`.
+OBJECTIF : partiel — 4 / 7 jours (1 920 / 3 500 service-jours), manque 3 jours d'observation (18, 19 et 20 novembre) et 80 sondes du 22 novembre, soit 1 580 service-jours ; rejoué le 24/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-24` (code 0) : `services=500 window=2026-11-18..2026-11-24 observed_service_days=1920/3500 available=1334 availability=69,48 %` ; statut reproductible `pnpm services:verify -- --anchor=2026-11-24` (code 0) : `OBJECTIF : partiel — 4 / 7 jours (1920 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1580 service-jours` ; rattrapage du 24/11 : 0 service-jour réel supplémentaire retrouvé.
