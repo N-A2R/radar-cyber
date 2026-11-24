@@ -1131,3 +1131,50 @@ collectes réelles ; combler les 18, 19 et 20 novembre exigerait d'inventer une
 date, ce que la méthode interdit.
 
 OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; sixième vérification croisée le 24/11/2026 à 05 h 50 UTC : 0 capture exploitable sur 475 URL du périmètre dans l'index Common Crawl brut (900 670 lignes), 0 service-jour récupéré, `verdict=no_captures`, `feasible_windows=0`, `full_windows=0` sur 92 ancres, `earliest_attainable_anchor=2026-11-27`.
+
+## Reprise du 24 novembre (06 h 02 UTC) — deux passes indépendantes et balayage Wayback complet
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(PR #799 : 2 000 / 3 500), sans repartir de `main` : **0 service-jour réel
+récupéré**, l'écart reste de 1 500. Deux passes en lecture seule et un balayage
+exhaustif de l'API `available` de Wayback n'ont trouvé aucune observation HTTP
+des 18, 19 et 20 novembre.
+
+- **Artefacts et base** : `pg_largeobject` = 0, `enrich_cache` = 0 ; une
+  recherche textuelle sur 12 tables (`journal`, `event`, `quarantine_raw`,
+  `source_verification`, `exposition_service`, `warc_proof`, `leak_site`,
+  `asset`, `collector_run`, `journal_anchor`, `export_scellement`,
+  `report_run`) donne 0 occurrence des trois jours sur une URL du périmètre,
+  aucun `http_status` ni `WARC-Date`. Les 66 fichiers WARC versionnés sont tous
+  datés du 22 novembre ; commits, tags et artifacts GitHub sur la fenêtre : 0.
+- **Sources grises** : 15 requêtes bornées sur 7 URL exactes du périmètre :
+  Archive-It HTTP 500, data.gouv.fr `total=0`, Wikidata `search=[]`, Sourcegraph
+  `matchCount=0`, searchcode 404, archives nationales introuvables, CDX Wayback
+  `[]`. **0 capture 2xx/3xx**, 0 service-jour.
+- **Balayage Wayback exhaustif** : les 475 URL normalisées du périmètre ont été
+  interrogées une par une sur `archive.org/wayback/available` avec
+  `timestamp=20261119`, concurrence 2 et délai de 120 ms : 100 réponses HTTP
+  200, 375 HTTP 429, **0 instantané dans la fenêtre**, 0 service-jour. Les
+  375 limites de débit interdisent toute conclusion d'absence fondée sur ce
+  seul balayage ; elles n'apportent aucune observation exploitable.
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 as_of=2026-11-24 attainable_as_of=false real_collections_required=3 earliest_attainable_anchor=2026-11-27
+# scan=2026-10-01..2026-12-31 scanned_anchors=92 max_observed_service_days=2000/3500 full_windows=0
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/audit-service-availability-db-gap.mts --from=2026-11-18 --to=2026-11-20
+# window=2026-11-18..2026-11-20 tables=4 rows_in_window=0 perimeter_rows=0 capturable_service_days=0 new_service_days=0 verdict=no_http_proof
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-commoncrawl.mts --from=2026-11-18 --to=2026-11-20
+# index=https://data.commoncrawl.org/cc-index/collections/CC-MAIN-2026-47/indexes/cluster.idx lines=900670 perimeter_urls=475 window=2026-11-18..2026-11-20 rows_in_window=0 perimeter_rows=0 capturable_service_days=0 new_service_days=0 verdict=no_captures
+cd apps/api && DATABASE_URL=postgres://radar:radar@localhost:5433/radar node_modules/.bin/tsx test/run.ts test/service-availability.test.ts
+# ℹ tests 35 · pass 35 · fail 0
+```
+
+`server.ts` (0 ligne), le manifeste et le jeu d'observations sont inchangés :
+aucune date ni aucun statut n'a été inventé. À 06 h 02 UTC, la première fenêtre
+entièrement réelle reste ancrée au 27 novembre, après trois collectes réelles
+les 25, 26 et 27 novembre.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours
