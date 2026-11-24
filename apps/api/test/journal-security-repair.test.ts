@@ -8,6 +8,7 @@ import { groupFacts, type EventForScore } from "../src/analyse/confidence-servic
 import { prospectiveRiskScore, type OrgRiskParams } from "../src/risk/org-prospective.js";
 import { fitRiskModel, riskFeatures, type RiskPopulation, type RiskSample, type RiskSignals } from "../src/analyse/organisation-risk.js";
 
+import { nonceDerVersBigInt } from "../src/journal/rfc3161.js";
 const fixture = JSON.parse(
 	readFileSync(new URL("./fixtures/jeton-rfc3161.json", import.meta.url), "utf8"),
 ) as { racine: string; token: string };
@@ -34,6 +35,14 @@ test("le nonce envoyé doit être retourné identique", () => {
 		() => verifierJeton(fixture.token, empreinte, { nonceAttendu: 0x1234n }),
 		/nonce retourné différent/,
 	);
+});
+
+test("un nonce DER à bit haut est lu comme la valeur numérique attendue", () => {
+	assert.equal(nonceDerVersBigInt(Buffer.from("0080", "hex")), 0x80n);
+	assert.equal(nonceDerVersBigInt(Buffer.from("1234", "hex")), 0x1234n);
+	assert.equal(nonceDerVersBigInt(Buffer.from("80", "hex")), null);
+	assert.equal(nonceDerVersBigInt(Buffer.from("00", "hex")), 0n);
+	assert.equal(nonceDerVersBigInt(undefined), null);
 });
 
 test("le fournisseur TSA envoie un nonce, borne genTime et réessaie 3 fois", async () => {

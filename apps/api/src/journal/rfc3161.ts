@@ -165,6 +165,11 @@ function heureGeneralisee(texte: string): string {
 	const millisecondes = (parties[7] ?? "").padEnd(3, "0").slice(0, 3);
 	return `${parties[1]}-${parties[2]}-${parties[3]}T${parties[4]}:${parties[5]}:${parties[6]}${millisecondes ? `.${millisecondes}` : ""}Z`;
 }
+/** Un nonce DER positif peut porter un préfixe `0x00` quand son bit haut est posé. */
+export function nonceDerVersBigInt(contenu: Buffer | undefined): bigint | null {
+	if (!contenu?.length || (contenu[0] ?? 0) > 0x7f) return null;
+	return BigInt(`0x${contenu.toString("hex")}`);
+}
 export type OptionsVerification = {
 	/** Nonce envoyé dans la requête : le jeton doit le retourner identique. */
 	nonceAttendu?: bigint;
@@ -329,8 +334,8 @@ export function verifierJeton(
 	}
 	const serial = attendu(tstInfo.enfants[3], 0x02, "serialNumber").contenu.toString("hex");
 	const nonceNoeud = tstInfo.enfants.slice(5).find((noeud) => noeud.tag === 0x02);
-	const nonce = nonceNoeud?.contenu.toString("hex") ?? null;
-	if (options.nonceAttendu !== undefined && nonce !== options.nonceAttendu.toString(16).padStart(2, "0")) {
+	const nonce = nonceDerVersBigInt(nonceNoeud?.contenu);
+	if (options.nonceAttendu !== undefined && nonce !== options.nonceAttendu) {
 		throw new Error("jeton RFC 3161 : nonce retourné différent de celui de la requête");
 	}
 
@@ -394,7 +399,7 @@ export function verifierJeton(
 	return {
 		genTime,
 		serial,
-		nonce,
+		nonce: nonce === null ? null : `0x${nonce.toString(16)}`,
 		certificat: certDer.toString("base64"),
 		signatureVerifiee: true,
 		chainVerifiee: verifierChaine(certificat, intermediaires, ancres),
