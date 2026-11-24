@@ -1,0 +1,894 @@
+{
+  "selected": 97,
+  "verified": 97,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8890,
+    "withVerifiedProvenance": 8839,
+    "coveragePercent": 0.5287
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8987,
+    "withVerifiedProvenance": 8936,
+    "coveragePercent": 0.5345
+  },
+  "domains": [
+    {
+      "orgId": 13501,
+      "siren": null,
+      "name": "EHPAD RES LES JARDINS DE CHARLOTTE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/vienne/neuville-poitou/maison-retraite-jardins-charlotte",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13583,
+      "siren": null,
+      "name": "EHPAD RESIDENCE PASTEUR",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-poitiers-residence-pasteur",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13287,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DE SALOME",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/vienne/fontaine-comte/maison-retraite-jardins-salome",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13480,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LES SCEVOLLES",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-monts-sur-guesnes-les-scevolles",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14229,
+      "siren": null,
+      "name": "RESIDENCE SAINT-MARTIAL",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/haute-vienne/limoges/maison-retraite-saint-martial",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14367,
+      "siren": null,
+      "name": "MAS DELTA PLUS",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/1027/page-de-mas-cassepierre----fondation-delta-plus-a-87570-rilhac-rancon",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6200,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DES TILLEULS",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-trizay-les-jardins-des-tilleuls",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6022,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LES ALOES",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saint-sulpice-royan/maison-retraite-aloes",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5368,
+      "siren": null,
+      "name": "EHPAD LE BOURG NOUVEAU",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-jonzac-residence-bourg-nouveau",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5682,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LA CLAIRE FONTAINE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/rochelle/maison-retraite-claire-fontaine",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5692,
+      "siren": null,
+      "name": "HOPITAL DE JOUR L'EMBELLIE",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/446/page-de-hdj-lembellie-a-17000-la-rochelle",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 4526,
+      "siren": null,
+      "name": "EHPAD LES CHARENTES",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente/angouleme/maison-retraite-charentes",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5877,
+      "siren": null,
+      "name": "EHPAD RESIDENCE L'OCEANE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saint-georges-didonne/maison-retraite-loceane",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6141,
+      "siren": null,
+      "name": "EHPAD RESIDENCE SUD-SAINTONGE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saujon/maison-retraite-sud-saintonge",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5154,
+      "siren": null,
+      "name": "EHPAD RESIDENCE BEAUSEJOUR",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/arvert/maison-retraite-beausejour",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6069,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DE SAINTES",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/saintes/maison-retraite-jardins-saintes",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 5218,
+      "siren": null,
+      "name": "EHPAD RESIDENCE HARMONIE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/charente-maritime/breuillet/maison-retraite-harmonie",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6823,
+      "siren": null,
+      "name": "MAS LES CHAUMES",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/988/page-de-mas-les-chaumes-a-23270-clugnat",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 6805,
+      "siren": null,
+      "name": "MAS DE SAUZET",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/981/page-de-mas-de-sauzet-a-23170-budeliere",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7403,
+      "siren": null,
+      "name": "HOPITAL DE JOUR ENFANTS LES NYMPHEAS",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/7008/page-de-hopital-de-jour-enfants-les-nympheas-a-24000-perigueux",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7133,
+      "siren": null,
+      "name": "MAS HELIODORE",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/970/page-de-maison-daccueil-specialisee---mas--heliodore-a-24750-boulazac-isle-manoire",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7174,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LES CHAMINADES",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-champagnac-de-belair-les-chaminades",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7324,
+      "siren": null,
+      "name": "EHPAD LES VIGNES",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/dordogne/moulin-neuf/maison-retraite-vignes",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9489,
+      "siren": null,
+      "name": "HOPITAL DE JOUR ADULTES LE MAGNOLIA",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/263/page-de-hopital-de-jour-le-magnolia-a-33240-saint-andre-de-cubzac",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8902,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DE JEANNE",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-izon-jardins-de-jeanne",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8985,
+      "siren": null,
+      "name": "EHPAD LES TCHANQUES",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-lege-cap-ferret-les-tchanques",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8565,
+      "siren": null,
+      "name": "EHPAD LES JARDINS D'OMBELINE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/carbon-blanc/maison-retraite-jardins-dombeline",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8450,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LA PASTORALE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/bouliac/maison-retraite-pastorale",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8102,
+      "siren": null,
+      "name": "EHPAD RESIDENCE AIME CESAIRE",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-bordeaux-aime-cesaire",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9062,
+      "siren": null,
+      "name": "HOPITAL GARDEROSE",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/202/page-de-centre-hospitalier-de-libourne---garderose-a-33500-libourne",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7771,
+      "siren": null,
+      "name": "EHPAD LE HOME MEDOCAIN",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-arsac-le-home-medocain",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8917,
+      "siren": null,
+      "name": "EHPAD LE RETOU",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-lamarque-residence-le-retou",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9490,
+      "siren": null,
+      "name": "HOPITAL DE JOUR POUR ENFANTS ROCHEREAU",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/7083/page-de-hopital-de-jour-enfants-rochereau-a-33240-sainte-andre-de-cubzac",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9737,
+      "siren": null,
+      "name": "EHPAD L'OASIS",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/teich/maison-retraite-loasis",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9687,
+      "siren": null,
+      "name": "EHPAD LE RELAIS DES SENS",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/talence/maison-retraite-relais-sens",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9284,
+      "siren": null,
+      "name": "EHPAD LES JARDINS D'ELEONORE",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-monsegur-les-jardins-deleonore",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9523,
+      "siren": null,
+      "name": "MAS LES QUATRE VENTS",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/617/page-de-mas-les-quatre-vents-a-33910-saint-denis-de-pile",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8458,
+      "siren": null,
+      "name": "EHPAD LE CLOS D'ALIENOR",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/bouscat/maison-retraite-clos-dalienor",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9190,
+      "siren": null,
+      "name": "EHPAD LES CHARDONS BLEUS",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/merignac/maison-retraite-chardons-bleus",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9194,
+      "siren": null,
+      "name": "EHPAD RESIDENCE JEAN MONNET",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-merignac-residence-jean-monnet",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9499,
+      "siren": null,
+      "name": "EHPAD LA MAISON DE SAINT AUBIN",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-saint-aubin-de-medoc-maison-de-saint-aubin",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9667,
+      "siren": null,
+      "name": "EHPAD LE REPOS MARIN",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-soula-sur-mer-residence-repos-marin",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8092,
+      "siren": null,
+      "name": "EHPAD LA CHENERAIE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/bordeaux/maison-retraite-cheneraie",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8098,
+      "siren": null,
+      "name": "EHPAD LES JARDINS DE CAUDERAN",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-bordeaux-jardins-de-cauderan",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 8914,
+      "siren": null,
+      "name": "EHPAD LES BOIS DE LANDECOTTE",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-lande-de-fronsac-bois-de-landecotte",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 10363,
+      "siren": null,
+      "name": "MAS MOSAIQUES",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/636/page-de-mas-mosaiques-a-40990-saint-paul-les-dax",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 10239,
+      "siren": null,
+      "name": "HOPITAL DE JOUR ADULTES - MONTFORT",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/701/page-de-hopital-de-jour---montfort-a-40380-montfort-en-chalosse",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 9875,
+      "siren": null,
+      "name": "HOPITAL DE JOUR ADULTES - AIRE S/ADOUR",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/702/page-de-hopital-de-jour---aire-sur-ladour-a-40800-aire-sur-l-adour",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 10389,
+      "siren": null,
+      "name": "HDJ - SITE SAINT PIERRE DU MONT",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/703/page-de-hopital-de-jour-enfants---saint-pierre-du-mont-a-40280-saint-pierre-du-mont",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 10191,
+      "siren": null,
+      "name": "MAS SIMONE SIGNORET",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/677/page-de-mas-simone-signoret-a-40000-mont-de-marsan",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 10556,
+      "siren": null,
+      "name": "EHPAD LES MAGNOLIAS",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/gironde/biganos/maison-retraite-magnolias",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12260,
+      "siren": null,
+      "name": "EHPAD URTABURU",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-saint-jean-de-luz-residence-urtaburu",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11287,
+      "siren": null,
+      "name": "EHPAD HERRI BURUA",
+      "domain": "colisee.fr",
+      "page": "https://colisee.fr/residences/maison-medicalisee-arbonne-herri-burua",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11371,
+      "siren": null,
+      "name": "CH COTE BASQUE - SITE LORMAND",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/857/page-de-centre-hospitalier-de-la-cote-basque---site-lormand-a-64100-bayonne",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11887,
+      "siren": null,
+      "name": "MAS L'ACCUEIL - APPARTEMENT MORLAAS",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/8841/page-de-maison-daccueil-specialisee--mas--laccueil--appartements-a-64160-morlaas",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11624,
+      "siren": null,
+      "name": "MAS  BIARRITZENIA",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/850/page-de-mas-biarritzenia-a-64240-briscous",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 11990,
+      "siren": null,
+      "name": "EHPAD ORTHEZIA",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/pyrenees-atlantiques/orthez/maison-retraite-orthezia",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12751,
+      "siren": null,
+      "name": "EHPAD RESIDENCE DE SEVRET",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/deux-sevres/niort/maison-retraite-sevret",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12969,
+      "siren": null,
+      "name": "HDJ - CMP - CATTP DE SAINT MAIXENT",
+      "domain": "retab.fr",
+      "page": "https://retab.fr/1420/page-de-cmp-st-maixent-a-79400-saint-maixent-l-ecole",
+      "registry": "finess-site-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 12752,
+      "siren": null,
+      "name": "EHPAD RESIDENCE L'ANGELIQUE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/deux-sevres/niort/maison-retraite-langelique",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 13746,
+      "siren": null,
+      "name": "EHPAD RESIDENCE LES JARDINS DE CAMILLE",
+      "domain": "emeis.fr",
+      "page": "https://emeis.fr/fr/nos-ehpad/nouvelle-aquitaine/vienne/saint-benoit/maison-retraite-jardins-camille",
+      "registry": "finess-site-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 369795,
+      "siren": "781166145",
+      "name": "CAISSE DE CREDIT MUTUEL DE MA CAMPAGNE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/angouleme/angouleme-ma-campagne-16000",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 169316,
+      "siren": "412693939",
+      "name": "CAISSE DE CREDIT MUTUEL D'EYSINES",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/eysines/eysines-33320",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 240172,
+      "siren": "452158108",
+      "name": "CAISSE CREDIT MUT CASTILLON BATAILLE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/castillon-la-bataille/castillon-la-bataille-33350",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 230199,
+      "siren": "448280156",
+      "name": "CAISSE DE CREDIT MUTUEL DE CREON",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/creon/creon-33670",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12559,
+      "siren": null,
+      "name": "LABORATOIRE MEDILAB GROUP (6)",
+      "domain": "medilab-group.eu",
+      "page": "https://medilab-group.eu/medilab-group/nos-laboratoires",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 110099,
+      "siren": "352330732",
+      "name": "CAISSE DE CREDIT MUTUEL DE LA TESTE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/la-teste-de-buch/la-teste-de-buch-33260",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 247703,
+      "siren": "478349129",
+      "name": "CAISSE CREDIT MUT DE ST JEAN D'ILLAC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/st-jean-d-illac/saint-jean-d-illac-33127",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 250139,
+      "siren": "479324436",
+      "name": "CAISSE CREDIT MUT AMBARES LAGRAVE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/ambares-et-lagrave/ambares-et-lagrave-33440",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 202090,
+      "siren": "432873743",
+      "name": "CREDIT MUTUEL LE HAILLAN",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/le-haillan/le-haillan-33185",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 209549,
+      "siren": "438234684",
+      "name": "CAISSE DE CREDIT MUTUEL DU TAILLAN MEDOC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/le-taillan-medoc/le-taillan-medoc-33320",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 85201,
+      "siren": "322926841",
+      "name": "CAISSE CREDIT MUTUEL MERIGNAC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/merignac/merignac-33700",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 227950,
+      "siren": "447644477",
+      "name": "CAISSE CREDIT MUTUEL DE SAINT LOUBES",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/st-loubes/saint-loubes-33450",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 215378,
+      "siren": "440679017",
+      "name": "CAISSE CREDIT MUTUEL MERIGNAC CHEM LONG",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/merignac/merignac-chemin-long-33700",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 79240,
+      "siren": "311088090",
+      "name": "CAISSE CREDIT MUTUEL BORDEAUX CHARTRONS",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/bordeaux/bordeaux-bacalan-33300",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 221346,
+      "siren": "443058235",
+      "name": "CAISSE DE CREDIT MUTUEL DE MIOS",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/mios/mios-33380",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 80172,
+      "siren": "313731432",
+      "name": "CAISSE DE CREDIT MUTUEL DE LESPARRE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/lesparre-medoc/lesparre-33340",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 78438,
+      "siren": "308799568",
+      "name": "CAISSE DE CREDIT MUTUEL DE CHASSENEUIL",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/chasseneuil-sur-bonnieure/chasseneuil-16260",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 82809,
+      "siren": "318977626",
+      "name": "CAISSE DE CREDIT MUTUEL DE MANSLE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/mansle-les-fontaines/mansle-16230",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 82810,
+      "siren": "318977634",
+      "name": "CAISSE DE CREDIT MUTUEL DE RUFFEC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/ruffec/ruffec-16700",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 170469,
+      "siren": "413390212",
+      "name": "CAISSE DE CREDIT MUTUEL D'ANDERNOS",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/andernos-les-bains/andernos-les-bains-33510",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 212935,
+      "siren": "439753377",
+      "name": "CAISSE DE CREDIT MUTUEL DE BRUGES",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/bruges/bruges-33520",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 82814,
+      "siren": "318993680",
+      "name": "CAISSE CREDIT MUTUEL BARRIERE DE PESSAC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/talence/barriere-de-pessac-33400",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 105622,
+      "siren": "349189639",
+      "name": "CAISSE CREDIT MUTUEL BX ST AUGUSTIN",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/bordeaux/bordeaux-saint-augustin-33000",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 238535,
+      "siren": "451465348",
+      "name": "CAISSE CREDIT MUTUEL BORDEAUX CAUDERAN",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/bordeaux/bordeaux-cauderan-st-amand-33200",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 171299,
+      "siren": "413836990",
+      "name": "CREDIT MUTUEL BARRIERE DE BEGLES",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/begles/barriere-de-begles-33130",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 370043,
+      "siren": "781203351",
+      "name": "CAISSE DE CREDIT MUTUEL DE LA COURONNE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/la-couronne/la-couronne-16400",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 370228,
+      "siren": "781239025",
+      "name": "CAISSE DE CREDIT MUTUEL DE RUELLE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/ruelle-sur-touvre/ruelle-16600",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 81778,
+      "siren": "317099927",
+      "name": "CAISSE DE CREDIT MUTUEL DE TALENCE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/talence/talence-33400",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 167395,
+      "siren": "411655822",
+      "name": "CREDIT MUTUEL DE PESSAC ALOUETTE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/pessac/pessac-alouette-33600",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 83778,
+      "siren": "320722887",
+      "name": "CAISSE CREDIT MUTUEL GRADIGNAN",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/gradignan/gradignan-33170",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 109621,
+      "siren": "351984620",
+      "name": "CAISSE CREDIT MUTUEL BORDEAUX NANSOUTY",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/bordeaux/bordeaux-nansouty-33800",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 76566,
+      "siren": "300725090",
+      "name": "CREDIT MUTUEL DE BEGLES",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/begles/begles-33130",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 219461,
+      "siren": "442322863",
+      "name": "CAISSE CREDIT MUTUEL MERIGNAC ARLAC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/merignac/merignac-arlac-33700",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 94050,
+      "siren": "334426723",
+      "name": "CAISSE CREDIT MUTUEL PESSAC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/pessac/pessac-centre-33600",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 370097,
+      "siren": "781214077",
+      "name": "CAISSE CREDIT MUTUEL JARNAC",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/charente/jarnac/jarnac-16200",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 79941,
+      "siren": "312989833",
+      "name": "CAISSE DE CREDIT MUTUEL DE BLAYE",
+      "domain": "cmso.com",
+      "page": "https://cmso.com/reseau-bancaire-cooperatif/web/recherche-agence-credit-mutuel-du-sud-ouest/gironde/blaye/blaye-33390",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    }
+  ]
+}

@@ -13,6 +13,18 @@ import {
 import { dayKeys, mergeDaily, parseObservations, serializeObservations } from "../src/serviceAvailability/observations.js";
 import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
+import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
+import { attainableBy, auditWindows, candidateAnchors, earliestAttainableAnchor, maxObservedInRange } from "../src/serviceAvailability/audit.js";
+import {
+	normalizeProofUrl,
+	observationsFromDbProofs,
+	observationsFromExpositionProofs,
+} from "../src/serviceAvailability/dbProofs.js";
+import {
+	archiveAuditVerdict,
+	capturableServiceDays,
+	parseArchiveCaptures,
+} from "../src/serviceAvailability/archiveProofs.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -166,4 +178,190 @@ test("full seven-day coverage is reported separately from partial coverage", () 
 	assert.equal(summary.servicesFullyObserved, 1);
 	assert.equal(summary.coveragePct, 100);
 	assert.equal(summary.perDay.length, 7);
+});
+
+test("coverage status counts unobserved days and service-days without extrapolating", () => {
+	const rows = [
+		observation("a", "2026-11-21", true),
+		observation("a", "2026-11-22", false),
+		observation("a", "2026-11-23", true),
+	];
+	const summary = measureAvailability(rows, [service("a")], "2026-11-23");
+	const status = evaluateCoverage(summary);
+	assert.equal(status.label, "partiel");
+	assert.equal(status.daysObserved, 3);
+	assert.equal(status.missingDays.length, 4);
+	assert.equal(status.observedServiceDays, 3);
+	assert.equal(status.missingServiceDays, 4);
+});
+
+test("candidate anchors span each observed day and the six following days", () => {
+	const rows = [observation("a", "2026-11-21", true), observation("a", "2026-11-22", true)];
+	assert.deepEqual(candidateAnchors(rows), [
+		"2026-11-21", "2026-11-22", "2026-11-23", "2026-11-24",
+		"2026-11-25", "2026-11-26", "2026-11-27", "2026-11-28",
+	]);
+});
+
+test("partial observations never mark a candidate window as attained", () => {
+	const services = [service("a"), service("b")];
+	const rows = [
+		observation("a", "2026-11-21", true), observation("b", "2026-11-21", true),
+		observation("a", "2026-11-23", true), observation("b", "2026-11-23", true),
+	];
+	const audits = auditWindows(rows, services);
+	assert.equal(audits.length, 9);
+	assert.ok(audits.every((window) => window.status === "partiel"));
+	assert.equal(Math.max(...audits.map((window) => window.observedServiceDays)), 4);
+});
+
+test("seven observed days produce one fully covered candidate window", () => {
+	const services = [service("a"), service("b")];
+	const days = dayKeys("2026-11-28", 7);
+	const rows = days.flatMap((day) => services.map((item) => observation(item.id, day, true)));
+	const attained = auditWindows(rows, services).filter((window) => window.status === "atteint");
+	assert.deepEqual(attained.map((window) => window.anchor), ["2026-11-28"]);
+	assert.equal(attained[0]?.observedServiceDays, 14);
+});
+
+test("earliest attainable anchor waits for incomplete past days to leave the window", () => {
+	const services = [service("a"), service("b")];
+	const rows = [
+		observation("a", "2026-11-21", true), observation("b", "2026-11-21", true),
+		observation("a", "2026-11-22", true),
+		observation("a", "2026-11-23", true), observation("b", "2026-11-23", true),
+		observation("a", "2026-11-24", true), observation("b", "2026-11-24", true),
+	];
+	assert.equal(earliestAttainableAnchor(rows, services, "2026-11-24"), "2026-11-29");
+});
+
+test("attainability excludes an anchor that still needs real future collections", () => {
+	const services = [service("a"), service("b")];
+	const rows = dayKeys("2026-11-24", 4).flatMap((day) =>
+		services.map((item) => observation(item.id, day, true))
+	);
+	assert.equal(attainableBy(rows, services, "2026-11-24", "2026-11-24"), false);
+	assert.equal(attainableBy(rows, services, "2026-11-24", "2026-11-26"), false);
+	assert.equal(attainableBy(rows, services, "2026-11-24", "2026-11-27"), true);
+	assert.throws(
+		() => attainableBy(rows, services, "2026-11-24", "not-a-day"),
+		RangeError
+	);
+});
+
+test("an anchor scan reports the real ceiling and never invents a complete window", () => {
+	const services = [service("a"), service("b")];
+	const partial = dayKeys("2026-11-24", 4).flatMap((day) =>
+		services.map((item) => observation(item.id, day, true))
+	);
+	assert.deepEqual(maxObservedInRange(partial, services, "2026-11-21", "2026-11-30"), {
+		scannedAnchors: 10,
+		maxObservedServiceDays: 8,
+		targetServiceDays: 14,
+		fullWindows: 0,
+	});
+	const complete = dayKeys("2026-11-27").flatMap((day) =>
+		services.map((item) => observation(item.id, day, true))
+	);
+	assert.equal(maxObservedInRange(complete, services, "2026-11-27", "2026-11-27").fullWindows, 1);
+});
+
+test("a real database proof becomes a dated observation for the matching service", () => {
+	const target = service("na-edu-001");
+	const rows = [{
+		url: "https://EXAMPLE.FR/na-edu-001/",
+		code_http: 200,
+		verifie_at: "2026-11-22T07:18:27.202Z",
+		ms: 312,
+	}];
+	assert.deepEqual(observationsFromDbProofs(rows, [target]), [{
+		serviceId: target.id,
+		day: "2026-11-22",
+		ok: true,
+		status: 200,
+		latencyMs: 312,
+		observedAt: "2026-11-22T07:18:27.202Z",
+		failure: null,
+	}]);
+});
+
+test("a database proof with an HTTP error is unavailable, not missing", () => {
+	const target = service("na-edu-002");
+	const rows = [{ url: target.url, code_http: 503, verifie_at: "2026-11-22T09:00:00.000Z", ms: null }];
+	const [result] = observationsFromDbProofs(rows, [target]);
+	assert.equal(result.ok, false);
+	assert.equal(result.failure, "http_error");
+	assert.equal(result.status, 503);
+});
+
+test("database proofs outside the perimeter or without a valid UTC date are skipped", () => {
+	const target = service("na-edu-003");
+	const rows = [
+		{ url: "https://other.fr/", code_http: 200, verifie_at: "2026-11-22T09:00:00.000Z", ms: 10 },
+		{ url: target.url, code_http: 200, verifie_at: "not-a-date", ms: 10 },
+	];
+	assert.deepEqual(observationsFromDbProofs(rows, [target]), []);
+	assert.equal(normalizeProofUrl(" HTTPS://EXAMPLE.FR/path/ "), "https://example.fr/path");
+});
+
+test("an exposition HTTP proof becomes a dated observation for every service sharing its URL", () => {
+	const shared = service("na-edu-010");
+	const alias = { ...service("na-edu-011"), url: "https://WWW.EXAMPLE.FR/na-edu-010/" };
+	const rows = [
+		{ url: "http://example.fr/na-edu-010/", status: 200, consulted_at: "2026-11-22T02:56:10.309Z" },
+	];
+	assert.deepEqual(observationsFromExpositionProofs(rows, [shared, alias]), [
+		{
+			serviceId: "na-edu-010", day: "2026-11-22", ok: true, status: 200,
+			latencyMs: 0, observedAt: "2026-11-22T02:56:10.309Z", failure: null,
+		},
+		{
+			serviceId: "na-edu-011", day: "2026-11-22", ok: true, status: 200,
+			latencyMs: 0, observedAt: "2026-11-22T02:56:10.309Z", failure: null,
+		},
+	]);
+});
+
+test("an exposition proof on the corpus final URL maps to its service", () => {
+	const target = { ...service("na-edu-033"), url: "https://lycee-foyen.fr", proofUrl: "https://app.lycee-foyen.fr/" };
+	const rows = [
+		{ url: "https://APP.LYCEE-FOYEN.FR", status: 200, consulted_at: "2026-11-22T03:25:37.499Z" },
+	];
+	assert.deepEqual(observationsFromExpositionProofs(rows, [target]), [
+		{
+			serviceId: "na-edu-033", day: "2026-11-22", ok: true, status: 200,
+			latencyMs: 0, observedAt: "2026-11-22T03:25:37.499Z", failure: null,
+		},
+	]);
+});
+
+test("a Wayback CDX matrix becomes dated HTTP captures", () => {
+	const rows = [
+		["timestamp", "original", "statuscode"],
+		["20261118123456", "http://example.fr/a", "200"],
+		["invalid", "http://example.fr/b", "200"],
+	];
+	assert.deepEqual(parseArchiveCaptures(rows), [
+		{ timestamp: "20261118123456", original: "http://example.fr/a", status: 200 },
+	]);
+});
+
+test("only successful in-window archive captures yield perimeter service-days", () => {
+	const target = service("na-edu-040");
+	const captures = [
+		{ timestamp: "20261119010203", original: "https://WWW.EXAMPLE.FR/na-edu-040/", status: 301 },
+		{ timestamp: "20261118110203", original: "https://example.fr/na-edu-040/", status: 503 },
+		{ timestamp: "20261117110203", original: "https://example.fr/na-edu-040/", status: 200 },
+		{ timestamp: "20261120110203", original: "https://other.fr/page", status: 200 },
+	];
+	assert.deepEqual(
+		[...capturableServiceDays(captures, [target], "2026-11-18", "2026-11-20")],
+		["na-edu-040\u00002026-11-19"]
+	);
+});
+
+test("an incomplete archive sweep is reported as indeterminate", () => {
+	assert.equal(archiveAuditVerdict(1, 0), "indeterminate");
+	assert.equal(archiveAuditVerdict(0, 0), "no_captures");
+	assert.equal(archiveAuditVerdict(0, 2), "captures_found");
 });

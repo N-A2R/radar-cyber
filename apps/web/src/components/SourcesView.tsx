@@ -5,6 +5,7 @@ import type { SourcesViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./sources.css";
 import RelancerButton from "./RelancerButton";
+import { Button } from "@astryxdesign/core/Button";
 
 /** Libellés français des familles de sources (le reste est affiché brut). */
 export const FAMILY_LABEL: Record<string, string> = {
@@ -353,15 +354,13 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       </header>
 
       <div className="sources-view__toolbar">
-        <button
-          type="button"
+        <Button
+          label={exportEnCours ? "Export en cours…" : "Registre des traitements (CSV)"}
           className="ds-button"
           onClick={() => void exporterRegistre()}
-          disabled={exportEnCours}
+          isDisabled={exportEnCours}
           aria-busy={exportEnCours}
-        >
-          {exportEnCours ? "Export en cours…" : "Registre des traitements (CSV)"}
-        </button>
+        />
         <label className="sources-view__search">
           <span className="sources-view__search-label">recherche</span>
           <input

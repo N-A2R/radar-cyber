@@ -15,6 +15,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { api, type AffectedReport, type DirectoryRow } from "../api";
 import "./affected.css";
+import { Badge } from "@astryxdesign/core/Badge";
 
 type Statement = AffectedReport["statements"][number];
 type Category = Statement["category"];
@@ -203,8 +204,8 @@ export default function AffectedView({
         <div className="affected__title-row">
           <h2 id="affected-title">Suis-je concerné ?</h2>
           <p className="affected__badges">
-            <span className="affected__badge">Nouvelle-Aquitaine uniquement</span>
-            <span className="affected__badge">Aucune donnée personnelle de victime n'est affichée.</span>
+            <Badge label="Nouvelle-Aquitaine uniquement" className="affected__badge" />
+            <Badge label="Aucune donnée personnelle de victime n'est affichée." className="affected__badge" />
           </p>
         </div>
         <p className="affected__lead">
