@@ -210,6 +210,16 @@ const TERRITOIRES = new Set<string>(["commune", "epci", "departement", "region"]
  * SIRENE, ce sont eux qui désignent quand l'enseigne devient ambiguë.
  */
 const SOURCES_ALIAS_USAGE = new Set<string>(["annuaire-entreprises"]);
+/**
+ * Alias dérivés en masse de la raison sociale : un fragment n'est pas un
+ * alias posé sur une organisation. Mesuré le 2026-11-24 sur `radar` en lecture
+ * seule, 79 154 clés normalisées étaient déclarées ambiguës uniquement parce
+ * qu'un fragment `sirene-nom` portait la même clé qu'un alias nommant une
+ * organisation (15 064 d'un seul jeton). Ces fragments ne comptent donc plus
+ * dans l'ambiguïté ; les collisions entre sources nommantes, elles, comptent
+ * toujours.
+ */
+const SOURCE_FRAGMENTS = "sirene-nom";
 
 /** En deçà, un alias n'est pas une preuve. Aligné sur `core.MIN_ALIAS_LENGTH`. */
 const MIN_KEY_LENGTH = 4;
@@ -269,16 +279,20 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	// ligne par ligne — combien d'organisations portent cette clé d'alias, et
 	// lesquelles de ces clés sont le nom d'un territoire du référentiel.
 	// Un id témoin suffit : on ne retient que le caractère ambigu de la clé.
-	const premierIdParCle = new Map<string, number>();
-	const clesAmbigues = new Set<string>();
+	// Les fragments `sirene-nom` sont écartés de ce décompte : ce sont des
+	// bouts de raison sociale, pas des alias posés (voir SOURCE_FRAGMENTS).
+	const premierIdParCleNommante = new Map<string, number>();
+	const clesAmbiguesNommantes = new Set<string>();
 	const clesTerritoire = new Set<string>();
 	for (const row of rows) {
 		const jetons = jetonsAlias(row);
 		if (jetons.length === 0) continue;
 		const cle = jetons.join(" ");
-		const premier = premierIdParCle.get(cle);
-		if (premier === undefined) premierIdParCle.set(cle, row.org_id);
-		else if (premier !== row.org_id) clesAmbigues.add(cle);
+		if (row.source !== SOURCE_FRAGMENTS) {
+			const premier = premierIdParCleNommante.get(cle);
+			if (premier === undefined) premierIdParCleNommante.set(cle, row.org_id);
+			else if (premier !== row.org_id) clesAmbiguesNommantes.add(cle);
+		}
 		if (TERRITOIRES.has(row.sector ?? "")) clesTerritoire.add(cle);
 	}
 
@@ -323,19 +337,21 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// sont des marques, pas des communes — les exclure rendait la mesure
 		// muette sur cinq incidents où l'organisation est pourtant en base.
 		// « Intermarché » (182 porteurs) et « Orange » (54) restent dehors :
-		// leur ambiguïté est réelle, pas un défaut de la garde.
+		// leur ambiguïté est réelle, pas un défaut de la garde. Un fragment
+		// `sirene-nom` portant la même clé ne rend pas la marque ambiguë : la
+		// collision est comptée entre sources nommantes seulement.
 		// A unique one-word brand is indexed separately: it may only decide
 		// when the text explicitly calls it a company or an institution.
 		if (
-			jetons.length === 1 && !clesAmbigues.has(cle) && !clesTerritoire.has(cle)
+			jetons.length === 1 && !clesAmbiguesNommantes.has(cle) && !clesTerritoire.has(cle)
 			&& !CLES_DEPARTEMENTS.has(cle) && GENERIQUES.has(jetons[0] as string) !== true
-			&& row.source !== "sirene-nom"
+			&& row.source !== SOURCE_FRAGMENTS
 		) {
 			const org = orgs.get(row.org_id);
 			if (org) brandsParCle.set(cle, [org]);
 		}
 		if (!role && !commenceParUnRole(jetons) && lieu.split(" ").length < 2) {
-			const unique = !clesAmbigues.has(cle);
+			const unique = !clesAmbiguesNommantes.has(cle);
 			// Seule une source qui *nomme* l'organisation peut trancher sur un mot
 			// seul : alias posés à la main (`usage`) ou annuaire officiel des
 			// entreprises. Les alias dérivés en masse sont des fragments de
