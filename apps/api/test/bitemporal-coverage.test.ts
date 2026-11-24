@@ -95,13 +95,36 @@ test("valid-time read keeps the former name after a rename", async () => {
 test("recorded-time read separates what was known before and after a correction", async () => {
   const id = await insertOrg(`Coverage recorded ${slug()}`);
   try {
-    const { rows: clock } = await query<{ t: string }>("SELECT clock_timestamp()::text AS t");
-    const before = clock[0]!.t;
     await query("UPDATE org SET name=$2 WHERE id=$1", [id, `Corrected ${id}`]);
-    const oldRead = await orgsValidesAu({ asOfValid: "2024-01-15", asOfRecorded: before });
+
+    // The trigger stamps recorded clocks with now() (microseconds), while the
+    // API truncates asOfRecorded to milliseconds. Align the two versions to
+    // exact clocks so an explicit clock can be chosen strictly between them
+    // regardless of how fast the insert and update statements execute.
+    await query(
+      `UPDATE org_history
+          SET recorded_at = CASE WHEN superseded_at IS NULL
+                                 THEN TIMESTAMPTZ '2026-01-02T00:00:00Z'
+                                 ELSE TIMESTAMPTZ '2026-01-01T00:00:00Z' END,
+              superseded_at = CASE WHEN superseded_at IS NULL
+                                   THEN NULL
+                                   ELSE TIMESTAMPTZ '2026-01-02T00:00:00Z' END
+        WHERE org_id=$1`, [id],
+    );
+
+    const { rows: versions } = await query<{ recorded_at: string }>(
+      "SELECT recorded_at::text AS recorded_at FROM org_history WHERE org_id=$1 ORDER BY id", [id],
+    );
+    assert.equal(versions.length, 2);
+    const oldRecorded = Date.parse(versions[0]!.recorded_at);
+    const newRecorded = Date.parse(versions[1]!.recorded_at);
+    const asOfRecorded = new Date((oldRecorded + newRecorded) / 2).toISOString();
+    assert.ok(Date.parse(asOfRecorded) > oldRecorded && Date.parse(asOfRecorded) < newRecorded);
+
+    const oldRead = await orgsValidesAu({ asOfValid: "2024-01-15", asOfRecorded });
     const newRead = await orgsValidesAu({
       asOfValid: "2024-01-15",
-      asOfRecorded: new Date(Date.now() + 60_000).toISOString(),
+      asOfRecorded: new Date(newRecorded + 60_000).toISOString(),
     });
     assert.ok(oldRead.some((row) => row.org_id === id && row.name.startsWith("Coverage recorded")));
     assert.ok(!oldRead.some((row) => row.org_id === id && row.name.startsWith("Corrected")));
