@@ -112,9 +112,9 @@ test("does not break on a series shorter than its history", () => {
 test("caps the evidence attached to one break", () => {
 	const counts = [...Array.from({ length: 10 }, () => 0), 6, 56];
 	const series = buildMonthlySeries(events(counts), { asOf: AS_OF });
-	const breaks = detectBreaks(series, { maxEvidence: 4 });
+	const breaks = detectBreaks(series, { maxEvidence: 10 });
 	assert.equal(breaks.length, 1);
-	assert.equal(breaks[0]?.eventIds.length, 4);
+	assert.equal(breaks[0]?.eventIds.length, 10);
 });
 
 test("replays the same analysis byte for byte", () => {

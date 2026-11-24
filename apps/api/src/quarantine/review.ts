@@ -12,15 +12,15 @@
  * à part. Une table dédiée serait plus propre ; ce sera le jour où les
  * migrations rentreront dans le périmètre.
  *
- * La promotion réutilise `promoteOne` : mêmes règles, même événement, même
- * évaluation d'alertes. Ce module ne réinvente pas la sortie de quarantaine.
+ * La promotion réutilise `promoteOneTx` puis le suivi d'alertes partagé :
+ * mêmes règles, même événement, même évaluation d'alertes.
  */
 import type { PoolClient } from "pg";
 import { query, withClient, withTransaction } from "../db.js";
 import { analyzeAliasIndex } from "../match/core.js";
-import { matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
+import { evaluerAlertesPromotion, matchOrgInIndex, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
 import { hintMatch, reviewIndexCacheActif, reviewSnapshot, snapshotRevueSiPret } from "./review-index.js";
-import { evaluateEvent } from "../detect/engine.js";
+
 import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { candidatesFor } from "./candidates.js";
 import { contextesDes, type ContexteLigne } from "./contexte.js";
@@ -375,11 +375,13 @@ export type ReviewOutcome = {
 	changed: number;
 	promoted: number;
 	alerts: number;
-	skipped: Array<{ id: number; reason: string }>;
+	/** Promotions committées dont les alertes restent à évaluer. */
+	alertesEnAttente: number;
 	/** Comptabilité du journal : faits posés, trous consignés, échecs restants. */
 	journalConsignes: number;
 	journalLacunes: number;
 	journalErreurs: number;
+	skipped: Array<{ id: number; reason: string }>;
 };
 
 const STATUS_FOR: Record<Exclude<ReviewAction, "promote">, string> = {
@@ -402,7 +404,7 @@ export async function applyReview(
 ): Promise<ReviewOutcome> {
 	const unique = [...new Set(ids.filter((id) => Number.isInteger(id) && id > 0))];
 	const outcome: ReviewOutcome = {
-		action, requested: unique.length, changed: 0, promoted: 0, alerts: 0, skipped: [],
+		action, requested: unique.length, changed: 0, promoted: 0, alerts: 0, alertesEnAttente: 0, skipped: [],
 		journalConsignes: 0, journalLacunes: 0, journalErreurs: 0,
 	};
 	if (unique.length === 0) return outcome;
@@ -429,15 +431,25 @@ export async function applyReview(
 			if (result === null) continue;
 			outcome.changed++;
 			outcome.promoted++;
-			// Après COMMIT : l'évaluation ouvre une autre connexion et doit voir l'événement.
-			outcome.alerts += result.inserted && result.eventId !== null
-				? await evaluateEvent(result.eventId, { force: true })
-				: 0;
+			// Après COMMIT : une panne d'évaluation ne remet pas en cause la
+			// décision ; le marqueur permet un rejeu ciblé.
+			try {
+				const suivi = await evaluerAlertesPromotion(id);
+				outcome.alerts += suivi.alerts;
+				if (suivi.pending) outcome.alertesEnAttente++;
+			} catch {
+				outcome.alertesEnAttente++;
+			}
 		}
 		return outcome;
 	}
 
 	const status = STATUS_FOR[action];
+	const hashes = new Map(
+		(await query<{ id: number; content_hash: string }>(
+			"SELECT id, content_hash FROM quarantine_raw WHERE id = ANY($1::bigint[])", [unique],
+		)).rows.map((row) => [Number(row.id), row.content_hash]),
+	);
 	const faits: JournalEntry[] = [];
 	await withClient(async (client) => {
 		await client.query("BEGIN");
@@ -463,10 +475,10 @@ export async function applyReview(
 					// reste, avec son auteur, son motif et sa date.
 					faits.push({
 						kind: "review.decided",
-						subject: `quarantine:${id}`,
+						subject: `quarantine:${hashes.get(id) ?? id}`,
 						summary: `${action} par ${actor}${reason ? ` — ${reason}` : ""}`,
 						actor: `humain:${actor}`,
-						payload: { action, reason, statutApplique: status, entry },
+						payload: { action, reason, statutApplique: status, entry, quarantineId: id },
 					});
 				} else outcome.skipped.push({ id, reason: action === "undo" ? "non annulable" : "déjà promu ou introuvable" });
 			}

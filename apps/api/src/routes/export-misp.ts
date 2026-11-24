@@ -12,7 +12,7 @@
  */
 import type { FastifyInstance } from "fastify";
 import { badRequest } from "../errors.js";
-import { exportMisp, MAX_MISP_LIMIT } from "../export/misp.js";
+import { decoderCursor, exportMisp, MAX_MISP_LIMIT } from "../export/misp.js";
 import { appliquerEnTetes, scellerExport, scellementHttpActif } from "../export/scellement.js";
 
 export default async function (app: FastifyInstance) {
@@ -49,23 +49,37 @@ export default async function (app: FastifyInstance) {
 			else throw badRequest("regional doit valoir true ou false");
 		}
 
+		let curseur: string | null = null;
+		if (q.cursor !== undefined && q.cursor !== "") {
+			try {
+				decoderCursor(q.cursor);
+				curseur = q.cursor;
+			} catch {
+				throw badRequest("cursor invalide");
+			}
+		}
+
 		const resultat = await exportMisp({
 			limit,
 			since,
 			source: q.source ?? null,
 			regional,
 			until,
+			cursor: curseur,
+			// Le scellement porte sur les octets exacts rendus. Il doit réussir
+			// avant que `export_run` ne consigne un export comme livré.
+			livrer: async ({ body }) => {
+				if (!scellementHttpActif()) return;
+				const scellement = await scellerExport({
+					reference: "/export/misp",
+					format: "misp-json",
+					contenu: body,
+				});
+				appliquerEnTetes((nom, valeur) => reply.header(nom, valeur), scellement);
+			},
 		});
-		// Le jeton couvre exactement les octets envoyés : il est obtenu avant
-		// la publication et la réponse échoue si la TSA ne répond pas.
-		if (scellementHttpActif()) {
-			const scellement = await scellerExport({
-				reference: "/export/misp",
-				format: "misp-json",
-				contenu: resultat.body,
-			});
-			appliquerEnTetes((nom, valeur) => reply.header(nom, valeur), scellement);
-		}
+		reply.header("X-Export-Truncated", resultat.hasMore ? "1" : "0");
+		if (resultat.nextCursor) reply.header("X-Export-Next-Cursor", resultat.nextCursor);
 		reply.header("Content-Type", "application/json; charset=utf-8");
 		reply.header("Content-Disposition", 'inline; filename="radar-signals.misp.json"');
 		reply.header("Cache-Control", "no-store");

@@ -20,10 +20,15 @@
  * `ambigu`…), jamais un libellé traduit : un libellé change, un motif se rejoue.
  */
 import type { MatchReason } from "../match/gazetteer.js";
+import { MOTEUR_RATTACHEMENT } from "../match/versions.js";
+
+/** Moteur courant (source unique) et versions historiques encore lisibles dans le journal. */
+export type MoteurRattachement = typeof MOTEUR_RATTACHEMENT
+	| "gazetteer@1" | "gazetteer@2" | "gazetteer@3" | "fuzzy@1" | "lien@1";
 
 /** Ce qu'on sait d'un rattachement, au moment où il est décidé. */
 export type ExplicationRattachement = {
-	moteur: "gazetteer@2" | "fuzzy@1" | "lien@1";
+	moteur: MoteurRattachement;
 	motif: MatchReason | "fuzzy" | "aucun";
 	alias: string | null;
 	confiance: number;

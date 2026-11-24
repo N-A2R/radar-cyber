@@ -49,7 +49,7 @@ test("the collector emits a late claim without changing its dedup key", async ()
   const late = post("Late victim", "2026-11-20T08:00:00.000Z");
   const expectedKey = `ransomlook:${claimKey(late)}`;
   const ctx: CollectContext = {
-    fetchJson: async () => [late],
+    fetchJson: async <T>() => [late] as unknown as T,
     fetchText: async () => "",
     cursor: { lastDate: "2026-11-21T06:00:00.000Z", seen: [] },
     log: () => {},

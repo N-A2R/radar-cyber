@@ -17,6 +17,7 @@ import Ajv from "ajv";
 import type { FastifyInstance } from "fastify";
 import { buildApp } from "../src/app.js";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `misp${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const SOURCE = `misp-export-${TAG}`;
@@ -72,7 +73,7 @@ before(async () => {
 });
 
 after(async () => {
-	if (ids.length > 0) await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+	if (ids.length > 0) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
 	await query("DELETE FROM export_run WHERE filters->>'source' = $1", [SOURCE]);
 	await query("DELETE FROM source WHERE id = $1", [SOURCE]);
 	await app.close();

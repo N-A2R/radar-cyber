@@ -1,3 +1,4 @@
+import { assertPublicDomain, fetchBoundedJson } from "../security/network.js";
 // DNS over HTTPS (Cloudflare) : A/AAAA et reverse PTR. Cache mémoire court.
 
 const TIMEOUT_MS = 5000;
@@ -39,18 +40,13 @@ function cached<T>(key: string, fn: () => Promise<T>, ttlMs = 60_000): Promise<T
  * « source en panne » pour ne pas fabriquer un faux changement.
  */
 export async function dohQuery(name: string, type: string): Promise<DohQueryResult> {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
-  try {
-    const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`, {
-      headers: { Accept: "application/dns-json" },
-      signal: ctrl.signal,
-    });
-    if (!res.ok) throw new Error(`DoH HTTP ${res.status}`);
-    const j = (await res.json()) as DohResponse;
-    const answers = (j.Answer ?? []).map((a) => a.data).filter((d): d is string => Boolean(d));
-    return { status: j.Status ?? 0, answers };
-  } finally { clearTimeout(t); }
+  const j = await fetchBoundedJson<DohResponse>(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`, {
+    timeoutMs: TIMEOUT_MS,
+    maxBytes: 64_000,
+    headers: { Accept: "application/dns-json" },
+  });
+  const answers = (j.Answer ?? []).map((a) => a.data).filter((d): d is string => Boolean(d));
+  return { status: j.Status ?? 0, answers };
 }
 
 export async function doh(name: string, type: string): Promise<string[]> {
@@ -61,11 +57,17 @@ export async function doh(name: string, type: string): Promise<string[]> {
   }
 }
 
+/**
+ * Seules les réponses validées sont mises en cache. NXDOMAIN (statut 3) est
+ * une réponse légitime : elle donne des listes vides ; une panne du résolveur
+ * lève et n'est pas confondue avec une absence d'enregistrement.
+ */
 export async function resolveDomain(domain: string): Promise<DnsResolution> {
-  return cached(`resolve:${domain}`, async () => ({
-    a: await doh(domain, "A"),
-    aaaa: await doh(domain, "AAAA"),
-  }));
+  const cible = assertPublicDomain(domain);
+  return cached(`resolve:${cible}`, async () => {
+    const [a, aaaa] = await Promise.all([dohQuery(cible, "A"), dohQuery(cible, "AAAA")]);
+    return { a: a.answers, aaaa: aaaa.answers };
+  });
 }
 
 export async function reverseIp(ip: string): Promise<string[]> {
@@ -75,6 +77,6 @@ export async function reverseIp(ip: string): Promise<string[]> {
     if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) {
       q = ip.split(".").reverse().join(".") + ".in-addr.arpa";
     }
-    return doh(q, "PTR");
+    return (await dohQuery(q, "PTR")).answers;
   });
 }

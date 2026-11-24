@@ -2,6 +2,7 @@
 // `fetch` global pour le clearnet ; `socks-proxy-agent` pour les URL `.onion`,
 // qui n'existent que derrière Tor.
 
+import { assertOnionFetchUrl, fetchBounded, NetworkLimitError, readBoundedStream, UnsafeUrlError } from "../security/network.js";
 import { request as httpRequest } from "node:http";
 import { request as httpsRequest } from "node:https";
 import { SocksProxyAgent } from "socks-proxy-agent";
@@ -55,8 +56,8 @@ function fetchThroughSocks(
       true,
     );
   }
+  const target = assertOnionFetchUrl(url);
   const agent = new SocksProxyAgent(socks);
-  const target = new URL(url);
   const send = target.protocol === "https:" ? httpsRequest : httpRequest;
 
   const { promise, resolve, reject } = Promise.withResolvers<{
@@ -77,16 +78,14 @@ function fetchThroughSocks(
       timeout: timeoutMs,
     },
     (res) => {
-      const chunks: Buffer[] = [];
-      res.on("data", (chunk: Buffer) => chunks.push(chunk));
-      res.on("end", () =>
-        resolve({
+      void readBoundedStream(res).then(
+        (buffer) => resolve({
           status: res.statusCode ?? 0,
-          buffer: Buffer.concat(chunks),
+          buffer,
           contentType: (res.headers["content-type"] as string | undefined) ?? null,
         }),
+        (err: unknown) => { req.destroy(); reject(err); },
       );
-      res.on("error", reject);
     },
   );
   req.on("timeout", () => req.destroy(new Error(`délai dépassé (${timeoutMs} ms) via Tor`)));
@@ -120,6 +119,10 @@ export interface FetchResilientOpts {
   ifModifiedSince?: string;
   /** En-têtes supplémentaires (ex. `Auth-Key` des API abuse.ch). */
   headers?: Record<string, string>;
+  /** Serveur local explicite en test uniquement (refusé en production). */
+  allowPrivate?: boolean;
+  /** Fetch injecté par les tests : la validation d'URL reste appliquée. */
+  fetchImpl?: typeof fetch;
   /** Clé de l'état de backoff ; l'URL sert de clé quand la source n'est pas nommée. */
   source?: string;
 }
@@ -204,12 +207,30 @@ export function resetSourceBackoff(source: string): void {
   backoffBySource.delete(source);
 }
 
+/**
+ * Une réponse ≥ 400 n'est jamais un contenu à ingérer. Le statut reste
+ * visible pour décider du backoff ; le corps, lui, n'est pas lu.
+ */
+export class SourceHttpError extends Error {
+  readonly status: number;
+  readonly retryAfterMs: number | null;
+
+  constructor(url: string, status: number, retryAfterMs: number | null = null) {
+    super(`HTTP ${status} pour ${url}${retryAfterMs !== null ? ` (Retry-After ${Math.ceil(retryAfterMs / 1000)} s)` : ""}`);
+    this.name = "SourceHttpError";
+    this.status = status;
+    this.retryAfterMs = retryAfterMs;
+  }
+}
+
 function isTransientStatus(status: number): boolean {
   return status === 429 || (status >= 500 && status < 600);
 }
 
 function isTransientError(err: unknown): boolean {
   if (err instanceof SourceBlockedError || err instanceof SourceBackoffError) return false;
+  if (err instanceof UnsafeUrlError || err instanceof NetworkLimitError) return false;
+  if (err instanceof SourceHttpError) return isTransientStatus(err.status);
   const e = err as { name?: string; message?: string } | null;
   return e?.name === "AbortError" || e?.name === "TimeoutError"
     || /timeout|timed out|etimedout|délai dépassé/i.test(e?.message ?? "");
@@ -227,11 +248,10 @@ export async function fetchResilient(
   const remaining = Math.max(sourceBackoffRemainingMs(source), torBackoffRemainingMs(source));
   if (remaining > 0) throw new SourceBackoffError(source, remaining);
   try {
+    // Une réponse rendue ici est un 2xx ou un 304 : aucune page d'erreur
+    // n'atteint le parseur, et le succès remet le backoff à zéro.
     const result = await fetchResilientOnce(url, opts);
-    if (isOnionUrl(url)) {
-      if (isTransientStatus(result.status)) noteTorFailure(source, `HTTP ${result.status}`);
-      else resetTorBackoff(source);
-    } else if (isTransientStatus(result.status)) noteSourceFailure(source);
+    if (isOnionUrl(url)) resetTorBackoff(source);
     else resetSourceBackoff(source);
     return result;
   } catch (err) {
@@ -267,6 +287,7 @@ async function fetchResilientOnce(
     if (r.status === 403) {
       throw new SourceBlockedError(`Source blocked (403) via Tor pour ${url}`, true);
     }
+    if (r.status >= 400) throw new SourceHttpError(url, r.status);
     return {
       status: r.status,
       text: decodeBody(r.buffer, r.contentType).text,
@@ -292,7 +313,13 @@ async function fetchResilientOnce(
     if (ifModifiedSince) headers["If-Modified-Since"] = ifModifiedSince;
 
     try {
-      const res = await fetch(url, { method: "GET", headers, signal: controller.signal });
+      const res = await fetchBounded(url, {
+        headers,
+        timeoutMs,
+        signal: controller.signal,
+        allowPrivate: opts.allowPrivate,
+        fetchImpl: opts.fetchImpl,
+      });
       clearTimeout(timer);
 
       const etag = res.headers.get("etag");
@@ -309,34 +336,23 @@ async function fetchResilientOnce(
         throw new SourceBlockedError(`Source blocked (403) for ${url}`, true);
       }
 
-      if (res.status === 429 || res.status === 503) {
-        if (attempt >= maxAttempts) {
-          const ab = await res.arrayBuffer().catch(() => new ArrayBuffer(0));
-          const buffer = Buffer.from(ab);
-          const text = buffer.toString("utf8");
-          return { status: res.status, text, notModified: false, buffer, contentType: res.headers.get("content-type") };
-        }
+      if (res.status >= 400) {
         const retryAfter = parseRetryAfter(res.headers.get("retry-after"));
-        let delay: number;
-        if (retryAfter !== null) {
-          delay = retryAfter;
-        } else {
-          const base = Math.min(60000, 1000 * Math.pow(2, attempt - 1));
-          delay = Math.floor(base * (0.5 + Math.random() * 0.5));
+        if (isTransientStatus(res.status) && attempt < maxAttempts) {
+          const delay = retryAfter ?? Math.floor(Math.min(60000, 1000 * Math.pow(2, attempt - 1)) * (0.5 + Math.random() * 0.5));
+          await sleep(Math.min(60000, delay));
+          continue;
         }
-        delay = Math.min(60000, delay);
-        await sleep(delay);
-        continue;
+        throw new SourceHttpError(url, res.status, retryAfter);
       }
 
-      const ab = await res.arrayBuffer();
-      const buffer = Buffer.from(ab);
+      const buffer = res.buffer;
       const text = buffer.toString("utf8");
       return { status: res.status, text, notModified: false, buffer, contentType: res.headers.get("content-type") };
     } catch (err) {
       clearTimeout(timer);
       lastError = err;
-      if (err instanceof SourceBlockedError) throw err;
+      if (err instanceof SourceHttpError || err instanceof SourceBlockedError) throw err;
       if (attempt >= maxAttempts) break;
       const base = Math.min(60000, 1000 * Math.pow(2, attempt - 1));
       const delay = Math.floor(base * (0.5 + Math.random() * 0.5));

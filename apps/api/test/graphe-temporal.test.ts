@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import graphTemporalRoute from "../src/routes/graph-temporal.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `gt${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const MARCH = "2026-03-10T10:00:00.000Z";
@@ -81,7 +82,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
   await query("DELETE FROM org WHERE id = $1", [orgId]);
   await query("DELETE FROM source WHERE id = $1", [TAG]);
   await query("DELETE FROM dns_snapshot WHERE domain = $1", [DOMAIN]);

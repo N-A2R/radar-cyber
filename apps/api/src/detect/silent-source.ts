@@ -10,6 +10,8 @@
  * delay is not assumed here — it is measured by `scripts/measure-silent-source.mts`
  * over a 30-day replay and published in `docs/source-muette-24h.md`.
  */
+import { SILENT_SOURCE_SCOPE } from "../alert-scope.js";
+export { SILENT_SOURCE_SCOPE };
 export const HOUR_MS = 3_600_000;
 export const DAY_MS = 86_400_000;
 
@@ -21,7 +23,7 @@ export const CADENCE_WINDOW_DAYS = 7;
 export const MIN_CADENCE_DAYS = 3;
 
 export const SILENT_SOURCE_RULE = "supervision:silent-source-24h";
-export const SILENT_SOURCE_SCOPE = "supervision-silent-source";
+
 
 export type SourceSignal = {
 	/** Public source identifier. Never an organisation or a victim. */

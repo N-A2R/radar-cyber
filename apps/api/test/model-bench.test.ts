@@ -15,7 +15,7 @@ import {
   type BinaryModel,
   type EvalCase,
 } from "../src/eval/binary-bench.js";
-import { buildCases, hasNaAnchor, parseCorpus } from "../src/eval/corpus.js";
+import { buildCases, hasNaAnchor, parseCorpus, type EventMetadata } from "../src/eval/corpus.js";
 import { falseEventGateModel, relevanceGateModel } from "../src/eval/models.js";
 import { loadRelevanceConfig } from "../src/collectors/pertinence.js";
 
@@ -155,9 +155,9 @@ test("case builder keeps real anchors and excludes absent events", () => {
   });
   const built = buildCases(
     items,
-    new Map([
-      [1, { orgId: null, regional: false }],
-      [2, { orgId: 77, regional: false }],
+    new Map<number, EventMetadata>([
+      [1, { id: 1, orgId: null, regional: false }],
+      [2, { id: 2, orgId: 77, regional: false }],
     ]),
   );
   assert.equal(built.matched, 2);

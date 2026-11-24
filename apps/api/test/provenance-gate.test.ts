@@ -21,6 +21,7 @@ import {
   type ProvenanceEntry,
 } from "../src/custody/gate.js";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const SCRIPT = fileURLToPath(new URL("../../../scripts/provenance.mts", import.meta.url));
 const TSX = fileURLToPath(new URL("../node_modules/.bin/tsx", import.meta.url));
@@ -56,7 +57,9 @@ function artifact(entries: ProvenanceEntry[]): ProvenanceArtifact {
   return {
     definition: "test ledger",
     scope: PROVENANCE_SCOPE,
-    generatedAt: OBSERVED,
+    // Le CLI refuse désormais un artefact plus vieux que 24 h : les faits
+    // gardent leurs dates fixes, seule l'horodature de mesure suit l'horloge.
+    generatedAt: new Date().toISOString(),
     organisations: REAL_STATE.organisations,
     sources: REAL_STATE.sources,
     events: REAL_STATE.events,
@@ -182,7 +185,7 @@ test("the measured ledger carries no victim title or journal summary", async () 
     assert.ok(ledger.entries.every((entry) => entry.event.title === null));
     assert.ok(ledger.entries.every((entry) => entry.facts.every((fact) => fact.summary === "")));
   } finally {
-    await query("DELETE FROM event WHERE source_id = $1", [sourceId]);
+    await supprimerEvenementsArchivees("source_id = $1", [sourceId]);
     await query("DELETE FROM source WHERE id = $1", [sourceId]);
     rmSync(dir, { recursive: true, force: true });
   }

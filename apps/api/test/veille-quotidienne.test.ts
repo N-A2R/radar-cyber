@@ -38,7 +38,7 @@ function evenement(id: string, numero: number, runId: number): NormalizedEvent {
 			: "Des documents médicaux ont été exfiltrés d'un hôpital de Charente-Maritime.",
 		observedAt: new Date().toISOString(),
 		sourceUrl: `https://${TAG}.fr/${numero}`,
-		confidence: "A1",
+		severity: 3,
 		sourceId: id,
 		evidence: { group: groupe, run_id: "1" },
 		geoType: "unknown",
@@ -107,7 +107,7 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 		assert.equal(ecrit.evenements, resume.evenements);
 		assert.equal(ecrit.campagnesActives, resume.campagnesActives);
 
-		const effets = await query<{ n: string }>(
+		const effets = await query<{ n_events: string; n_scores: string; n_runs: string; n_cycles: string; n_campagnes: string; n_alertes: string }>(
 			`SELECT
 			   (SELECT count(*) FROM event WHERE source_id = ANY($1::text[]))::text AS n_events,
 			   (SELECT count(*) FROM event_confidence ec JOIN event e ON e.id = ec.event_id WHERE e.source_id = ANY($1::text[]))::text AS n_scores,
@@ -117,7 +117,7 @@ test("cycle complet de veille : collecte, incidents, confiance, campagnes, résu
 			   (SELECT count(*) FROM alert WHERE created_at >= now() - interval '1 hour')::text AS n_alertes`,
 			[IDS],
 		);
-		const ligne = effets.rows[0] ?? {};
+		const ligne = effets.rows[0]!;
 		assert.ok(Number(ligne.n_events ?? 0) >= 2, "les événements sont en base");
 		assert.ok(Number(ligne.n_scores ?? 0) >= 2, "les scores sont en base");
 		assert.ok(Number(ligne.n_runs ?? 0) >= 2, "les runs de collecte sont tracés");

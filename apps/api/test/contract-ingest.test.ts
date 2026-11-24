@@ -62,7 +62,22 @@ before(async () => {
 after(async () => {
 	if (app) await app.close();
 	await query("DELETE FROM alert WHERE event_id IN (SELECT id FROM event WHERE dedup_key LIKE $1)", [`${PREFIX}%`]);
+	const copies = await query<{ dedup_key: string }>(
+		`INSERT INTO archive_event
+		   (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+		    valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+		    lat, lon, org_id, asset_id, created_at)
+		 SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+		        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+		        lat, lon, org_id, asset_id, created_at
+		   FROM event WHERE dedup_key LIKE $1
+		 ON CONFLICT DO NOTHING RETURNING dedup_key`,
+		[`${PREFIX}%`],
+	);
+	const clefs = copies.rows.map((ligne) => ligne.dedup_key);
 	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIX}%`]);
+	await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
+	await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
 	await query("DELETE FROM app_session WHERE user_id = $1", [userId]);
 	await query("DELETE FROM app_user WHERE id = $1", [userId]);
 	// Les runs de la route /ingest citent la source : ils partent avant elle.

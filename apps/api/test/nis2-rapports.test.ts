@@ -12,7 +12,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, test } from "node:test";
 import { createHash } from "node:crypto";
-import { query } from "../src/db.js";
+import { closePools, query } from "../src/db.js";
 import {
   CRITERE_BROUILLONS_NIS2,
   compteurBrouillonsIncomplets,
@@ -38,6 +38,29 @@ type Brouillon = {
 let eventId: string;
 let dossier: string;
 
+/** Migration 231 : un événement ne peut être supprimé qu'après copie intégrale. */
+async function supprimerEvenementsDeTest(ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  const copies = await query<{ dedup_key: string }>(
+    `INSERT INTO archive_event
+       (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+        lat, lon, org_id, asset_id, created_at)
+     SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+            valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+            lat, lon, org_id, asset_id, created_at
+       FROM event WHERE id = ANY($1::bigint[])
+     ON CONFLICT DO NOTHING
+     RETURNING dedup_key`,
+    [ids],
+  );
+  const clefs = copies.rows.map((ligne) => ligne.dedup_key);
+  await query("DELETE FROM notification_brouillon WHERE source_event_id = ANY($1::bigint[])", [ids]);
+  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
+  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
+}
+
 before(async () => {
   await query(
     `INSERT INTO source (id, name, family, url, region, enabled)
@@ -60,13 +83,16 @@ before(async () => {
 });
 
 after(async () => {
-  if (eventId) {
-    await query("DELETE FROM notification_brouillon WHERE source_event_id = $1", [eventId]);
-    await query("DELETE FROM rapport_nis2_export WHERE source_event_id = $1", [eventId]);
-    await query("DELETE FROM event WHERE id = $1", [eventId]);
-    await query("DELETE FROM source WHERE id = $1", [SOURCE_ID]);
+  try {
+    if (eventId) {
+      await query("DELETE FROM rapport_nis2_export WHERE source_event_id = $1", [eventId]);
+      await supprimerEvenementsDeTest([eventId]);
+      await query("DELETE FROM source WHERE id = $1", [SOURCE_ID]);
+    }
+    if (dossier) await rm(dossier, { recursive: true, force: true });
+  } finally {
+    await closePools();
   }
-  if (dossier) await rm(dossier, { recursive: true, force: true });
 });
 
 async function brouillons(): Promise<Brouillon[]> {
@@ -153,7 +179,7 @@ test("deux exports datés par incident contiennent les trois sections obligatoir
 
 test("une correction de la date incident recale les deux échéances sans doubler les brouillons", async () => {
   const avant = (await brouillons()).filter((b) => b.regime !== "NIS2_24h");
-  await query("UPDATE event SET valid_at = valid_at + interval '1 day' WHERE id = $1", [eventId]);
+  await query("UPDATE event SET valid_at = valid_at + interval '1 day', at = at + interval '1 day' WHERE id = $1", [eventId]);
   const apres = (await brouillons()).filter((b) => b.regime !== "NIS2_24h");
   assert.equal(apres.length, 2, "aucun brouillon supplémentaire");
   for (const ligne of apres) {
@@ -182,7 +208,6 @@ test("un brouillon incomplet ne peut pas être inséré", async () => {
       ),
     );
   } finally {
-    await query("DELETE FROM notification_brouillon WHERE source_event_id = $1", [id]);
-    await query("DELETE FROM event WHERE id = $1", [id]);
+    await supprimerEvenementsDeTest([id]);
   }
 });

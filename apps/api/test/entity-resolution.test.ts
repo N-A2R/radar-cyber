@@ -67,13 +67,16 @@ test("a benign mention is not an organization attribution", () => {
 	assert.equal(match.reason, "ambiant");
 });
 
-test("the first of two distinct named organizations wins", () => {
+test("two distinct named organizations stay ambiguous", () => {
 	const gaz = buildGazetteer([
 		row(2, "Université de Bordeaux", { kind: "enseignement" }),
 		row(1, "CHU de Bordeaux", { kind: "sante" }),
 	]);
 	const match = resoudre(gaz, "L'Université de Bordeaux et le CHU de Bordeaux coordonnent leur réponse");
-	assert.equal(match.org?.id, 2);
+	// Coordonner n'attribue la victime ni à l'une ni à l'autre : la position
+	// dans la phrase ne doit pas inventer un rattachement.
+	assert.equal(match.org, null);
+	assert.equal(match.reason, "ambigu");
 });
 
 test("an alias shared by two organizations stays ambiguous", () => {

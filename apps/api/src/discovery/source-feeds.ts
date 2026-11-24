@@ -5,6 +5,7 @@
  * paths are probed. A URL is kept only when the production parser agrees that
  * it is a feed with at least one item. No article text or victim data is kept.
  */
+import { assertStaticHttpUrl, fetchBounded } from "../security/network.js";
 import { createHash } from "node:crypto";
 import { ingestQuery, query } from "../db.js";
 import { parseSource } from "../collectors/parsers/formats.js";
@@ -122,25 +123,13 @@ export const SOURCE_FEED_PATHS = [
 /** One bounded GET, no retry, at most 512 KB of body. */
 export function makeSourceFeedFetch(timeoutMs = 3500): FetchLike {
 	return async (url) => {
-		const response = await fetch(url, {
+		const response = await fetchBounded(url, {
 			headers: { "User-Agent": USER_AGENT, Accept: ACCEPT },
-			signal: AbortSignal.timeout(timeoutMs),
-			redirect: "follow",
+			timeoutMs,
+			maxBytes: 512_000,
+			rejectIpLiteral: true,
 		});
-		const chunks: Buffer[] = [];
-		let total = 0;
-		const reader = response.body?.getReader();
-		if (reader) {
-			while (total < 512_000) {
-				const { done, value } = await reader.read();
-				if (done) break;
-				chunks.push(Buffer.from(value));
-				total += value.byteLength;
-			}
-			await reader.cancel().catch(() => {});
-		}
-		const buffer = Buffer.concat(chunks);
-		return { status: response.status, text: buffer.toString("utf8"), buffer };
+		return { status: response.status, text: response.buffer.toString("utf8"), buffer: response.buffer };
 	};
 }
 
@@ -177,6 +166,7 @@ export function canonicalFeedUrl(url: string): string {
 export function candidateFeedUrls(sourceUrl: string, alternateLinks: string[] = []): string[] {
 	let parsed: URL;
 	try {
+		assertStaticHttpUrl(sourceUrl, { rejectIpLiteral: true });
 		parsed = new URL(sourceUrl);
 	} catch {
 		return [];
@@ -217,8 +207,8 @@ export function feedLinksFromHtml(html: string, base: string): string[] {
 	while ((match = anchors.exec(html)) !== null) {
 		if (!FEED_LINK_HINT.test(match[1]!)) continue;
 		try {
-			const absolute = new URL(match[1]!, base).toString();
-			if (/^https?:$/.test(new URL(absolute).protocol) && !links.includes(absolute)) links.push(absolute);
+			const absolute = assertStaticHttpUrl(new URL(match[1]!, base).href, { rejectIpLiteral: true }).url.href;
+			if (!links.includes(absolute)) links.push(absolute);
 		} catch {
 			continue;
 		}
@@ -230,6 +220,7 @@ export function feedLinksFromHtml(html: string, base: string): string[] {
 export async function validateFeed(fetch: FetchLike, url: string): Promise<ValidatedFeed["format"] | null> {
 	let probe: HttpProbe;
 	try {
+		assertStaticHttpUrl(url, { rejectIpLiteral: true });
 		probe = await fetch(url);
 	} catch {
 		return null;
@@ -333,6 +324,7 @@ export async function discoverSourceFeeds(options: SourceFeedOptions): Promise<S
 			try {
 				let alternates: string[] = [];
 				try {
+					assertStaticHttpUrl(source.url, { rejectIpLiteral: true });
 					const page = await options.fetch(source.url);
 					if (page.status >= 200 && page.status < 300) {
 						const body = decodeSitemapBody(page.buffer ?? page.text, 512_000);

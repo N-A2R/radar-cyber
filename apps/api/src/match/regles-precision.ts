@@ -39,7 +39,7 @@
  * Coût mesuré (S4.3) : +0,00 ms par indice — les prédicats sont O(jetons).
  */
 
-import { GENERIC_TOKENS } from "../quarantine/promote.js";
+import { GENERIC_TOKENS, normalizeNom } from "./normalisation.js";
 import type { DecisionSigle } from "./sigles.js";
 
 
@@ -70,19 +70,8 @@ export type TraceRegle = {
 /** Jetons discriminants d'un texte — même prédicat que le bloc nom du
  * moteur (≥ 3 caractères, ni générique ni forme juridique). */
 export function jetonsDiscriminants(texte: string): string[] {
-	const jetons = normalize(texte).split(" ");
+	const jetons = normalizeNom(texte).split(" ");
 	return [...new Set(jetons.filter((t) => t.length >= 3 && !GENERIC_TOKENS.has(t)))];
-}
-
-function normalize(texte: string): string {
-	return texte
-		.replace(/œ/g, "oe")
-		.replace(/æ/g, "ae")
-		.normalize("NFD")
-		.replace(/\p{Diacritic}/gu, "")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, " ")
-		.trim();
 }
 
 /** Marqueurs de commentaire de fuite : le texte décrit une fuite, il ne

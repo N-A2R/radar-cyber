@@ -38,13 +38,15 @@ export function delaiBackoffMs(echecsConsecutifs: number): number {
 	return DELAIS_BACKOFF_MS[index] as number;
 }
 
-export type EtatSante = "jamais-collectee" | "saine" | "degradee" | "en-erreur" | "morte" | "desactivee";
+export type EtatSante = "jamais-collectee" | "saine" | "degradee" | "en-erreur" | "morte" | "desactivee" | "en-attente-branchement";
 
 export type SanteSource = {
 	id: string;
 	etat: EtatSante;
 	statut: string;
 	enabled: boolean;
+	/** false = collecteur non branché : ni planifié, ni relancé, même avec force. */
+	pretACollecter?: boolean | null;
 	echecsConsecutifs: number;
 	dernierOk: Date | null;
 	dernierEchec: Date | null;
@@ -55,6 +57,7 @@ export type SanteSource = {
 type LigneSante = {
 	statut: string;
 	enabled: boolean;
+	pret_a_collecter: boolean | null;
 	echecs_consecutifs: number;
 	last_ok_at: string | null;
 	last_error_at: string | null;
@@ -65,6 +68,7 @@ type LigneSante = {
 /** L'état de santé se lit dans la source, pas dans une copie en mémoire. */
 export function classifierSante(ligne: LigneSante): EtatSante {
 	if (ligne.statut === "morte" || ligne.echecs_consecutifs >= SEUIL_ECHECS_MORTE) return "morte";
+	if (ligne.pret_a_collecter === false) return "en-attente-branchement";
 	if (!ligne.enabled) return "desactivee";
 	if (ligne.echecs_consecutifs >= 3) return "en-erreur";
 	if (ligne.echecs_consecutifs > 0) return "degradee";
@@ -74,7 +78,7 @@ export function classifierSante(ligne: LigneSante): EtatSante {
 
 export async function lireSanteSource(sourceId: string): Promise<SanteSource | null> {
 	const { rows } = await query<LigneSante>(
-		`SELECT s.statut, s.enabled, s.echecs_consecutifs, s.last_ok_at, s.last_error_at, s.last_error,
+		`SELECT s.statut, s.enabled, s.pret_a_collecter, s.echecs_consecutifs, s.last_ok_at, s.last_error_at, s.last_error,
 		        (SELECT r.status FROM collector_run r
 		          WHERE r.source_id = s.id AND r.kind IN ('live', 'scan', 'ingest')
 		          ORDER BY r.finished_at DESC NULLS LAST, r.started_at DESC LIMIT 1) AS dernier_statut
@@ -93,6 +97,7 @@ export async function lireSanteSource(sourceId: string): Promise<SanteSource | n
 		etat: classifierSante(ligne),
 		statut: ligne.statut,
 		enabled: ligne.enabled,
+		pretACollecter: ligne.pret_a_collecter,
 		echecsConsecutifs: ligne.echecs_consecutifs,
 		dernierOk: date(ligne.last_ok_at),
 		dernierEchec: date(ligne.last_error_at),
@@ -102,7 +107,7 @@ export async function lireSanteSource(sourceId: string): Promise<SanteSource | n
 }
 
 export type RaisonCollecte =
-	| "jamais-collectee" | "forced" | "due" | "backoff" | "intervalle" | "morte" | "desactivee";
+	| "jamais-collectee" | "forced" | "due" | "backoff" | "intervalle" | "morte" | "desactivee" | "en-attente-branchement";
 
 export type DecisionCollecte = {
 	sourceId: string;
@@ -124,6 +129,7 @@ export function doitCollecter(
 	// elle entre dans le cycle comme si elle n'avait jamais été collectée.
 	if (!sante) return decision(true, "jamais-collectee");
 	if (sante.etat === "morte") return decision(false, "morte");
+	if (sante.pretACollecter === false) return decision(false, "en-attente-branchement");
 	if (!sante.enabled) return decision(false, "desactivee");
 	if (options.force) return decision(true, "forced");
 	if (sante.etat === "jamais-collectee") return decision(true, "jamais-collectee");
@@ -257,11 +263,14 @@ export async function executerPlan(
  * Sources actives encore sans aucun run : le ratissage de fin de cycle les
  * reprend une par une. Même un échec y écrit un `collector_run`, donc une
  * source tentée n'est plus « jamais collectée » — elle est désormais mesurable.
+ * Les sources `pret_a_collecter = false` sont exclues : elles ne sont pas en
+ * attente d'un run, elles attendent un collecteur branché.
  */
 export async function sourcesJamaisCollectees(limite = 100, ids?: readonly string[]): Promise<string[]> {
 	const params: unknown[] = [[...COLLECTEURS_DEDIES_IDS, "hermes_radar_cyber"]];
 	let sql = `SELECT s.id FROM source s
 		  WHERE s.enabled AND s.statut <> 'morte' AND s.kind <> 'quarantine'
+		    AND s.pret_a_collecter IS NOT FALSE
 		    AND s.id <> ALL($1::text[])
 		    AND NOT EXISTS (
 		      SELECT 1 FROM collector_run r
@@ -334,7 +343,8 @@ async function constaterSucces(sourceId: string, log: (msg: string) => void): Pr
 		const echecsAvant = avant[0]?.echecs ?? 0;
 		await query(
 			`UPDATE source
-			    SET echecs_consecutifs = 0, last_ok_at = now(), last_error = NULL, last_error_at = NULL
+			    SET echecs_consecutifs = 0, last_ok_at = now(), pret_a_collecter = true,
+			        last_error = NULL, last_error_at = NULL
 			  WHERE id = $1`,
 			[sourceId],
 		);

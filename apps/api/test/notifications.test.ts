@@ -252,7 +252,6 @@ test("an unreachable SMTP server is recorded as a failed email attempt", async (
       emailPort: 1,
       emailFrom: "radar@example.invalid",
       emailTo: "ops@example.invalid",
-      timeoutMs: 2000,
     },
     limit: 1000,
   });
@@ -328,14 +327,23 @@ test("the RSS route is public, returns XML and cannot leak free text", async (t:
 test("shared message builder emits English structured labels only", () => {
   const alert = {
     id: 42,
+    title: "Alerte de test",
     severity: 4,
     status: "open",
     created_at: new Date("2026-11-22T12:00:00Z"),
     attempts: 0,
+    webhook_delivered_at: null,
+    telegram_delivered_at: null,
+    email_delivered_at: null,
     org_name: "Entreprise & Fils <test>",
     org_dept: "33",
+    org_kind: "entreprise",
     source_name: "Presse NA",
     source_url: "https://example.invalid/story?token=secret#part",
+    event_title: "Événement confidentiel",
+    url_orientation: null,
+    actions: null,
+    lien_verifie_le: null,
   };
   const message = buildNotificationMessage(alert, "https://radar.example.invalid/");
   assert.equal(message.subject, "[Radar Cyber] Nouvelle-Aquitaine alert #42 - severity high");
@@ -354,7 +362,12 @@ test("shared message builder emits English structured labels only", () => {
 test("configuration enables delivery only with complete channel settings", () => {
   const empty = readDeliveryConfig({});
   assert.equal(isDeliveryConfigured(empty), false);
-  const webhook = readDeliveryConfig({ RADAR_ALERT_WEBHOOK_URL: "https://hooks.example.invalid/radar" });
+  const incomplete = readDeliveryConfig({ RADAR_ALERT_WEBHOOK_URL: "https://hooks.example.invalid/radar" });
+  assert.equal(isDeliveryConfigured(incomplete), false, "une URL sans secret n'est pas une configuration exploitable");
+  const webhook = readDeliveryConfig({
+    RADAR_ALERT_WEBHOOK_URL: "https://hooks.example.invalid/radar",
+    RADAR_ALERT_WEBHOOK_SECRET: "secret-de-test",
+  });
   assert.equal(isDeliveryConfigured(webhook), true);
   const email = readDeliveryConfig({
     RADAR_ALERT_EMAIL_HOST: "127.0.0.1",

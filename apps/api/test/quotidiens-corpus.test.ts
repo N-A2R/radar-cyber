@@ -25,6 +25,7 @@ type Quotidien = {
 	id: string;
 	nom: string;
 	url_flux: string;
+	flux_http: number;
 	url_site: string;
 	items: number;
 	frequence: string;

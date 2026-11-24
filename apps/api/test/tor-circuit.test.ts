@@ -41,6 +41,34 @@ test("un échec circuit change le circuit de la source et applique un court back
   assert.ok(torBackoffRemainingMs("onion:ccw:alpha") > 0);
 });
 
+test("un échec change réellement de point de sortie : 2 puis 4 endpoints", () => {
+  const deux = { RADAR_TOR_SOCKS_LIST: "socks5h://127.0.0.1:9050,socks5h://127.0.0.1:9051" };
+  const source = "onion:rotation:deux";
+  assert.equal(new URL(rotatedTorSocks(source, deux)!).port, "9050");
+  noteTorFailure(source, new Error("circuit"));
+  assert.equal(new URL(rotatedTorSocks(source, deux)!).port, "9051", "un échec doit quitter le proxy mort");
+  noteTorFailure(source, new Error("circuit"));
+  assert.equal(new URL(rotatedTorSocks(source, deux)!).port, "9050");
+
+  const quatre = {
+    RADAR_TOR_SOCKS_LIST: "socks5h://127.0.0.1:9050,socks5h://127.0.0.1:9051,socks5h://127.0.0.1:9052,socks5h://127.0.0.1:9053",
+  };
+  const sourceQuatre = "onion:rotation:quatre";
+  const ports: string[] = [];
+  for (let i = 0; i < 5; i++) {
+    ports.push(new URL(rotatedTorSocks(sourceQuatre, quatre)!).port);
+    noteTorFailure(sourceQuatre, new Error("circuit"));
+  }
+  assert.deepEqual(ports, ["9050", "9051", "9052", "9053", "9050"], "tous les points de sortie sont atteints");
+});
+
+test("la rotation dépend de la source, pas d'un curseur global", () => {
+  const env = { RADAR_TOR_SOCKS_LIST: "socks5h://127.0.0.1:9050,socks5h://127.0.0.1:9051" };
+  noteTorFailure("onion:rotation:alpha", new Error("circuit"));
+  assert.equal(new URL(rotatedTorSocks("onion:rotation:alpha", env)!).port, "9051");
+  assert.equal(new URL(rotatedTorSocks("onion:rotation:beta", env)!).port, "9050", "une autre source démarre au premier proxy");
+});
+
 test("les causes bloquée et contenu invalide ont des paliers distincts", () => {
   assert.equal(classifyTorCause({ permanent: true, message: "403" }), "blocked");
   assert.equal(classifyTorCause(new Error("délai dépassé via Tor")), "timeout");

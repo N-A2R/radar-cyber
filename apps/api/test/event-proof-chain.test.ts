@@ -11,6 +11,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { closePools, query } from "../src/db.js";
 import { ligneObjectifPreuve, verifierDeclarationObjectifPreuve } from "../src/collecte/objectif.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const MESURE_OBJECTIF = {
   verificationsOk: 7,
@@ -28,7 +29,7 @@ const createdRuns: number[] = [];
 
 after(async () => {
   if (createdEvents.length > 0) {
-    await query("DELETE FROM event WHERE dedup_key = ANY($1::text[])", [createdEvents]).catch(() => {});
+    await supprimerEvenementsArchivees("dedup_key = ANY($1::text[])", [createdEvents]).catch(() => {});
   }
   // Les runs cités ne peuvent partir qu'après leurs événements.
   for (const runId of createdRuns) {
@@ -148,7 +149,7 @@ test("une preuve complète est acceptée, citée, et son run est protégé", asy
   const err = await rejection(query("DELETE FROM collector_run WHERE id=$1", [runId]));
   assert.equal(err.code, "23503");
 
-  await query("DELETE FROM event WHERE dedup_key=$1", [dedupKey]);
+  await supprimerEvenementsArchivees("dedup_key = $1", [dedupKey]);
   await query("DELETE FROM collector_run WHERE id=$1", [runId]);
   createdEvents.splice(createdEvents.indexOf(dedupKey), 1);
   createdRuns.splice(createdRuns.indexOf(runId), 1);

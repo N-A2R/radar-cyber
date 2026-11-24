@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import { ingestQuery } from "../src/db.js";
 import { NA_DEPARTMENTS, inputFromRow, loadInsuranceCorpus, loadInsuranceGroups, loadOrganizationInputs } from "../src/insurance/query.js";
 import { sirenUnique } from "./helpers/siren.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const REFERENCE = new Date().toISOString().slice(0, 10);
 const SIREN = sirenUnique("insurance-query");
@@ -44,13 +45,13 @@ async function prepare(): Promise<{ naId: number; otherId: number }> {
      ON CONFLICT (id) DO NOTHING`,
   );
   await ingestQuery(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, at, severity, org_id, source_id,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, at, valid_at, severity, org_id, source_id,
                         source_url, evidence)
-     VALUES ('insurance-claim-na', 'ransomware', 'third_party_claim', 'Synthetic fixture claim', $1::date, 4, $2::int, 'grey-forum',
+     VALUES ('insurance-claim-na', 'ransomware', 'third_party_claim', 'Synthetic fixture claim', $1::date, $1::date, 4, $2::int, 'grey-forum',
              'https://example.invalid/insurance/claim-na', '{"run_id":"1"}'::jsonb),
-            ('insurance-ambient-na', 'cti', 'ambient_signal', 'Synthetic fixture signal', $1::date, 3, $2::int, 'public-cti',
+            ('insurance-ambient-na', 'cti', 'ambient_signal', 'Synthetic fixture signal', $1::date, $1::date, 3, $2::int, 'public-cti',
              'https://example.invalid/insurance/ambient-na', '{"run_id":"1"}'::jsonb),
-            ('insurance-claim-outside', 'ransomware', 'third_party_claim', 'Synthetic fixture outside', $1::date, 4, $3::int, 'grey-forum',
+            ('insurance-claim-outside', 'ransomware', 'third_party_claim', 'Synthetic fixture outside', $1::date, $1::date, 4, $3::int, 'grey-forum',
              'https://example.invalid/insurance/claim-outside', '{"run_id":"1"}'::jsonb)
      ON CONFLICT (dedup_key) DO NOTHING`,
     [REFERENCE, naId, otherId],
@@ -108,7 +109,7 @@ test("an organization outside Nouvelle-Aquitaine has no score", async () => {
 });
 
 after(async () => {
-  await ingestQuery("DELETE FROM event WHERE dedup_key LIKE 'insurance-%'");
+  await supprimerEvenementsArchivees("dedup_key LIKE 'insurance-%'");
   await ingestQuery("DELETE FROM org WHERE slug LIKE 'insurance-%'");
   await ingestQuery("DELETE FROM source WHERE id IN ('grey-forum', 'public-cti')");
 });

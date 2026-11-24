@@ -32,9 +32,8 @@ test("tri de revue : une date invalide ne produit pas un ordre aléatoire", () =
 	const entry = (id: number, claimedAt: string) => ({
 		id,
 		claimedAt,
-		bucket: "a_trier" as const,
-		confidence: 0.5,
-		occurrences: 1,
+		// Entrées de la file « à trier » : le comparateur ne lit que score et claimedAt.
+		score: 0.5,
 	});
 	const rows = [entry(1, "pas-une-date"), entry(2, "2025-01-01"), entry(3, "")];
 	const first = [...rows].sort(compareQueueEntries).map((r) => r.id);

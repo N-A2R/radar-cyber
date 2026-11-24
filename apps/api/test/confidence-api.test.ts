@@ -68,7 +68,22 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
+  const copies = await query<{ dedup_key: string }>(
+    `INSERT INTO archive_event
+       (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+        lat, lon, org_id, asset_id, created_at)
+     SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+            valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+            lat, lon, org_id, asset_id, created_at
+       FROM event WHERE id = ANY($1::bigint[])
+     ON CONFLICT DO NOTHING RETURNING dedup_key`,
+    [eventIds],
+  );
+  const clefs = copies.rows.map((ligne) => ligne.dedup_key);
   await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [eventIds]);
+  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
+  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
   await query("DELETE FROM org WHERE id = $1", [orgId]);
   await query("DELETE FROM source WHERE id = ANY($1::text[])", [SOURCES]);
   await closePools();

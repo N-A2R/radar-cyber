@@ -33,7 +33,17 @@ export async function enrichIndicator(indicator: { type: string; value: string }
   const type = (indicator.type || "").toLowerCase();
   const value = indicator.value;
   if (type === "domain" || type === "url") {
-    const domain = type === "url" ? new URL(value).hostname : value;
+    let domain: string;
+    if (type === "url") {
+      try {
+        domain = new URL(value).hostname;
+      } catch {
+        errors.push("url: valeur invalide");
+        return result;
+      }
+    } else {
+      domain = value;
+    }
     const [whois, dns, certs] = await Promise.all([
       safe(enrichDomain(domain), "whois", errors),
       safe(resolveDomain(domain), "dns", errors),

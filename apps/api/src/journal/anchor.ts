@@ -159,6 +159,14 @@ async function lireAncrage(jour: string): Promise<Ancrage | undefined> {
 	return ligne ? { ...ligne, jour: ligne.jour_text } : undefined;
 }
 
+/** Date UTC courante : le fuseau de la base (Europe/Paris) ne doit jamais décider d'un ancrage. */
+export async function jourUtcCourant(): Promise<string> {
+	const resultat = await query<{ jour: string }>("SELECT ((now() AT TIME ZONE 'UTC')::date)::text AS jour");
+	const jour = resultat.rows[0]?.jour;
+	if (!jour) throw new Error("date UTC indisponible");
+	return jour;
+}
+
 /**
  * Ancre un jour. Un second passage retombe sur la même racine et republie le
  * fichier s'il manque ; il ne modifie jamais la ligne existante.
@@ -170,6 +178,10 @@ export async function ancrerJour(options: {
 	dossier?: string;
 }): Promise<ResultatAncrage> {
 	verifierJourFormat(options.jour);
+	const aujourdHui = await jourUtcCourant();
+	if (options.jour >= aujourdHui) {
+		throw new Error(`ancrage refusé : ${options.jour} n'est pas un jour UTC clos (aujourd'hui : ${aujourdHui})`);
+	}
 	const dossier = options.dossier ?? DOSSIER_ANCRAGE;
 	const verificateur = options.verificateur ?? verifierJeton;
 	const existant = await lireAncrage(options.jour);
@@ -215,6 +227,7 @@ export async function ancrerJour(options: {
 		tsa_serial: jeton.serial,
 	};
 
+	let resultat!: ResultatAncrage;
 	await withIngestTransaction(async (client) => {
 		const insertion = await client.query(
 			`INSERT INTO journal_anchor
@@ -230,34 +243,45 @@ export async function ancrerJour(options: {
 			],
 		);
 		if (insertion.rowCount === 0) {
-			const concurrent = await client.query<Ancrage>("SELECT * FROM journal_anchor WHERE jour = $1", [options.jour]);
-			const autre = concurrent.rows[0];
-			if (!autre || autre.racine_sha256 !== ancrage.racine_sha256) {
+			// Un concurrent a gagné la clé `jour` : c'est sa ligne, pas notre
+			// jeton, qui fait foi. On la relit dans la même transaction et on
+			// publie exactement les octets qu'elle porte.
+			const concurrent = await client.query<Ancrage & { jour_text: string }>(
+				"SELECT a.*, a.jour::text AS jour_text FROM journal_anchor a WHERE jour = $1",
+				[options.jour],
+			);
+			const ligne = concurrent.rows[0];
+			if (!ligne) throw new Error(`ancrage ${options.jour} concurrent introuvable`);
+			const retenu: Ancrage = { ...ligne, jour: ligne.jour_text };
+			if (retenu.racine_sha256 !== ancrage.racine_sha256) {
 				throw new Error(`ancrage ${options.jour} concurrent divergent`);
 			}
+			verificateur(retenu.token_rfc3161, empreinteRacine(retenu.racine_sha256));
+			resultat = { statut: "existant", ancrage: retenu };
+		} else {
+			resultat = { statut: "cree", ancrage };
 		}
 	});
 	// La base est la source de vérité : on ne publie le fichier qu'après que
-	// l'insertion a réussi (un concurrent divergent ne doit pas écraser le
-	// fichier de l'ancrage retenu).
-	await publierFichier(ancrage, dossier);
-	return { statut: "cree", ancrage };
+	// l'insertion a réussi, avec la ligne retenue en cas de course.
+	await publierFichier(resultat.ancrage, dossier);
+	return resultat;
 }
 
-/** Hier dans le fuseau de la base : c'est la date qu'exécute le critère SQL. */
+/** Hier en UTC : c'est le critère SQL des lignes du journal, pas `current_date` (Europe/Paris). */
 export async function jourHier(): Promise<string> {
-	const resultat = await query<{ jour: string }>("SELECT (current_date - 1)::text AS jour");
+	const resultat = await query<{ jour: string }>("SELECT ((now() AT TIME ZONE 'UTC')::date - 1)::text AS jour");
 	const jour = resultat.rows[0]?.jour;
-	if (!jour) throw new Error("date de la base indisponible");
+	if (!jour) throw new Error("date UTC indisponible");
 	return jour;
 }
 
-/** Jours du journal encore sans ancrage, du plus récent au plus ancien. */
-export async function joursManquants(limite = 30): Promise<string[]> {
+/** Jours UTC du journal encore sans ancrage, du plus récent au plus ancien. */
+export async function joursManquants(limite = 366): Promise<string[]> {
 	const resultat = await query<{ jour: string }>(
 		`SELECT DISTINCT ((recorded_at AT TIME ZONE 'UTC')::date)::text AS jour
 		   FROM journal j
-		  WHERE (recorded_at AT TIME ZONE 'UTC')::date <= current_date - 1
+		  WHERE (recorded_at AT TIME ZONE 'UTC')::date <= (now() AT TIME ZONE 'UTC')::date - 1
 		    AND NOT EXISTS (SELECT 1 FROM journal_anchor a WHERE a.jour = (j.recorded_at AT TIME ZONE 'UTC')::date)
 		  ORDER BY jour DESC
 		  LIMIT $1`,
@@ -297,13 +321,14 @@ export async function verifierJour(options: {
 export type ResultatJournee = {
 	ancres: ResultatAncrage[];
 	echecs: { jour: string; erreur: string }[];
+	/** Plus vieux jour encore sans ancrage après le passage (aucun si null). */
+	plusVieuxJourManquant: string | null;
 };
 
 /**
- * Ancrage quotidien : la veille d'abord, puis les jours récents encore nus.
- * Un échec sur un jour (TSA indisponible) est rapporté sans empêcher les
- * autres : une panne réseau ne doit pas laisser la veille non scellée quand
- * la TSA répond de nouveau.
+ * Ancrage quotidien : la veille d'abord, puis *tous* les jours manquants,
+ * par lots bornés jusqu'à épuisement. Un échec sur un jour (TSA indisponible)
+ * est rapporté sans bloquer les autres ; il sera retenté au passage suivant.
  */
 export async function ancrerJournalDuJour(options: {
 	rattrapage?: number;
@@ -312,23 +337,28 @@ export async function ancrerJournalDuJour(options: {
 	dossier?: string;
 } = {}): Promise<ResultatJournee> {
 	const hier = await jourHier();
-	const manquants = options.rattrapage && options.rattrapage > 0
-		? await joursManquants(options.rattrapage)
-		: [];
-	const jours = [...new Set([hier, ...manquants.filter((jour) => jour !== hier)])];
+	const tailleLot = Math.max(30, Math.min(366, options.rattrapage ?? 30));
 	const ancres: ResultatAncrage[] = [];
 	const echecs: { jour: string; erreur: string }[] = [];
-	for (const jour of jours) {
-		try {
-			ancres.push(await ancrerJour({
-				jour,
-				fournisseur: options.fournisseur,
-				verificateur: options.verificateur,
-				dossier: options.dossier,
-			}));
-		} catch (erreur) {
-			echecs.push({ jour, erreur: erreur instanceof Error ? erreur.message : String(erreur) });
+	const dejaTentes = new Set<string>();
+	let manquants = await joursManquants(tailleLot);
+	while (manquants.length > 0 && dejaTentes.size < 400) {
+		const jours = [...new Set([hier, ...manquants])].filter((jour) => !dejaTentes.has(jour));
+		if (jours.length === 0) break;
+		for (const jour of jours) {
+			dejaTentes.add(jour);
+			try {
+				ancres.push(await ancrerJour({
+					jour,
+					fournisseur: options.fournisseur,
+					verificateur: options.verificateur,
+					dossier: options.dossier,
+				}));
+			} catch (erreur) {
+				echecs.push({ jour, erreur: erreur instanceof Error ? erreur.message : String(erreur) });
+			}
 		}
+		manquants = (await joursManquants(tailleLot)).filter((jour) => !dejaTentes.has(jour));
 	}
-	return { ancres, echecs };
+	return { ancres, echecs, plusVieuxJourManquant: manquants.at(-1) ?? null };
 }

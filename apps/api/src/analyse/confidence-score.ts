@@ -16,6 +16,8 @@
  *
  * Module pur : ni base, ni disque, ni horloge implicite (`now` est injecté).
  */
+/** Version de la règle de scoring : toute ligne persistée doit la porter. */
+export const CONFIDENCE_REGLE_VERSION = "confidence@2";
 
 export type SourceRank = "primary" | "secondary";
 export type DatePrecision = "certain" | "inferred" | "collection";

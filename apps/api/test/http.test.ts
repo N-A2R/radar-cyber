@@ -1,9 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createServer } from "node:http";
 import {
   HostLimiter,
   SourceBackoffError,
+  SourceHttpError,
   backoffDelayMs,
   fetchResilient,
   getValidators,
@@ -41,35 +41,68 @@ test("backoff stocké par source puis remis à zéro", () => {
   resetSourceBackoff(source);
 });
 
-test("fetchResilient bloque une source en 503 puis reprend après succès", async () => {
-  let status = 503;
-  const server = createServer((_req, res) => {
-    res.writeHead(status, { "content-type": "text/plain" });
-    res.end("réponse de test");
-  });
-  const { promise: listening, resolve: onListening } = Promise.withResolvers<void>();
-  server.listen(0, "127.0.0.1", onListening);
-  await listening;
-  const addr = server.address();
-  assert.ok(addr !== null && typeof addr === "object", "adresse du serveur local");
-  const url = `http://127.0.0.1:${addr.port}/backoff`;
-  const opts = { source: "test:backoff-http", maxAttempts: 1, timeoutMs: 2000 };
-  resetSourceBackoff(opts.source);
+test("fetchResilient : un 503 lève après retries bornés et pose le backoff", async () => {
+  const url = "https://collector.test/indisponible";
+  resetSourceBackoff("test:http-503");
+  let calls = 0;
+  // Le client valide l'URL avant d'appeler le fetch injecté : `.test` évite
+  // toute résolution DNS réelle sans toucher au comportement testé ici.
+  const opts = {
+    source: "test:http-503",
+    maxAttempts: 2,
+    timeoutMs: 2000,
+    fetchImpl: (async () => {
+      calls++;
+      return new Response("503 page d'erreur", {
+        status: 503,
+        headers: { "content-type": "text/html", "retry-after": "0" },
+      });
+    }) as typeof fetch,
+  };
   try {
-    assert.equal((await fetchResilient(url, opts)).status, 503);
-    assert.ok(sourceBackoffRemainingMs(opts.source) > 0);
+    await assert.rejects(fetchResilient(url, opts), (err: unknown) =>
+      err instanceof SourceHttpError && err.status === 503);
+    assert.equal(calls, 2, "deux tentatives, pas une boucle sans fin");
+    assert.ok(sourceBackoffRemainingMs(opts.source) > 0, "l'échec transitoire alimente le backoff");
     await assert.rejects(fetchResilient(url, opts), (err: unknown) =>
       err instanceof SourceBackoffError && err.retryAfterMs > 0);
+    assert.equal(calls, 2, "la source en backoff n'est pas rappelée");
     resetSourceBackoff(opts.source);
-    status = 200;
-    assert.equal((await fetchResilient(url, opts)).status, 200);
-    assert.equal(sourceBackoffRemainingMs(opts.source), 0, "succès remet le compteur à zéro");
+    calls = 0;
+    opts.fetchImpl = (async () => {
+      calls++;
+      return new Response("flux valide", { status: 200 });
+    }) as typeof fetch;
+    const result = await fetchResilient(url, opts);
+    assert.equal(result.status, 200);
+    assert.equal(result.text, "flux valide");
+    assert.equal(sourceBackoffRemainingMs(opts.source), 0, "le succès remet le backoff à zéro");
   } finally {
     resetSourceBackoff(opts.source);
-    const { promise: closed, resolve: onClose, reject: onCloseError } = Promise.withResolvers<void>();
-    server.close((err) => (err ? onCloseError(err) : onClose()));
-    await closed;
   }
+});
+
+test("fetchResilient : un 404 n'est jamais rendu comme contenu", async () => {
+  const url = "https://collector.test/absent";
+  const source = "test:http-404";
+  resetSourceBackoff(source);
+  let calls = 0;
+  await assert.rejects(
+    fetchResilient(url, {
+      source,
+      maxAttempts: 3,
+      fetchImpl: (async () => {
+        calls++;
+        return new Response("page 404 avec un titre de cyber", {
+          status: 404,
+          headers: { "content-type": "text/html" },
+        });
+      }) as typeof fetch,
+    }),
+    (err: unknown) => err instanceof SourceHttpError && err.status === 404,
+  );
+  assert.equal(calls, 1, "un statut permanent ne se retente pas");
+  assert.equal(sourceBackoffRemainingMs(source), 0);
 });
 
 test("HostLimiter espaces appels même hôte", async () => {

@@ -122,13 +122,18 @@ test("S3.1 — le cas historique wakao.co.jp → « CO & CO » ne produit plus d
 });
 
 test("S3.1 — drapeau off : l'indice masqué est rattaché (comportement livré, le tort d'origine)", async () => {
-	const org = await insertOrg(`F H ${TAG}`);
-	const fact = await insertFact(`F*****H ${TAG}`);
-	const r = await promoteMatches(false, { ids: [fact.id], log: () => {} });
-	assert.equal(r.matched, 1, "off : le rapprochement à 0,9 passe");
-	assert.equal(r.promoted, 1);
-	assert.equal(r.refusRegles["3-masquage"], undefined, "off : aucun refus");
-	assert.equal(await eventOrgId(fact.contentHash), org, "off : l'événement est rattaché (c'est le tort documenté)");
+	avecDrapeau("off");
+	try {
+		const org = await insertOrg(`F H ${TAG}`);
+		const fact = await insertFact(`F*****H ${TAG}`);
+		const r = await promoteMatches(false, { ids: [fact.id], log: () => {} });
+		assert.equal(r.matched, 1, "off : le rapprochement à 0,9 passe");
+		assert.equal(r.promoted, 1);
+		assert.equal(r.refusRegles["3-masquage"], undefined, "off : aucun refus");
+		assert.equal(await eventOrgId(fact.contentHash), org, "off : l'événement est rattaché (c'est le tort documenté)");
+	} finally {
+		sansDrapeau();
+	}
 });
 
 test("S3.1 — drapeau on : le même indice est refusé par 3-masquage et journalisé avec la règle", async () => {

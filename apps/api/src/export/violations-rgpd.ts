@@ -74,7 +74,11 @@ export function bornesMois(mois: string): [string, string] {
 export function celluleCsv(valeur: string | number | null | undefined): string {
   if (valeur === null || valeur === undefined) return "";
   const texte = String(valeur);
-  return /[",\r\n]/.test(texte) ? `"${texte.replaceAll('"', '""')}"` : texte;
+  // Un tableur interprète = + - @ comme une formule : on neutralise avant
+  // le calcul du SHA-256 du fichier, pas après.
+  const premier = texte.trimStart()[0];
+  const sur = premier !== undefined && "=+-@".includes(premier) ? `'${texte}` : texte;
+  return /[",\r\n]/.test(sur) ? `"${sur.replaceAll('"', '""')}"` : sur;
 }
 
 export function moisCourant(): string {

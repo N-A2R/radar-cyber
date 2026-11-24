@@ -68,7 +68,7 @@ sources AS (
 	          position(d.media in ${SQL_TEXTE("s.name")}) > 0
 	       OR position(${SQL_TEXTE("s.name")} in d.media) > 0))
 )
-SELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,
+SELECT s.id, s.name, s.family, s.url, s.enabled, s.pret_a_collecter, s.last_ok_at,
        (SELECT count(*)::int FROM collector_run r
          WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,
        (SELECT count(*)::int FROM event e
@@ -119,6 +119,7 @@ type SourceRow = {
 	family: string;
 	url: string | null;
 	enabled: boolean;
+	pret_a_collecter: boolean | null;
 	last_ok_at: Date | string | null;
 	executions_du_jour: number;
 	evenements_du_jour: number;
@@ -163,6 +164,7 @@ export type PreuveIncident = {
 		famille: string;
 		executionsDuJour: number;
 		evenementsDuJour: number;
+		pretACollecter: boolean | null;
 	}>;
 	collecteeCeJour: boolean;
 	familleSortie: string | null;
@@ -328,8 +330,8 @@ export async function mesurerCouverture(options?: {
 			sql<SourceRow>(SQL_COLLECTE, paramsCollecte),
 		]);
 
-		const sourceReference = sources.rows[0] ?? null;
-		const paramsFiltre = [incident.date_publication, sources.rows.map((s) => s.id)];
+		const sourceReference = sources.rows.find((s) => s.pret_a_collecter !== false) ?? sources.rows[0] ?? null;
+		const paramsFiltre = [incident.date_publication, sources.rows.filter((s) => s.pret_a_collecter !== false).map((s) => s.id)];
 		const filtres = sourceReference ? (await sql<FiltreRow>(SQL_FILTRE, paramsFiltre)).rows : [];
 
 		const correspondance = evenements.rows.find((e) => e.org_id !== null) ?? evenements.rows[0] ?? null;
@@ -337,9 +339,10 @@ export async function mesurerCouverture(options?: {
 		const sansOrg = correspondance !== null && correspondance.org_id === null;
 		const collecteeCeJour = sources.rows.some(
 			(s) =>
-				s.executions_du_jour > 0 ||
-				s.evenements_du_jour > 0 ||
-				jourLocal(s.last_ok_at) === incident.date_publication,
+				s.pret_a_collecter !== false &&
+				(s.executions_du_jour > 0 ||
+				 s.evenements_du_jour > 0 ||
+				 jourLocal(s.last_ok_at) === incident.date_publication),
 		);
 		const familleSortie = sourceReference
 			? classifyFamily({
@@ -407,6 +410,7 @@ export async function mesurerCouverture(options?: {
 				id: s.id,
 				nom: s.name,
 				famille: s.family,
+				pretACollecter: s.pret_a_collecter,
 				executionsDuJour: s.executions_du_jour,
 				evenementsDuJour: s.evenements_du_jour,
 			})),
@@ -458,7 +462,7 @@ export async function mesurerCouverture(options?: {
 			vu: "un événement de event ou event_archive correspond à l'incident et porte un org_id non nul",
 			priorite: MOTIFS,
 			delai: "heures entre la publication (00:00 UTC) et collected_at du premier événement correspondant",
-			collecte: "collector_run ou event le jour de publication pour le média déclaré, ou last_ok_at ce jour",
+			collecte: "collector_run ou event le jour de publication pour le média déclaré, ou last_ok_at ce jour ; une source pret_a_collecter=false n'est jamais une preuve de couverture",
 			correspondance: "URL normalisée identique, ou titre normalisé identique le jour de publication, ou organisation normalisée le jour de publication",
 			filtreCyber: "classifyFamily() du collecteur : une sortie 'presse' est refusée à l'admission",
 		},

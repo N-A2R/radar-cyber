@@ -12,7 +12,7 @@ import {
   type DomainProbe,
   type ScanTarget,
 } from "../src/detect/typosquat-top.js";
-import { genererVariantes, variantesTld, type Variant } from "../src/detect/typosquat.js";
+import { genererVariantes, variantesTld, type TyposquatFinding, type Variant } from "../src/detect/typosquat.js";
 
 const NOW = new Date("2026-11-22T12:00:00Z");
 const TARGET: ScanTarget = { rank: 1, orgId: 42, orgName: "Universite de Poitiers", domain: "univ-poitiers.fr", dept: "86", effectif: 2000 };
@@ -28,7 +28,6 @@ function probe(active = BAD): DomainProbe & { calls: string[] } {
       calls.push("page");
       return { status: 200, url: `https://${active}/`, title: "Universite de Poitiers - connexion", text: "Identifiant Mot de passe" };
     },
-    async urlsPhishing() { return []; },
   };
 }
 

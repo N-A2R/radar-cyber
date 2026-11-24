@@ -142,7 +142,7 @@ test("collecteur : manifeste et corps lus via le contexte, corpus écrit sans r�
 	assert.equal(personnels.rows[0]?.n, 0, "aucune adresse personnelle n'entre dans indicator");
 });
 
-test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sortie à 0", async () => {
+test("corrélation : fenêtre temporelle, UUID MISP en preuve, critère de sortie à 0", async () => {
 	const maintenant = new Date("2026-11-22T15:00:00.000Z");
 	const { rows: source } = await query<{ id: string; region: string }>(
 		"SELECT id, region FROM source WHERE id = $1", [CERTFR_MISP_SOURCE_ID],
@@ -161,6 +161,10 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 		 JSON.stringify({ labels: ["maze"], targetLocations: [], urls: [], attachments: [], comments: [], dates: [] }),
 		 `https://misp.cert.ssi.gouv.fr/feed-misp/${UUID_MAZE}.json`],
 	);
+	// Le corpus durable garde aussi un fait ancien : il ne doit plus fonder
+	// une corrélation actuelle. Les deux faits utiles sont datés de la fenêtre.
+	await query("UPDATE certfr_misp_event SET misp_date='2026-11-22' WHERE uuid=$1", [UUID_CLEAR]);
+	await query("UPDATE certfr_misp_event SET misp_date='2026-11-19' WHERE uuid=$1", [UUID_MAZE]);
 
 	const org = await query<{ id: number }>(
 		`INSERT INTO org (name, slug, kind, city, dept, domain, status)
@@ -180,7 +184,7 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 	const contexte = await query<{ id: string }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id,
 		                    evidence, regional, regional_motif, org_id, source_url)
-		 VALUES ($1, 'ransomware', 'third_party_claim', $2, '2026-11-21T00:00:00Z', 'ransomlook',
+		 VALUES ($1, 'ransomware', 'third_party_claim', $2, '2026-11-19T00:00:00Z', 'ransomlook',
 		         '{"feed":"test"}'::jsonb || '{"run_id":"1"}'::jsonb, true, 'rattachement', $3, 'https://example.invalid/event')
 		 RETURNING id::text AS id`,
 		[`regional-${TAG}-b`, `Revendication ransomware ${TAG} en Gironde`, orgId],
@@ -188,13 +192,14 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 	assert.ok(semantique.rows[0]?.id && contexte.rows[0]?.id);
 
 	const resultat = await correlaterIndicateursCertfrMisp({ days: 7, now: maintenant });
-	assert.equal(resultat.evenements, 7);
+	assert.equal(resultat.evenements, 6, "seuls les jours avec recoupement réel écrivent un événement");
 	assert.deepEqual(resultat.jours, [
 		"2026-11-16", "2026-11-17", "2026-11-18", "2026-11-19",
 		"2026-11-20", "2026-11-21", "2026-11-22",
 	]);
 	assert.ok(resultat.bases.semantique >= 1, "un acteur commun fonde au moins un recoupement sémantique");
-	assert.ok(resultat.bases.categorie >= 1, "un ensemble ransomware fonde au moins un rapprochement de catégorie");
+	assert.ok(resultat.bases.categorie >= 1, "une catégorie commune fonde un rapprochement proche dans le temps");
+	assert.equal(resultat.bases["contexte-du-jour"], 1, "le jour sans fait dans la fenêtre n'est que journalisé");
 	assert.equal(
 		resultat.bases.semantique + resultat.bases.categorie + resultat.bases["contexte-du-jour"], 7,
 	);
@@ -218,7 +223,7 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 		    AND dedup_key LIKE 'certfr-misp-correlation:%'`,
 		[CERTFR_MISP_SOURCE_ID],
 	);
-	assert.deepEqual(quotidien.rows[0], { n: 7, jours: 7, premier: "2026-11-16", dernier: "2026-11-22", sans_uuid: 0 });
+	assert.deepEqual(quotidien.rows[0], { n: 6, jours: 6, premier: "2026-11-17", dernier: "2026-11-22", sans_uuid: 0 });
 
 	const bases = await query<{ n: number }>(
 		`SELECT count(*)::int AS n FROM event
@@ -226,7 +231,7 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 		    AND evidence ? 'correlationBasis'`,
 		[CERTFR_MISP_SOURCE_ID],
 	);
-	assert.equal(bases.rows[0]?.n, 7, "chaque corrélation dit sur quoi elle repose");
+	assert.equal(bases.rows[0]?.n, 6, "chaque corrélation écrite dit sur quoi elle repose");
 
 	const relations = await query<{ n: number }>(
 		`SELECT count(*)::int AS n FROM relation r
@@ -234,7 +239,7 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 		  WHERE e.source_id = $1 AND r.relation_type = 'correlated_with'`,
 		[CERTFR_MISP_SOURCE_ID],
 	);
-	assert.equal(relations.rows[0]?.n, 7, "chaque corrélation est reliée à l'événement régional");
+	assert.equal(relations.rows[0]?.n, 6, "chaque corrélation est reliée à l'événement régional");
 
 	const rejeu = await correlaterIndicateursCertfrMisp({ days: 7, now: maintenant });
 	assert.equal(rejeu.evenements, 0, "un rejeu n'écrit rien");
@@ -244,7 +249,7 @@ test("corrélation : 7 jours consécutifs, UUID MISP en preuve, critère de sort
 		  WHERE source_id = $1 AND dedup_key LIKE 'certfr-misp-correlation:%'`,
 		[CERTFR_MISP_SOURCE_ID],
 	);
-	assert.equal(apresRejeu.rows[0]?.n, 7);
+	assert.equal(apresRejeu.rows[0]?.n, 6);
 
 	// La corrélation ne tient pas la source pour fraîche : seule l'ingestion le
 	// fait. Sinon un flux arrêté resterait « sain » grâce aux jours rejoués.

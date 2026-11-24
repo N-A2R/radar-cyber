@@ -43,11 +43,11 @@ function finding(sur: Partial<TyposquatFinding> = {}): TyposquatFinding {
     officialDomains: ["univ-poitiers.fr"],
     base: "univ-poitiers.fr",
     domain: "univ-poitier.fr",
+    kind: "omission",
     cert: CERT_RECENT,
     similarity: 0.92,
     a: ["192.0.2.10"],
     aaaa: [],
-    cert: CERT_RECENT,
     page: {
       status: 200,
       url: "https://univ-poitier.fr/",

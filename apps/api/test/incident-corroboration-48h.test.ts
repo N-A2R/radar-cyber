@@ -14,6 +14,7 @@ function report(clusters: {
   firstClaimAt?: string;
   corroborated?: boolean;
   publishers?: string[];
+  incidentEvents?: number;
   naIncident?: boolean;
 }[]): CorroborationReport {
   return {

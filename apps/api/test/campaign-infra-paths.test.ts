@@ -10,6 +10,7 @@ import {
 	campaignInfraPaths,
 	refreshCampaignInfraPaths,
 } from "../src/analyse/campaign-infra-paths.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `cip${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const DOMAINE = `${TAG}.example.invalid`;
@@ -19,7 +20,7 @@ let assetId: number | null = null;
 
 after(async () => {
 	if (cles.length > 0) await query("DELETE FROM campaign WHERE cle = ANY($1)", [cles]);
-	if (evenements.length > 0) await query("DELETE FROM event WHERE id = ANY($1)", [evenements]);
+	if (evenements.length > 0) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [evenements]);
 	if (assetId !== null) await query("DELETE FROM asset WHERE id = $1", [assetId]);
 	await query("REFRESH MATERIALIZED VIEW CONCURRENTLY campaign_infra_paths");
 	await closePools().catch(() => {});

@@ -6,12 +6,19 @@
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `gtc${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const MARCH = "2026-03-10T10:00:00.000Z";
 const NOVEMBER = "2026-11-10T10:00:00.000Z";
 const ORG_END = "2026-09-01T00:00:00.000Z";
 const VICTIM = "Jane Doe victim name must never appear";
+// Le projet `produced_by` prend la date minimale de toutes les occurrences
+// d'un même couple : des noms partagés avec un autre test rendraient la borne
+// dépendante de l'ordre d'exécution.
+const VENDOR = `${TAG}-vendor`;
+const PRODUCT = `${TAG}-product`;
+const PRODUCT_ID = `product:${VENDOR}:${PRODUCT}`;
 
 let naOrgId: number;
 let outsideOrgId: number;
@@ -57,7 +64,7 @@ before(async () => {
     [
       `${TAG}-first`, `Leak at ${VICTIM}`, MARCH, TAG, naOrgId,
       "https://news.example.com/article?utm=1",
-      JSON.stringify({ group: "lockbit3", vendor: "Apache", product: "Http Server", description: VICTIM }),
+      JSON.stringify({ group: "lockbit3", vendor: VENDOR, product: PRODUCT, description: VICTIM }),
     ],
   );
   firstEventId = first.rows[0]!.id;
@@ -74,7 +81,7 @@ before(async () => {
 });
 
 after(async () => {
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
   await query("DELETE FROM org WHERE id IN ($1, $2)", [naOrgId, outsideOrgId]);
   await query("DELETE FROM source WHERE id = $1", [TAG]);
   if (outsideOrgId && naOrgId) {
@@ -112,11 +119,11 @@ test("a publication host is linked with the observation date", async () => {
 test("product and vendor links are typed and dated", async () => {
   const mentioned = await links(`source_id = $1 AND type = 'mentions_product'`, [`event:${firstEventId}`]);
   assert.equal(mentioned.length, 1);
-  assert.equal(mentioned[0]!.target, "product:apache:http server");
+  assert.equal(mentioned[0]!.target, PRODUCT_ID);
   assert.equal(mentioned[0]!.validFrom, MARCH);
   const produced = await links(
-    `source_id = $1 AND target_id = 'vendor:apache' AND type = 'produced_by'`,
-    [mentioned[0]!.target],
+    `source_id = $1 AND target_id = $2 AND type = 'produced_by'`,
+    [mentioned[0]!.target, `vendor:${VENDOR}`],
   );
   assert.equal(produced.length, 1);
   assert.equal(produced[0]!.validFrom, MARCH);

@@ -6,14 +6,14 @@
  *   (matchOrg, score >= MIN_CONFIDENCE) ;
  * - manuelle via POST /api/quarantine/:id/promote.
  *
- * Depuis la vague « branchement » (docs/rapport-regles-branchees.md), les six
- * règles de précision (match/regles-precision.ts) sont consultées au point de
- * décision, derrière le drapeau `PRECISION_RULES=on|off` : un rattachement
- * refusé n'est pas écrit, et le refus est journalisé avec la règle qui l'a
- * posé (kind `match.refuse`). Depuis le chantier couverture (S2.1), un
- * rattachement par sigle n'est accepté que si le registre confirme une seule
- * organisation ; la règle qui tranche est écrite dans la trace à l'acceptation
- * comme au refus.
+ * Depuis la campagne précision, les six règles de précision
+ * (`match/regles-precision.ts`) sont consultées au point de décision. Elles
+ * sont actives par défaut ; seul un opt-out explicite (`PRECISION_RULES=off`)
+ * retrouve l'ancien comportement. Un rattachement refusé n'est pas écrit, et
+ * le refus est journalisé avec la règle qui l'a posé (kind `match.refuse`).
+ * Depuis le chantier couverture (S2.1), un rattachement par sigle n'est
+ * accepté que si le registre confirme une seule organisation ; la règle qui
+ * tranche est écrite dans la trace à l'acceptation comme au refus.
  *
  * La promotion crée un événement `ransomware` / `third_party_claim`,
  * dédupliqué sur `content_hash`, puis déclenche la règle
@@ -27,6 +27,8 @@ import { ingestQuery, query, withTransaction } from "../db.js";
 import { withRunId } from "../collecte/runs.js";
 import { consigner, consignerAvec } from "../journal/index.js";
 import { ecarteeParRegles, REGLE_SIGLE, type TraceRegle } from "../match/regles-precision.js";
+import { GENERIC_TOKENS } from "../match/normalisation.js";
+export { GENERIC_TOKENS } from "../match/normalisation.js";
 import {
 	chargerOrgParAliasSigle,
 	contexteSigleDepuisSource,
@@ -39,7 +41,8 @@ import {
 import { porteeRegionale } from "../match/territorial.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
-import { confirmOrganization } from "../match/decide.js";
+import { decisionApiKey } from "../detect/decision.js";
+import { confirmOrganizationVerdict, type VerdictOrganisation } from "../match/decide.js";
 import {
   domainAffinity,
   domainFromHint,
@@ -49,6 +52,7 @@ import {
   domaineRacine,
   type ResolutionDomaine,
 } from "../match/domaine.js";
+
 
 /** Organisme tel que lu en base. */
 export type OrgRow = {
@@ -102,17 +106,15 @@ export const AUTO_MIN_CONFIDENCE = 0.85;
 /**
  * Règles de précision du rattachement actives ? (spec :
  * `match/regles-precision.ts` — les six règles retenues par la campagne
- * précision, branchées par la vague « branchement », S1.1.)
+ * précision).
  *
- * Drapeau `PRECISION_RULES=on|off`, lu **à chaque appel** : les deux régimes
- * se mesurent dans le même binaire. Absent = off : le comportement livré
- * reste le défaut jusqu'à ce que l'exploitation choisisse — la mesure du
- * compromis précision/couverture et la recommandation vivent dans
- * `docs/rapport-regles-branchees.md`.
+ * Actives **par défaut** : une configuration qui ne dit rien ne doit pas
+ * désactiver le garde-fou. `PRECISION_RULES=off|0|false` est le seul opt-out,
+ * lu à chaque appel pour mesurer les deux régimes dans le même binaire.
  */
 export function reglesPrecisionActives(): boolean {
 	const v = (process.env.PRECISION_RULES ?? "").trim().toLowerCase();
-	return v === "on" || v === "1" || v === "true";
+	return v !== "off" && v !== "0" && v !== "false";
 }
 
 /** Un rattachement refusé par les règles de précision (drapeau actif). */
@@ -213,7 +215,48 @@ async function consignerRefusRegle(
 			orgName,
 			via: m.via,
 			confidence: m.confidence,
-			drapeau: "PRECISION_RULES=on",
+			drapeau: reglesPrecisionActives() ? "PRECISION_RULES=on" : "PRECISION_RULES=off",
+		},
+	});
+}
+
+/**
+ * Trace de décision du moteur, adossée à la même identité de sujet que
+ * l'événement public (`quarantine:<content_hash>`). Un fait identique n'est
+ * écrit qu'une fois : la promotion automatique recharge le même fait à chaque
+ * passage.
+ */
+async function consignerDecisionPromotion(
+	row: Pick<QuarantineRow, "id" | "content_hash" | "org_hint">,
+	decision: {
+		stage: string;
+		reason: string;
+		verdict: string;
+		ruleId?: string;
+		score?: number;
+		threshold?: number;
+		model?: string;
+		orgId?: number | null;
+		scope?: string;
+	},
+): Promise<{ ok: boolean; error?: string }> {
+	const subject = `quarantine:${row.content_hash}`;
+	const deja = await query<{ ok: number }>(
+		`SELECT 1 AS ok FROM journal
+		  WHERE kind='detection.decision' AND subject=$1
+		    AND payload->>'stage'=$2 AND payload->>'reason'=$3 LIMIT 1`,
+		[subject, decision.stage, decision.reason],
+	);
+	if (deja.rows.length > 0) return { ok: true };
+	return consigner({
+		kind: "detection.decision",
+		subject,
+		summary: `${decision.stage} : ${decision.reason} (quarantine ${row.id})`,
+		actor: decision.model ? `moteur:${decision.model}` : "moteur:promotion@1",
+		payload: {
+			quarantineId: Number(row.id),
+			indice: row.org_hint ?? "",
+			...decision,
 		},
 	});
 }
@@ -428,42 +471,10 @@ function containsPhrase(hintNorm: string, phrase: string): boolean {
 }
 
 /**
- * Jetons qui ne désignent rien.
- *
- * « com » est présent dans *tous* les domaines en `.com` : une organisation
- * nommée « N-COM (N-COM) » se réduisait donc à ce jeton et attrapait chaque
- * revendication `quelquechose.com` à 0,75. Huit revendications d'un lot de
- * dix ont été rattachées à cette seule société de Villeneuve-d'Ornon.
- *
- * La règle est simple : un jeton générique ne peut jamais *fonder* un
- * rapprochement. Il peut accompagner (« chu bordeaux fr »), pas décider.
+ * `GENERIC_TOKENS` vit dans `match/normalisation.ts` avec `normalizeNom` :
+ * le moteur et les règles de précision partagent la même définition. Le
+ * ré-export au sommet du fichier garde les appelants historiques compatibles.
  */
-export const GENERIC_TOKENS = new Set([
-  "com", "net", "org", "edu", "gouv", "gov", "int", "info", "biz",
-  "fr", "eu", "be", "ch", "ca", "uk", "de", "es", "it", "nl", "lu",
-  "www", "http", "https", "mail", "web", "site",
-  // Termes techniques : présents dans tous les CVE et dans des milliers de
-  // raisons sociales. Ils ne distinguent rien.
-  "code", "software", "network", "networks", "system", "systems", "server",
-  "servers", "service", "services", "solution", "solutions", "security",
-  "secure", "platform", "platforms", "product", "products", "digital",
-  "cloud", "data", "media", "group", "global", "technology", "technologies",
-  // Formes juridiques : présentes dans des centaines de milliers de raisons
-  // sociales. Elles ne distinguent rien, mais elles **bloquaient** la règle
-  // « tous les jetons du nom sont dans l'indice » : « EARL BLACK STAR » ne
-  // pouvait pas rencontrer l'indice « black star » à cause du seul « earl ».
-  // Retirées ici, elles ne fondent jamais un rapprochement et cessent de
-  // l'empêcher.
-  "earl", "sarl", "sas", "sasu", "eurl", "sci", "scm", "snc", "scs", "scic",
-  "scop", "gie", "geie", "sei", "sep", "selarl", "selas", "scp", "eirl",
-  // Formes juridiques étrangères et mots d'activité, même statut : mesuré le
-  // 2026-11-21 sur 180 revendications, « Boutinot Limited » se rattachait à
-  // « LIMITED (La Jarrie-Audouin) » et « Actualize Consulting » à « H
-  // CONSULTING (H CONSULTING) » — un nom réduit à un mot d'activité n'a rien
-  // de distinctif.
-  "ltd", "limited", "inc", "llc", "corp", "corporation", "plc",
-  "consulting", "consultant", "consultants", "advisory",
-]);
 
 /** Vrai si le jeton porte une information : ni trop court, ni générique. */
 function isDiscriminating(token: string): boolean {
@@ -489,24 +500,25 @@ function scoreEntry(
   e: OrgIndexEntry
 ): { score: number; via: "domain" | "name" } {
   let best = 0;
-  let viaDomain = false;
+  // Le libellé suit la preuve qui a *donné* le meilleur score, pas la simple
+  // présence d'un domaine dans l'indice : un nom exact à 0,9 doit passer par
+  // le modèle et les règles de précision, même si un domaine partiel traîne.
+  let bestVia: "domain" | "name" = "name";
+  const consider = (score: number, via: "domain" | "name") => {
+    if (score > best || (score === best && score > 0 && via === "name" && bestVia === "domain")) {
+      best = score;
+      bestVia = via;
+    }
+  };
 
   // Un alias officiel exact est un indice de nom, pas une clé : il arrive au
   // même score 0,7 que le jeton unique, et c'est `sigle-confirme` qui tranche
   // ensuite (ambiguïté, dénomination divergente).
-  if (e.aliasSigle && normaliseSigle(hintNorm) === e.aliasSigle) {
-    best = 0.7;
-  }
+  if (e.aliasSigle && normaliseSigle(hintNorm) === e.aliasSigle) consider(0.7, "name");
 
   // Étiquettes du domaine, TLD exclu : « black-star.fr » → { black, star }.
-  //
-  // Sans ce jeu de jetons, une revendication qui ne donne qu'un domaine ne
-  // pouvait jamais rencontrer une organisation dont on connaît le nom mais pas
-  // le site — c'est-à-dire 1 244 036 des 1 244 048 organisations du référentiel
-  // (`org.domain` n'est renseigné que pour 12 d'entre elles). Le domaine reste
-  // un indice de **nom**, pas une clé : il est scoré par les mêmes règles, donc
-  // il plafonne à 0,75 et ne peut jamais déclencher une promotion automatique
-  // (seuil 0,85).
+  // Le domaine reste un indice de **nom**, scoré par les mêmes règles : il
+  // plafonne à 0,75 et ne peut jamais déclencher une promotion automatique.
   const stemTokens =
     hintDomain === null
       ? null
@@ -522,51 +534,27 @@ function scoreEntry(
   // 1. Domaine : la normalisation et la prudence sur les sous-domaines
   // génériques vivent dans `match/domaine` (mail.exemple.com ≠ exemple.com).
   if (hintDomain) {
-    const d = domainAffinity(hintDomain, e.domainNorm);
-    if (d > 0) {
-      best = Math.max(best, d);
-      viaDomain = true;
-    }
-    if (memesDomaines(hintDomain, e.websiteDomain)) {
-      best = Math.max(best, 0.9);
-      viaDomain = true;
-    }
+    consider(domainAffinity(hintDomain, e.domainNorm), "domain");
+    if (memesDomaines(hintDomain, e.websiteDomain)) consider(0.9, "domain");
   }
 
   // 2. Nom normalisé : égalité, ou tous les jetons du nom présent dans l'indice.
   if (hintNorm && e.nameNorm) {
     if (hintNorm === e.nameNorm) {
-      best = Math.max(best, 0.9);
+      consider(0.9, "name");
     } else {
-      // Les jetons d'une lettre (« T D F ») sont du bruit : non significatifs.
-      // Les jetons génériques (« com », « fr ») sont retirés : ils ne
-      // discriminent aucune organisation. Dédupliqués : sans le Set,
-      // « CO & CO » comptait deux jetons pour un seul mot et se rattachait à
-      // chaque domaine en « .co.** » (« wakao.co.jp », « triad.co.ke »…) — 6
-      // propositions fausses sur 180 revendications mesurées le 2026-11-21.
       const orgTokens = [...new Set(e.nameNorm.split(" ").filter(isDiscriminating))];
-      // Le nom est présent soit dans les jetons de l'indice, soit dans ceux de
-      // son domaine (« black-star.fr » → black, star).
       const allPresent =
         (orgTokens.length > 0 && orgTokens.every((t) => hintTokens.has(t))) ||
         (stemTokens !== null && orgTokens.length > 0 && orgTokens.every((t) => stemTokens.has(t)));
-      if (allPresent && orgTokens.length >= 2) {
-        // Nom complet présent dans l'indice (« Kenall/Legrand » pour « Legrand »
-        // est traité plus bas, car un nom simple est un mot courant possible).
-        best = Math.max(best, 0.75);
-      } else if (
+      if (allPresent && orgTokens.length >= 2) consider(0.75, "name");
+      else if (
         orgTokens.length === 1 &&
         orgTokens[0].length >= 5 &&
         hintTokens.has(orgTokens[0]) &&
         hintTokens.size <= 2
       ) {
-        // Nom court et indice court : « Kenall/Legrand », « Legrand CRM ».
-        // Au-delà, un mot courant (« Orange Public School… ») est un faux positif.
-        // Le domaine n'entre pas ici : ses étiquettes sont plus courtes que
-        // l'indice, et les compter reviendrait à relâcher la garde. Mesuré :
-        // `advelo-<tag>.com` se rattachait à « N-COM (N-COM) <tag> », le seul
-        // jeton restant étant le tag commun aux deux.
-        best = Math.max(best, 0.7);
+        consider(0.7, "name");
       }
     }
   }
@@ -575,23 +563,28 @@ function scoreEntry(
   if (hintNorm && e.cityNorm && containsPhrase(hintNorm, e.cityNorm)) {
     const cityTokens = new Set(e.cityNorm.split(" ").filter(Boolean));
     const nonCityTokens = e.nameTokens.filter((t) => !cityTokens.has(t));
-    if (nonCityTokens.some((t) => hintTokens.has(t))) best = Math.max(best, 0.6);
+    if (nonCityTokens.some((t) => hintTokens.has(t))) consider(0.6, "name");
   }
 
-  return { score: best, via: viaDomain ? "domain" : "name" };
+  return { score: best, via: bestVia };
 }
+
+export type OrgMatchDetail = { match: OrgMatch | null; tied: number[] };
 
 /**
  * Rapproche un indice d'une organisation de l'index pré-normalisé.
- * Renvoie la meilleure correspondance au-dessus de MIN_CONFIDENCE,
- * ou null. À égalité de score, l'id le plus faible l'emporte (déterministe).
+ *
+ * À score égal entre plusieurs organisations, le moteur ne tranche plus par
+ * l'identifiant le plus bas (mesure : 84 417 groupes `name_norm` dupliqués) :
+ * il rend `tied` et aucun match, comme `match/core.ts`. La revue humaine
+ * départage. `matchOrgInIndex` garde la signature historique (match seul).
  */
-export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch | null {
+export function analyserOrgMatch(hint: string, index: OrgIndexEntry[]): OrgMatchDetail {
   const trimmed = hint.trim();
-  if (!trimmed) return null;
+  if (!trimmed) return { match: null, tied: [] };
   const hintNorm = normalizeName(trimmed);
   const hintDomain = extractDomain(trimmed);
-  if (!hintNorm && !hintDomain) return null;
+  if (!hintNorm && !hintDomain) return { match: null, tied: [] };
   const hintTokens = new Set(hintNorm.split(" ").filter(Boolean));
 
   // Chaîne de résolution des indices-domaines. On s'arrête au premier étage
@@ -602,25 +595,44 @@ export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch 
   if (hintDomain) {
     resolution = resoudreDomaine(trimmed, index);
     if (resolution.etape === "exact") {
-      return { orgId: resolution.orgId!, confidence: resolution.confidence, via: "domain" };
+      return { match: { orgId: resolution.orgId!, confidence: resolution.confidence, via: "domain" }, tied: [] };
     }
-    if (resolution.etape !== "racine") return null; // étage 3 : revue
+    if (resolution.etape !== "racine") return { match: null, tied: [] }; // étage 3 : revue
     borne = resolution.orgId;
   }
 
-  let best: OrgMatch | null = null;
+  // Une organisation peut entrer plusieurs fois dans l'index (alias) : un
+  // seul orgId par score retenu, sinon ses propres alias créeraient un faux
+  // départage.
+  const parOrg = new Map<number, OrgMatch>();
   for (const e of index) {
     if (borne !== null && e.id !== borne) continue;
     const { score, via } = scoreEntry(hintNorm, hintTokens, hintDomain, e);
     if (score < MIN_CONFIDENCE) continue;
-    if (!best || score > best.confidence || (score === best.confidence && e.id < best.orgId)) {
-      best = { orgId: e.id, confidence: score, via };
+    const precedent = parOrg.get(e.id);
+    if (!precedent || score > precedent.confidence) {
+      parOrg.set(e.id, { orgId: e.id, confidence: score, via });
     }
+  }
+  let best: OrgMatch | null = null;
+  for (const candidat of parOrg.values()) {
+    if (!best || candidat.confidence > best.confidence) best = candidat;
   }
   if (!best && resolution?.orgId !== null && resolution?.orgId !== undefined) {
     best = { orgId: resolution.orgId, confidence: resolution.confidence, via: "name" };
   }
-  return best;
+  if (!best) return { match: null, tied: [] };
+  const tied = [...parOrg.values()]
+    .filter((candidat) => candidat.orgId !== best!.orgId && candidat.confidence === best!.confidence)
+    .map((candidat) => candidat.orgId)
+    .sort((a, b) => a - b);
+  if (tied.length > 0) return { match: null, tied: [best.orgId, ...tied] };
+  return { match: best, tied: [] };
+}
+
+/** Signature historique : le meilleur match, ou null (égalité comprise). */
+export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch | null {
+  return analyserOrgMatch(hint, index).match;
 }
 
 /**
@@ -658,28 +670,44 @@ async function resolveSourceId(source: string): Promise<string> {
 }
 
 
+/** Fournisseur injectable : les tests Deterministes n'appellent aucun réseau. */
+export type FournisseurVerdictOrg = (
+	texte: string,
+	nomOrganisation: string,
+) => Promise<VerdictOrganisation>;
+
+export type ConfirmationMatch = {
+	decision: "promouvoir" | "refuser" | "différer";
+	verdict?: VerdictOrganisation;
+};
+
 /**
  * Confirme un rapprochement par le modèle de décision avant de l'écrire.
  *
- * Le rapprochement par nom est trop permissif sur les revendications :
- * « El Portal Imaging Center » avait été rattaché à « IBM Services Center
- * France ». Le modèle lit le texte et le nom ; s'il nie, on n'attache rien.
- * S'il hésite (`null`), on garde la décision déterministe : on ne bloque pas
- * une promotion sur une incertitude du modèle.
+ * `nie` refuse. `indecis` ne promet rien : la décision déterministe reste.
+ * `indisponible` (quota, timeout, réponse invalide) **diffère la promotion
+ * automatique** : une panne du garde-fou n'est jamais un absence de refus.
+ * Sans modèle configuré, le chemin historique reste disponible — ce n'est
+ * pas une panne, c'est un déploiement sans arbitration.
  */
 async function confirmMatch(
-  hint: string,
-  orgId: number,
-  nameById: Map<number, string>,
-  via: "domain" | "name" = "name",
-): Promise<boolean> {
-  // Un domaine identique n'est pas une ressemblance de nom : c'est la même
-  // adresse. Aucun modèle ne doit arbitrer une égalité de clé.
-  if (via === "domain") return true;
-  const name = nameById.get(orgId);
-  if (!name) return true;
-  const verdict = await confirmOrganization(hint, name);
-  return verdict !== false;
+	hint: string,
+	orgId: number,
+	nameById: Map<number, string>,
+	via: "domain" | "name" = "name",
+	fournisseur: FournisseurVerdictOrg = confirmOrganizationVerdict,
+): Promise<ConfirmationMatch> {
+	// Une domaine identique n'est pas une ressemblance de nom : c'est la même
+	// adresse. Aucun modèle ne doit arbitrer une égalité de clé.
+	if (via === "domain") return { decision: "promouvoir" };
+	const name = nameById.get(orgId);
+	if (!name) return { decision: "promouvoir" };
+	const verdict = await fournisseur(hint, name);
+	if (verdict === "non") return { decision: "refuser", verdict };
+	if (verdict === "indisponible" && (fournisseur !== confirmOrganizationVerdict || decisionApiKey() !== null)) {
+		return { decision: "différer", verdict };
+	}
+	return { decision: "promouvoir", verdict };
 }
 
 export type ClaimEventResult = { eventId: number; inserted: boolean; alerts: number };
@@ -689,6 +717,159 @@ type EventRunner = <T extends QueryResultRow>(text: string, params?: unknown[]) 
 /** Adapte un client de transaction au type `EventRunner`. */
 const runnerOf = (client: PoolClient): EventRunner =>
   <T extends QueryResultRow>(text: string, params?: unknown[]) => client.query<T>(text, params);
+
+/** Marqueur de suivi, écrit dans la même transaction que la promotion. */
+const CLE_SUIVI_ALERTES = "_alertes";
+const MAX_TENTATIVES_ALERTES = 3;
+const DUREE_RECLAMATION_MS = 60_000;
+
+type SuiviAlertes = {
+  eventId: number;
+  statut: "en_attente" | "en_cours" | "evalue" | "abandonne";
+  tentatives: number;
+  alertes?: number;
+  error?: string;
+  claimedAt?: string;
+  evalueLe?: string;
+};
+
+export type AlertesPromotionResult = {
+  quarantineId: number;
+  eventId: number | null;
+  alerts: number;
+  pending: boolean;
+  error?: string;
+};
+
+export type EvalueurAlertes = (eventId: number, opts: { force: boolean }) => Promise<number>;
+
+async function ecrireSuiviAlertes(
+  run: EventRunner,
+  quarantineId: number,
+  suivi: SuiviAlertes,
+): Promise<void> {
+  await run(
+    `UPDATE quarantine_raw
+        SET extracted = jsonb_set(COALESCE(extracted, '{}'::jsonb), '{_alertes}', $2::jsonb)
+      WHERE id = $1`,
+    [quarantineId, JSON.stringify(suivi)],
+  );
+}
+
+function lireSuiviAlertes(valeur: unknown): SuiviAlertes | null {
+  if (!valeur || typeof valeur !== "object") return null;
+  const s = (valeur as Record<string, unknown>)[CLE_SUIVI_ALERTES];
+  if (!s || typeof s !== "object") return null;
+  const candidate = s as Partial<SuiviAlertes>;
+  const eventId = Number(candidate.eventId);
+  if (!Number.isInteger(eventId) || eventId <= 0) return null;
+  const statut = candidate.statut;
+  if (statut !== "en_attente" && statut !== "en_cours" && statut !== "evalue" && statut !== "abandonne") return null;
+  return {
+    eventId,
+    statut,
+    tentatives: Number.isInteger(candidate.tentatives) ? Number(candidate.tentatives) : 0,
+    ...(Number.isInteger(candidate.alertes) ? { alertes: Number(candidate.alertes) } : {}),
+    ...(typeof candidate.error === "string" ? { error: candidate.error } : {}),
+    ...(typeof candidate.claimedAt === "string" ? { claimedAt: candidate.claimedAt } : {}),
+  };
+}
+
+/**
+ * Évalue les alertes d'un événement déjà promu. Le marqueur posé avec la
+ * promotion rend l'opération rejouable : un événement dédupliqué (`inserted`
+ * faux) est évalué comme un autre, mais jamais deux fois avec succès. En cas
+ * d'échec, le retry est borné et le motif est journalisé — la promotion reste
+ * committée et l'appelant peut répondre sans ambiguïté.
+ */
+export async function evaluerAlertesPromotion(
+  quarantineId: number,
+  evalueur: EvalueurAlertes = (eventId, opts) => evaluateEvent(eventId, opts),
+): Promise<AlertesPromotionResult> {
+  const r = await query<{
+    id: number;
+    content_hash: string;
+    org_hint: string | null;
+    extracted: Record<string, unknown>;
+  }>(
+    `SELECT id, content_hash, org_hint, extracted FROM quarantine_raw WHERE id=$1`,
+    [quarantineId],
+  );
+  const row = r.rows[0];
+  if (!row) return { quarantineId, eventId: null, alerts: 0, pending: false, error: "fait introuvable" };
+  let suivi = lireSuiviAlertes(row.extracted);
+  if (!suivi) {
+    // Promotions antérieures au marqueur : l'événement existe déjà, on pose le
+    // suivi à partir de sa clé de dédup avant de l'évaluer (rejeu possible).
+    const evenement = await query<{ id: number }>(
+      "SELECT id FROM event WHERE dedup_key=$1", [`quarantine:${row.content_hash}`],
+    );
+    const eventId = Number(evenement.rows[0]?.id);
+    if (!Number.isInteger(eventId) || eventId <= 0) {
+      return { quarantineId, eventId: null, alerts: 0, pending: false, error: "événement promu introuvable" };
+    }
+    suivi = { eventId, statut: "en_attente", tentatives: 0 };
+    await ecrireSuiviAlertes(query, quarantineId, suivi);
+  }
+  if (suivi.statut === "evalue") {
+    return { quarantineId, eventId: suivi.eventId, alerts: suivi.alertes ?? 0, pending: false };
+  }
+  if (suivi.statut === "en_cours" && suivi.claimedAt) {
+    const age = Date.now() - new Date(suivi.claimedAt).getTime();
+    if (Number.isFinite(age) && age >= 0 && age < DUREE_RECLAMATION_MS) {
+      return { quarantineId, eventId: suivi.eventId, alerts: 0, pending: true };
+    }
+  }
+  const base = { quarantineId, eventId: suivi.eventId, alerts: 0, pending: true };
+  if (suivi.tentatives >= MAX_TENTATIVES_ALERTES) {
+    if (suivi.statut !== "abandonne") {
+      await ecrireSuiviAlertes(query, quarantineId, { ...suivi, statut: "abandonne", error: "tentatives épuisées" });
+    }
+    await consignerDecisionPromotion(row, {
+      stage: "alertes-promotion",
+      reason: "tentatives-epuisees",
+      verdict: "indisponible",
+      scope: "quarantine",
+    });
+    return { ...base, error: "tentatives épuisées" };
+  }
+
+  const tentative: SuiviAlertes = {
+    ...suivi,
+    statut: "en_cours",
+    tentatives: suivi.tentatives + 1,
+    claimedAt: new Date().toISOString(),
+  };
+  await ecrireSuiviAlertes(query, quarantineId, tentative);
+  try {
+    const alerts = await evalueur(suivi.eventId, { force: true });
+    await ecrireSuiviAlertes(query, quarantineId, {
+      ...tentative,
+      statut: "evalue",
+      alertes: alerts,
+      evalueLe: new Date().toISOString(),
+      claimedAt: undefined,
+      error: undefined,
+    });
+    return { ...base, alerts, pending: false };
+  } catch (error) {
+    const message = String((error as Error)?.message ?? error).slice(0, 500);
+    const epuise = tentative.tentatives >= MAX_TENTATIVES_ALERTES;
+    await ecrireSuiviAlertes(query, quarantineId, {
+      ...tentative,
+      statut: epuise ? "abandonne" : "en_attente",
+      error: message,
+      claimedAt: undefined,
+    }).catch(() => {});
+    await consignerDecisionPromotion(row, {
+      stage: "alertes-promotion",
+      reason: epuise ? "tentatives-epuisees" : "evaluation-en-echec",
+      verdict: "indisponible",
+      scope: "quarantine",
+    }).catch(() => {});
+    return { ...base, error: message };
+  }
+}
 
 /**
  * Insère l'événement public associé à un fait promu. Idempotent :
@@ -820,6 +1001,14 @@ async function insertClaimEventRow(
     },
     validAt: observedAt,
   });
+  // Le marqueur est écrit par le MÊME exécuteur que l'insertion : présent
+  // seulement si la promotion est committée. Un rejeu le lit pour savoir que
+  // l'évaluation des alertes reste à faire, insertion ou conflit compris.
+  await ecrireSuiviAlertes(run, row.id, {
+    eventId: Number(r.rows[0].id),
+    statut: "en_attente",
+    tentatives: 0,
+  });
   return { eventId: Number(r.rows[0].id), inserted: Boolean(r.rows[0].inserted) };
 }
 
@@ -833,8 +1022,8 @@ export async function insertClaimEvent(
   promotedBy: string,
 ): Promise<ClaimEventResult> {
   const r = await insertClaimEventRow(ingestQuery, row, orgId, promotedBy);
-  const alerts = r.inserted ? await evaluateEvent(r.eventId, { force: true }) : 0;
-  return { eventId: r.eventId, inserted: r.inserted, alerts };
+  const suivi = await evaluerAlertesPromotion(row.id);
+  return { eventId: r.eventId, inserted: r.inserted, alerts: suivi.alerts };
 }
 
 /** Nombre maximal de faits promus automatiquement par passage. */
@@ -872,9 +1061,39 @@ export type PromotionResult = {
  */
 export async function promoteMatches(
   dryRun = false,
-  opts: { ids?: number[]; log?: (msg: string) => void } = {}
+  opts: {
+    ids?: number[];
+    log?: (msg: string) => void;
+    confirmer?: FournisseurVerdictOrg;
+    evaluer?: EvalueurAlertes;
+  } = {}
 ): Promise<PromotionResult> {
   const log = opts.log ?? (() => {});
+  const matches: PromotionMatch[] = [];
+  const refusRegles: Record<string, number> = {};
+  const refus: RefusRegle[] = [];
+  const failures: { id: number; error: string }[] = [];
+  let promoted = 0;
+  let eventsCreated = 0;
+  let alertsCreated = 0;
+
+  // Un événement déjà promu peut rester sans alertes (crash entre COMMIT et
+  // évaluation). Le marqueur rend ce rattrapage rejouable et borné, sans
+  // réinsérer l'événement ni dupliquer les alertes.
+  if (!dryRun) {
+    const enAttente = await query<{ id: number }>(
+      `SELECT id FROM quarantine_raw
+        WHERE promoted = true
+          AND (extracted->'_alertes'->>'statut' = 'en_attente' OR NOT (extracted ? '_alertes'))
+        ORDER BY id LIMIT $1`,
+      [MAX_AUTO_PER_RUN],
+    );
+    for (const row of enAttente.rows) {
+      const suivi = await evaluerAlertesPromotion(row.id, opts.evaluer);
+      alertsCreated += suivi.alerts;
+      if (suivi.error) failures.push({ id: row.id, error: suivi.error });
+    }
+  }
 
   const params: unknown[] = [];
   let where = "WHERE status='pending' AND promoted=false AND kind='claim' AND org_hint IS NOT NULL AND org_hint <> ''";
@@ -890,13 +1109,7 @@ export async function promoteMatches(
     params
   );
 
-  const matches: PromotionMatch[] = [];
-  const refusRegles: Record<string, number> = {};
-  const refus: RefusRegle[] = [];
-  let promoted = 0;
-  let eventsCreated = 0;
-  let alertsCreated = 0;
-  const failures: { id: number; error: string }[] = [];
+
 
   for (const row of r.rows) {
     // Candidats bornés par SQL, pas l'index complet : charger 1,24 M
@@ -904,7 +1117,9 @@ export async function promoteMatches(
     // cycle. Le filtre trigramme rend un sur-ensemble exact des
     // correspondances possibles — le moteur, appliqué dessus, tranche.
     const candidates = await loadCandidateIndex(row.org_hint ?? "");
-    let m = matchOrgInIndex(row.org_hint ?? "", candidates);
+    const analyse = analyserOrgMatch(row.org_hint ?? "", candidates);
+    const tied = analyse.tied;
+    let m = analyse.match;
     const matchInitial = m;
     let orgName = matchInitial ? (candidates.find((e) => e.id === matchInitial.orgId)?.name ?? "") : "";
     let decision: DecisionSigle | undefined;
@@ -913,6 +1128,20 @@ export async function promoteMatches(
       m = resolu.match;
       orgName = resolu.orgName;
       decision = resolu.decision;
+    }
+    // Égalité de score : le moteur ne départage pas par identifiant. Un sigle
+    // confirmé au registre est le seul départage tracé ; sinon c'est la revue.
+    if (tied.length > 0 && !decision?.accepte) {
+      if (!dryRun) {
+        await consignerDecisionPromotion(row, {
+          stage: "rattachement",
+          reason: "tied",
+          verdict: "indecis",
+          threshold: AUTO_MIN_CONFIDENCE,
+          scope: "quarantine",
+        });
+      }
+      continue;
     }
     // Un sigle confirmé au registre est la seule exception au seuil auto :
     // la confirmation tient lieu de clé, le modèle garde son arbitrage.
@@ -940,10 +1169,25 @@ export async function promoteMatches(
       continue;
     }
     const orgNameById = new Map([[m.orgId, orgName]]);
-    // Le modèle tranche avant écriture : un rapprochement nié n'attache rien.
-    let confirmed = true;
-    if (!dryRun) confirmed = await confirmMatch(row.org_hint ?? "", m.orgId, orgNameById, m.via);
-    if (!confirmed) continue;
+    // Le modèle tranche avant écriture : un refus n'attache rien, une panne
+    // diffère la promotion automatique et laisse le fait en file pour la revue.
+    if (!dryRun) {
+      const confirmation = await confirmMatch(
+        row.org_hint ?? "", m.orgId, orgNameById, m.via, opts.confirmer,
+      );
+      if (confirmation.decision === "refuser") continue;
+      if (confirmation.decision === "différer") {
+        await consignerDecisionPromotion(row, {
+          stage: "confirmation-organisation",
+          reason: "modele-indisponible",
+          verdict: "indisponible",
+          model: "mercury-decide",
+          orgId: m.orgId,
+          scope: "quarantine",
+        });
+        continue;
+      }
+    }
     matches.push({
       id: row.id,
       orgId: m.orgId,
@@ -965,11 +1209,13 @@ export async function promoteMatches(
       });
       if (upd === null) continue;
       promoted++;
-      if (upd.inserted) {
-        eventsCreated++;
-        // Après COMMIT : l'évaluation ouvre une autre connexion et doit voir la ligne.
-        alertsCreated += await evaluateEvent(upd.eventId, { force: true });
-      }
+      if (upd.inserted) eventsCreated++;
+      // Insertion OU conflit : un événement dédupliqué reste un événement
+      // promu, donc ses alertes doivent être évaluées. Le marqueur écrit avec
+      // la promotion garantit un seul appel par événement, rejeu compris.
+      const suivi = await evaluerAlertesPromotion(row.id, opts.evaluer);
+      alertsCreated += suivi.alerts;
+      if (suivi.error) log(`promotion : alertes en attente pour ${row.id} (${suivi.error})`);
     } catch (e) {
       failures.push({ id: row.id, error: String(e) });
     }
@@ -1031,6 +1277,7 @@ export async function promoteOneTx(
   id: number,
   promotedBy: string,
   override?: OrgOverride,
+  opts: { confirmer?: FournisseurVerdictOrg } = {},
 ): Promise<PromoteOneResult> {
   const base = {
     found: true,
@@ -1072,7 +1319,9 @@ export async function promoteOneTx(
     confidence = 1;
   } else {
     const index = await avecAlias(row.org_hint ?? "", await loadOrgIndex());
-    m = matchOrgInIndex(row.org_hint ?? "", index);
+    // Égalité de score : pas d'attachement automatique en promotion manuelle
+    // sans override — le choix de l'analyste reste le seul départage.
+    m = analyserOrgMatch(row.org_hint ?? "", index).match;
     const matchInitial = m;
     const resolu = await resoudreSigle(
       row.org_hint ?? "",
@@ -1086,11 +1335,13 @@ export async function promoteOneTx(
     // refusé ne demande pas d'arbitrage et n'attache rien.
     trace = { regle: "", accepte: false };
     regle = m ? refusParRegles(row.org_hint ?? "", m, orgName, { sigle: resolu.decision, trace }) : null;
-    const confirmed = m && !regle
-      ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via)
-      : false;
+    const confirmation = m && !regle
+      ? await confirmMatch(
+          row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via, opts.confirmer,
+        )
+      : null;
     orgId = m?.orgId ?? null;
-    attachedOrgId = confirmed && m && !regle ? m.orgId : null;
+    attachedOrgId = confirmation?.decision === "promouvoir" && m && !regle ? m.orgId : null;
   }
 
 
@@ -1125,7 +1376,7 @@ export async function promoteOneTx(
         orgName: matchedOrgName,
         via: m.via,
         confidence: m.confidence,
-        drapeau: "PRECISION_RULES=on",
+        drapeau: reglesPrecisionActives() ? "PRECISION_RULES=on" : "PRECISION_RULES=off",
       },
     });
   }
@@ -1144,9 +1395,15 @@ export async function promoteOneTx(
   };
 }
 
-export async function promoteOne(id: number, promotedBy: string): Promise<PromoteOneResult> {
-  const r = await withTransaction((client) => promoteOneTx(client, id, promotedBy));
-  // Hors transaction : l'évaluation doit voir l'événement commité.
-  const alerts = r.inserted && r.eventId !== null ? await evaluateEvent(r.eventId, { force: true }) : 0;
-  return { ...r, alertsCreated: alerts };
+export async function promoteOne(
+  id: number,
+  promotedBy: string,
+  opts: { confirmer?: FournisseurVerdictOrg; evaluer?: EvalueurAlertes } = {},
+): Promise<PromoteOneResult> {
+  const r = await withTransaction((client) => promoteOneTx(client, id, promotedBy, undefined, opts));
+  // Après COMMIT : l'évaluation doit voir l'événement et ne dépend pas de
+  // `inserted` (un événement dédupliqué peut encore attendre ses alertes).
+  if (!r.found || r.alreadyPromoted || r.eventId === null) return r;
+  const suivi = await evaluerAlertesPromotion(id, opts.evaluer);
+  return { ...r, alertsCreated: suivi.alerts };
 }

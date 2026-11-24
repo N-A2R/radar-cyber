@@ -45,6 +45,10 @@ export type Manque = {
 	 * `manuel` (association, fédération, monnaie locale).
 	 */
 	voie: "sirene" | "annuaire-administratif" | "manuel";
+	/** Zone déduite du nom : France, hors périmètre ou indéterminée. */
+	zone: "france" | "hors-zone" | "inconnue";
+	/** Origine des faits qui nomment l'entité. */
+	provenance: "revendication" | "evenement" | "les deux";
 };
 
 /**

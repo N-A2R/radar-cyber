@@ -71,7 +71,29 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  // Migration 231 : une copie intégrale doit précéder le DELETE d'un événement.
+  const evenements = await query<{ id: string }>(
+    "SELECT id::text AS id FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`],
+  );
+  const ids = evenements.rows.map((ligne) => ligne.id);
+  if (ids.length > 0) {
+    const copies = await query<{ dedup_key: string }>(
+      `INSERT INTO archive_event
+         (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+          valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+          lat, lon, org_id, asset_id, created_at)
+       SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+              valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+              lat, lon, org_id, asset_id, created_at
+         FROM event WHERE id = ANY($1::bigint[])
+       ON CONFLICT DO NOTHING RETURNING dedup_key`,
+      [ids],
+    );
+    const clefs = copies.rows.map((ligne) => ligne.dedup_key);
+    await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+    await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
+    await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
+  }
   await query("DELETE FROM org WHERE slug LIKE $1", [`%${TAG}`]);
   await query("DELETE FROM source WHERE id LIKE $1", [`${TAG}-%`]);
   await closePools();

@@ -22,6 +22,7 @@ import {
   validerDossier,
   type DossierEba,
 } from "../src/report/export-dora.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `dora${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const SOURCE = `test:${TAG}:source-nationale`;
@@ -89,7 +90,7 @@ before(async () => {
 after(async () => {
   if (ids.length > 0) {
     await query("DELETE FROM export_dora WHERE source_event_id = ANY($1::bigint[])", [ids]);
-    await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+    await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids]);
   }
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   if (dossier) await rm(dossier, { recursive: true, force: true });

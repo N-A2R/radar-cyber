@@ -92,14 +92,45 @@ test("les octets nuls des flux sont nettoyés avant l'insertion", async () => {
 	}
 });
 
-test("journal indisponible : rien n'est inventé, les erreurs remontent", async () => {
-	const runner = async () => {
+test("journal indisponible : chaque fait garde son propre message, sans abandon de paquet", async () => {
+	const appels: Appel[] = [];
+	const runner = async (text: string, params?: readonly unknown[]) => {
+		appels.push({ text, params });
 		throw new Error("journal indisponible");
 	};
-	const r = await consignerLotAvec(runner, Array.from({ length: 7 }, (_, i) => fait(i)));
+	const entrees = Array.from({ length: 7 }, (_, i) => fait(i));
+	const r = await consignerLotAvec(runner, entrees);
 	assert.equal(r.consignes, 0);
 	assert.equal(r.lacunes, 0);
-	// 5 lignes tentées + le message d'abandon du paquet.
-	assert.equal(r.erreurs.length, 6);
-	assert.match(r.erreurs[5] ?? "", /abandonné/);
+	assert.equal(r.erreurs.length, entrees.length);
+	for (let i = 0; i < entrees.length; i += 1) {
+		assert.match(r.erreurs[i] ?? "", new RegExp(`dedup:lot-${i}`));
+		assert.match(r.erreurs[i] ?? "", /journal indisponible/);
+	}
+	assert.ok(r.erreurs.every((message) => !/abandonné/.test(message)));
+	assert.equal(appels.length, 1 + entrees.length * 2);
+});
+
+test("runner transactionnel : un refus de fait n'empêche pas la lacune grâce au savepoint", async () => {
+	const appels: Appel[] = [];
+	const runner = async (text: string, params?: readonly unknown[]) => {
+		appels.push({ text, params });
+		if (text.startsWith("SAVEPOINT") || text.startsWith("RELEASE") || text.startsWith("ROLLBACK")) {
+			return { rows: [] };
+		}
+		if (params?.[0] === "event.rattachement") throw new Error("constraint violation");
+		return { rows: [] };
+	};
+	const r = await consignerLotAvec(runner, [fait(1), fait(2)], { transactionnel: true });
+	assert.equal(r.consignes, 2);
+	assert.equal(r.lacunes, 2);
+	assert.deepEqual(r.erreurs, []);
+	const savepoints = appels.filter((appel) => appel.text.startsWith("SAVEPOINT"));
+	const rollbacks = appels.filter((appel) => appel.text.startsWith("ROLLBACK"));
+	assert.equal(savepoints.length, 5);
+	// Le refus d'une ligne est converti en résultat `{ ok: false }` par
+	// `consignerAvec` : son savepoint est libéré normalement. Seul le paquet
+	// groupé, qui jette, est réellement annulé.
+	assert.equal(rollbacks.length, 1);
+	assert.ok(savepoints.every((appel) => /^SAVEPOINT radar_journal_[a-z]+_\d+$/.test(appel.text)));
 });

@@ -26,6 +26,13 @@ const FIXTURE = fileURLToPath(
 );
 
 type Ligne = { vus: number; total: number; taux: number };
+type SourcePreuve = {
+	id: string;
+	nom: string;
+	famille: string;
+	/** État de branchement : une source `false` ne peut pas prouver une collecte. */
+	pretACollecter: boolean | null;
+};
 type Corps = {
 	dateCalcul: string;
 	hashCorpus: string;
@@ -44,7 +51,13 @@ type Corps = {
 	parDepartement: Array<Ligne & { departement: string }>;
 	parType: Array<Ligne & { type: string }>;
 	delaiMedianHeures: number | null;
-	incidents: Array<{ id: string; vu: boolean; motif: string; delaiHeures: number | null }>;
+	incidents: Array<{
+		id: string;
+		vu: boolean;
+		motif: string;
+		delaiHeures: number | null;
+		sources: SourcePreuve[];
+	}>;
 };
 
 let app: FastifyInstance;
@@ -62,7 +75,6 @@ function urlAdmin(): string | null {
 }
 
 const ADMIN = urlAdmin();
-const SANS_BASE = process.env.RADAR_COUVERTURE_DB === undefined && ADMIN === null;
 
 /** Base figée issue du fixture versionné : la même que celle du rapport publié. */
 async function creerBaseFigure(): Promise<string> {
@@ -164,6 +176,12 @@ test("GET /api/couverture renvoie le hash et les décompositions du corpus", asy
 		assert.equal(incident.vu, incident.motif === "vu");
 		if (incident.vu) assert.ok(typeof incident.delaiHeures === "number");
 		else assert.equal(incident.delaiHeures, null, "aucun délai pour un incident non vu");
+		for (const source of incident.sources) {
+			assert.ok(
+				source.pretACollecter === null || typeof source.pretACollecter === "boolean",
+				"état de branchement explicite pour chaque source de la preuve",
+			);
+		}
 	}
 });
 
@@ -207,28 +225,24 @@ test("GET /api/couverture sous le seuil : publiable false et raison explicite", 
 	}
 });
 
-test(
-	"le chiffre servi diverge du script ⇒ échec",
-	{
-		skip: SANS_BASE
-			? "ni RADAR_COUVERTURE_DB ni accès administration : base figée indisponible"
-			: false,
-	},
-	async () => {
-		const servi = await lireReponse();
-		const stdout = execFileSync(TSX, [SCRIPT, "--stdout"], {
-			cwd: RACINE,
-			env: { ...process.env, DATABASE_URL: baseTravail! },
-			encoding: "utf8",
-			timeout: 120_000,
-		});
-		const calcule = JSON.parse(stdout) as Corps;
-		assert.equal(calcule.hashCorpus, servi.hashCorpus, "même corpus");
-		assert.deepEqual(calcule.global, servi.global, "même chiffre");
-		assert.deepEqual(calcule.parMotif, servi.parMotif, "même décomposition par motif");
-		assert.deepEqual(calcule.parDepartement, servi.parDepartement, "même décomposition départementale");
-		assert.deepEqual(calcule.parType, servi.parType, "même décomposition par type");
-		assert.equal(calcule.delaiMedianHeures, servi.delaiMedianHeures, "même délai médian");
-		assert.deepEqual(calcule.incidents, servi.incidents, "mêmes preuves par incident");
-	},
-);
+test("le chiffre servi diverge du script ⇒ échec", async () => {
+	assert.ok(
+		baseTravail,
+		"Contrôle de cohérence publication/calcul indisponible : fournir RADAR_COUVERTURE_DB ou RADAR_TEST_ADMIN_URL/DATABASE_URL (le lanceur test/run.ts injecte DATABASE_URL).",
+	);
+	const servi = await lireReponse();
+	const stdout = execFileSync(TSX, [SCRIPT, "--stdout"], {
+		cwd: RACINE,
+		env: { ...process.env, DATABASE_URL: baseTravail! },
+		encoding: "utf8",
+		timeout: 120_000,
+	});
+	const calcule = JSON.parse(stdout) as Corps;
+	assert.equal(calcule.hashCorpus, servi.hashCorpus, "même corpus");
+	assert.deepEqual(calcule.global, servi.global, "même chiffre");
+	assert.deepEqual(calcule.parMotif, servi.parMotif, "même décomposition par motif");
+	assert.deepEqual(calcule.parDepartement, servi.parDepartement, "même décomposition départementale");
+	assert.deepEqual(calcule.parType, servi.parType, "même décomposition par type");
+	assert.equal(calcule.delaiMedianHeures, servi.delaiMedianHeures, "même délai médian");
+	assert.deepEqual(calcule.incidents, servi.incidents, "mêmes preuves par incident");
+});

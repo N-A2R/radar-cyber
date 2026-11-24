@@ -8,6 +8,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import graphAsOfRoute from "../src/routes/graph-as-of.js";
 import type { GraphAsOfResult } from "../src/graph/as-of.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `ga${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const EARLY = "2024-01-15T10:00:00.000Z";
@@ -76,7 +77,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
   await query("DELETE FROM org WHERE id IN ($1, $2)", [naOrgId, outsideOrgId]);
   await query("DELETE FROM source WHERE id = $1", [TAG]);
   await query("SELECT refresh_temporal_graph_complete()");

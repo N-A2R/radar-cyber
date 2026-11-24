@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import attackPathRoute from "../src/routes/attack-path.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `ap${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const WHEN = "2026-05-10T10:00:00.000Z";
@@ -83,7 +84,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${TAG}-%`]);
   await query("DELETE FROM org WHERE id IN ($1, $2)", [naOrg, outOrg]);
   await query("DELETE FROM source WHERE id IN ($1, $2)", [GRAY, OTHER]);
   await query("SELECT refresh_graphe_temporal()");

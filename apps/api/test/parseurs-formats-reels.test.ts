@@ -146,10 +146,10 @@ test("intégration collecte : les cinq champs survivent à parseNarrativeItems",
 });
 
 test("corps invalide ou sans contenu : zéro item inventé", () => {
-	assert.equal(parseSource("", null).format, "unknown");
-	assert.equal(parseSource("{ pas du json", "application/json").items.length, 0);
-	assert.equal(parseSource('["simple", "chaines"]', "application/json").items.length, 0);
-	assert.equal(parseSource("<html><body><nav>Menu</nav></body></html>", "text/html").items.length, 0);
+	assert.equal(parseSource("", { contentType: null }).format, "unknown");
+	assert.equal(parseSource("{ pas du json", { contentType: "application/json" }).items.length, 0);
+	assert.equal(parseSource('["simple", "chaines"]', { contentType: "application/json" }).items.length, 0);
+	assert.equal(parseSource("<html><body><nav>Menu</nav></body></html>", { contentType: "text/html" }).items.length, 0);
 	assert.equal(detectItems("", "text/plain").strategy, "none");
 	assert.equal(normalizeLanguage("fr-FR"), "fr");
 	assert.equal(normalizeLanguage("en_US"), "en");

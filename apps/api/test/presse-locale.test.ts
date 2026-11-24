@@ -19,10 +19,10 @@ import { FAMILIES } from "@radar/shared";
 import { createTestDatabase, dropTestDatabase, type TestDb } from "./helpers/testdb.js";
 // Imports de types uniquement : effacés à la compilation, ils ne chargent pas
 // `db.ts` avant que le test ait choisi sa base.
-import type * as DbModule from "../src/db.js";
-import type * as GenericModule from "../src/collectors/generic.js";
-import type * as ClassifyModule from "../src/collectors/classify.js";
-import type * as CorpusModule from "../src/routes/corpus-stats.js";
+type DbModule = typeof import("../src/db.js");
+type GenericModule = typeof import("../src/collectors/generic.js");
+type ClassifyModule = typeof import("../src/collectors/classify.js");
+type CorpusModule = typeof import("../src/routes/corpus-stats.js");
 
 let db: DbModule;
 let generic: GenericModule;

@@ -24,6 +24,7 @@ import {
 	type FetchLike,
 	type OrgEnrichissable,
 	type Proposition,
+	type TentativeDomaine,
 	type ReponseLike,
 } from "../src/referentiel/enrichissement.js";
 import {
@@ -140,7 +141,7 @@ test("HTTP 200 sur le même domaine : confiance et source tracées", async () =>
 		urlFinale: "https://www.exemple.fr/accueil",
 		hoteFinal: "www.exemple.fr",
 	});
-	const tentatives: Array<{ domaine: string; ok: boolean }> = [];
+	const tentatives: TentativeDomaine[] = [];
 	const proposition = await proposerDomaine(org({ name: "EXEMPLE FR", domain: "exemple.fr" }), ctx, tentatives);
 	assert.ok(proposition);
 	assert.equal(proposition!.champ, "domain");
@@ -164,7 +165,7 @@ test("HTTP : 404, redirection hors domaine, timeout et hors ligne", async () => 
 		/timeout/,
 	);
 	assert.equal((await verifierDomaine("exemple.fr", contexte())).ok, false);
-	const tentatives: Array<{ ok: boolean; motif: string | null }> = [];
+	const tentatives: TentativeDomaine[] = [];
 	assert.equal(await proposerDomaine(org({ website: "exemple.fr" }), contexte(), tentatives), null);
 	assert.equal(tentatives[0]!.motif, "verification-desactivee");
 });
@@ -304,7 +305,7 @@ test("couverture projetée : gains par champ et division par zéro", () => {
 /* ----------------------------- intégration ------------------------------- */
 
 test("base : lecture paginée, application idempotente, provenance et non-écrasement", async () => {
-	const { rows: inseres } = await query<{ id: number }>(
+	const { rows: inseres } = await query<{ id: number; slug: string }>(
 		`INSERT INTO org (name, slug, kind, city, dept, status)
 		 VALUES ('Orgo Sans Valeur', 'test-enrichissement-vide', 'entreprise', 'Bordeaux', '33', 'confirme'),
 		        ('Orgo Deja Renseignee', 'test-enrichissement-plein', 'entreprise', 'Bordeaux', '33', 'confirme')

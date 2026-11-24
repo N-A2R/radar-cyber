@@ -11,6 +11,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { query, closePools } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const SOURCE = `test-dedup-cleanup-${Date.now()}`;
 const SCRIPT = fileURLToPath(new URL("../../../scripts/dedup-events.mts", import.meta.url));
@@ -24,7 +25,7 @@ type Rapport = {
 };
 
 after(async () => {
-  await query("DELETE FROM event WHERE source_id=$1", [SOURCE]).catch(() => {});
+  await supprimerEvenementsArchivees("source_id = $1", [SOURCE]).catch(() => {});
   await query("DELETE FROM collector_run WHERE source_id=$1", [SOURCE]).catch(() => {});
   await query("DELETE FROM source WHERE id=$1", [SOURCE]).catch(() => {});
   await closePools().catch(() => {});

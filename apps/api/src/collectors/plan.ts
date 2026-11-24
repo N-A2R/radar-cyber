@@ -10,6 +10,8 @@
  * l'expose tel quel, y compris les sources écartées et leur motif.
  *
  * Règles, dans l'ordre :
+ *   0. `pret_a_collecter = false` est écartée, y compris d'un forçage explicite
+ *      (aucun override admin) ; NULL garde le comportement historique ;
  *   1. jamais collectée (aucun run ok, aucun `last_ok_at`) → toujours en tête ;
  *   2. santé : morte/désactivée écartée, dégradée après une source saine ;
  *   3. priorité de la famille, puis temps écoulé, puis id (ordre déterministe) ;
@@ -41,6 +43,8 @@ export type SourcePourPlan = {
   lastError?: string | null;
   statut?: string | null;
   enabled?: boolean | null;
+  /** false = collecteur non branché : exclu du plan, y compris sur forçage. NULL = historique. */
+  pretACollecter?: boolean | null;
   createdAt?: string | Date | null;
   historique?: HistoriqueSource | null;
 };
@@ -54,6 +58,7 @@ export type EntreePlan = {
   ageSec: number | null;
   jamaisCollectee: boolean;
   sante: SanteSource;
+  pretACollecter: boolean | null;
   etat: EtatPlan;
   raison: string;
   /** Position dans le cycle, 1-based ; null pour une source non retenue. */
@@ -71,6 +76,7 @@ export type PlanCollecte = {
     dues: number;
     jamaisCollectees: number;
     jamaisCollecteesDues: number;
+    enAttenteBranchement: number;
   };
 };
 
@@ -187,17 +193,20 @@ export function construirePlan(
     const sante = santeDe(source, historique, jamaisCollectee);
     const frequenceSec = frequenceDe(source, options?.intervalles);
     const ageSec = reference === null ? null : Math.max(0, Math.floor((maintenantMs - reference) / 1000));
-    const exclue = sante === "morte" || sante === "desactivee";
+    const enAttenteBranchement = source.pretACollecter === false;
+    const exclue = enAttenteBranchement || sante === "morte" || sante === "desactivee";
     const due = !exclue && (jamaisCollectee || (ageSec !== null && ageSec >= frequenceSec * MARGE_FREQUENCE));
-    const raison = sante === "morte"
-      ? "source déclarée morte"
-      : sante === "desactivee"
-        ? "source désactivée"
-        : jamaisCollectee
-          ? "jamais collectée — première tentative prioritaire"
-          : due
-            ? `${ageSec}s écoulées pour une fréquence attendue de ${frequenceSec}s`
-            : `${ageSec}s écoulées, attend ${Math.floor(frequenceSec * MARGE_FREQUENCE)}s`;
+    const raison = enAttenteBranchement
+      ? "en attente de branchement — collecteur non branché"
+      : sante === "morte"
+        ? "source déclarée morte"
+        : sante === "desactivee"
+          ? "source désactivée"
+          : jamaisCollectee
+            ? "jamais collectée — première tentative prioritaire"
+            : due
+              ? `${ageSec}s écoulées pour une fréquence attendue de ${frequenceSec}s`
+              : `${ageSec}s écoulées, attend ${Math.floor(frequenceSec * MARGE_FREQUENCE)}s`;
     return {
       id: source.id,
       name: source.name ?? source.id,
@@ -207,6 +216,7 @@ export function construirePlan(
       ageSec,
       jamaisCollectee,
       sante,
+      pretACollecter: source.pretACollecter ?? null,
       etat: exclue ? "exclue" : due ? "due" : "attente",
       raison,
       rang: null,
@@ -230,6 +240,7 @@ export function construirePlan(
       dues: rang,
       jamaisCollectees: entrees.filter((e) => e.jamaisCollectee && e.etat !== "exclue").length,
       jamaisCollecteesDues: entrees.filter((e) => e.jamaisCollectee && e.etat === "due").length,
+      enAttenteBranchement: entrees.filter((e) => e.pretACollecter === false).length,
     },
   };
 }
@@ -262,6 +273,7 @@ type LignePlan = {
   last_error: string | null;
   statut: string | null;
   enabled: boolean;
+  pret_a_collecter: boolean | null;
   created_at: Date | null;
   dernier_run_at: Date | null;
   dernier_ok_run_at: Date | null;
@@ -285,7 +297,7 @@ const SQL_PLAN = `
      GROUP BY source_id
   )
   SELECT s.id, s.name, s.family, s.kind, s.interval_sec, s.last_ok_at, s.last_error_at,
-         s.last_error, s.statut, s.enabled, s.created_at,
+         s.last_error, s.statut, s.enabled, s.pret_a_collecter, s.created_at,
          r.dernier_run_at, r.dernier_ok_run_at, r.dernier_erreur_run_at, r.dernier_statut,
          r.runs_ok, r.runs_erreur
     FROM source s
@@ -312,6 +324,7 @@ export async function chargerPlanCycle(
       lastError: ligne.last_error,
       statut: ligne.statut,
       enabled: ligne.enabled,
+      pretACollecter: ligne.pret_a_collecter,
       createdAt: ligne.created_at,
       historique: {
         dernierRunAt: ligne.dernier_run_at,

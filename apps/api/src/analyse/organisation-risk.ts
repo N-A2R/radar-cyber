@@ -193,6 +193,7 @@ export function fitRiskModel(
 				const value = row[column]!;
 				gradient[column + 1]! += error * value;
 				hessian[0]![column + 1]! += weight * value;
+				hessian[column + 1]![0]! += weight * value;
 				for (let other = 0; other <= column; other += 1) {
 					hessian[column + 1]![other + 1]! += weight * value * row[other]!;
 				}
@@ -201,8 +202,14 @@ export function fitRiskModel(
 		for (let column = 0; column < RISK_FEATURE_COUNT; column += 1) {
 			gradient[column + 1]! -= ridge * parameters[column + 1]!;
 			hessian[column + 1]![column + 1]! += ridge;
-			for (let other = 0; other < column; other += 1) {
-				hessian[other + 1]![column + 1] = hessian[column + 1]![other + 1]!;
+		}
+		// Newton exige une Hessienne symétrique : chaque paire reçoit la
+		// moyenne de ses deux contributions avant la résolution.
+		for (let ligne = 0; ligne < size; ligne += 1) {
+			for (let colonne = ligne + 1; colonne < size; colonne += 1) {
+				const moyenne = (hessian[ligne]![colonne]! + hessian[colonne]![ligne]!) / 2;
+				hessian[ligne]![colonne] = moyenne;
+				hessian[colonne]![ligne] = moyenne;
 			}
 		}
 		const stepVector = solve(hessian, gradient);

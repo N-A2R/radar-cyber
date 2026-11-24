@@ -173,6 +173,9 @@ FROM org_alias a
 JOIN org o ON o.id = a.org_id
 WHERE a.status = 'active' AND a.source IN ('sirene-usuelle', 'sirene-sigle', 'annuaire-entreprises', 'usage')`;
 
+/** Génération du cache : un reset invalide même une charge en cours. */
+let indexSiglesGeneration = 0;
+
 let indexSiglesPromise: Promise<IndexSigles> | null = null;
 
 /** Construit l'index depuis des lignes `org_alias` jointes à `org`. */
@@ -208,8 +211,9 @@ async function chargerIndexSigles(): Promise<IndexSigles> {
 }
 
 function getIndexSigles(): Promise<IndexSigles> {
+	const generation = indexSiglesGeneration;
 	indexSiglesPromise ??= chargerIndexSigles().catch((err: unknown) => {
-		indexSiglesPromise = null;
+		if (generation === indexSiglesGeneration) indexSiglesPromise = null;
 		throw err;
 	});
 	return indexSiglesPromise;
@@ -217,6 +221,7 @@ function getIndexSigles(): Promise<IndexSigles> {
 
 /** Vide l'index mémoire (tests, ou après un import du registre). */
 export function resetIndexSigles(): void {
+	indexSiglesGeneration++;
 	indexSiglesPromise = null;
 }
 

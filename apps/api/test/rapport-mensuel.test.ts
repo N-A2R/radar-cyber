@@ -7,6 +7,7 @@
 import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import {
 	DEPTS_NA,
 	SQL,
@@ -106,7 +107,7 @@ async function installer(): Promise<void> {
 await installer();
 
 after(async () => {
-	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIXE}-%`]);
+	await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${PREFIXE}-%`]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${PREFIXE}-%`]);
 	await query("DELETE FROM source WHERE id = $1", [`${PREFIXE}-src`]);
 });

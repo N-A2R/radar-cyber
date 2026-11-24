@@ -37,7 +37,7 @@ test("une cible de corpus est un domaine enregistrable confirmé, hors agrégate
 		{ nom: "Non confirmé", url: "https://ville-non-confirme.fr/", confirme: false },
 		{ nom: "Wikipédia", url: "https://fr.wikipedia.org/wiki/Angouleme" },
 		{ nom: "ARS", url: "https://nouvelle-aquitaine.ars.sante.fr/" },
-		{ nom: "Sans domaine", url: null },
+		{ nom: "Sans domaine", url: undefined },
 	], "corpus:test");
 	assert.deepEqual(cibles.map((c) => c.domaine), ["angouleme.fr"]);
 	assert.equal(cibles[0]?.organisation, "Angoulême");

@@ -66,14 +66,14 @@ try {
 	const cmd = existsSync(LOCAL_TSX) ? LOCAL_TSX : "tsx";
 	exitCode = await run(
 		cmd,
-		// `--test-force-exit` : la suite rend son verdict puis le processus
-		// sort, même si une connexion de collecte est restée ouverte. Sans lui,
-		// le step de CI attend 20 minutes pour rien (692 tests verts, aucune
-		// sortie), et le job est annulé.
-		["--test", "--test-concurrency=1", "--test-timeout=120000", "--test-force-exit", ...flags, ...files],
-		// Les tests d'intégration ne dépendent pas d'une TSA en ligne : le
-		// scellement est couvert par son propre test avec fournisseur injecté.
-		{ ...process.env, DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off", RADAR_EXPORT_SCELLEMENT: "0" }
+		// Pas de `--test-force-exit` : il masquait les connexions/timers non
+		// libérés en rendant un verdict vert avant la sortie. La garde ci-dessus
+		// tue désormais la suite et renvoie 1 si un handle reste ouvert.
+		["--test", "--test-concurrency=1", "--test-timeout=120000", ...flags, ...files],
+		// Le scellement est couvert par son propre test avec fournisseur injecté.
+		// `NODE_ENV=test` autorise le poivre d'audit factice : hors test, son
+		// absence fait échouer le démarrage (SEC-01).
+		{ ...process.env, NODE_ENV: "test", DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off", RADAR_EXPORT_SCELLEMENT: "0" }
 	);
 } catch (err) {
 	console.error(err);

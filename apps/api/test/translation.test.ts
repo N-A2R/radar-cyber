@@ -71,12 +71,12 @@ after(async () => {
 	await closePools();
 });
 
-const NA_ARTICLE: ArticleRecord = {
+const NA_ARTICLE = {
 	id: 1,
 	title: "Gîtes de France - 117,574 breached accounts",
 	regional: false,
 	department: "33",
-};
+} satisfies ArticleRecord;
 
 function article(overrides: Partial<ArticleRecord> = {}): ArticleRecord {
 	return { ...NA_ARTICLE, ...overrides };

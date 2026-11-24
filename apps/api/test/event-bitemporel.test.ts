@@ -1,8 +1,8 @@
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
-import { createServer, type Server } from "node:http";
 import { query, closePools } from "../src/db.js";
 import { runGenericSources } from "../src/collectors/generic.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 after(async () => { await closePools().catch(() => {}); });
 
@@ -18,26 +18,15 @@ test("un article daté d'hier inséré aujourd'hui a valid_at hier et at aujourd
 <description>Une attaque par rançongiciel a été détectée.</description>
 <pubDate>${hier.toUTCString()}</pubDate></item></channel></rss>`;
 
-	let serveur: Server | null = null;
 	try {
-		serveur = createServer((_req, res) => {
-			res.writeHead(200, { "content-type": "application/rss+xml; charset=utf-8" });
-			res.end(flux);
-		});
-		const pret = Promise.withResolvers<void>();
-		serveur.listen(0, "127.0.0.1", pret.resolve);
-		await pret.promise;
-		const adresse = serveur.address();
-		assert.ok(adresse && typeof adresse !== "string", "le serveur de test doit écouter");
-
 		await query(
 			`INSERT INTO source (id, name, family, url, kind, format, relevance)
-			 VALUES ($1,$2,'ransomware',$3,'narrative','rss','strict')`,
-			[sourceId, `Source test ${sourceId}`, `http://127.0.0.1:${adresse.port}/flux.xml`],
+			 VALUES ($1,$2,'ransomware','https://example.invalid/flux.xml','narrative','rss','strict')`,
+			[sourceId, `Source test ${sourceId}`],
 		);
 
 		const avant = new Date();
-		await runGenericSources(() => {}, { sourceIds: [sourceId] });
+		await runGenericSources(() => {}, { sourceIds: [sourceId], fetchTexte: async () => flux });
 		const apres = new Date();
 
 		const { rows } = await query<{
@@ -59,12 +48,7 @@ test("un article daté d'hier inséré aujourd'hui a valid_at hier et at aujourd
 		);
 		await query("DELETE FROM journal WHERE subject=$1", [evenement.dedup_key]).catch(() => {});
 	} finally {
-		if (serveur) {
-			const ferme = Promise.withResolvers<void>();
-			serveur.close((err) => (err ? ferme.reject(err) : ferme.resolve()));
-			await ferme.promise;
-		}
-		await query("DELETE FROM event WHERE source_id=$1", [sourceId]).catch(() => {});
+		await supprimerEvenementsArchivees("source_id=$1", [sourceId]).catch(() => {});
 		await query("DELETE FROM collector_run WHERE source_id=$1", [sourceId]).catch(() => {});
 		await query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
 	}

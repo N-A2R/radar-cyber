@@ -1,3 +1,4 @@
+import { assertPublicDomain, fetchBoundedJson } from "../security/network.js";
 // Enrichissement WHOIS/RDAP pour un domaine — radar-cyber.
 // API publique : https://rdap.org/domain/<domaine> (redirection vers le registre RDAP du TLD). HTTP 200 + JSON.
 
@@ -55,27 +56,21 @@ function eventDate(events: RdapEvent[] | undefined, action: string): string | un
 }
 
 export async function enrichDomain(domain: string): Promise<WhoisResult> {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
-  try {
-    const res = await fetch(`https://rdap.org/domain/${encodeURIComponent(domain)}`, {
-      headers: { Accept: "application/rdap+json" },
-      signal: ctrl.signal,
-    });
-    if (!res.ok) throw new Error(`RDAP HTTP ${res.status}`);
-    const j = (await res.json()) as RdapResponse;
-    const nameServers = (j.nameservers ?? [])
-      .map((n) => (n.ldhName ?? n.name ?? "").toLowerCase())
-      .filter(Boolean);
-    return {
-      registrar: registrarOf(j.entities),
-      created: eventDate(j.events, "registration"),
-      expires: eventDate(j.events, "expiration"),
-      updated: eventDate(j.events, "last changed"),
-      nameServers,
-      status: j.status ?? [],
-    };
-  } finally {
-    clearTimeout(timer);
-  }
+  const cible = assertPublicDomain(domain);
+  const j = await fetchBoundedJson<RdapResponse>(`https://rdap.org/domain/${encodeURIComponent(cible)}`, {
+    timeoutMs: TIMEOUT_MS,
+    maxBytes: 256_000,
+    headers: { Accept: "application/rdap+json" },
+  });
+  const nameServers = (j.nameservers ?? [])
+    .map((n) => (n.ldhName ?? n.name ?? "").toLowerCase())
+    .filter(Boolean);
+  return {
+    registrar: registrarOf(j.entities),
+    created: eventDate(j.events, "registration"),
+    expires: eventDate(j.events, "expiration"),
+    updated: eventDate(j.events, "last changed"),
+    nameServers,
+    status: j.status ?? [],
+  };
 }

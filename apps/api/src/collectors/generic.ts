@@ -6,9 +6,10 @@
  */
 import { createHash } from "node:crypto";
 import { XMLParser } from "fast-xml-parser";
+import { consignerLot, type JournalEntry } from "../journal/index.js";
+import { parseObservedAt, type DateSource } from "./dates.js";
 import { ingestQuery } from "../db.js";
 import { closeRun, openRun, withRunId } from "../collecte/runs.js";
-import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import {
 	admitsDepartment,
@@ -33,7 +34,7 @@ import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { parseClaimCards } from "./parsers/claims.js";
 import { parseTelegramContact, parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
-import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
+import { MOTEUR_RATTACHEMENT } from "../match/versions.js";
 import { parseFeedDetection, parseRssItems } from "./parsers/xml.js";
 import { parseJsonLd } from "./parsers/jsonld.js";
 import { parseHtmlArticles } from "./parsers/article.js";
@@ -57,6 +58,7 @@ type SourceRow = {
   interval_sec: number;
   last_ok_at: string | null;
   last_error_at: string | null;
+  pret_a_collecter: boolean | null;
   relevance: string;
   /** Code INSEE du département éditeur, pour la veille `presse_locale`. */
   department: string | null;
@@ -155,12 +157,24 @@ function normalizeTitle(title: string): string {
     .trim();
 }
 
-/** Identité d'un article : titre normalisé + jour UTC + source (migration 045). */
-function fingerprintOf(title: string, at: Date | null, sourceId: string): string {
-  const day = at === null
-    ? "sans-date"
-    : `${at.getUTCFullYear()}-${String(at.getUTCMonth() + 1).padStart(2, "0")}-${String(at.getUTCDate()).padStart(2, "0")}`;
-  return `${normalizeTitle(title)}|${day}|${sourceId}`;
+/**
+ * Identité stable d'un item : URL/guid déclaré par le flux, sinon empreinte
+ * titre+source. Le jour n'entre en compte que s'il vient du flux : replier sur
+ * `fetchedAt` déplacerait l'empreinte du même article à chaque collecte.
+ */
+export function fingerprintOf(
+  title: string,
+  sourceId: string,
+  opts: { identity?: string | null; at?: Date | null; dateSource?: DateSource } = {},
+): string {
+  const identite = opts.identity?.trim()
+    ? `id:${hashKey(opts.identity.trim().toLowerCase())}`
+    : `titre:${hashKey(`${normalizeTitle(title)}|${sourceId}`)}`;
+  const dateDuFlux = opts.dateSource && opts.dateSource !== "fetched" ? opts.at : undefined;
+  const jour = dateDuFlux
+    ? `${dateDuFlux.getUTCFullYear()}-${String(dateDuFlux.getUTCMonth() + 1).padStart(2, "0")}-${String(dateDuFlux.getUTCDate()).padStart(2, "0")}`
+    : "sans-date";
+  return `${sourceId}|${identite}|${jour}`;
 }
 
 /** Champs portant un identifiant CVE en plus du titre (OSV `aliases`, `cve`…). */
@@ -586,11 +600,15 @@ function parseJsonItems(body: string, parser: Record<string, unknown>): Record<s
  * Récupère le corps d'un flux via le client résilient (Retry-After, backoff,
  * GET conditionnel). Un 304 renvoie une chaîne vide : la source est déjà à jour.
  */
-async function fetchText(url: string, timeoutMs = 30000): Promise<string> {
+async function fetchText(url: string, timeoutMs = 30000, source?: string): Promise<string> {
   // Les API abuse.ch (URLhaus, SSLBL) exigent un en-tête Auth-Key depuis 2025.
   const key = process.env.ABUSECH_AUTH_KEY;
   const extra = key && /(^|\.)abuse\.ch$/i.test(new URL(url).hostname) ? { "Auth-Key": key } : undefined;
-  const res = await fetchResilient(url, { timeoutMs, headers: extra });
+  const res = await fetchResilient(url, { timeoutMs, headers: extra, source });
+  // Le client jette déjà toute réponse ≥ 400 ; ce garde-fou évite qu'un futur
+  // appelant injecte une page d'erreur dans le parseur et marque la source
+  // saine. Aucun octet du corps n'est lu avant ce test.
+  if (res.status >= 400) throw new Error(`HTTP ${res.status} pour ${url}`);
   if (res.notModified) return "";
   const buf = (res as any).buffer as Buffer | undefined;
   if (buf) {
@@ -922,7 +940,7 @@ async function ingestNarrative(
     }
     let orgId: number | null = null;
     let explication: ExplicationRattachement = {
-      moteur: "gazetteer@2",
+      moteur: MOTEUR_RATTACHEMENT,
       motif: "aucun",
       alias: null,
       confiance: 0,
@@ -941,7 +959,7 @@ async function ingestNarrative(
         // Le moteur sait pourquoi il rattache : on le garde, sinon la fiche
         // d'un événement rattaché ne peut rien expliquer d'autre que « fait ».
         explication = matchedOrg.explication ?? {
-          moteur: "gazetteer@2",
+          moteur: MOTEUR_RATTACHEMENT,
           motif: "alias-distinctif",
           alias: null,
           confiance: matchedOrg.confidence,
@@ -954,19 +972,19 @@ async function ingestNarrative(
       }
     } catch {
       orgId = null;
-      explication = { moteur: "gazetteer@2", motif: "aucun", alias: null, confiance: 0, indisponible: true };
+      explication = { moteur: MOTEUR_RATTACHEMENT, motif: "aucun", alias: null, confiance: 0, indisponible: true };
     }
     const dateRaw = explicitOr(item, parser.dateField, DATE_FIELDS);
     // parseObservedAt couvre RFC 822/3339, formats français et relatifs ; à
     // défaut il retombe sur l'instant de collecte, ce qui évite les
     // observed_at NULL qui s'accumulaient en fin de fil.
     const parsed = parseObservedAt(dateRaw, { fetchedAt });
-    // L'identité d'un article, c'est son titre normalisé + son jour UTC + sa
-    // source (migration 045). La clé historique ne portait que le titre brut :
-    // une casse, un accent ou des espaces différents créaient un doublon.
-    // La clé dérive de l'empreinte pour qu'un conflit sur l'une soit toujours
-    // un conflit sur l'autre — un seul ON CONFLICT suffit alors à l'insertion.
-    const fingerprint = fingerprintOf(title, parsed.at, source.id);
+    // L'identité d'un article est son URL/guid déclaré, sinon une empreinte
+    // titre+source. Le jour d'un flux sans date vient de `fetchedAt` : il ne
+    // doit donc jamais entrer dans l'empreinte, sinon le même article change
+    // de clé à chaque collecte. Il reste dans `observed_at`/`date_source`.
+    const identite = explicitOr(item, parser.idField, ["guid", "id", "uuid", "link", "url", "reference", "href", "permalink", "source_url"]) || link;
+    const fingerprint = fingerprintOf(title, source.id, { identity: identite, at: parsed.at, dateSource: parsed.source });
     const dedupKey = `feed:${hashKey(fingerprint)}`;
     // Porte cyber : le texte décide. Une dépêche régionale publiée par une
     // source déclarée `cti` n'est pas du renseignement. Elle était classée
@@ -1050,7 +1068,7 @@ async function ingestNarrative(
       summary: orgId !== null
         ? `${source.id} : rattaché — ${libelleMotif(explication.motif)}${explication.alias ? ` (« ${explication.alias} »)` : ""}`
         : `${source.id} : non rattaché — ${libelleMotif(explication.motif)}`,
-      actor: `moteur:${MOTEURS.rattachement}`,
+      actor: `moteur:${MOTEUR_RATTACHEMENT}`,
       // Le pourquoi, pas seulement le quoi : c'est ce qui permet de mesurer
       // plus tard ce qu'un changement de moteur a corrigé.
       payload: { orgId, ...versEvidence(explication), famille: family, admission: admissionRule },
@@ -1138,7 +1156,10 @@ export function doitMettreEnQuarantaine(source: { reader?: string | null }): boo
   return readerMode(source.reader) === "quarantine-first";
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, pertinenceConfig: RelevanceConfig, force = false, intervalles: Readonly<Record<string, number>> = {}): Promise<void> {
+async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, pertinenceConfig: RelevanceConfig, force = false, intervalles: Readonly<Record<string, number>> = {}, lecture?: (url: string, timeoutMs: number, sourceId?: string) => Promise<string>): Promise<void> {
+  // DB-M8 : une source explicitement non prête n'est pas une source en échec.
+  // Elle est écartée avant tout appel réseau, y compris sur relance forcée.
+  if (source.pret_a_collecter === false) return;
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
@@ -1151,12 +1172,12 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
   // d'événement : chaque ligne cite son identifiant (migration 206).
   let runId: number | null = null;
   try {
-    const body = await fetchText(source.url);
+    const body = lecture ? await lecture(source.url, 30000, source.id) : await fetchText(source.url, 30000, source.id);
     runId = await openRun(source.id);
     // 304 Not Modified : rien de neuf, la source reste saine.
     if (body === "") {
       await ingestQuery(
-        "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1",
+        "UPDATE source SET last_ok_at=now(), pret_a_collecter=true, last_error=NULL, last_error_at=NULL WHERE id=$1",
         [source.id]
       );
       await closeRun(runId, { itemsIn: 0, itemsNew: 0 });
@@ -1192,7 +1213,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       if (fallback.items > 0) result = fallback;
     }
     await ingestQuery(
-      "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL, items_total=$1, last_items=$2 WHERE id=$3",
+      "UPDATE source SET last_ok_at=now(), pret_a_collecter=true, last_error=NULL, last_error_at=NULL, items_total=$1, last_items=$2 WHERE id=$3",
       [result.items, result.added, source.id]
     );
     const motifRun = classerMotifEchec({ itemsExtraits: result.items, itemsRetenus: result.added });
@@ -1230,13 +1251,16 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
 
 export async function runGenericSources(
 	log: (msg: string) => void,
-	opts?: { sourceIds?: string[]; limit?: number; force?: boolean; intervalles?: Readonly<Record<string, number>> },
+	opts?: { sourceIds?: string[]; limit?: number; force?: boolean; intervalles?: Readonly<Record<string, number>>; fetchTexte?: (url: string, timeoutMs: number, sourceId?: string) => Promise<string> },
 ): Promise<void> {
 	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
+	// Un `false` est écarté côté SQL : même `sourceIds` + `force` ne le relancent pas.
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, department, reader FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, department, reader FROM source" +
+		" WHERE enabled AND kind <> 'quarantine' AND (pret_a_collecter IS NULL OR pret_a_collecter IS TRUE)" +
+		" AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
 		sql += ` AND id = ANY($${params.length})`;
@@ -1281,7 +1305,7 @@ export async function runGenericSources(
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source, orgIndex, coverage, pertinenceConfig, opts?.force === true, opts?.intervalles);
+      await processSource(source, orgIndex, coverage, pertinenceConfig, opts?.force === true, opts?.intervalles, opts?.fetchTexte);
     }
   });
   await Promise.all(workers);

@@ -10,11 +10,11 @@ Sources actives du catalogue de l'observatoire Nouvelle-Aquitaine : aucun flux e
 
 ## Ce qui est compté
 
-Une source est éligible si elle est active, a produit sur au moins 3 jours UTC distincts durant les 7 jours précédant son dernier item, puis n'a plus rien produit depuis 12 h. Le détecteur est évalué toutes les heures, comme en production. Un épisode n'est retenu que si la pause réelle a duré au moins 24 h : on mesure donc bien une source devenue muette, pas un simple trou de quelques heures.
+Une source est éligible si elle est active, a produit sur au moins 3 jours UTC distincts durant les 7 jours précédant son dernier item, puis n'a plus rien produit depuis 14 h (seuil calibré lu dans `rule_calibration` et transmis explicitement au rejeu). Le détecteur est évalué toutes les heures, comme en production. Un épisode n'est retenu que si la pause réelle a duré au moins 24 h : on mesure donc bien une source devenue muette, pas un simple trou de quelques heures.
 
 ## Résultat
 
-**Délai médian de détection : 12,77 h (p50)**, sur 57 épisode(s) et 57 source(s) observée(s).
+**Délai médian de détection : 12,77 h (p50)**, sur 57 épisode(s) et 57 source(s) observée(s) — mesure historique à 12 h, à régénérer avec le seuil calibré de 14 h.
 
 | Statistique | Heures |
 | --- | ---: |

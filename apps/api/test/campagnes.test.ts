@@ -11,6 +11,7 @@ import {
 	enregistrerCampagnes,
 	type EvenementCampagne,
 } from "../src/analyse/campagnes.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 function evenement(id: number, overrides: Partial<EvenementCampagne> = {}): EvenementCampagne {
 	return {
@@ -160,7 +161,7 @@ const TAG = `cmp${Date.now().toString(36)}${Math.random().toString(36).slice(2, 
 const creees: number[] = [];
 
 after(async () => {
-	if (creees.length > 0) await query("DELETE FROM event WHERE id = ANY($1)", [creees]);
+	if (creees.length > 0) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [creees]);
 	await query("DELETE FROM campaign WHERE label = $1", [`campagnetest${TAG}`]);
 	await closePools().catch(() => {});
 });

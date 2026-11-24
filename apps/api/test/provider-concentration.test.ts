@@ -52,7 +52,7 @@ test("keeps only Nouvelle-Aquitaine organizations in scope", () => {
   const gironde = report.departments.find((dept) => dept.dept === "33");
   assert.equal(gironde?.organizationsAttributed, 1);
   assert.equal(gironde?.topProvider?.name, "OVHcloud");
-  assert.ok(report.departments.every((dept) => dept.dept !== "75"));
+  assert.ok(report.departments.every((dept) => String(dept.dept) !== "75"));
 });
 
 test("counts an organization once per provider across NS and MX", () => {

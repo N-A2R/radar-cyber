@@ -145,7 +145,9 @@ test("creer : organisation créée depuis l'indice, événement attaché et jour
 
 	const journal = await query<{ payload: { decision: string; action: string; reason: string; cree: boolean; orgId: number }; actor: string }>(
 		`SELECT payload, actor FROM journal
-		  WHERE kind='review.decided' AND subject=$1 ORDER BY id DESC LIMIT 1`, [`quarantine:${id}`],
+		  WHERE kind='review.decided'
+		    AND subject=(SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id=$1)
+		  ORDER BY id DESC LIMIT 1`, [id],
 	);
 	assert.equal(journal.rows[0]?.actor, `humain:${EMAIL}`);
 	assert.equal(journal.rows[0]?.payload.decision, "creer");
@@ -244,7 +246,9 @@ $fn$`);
 	assert.equal(ligne.rows[0]?.promoted, false, "la promotion est annulée");
 	assert.equal(ligne.rows[0]?.status, "pending");
 	const trace = await query<{ n: number }>(
-		"SELECT count(*)::int AS n FROM journal WHERE kind='review.decided' AND subject=$1", [`quarantine:${id}`],
+		`SELECT count(*)::int AS n FROM journal
+		  WHERE kind='review.decided'
+		    AND subject=(SELECT 'quarantine:' || content_hash FROM quarantine_raw WHERE id=$1)`, [id],
 	);
 	assert.equal(trace.rows[0]?.n, 0, "aucune décision journalisée sans promotion");
 });

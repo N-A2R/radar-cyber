@@ -11,11 +11,15 @@
  * lecture paierait le coût d'un rejeu.
  */
 import { ingestQuery } from "../db.js";
+import { MOTEUR_RATTACHEMENT } from "../match/versions.js";
 
 /** Nature du fait consigné. Chaque valeur est un contrat avec les outils de rejeu. */
 export type JournalKind =
-	/** Un événement a franchi la porte d'admission. */
 	| "event.admitted"
+	/** Un événement refusé par le contrat d'admission : le motif reste auditable. */
+	| "event.rejected"
+	/** Un fait déjà admis a vu des colonnes corrigées par sa source. */
+	| "event.updated"
 	/** Un événement a été rattaché à une organisation — ou ne l'a pas été. */
 	| "event.rattachement"
 	/** Un alias a été retenu ou écarté pour un texte donné. */
@@ -33,6 +37,8 @@ export type JournalKind =
 	| "review.decided"
 	/** Une alerte a été créée, confirmée ou close. */
 	| "alert.changed"
+	/** Une décision de détection (refus inclus) et son motif, pour auditer les faux négatifs. */
+	| "detection.decision"
 	/** Une source a changé d'état (cassée, réparée, désactivée). */
 	| "source.changed"
 	/** Une source a été déclarée morte après une série d'échecs. */
@@ -48,6 +54,8 @@ export type JournalKind =
 	| "event.dedup"
 	/** Une demande de rectification a changé de statut (publication comprise). */
 	| "droit_reponse.decision"
+	/** Une violation RGPD a changé de statut dans le registre opérationnel. */
+	| "violation.rgpd"
 	/** Une décision de publier un incident NA, ou de le refuser sous `publication-risquee`. */
 	| "publication.decided";
 
@@ -73,7 +81,7 @@ export type JournalEntry = {
  * exactement le trou qu'a révélé le remplacement du matcher de rattachement.
  */
 export const MOTEURS = {
-	rattachement: "gazetteer@4",
+	rattachement: MOTEUR_RATTACHEMENT,
 	admission: "contrat@1",
 	detection: "regles@7",
 	referentiel: "plan-etendu@1",
@@ -178,32 +186,74 @@ async function insererPaquet(run: JournalRunner, paquet: readonly JournalEntry[]
 	);
 }
 
+function texteErreur(erreur: unknown): string {
+	return erreur instanceof Error ? erreur.message : String(erreur);
+}
+
+/**
+ * Isole une tentative dans un savepoint quand le runner est transactionnel :
+ * un INSERT refusé laisse la transaction avortée, sans quoi la lacune prévue
+ * pour ce fait serait elle aussi refusée. Hors transaction (pool), aucun
+ * savepoint n'est émis — le pool isole déjà chaque requête.
+ */
+async function avecSavepoint<T>(
+	run: JournalRunner,
+	nom: string,
+	actif: boolean,
+	action: () => Promise<T>,
+): Promise<T> {
+	if (!actif) return action();
+	await run(`SAVEPOINT ${nom}`);
+	try {
+		const valeur = await action();
+		await run(`RELEASE SAVEPOINT ${nom}`);
+		return valeur;
+	} catch (erreur) {
+		await run(`ROLLBACK TO SAVEPOINT ${nom}`).catch(() => {});
+		await run(`RELEASE SAVEPOINT ${nom}`).catch(() => {});
+		throw erreur;
+	}
+}
+
 /**
  * Variante groupée : les faits partent par paquets, et un paquet qui échoue est
- * rejoué ligne à ligne — une seule donnée toxique ou une panne brève ne perd
- * plus la collecte entière. Une ligne qui échoue encore (une fois les octets
- * nuls retirés, ce ne peut plus être qu'un vrai refus de la base) devient un
- * fait `journal.lacune` : le trou est écrit là où on saura le lire. Ne lève
- * jamais : le résultat porte la comptabilité.
+ * rejoué ligne à ligne. Une ligne qui échoue encore devient un fait
+ * `journal.lacune` : le journal se souvient du trou au lieu de l'oublier. Un
+ * paquet n'est jamais abandonné — chaque fait resté sans trace porte son propre
+ * message d'erreur. Avec un runner transactionnel, chaque tentative est isolée
+ * par un savepoint pour qu'une lacune puisse être écrite après un refus.
  */
-export async function consignerLotAvec(run: JournalRunner, entries: readonly JournalEntry[]): Promise<LotResultat> {
+export async function consignerLotAvec(
+	run: JournalRunner,
+	entries: readonly JournalEntry[],
+	options: { transactionnel?: boolean } = {},
+): Promise<LotResultat> {
 	const resultat: LotResultat = { consignes: 0, lacunes: 0, erreurs: [] };
 	if (entries.length === 0) return resultat;
+	const transactionnel = options.transactionnel === true;
+	let numeroSavepoint = 0;
 	for (let debut = 0; debut < entries.length; debut += TAILLE_PAQUET) {
 		const paquet = entries.slice(debut, debut + TAILLE_PAQUET);
 		try {
-			await insererPaquet(run, paquet);
+			await avecSavepoint(run, `radar_journal_paquet_${numeroSavepoint++}`, transactionnel,
+				() => insererPaquet(run, paquet));
 			resultat.consignes += paquet.length;
 			continue;
 		} catch {
 			// Repli ligne à ligne : isoler ce qui refuse, garder le reste.
 		}
-		let echecsConsecutifs = 0;
 		for (const entry of paquet) {
-			const pose = await consignerAvec(run, entry);
+			// Le fait et sa lacune sont deux tentatives distinctes : un refus du
+			// fait ne doit pas empêcher d'écrire la trace du trou.
+			let pose: { ok: boolean; error?: string };
+			try {
+				pose = await avecSavepoint(run, `radar_journal_fait_${numeroSavepoint++}`, transactionnel,
+					() => consignerAvec(run, entry));
+			} catch (erreur) {
+				pose = { ok: false, error: texteErreur(erreur) };
+			}
 			if (pose.ok) {
 				resultat.consignes++;
-				echecsConsecutifs = 0;
 				continue;
 			}
 			const erreur = pose.error ?? "erreur inconnue";
@@ -215,19 +265,23 @@ export async function consignerLotAvec(run: JournalRunner, entries: readonly Jou
 				payload: { kindVise: entry.kind, sujetVise: entry.subject, erreur },
 				validAt: entry.validAt ?? null,
 			};
-			const trace = await consignerAvec(run, lacune);
+			let trace: { ok: boolean; error?: string };
+			try {
+				trace = await avecSavepoint(run, `radar_journal_lacune_${numeroSavepoint++}`, transactionnel,
+					() => consignerAvec(run, lacune));
+			} catch (erreur) {
+				trace = { ok: false, error: texteErreur(erreur) };
+			}
 			if (trace.ok) {
 				resultat.lacunes++;
 				resultat.consignes++;
-				echecsConsecutifs = 0;
 				continue;
 			}
-			echecsConsecutifs++;
-			resultat.erreurs.push(`${entry.kind} ${entry.subject} — ${erreur}`);
-			if (echecsConsecutifs >= 5) {
-				resultat.erreurs.push("paquet abandonné : 5 échecs consécutifs, journal probablement indisponible");
-				break;
-			}
+			// Aucun abandon : chaque entrée non tracée porte son propre message,
+			// y compris le refus de la lacune, et le paquet va jusqu'à son terme.
+			resultat.erreurs.push(
+				`${entry.kind} ${entry.subject} — ${erreur} (lacune non écrite : ${trace.error ?? "erreur inconnue"})`,
+			);
 		}
 	}
 	return resultat;

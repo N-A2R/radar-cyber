@@ -47,8 +47,8 @@ test("a repeated statement is stored once and counted in its ISO week", async ()
 
 test("unrelated event families are excluded from the weekly count", async () => {
 	await ingestQuery(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, at, source_id, source_url, evidence)
-		 VALUES ($1,'ransomware','confirmed_incident',$2,$3,'ransomlook','https://example.invalid/event','{"run_id":"1"}'::jsonb)
+		`INSERT INTO event (dedup_key, family, assertion_type, title, at, valid_at, source_id, source_url, evidence)
+		 VALUES ($1,'ransomware','confirmed_incident',$2,$3,$3,'ransomlook','https://example.invalid/event','{"run_id":"1"}'::jsonb)
 		 ON CONFLICT (dedup_key) DO NOTHING`,
 		["test-official-statements-ransomware", "Unrelated incident", NOW],
 	);

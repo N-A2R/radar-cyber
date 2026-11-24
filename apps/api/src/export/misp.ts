@@ -46,12 +46,25 @@ export type MispEventRow = {
 	tlp?: string | null;
 };
 
+export type MispCursor = { occurredAt: string; id: number };
+
 export type MispExportOptions = {
 	limit?: number;
 	since?: Date | null;
 	until?: Date | null;
 	source?: string | null;
 	regional?: boolean | null;
+	/** Curseur opaque d'une page précédente (keyset `occurred_at,id`). */
+	cursor?: string | null;
+	/** Livraison (scellement, en-têtes) : appelée avant l'écriture de `export_run`. */
+	livrer?: (extrait: {
+		body: string;
+		sha256: string;
+		eventCount: number;
+		excludedCount: number;
+		hasMore: boolean;
+		nextCursor: string | null;
+	}) => Promise<void> | void;
 };
 
 export type MispExportRun = {
@@ -66,6 +79,9 @@ export type MispExportResult = {
 	body: string;
 	payload: { response: Array<{ Event: Record<string, unknown> }> };
 	run: MispExportRun;
+	/** Vrai si la page est tronquée : un `nextCursor` permet de continuer. */
+	hasMore: boolean;
+	nextCursor: string | null;
 };
 
 export const DEFAULT_MISP_LIMIT = 1000;
@@ -78,11 +94,35 @@ export const MAX_MISP_LIMIT = 5000;
  */
 const DIFFUSABLE_SQL = `coalesce(public.tlp_canonical(e.tlp), 'CLEAR') IN ('CLEAR', 'WHITE', 'GREEN')
   AND coalesce(public.tlp_canonical(e.evidence->>'tlp'), 'CLEAR') IN ('CLEAR', 'WHITE', 'GREEN')`;
-const OCCURRED_SQL = `coalesce(e.observed_at, e.valid_at, e.at, e.created_at)`;
+const OCCURRED_SQL = `coalesce(e.observed_at, e.valid_at, e.at, e.created_at, to_timestamp(0))`;
 const FILTER_SQL = `($1::timestamptz IS NULL OR ${OCCURRED_SQL} >= $1)
   AND ($2::text IS NULL OR e.source_id = $2)
   AND ($3::boolean IS NULL OR e.regional = $3)
   AND ($4::timestamptz IS NULL OR ${OCCURRED_SQL} < $4)`;
+/** Keyset strict : (occurrence, id) décroissant, sans décalage entre pages. */
+const cursorSql = (occurredParam: number, idParam: number): string =>
+	`AND ($${occurredParam}::timestamptz IS NULL OR (${OCCURRED_SQL}, e.id) < ($${occurredParam}::timestamptz, $${idParam}::bigint))`;
+
+export function encoderCursor(cursor: MispCursor): string {
+	return Buffer.from(JSON.stringify(cursor), "utf8").toString("base64url");
+}
+
+export function decoderCursor(brut: string | null | undefined): MispCursor | null {
+	if (!brut) return null;
+	let valeur: unknown;
+	try {
+		valeur = JSON.parse(Buffer.from(brut, "base64url").toString("utf8"));
+	} catch {
+		throw new Error("curseur MISP invalide");
+	}
+	if (typeof valeur !== "object" || valeur === null || !("occurredAt" in valeur) || !("id" in valeur)) throw new Error("curseur MISP invalide");
+	const { occurredAt, id } = valeur;
+	if (typeof occurredAt !== "string" || Number.isNaN(Date.parse(occurredAt))
+		|| typeof id !== "number" || !Number.isSafeInteger(id) || id <= 0) {
+		throw new Error("curseur MISP invalide");
+	}
+	return { occurredAt, id };
+}
 
 const ORG = {
 	id: "1",
@@ -226,8 +266,11 @@ function bornerLimit(limit: number | undefined): number {
 }
 
 /**
- * Lit les faits diffusables, construit le flux et journalise l'export.
- * Une ligne `export_run` par appel réussi, avec le hash du corps exact.
+ * Lit une page de faits diffusables, construit le flux et journalise l'export.
+ * `LIMIT + 1` dit si la page est tronquée ; le curseur keyset permet de
+ * reprendre exactement là où elle s'arrête. `livrer` (scellement HTTP) est
+ * appelé avant l'écriture de `export_run` : un export non livré n'est jamais
+ * comptabilisé comme réussi.
  */
 export async function exportMisp(options: MispExportOptions = {}): Promise<MispExportResult> {
 	const limit = bornerLimit(options.limit);
@@ -235,7 +278,10 @@ export async function exportMisp(options: MispExportOptions = {}): Promise<MispE
 	const until = options.until ?? null;
 	const source = options.source?.trim() || null;
 	const regional = options.regional ?? null;
-	const params = [since, source, regional, until, limit];
+	const curseur = decoderCursor(options.cursor);
+	const filtreParams = [since, source, regional, until];
+	const pageParams = [...filtreParams, limit + 1, curseur?.occurredAt ?? null, curseur?.id ?? 0];
+	const exclusParams = [...filtreParams, curseur?.occurredAt ?? null, curseur?.id ?? 0];
 
 	const lignes = await query<MispEventRow>(
 		`SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
@@ -245,38 +291,62 @@ export async function exportMisp(options: MispExportOptions = {}): Promise<MispE
 		   FROM public.event e
 		  WHERE ${DIFFUSABLE_SQL}
 		    AND ${FILTER_SQL}
+		    ${cursorSql(6, 7)}
 		  ORDER BY ${OCCURRED_SQL} DESC, e.id DESC
 		  LIMIT $5`,
-		params,
+		pageParams,
 	);
+	const page = lignes.rows.slice(0, limit);
+	const hasMore = lignes.rows.length > limit;
+	const dernier = page.at(-1);
+	const nextCursor = hasMore && dernier
+		? encoderCursor({ occurredAt: dateEvenement(dernier).toISOString(), id: dernier.id })
+		: null;
 
-	const evenements = lignes.rows
+	const evenements = page
 		.map(buildMispEvent)
 		.filter((event): event is MispEvent => event !== null);
 
+	// Cette requête n'a pas de LIMIT : les paramètres du curseur sont $5/$6,
+	// pas $6/$7 comme dans la requête de page.
 	const exclus = await query<{ n: number }>(
 		`SELECT count(*)::int AS n
 		   FROM public.event e
 		  WHERE NOT (${DIFFUSABLE_SQL})
-		    AND ${FILTER_SQL}`,
-		[since, source, regional, until],
+		    AND ${FILTER_SQL}
+		    ${cursorSql(5, 6)}`,
+		exclusParams,
 	);
 
 	// Un fait que le SQL croyait diffusable mais que le normaliseur rejette
 	// (tag inconnu) est un fait écarté, jamais un succès silencieux.
-	const excludedCount = Number(exclus.rows[0]?.n ?? 0) + (lignes.rows.length - evenements.length);
+	const excludedCount = Number(exclus.rows[0]?.n ?? 0) + (page.length - evenements.length);
 	const payload = { response: evenements.map((Event) => ({ Event })) };
 	const body = JSON.stringify(payload);
 	const sha256 = createHash("sha256").update(body, "utf8").digest("hex");
 	const payloadBytes = Buffer.byteLength(body, "utf8");
-	const filters = { limit, since: since?.toISOString() ?? null, until: until?.toISOString() ?? null, source, regional };
+	const eventCount = evenements.length;
+	const filters = {
+		limit,
+		since: since?.toISOString() ?? null,
+		until: until?.toISOString() ?? null,
+		source,
+		regional,
+		cursor: options.cursor ?? null,
+		truncated: hasMore,
+		nextCursor,
+	};
+
+	if (options.livrer) {
+		await options.livrer({ body, sha256, eventCount, excludedCount, hasMore, nextCursor });
+	}
 
 	const run = await query<{ id: number }>(
 		`INSERT INTO public.export_run
 		   (format, sha256, event_count, excluded_count, payload_bytes, filters)
 		 VALUES ('misp', $1, $2, $3, $4, $5::jsonb)
 		 RETURNING id`,
-		[sha256, evenements.length, excludedCount, payloadBytes, JSON.stringify(filters)],
+		[sha256, eventCount, excludedCount, payloadBytes, JSON.stringify(filters)],
 	);
 
 	return {
@@ -285,9 +355,11 @@ export async function exportMisp(options: MispExportOptions = {}): Promise<MispE
 		run: {
 			id: Number(run.rows[0]!.id),
 			sha256,
-			eventCount: evenements.length,
+			eventCount,
 			excludedCount,
 			payloadBytes,
 		},
+		hasMore,
+		nextCursor,
 	};
 }

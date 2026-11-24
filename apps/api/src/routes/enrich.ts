@@ -1,4 +1,5 @@
-import { notFound } from "../errors.js";
+import { badRequest, notFound } from "../errors.js";
+import { assertPublicDomain } from "../security/network.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { enrichIndicator } from "../enrich/index.js";
@@ -16,7 +17,8 @@ import {
 import { depuisEvidence, estIndisponible, libelleMotif } from "../journal/rattachement.js";
 import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
 import { evenementPublicSql, indicateurPublicSql } from "../security/tlp.js";
-
+const ENRICH_ANONYMOUS_RPM = Number(process.env.RADAR_ENRICH_ANON_RPM ?? 10);
+const ENRICH_SESSION_RPM = Number(process.env.RADAR_ENRICH_SESSION_RPM ?? 60);
 async function cacheGet(key: string): Promise<unknown | null> {
   const r = await query<{ value: unknown }>("SELECT value FROM enrich_cache WHERE key=$1 AND expires_at > now()", [key]);
   return r.rows[0]?.value ?? null;
@@ -77,20 +79,35 @@ export default async function (app: FastifyInstance) {
     }
     return { indicator: ind, enrichment, score: scoreIndicator({ type: ind.type, first_seen: ind.first_seen, sources: [ind.source_id], sourceConfidence: ind.confidence }) };
   });
-  app.get<{ Params: { value: string } }>("/enrich/domain/:value", async (req) => {
-    const { value } = req.params;
-    // Une source externe en échec ne doit pas faire échouer la réponse.
-    const errors: string[] = [];
-    const safe = async <T>(p: Promise<T>, label: string): Promise<T | null> => {
-      try { return await p; } catch (e: unknown) { errors.push(`${label}: ${e instanceof Error ? e.message : String(e)}`); return null; }
-    };
-    const [whois, dns, certs] = await Promise.all([
-      safe(enrichDomain(value), "whois"),
-      safe(resolveDomain(value), "dns"),
-      safe(certificatesFor(value), "certs"),
-    ]);
-    return { whois, dns, certs, errors };
-  });
+  app.get<{ Params: { value: string } }>(
+    "/enrich/domain/:value",
+    {
+      config: {
+        rateLimit: {
+          max: (req) => req.user ? ENRICH_SESSION_RPM : ENRICH_ANONYMOUS_RPM,
+          timeWindow: 60_000,
+          keyGenerator: (req) => req.user ? `enrich-user:${req.user.id}` : `enrich-ip:${req.ip}`,
+        },
+      },
+    },
+    async (req) => {
+      let domain: string;
+      try { domain = assertPublicDomain(req.params.value); }
+      catch { throw badRequest("domaine invalide"); }
+      // Un fournisseur en échec ne fait pas échouer la réponse, et son
+      // message brut (URL, statut, détail interne) n'est jamais renvoyé.
+      const errors: string[] = [];
+      const safe = async <T>(p: Promise<T>, label: string): Promise<T | null> => {
+        try { return await p; } catch { errors.push(`${label} indisponible`); return null; }
+      };
+      const [whois, dns, certs] = await Promise.all([
+        safe(enrichDomain(domain), "whois"),
+        safe(resolveDomain(domain), "dns"),
+        safe(certificatesFor(domain), "certs"),
+      ]);
+      return { whois, dns, certs, errors };
+    },
+  );
   app.get<{ Params: { id: string } }>("/enrich/events/:id", async (req) => {
     const id = Number(req.params.id);
     const er = await query("SELECT * FROM event e WHERE e.id=$1 AND " + evenementPublicSql("e"), [id]);

@@ -14,6 +14,7 @@ import { loadRules, evaluateEvent, evaluateIndicator } from "../src/detect/engin
 import type { RuleMatch } from "../src/detect/engine.js";
 import alertsRoute from "../src/routes/alerts.js";
 import { hashSessionToken } from "../src/auth.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
@@ -136,7 +137,7 @@ async function cleanup(ids: TestIds): Promise<void> {
   if (ids.events.length > 0) await query("DELETE FROM alert WHERE event_id = ANY($1::bigint[])", [ids.events]);
   if (ids.indicators.length > 0) await query("DELETE FROM alert WHERE indicator_id = ANY($1::bigint[])", [ids.indicators]);
   if (ids.rules.length > 0) await query("DELETE FROM alert WHERE rule_id = ANY($1::text[])", [ids.rules]);
-  if (ids.events.length > 0) await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids.events]);
+  if (ids.events.length > 0) await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [ids.events]);
   if (ids.orgs.length > 0) await query("DELETE FROM org WHERE id = ANY($1::int[])", [ids.orgs]);
   if (ids.indicators.length > 0) await query("DELETE FROM indicator WHERE id = ANY($1::bigint[])", [ids.indicators]);
   if (ids.rules.length > 0) await query("DELETE FROM detection_rule WHERE id = ANY($1::text[])", [ids.rules]);
@@ -170,14 +171,15 @@ test("confiance : min_confidence 3 exclut C3/B2 et admet A2/A1", async () => {
   const ruleId = `test-conf-${TAG}`;
   ids.rules.push(ruleId);
   try {
-    // Adaptation (seuil de confiance 65) : les événements acceptés sont
-    // rattachés à une organisation géolocalisée en third_party_claim pour
-    // franchir le seuil sans déclencher de règle de production (famille dédiée).
+    // Une seule échelle : la porte globale porte sur la note majorée. Les
+    // événements sans ancrage restent sous 65 ; les événements rattachés à une
+    // organisation géolocalisée la franchissent. Le titre porte un terme cyber
+    // pour ne pas être écarté comme faux événement avant la porte de confiance.
     await insertRule(ruleId, { family: "testconf", min_confidence: 3 });
     const org = await insertOrg(`Org confiance ${TAG}`, "collectivite", "33");
     ids.orgs.push(org);
-    const c3 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance C3", confidence: "C3", orgId: org });
-    const b2 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance B2", confidence: "B2", orgId: org });
+    const c3 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: `Confiance C3 ransomware ${TAG}`, confidence: "C3" });
+    const b2 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: `Confiance B2 ransomware ${TAG}`, confidence: "B2" });
     const a2 = await insertEvent({ family: "testconf", assertionType: "third_party_claim", title: "Confiance A2", confidence: "A2", orgId: org });
     const a1 = await insertEvent({ family: "testconf", assertionType: "third_party_claim", title: "Confiance A1", confidence: "A1", orgId: org });
     ids.events.push(c3, b2, a2, a1);
@@ -344,21 +346,23 @@ test("evaluateIndicator : type + confiance, idempotent", async () => {
   }
 });
 
-test("auth : lectures et écritures d'alertes exigent un jeton", async () => {
+test("auth : les lectures d'alertes sont publiques, les écritures exigent un jeton", async () => {
   const app = await makeApp();
   const ids = newIds();
   try {
     const ack = await app.inject({ method: "POST", url: "/api/alerts/1/ack" });
     assert.equal(ack.statusCode, 401);
 
-    // Le contenu des alertes n'est plus public : un jeton est requis.
+    // Le catalogue et les comptes sont publics, avec filtre TLP côté SQL.
     const list = await app.inject({ method: "GET", url: "/api/alerts" });
-    assert.equal(list.statusCode, 401);
+    assert.equal(list.statusCode, 200);
+    assert.ok(Array.isArray(list.json()));
 
     const stats = await app.inject({ method: "GET", url: "/api/alerts/stats" });
-    assert.equal(stats.statusCode, 401);
+    assert.equal(stats.statusCode, 200);
+    assert.ok(Array.isArray(stats.json()));
 
-    // Avec un jeton, la lecture repasse en 200.
+    // Avec un jeton, la lecture reste disponible.
     const { token, userId } = await createSession("lecteur");
     ids.users.push(userId);
     const authed = await app.inject({

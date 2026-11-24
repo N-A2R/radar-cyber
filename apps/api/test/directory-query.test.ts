@@ -10,6 +10,7 @@ import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query, closePools } from "../src/db.js";
 import { queryDirectory } from "../src/directory/query.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `dir${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const slugs: string[] = [];
@@ -62,7 +63,7 @@ async function fixtures(): Promise<void> {
 
 after(async () => {
 	if (orgIds.length) {
-		await query("DELETE FROM event WHERE org_id = ANY($1::int[])", [orgIds]);
+		await supprimerEvenementsArchivees("org_id = ANY($1::int[])", [orgIds]);
 		await query("DELETE FROM org_alias WHERE org_id = ANY($1::int[])", [orgIds]);
 		await query("DELETE FROM org WHERE id = ANY($1::int[])", [orgIds]);
 	}

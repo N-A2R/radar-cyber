@@ -12,6 +12,7 @@
  */
 import { evaluatePertinence } from "../collectors/pertinence.js";
 import { query, ingestQuery } from "../db.js";
+import { recordDetectionDecision } from "./decision-log.js";
 
 export const FALSE_REASON = "irrelevant_without_na_signal";
 
@@ -111,6 +112,13 @@ export async function discardIfFalse(
 ): Promise<boolean> {
   const verdict = detectFalseEvent(event);
   if (!verdict.isFalse || opts.force) return false;
+  await recordDetectionDecision({
+    stage: "false_event",
+    reason: verdict.reason ?? FALSE_REASON,
+    verdict: "refuse",
+    ...(event.id == null ? {} : { eventId: Number(event.id) }),
+    score: verdict.score,
+  });
   if (event.id == null) return true;
   await recordFalseEvent(Number(event.id), verdict);
   return true;

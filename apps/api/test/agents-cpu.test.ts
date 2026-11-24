@@ -20,6 +20,7 @@ import {
 	detecterAgentsCpuDepuisBase,
 	severiteDeScore,
 } from "../src/analyse/agents-cpu.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const JOUR_MS = 86_400_000;
 const TAG = `cpu${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
@@ -38,7 +39,7 @@ after(async () => {
 		await query("DELETE FROM alert WHERE id = ANY($1)", [created.alertes]);
 	}
 	if (created.events.length > 0) {
-		await query("DELETE FROM event WHERE id = ANY($1)", [created.events]);
+		await supprimerEvenementsArchivees("id = ANY($1::bigint[])", [created.events]);
 	}
 	if (created.orgs.length > 0) {
 		await query("DELETE FROM org WHERE id = ANY($1)", [created.orgs]);

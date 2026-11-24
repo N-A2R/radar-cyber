@@ -21,6 +21,28 @@ type MapEvent = {
   observedAt: string | null;
 };
 
+/** Migration 231 : un événement ne peut être supprimé qu'après copie intégrale. */
+async function supprimerEvenementsDeTest(ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  const copies = await query<{ dedup_key: string }>(
+    `INSERT INTO archive_event
+       (id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+        valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+        lat, lon, org_id, asset_id, created_at)
+     SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at,
+            valid_at, at, severity, confidence, source_id, source_url, evidence, geo_type,
+            lat, lon, org_id, asset_id, created_at
+       FROM event WHERE id = ANY($1::bigint[])
+     ON CONFLICT DO NOTHING
+     RETURNING dedup_key`,
+    [ids],
+  );
+  const clefs = copies.rows.map((ligne) => ligne.dedup_key);
+  await query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
+  await query("DELETE FROM archive_event WHERE dedup_key = ANY($1::text[])", [clefs]);
+  await query("DELETE FROM event_archive WHERE dedup_key = ANY($1::text[])", [clefs]);
+}
+
 const get = async <T>(url: string): Promise<T> => {
   const res = await app.inject({ method: "GET", url });
   assert.equal(res.statusCode, 200, res.body);
@@ -52,7 +74,8 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  const evenements = await query<{ id: string }>("SELECT id::text FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
+  await supprimerEvenementsDeTest(evenements.rows.map((ligne) => ligne.id));
   await query("DELETE FROM source WHERE id = $1", [TAG]);
   await closePools();
 });

@@ -8,6 +8,7 @@ import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import Fastify from "fastify";
 import { query } from "../src/db.js";
+import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 import orgReportRoute from "../src/routes/org-report.js";
 import {
   buildOrgReport, countPdfPages, renderOrgReportPdf,
@@ -107,7 +108,7 @@ async function install(): Promise<void> {
 await install();
 
 after(async () => {
-  await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${PREFIX}-%`]);
+  await supprimerEvenementsArchivees("dedup_key LIKE $1", [`${PREFIX}-%`]);
   await query("DELETE FROM asset WHERE org_id IN ($1, $2)", [naOrgId, outsideOrgId]);
   await query("DELETE FROM quarantine_raw WHERE content_hash LIKE $1", [`${PREFIX}-%`]);
   await query("DELETE FROM org WHERE slug LIKE $1", [`${PREFIX}-%`]);

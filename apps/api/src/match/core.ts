@@ -1,3 +1,5 @@
+import { normalizeNom } from "./normalisation.js";
+
 /**
  * Cœur déterministe du rattachement organisationnel, sans base de données.
  *
@@ -95,21 +97,9 @@ const INSTITUTIONAL_PHRASES: ReadonlyArray<ReadonlyArray<string>> = [["centre", 
  */
 const LEGAL_FORM = /\b(SA|SAS|SASU|SARL|EURL|SCI|GIE|SNC|SCA|SCOP|GmbH|Ltd|LLC|Inc|PLC|BV|AG|SpA|Corp)\b/;
 
-/**
- * Minuscules, accents retirés, ponctuation et espaces réduits.
- * `œ`/`æ` ne se décomposent pas en NFD : traités explicitement.
- */
+/** Minuscules, accents retirés — la normalisation partagée fait foi. */
 export function normalize(text: string): string {
-	return text
-		.replace(/œ/g, "oe")
-		.replace(/Œ/g, "OE")
-		.replace(/æ/g, "ae")
-		.replace(/Æ/g, "AE")
-		.normalize("NFD")
-		.replace(/\p{Diacritic}/gu, "")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, " ")
-		.trim();
+	return normalizeNom(text);
 }
 
 export function tokenize(text: string): string[] {

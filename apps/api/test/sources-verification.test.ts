@@ -107,7 +107,7 @@ test("la route publie les quatre comptes et la couverture mesurée", async () =>
     mortes: corps.resume.mortes - avant.resume.mortes,
     lentes: corps.resume.lentes - avant.resume.lentes,
   }, { "200": 1, muettes: 1, mortes: 1, lentes: 1 });
-  assert.ok(corps.verifie_at >= "2026-11-21T00:00:03.000Z");
+  assert.ok(corps.verifie_at !== null && corps.verifie_at >= "2026-11-21T00:00:03.000Z");
   assert.ok(corps.couverture_pct > 0 && corps.couverture_pct <= 100);
 });
 

@@ -27,6 +27,7 @@
  *     quand rien ne départage, on rend `null` en gardant les candidats pour la
  *     revue. On préfère manquer un rattachement que d'en inventer un.
  */
+import { normalizeNom } from "./normalisation.js";
 import {
 	commenceParRoleEtablissement,
 	commenceParUnRole,
@@ -216,16 +217,7 @@ const MIN_KEY_LENGTH = 4;
 
 /** Normalisation alignée sur `match/core.ts` : mêmes jetons des deux côtés. */
 export function normaliser(texte: string): string[] {
-	const propre = texte
-		.replace(/œ/g, "oe")
-		.replace(/Œ/g, "OE")
-		.replace(/æ/g, "ae")
-		.replace(/Æ/g, "AE")
-		.normalize("NFD")
-		.replace(/\p{Diacritic}/gu, "")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, " ")
-		.trim();
+	const propre = normalizeNom(texte);
 	return propre === "" ? [] : propre.split(" ");
 }
 
@@ -742,20 +734,30 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 		};
 	}
 
-	// Two different aliases in the same sentence are two named organizations:
-	// the first one named is the sentence's subject. An ambiguous alias shared
-	// by several organizations is different — there is no first mention there.
+	// Deux alias distincts à force égale nomment deux organisations : on ne
+	// dégage pas la première par sa position. Seul un marqueur explicite
+	// d'attribution — rôle d'établissement ou déterminateur sujet — permet de
+	// désigner une victime. « attaque chez A, B aussi touché » reste ambigu.
 	if (meilleurs.length > 1 && new Set(meilleurs.map((c) => c.frappe.cle)).size === meilleurs.length) {
-		const premier = meilleurs.reduce((a, b) =>
-			positionOfAlias(jetons, b.frappe.cle.split(" ")) < positionOfAlias(jetons, a.frappe.cle.split(" ")) ? b : a,
-		);
-		return {
-			org: premier.org,
-			reason: "alias-distinctif",
-			alias: premier.frappe.cle,
-			confidence: 0.8,
-			tied: [],
-		};
+		const attribues = meilleurs.filter((c) => {
+			const alias = c.frappe.cle.split(" ");
+			const position = positionOfAlias(jetons, alias);
+			if (position < 0) return false;
+			if (gaz.roleKeys.has(c.frappe.cle) || commenceParRoleEtablissement(alias)) {
+				return isSubjectMention(jetons, alias);
+			}
+			return position > 0 && isSubjectMention(jetons, alias);
+		});
+		if (attribues.length === 1) {
+			const seul = attribues[0] as (typeof attribues)[number];
+			return {
+				org: seul.org,
+				reason: gaz.roleKeys.has(seul.frappe.cle) ? "alias-role" : "alias-distinctif",
+				alias: seul.frappe.cle,
+				confidence: gaz.roleKeys.has(seul.frappe.cle) ? 0.95 : 0.8,
+				tied: [],
+			};
+		}
 	}
 
 	return {

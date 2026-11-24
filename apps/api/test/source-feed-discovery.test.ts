@@ -101,6 +101,8 @@ test("record: provenance keeps the original source without copying article data"
 		url: "https://ville-exemple.fr/rss.xml",
 		format: "rss",
 		items: 1,
+		sourceId: source.id,
+		sourceUrl: source.url,
 		id: stableSourceFeedId("https://ville-exemple.fr/rss.xml"),
 		sourceIds: [source.id],
 	}, "2026-11-22T00:00:00.000Z");
