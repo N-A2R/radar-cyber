@@ -6,12 +6,14 @@
  * régional), il faut vérifier que les rattachements déjà en base tiennent
  * toujours — sinon on garde des faux positifs que plus rien ne justifie.
  *
- * Ne touche que `event.org_id`. `--dry-run` par défaut.
+ * Défait les liens non justifiés via `defaireRattachement` : `org_id`,
+ * portée régionale et journal restent cohérents. `--dry-run` par défaut.
  *
  *   pnpm -F @radar/api exec tsx ../../scripts/reconcile-orgs.mts
  *   pnpm -F @radar/api exec tsx ../../scripts/reconcile-orgs.mts --apply
  */
-import { pool, closePools } from "../apps/api/src/db.js";
+import { pool, closePools, withTransaction } from "../apps/api/src/db.js";
+import { defaireRattachement } from "../apps/api/src/match/detachement.js";
 import { matchOrg, resetAliasCache } from "../apps/api/src/match/orgs.js";
 
 const apply = process.argv.includes("--apply");
@@ -56,12 +58,25 @@ async function main(): Promise<void> {
 	}
 
 	if (toReset.length > 0) {
-		const ids = toReset.map((row) => Number(row.id));
-		const updated = await pool.query(
-			"UPDATE event SET org_id = NULL WHERE id = ANY($1::bigint[])",
-			[ids],
-		);
-		console.log(`rattachements retirés : ${updated.rowCount}`);
+		let retires = 0;
+		await withTransaction(async (client) => {
+			for (const row of toReset) {
+				const resultat = await defaireRattachement(client, {
+					eventId: row.id,
+					orgId: row.org_id,
+					motif: "texte non confirmé par le matcher",
+					regle: "reconcile-texte",
+					journal: {
+						kind: "event.rattachement",
+						actor: "moteur:reconciliation",
+						summary: "réconciliation : rattachement défait (texte)",
+						subject: `event:${row.id}`,
+					},
+				});
+				if (resultat.updated) retires++;
+			}
+		});
+		console.log(`rattachements retirés : ${retires}`);
 	}
 }
 

@@ -6,7 +6,8 @@
  * événement conserve la raison dans son `evidence` : une attribution retirée
  * doit rester explicable, pas disparaître silencieusement.
  */
-import { ingestQuery, query } from "../db.js";
+import { ingestQuery, query, withTransaction } from "../db.js";
+import { defaireRattachement } from "../match/detachement.js";
 
 export interface OrgCitee {
   id: number;
@@ -95,18 +96,34 @@ export async function fusionnerEvenements(orgSource: number, orgCible: number): 
 /** Retire une attribution non vérifiée en conservant la raison du retrait. */
 export async function declierEvenements(orgIds: readonly number[], motif: string): Promise<number> {
   if (orgIds.length === 0) return 0;
-  const { rowCount } = await query(
-    `WITH cibles AS (
-       SELECT id FROM event WHERE org_id = ANY($1::int[]) AND org_id IS NOT NULL
-     ), decroches AS (
-       UPDATE event e SET org_id = NULL FROM cibles c WHERE e.id = c.id RETURNING e.id
-     )
-     INSERT INTO identite_legale_decrochage (event_id, motif)
-     SELECT id, $2::text FROM decroches
-     ON CONFLICT (event_id) DO NOTHING`,
-    [[...orgIds], motif],
+  const { rows } = await query<{ id: number; org_id: number }>(
+    `SELECT id, org_id FROM event WHERE org_id = ANY($1::int[]) AND org_id IS NOT NULL`,
+    [[...orgIds]],
   );
-  return rowCount ?? 0;
+  let detaches = 0;
+  await withTransaction(async (client) => {
+    for (const row of rows) {
+      const resultat = await defaireRattachement(client, {
+        eventId: row.id,
+        orgId: row.org_id,
+        motif,
+        regle: "siren-non-verifie",
+        journal: {
+          kind: "event.rattachement",
+          actor: "certification-siren",
+          summary: `décliage : identité légale non vérifiée (${motif})`,
+        },
+      });
+      if (!resultat.updated) continue;
+      await client.query(
+        `INSERT INTO identite_legale_decrochage (event_id, motif)
+         VALUES ($1, $2) ON CONFLICT (event_id) DO NOTHING`,
+        [row.id, motif],
+      );
+      detaches++;
+    }
+  });
+  return detaches;
 }
 
 export interface OrgEchantillon {

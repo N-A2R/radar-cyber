@@ -173,3 +173,68 @@ SELECT f.famille,
  ORDER BY f.famille
 ```
 
+## 6. Re-jeu du 24 novembre 2026 — événements régionaux sans organisation
+
+Base `radar` lue en `BEGIN READ ONLY`. Le compte de la section 3 a bougé :
+
+| Indicateur | 2026-11-21 | 2026-11-24 |
+| --- | ---: | ---: |
+| Événements | 27 013 | 27 098 |
+| Sans organisation | 26 897 | 26 938 |
+| Régionaux | 73 | 126 |
+| Régionaux sans organisation | 11 | **51** |
+
+```sql
+SELECT count(*) total,
+       count(*) FILTER (WHERE org_id IS NULL) sans_org,
+       count(*) FILTER (WHERE regional) regionaux,
+       count(*) FILTER (WHERE regional AND org_id IS NULL) regionaux_sans_org
+  FROM event
+```
+
+Sur ces 51 lignes, **23 (45,1 %) portent `regional_motif = 'rattachement'`
+alors que `org_id` est NULL**. C'est un drapeau périmé : le seul lien qui
+justifiait `regional = true` a été défait par `reconcile-orgs`,
+`repair-rattachements` ou `measure-attachment-coherence`, sans recalcul de la
+portée. Lot nominatif : les 20 revendications `126770` à `126789` (`lyon.co.uk`,
+`hotel-ampere-paris.com`, `upperweb.com.br`…), toutes promues le 21 novembre,
+dont le texte ne nomme aucun département ; plus `24227`, `116469`, `128330`,
+dont le journal porte `attachment.coherence`.
+
+```sql
+SELECT id, regional_motif, left(title, 90) titre
+  FROM event
+ WHERE regional AND org_id IS NULL AND regional_motif = 'rattachement'
+ ORDER BY id
+```
+
+Rejoué avec `porteeRegionale(titre || ' ' || résumé, null)`, le recalcul rend
+**22 de ces 23 lignes non régionales** (`motif = 'aucun'`) ; la troisième,
+`116469`, reste régionale avec le motif `departement` (« Pyrénées-Atlantiques »).
+Le plafond réel est donc **29 événements régionaux sans org**, pas 51. Les
+motifs `departement` (21) et `nouvelle-aquitaine` (7) sont conservés : ils
+viennent du texte ou de la source, pas du lien défait.
+
+Ce qui reste, classé par cause :
+
+| Cause | Nombre | Détail |
+| --- | ---: | --- |
+| Pas jugé cyber | 16 | 7 communiqués régionaux sans fait cyber, 9 dépêches de presse (loup, vol de voiture, concours agricole, fermeture de verrerie…) admises par la règle « département cité ». |
+| Pas rattaché, sans victime qualifiable | 13 | 8 doublons du séminaire « Pyrénées-Atlantiques : hausse de 37,4 % des infractions numériques », 3 articles Soluris (prestataire, pas victime), `24266` (préfecture des Landes : aucune organisation de ce nom au référentiel), `48007` (deux sociétés `SECURITEST` homonymes, aucune à Vienne). |
+| Rattachement justifié possible | **0** | Le moteur de production ne propose aucun lien défendable sur ces 13 textes ; sur `24266` il propose `233961` (« FERMETURES AUTOMATISMES CONFORT THERMIQU », Dax), sans rapport avec une préfecture. |
+
+La file de revue ne change pas ce plafond : `tsx scripts/trier-revue.mts` en
+dry-run classe ses **374 lignes en attente** en 0 `region`, 148 `hors_perimetre`
+(indice vide ou trop court) et 226 `a_revoir` sans indice. Aucune revendication
+régionale y est en attente d'un rattachement.
+
+**Correctif livré.** `apps/api/src/match/detachement.ts` centralise le retrait
+d'un lien : `org_id = NULL`, recalcul de `regional`/`regional_motif` **uniquement**
+quand le motif était `rattachement`, et écriture au journal de l'avant/après
+sans toucher à `event.evidence`. Les quatre chemins qui défont un lien
+(`repair-rattachements`, `measure-attachment-coherence`, `reconcile-orgs`,
+`declierEvenements` SIREN) l'utilisent. Un écart d'`org_id` annule l'opération.
+Test sur base jetable : `tsx apps/api/test/run.ts apps/api/test/portee-apres-detachement.test.ts`
+(4 cas verts). Les 22 lignes déjà périmées en production restent telles
+quelles : la base est lue seule, aucun nettoyage rétroactif n'a été appliqué.
+

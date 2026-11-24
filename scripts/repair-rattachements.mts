@@ -19,6 +19,7 @@
 import { query, withTransaction } from "../apps/api/src/db.js";
 import { preparerGazetteer, designateOrganization } from "../apps/api/src/collectors/relevance.js";
 import { estTexteFrancais } from "../apps/api/src/match/territorial.js";
+import { defaireRattachement } from "../apps/api/src/match/detachement.js";
 
 const APPLY = process.argv.includes("--apply");
 
@@ -69,21 +70,20 @@ if (!APPLY) {
 }
 
 await withTransaction(async (client) => {
-	await client.query(
-		`UPDATE event e SET org_id = NULL
-		  WHERE e.id = ANY($1::bigint[])`,
-		[fautifs.map((f) => f.id)],
-	);
-	await client.query(
-		`INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
-		 SELECT 'event.rattachement', e.dedup_key,
-		        'réparation : rattachement défait (jetons génériques)',
-		        jsonb_build_object('orgId', NULL, 'orgRetiree', d.org_id, 'regle', 'repair-jetons'),
-		        'humain:reparation', now()
-		   FROM unnest($1::text[], $2::int[]) AS d(dedup_key, org_id)
-		   JOIN event e ON e.dedup_key = d.dedup_key`,
-		[fautifs.map((f) => f.dedup_key), fautifs.map((f) => f.org_id)],
-	);
+	for (const f of fautifs) {
+		await defaireRattachement(client, {
+			eventId: f.id,
+			orgId: f.org_id,
+			motif: "jetons génériques",
+			regle: "repair-jetons",
+			journal: {
+				kind: "event.rattachement",
+				actor: "humain:reparation",
+				summary: "réparation : rattachement défait (jetons génériques)",
+				subject: f.dedup_key,
+			},
+		});
+	}
 });
 
 console.log(`\n${fautifs.length} rattachement(s) défait(s), consignés au journal.`);

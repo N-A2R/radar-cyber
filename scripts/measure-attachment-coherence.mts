@@ -20,6 +20,7 @@ import {
 	type CoherenceReason,
 	type NetworkLink,
 } from "../apps/api/src/detection/attachment-coherence.js";
+import { defaireRattachement } from "../apps/api/src/match/detachement.js";
 
 const APPLY = process.argv.includes("--apply");
 const NA_DEPTS = new Set(Object.keys(DEPT_LABELS));
@@ -197,21 +198,20 @@ let removed = 0;
 if (APPLY && findings.length > 0) {
 	await withTransaction(async (client) => {
 		for (const finding of findings) {
-			const updated = await client.query(
-				`UPDATE event SET org_id = NULL WHERE id = $1 AND org_id = $2`,
-				[finding.eventId, finding.orgId],
-			);
-			if (updated.rowCount !== 1) continue;
-			removed++;
-			await client.query(
-				`INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
-				 VALUES ('attachment.coherence', $1, $2, $3::jsonb, 'coherence-detector', now())`,
-				[
-					`event:${finding.eventId}`,
-					`incoherent attachment removed (${finding.reason})`,
-					JSON.stringify({ eventId: finding.eventId, orgId: finding.orgId, reason: finding.reason }),
-				],
-			);
+			const resultat = await defaireRattachement(client, {
+				eventId: finding.eventId,
+				orgId: finding.orgId,
+				motif: finding.reason,
+				regle: "coherence@1",
+				journal: {
+					kind: "attachment.coherence",
+					actor: "coherence-detector",
+					summary: `incoherent attachment removed (${finding.reason})`,
+					subject: `event:${finding.eventId}`,
+					payload: { reason: finding.reason },
+				},
+			});
+			if (resultat.updated) removed++;
 		}
 	});
 }
