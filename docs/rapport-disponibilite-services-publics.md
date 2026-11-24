@@ -485,4 +485,42 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
 
-OBJECTIF : partiel — 2000 / 3500 service-jours (4 / 7 jours), manque 1500 service-jours (18, 19, 20 novembre) ; rattrapage du 24/11/2026 : 1 service-jour réel récupéré sur l'URL finale du corpus, 8 observations corrigées, 22 novembre complet (500/500) ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` (`2000 / 3500`, `1500 service-jours`) et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24` (`feasible_windows=0 earliest_attainable_anchor=2026-11-27`).
+## Passe de rattrapage du 24 novembre (02 h 50 UTC) — vérification finale
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(état de la PR #799 : 2 000 / 3 500), sans repartir de `main`. Mesures rejouées :
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 3 (2026-11-18,2026-11-19,2026-11-20), 1500 service-jours
+pnpm services:measure -- --anchor=2026-11-24
+# services=500 window=2026-11-18..2026-11-24 observed_service_days=2000/3500 available=1825 availability=91,25%
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-27
+```
+
+Quatre recherches indépendantes supplémentaires, toutes en lecture seule :
+
+- **Base PostgreSQL** (`radar`) : `source_verification`, `exposition_service` et
+  `warc_proof` ont 0 ligne 2xx/3xx datée du 18, 19 ou 20 novembre UTC, donc 0 URL
+  mappable au périmètre et 0 service-jour nouveau ; les autres tables
+  horodatées interrogées n'ont soit aucune ligne sur la fenêtre, soit aucun
+  recouppement avec les URL du périmètre.
+- **Arbre et worktrees** : 94 copies du fichier d'observations → 0 ligne du
+  18 au 20 novembre ; les 1 442 preuves du corpus sont toutes datées du 21 ;
+  aucun artifact CI contenant un relevé plus ancien.
+- **Sources grises** : Wayback CDX sur cinq URL exactes → 0 capture sur 15
+  URL-jours (capture la plus proche : 12 octobre 2026) ; Common Crawl CDX → 504,
+  y compris sur l'URL de contrôle `example.com` ; grep.app 0/2, Sourcegraph 0,
+  WebCite sans snapshot, arquivo.pt 404.
+- **Code** : `probe.ts` date les sondes du jour UTC courant, l'import DB ne crée
+  d'observation que depuis une preuve horodatée réelle, et l'audit exige 500
+  observations par jour passé. Aucune ancre ancrable le 24 novembre ne peut
+  totaliser 3 500 service-jours.
+
+Bilan : 0 service-jour réel supplémentaire, écart inchangé à 1 500. La première
+fenêtre sept jours entièrement observable reste ancrée au 27 novembre
+(21 au 27), après trois collectes réelles les 25, 26 et 27 novembre. Aucune date
+ni aucun statut n'a été inventé.
+
+OBJECTIF : partiel — 2000 / 3500 service-jours (4 / 7 jours), manque 1500 service-jours (18, 19, 20 novembre).
