@@ -1,0 +1,996 @@
+{
+  "dateMesure": "2026-11-23",
+  "commande": "DATABASE_URL=$DATABASE_URL tsx scripts/mesure-org-risk-prospectif.mts",
+  "benchmark": {
+    "version": "org-risk-prospectif@1",
+    "source": "benchmark-org-risk-prospectif-20261123",
+    "graine": 20261123,
+    "description": "Benchmark synthétique déterministe : 120 organisations, 40 incidents confirmés à 90 jours. Faits 2024-2025, décision asOf 2026-01-01, horizon 2026-01-01 -> 2026-03-31. Aucune organisation réelle, aucun nom, aucune donnée personnelle.",
+    "decoupage": "2024-01-01 -> 2026-01-01 -> 2026-04-01",
+    "entites": 120,
+    "positifs": 40,
+    "negatifs": 80,
+    "faits": 1186,
+    "horizonJours": 90
+  },
+  "critere": {
+    "requete": "SELECT c_index FROM model_eval WHERE model='org_risk' AND horizon_days=90;",
+    "cible": 0.7,
+    "valeurSql": 0.77
+  },
+  "resultat": {
+    "cIndexProspectif": {
+      "cIndex": 0.77,
+      "pairs": 3200,
+      "concordant": 2464,
+      "discordant": 736,
+      "tied": 0
+    },
+    "cIndexVolumeBrut": {
+      "cIndex": 0.68875,
+      "pairs": 3200,
+      "concordant": 2095,
+      "discordant": 887,
+      "tied": 218
+    },
+    "gainSurVolume": 0.08125000000000004,
+    "brier": 0.17181585085263376,
+    "ece": 0.12387513965160145,
+    "prior": 0.3333333333333333,
+    "calibrationCenter": 1.7622367582608862
+  },
+  "courbeCalibration": [
+    {
+      "index": 0,
+      "scoreMin": 0.05976069969095152,
+      "scoreMax": 0.21209968244094904,
+      "count": 12,
+      "positives": 0,
+      "predictedProbability": 0.12399614762657311,
+      "observedRate": 0,
+      "eceContribution": 0.012399614762657312
+    },
+    {
+      "index": 1,
+      "scoreMin": 0.21821455053525085,
+      "scoreMax": 0.3467444784359671,
+      "count": 12,
+      "positives": 3,
+      "predictedProbability": 0.1443478226716837,
+      "observedRate": 0.25,
+      "eceContribution": 0.01056521773283163
+    },
+    {
+      "index": 2,
+      "scoreMin": 0.34876623187129,
+      "scoreMax": 0.4147105933662002,
+      "count": 12,
+      "positives": 4,
+      "predictedProbability": 0.16011848988129734,
+      "observedRate": 0.3333333333333333,
+      "eceContribution": 0.017321484345203596
+    },
+    {
+      "index": 3,
+      "scoreMin": 0.4229922413882168,
+      "scoreMax": 0.49059897732249913,
+      "count": 12,
+      "positives": 0,
+      "predictedProbability": 0.1716657240187726,
+      "observedRate": 0,
+      "eceContribution": 0.01716657240187726
+    },
+    {
+      "index": 4,
+      "scoreMin": 0.5078727235320231,
+      "scoreMax": 0.8230191249014688,
+      "count": 12,
+      "positives": 4,
+      "predictedProbability": 0.21135734910044757,
+      "observedRate": 0.3333333333333333,
+      "eceContribution": 0.012197598423288575
+    },
+    {
+      "index": 5,
+      "scoreMin": 0.8437055935442732,
+      "scoreMax": 0.9979202667643987,
+      "count": 12,
+      "positives": 2,
+      "predictedProbability": 0.265943069524983,
+      "observedRate": 0.16666666666666666,
+      "eceContribution": 0.009927640285831632
+    },
+    {
+      "index": 6,
+      "scoreMin": 1.0076719853269793,
+      "scoreMax": 1.1616596158902983,
+      "count": 12,
+      "positives": 2,
+      "predictedProbability": 0.3081400811322723,
+      "observedRate": 0.16666666666666666,
+      "eceContribution": 0.014147341446560567
+    },
+    {
+      "index": 7,
+      "scoreMin": 1.192655645746666,
+      "scoreMax": 1.663524586514238,
+      "count": 12,
+      "positives": 7,
+      "predictedProbability": 0.40544275473448727,
+      "observedRate": 0.5833333333333334,
+      "eceContribution": 0.017789057859884612
+    },
+    {
+      "index": 8,
+      "scoreMin": 1.666141523513101,
+      "scoreMax": 2.924285873019084,
+      "count": 12,
+      "positives": 8,
+      "predictedProbability": 0.6260245520207438,
+      "observedRate": 0.6666666666666666,
+      "eceContribution": 0.004064211464592282
+    },
+    {
+      "index": 9,
+      "scoreMin": 2.9811877256487658,
+      "scoreMax": 8.154701144116531,
+      "count": 12,
+      "positives": 10,
+      "predictedProbability": 0.9162973426220732,
+      "observedRate": 0.8333333333333334,
+      "eceContribution": 0.008296400928873982
+    }
+  ],
+  "predictions": [
+    {
+      "id": 1,
+      "score": 0.3693391105944942,
+      "volume": 7,
+      "probability": 0.1582273321374264,
+      "positive": false
+    },
+    {
+      "id": 2,
+      "score": 0.31940443906302096,
+      "volume": 3,
+      "probability": 0.15040874749770045,
+      "positive": false
+    },
+    {
+      "id": 3,
+      "score": 0.9682683716376247,
+      "volume": 9,
+      "probability": 0.27832968799739394,
+      "positive": false
+    },
+    {
+      "id": 4,
+      "score": 0.39071841658075457,
+      "volume": 15,
+      "probability": 0.16167441666793128,
+      "positive": true
+    },
+    {
+      "id": 5,
+      "score": 4.473337247472287,
+      "volume": 17,
+      "probability": 0.9627922501264691,
+      "positive": true
+    },
+    {
+      "id": 6,
+      "score": 0.06664291901480243,
+      "volume": 2,
+      "probability": 0.1156062248899391,
+      "positive": false
+    },
+    {
+      "id": 7,
+      "score": 0.9130829663698093,
+      "volume": 7,
+      "probability": 0.2652252450204942,
+      "positive": false
+    },
+    {
+      "id": 8,
+      "score": 1.663524586514238,
+      "volume": 14,
+      "probability": 0.4704209269384807,
+      "positive": true
+    },
+    {
+      "id": 9,
+      "score": 0.43130198750265103,
+      "volume": 7,
+      "probability": 0.16838427803003503,
+      "positive": false
+    },
+    {
+      "id": 10,
+      "score": 1.3524395492775547,
+      "volume": 13,
+      "probability": 0.37947983302273,
+      "positive": true
+    },
+    {
+      "id": 11,
+      "score": 0.7117756972542361,
+      "volume": 7,
+      "probability": 0.22087866402205097,
+      "positive": false
+    },
+    {
+      "id": 12,
+      "score": 0.14269384646359062,
+      "volume": 7,
+      "probability": 0.12526916341141667,
+      "positive": false
+    },
+    {
+      "id": 13,
+      "score": 0.7709049060869348,
+      "volume": 7,
+      "probability": 0.23333080103920384,
+      "positive": false
+    },
+    {
+      "id": 14,
+      "score": 0.17145485201310212,
+      "volume": 7,
+      "probability": 0.1291001770091562,
+      "positive": false
+    },
+    {
+      "id": 15,
+      "score": 1.1616596158902983,
+      "volume": 12,
+      "probability": 0.3272404923457381,
+      "positive": false
+    },
+    {
+      "id": 16,
+      "score": 0.9599909534266395,
+      "volume": 4,
+      "probability": 0.27633894240581397,
+      "positive": true
+    },
+    {
+      "id": 17,
+      "score": 0.4147105933662002,
+      "volume": 8,
+      "probability": 0.1656146837051405,
+      "positive": false
+    },
+    {
+      "id": 18,
+      "score": 0.4436877364551303,
+      "volume": 8,
+      "probability": 0.17047581500025077,
+      "positive": false
+    },
+    {
+      "id": 19,
+      "score": 1.014999844668977,
+      "volume": 9,
+      "probability": 0.28973235179797996,
+      "positive": false
+    },
+    {
+      "id": 20,
+      "score": 0.4720425781270522,
+      "volume": 7,
+      "probability": 0.17534162206175063,
+      "positive": false
+    },
+    {
+      "id": 21,
+      "score": 2.3777345860790313,
+      "volume": 11,
+      "probability": 0.6766890686778391,
+      "positive": false
+    },
+    {
+      "id": 22,
+      "score": 1.2042424797536553,
+      "volume": 11,
+      "probability": 0.33858795084000765,
+      "positive": true
+    },
+    {
+      "id": 23,
+      "score": 0.5436773575811368,
+      "volume": 8,
+      "probability": 0.18812018451375162,
+      "positive": true
+    },
+    {
+      "id": 24,
+      "score": 0.8478018220468969,
+      "volume": 10,
+      "probability": 0.2502420215175783,
+      "positive": false
+    },
+    {
+      "id": 25,
+      "score": 7.639580785504185,
+      "volume": 21,
+      "probability": 0.9991357750215469,
+      "positive": true
+    },
+    {
+      "id": 26,
+      "score": 3.037446031111816,
+      "volume": 14,
+      "probability": 0.8220430541811621,
+      "positive": true
+    },
+    {
+      "id": 27,
+      "score": 3.275223582816495,
+      "volume": 13,
+      "probability": 0.8600354206765278,
+      "positive": true
+    },
+    {
+      "id": 28,
+      "score": 0.09185359302205626,
+      "volume": 7,
+      "probability": 0.11873546645421088,
+      "positive": false
+    },
+    {
+      "id": 29,
+      "score": 0.904585754504155,
+      "volume": 10,
+      "probability": 0.263242875541873,
+      "positive": false
+    },
+    {
+      "id": 30,
+      "score": 0.23054745230362145,
+      "volume": 12,
+      "probability": 0.13728478314845782,
+      "positive": false
+    },
+    {
+      "id": 31,
+      "score": 0.4246457749190289,
+      "volume": 6,
+      "probability": 0.16726874731184083,
+      "positive": false
+    },
+    {
+      "id": 32,
+      "score": 0.2716466680126635,
+      "volume": 10,
+      "probability": 0.14323118622108577,
+      "positive": false
+    },
+    {
+      "id": 33,
+      "score": 0.49059897732249913,
+      "volume": 13,
+      "probability": 0.1785847722427424,
+      "positive": false
+    },
+    {
+      "id": 34,
+      "score": 1.060750680540186,
+      "volume": 15,
+      "probability": 0.30115933480362506,
+      "positive": false
+    },
+    {
+      "id": 35,
+      "score": 1.4287497266234974,
+      "volume": 12,
+      "probability": 0.4012680274912549,
+      "positive": true
+    },
+    {
+      "id": 36,
+      "score": 1.105587162570611,
+      "volume": 10,
+      "probability": 0.3126026713238523,
+      "positive": false
+    },
+    {
+      "id": 37,
+      "score": 1.1215247106876365,
+      "volume": 13,
+      "probability": 0.3167269622797912,
+      "positive": false
+    },
+    {
+      "id": 38,
+      "score": 0.3827548750102054,
+      "volume": 9,
+      "probability": 0.16038338658307952,
+      "positive": false
+    },
+    {
+      "id": 39,
+      "score": 0.21821455053525085,
+      "volume": 6,
+      "probability": 0.1355413574724701,
+      "positive": false
+    },
+    {
+      "id": 40,
+      "score": 0.9667477301452247,
+      "volume": 11,
+      "probability": 0.2779633088909225,
+      "positive": false
+    },
+    {
+      "id": 41,
+      "score": 0.3467444784359671,
+      "volume": 7,
+      "probability": 0.1546494127285373,
+      "positive": true
+    },
+    {
+      "id": 42,
+      "score": 1.7899658786088586,
+      "volume": 10,
+      "probability": 0.5083179686321169,
+      "positive": true
+    },
+    {
+      "id": 43,
+      "score": 0.4229922413882168,
+      "volume": 11,
+      "probability": 0.16699254510539485,
+      "positive": false
+    },
+    {
+      "id": 44,
+      "score": 0.6583978659065709,
+      "volume": 11,
+      "probability": 0.21005288450403622,
+      "positive": true
+    },
+    {
+      "id": 45,
+      "score": 1.4805415960740929,
+      "volume": 7,
+      "probability": 0.41628707358272066,
+      "positive": false
+    },
+    {
+      "id": 46,
+      "score": 1.6502346181845173,
+      "volume": 12,
+      "probability": 0.46644984708260423,
+      "positive": false
+    },
+    {
+      "id": 47,
+      "score": 0.6746462000277136,
+      "volume": 14,
+      "probability": 0.21330649169943638,
+      "positive": false
+    },
+    {
+      "id": 48,
+      "score": 0.5078727235320231,
+      "volume": 5,
+      "probability": 0.18164576603777352,
+      "positive": false
+    },
+    {
+      "id": 49,
+      "score": 0.28125281698897286,
+      "volume": 5,
+      "probability": 0.14465160609331132,
+      "positive": true
+    },
+    {
+      "id": 50,
+      "score": 1.1379094180140885,
+      "volume": 6,
+      "probability": 0.32099720928824466,
+      "positive": true
+    },
+    {
+      "id": 51,
+      "score": 5.606580471646959,
+      "volume": 18,
+      "probability": 0.9901775380143321,
+      "positive": true
+    },
+    {
+      "id": 52,
+      "score": 0.34876623187129,
+      "volume": 10,
+      "probability": 0.15496685034198604,
+      "positive": true
+    },
+    {
+      "id": 53,
+      "score": 0.8230191249014688,
+      "volume": 13,
+      "probability": 0.24470386110544612,
+      "positive": false
+    },
+    {
+      "id": 54,
+      "score": 2.0190220521384883,
+      "volume": 6,
+      "probability": 0.576431765846302,
+      "positive": true
+    },
+    {
+      "id": 55,
+      "score": 1.1098548194869937,
+      "volume": 9,
+      "probability": 0.31370417844901227,
+      "positive": false
+    },
+    {
+      "id": 56,
+      "score": 0.11230380855923226,
+      "volume": 7,
+      "probability": 0.12132741527370237,
+      "positive": false
+    },
+    {
+      "id": 57,
+      "score": 1.0076719853269793,
+      "volume": 6,
+      "probability": 0.28792612473685425,
+      "positive": true
+    },
+    {
+      "id": 58,
+      "score": 0.9246515278957396,
+      "volume": 9,
+      "probability": 0.2679394363741959,
+      "positive": false
+    },
+    {
+      "id": 59,
+      "score": 2.386257381653324,
+      "volume": 12,
+      "probability": 0.6789225637560949,
+      "positive": false
+    },
+    {
+      "id": 60,
+      "score": 0.9182106192205618,
+      "volume": 11,
+      "probability": 0.26642611341700995,
+      "positive": false
+    },
+    {
+      "id": 61,
+      "score": 2.5231140548878654,
+      "volume": 9,
+      "probability": 0.7136244446275984,
+      "positive": false
+    },
+    {
+      "id": 62,
+      "score": 0.36439321593504714,
+      "volume": 6,
+      "probability": 0.15743843367214122,
+      "positive": false
+    },
+    {
+      "id": 63,
+      "score": 1.32712979987115,
+      "volume": 8,
+      "probability": 0.37235468908803,
+      "positive": false
+    },
+    {
+      "id": 64,
+      "score": 0.21209968244094904,
+      "volume": 9,
+      "probability": 0.1346838803409648,
+      "positive": false
+    },
+    {
+      "id": 65,
+      "score": 0.37268486384606214,
+      "volume": 6,
+      "probability": 0.15876281704838088,
+      "positive": false
+    },
+    {
+      "id": 66,
+      "score": 1.135820333375536,
+      "volume": 6,
+      "probability": 0.3204510554027855,
+      "positive": false
+    },
+    {
+      "id": 67,
+      "score": 0.6248371500534152,
+      "volume": 7,
+      "probability": 0.2034483952604176,
+      "positive": false
+    },
+    {
+      "id": 68,
+      "score": 0.3741727283016647,
+      "volume": 12,
+      "probability": 0.15900142034183945,
+      "positive": false
+    },
+    {
+      "id": 69,
+      "score": 1.4486870381422488,
+      "volume": 11,
+      "probability": 0.40702933640390576,
+      "positive": false
+    },
+    {
+      "id": 70,
+      "score": 0.32193113565207254,
+      "volume": 5,
+      "probability": 0.15079660993186683,
+      "positive": false
+    },
+    {
+      "id": 71,
+      "score": 2.3162212076535216,
+      "volume": 13,
+      "probability": 0.6603336307001781,
+      "positive": true
+    },
+    {
+      "id": 72,
+      "score": 0.38585947540734267,
+      "volume": 8,
+      "probability": 0.16088570221462045,
+      "positive": false
+    },
+    {
+      "id": 73,
+      "score": 0.4663699951827738,
+      "volume": 8,
+      "probability": 0.17435951055603705,
+      "positive": false
+    },
+    {
+      "id": 74,
+      "score": 1.4236913578604649,
+      "volume": 12,
+      "probability": 0.39981056559390327,
+      "positive": true
+    },
+    {
+      "id": 75,
+      "score": 0.19093943209210593,
+      "volume": 6,
+      "probability": 0.13175191182135934,
+      "positive": false
+    },
+    {
+      "id": 76,
+      "score": 0.4346354512979782,
+      "volume": 4,
+      "probability": 0.1689451672842629,
+      "positive": false
+    },
+    {
+      "id": 77,
+      "score": 1.666141523513101,
+      "volume": 16,
+      "probability": 0.47120333253362534,
+      "positive": true
+    },
+    {
+      "id": 78,
+      "score": 0.14498082188762534,
+      "volume": 15,
+      "probability": 0.12557019213917675,
+      "positive": false
+    },
+    {
+      "id": 79,
+      "score": 5.047963076496399,
+      "volume": 17,
+      "probability": 0.98097646519168,
+      "positive": true
+    },
+    {
+      "id": 80,
+      "score": 1.601989551664969,
+      "volume": 15,
+      "probability": 0.45207343280258655,
+      "positive": false
+    },
+    {
+      "id": 81,
+      "score": 3.381659580228699,
+      "volume": 18,
+      "probability": 0.8747150448647432,
+      "positive": false
+    },
+    {
+      "id": 82,
+      "score": 0.7280798318951506,
+      "volume": 6,
+      "probability": 0.2242640026377284,
+      "positive": false
+    },
+    {
+      "id": 83,
+      "score": 1.192655645746666,
+      "volume": 11,
+      "probability": 0.3354811811867921,
+      "positive": true
+    },
+    {
+      "id": 84,
+      "score": 0.9979202667643987,
+      "volume": 11,
+      "probability": 0.2855328798941256,
+      "positive": false
+    },
+    {
+      "id": 85,
+      "score": 0.448754014503151,
+      "volume": 4,
+      "probability": 0.17133726816870437,
+      "positive": false
+    },
+    {
+      "id": 86,
+      "score": 0.4101572404768691,
+      "volume": 10,
+      "probability": 0.16486100855036717,
+      "positive": true
+    },
+    {
+      "id": 87,
+      "score": 3.3922116181286524,
+      "volume": 12,
+      "probability": 0.8760961335275878,
+      "positive": true
+    },
+    {
+      "id": 88,
+      "score": 0.8437055935442732,
+      "volume": 5,
+      "probability": 0.24932090825311753,
+      "positive": false
+    },
+    {
+      "id": 89,
+      "score": 0.4597636815755384,
+      "volume": 8,
+      "probability": 0.17322121488660544,
+      "positive": false
+    },
+    {
+      "id": 90,
+      "score": 0.6965758082748087,
+      "volume": 12,
+      "probability": 0.21775572787887584,
+      "positive": false
+    },
+    {
+      "id": 91,
+      "score": 0.2520229706365526,
+      "volume": 11,
+      "probability": 0.14036562293877305,
+      "positive": false
+    },
+    {
+      "id": 92,
+      "score": 0.23936456239012965,
+      "volume": 6,
+      "probability": 0.1385427326563142,
+      "positive": false
+    },
+    {
+      "id": 93,
+      "score": 0.5948527072006455,
+      "volume": 8,
+      "probability": 0.19767954129424178,
+      "positive": true
+    },
+    {
+      "id": 94,
+      "score": 0.3518528536538177,
+      "volume": 8,
+      "probability": 0.15545251007236174,
+      "positive": false
+    },
+    {
+      "id": 95,
+      "score": 0.2656609158825978,
+      "volume": 4,
+      "probability": 0.1423519859041169,
+      "positive": false
+    },
+    {
+      "id": 96,
+      "score": 0.26502567300387664,
+      "volume": 8,
+      "probability": 0.14225894471328143,
+      "positive": false
+    },
+    {
+      "id": 97,
+      "score": 0.6127185498631083,
+      "volume": 7,
+      "probability": 0.20110186921240863,
+      "positive": true
+    },
+    {
+      "id": 98,
+      "score": 1.6929572123388281,
+      "volume": 10,
+      "probability": 0.47922809860193644,
+      "positive": true
+    },
+    {
+      "id": 99,
+      "score": 1.0096600363212538,
+      "volume": 14,
+      "probability": 0.28841549149548645,
+      "positive": false
+    },
+    {
+      "id": 100,
+      "score": 0.33032408995722545,
+      "volume": 10,
+      "probability": 0.15209088275428856,
+      "positive": true
+    },
+    {
+      "id": 101,
+      "score": 4.203718836318367,
+      "volume": 18,
+      "probability": 0.9492990149424709,
+      "positive": true
+    },
+    {
+      "id": 102,
+      "score": 0.061104219046411626,
+      "volume": 7,
+      "probability": 0.11492841758395755,
+      "positive": false
+    },
+    {
+      "id": 103,
+      "score": 0.4443553821777928,
+      "volume": 8,
+      "probability": 0.17058914210492884,
+      "positive": false
+    },
+    {
+      "id": 104,
+      "score": 0.893436380847904,
+      "volume": 7,
+      "probability": 0.26065625502505135,
+      "positive": true
+    },
+    {
+      "id": 105,
+      "score": 0.16007230609851744,
+      "volume": 10,
+      "probability": 0.12757220873752453,
+      "positive": false
+    },
+    {
+      "id": 106,
+      "score": 1.0764310580278194,
+      "volume": 8,
+      "probability": 0.30513424522101484,
+      "positive": false
+    },
+    {
+      "id": 107,
+      "score": 2.9811877256487658,
+      "volume": 20,
+      "probability": 0.8119515702103599,
+      "positive": false
+    },
+    {
+      "id": 108,
+      "score": 0.16807006849373868,
+      "volume": 10,
+      "probability": 0.1286441896368717,
+      "positive": false
+    },
+    {
+      "id": 109,
+      "score": 8.154701144116531,
+      "volume": 24,
+      "probability": 0.9995340458530413,
+      "positive": true
+    },
+    {
+      "id": 110,
+      "score": 2.695142822149549,
+      "volume": 16,
+      "probability": 0.7538935991505943,
+      "positive": true
+    },
+    {
+      "id": 111,
+      "score": 1.9633724858329211,
+      "volume": 8,
+      "probability": 0.5600494805324621,
+      "positive": false
+    },
+    {
+      "id": 112,
+      "score": 1.5139842605231417,
+      "volume": 13,
+      "probability": 0.4260701927808314,
+      "positive": true
+    },
+    {
+      "id": 113,
+      "score": 2.924285873019084,
+      "volume": 12,
+      "probability": 0.8013031331563226,
+      "positive": true
+    },
+    {
+      "id": 114,
+      "score": 2.2139750811947496,
+      "volume": 13,
+      "probability": 0.6322975380338556,
+      "positive": true
+    },
+    {
+      "id": 115,
+      "score": 0.05976069969095152,
+      "volume": 8,
+      "probability": 0.11476452422059744,
+      "positive": false
+    },
+    {
+      "id": 116,
+      "score": 0.4058664665083925,
+      "volume": 8,
+      "probability": 0.1641533172402934,
+      "positive": true
+    },
+    {
+      "id": 117,
+      "score": 1.1094161434125955,
+      "volume": 11,
+      "probability": 0.313590856442883,
+      "positive": false
+    },
+    {
+      "id": 118,
+      "score": 0.46711707068778263,
+      "volume": 9,
+      "probability": 0.1744886054727179,
+      "positive": false
+    },
+    {
+      "id": 119,
+      "score": 3.337648081221333,
+      "volume": 11,
+      "probability": 0.8688117988549583,
+      "positive": true
+    },
+    {
+      "id": 120,
+      "score": 0.8471671703974583,
+      "volume": 8,
+      "probability": 0.25009915996222004,
+      "positive": false
+    }
+  ],
+  "referentiel": {
+    "cible": 10261,
+    "dateReference": "2026-11-24",
+    "scores": 10261,
+    "probabilityMin": 0.1076777743867973,
+    "probabilityMax": 0.46706557785547054,
+    "withConfirmedHistory": 5,
+    "withCorroboratedClaim": 10,
+    "withExposedService": 9908
+  }
+}

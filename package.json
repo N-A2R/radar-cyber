@@ -58,6 +58,8 @@
     "verifie:iforest": "apps/api/node_modules/.bin/tsx scripts/verifie-iforest.mts",
     "mesure:risk-decay": "apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts",
     "verifie:risk-decay": "apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts",
+    "mesure:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/mesure-org-risk-prospectif.mts",
+    "verifie:org-risk-prospectif": "apps/api/node_modules/.bin/tsx scripts/verifie-org-risk-prospectif.mts",
     "mesure:ransom-forecast": "apps/api/node_modules/.bin/tsx scripts/mesure-ransom-forecast.mts",
     "mesure:precurseur-campagne": "apps/api/node_modules/.bin/tsx scripts/measure-campaign-precursor.mts",
     "verifie:presse-locale": "apps/api/node_modules/.bin/tsx scripts/verifie-presse-locale.mts",
