@@ -22,6 +22,8 @@ export type PublicService = {
 	/** Opaque identifier from the public corpus, never a person. */
 	id: string;
 	url: string;
+	/** Final HTTP URL recorded in the corpus proof, when it differs from `url`. */
+	proofUrl?: string;
 	department: string;
 	kind: string;
 };
@@ -31,7 +33,8 @@ type CorpusRow = {
 	departement?: unknown;
 	type?: unknown;
 	url?: unknown;
-	preuve?: { http_status?: unknown } | null;
+	url_preuve?: unknown;
+	preuve?: { http_status?: unknown; url_finale?: unknown } | null;
 };
 
 function text(value: unknown): string {
@@ -51,11 +54,12 @@ export function parseCorpus(contents: string): PublicService[] {
 		}
 		const id = text(row.id);
 		const url = text(row.url);
+		const proofUrl = text(row.preuve?.url_finale) || text(row.url_preuve);
 		const department = text(row.departement);
 		const kind = text(row.type);
 		if (!id || !url || NA_DEPARTMENTS[department] !== true || !/^https?:\/\//i.test(url)) continue;
 		if (row.preuve?.http_status !== 200) continue;
-		services.push({ id, url, department, kind });
+		services.push({ id, url, ...(proofUrl ? { proofUrl } : {}), department, kind });
 	}
 	return services;
 }
@@ -80,7 +84,7 @@ export function buildPerimeter(rows: PublicService[], limit = PERIMETER_SIZE): P
 			return left < right ? -1 : left > right ? 1 : a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 		})
 		.slice(0, limit)
-		.map((row) => ({ id: row.id, url: row.url, department: row.department, kind: row.kind }));
+		.map((row) => ({ id: row.id, url: row.url, ...(row.proofUrl ? { proofUrl: row.proofUrl } : {}), department: row.department, kind: row.kind }));
 }
 
 export function readCorpusPerimeter(path: string, limit = PERIMETER_SIZE): PublicService[] {

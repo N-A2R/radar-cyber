@@ -1,0 +1,9 @@
+{
+  "model": "disclosure-window-quantile@1",
+  "criterion": "SELECT count(*) FROM disclosure_forecast WHERE issued_at<first_public_at AND first_public_at BETWEEN window_start AND window_end",
+  "emitted": 104,
+  "in_window": 83,
+  "hit_rate": 0.7980769230769231,
+  "recomputed_rows": 104,
+  "measured_at": "2026-11-23T22:51:15.614Z"
+}

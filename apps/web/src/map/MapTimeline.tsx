@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { advanceBucket, formatBucketLabel } from "./timeline.js";
 import type { MapTimelineBucket } from "./timeline.js";
 import "./map-timeline.css";
+import { Card } from "@astryxdesign/core/Card";
 
 export interface MapTimelineProps {
   buckets: readonly MapTimelineBucket[];
@@ -54,6 +55,7 @@ export default function MapTimeline({
 
   return (
     <section className="map-timeline" aria-label="Map timeline">
+      <Card variant="transparent" className="map-timeline__controls-card">
       <div className="map-timeline__controls">
         <button
           type="button"
@@ -84,6 +86,7 @@ export default function MapTimeline({
           All dates
         </button>
       </div>
+      </Card>
       <div className="map-timeline__bars" role="group" aria-label="Choose a month">
         {buckets.map((bucket, index) => (
           <button

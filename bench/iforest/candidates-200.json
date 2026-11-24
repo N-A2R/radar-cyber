@@ -1,0 +1,3610 @@
+{
+  "version": "fixture-iforest-200",
+  "description": "200 profils d'organisations synthétiques, comparés à la médiane de leur région ; deux analystes indépendants.",
+  "seed": 20261123,
+  "model": "iforest-region@1",
+  "model_seed": 424242,
+  "source": "fixture-iforest-200",
+  "candidates": [
+    {
+      "event_id": "ifx-001",
+      "org": "SYN-NA-001",
+      "region": "NA",
+      "counts": {
+        "ransomware": 15,
+        "phishing": 4,
+        "vuln": 19,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 24,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-002",
+      "org": "SYN-OCC-002",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 14,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 12,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-003",
+      "org": "SYN-PAC-003",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-004",
+      "org": "SYN-GE-004",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-005",
+      "org": "SYN-NA-005",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-006",
+      "org": "SYN-OCC-006",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 26,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 20,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-007",
+      "org": "SYN-PAC-007",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 22,
+        "vuln": 3,
+        "ct": 21,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 38,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-008",
+      "org": "SYN-GE-008",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-009",
+      "org": "SYN-NA-009",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 4,
+        "vuln": 3,
+        "ct": 7,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-010",
+      "org": "SYN-OCC-010",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-011",
+      "org": "SYN-PAC-011",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 9,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 10,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-012",
+      "org": "SYN-GE-012",
+      "region": "GE",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 22,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-013",
+      "org": "SYN-NA-013",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 4,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-014",
+      "org": "SYN-OCC-014",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-015",
+      "org": "SYN-PAC-015",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-016",
+      "org": "SYN-GE-016",
+      "region": "GE",
+      "counts": {
+        "ransomware": 18,
+        "phishing": 2,
+        "vuln": 22,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 24,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-017",
+      "org": "SYN-NA-017",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 21,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 19,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-018",
+      "org": "SYN-OCC-018",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-019",
+      "org": "SYN-PAC-019",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-020",
+      "org": "SYN-GE-020",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 1,
+        "vuln": 4,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-021",
+      "org": "SYN-NA-021",
+      "region": "NA",
+      "counts": {
+        "ransomware": 22,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-022",
+      "org": "SYN-OCC-022",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 13,
+        "vuln": 3,
+        "ct": 19,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-023",
+      "org": "SYN-PAC-023",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 4,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-024",
+      "org": "SYN-GE-024",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-025",
+      "org": "SYN-NA-025",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-026",
+      "org": "SYN-OCC-026",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 21,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 16,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-027",
+      "org": "SYN-PAC-027",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 26,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 28,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-028",
+      "org": "SYN-GE-028",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-029",
+      "org": "SYN-NA-029",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 4,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-030",
+      "org": "SYN-OCC-030",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-031",
+      "org": "SYN-PAC-031",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 12,
+        "phishing": 4,
+        "vuln": 17,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 21,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-032",
+      "org": "SYN-GE-032",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 19,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-033",
+      "org": "SYN-NA-033",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-034",
+      "org": "SYN-OCC-034",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-035",
+      "org": "SYN-PAC-035",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-036",
+      "org": "SYN-GE-036",
+      "region": "GE",
+      "counts": {
+        "ransomware": 23,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 16,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-037",
+      "org": "SYN-NA-037",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 18,
+        "vuln": 3,
+        "ct": 23,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 29,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-038",
+      "org": "SYN-OCC-038",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-039",
+      "org": "SYN-PAC-039",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-040",
+      "org": "SYN-GE-040",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-041",
+      "org": "SYN-NA-041",
+      "region": "NA",
+      "counts": {
+        "ransomware": 16,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 14,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-042",
+      "org": "SYN-OCC-042",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 14,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 12,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-043",
+      "org": "SYN-PAC-043",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-044",
+      "org": "SYN-GE-044",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 5,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-045",
+      "org": "SYN-NA-045",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-046",
+      "org": "SYN-OCC-046",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 13,
+        "phishing": 1,
+        "vuln": 14,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 18,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-047",
+      "org": "SYN-PAC-047",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 31,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 26,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-048",
+      "org": "SYN-GE-048",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 5,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-049",
+      "org": "SYN-NA-049",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-050",
+      "org": "SYN-OCC-050",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-051",
+      "org": "SYN-PAC-051",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 14,
+        "phishing": 4,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 13,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-052",
+      "org": "SYN-GE-052",
+      "region": "GE",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 14,
+        "vuln": 4,
+        "ct": 11,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 21,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-053",
+      "org": "SYN-NA-053",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 4,
+        "vuln": 4,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-054",
+      "org": "SYN-OCC-054",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-055",
+      "org": "SYN-PAC-055",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 4,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-056",
+      "org": "SYN-GE-056",
+      "region": "GE",
+      "counts": {
+        "ransomware": 20,
+        "phishing": 1,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 16,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-057",
+      "org": "SYN-NA-057",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 31,
+        "vuln": 5,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-058",
+      "org": "SYN-OCC-058",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-059",
+      "org": "SYN-PAC-059",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-060",
+      "org": "SYN-GE-060",
+      "region": "GE",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 1,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-061",
+      "org": "SYN-NA-061",
+      "region": "NA",
+      "counts": {
+        "ransomware": 20,
+        "phishing": 4,
+        "vuln": 17,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 31,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-062",
+      "org": "SYN-OCC-062",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 22,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-063",
+      "org": "SYN-PAC-063",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-064",
+      "org": "SYN-GE-064",
+      "region": "GE",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-065",
+      "org": "SYN-NA-065",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-066",
+      "org": "SYN-OCC-066",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 24,
+        "phishing": 1,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-067",
+      "org": "SYN-PAC-067",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 27,
+        "vuln": 2,
+        "ct": 20,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 31,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-068",
+      "org": "SYN-GE-068",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-069",
+      "org": "SYN-NA-069",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-070",
+      "org": "SYN-OCC-070",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-071",
+      "org": "SYN-PAC-071",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 10,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 15,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-072",
+      "org": "SYN-GE-072",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 22,
+        "vuln": 2,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-073",
+      "org": "SYN-NA-073",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-074",
+      "org": "SYN-OCC-074",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-075",
+      "org": "SYN-PAC-075",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-076",
+      "org": "SYN-GE-076",
+      "region": "GE",
+      "counts": {
+        "ransomware": 21,
+        "phishing": 1,
+        "vuln": 20,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-077",
+      "org": "SYN-NA-077",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 32,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-078",
+      "org": "SYN-OCC-078",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-079",
+      "org": "SYN-PAC-079",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-080",
+      "org": "SYN-GE-080",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-081",
+      "org": "SYN-NA-081",
+      "region": "NA",
+      "counts": {
+        "ransomware": 22,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 21,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-082",
+      "org": "SYN-OCC-082",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 15,
+        "vuln": 3,
+        "ct": 18,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 29,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-083",
+      "org": "SYN-PAC-083",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-084",
+      "org": "SYN-GE-084",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-085",
+      "org": "SYN-NA-085",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 4,
+        "vuln": 3,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-086",
+      "org": "SYN-OCC-086",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 14,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 18,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-087",
+      "org": "SYN-PAC-087",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 20,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-088",
+      "org": "SYN-GE-088",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-089",
+      "org": "SYN-NA-089",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 4,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-090",
+      "org": "SYN-OCC-090",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-091",
+      "org": "SYN-PAC-091",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 11,
+        "phishing": 3,
+        "vuln": 17,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 21,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-092",
+      "org": "SYN-GE-092",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 24,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-093",
+      "org": "SYN-NA-093",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 6,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-094",
+      "org": "SYN-OCC-094",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-095",
+      "org": "SYN-PAC-095",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-096",
+      "org": "SYN-GE-096",
+      "region": "GE",
+      "counts": {
+        "ransomware": 15,
+        "phishing": 2,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 17,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-097",
+      "org": "SYN-NA-097",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 19,
+        "vuln": 5,
+        "ct": 19,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 32,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-098",
+      "org": "SYN-OCC-098",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-099",
+      "org": "SYN-PAC-099",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 4,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-100",
+      "org": "SYN-GE-100",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-101",
+      "org": "SYN-NA-101",
+      "region": "NA",
+      "counts": {
+        "ransomware": 20,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 7,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-102",
+      "org": "SYN-OCC-102",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 23,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 20,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-103",
+      "org": "SYN-PAC-103",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-104",
+      "org": "SYN-GE-104",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 5,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-105",
+      "org": "SYN-NA-105",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-106",
+      "org": "SYN-OCC-106",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 22,
+        "phishing": 2,
+        "vuln": 10,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 31,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-107",
+      "org": "SYN-PAC-107",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 27,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 26,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-108",
+      "org": "SYN-GE-108",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-109",
+      "org": "SYN-NA-109",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-110",
+      "org": "SYN-OCC-110",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-111",
+      "org": "SYN-PAC-111",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 13,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 16,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-112",
+      "org": "SYN-GE-112",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 18,
+        "vuln": 5,
+        "ct": 14,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-113",
+      "org": "SYN-NA-113",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-114",
+      "org": "SYN-OCC-114",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-115",
+      "org": "SYN-PAC-115",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-116",
+      "org": "SYN-GE-116",
+      "region": "GE",
+      "counts": {
+        "ransomware": 25,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-117",
+      "org": "SYN-NA-117",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 22,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-118",
+      "org": "SYN-OCC-118",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-119",
+      "org": "SYN-PAC-119",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-120",
+      "org": "SYN-GE-120",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-121",
+      "org": "SYN-NA-121",
+      "region": "NA",
+      "counts": {
+        "ransomware": 16,
+        "phishing": 3,
+        "vuln": 12,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 27,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-122",
+      "org": "SYN-OCC-122",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 21,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 19,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-123",
+      "org": "SYN-PAC-123",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-124",
+      "org": "SYN-GE-124",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-125",
+      "org": "SYN-NA-125",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-126",
+      "org": "SYN-OCC-126",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 14,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 15,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-127",
+      "org": "SYN-PAC-127",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 23,
+        "vuln": 3,
+        "ct": 12,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 27,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-128",
+      "org": "SYN-GE-128",
+      "region": "GE",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 6,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-129",
+      "org": "SYN-NA-129",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-130",
+      "org": "SYN-OCC-130",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-131",
+      "org": "SYN-PAC-131",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 12,
+        "phishing": 4,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 12,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-132",
+      "org": "SYN-GE-132",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 16,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 18,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-133",
+      "org": "SYN-NA-133",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-134",
+      "org": "SYN-OCC-134",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-135",
+      "org": "SYN-PAC-135",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 4,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-136",
+      "org": "SYN-GE-136",
+      "region": "GE",
+      "counts": {
+        "ransomware": 14,
+        "phishing": 3,
+        "vuln": 17,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-137",
+      "org": "SYN-NA-137",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 30,
+        "vuln": 3,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 29,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-138",
+      "org": "SYN-OCC-138",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-139",
+      "org": "SYN-PAC-139",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-140",
+      "org": "SYN-GE-140",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-141",
+      "org": "SYN-NA-141",
+      "region": "NA",
+      "counts": {
+        "ransomware": 24,
+        "phishing": 4,
+        "vuln": 5,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 22,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-142",
+      "org": "SYN-OCC-142",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 24,
+        "vuln": 2,
+        "ct": 16,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 26,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-143",
+      "org": "SYN-PAC-143",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-144",
+      "org": "SYN-GE-144",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-145",
+      "org": "SYN-NA-145",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 4,
+        "vuln": 6,
+        "ct": 7,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-146",
+      "org": "SYN-OCC-146",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 25,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 24,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-147",
+      "org": "SYN-PAC-147",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 24,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 24,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-148",
+      "org": "SYN-GE-148",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-149",
+      "org": "SYN-NA-149",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-150",
+      "org": "SYN-OCC-150",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-151",
+      "org": "SYN-PAC-151",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 10,
+        "phishing": 3,
+        "vuln": 8,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 13,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-152",
+      "org": "SYN-GE-152",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 21,
+        "vuln": 5,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-153",
+      "org": "SYN-NA-153",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-154",
+      "org": "SYN-OCC-154",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-155",
+      "org": "SYN-PAC-155",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-156",
+      "org": "SYN-GE-156",
+      "region": "GE",
+      "counts": {
+        "ransomware": 24,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-157",
+      "org": "SYN-NA-157",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 36,
+        "vuln": 4,
+        "ct": 21,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 47,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-158",
+      "org": "SYN-OCC-158",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-159",
+      "org": "SYN-PAC-159",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-160",
+      "org": "SYN-GE-160",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-161",
+      "org": "SYN-NA-161",
+      "region": "NA",
+      "counts": {
+        "ransomware": 16,
+        "phishing": 3,
+        "vuln": 5,
+        "ct": 7,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-162",
+      "org": "SYN-OCC-162",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 22,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 23,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-163",
+      "org": "SYN-PAC-163",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": true,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-164",
+      "org": "SYN-GE-164",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 5,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": true,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-165",
+      "org": "SYN-NA-165",
+      "region": "NA",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 7,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-166",
+      "org": "SYN-OCC-166",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 13,
+        "phishing": 2,
+        "vuln": 11,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 24,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-167",
+      "org": "SYN-PAC-167",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 27,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 25,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-168",
+      "org": "SYN-GE-168",
+      "region": "GE",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-169",
+      "org": "SYN-NA-169",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-170",
+      "org": "SYN-OCC-170",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-171",
+      "org": "SYN-PAC-171",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 12,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 13,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-172",
+      "org": "SYN-GE-172",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 23,
+        "vuln": 5,
+        "ct": 12,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 30,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-173",
+      "org": "SYN-NA-173",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 4,
+        "vuln": 5,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-174",
+      "org": "SYN-OCC-174",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-175",
+      "org": "SYN-PAC-175",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 4,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-176",
+      "org": "SYN-GE-176",
+      "region": "GE",
+      "counts": {
+        "ransomware": 24,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 20,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-177",
+      "org": "SYN-NA-177",
+      "region": "NA",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 19,
+        "vuln": 3,
+        "ct": 7,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 17,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-178",
+      "org": "SYN-OCC-178",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 4,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-179",
+      "org": "SYN-PAC-179",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-180",
+      "org": "SYN-GE-180",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-181",
+      "org": "SYN-NA-181",
+      "region": "NA",
+      "counts": {
+        "ransomware": 23,
+        "phishing": 2,
+        "vuln": 19,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 30,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-182",
+      "org": "SYN-OCC-182",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 3,
+        "phishing": 16,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 20,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-183",
+      "org": "SYN-PAC-183",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-184",
+      "org": "SYN-GE-184",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-185",
+      "org": "SYN-NA-185",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 4,
+        "vuln": 4,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-186",
+      "org": "SYN-OCC-186",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 16,
+        "phishing": 2,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 13,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-187",
+      "org": "SYN-PAC-187",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 26,
+        "vuln": 2,
+        "ct": 15,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 26,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-188",
+      "org": "SYN-GE-188",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-189",
+      "org": "SYN-NA-189",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-190",
+      "org": "SYN-OCC-190",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-191",
+      "org": "SYN-PAC-191",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 9,
+        "phishing": 2,
+        "vuln": 3,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 13,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-192",
+      "org": "SYN-GE-192",
+      "region": "GE",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 24,
+        "vuln": 4,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 17,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-193",
+      "org": "SYN-NA-193",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 4,
+        "ct": 6,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-194",
+      "org": "SYN-OCC-194",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 2,
+        "vuln": 4,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 2,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-195",
+      "org": "SYN-PAC-195",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 2,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 2,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-196",
+      "org": "SYN-GE-196",
+      "region": "GE",
+      "counts": {
+        "ransomware": 13,
+        "phishing": 2,
+        "vuln": 21,
+        "ct": 3,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 31,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-197",
+      "org": "SYN-NA-197",
+      "region": "NA",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 27,
+        "vuln": 5,
+        "ct": 5,
+        "leak": 1
+      },
+      "sources": 1,
+      "peak": 29,
+      "analyste_a": true,
+      "analyste_b": true,
+      "label_analyste": true,
+      "profil_anormal": true
+    },
+    {
+      "event_id": "ifx-198",
+      "org": "SYN-OCC-198",
+      "region": "OCC",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-199",
+      "org": "SYN-PAC-199",
+      "region": "PAC",
+      "counts": {
+        "ransomware": 1,
+        "phishing": 3,
+        "vuln": 3,
+        "ct": 4,
+        "leak": 1
+      },
+      "sources": 3,
+      "peak": 3,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    },
+    {
+      "event_id": "ifx-200",
+      "org": "SYN-GE-200",
+      "region": "GE",
+      "counts": {
+        "ransomware": 2,
+        "phishing": 1,
+        "vuln": 3,
+        "ct": 2,
+        "leak": 1
+      },
+      "sources": 5,
+      "peak": 1,
+      "analyste_a": false,
+      "analyste_b": false,
+      "label_analyste": false,
+      "profil_anormal": false
+    }
+  ]
+}

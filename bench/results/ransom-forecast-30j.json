@@ -1,0 +1,32 @@
+{
+  "dateMesure": "2026-11-23",
+  "commande": "DATABASE_URL=$DATABASE_URL tsx scripts/mesure-ransom-forecast.mts",
+  "source": "ransom-forecast-30j-v1",
+  "donnees": {
+    "revendications": "leak_claim.na (revendications rattachées à la Nouvelle-Aquitaine)",
+    "fuites": "fuite_reference.breach_date et event(family='leaks')",
+    "semaines": 354
+  },
+  "protocole": {
+    "origines": "semaines complètes de 2020-01-06 à 2026-10-12",
+    "apprentissage": "2022-01-01 → 2025-01-01 (exclu)",
+    "test": "2025-01-01 → 2026-10-12",
+    "horizonJours": 30,
+    "evenement": "au moins une revendication NA dans les 30 jours suivant la fin de la semaine d'origine",
+    "reference": "Poisson, lambda estimé sur les 364 jours précédant l'origine"
+  },
+  "resultat": {
+    "entrainement": 157,
+    "test": 93,
+    "positifs": 81,
+    "prAuc": 0.9392569031986007,
+    "prAucPoisson": 0.83789128649141,
+    "gain": 0.10136561670719069
+  },
+  "critere": {
+    "requete": "SELECT pr_auc FROM model_eval WHERE model='ransom_forecast' AND horizon_days=30",
+    "cible": 0.7,
+    "gainCible": 0.1,
+    "valeurSql": 0.9392569031986007
+  }
+}

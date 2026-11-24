@@ -203,7 +203,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
           </p>
         ) : (
           <p className="health-view__resume">
-            {formatNumber(data.total)} flux · {formatNumber(counts?.ok ?? null)} ok ·{" "}
+            {formatNumber(data.total ?? null)} flux · {formatNumber(counts?.ok ?? null)} ok ·{" "}
             {formatNumber(counts?.error ?? null)} en erreur ·{" "}
             {formatNumber(counts?.pending ?? null)} jamais collectés
           </p>

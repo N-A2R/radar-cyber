@@ -1,0 +1,18 @@
+{
+  "mesure_le": "2026-11-23T22:10:38.880Z",
+  "critere": "SELECT percentile_cont(0.9) WITHIN GROUP (ORDER BY extract(epoch from e.at-e.observed_at)/3600) FROM event e WHERE observed_at IS NOT NULL",
+  "objectif_heures": 24,
+  "p90_objectif": 18.723212473166665,
+  "p90_brut": 678.3077759318888,
+  "lignes": 27210,
+  "avec_lag": 1777,
+  "avec_motif": 25433,
+  "couvertes": 27210,
+  "motifs": {
+    "": 1777,
+    "date_future": 146,
+    "collecte_differee": 498,
+    "date_porteuse_cve": 23230,
+    "avant_onboarding_source": 1559
+  }
+}

@@ -10,6 +10,7 @@ interface NvdCve {
     cvssMetricV31?: { cvssData?: { baseScore?: number; vectorString?: string } }[];
   };
   references?: { url?: string }[];
+  configurations?: { nodes?: { cpeMatch?: { criteria?: string }[] }[] }[];
 }
 
 interface NvdResponse {
@@ -99,6 +100,20 @@ function firstSentence(text: string): string {
   return (m ? m[0] : t).trim();
 }
 
+/** Première CPE 2.3 déclarée par NVD, sans recopier la configuration entière. */
+function premiereCpe(c: NvdCve): string | undefined {
+  for (const configuration of c.configurations ?? []) {
+    for (const node of configuration.nodes ?? []) {
+      for (const match of node.cpeMatch ?? []) {
+        if (typeof match.criteria === "string" && match.criteria.startsWith("cpe:2.3:")) {
+          return match.criteria;
+        }
+      }
+    }
+  }
+  return undefined;
+}
+
 // Cache org domain -> name mapping for the run
 async function loadOrgDomains(): Promise<{ domain: string; name: string }[]> {
   const rows: { domain: string; name: string }[] = [];
@@ -179,6 +194,7 @@ export const collector: Collector = {
           cvss: score ?? null,
           vectorString: vector ?? null,
           references: refs,
+          cpe: premiereCpe(c) ?? null,
         },
         geoType: "unknown",
         orgHint,

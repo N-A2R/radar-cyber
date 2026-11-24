@@ -32,6 +32,7 @@ import historyRoute from "../routes/history.js";
 import ingestRoute from "../routes/ingest.js";
 import journalRoute from "../routes/journal.js";
 import registreTraitementsRoute from "../routes/registre-traitements.js";
+import violationsRgpdRoute from "../routes/violations-rgpd.js";
 import keysRoute from "../routes/keys.js";
 import naRoute from "../routes/na.js";
 import orgsLieesHistoriqueRoute from "../routes/orgs-liees-historique.js";
@@ -56,6 +57,7 @@ const ROUTES = [
   naRoute, graphRoute, streamRoute, sourcesRoute, sourcesDashboardRoute, sourcesVerificationRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   registreTraitementsRoute,
+  violationsRgpdRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
   custodyRoute, exportMispRoute,
 ];
