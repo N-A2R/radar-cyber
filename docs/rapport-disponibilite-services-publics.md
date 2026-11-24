@@ -523,4 +523,45 @@ fenêtre sept jours entièrement observable reste ancrée au 27 novembre
 (21 au 27), après trois collectes réelles les 25, 26 et 27 novembre. Aucune date
 ni aucun statut n'a été inventé.
 
-OBJECTIF : partiel — 2000 / 3500 service-jours (4 / 7 jours), manque 1500 service-jours (18, 19, 20 novembre).
+## Plafond vérifié le 24 novembre (03 h UTC)
+
+Reprise depuis `origin/ext/rattrapage-rapport-disponibilite-services-publics`
+(état de la PR #799 : 2 000 / 3 500), sans repartir de `main`. Nouveaux
+contrôles, tous en lecture seule :
+
+```
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-27
+jq -r .day bench/results/service-availability-observations.jsonl | sort | uniq -c
+# 500 lignes les 21, 22, 23 et 24 novembre ; 0 ligne les 18, 19 et 20
+apps/api/node_modules/.bin/tsx --test apps/api/test/service-availability.test.ts
+# 24 tests, 24 réussis
+```
+
+- **Base** : 61 tables du schéma public avec horodatage et URL ou statut HTTP
+  inventoriées via `information_schema` ; 0 ligne datée des 18, 19 ou 20
+  novembre UTC dans `source_verification`, `warc_proof`, `exposition_service`,
+  `exposition_risque` et `access_log`. `exposition_service` ne porte que
+  10 328 réponses 2xx/3xx le 22 novembre et 418 le 23, aucune avant le 21.
+  Les 4 services encore en échec le 22 et les 171 timeouts du 24 ne changent
+  pas le nombre de service-jours observés.
+- **Arbre et Git** : 1 369 objets blob non référencés examinés
+  (`git fsck --no-reflogs --unreachable`) : 0 observation datée des jours
+  manquants ; le corpus ne porte que `verifie_le=2026-11-21`.
+- **Sources grises** : requêtes CDX en joker sur les trois hébergeurs du
+  périmètre (`etab.ac-poitiers.fr/*`, `blogpeda.ac-bordeaux.fr/*`,
+  `etablissement.ac-limoges.fr/*`) sur le 18-20 novembre : 0 capture exploitable
+  (service indisponible, timeout, `[]`) ; `index.commoncrawl.org` renvoie 504
+  sur `CC-MAIN-2026-47` et sur l'URL témoin. Aucune donnée personnelle, aucun
+  service payant, aucune date ni aucun statut inventé.
+- **Code** : `probe.ts` date les sondes du jour UTC courant ; `mergeDaily`
+  déduplique par (service, jour) ; l'audit exige 500 observations par jour
+  passé. Aucune ancre ancrable le 24 novembre ne totalise 3 500 service-jours.
+
+Bilan : 0 service-jour réel supplémentaire. L'écart reste de 1 500
+service-jours ; la première fenêtre complète possible reste ancrée au
+27 novembre, après trois collectes réelles (25, 26, 27 novembre).
+
+OBJECTIF : partiel — 2000 / 3500, manque 1500 service-jours
