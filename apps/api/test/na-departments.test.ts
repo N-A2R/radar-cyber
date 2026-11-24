@@ -65,6 +65,8 @@ test("a built event carries no victim name and no claim body", () => {
   assert.equal(Object.hasOwn(event.evidence, "victim"), false);
   assert.equal(Object.hasOwn(event.evidence, "description"), false);
   assert.equal(event.regional, true);
+  assert.equal(event.sourceUrl, null);
+  assert.equal(JSON.stringify(event.evidence).includes(CLAIM.evidenceUrl), false);
 });
 
 test("gap claims become events and a second pass adds nothing", async () => {
@@ -88,6 +90,45 @@ test("gap claims become events and a second pass adds nothing", async () => {
   const second = await fillNaDepartmentGaps();
   assert.equal(second.inserted, 0);
   assert.equal(second.refused, 0);
+});
+
+test("the public custody chain never returns the claim evidence URL", async () => {
+  const key = `${GAP_DEDUP_PREFIX}${CLAIM.id}`;
+  const stored = await query<{
+    source_id: string;
+    source_url: string | null;
+    evidence: Record<string, unknown>;
+  }>(
+    "SELECT source_id, source_url, evidence FROM event WHERE dedup_key = $1",
+    [key],
+  );
+  const event = stored.rows[0];
+  assert.ok(event);
+  assert.equal(Object.hasOwn(event.evidence, "evidence_url"), false);
+
+  const source = await query<{ url: string | null }>(
+    "SELECT url FROM source WHERE id = $1",
+    [event.source_id],
+  );
+  const publicUrl = source.rows[0]?.url ?? null;
+  assert.equal(event.source_url, publicUrl);
+
+  const local = Fastify({ logger: false });
+  installAccessControl(local);
+  await registerApiRoutes(local);
+  await local.ready();
+  try {
+    const response = await local.inject({
+      method: "GET",
+      url: `/api/custody?subject=${encodeURIComponent(key)}`,
+    });
+    assert.equal(response.statusCode, 200);
+    const body = response.json() as { sourceUrl?: string | null };
+    assert.equal(body.sourceUrl, publicUrl);
+    assert.equal(JSON.stringify(body).includes(CLAIM.evidenceUrl), false);
+  } finally {
+    await local.close();
+  }
 });
 
 test("the public route reports departments without exposing a claim body", async () => {

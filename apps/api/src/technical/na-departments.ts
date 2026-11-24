@@ -61,7 +61,7 @@ export type GapEvent = {
   severity: number;
   confidence: string;
   sourceId: string;
-  sourceUrl: string;
+  sourceUrl: string | null;
   evidence: Record<string, unknown>;
   geoType: string;
   orgId: number;
@@ -83,11 +83,15 @@ export function parseGapClaim(raw: unknown): GapClaim | null {
  * organization or victim name, and no claim body is copied into summary or
  * evidence: the original claim stays the only place where a body is readable.
  * Promotion options keep each slice idempotent and distinguishable in audit.
+ * The claim's evidence URL is never published: an isolated claim (score < 2)
+ * is absent from `leak_claim_public`. Public links use the source home URL;
+ * claim_id keeps the audit trail.
  */
 export type GapEventOptions = {
   dedupPrefix?: string;
   admissionRule?: string;
   regionalMotif?: string;
+  sourceUrl?: string | null;
 };
 
 export function buildGapEvent(
@@ -108,14 +112,13 @@ export function buildGapEvent(
     severity: 4,
     confidence: "C3",
     sourceId,
-    sourceUrl: claim.evidenceUrl,
+    sourceUrl: options.sourceUrl ?? null,
     evidence: {
       claim_id: claim.id,
       org_id: claim.orgId,
       department: claim.department,
       group: claim.groupName,
       claimed_at: new Date(claim.publishedAt).toISOString(),
-      evidence_url: claim.evidenceUrl,
       via: admissionRule,
     },
     geoType: "claimed_origin",
@@ -145,8 +148,8 @@ export const SQL = {
                   JOIN org o ON o.id = e.org_id
                  WHERE o.dept = ANY($1::text[])
                  GROUP BY o.dept`,
-  sourceByGroup: `SELECT id FROM source WHERE family = 'ransomware' AND id = $1 LIMIT 1`,
-  sourceFallback: `SELECT id FROM source WHERE family = 'ransomware' ORDER BY id LIMIT 1`,
+  sourceByGroup: `SELECT id, url FROM source WHERE family = 'ransomware' AND id = $1 LIMIT 1`,
+  sourceFallback: `SELECT id, url FROM source WHERE family = 'ransomware' ORDER BY id LIMIT 1`,
 } as const;
 
 export type DepartmentMeasurement = {
@@ -180,14 +183,17 @@ export async function measureNaDepartments(): Promise<DepartmentMeasurement> {
   };
 }
 
-async function resolveSourceId(claim: GapClaim): Promise<string | null> {
+async function resolveSource(claim: GapClaim): Promise<{
+  id: string;
+  url: string | null;
+} | null> {
   const slug = claim.groupName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   for (const [sql, params] of [
     [SQL.sourceByGroup, [`onion:ccw:${slug}`]],
     [SQL.sourceFallback, []],
   ] as const) {
-    const result = await query<{ id: string }>(sql, [...params]);
-    if (result.rows[0]?.id) return result.rows[0].id;
+    const result = await query<{ id: string; url: string | null }>(sql, [...params]);
+    if (result.rows[0]?.id) return result.rows[0];
   }
   return null;
 }
@@ -236,17 +242,22 @@ async function promoteClaimsFor(config: PromotionConfig): Promise<{
         refused += 1;
         continue;
       }
-      const sourceId = await resolveSourceId(claim);
-      if (!sourceId) {
+      const source = await resolveSource(claim);
+      if (!source) {
         refused += 1;
         continue;
       }
-      let run = runs.get(sourceId);
+      let run = runs.get(source.id);
       if (!run) {
-        run = { id: await openRun(sourceId, "analyst"), inserted: 0 };
-        runs.set(sourceId, run);
+        run = { id: await openRun(source.id, "analyst"), inserted: 0 };
+        runs.set(source.id, run);
       }
-      const event = buildGapEvent(claim, sourceId, config);
+      const event = buildGapEvent(claim, source.id, {
+        dedupPrefix: config.dedupPrefix,
+        admissionRule: config.admissionRule,
+        regionalMotif: config.regionalMotif,
+        sourceUrl: source.url,
+      });
       const evidence = withRunId(event.evidence, run.id);
       const result = await query<{ inserted: boolean }>(
         `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity,
