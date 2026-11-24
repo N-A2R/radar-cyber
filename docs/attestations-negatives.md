@@ -76,6 +76,45 @@ Cible : `>= 1000`. Le test `apps/api/test/negative-attestations.test.ts`
 l'exécute sur une base fraîche après avoir créé 1 001 organisations dont une
 seule porte un événement dans la fenêtre.
 
+
+## Mesure de référence — 23 novembre 2026
+
+Le registre livré par la PR #653 portait 4 462 attestations sur sa base de
+référence. Sur la base de dev au 23/11, ses 1 000 lignes étaient encore des
+lignes `historique` (empreintes non calculées) : zéro attestation réellement
+générée par le chantier. Deux migrations de reprise ont été nécessaires avant
+toute écriture : `migrate-229` remplace la clé d'unicité historique
+`(org_id, window_start, window_end)` par celle attendue du générateur
+`(org_slug, window_start, window_end, method)` ; `migrate-230` rend `source_ids`
+nullable, cette colonne n'étant plus alimentée depuis que le jeu exact des
+sources est scellé dans `source_digest`.
+
+Génération rejouée sur la base de dev (fenêtre explicite, 3 038 sources
+actives, sceau `sha256-content`) :
+
+```bash
+DATABASE_URL=… apps/api/node_modules/.bin/tsx scripts/attestations-negatives.mts \
+  --apply --window-start=2026-10-23 --window-end=2026-11-22 --limit=5000 \
+  --json=bench/results/attestations-negatives.json
+```
+
+Mesure reproductible, sans écriture :
+
+```bash
+psql "$DATABASE_URL" -tAc "
+SELECT count(*) FROM negative_attestation
+WHERE sources_checked >= 3 AND signed = true AND window_end > window_start
+  AND signature_method IN ('hmac-sha256', 'sha256-content')
+  AND source_digest NOT IN ('historique-non-calcule', 'historique');
+"
+```
+
+Résultat mesuré : **5 000** attestations générées et scellées, **5 000**
+organisations distinctes ; le critère public du rapport compte **6 000** lignes
+en ajoutant les 1 000 attestations historiques. Détail dans
+`bench/results/attestations-negatives.json`.
+
+
 ## Lecture publique
 
 `GET /api/attestations-negatives?limit=100&orgId=…&from=…&to=…` — lecture
@@ -94,3 +133,5 @@ anonyme, triée par fenêtre décroissante. La réponse répète la portée et d
   fraîche ; la fraîcheur se lit dans `source.last_ok_at`.
 - Le registre atteste une fenêtre, pas une période continue : deux fenêtres
   disjointes ne composent pas une preuve sur l'intervalle.
+
+OBJECTIF : atteint — 5 000 / 1 000
