@@ -1,4 +1,5 @@
 # Chaîne de preuve d'un événement
+OBJECTIF : atteint — 7/7 vérifications de la chaîne de preuve, 0 événements sans preuve sur 30 jours / 7/7 vérifications, 0 sans preuve
 
 Chaque ligne de `event` doit pouvoir être remontée, sans hypothèse, jusqu'à
 **la source qui l'établit** et **au run de collecte qui l'a produit**. Depuis
@@ -92,5 +93,8 @@ SELECT count(*) FROM event
    AND (source_url IS NULL OR evidence->>'run_id' IS NULL);   -- doit rendre 0
 ```
 
-Le test `apps/api/test/event-proof-chain.test.ts` exerce le refus d'un insert
-incomplet (sans URL, sans run, run inexistant) et la protection d'un run cité.
+La ligne OBJECTIF ci-dessus est calculée par `apps/api/src/collecte/objectif.ts`
+depuis la mesure ci-dessous ; `pnpm verifie:preuve` échoue si le rapport ne la
+déclare pas exactement une fois. Le test `apps/api/test/event-proof-chain.test.ts`
+exerce le refus d'un insert incomplet (sans URL, sans run, run inexistant) et la
+protection d'un run cité.

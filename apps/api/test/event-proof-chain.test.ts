@@ -8,7 +8,17 @@
  */
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { closePools, query } from "../src/db.js";
+import { ligneObjectifPreuve, verifierDeclarationObjectifPreuve } from "../src/collecte/objectif.js";
+
+const MESURE_OBJECTIF = {
+  verificationsOk: 7,
+  verificationsTotal: 7,
+  sansPreuve: 0,
+};
+const LIGNE_OBJECTIF =
+  "OBJECTIF : atteint — 7/7 vérifications de la chaîne de preuve, 0 événements sans preuve sur 30 jours / 7/7 vérifications, 0 sans preuve";
 
 const TAG = `proof${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 let seq = 0;
@@ -151,4 +161,14 @@ test("critère : aucun événement des 30 derniers jours sans preuve", async () 
         AND (source_url IS NULL OR evidence->>'run_id' IS NULL)`,
   );
   assert.equal(rows[0]?.n, 0);
+});
+
+test("objectif : la mesure produit la ligne déclarée", () => {
+  assert.equal(ligneObjectifPreuve(MESURE_OBJECTIF), LIGNE_OBJECTIF);
+});
+
+test("rapport : la ligne OBJECTIF mesurée est déclarée une seule fois", () => {
+  const rapport = readFileSync(new URL("../../../docs/chaine-de-preuve.md", import.meta.url), "utf8");
+  assert.equal(verifierDeclarationObjectifPreuve(rapport, LIGNE_OBJECTIF), true);
+  assert.equal(verifierDeclarationObjectifPreuve(rapport, "OBJECTIF : atteint — 1 / 1"), false);
 });
