@@ -49,3 +49,36 @@ Requêtes de vérification :
 SELECT count(*), max(updated_at) FROM epss;
 SELECT count(*) FROM epss WHERE score > 0.30;
 ```
+
+## 2026-11-23 — top 50 croisé à l'exposition des services
+
+La migration `db/migrate-215-epss-exposure-eval.sql` matérialise
+`epss_exposure_eval` : une ligne par paire (CVE, service exposé) dont le score
+EPSS atteint 0,5, rangée par score décroissant puis CVE puis service.
+La fonction `refresh_epss_exposure_eval()` recalcule la table depuis `epss` et
+`exposition_service` ; `scripts/verifie-epss-exposure.mts` lit le critère.
+
+Règle `epss-cross@1` :
+
+- **exposé** : `source_url` non vide et service consulté il y a moins de 7 jours ;
+- **exploitable** : score EPSS ≥ 0,5, publié ou rafraîchi il y a moins de 7 jours ;
+- **confirmé** : les deux conditions réunies. La CVE doit figurer dans
+  `evidence->vulns` du service, c'est-à-dire dans la preuve primaire renvoyée
+  par la consultation. Le catalogue KEV est conservé dans une colonne séparée :
+  un EPSS élevé n'est pas une preuve d'exploitation active.
+
+Critère de sortie et résultat observé sur la base de mesure :
+
+```sql
+SELECT count(*) FILTER (WHERE confirmed)::float/count(*) FROM epss_exposure_eval WHERE rank<=50;
+```
+
+```text
+ ?column?
+----------
+        1
+```
+
+50 lignes dans le top 50, 50 confirmées. La table ne recopie ni adresse IP,
+ni URL de consultation, ni nom d'organisation : `service_id` renvoie à
+l'inventaire existant et `nvd_url` est dérivée de l'identifiant public de la CVE.
