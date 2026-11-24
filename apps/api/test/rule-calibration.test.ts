@@ -13,7 +13,7 @@ import {
 	mesurerObjectifCalibration,
 	noObservationPoint,
 	precisionRecallCurve,
-	ruleScore,
+	calibratedScore,
 	verifierDeclarationObjectifCalibration,
 } from "../src/detect/calibration.js";
 
@@ -50,15 +50,15 @@ test("la courbe PR choisit le seuil le plus élevé qui qualifie la règle", () 
 	assert.equal(impossible, null);
 });
 
-test("l'ancrage NA majore le score et une règle sans observation reste neutre", () => {
-	assert.equal(ruleScore(69, false), 69);
-	assert.equal(ruleScore(69, true), 99);
+test("l'ancrage NA majore la porte globale et une règle sans observation reste neutre", () => {
+	assert.equal(calibratedScore(69, false), 69);
+	assert.equal(calibratedScore(69, true), 99);
 	assert.deepEqual(noObservationPoint(), {
 		threshold: 65, precision: 1, recall: 1, alerts: 0, tp: 0, fp: 0, fn: 0,
 	});
 });
 
-test("la table livrée qualifie 8 règles et réduit les 1457 alertes", async () => {
+test("la table livrée reste inchangée par le rejeu en lecture seule", async () => {
 	const r = await query<{
 		qualifying: string;
 		total: string;
@@ -90,7 +90,7 @@ test("la table livrée qualifie 8 règles et réduit les 1457 alertes", async ()
 	]);
 });
 
-test("la règle de supervision applique son seuil calibré en heures", async () => {
+test("la règle de supervision lit le seuil live conservé de la migration 200", async () => {
 	const r = await query<{ threshold: string }>(
 		"SELECT threshold FROM rule_calibration WHERE rule_id = $1",
 		[SILENT_SOURCE_RULE],
@@ -100,7 +100,7 @@ test("la règle de supervision applique son seuil calibré en heures", async () 
 	const now = Date.parse("2026-11-22T12:00:00Z");
 	const productionTimes = [now - 13 * HOUR_MS, now - 2 * DAY_MS, now - 3 * DAY_MS, now - 4 * DAY_MS];
 	const signal = { sourceId: "calibration-threshold", productionTimes };
-	// 13 h de silence : sous le seuil mesuré (14 h), donc aucune alerte.
+	// 13 h : sous le seuil live conservé (14 h), pas sous la mesure du 24/11 (19 h).
 	assert.equal(detectSilentSource(signal, now, 14), null);
 	assert.equal(detectSilentSource(signal, now, 13)?.silenceHours, 13);
 });
@@ -137,11 +137,18 @@ test("le moteur applique le seuil calibré de la règle", async () => {
 		};
 		const belowId = await insertEvent("below");
 		await loadRuleThresholds(true);
-		// A1 + signal ambiant + ancrage + une source = score 97, sous 100.
+		// Note brute 67, note globale 97 avec l'ancrage : à 90, la porte globale
+		// passe mais le seuil de règle (échelle non majorée) refuse encore.
 		assert.equal(await evaluateEvent(belowId), 0);
-		await query("UPDATE rule_calibration SET threshold = 90 WHERE rule_id = $1", [ruleId]);
+		await query("UPDATE rule_calibration SET threshold = 67 WHERE rule_id = $1", [ruleId]);
 		await loadRuleThresholds(true);
 		assert.equal(await evaluateEvent(belowId), 1);
+		const preuve = await query<{
+			evidence: { calibration: { score: number; globalScore: number; anchored: boolean } };
+		}>("SELECT evidence FROM alert WHERE rule_id = $1 AND event_id = $2", [ruleId, belowId]);
+		assert.equal(preuve.rows[0]!.evidence.calibration.score, 67);
+		assert.equal(preuve.rows[0]!.evidence.calibration.globalScore, 97);
+		assert.equal(preuve.rows[0]!.evidence.calibration.anchored, true);
 	} finally {
 		await query("DELETE FROM alert WHERE rule_id = $1", [ruleId]);
 		await query("DELETE FROM rule_calibration WHERE rule_id = $1", [ruleId]);
@@ -153,14 +160,18 @@ test("le moteur applique le seuil calibré de la règle", async () => {
 	}
 });
 
-test("l'objectif se mesure depuis l'artefact 30 jours", () => {
+test("l'objectif se mesure depuis l'artefact du 24 novembre", () => {
 	const objectif = objectifPublie();
-	assert.equal(objectif.alertes, 1242);
-	assert.equal(objectif.qualifiantes, 8);
+	assert.equal(objectif.alertes, 1440);
+	assert.equal(objectif.holdout, 1607);
+	assert.equal(objectif.horsPerimetre, 27);
+	assert.equal(objectif.qualifiantes, 3);
+	assert.equal(objectif.sansSeuilQualifiant, 1);
+	assert.equal(objectif.sansObservation, 4);
 	assert.equal(objectif.perte, 166);
 	assert.equal(objectif.partPerte <= 0.4, true);
-	assert.equal(objectif.atteint, true);
-	assert.match(objectif.ligne, /^OBJECTIF : atteint — .+ \/ .+$/);
+	assert.equal(objectif.atteint, false);
+	assert.match(objectif.ligne, /^OBJECTIF : partiel — .+ \/ .+$/);
 });
 
 test("le rapport déclare une seule fois la ligne OBJECTIF mesurée", () => {

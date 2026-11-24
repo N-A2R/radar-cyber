@@ -3,13 +3,15 @@
  *
  * Fonctions pures : aucune base, aucun réseau. Le holdout est une liste
  * d'observations déjà mesurées (une alerte = un candidat, `positive` vient
- * des verdicts `false_event` enregistrés). Le score est celui que le moteur
- * peut recalculer à l'exécution : note de confiance de l'alerte, majorée de
- * 30 quand un ancrage Nouvelle-Aquitaine est observable.
+ * des verdicts `false_event` enregistrés). Le score observé est la note de
+ * confiance **non majorée** : c'est l'échelle comparée aux seuils de règle à
+ * l'exécution. La majoration d'ancrage Nouvelle-Aquitaine ne sert qu'à la
+ * porte globale.
  *
  * Le seuil retenu est le plus élevé qui satisfait précision >= 0,85 et
  * rappel >= 0,60 — donc le moins d'alertes possible sans perdre plus de
- * 40 % des incidents confirmés de la fenêtre.
+ * 40 % des alertes vraies déjà émises. Une règle observée mais sans seuil
+ * qualifiant est signalée, jamais dotée d'un seuil inventé.
  */
 
 export type CalibrationObservation = {
@@ -38,7 +40,8 @@ export const NA_ANCHOR_BONUS = 30;
 /** Seuil de revue historique, utilisé quand une règle n'a aucune observation. */
 export const DEFAULT_THRESHOLD = 65;
 
-export function ruleScore(baseScore: number | null | undefined, hasNaAnchor: boolean): number {
+/** Score de la porte globale : note de confiance + majoration d'ancrage. */
+export function calibratedScore(baseScore: number | null | undefined, hasNaAnchor: boolean): number {
 	const base = Number.isFinite(baseScore) ? Number(baseScore) : 0;
 	return base + (hasNaAnchor ? NA_ANCHOR_BONUS : 0);
 }
@@ -100,26 +103,39 @@ export function noObservationPoint(threshold = DEFAULT_THRESHOLD): CalibrationPo
 
 /**
  * Objectif déclaré du chantier, mesuré depuis l'artefact publié (aucune base,
- * aucun réseau) : moins de 1 457 alertes conservées avec au plus 40 % des
- * alertes vraies supprimées, les 8 règles actives restant qualifiantes.
+ * aucun réseau). Le holdout est le nombre réel d'alertes observé lors de la
+ * mesure ; l'artefact reste la source de vérité, cette constante n'est qu'un
+ * repli.
  */
-export const HOLDOUT_INITIAL_ALERTES = 1457;
+export const HOLDOUT_INITIAL_ALERTES = 1607;
 export const REGLES_ACTIVES = 8;
 export const PERTE_MAXIMALE = 0.4;
 
+export type StatutMesureRegle = "mesure" | "sans-seuil-qualifiant" | "sans-observation";
+
 export type MesureRegleObjectif = {
 	ruleId: string;
-	precision: number;
-	recall: number;
+	statut: StatutMesureRegle;
+	precision: number | null;
+	recall: number | null;
+	/** Alertes conservées ; égales aux alertes observées quand aucun seuil n'est appliqué. */
 	alerts: number;
+	/** Alertes réellement observées pour cette règle sur la fenêtre. */
+	observedAlerts: number;
+	/** Alertes vraies observées, d'après les verdicts déjà enregistrés. */
 	positives: number;
+	/** Alertes vraies conservées ; égales à positives sans seuil appliqué. */
+	conservedPositives: number;
 };
 
 export type ObjectifCalibration = {
 	alertes: number;
 	holdout: number;
+	horsPerimetre: number;
 	qualifiantes: number;
 	regles: number;
+	sansSeuilQualifiant: number;
+	sansObservation: number;
 	positifs: number;
 	conserves: number;
 	perte: number;
@@ -131,17 +147,26 @@ export type ObjectifCalibration = {
 const grouper = (n: number): string => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 const pourcent = (n: number): string => `${(n * 100).toFixed(2).replace(".", ",")} %`;
 
-/** Mesure l'objectif réel : alertes conservées et rappel global sur les vraies alertes. */
+/**
+ * Mesure l'objectif depuis l'artefact : alertes conservées sur l'ensemble du
+ * holdout (y compris les règles hors périmètre, laissées intactes), perte
+ * d'alertes vraies sur les seules règles observées, et qualification par règle.
+ */
 export function mesurerObjectifCalibration(
 	mesures: readonly MesureRegleObjectif[],
 	holdout = HOLDOUT_INITIAL_ALERTES,
 ): ObjectifCalibration {
-	const alertes = mesures.reduce((n, m) => n + m.alerts, 0);
+	const observees = mesures.reduce((n, m) => n + m.observedAlerts, 0);
+	const horsPerimetre = Math.max(0, holdout - observees);
+	const alertes = mesures.reduce((n, m) => n + m.alerts, 0) + horsPerimetre;
 	const qualifiantes = mesures.filter(
-		(m) => m.precision >= MIN_PRECISION && m.recall >= MIN_RECALL,
+		(m) => m.statut === "mesure" && m.precision !== null && m.recall !== null
+			&& m.precision >= MIN_PRECISION && m.recall >= MIN_RECALL,
 	).length;
+	const sansSeuilQualifiant = mesures.filter((m) => m.statut === "sans-seuil-qualifiant").length;
+	const sansObservation = mesures.filter((m) => m.statut === "sans-observation").length;
 	const positifs = mesures.reduce((n, m) => n + m.positives, 0);
-	const conserves = mesures.reduce((n, m) => n + Math.round(m.positives * m.recall), 0);
+	const conserves = mesures.reduce((n, m) => n + m.conservedPositives, 0);
 	const perte = positifs - conserves;
 	const partPerte = positifs === 0 ? 0 : perte / positifs;
 	const regles = mesures.length;
@@ -152,14 +177,25 @@ export function mesurerObjectifCalibration(
 	const cible = `< ${grouper(holdout)} alertes et ≤ 40 % de perte, avec ` +
 		`${REGLES_ACTIVES}/${REGLES_ACTIVES} règles qualifiant (précision ≥ 0,85, rappel ≥ 0,60)`;
 	const manques: string[] = [];
-	if (qualifiantes < REGLES_ACTIVES) manques.push(`${REGLES_ACTIVES - qualifiantes} règles qualifiantes`);
+	if (sansSeuilQualifiant > 0) {
+		manques.push(`${sansSeuilQualifiant} ${sansSeuilQualifiant === 1 ? "règle" : "règles"} sans seuil qualifiant`);
+	}
+	if (sansObservation > 0) {
+		manques.push(`${sansObservation} ${sansObservation === 1 ? "règle" : "règles"} sans observation`);
+	}
+	if (qualifiantes + sansSeuilQualifiant + sansObservation < REGLES_ACTIVES) {
+		manques.push(`${REGLES_ACTIVES - qualifiantes - sansSeuilQualifiant - sansObservation} règles absentes du relevé`);
+	}
 	if (alertes >= holdout) manques.push(`${grouper(alertes - holdout + 1)} alertes à retirer`);
 	if (partPerte > PERTE_MAXIMALE) manques.push(`${pourcent(partPerte - PERTE_MAXIMALE)} de perte superflue`);
 	if (manques.length === 0) manques.push("mesure incomplète");
 	const ligne = atteint
 		? `OBJECTIF : atteint — ${valeur} / ${cible}`
 		: `OBJECTIF : partiel — ${valeur} / ${cible}, manque ${manques.join(", ")}`;
-	return { alertes, holdout, qualifiantes, regles, positifs, conserves, perte, partPerte, atteint, ligne };
+	return {
+		alertes, holdout, horsPerimetre, qualifiantes, regles,
+		sansSeuilQualifiant, sansObservation, positifs, conserves, perte, partPerte, atteint, ligne,
+	};
 }
 
 /** La déclaration publiée doit être exacte et unique, jamais une variante périmée. */

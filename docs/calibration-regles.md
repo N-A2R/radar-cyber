@@ -1,11 +1,12 @@
 # Calibration des 8 règles actives — seuils sur courbe précision/rappel
 
-OBJECTIF : atteint — 1 242 alertes conservées sur 1 457, 166/1 402 alertes vraies supprimées (11,84 %) / < 1 457 alertes et ≤ 40 % de perte, avec 8/8 règles qualifiant (précision ≥ 0,85, rappel ≥ 0,60)
+OBJECTIF : partiel — 1 440 alertes conservées sur 1 607, 166/1 532 alertes vraies supprimées (10,84 %) / < 1 607 alertes et ≤ 40 % de perte, avec 8/8 règles qualifiant (précision ≥ 0,85, rappel ≥ 0,60), manque 1 règle sans seuil qualifiant, 4 règles sans observation
 
-Mesure du 22 novembre 2026. Objectif : réduire les **1 457 alertes** des 30
-derniers jours sans perdre plus de 40 % des incidents confirmés de la fenêtre.
-Chaque règle retient le **seuil le plus élevé** qui garde
-`précision >= 0,85` et `rappel >= 0,60`.
+Mesure rejouée le 24 novembre 2026 sur `radar`, en lecture seule, sur
+l'échelle non majorée décrite ci-dessous. Les chiffres du 22 novembre étaient
+calculés avec la majoration d'ancrage de 30 dans le score balayé : ils ne
+sont plus citables. Le tableau `rule_calibration` n'a pas été modifié par ce
+rejeu ; ses seuils restent ceux de la migration 200.
 
 ## Les 8 règles actives
 
@@ -15,69 +16,79 @@ Sept règles JSON de `db/detection-rules.sql` — `incident-confirme`,
 règle pure de supervision `supervision:silent-source-24h`
 (`apps/api/src/detect/silent-source.ts`).
 
-Les écrivains d'alertes analytiques `rupture:*` (`apps/api/src/analyse/rupture.ts`)
-et `agents-cpu:*` (`apps/api/src/analyse/agents-cpu.ts`) ne passent pas par
-`detection_rule` : ils restent hors du périmètre calibré et gardent leur
-comportement. Ils ont émis 7 alertes sur la fenêtre, comptées dans les 1 457
-mais pas dans `sum(alerts)`. Le vrai total après seuils est donc
-**1 242 + 7 = 1 249**, mesuré par la requête de projection ci-dessous.
+Vingt-sept alertes de la fenêtre viennent d'écritures hors `detection_rule`
+(20 `orientation-collectivite-demo-*`, 3 `rupture:changement-nature`,
+3 `rupture:rafale`, 1 `agents-cpu:bascule-secteur`). Elles sont comptées dans
+le holdout et la projection, jamais dans les métriques par règle.
 
 ## Méthode
 
-- **Holdout** : alertes créées sur 30 jours (`created_at >= now() - interval
-  '30 days'`) — 1 457 alertes au moment de la mesure.
+- **Holdout** : les 1 607 alertes dont `created_at >= now() - interval '30
+  days'` au moment du rejeu. Les horodatages observés couvrent le 13 au 23
+  novembre 2026 ; la fenêtre SQL reste définie par `now()` au moment du rejeu.
 - **Vérité terrain** : verdicts déjà enregistrés, jamais rejugés ici. Une
-  alerte est positive si son événement n'est ni dans `false_event` ni marqué
-  `evidence.false_event` ; négative sinon.
-- **Score balayé** : note de confiance de l'alerte, majorée de **30** quand un
-  ancrage Nouvelle-Aquitaine est observable (`org_id` ou `regional`) — le
-  même signal que la porte de portée, sans donnée personnelle.
+  alerte est positive si `false_event.event_id = alert.event_id` ne donne
+  aucun verdict et si `evidence` ne porte pas `false_event` ; négative sinon.
+- **Score balayé** : note de confiance **non majorée**
+  (`evidence->'confidence'->>'score'`) — c'est l'échelle comparée aux seuils
+  de règle par le moteur. La majoration de 30 d'un ancrage Nouvelle-Aquitaine
+  ne sert qu'à la porte globale `REVIEW_THRESHOLD = 65`.
 - **Règle de supervision** : score = durée de silence mesurée
-  (`evidence.silenceHours`), pas de note de confiance.
+  (`evidence.silenceHours`), en heures.
+- **Seuil retenu** : le plus élevé qui garde `precision >= 0,85` et
+  `recall >= 0,60`. Quand aucun point de la courbe ne satisfait les deux
+  contraintes, le rapport enregistre `sans-seuil-qualifiant` et **aucun
+  seuil n'est fabriqué**.
 - **Rappel** : part des *alertes vraies déjà émises* que le seuil conserve.
   Il mesure ce que la calibration retire, pas la couverture des incidents
-  qu'aucune alerte n'avait détectés — un incident jamais alerté n'est pas
-  « perdu » par un seuil plus haut.
+  qu'aucune alerte n'avait détectés.
 
-## Résultat mesuré
+## Résultat mesuré (24 novembre 2026)
 
-| Règle | Seuil | Précision | Rappel | Alertes gardées |
-|---|---:|---:|---:|---:|
-| `incident-confirme` | 100 | 1,0000 | 0,8901 | 1 142 |
-| `ransomware-revendication` | 78 | 0,9038 | 0,6620 | 52 |
-| `avis-cert-fr` | 81 | 0,9583 | 0,9583 | 24 |
-| `supervision:silent-source-24h` | 14 | 1,0000 | 1,0000 | 24 |
-| `fuite-donnees` | 65 | 1,0000 | 1,0000 | 0 |
-| `certificat-observé` | 65 | 1,0000 | 1,0000 | 0 |
-| `presse-cyber` | 65 | 1,0000 | 1,0000 | 0 |
-| `operateur-critique-vise` | 65 | 1,0000 | 1,0000 | 0 |
+| Règle | Statut | Seuil | Précision | Rappel | Alertes gardées | Alertes observées | Vraies gardées / observées |
+|---|---|---:|---:|---:|---:|---:|---:|
+| `incident-confirme` | mesure | 100 | 1,0000 | 0,8901 | 1 142 | 1 283 | 1 142 / 1 283 |
+| `ransomware-revendication` | sans seuil qualifiant | — | — | — | 118 (inchangées) | 118 | 71 / 71 |
+| `avis-cert-fr` | mesure | 81 | 1,0000 | 0,9167 | 22 | 25 | 22 / 24 |
+| `supervision:silent-source-24h` | mesure | 19 | 1,0000 | 0,8506 | 131 | 154 | 131 / 154 |
+| `fuite-donnees` | sans observation | — | — | — | 0 | 0 | 0 / 0 |
+| `certificat-observé` | sans observation | — | — | — | 0 | 0 | 0 / 0 |
+| `presse-cyber` | sans observation | — | — | — | 0 | 0 | 0 / 0 |
+| `operateur-critique-vise` | sans observation | — | — | — | 0 | 0 | 0 / 0 |
 
-**8/8 règles qualifient ; somme des alertes = 1 242 < 1 457.**
+**3 règles qualifient, 1 règle est observée sans seuil qualifiant, 4 règles
+n'ont aucune observation sur la fenêtre.** L'objectif reste donc partiel,
+malgré une réduction de 167 alertes et une perte de 10,84 % des alertes vraies
+(déjà enregistrées), sous la limite de 40 %.
 
-Les quatre règles à 0 alerte n'ont émis aucune alerte sur la fenêtre : leur
-seuil d'origine est conservé, aucune alerte n'est supprimée, donc aucun
-incident confirmé n'est perdu. Leurs métriques 1/1 sont une décision vacante,
-pas une mesure statistique — la colonne `source` porte
-`holdout-30j:sans-observation`.
+`ransomware-revendication` a 118 observations (71 positives, 47 négatives).
+Sur l'échelle non majorée, la précision maximale avec un rappel ≥ 0,60 est
+0,6017 (seuil 48, 118 alertes gardées) : aucun seuil n'atteint 0,85 sans
+descendre sous 0,60 de rappel. Le seuil 78 en table vient de l'ancienne
+échelle majorée ; il n'est pas réappliqué ici.
+
+Les quatre règles sans observation n'ont émis aucune alerte : aucune mesure
+statistique, ni précision ni rappel calculables. Le JSON porte `statut =
+"sans-observation"`, `precision = null`, `recall = null`, et non des
+métriques 1/1 qui simuleraient une qualification. Leurs seuils en table
+restent inchangés (65).
 
 ## Application par le moteur
 
-Le moteur de détection (`apps/api/src/detect/engine.ts`) charge la table dans
-`loadRuleThresholds()` et compare chaque règle à son seuil :
+Le moteur (`apps/api/src/detect/engine.ts`) charge la table dans
+`loadRuleThresholds()` et distingue deux échelles :
 
-- **score calibré** = note de confiance de l'alerte + `30` quand un ancrage
-  Nouvelle-Aquitaine est observable (`org_id` ou `regional`) — exactement
-  l'échelle sur laquelle les seuils ont été mesurés ;
-- **plancher inchangé** : la porte globale `REVIEW_THRESHOLD = 65` reste
-  appliquée avant les règles. Un seuil calibré ne peut donc que resserrer,
-  jamais rouvrir une alerte que la porte refusait ;
+- **seuil de règle** : comparé à la note de confiance **non majorée** de
+  l'alerte, la même échelle que la mesure ;
+- **porte globale** : `REVIEW_THRESHOLD = 65` s'applique à la note + 30 quand
+  un ancrage Nouvelle-Aquitaine est observable (`org_id` ou `regional`) ;
 - **règle sans mesure** : aucun seuil en table, comportement d'origine ;
-- **preuve** : l'alerte créée porte `evidence.calibration = { score, threshold,
-  anchored }` pour que la décision soit auditable.
+- **preuve** : l'alerte porte `evidence.calibration = { score, globalScore,
+  threshold, anchored }`, `score` étant la note non majorée comparée au seuil.
 
-La règle de supervision lit son seuil dans la même table
-(`silent-source-monitor.ts`, en heures) et retombe sur la constante
-historique de 12 h si la mesure est absente.
+La règle de supervision lit son seuil dans la même table, en heures. Ce rejeu
+ne modifie ni la table, ni le comportement de production : appliquer les
+nouveaux seuils exigerait une migration dédiée, absente de ce chantier.
 
 ## Rejouer
 
@@ -86,45 +97,65 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
   apps/api/node_modules/.bin/tsx scripts/measure-rule-calibration.mts
 ```
 
-Le script met à jour `rule_calibration`, publie
-`bench/results/rule-calibration-30d.json` et affiche le contrôle :
+Le script effectue uniquement des `SELECT` sur la base, puis publie
+`bench/results/rule-calibration-30d.json` avec l'horodatage réel de la mesure
+(`generatedAt`, `measuredAt`) et un instantané des seuils live inchangés.
 
-```sql
-SELECT count(*) FROM rule_calibration WHERE precision>=0.85 AND recall>=0.6; -- 8
-SELECT sum(alerts) FROM rule_calibration;                                   -- 1242
-```
-
-La ligne OBJECTIF est vérifiée en lecture seule depuis l'artefact JSON publié :
+La ligne OBJECTIF est vérifiée en lecture seule depuis l'artefact et ce
+rapport :
 
 ```bash
 pnpm verifie:objectif-calibration
 ```
 
-Projection sur les alertes réelles de la fenêtre (seuils appliqués, règles non
-calibrées conservées) — 1 457 → 1 249, 208 retirées :
+Elle affiche la déclaration et son adéquation avec l'artefact ; la commande
+sort en code 1 tant que l'objectif reste partiel, ce qui est le cas de la
+mesure du 24 novembre.
+
+Projection sur les alertes réelles de la fenêtre, en appliquant **uniquement
+les 3 seuils qualifiants mesurés** (les autres règles sont conservées) —
+1 607 → 1 440, 167 alertes retirées. Sur le périmètre des 8 règles, les
+1 532 alertes vraies passent à 1 366 (166 retirées) ; avec les 27 alertes
+hors périmètre, le total des vraies passe de 1 559 à 1 393 :
 
 ```sql
-WITH scored AS (
-  SELECT a.rule_id,
-         CASE WHEN a.rule_id = 'supervision:silent-source-24h'
-              THEN (a.evidence->>'silenceHours')::numeric
-              ELSE coalesce(a.evidence->'confidence'->>'score','0')::numeric
-                   + CASE WHEN a.event_id IS NOT NULL AND (e.regional OR e.org_id IS NOT NULL) THEN 30 ELSE 0 END
-         END AS score
-    FROM alert a LEFT JOIN event e ON e.id = a.event_id
-   WHERE a.created_at >= now() - interval '30 days'
+WITH seuils(rule_id, threshold) AS (
+  VALUES ('incident-confirme', 100),
+         ('avis-cert-fr', 81),
+         ('supervision:silent-source-24h', 19)
 )
 SELECT count(*) AS alertes_30j,
-       count(*) FILTER (WHERE rc.rule_id IS NULL OR s.score >= rc.threshold) AS projetees,
-       count(*) FILTER (WHERE rc.rule_id IS NOT NULL AND s.score < rc.threshold) AS retirees
-  FROM scored s LEFT JOIN rule_calibration rc ON rc.rule_id = s.rule_id;
+       count(*) FILTER (WHERE s.seuil IS NULL OR s.score >= s.seuil) AS projetees,
+       count(*) FILTER (WHERE s.seuil IS NOT NULL AND s.score < s.seuil) AS retirees
+  FROM (
+    SELECT a.rule_id,
+           CASE WHEN a.rule_id = 'supervision:silent-source-24h'
+                THEN coalesce((a.evidence->>'silenceHours')::numeric, 0)
+                ELSE coalesce((a.evidence->'confidence'->>'score')::numeric, 0)
+           END AS score,
+           v.threshold AS seuil
+      FROM alert a LEFT JOIN seuils v ON v.rule_id = a.rule_id
+     WHERE a.created_at >= now() - interval '30 days'
+  ) s;
+```
+
+Contrôle de non-modification du live (8 lignes, `measured_at` encore au
+22 novembre) :
+
+```sql
+SELECT count(*) FROM rule_calibration;                                  -- 8
+SELECT min(measured_at)::date FROM rule_calibration;                   -- 2026-11-22
 ```
 
 ## Limites
 
 - La vérité terrain vient des verdicts `false_event` déjà enregistrés : elle
   mesure la pertinence Nouvelle-Aquitaine, pas la gravité de l'incident.
-- Les quatre règles sans alerte ne sont pas mesurables statistiquement sur
-  cette fenêtre ; leur qualification est vacante et documentée.
+- Une règle sans observation n'a ni précision ni rappel mesurables ; une
+  règle observée sans seuil qualifiant n'a pas de seuil mesurable non plus.
+  Les deux cas sont exclus du nombre de règles qualifiantes.
+- Le holdout contient 27 alertes de règles hors périmètre calibré, laissées
+  intactes et comptées dans la projection, pas dans le dénominateur de rappel
+  des 8 règles.
 - Aucun titre, URL, identifiant de victime ou secret n'est lu ni stocké par
   la mesure. Le corpus national n'est jamais présenté comme local.

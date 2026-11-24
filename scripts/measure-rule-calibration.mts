@@ -1,29 +1,34 @@
 #!/usr/bin/env -S npx tsx
 /**
- * Mesure reproductible de la calibration des 8 règles actives.
+ * Rejeu en lecture seule de la calibration des 8 règles actives.
  *
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
- *     tsx scripts/measure-rule-calibration.mts
+ *     apps/api/node_modules/.bin/tsx scripts/measure-rule-calibration.mts
  *
- * Holdout : les alertes des 30 derniers jours (1457 sur le jeu livré). Les
- * vérités terrain viennent des verdicts déjà enregistrés (false_event et
- * evidence->'false_event'), jamais d'un jugement pris ici. Aucun titre, URL
- * ou identifiant de victime n'est lu ni écrit.
+ * Holdout : les alertes créées sur 30 jours. Les vérités terrain viennent des
+ * verdicts déjà enregistrés (`false_event`, `evidence->'false_event'`), jamais
+ * d'un jugement pris ici. Aucun titre, URL ou identifiant de victime n'est lu
+ * ni écrit. Le score balayé est la note de confiance **non majorée** : la
+ * majoration de 30 d'un ancrage Nouvelle-Aquitaine ne concerne que la porte
+ * globale du détecteur.
  *
- * Le script met à jour `rule_calibration` de façon idempotente et publie le
- * rapport `bench/results/rule-calibration-30d.json`. La migration SQL porte
- * les mêmes valeurs pour qu'une base neuve soit calibrée dès le setup.
+ * Le script ne modifie aucune table : il publie seulement
+ * `bench/results/rule-calibration-30d.json`. Une règle observée sans seuil
+ * satisfaisant les contraintes est signalée, jamais dotée d'un seuil inventé.
+ * L'application d'un seuil en production exige une migration dédiée.
  */
 import { writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import {
+	MIN_PRECISION,
+	MIN_RECALL,
 	chooseThreshold,
-	noObservationPoint,
+	mesurerObjectifCalibration,
 	precisionRecallCurve,
-	ruleScore,
-	type CalibrationObservation,
 	type CalibrationPoint,
+	type MesureRegleObjectif,
+	type StatutMesureRegle,
 } from "../apps/api/src/detect/calibration.js";
 
 const require = createRequire(new URL("../apps/api/package.json", import.meta.url));
@@ -48,72 +53,97 @@ type AlertRow = {
 	rule_id: string;
 	base_score: string | null;
 	silence_hours: string | null;
-	anchor: boolean;
 	is_false: boolean;
+	score: number;
 };
 
-export type RuleCalibrationRow = {
-	ruleId: string;
-	threshold: number;
-	precision: number;
-	recall: number;
-	alerts: number;
-	positives: number;
+export type RuleCalibrationRow = MesureRegleObjectif & {
+	threshold?: number | null;
+	statut: StatutMesureRegle;
 	negatives: number;
 	source: string;
 	curve: Pick<CalibrationPoint, "threshold" | "precision" | "recall" | "alerts">[];
+	meilleur?: { precision: number; recall: number; threshold: number; alerts: number };
+	meilleurAuRappel60?: { precision: number; recall: number; threshold: number; alerts: number };
 };
-
 const THRESHOLDS = Array.from({ length: 121 }, (_, i) => i);
 const round4 = (n: number): number => Math.round(n * 10_000) / 10_000;
 
-function toObservation(row: AlertRow): CalibrationObservation {
-	// La règle de supervision ne porte pas de note de confiance : son score
-	// observable est la durée de silence mesurée, en heures.
-	const base = row.rule_id === "supervision:silent-source-24h"
-		? Number(row.silence_hours)
-		: Number(row.base_score);
-	return {
-		score: ruleScore(base, row.anchor),
-		positive: !row.is_false,
-	};
-}
-
 export function calibrateRule(ruleId: string, rows: readonly AlertRow[]): RuleCalibrationRow {
-	const observations = rows.filter((r) => r.rule_id === ruleId).map(toObservation);
-	const curve = precisionRecallCurve(observations, THRESHOLDS);
+	const observes = rows.filter((r) => r.rule_id === ruleId);
+	const observations = observes.map((r) => ({ score: r.score, positive: !r.is_false }));
+	const positives = observations.filter((o) => o.positive).length;
 	if (observations.length === 0) {
-		const point = noObservationPoint();
 		return {
 			ruleId,
-			threshold: point.threshold,
-			precision: point.precision,
-			recall: point.recall,
-			alerts: point.alerts,
+			statut: "sans-observation",
+			precision: null,
+			recall: null,
+			alerts: 0,
+			observedAlerts: 0,
 			positives: 0,
 			negatives: 0,
+			conservedPositives: 0,
 			source: "holdout-30j:sans-observation",
 			curve: [],
 		};
 	}
+	const curve = precisionRecallCurve(observations, THRESHOLDS);
 	const point = chooseThreshold(curve);
 	if (!point) {
-		// Un échec est un résultat : on ne fabrique pas un seuil qualifiant.
-		throw new Error(
-			`Aucun seuil ne satisfait precision>=0.85 et recall>=0.60 pour ${ruleId} ` +
-				`(${observations.filter((o) => o.positive).length} positifs, ` +
-				`${observations.filter((o) => !o.positive).length} négatifs)`,
-		);
+		const avecAlertes = curve.filter((p) => p.alerts > 0);
+		const meilleur = [...avecAlertes].sort(
+			(a, b) => b.precision - a.precision || b.threshold - a.threshold,
+		)[0];
+		const meilleurAuRappel60 = curve
+			.filter((p) => p.recall >= MIN_RECALL && p.alerts > 0)
+			.sort((a, b) => b.precision - a.precision || b.threshold - a.threshold)[0];
+		return {
+			ruleId,
+			statut: "sans-seuil-qualifiant",
+			precision: null,
+			recall: null,
+			alerts: observes.length,
+			observedAlerts: observes.length,
+			positives,
+			negatives: observations.length - positives,
+			conservedPositives: positives,
+			source: "holdout-30j:alertes+false_event",
+			curve: curve.map(({ threshold, precision, recall, alerts }) => ({
+				threshold,
+				precision: round4(precision),
+				recall: round4(recall),
+				alerts,
+			})),
+			...(meilleur ? {
+				meilleur: {
+					precision: round4(meilleur.precision),
+					recall: round4(meilleur.recall),
+					threshold: meilleur.threshold,
+					alerts: meilleur.alerts,
+				},
+			} : {}),
+			...(meilleurAuRappel60 ? {
+				meilleurAuRappel60: {
+					precision: round4(meilleurAuRappel60.precision),
+					recall: round4(meilleurAuRappel60.recall),
+					threshold: meilleurAuRappel60.threshold,
+					alerts: meilleurAuRappel60.alerts,
+				},
+			} : {}),
+		};
 	}
-	const positives = observations.filter((o) => o.positive).length;
 	return {
 		ruleId,
+		statut: "mesure",
 		threshold: point.threshold,
 		precision: round4(point.precision),
 		recall: round4(point.recall),
 		alerts: point.alerts,
+		observedAlerts: observations.length,
 		positives,
 		negatives: observations.length - positives,
+		conservedPositives: point.tp,
 		source: "holdout-30j:alertes+false_event",
 		curve: curve.map(({ threshold, precision, recall, alerts }) => ({
 			threshold,
@@ -128,68 +158,88 @@ async function main(): Promise<void> {
 	const client = new Client({ connectionString: DATABASE_URL });
 	await client.connect();
 	try {
-		const res = await client.query<AlertRow>(`
+		const horloge = await client.query<{ measured_at: string; database: string }>(
+			"SELECT now()::text AS measured_at, current_database()::text AS database",
+		);
+		const res = await client.query<Omit<AlertRow, "score">>(`
 			SELECT a.rule_id,
 			       a.evidence->'confidence'->>'score' AS base_score,
 			       a.evidence->>'silenceHours' AS silence_hours,
-			       (a.event_id IS NOT NULL AND (e.regional OR e.org_id IS NOT NULL)) AS anchor,
 			       (f.event_id IS NOT NULL OR a.evidence ? 'false_event') AS is_false
 			  FROM alert a
-			  LEFT JOIN event e ON e.id = a.event_id
-			  LEFT JOIN false_event f ON f.event_id = e.id
+			  LEFT JOIN false_event f ON f.event_id = a.event_id
 			 WHERE a.created_at >= now() - interval '30 days'
 		`);
-		const rows = res.rows;
-		const calibrated = ACTIVE_RULES.map((ruleId) => calibrateRule(ruleId, rows));
-
-		await client.query("BEGIN");
-		for (const row of calibrated) {
-			await client.query(
-				`INSERT INTO rule_calibration
-				  (rule_id, threshold, precision, recall, alerts, positives, negatives, window_days, source)
-				 VALUES ($1,$2,$3,$4,$5,$6,$7,30,$8)
-				 ON CONFLICT (rule_id) DO UPDATE SET
-				   threshold = EXCLUDED.threshold,
-				   precision = EXCLUDED.precision,
-				   recall = EXCLUDED.recall,
-				   alerts = EXCLUDED.alerts,
-				   positives = EXCLUDED.positives,
-				   negatives = EXCLUDED.negatives,
-				   measured_at = now(),
-				   source = EXCLUDED.source`,
-				[row.ruleId, row.threshold, row.precision, row.recall, row.alerts,
-					row.positives, row.negatives, row.source],
-			);
-		}
-		await client.query("COMMIT");
-
-		const check = await client.query<{ qualifying: string; total_alerts: string; alerts: string }>(`
-			SELECT count(*) FILTER (WHERE precision >= 0.85 AND recall >= 0.6)::text AS qualifying,
-			       sum(alerts)::text AS total_alerts,
-			       count(*)::text AS alerts
-			  FROM rule_calibration
-		`);
+		// La règle de supervision porte une durée en heures, pas une note de
+		// confiance ; toutes les autres sont mesurées sans majoration d'ancrage.
+		const rows: AlertRow[] = res.rows.map((r) => ({
+			...r,
+			score: r.rule_id === "supervision:silent-source-24h"
+				? Number(r.silence_hours)
+				: Number(r.base_score),
+		}));
+		const rules = ACTIVE_RULES.map((ruleId) => calibrateRule(ruleId, rows));
+		const seuils = new Map(
+			rules.filter((r) => r.statut === "mesure").map((r) => [r.ruleId, r.threshold as number]),
+		);
+		const conservées = rows.filter(
+			(r) => seuils.get(r.rule_id) == null || r.score >= (seuils.get(r.rule_id) as number),
+		).length;
+		const vraiesRetirées = rows.filter(
+			(r) => !r.is_false && seuils.get(r.rule_id) != null && r.score < (seuils.get(r.rule_id) as number),
+		).length;
+		const live = await client.query<{
+			rule_id: string;
+			threshold: string;
+			measured_at: string;
+		}>("SELECT rule_id, threshold::text, measured_at::text FROM rule_calibration ORDER BY rule_id");
+		const objectif = mesurerObjectifCalibration(rules, rows.length);
 		const report = {
 			generatedAt: new Date().toISOString(),
-			holdout: { days: 30, alerts: rows.length, window: "created_at >= now() - interval '30 days'" },
-			rules: calibrated,
-			check: {
-				qualifying: Number(check.rows[0]?.qualifying ?? 0),
-				totalAlerts: Number(check.rows[0]?.total_alerts ?? 0),
-				rows: Number(check.rows[0]?.alerts ?? 0),
+			measuredAt: horloge.rows[0]?.measured_at ?? null,
+			database: horloge.rows[0]?.database ?? null,
+			mode: "lecture-seule",
+			scale: "note de confiance non majorée ; majoration NA réservée à la porte globale",
+			holdout: {
+				days: 30,
+				alerts: rows.length,
+				window: "created_at >= now() - interval '30 days'",
+				outOfScopeAlerts: rows.length - rules.reduce((n, r) => n + r.observedAlerts, 0),
 			},
+			constraints: { minPrecision: MIN_PRECISION, minRecall: MIN_RECALL },
+			rules,
+			check: {
+				qualifying: rules.filter((r) => r.statut === "mesure").length,
+				withObservation: rules.filter((r) => r.statut !== "sans-observation").length,
+				withoutQualifyingThreshold: rules.filter((r) => r.statut === "sans-seuil-qualifiant").length,
+				withoutObservation: rules.filter((r) => r.statut === "sans-observation").length,
+				rows: rules.length,
+			},
+			projection: {
+				alertes30j: rows.length,
+				projetees: conservées,
+				retirees: rows.length - conservées,
+				vraiesRetirees: vraiesRetirées,
+				note: "seuls les seuils qualifiants sont appliqués ; les autres règles sont conservées",
+			},
+			live: {
+				rows: live.rows.length,
+				thresholds: Object.fromEntries(live.rows.map((r) => [r.rule_id, Number(r.threshold)])),
+				measuredAt: live.rows[0]?.measured_at ?? null,
+				modifiedByThisRun: false,
+			},
+			objectif: objectif.ligne,
 		};
 		writeFileSync(JSON_PATH, `${JSON.stringify(report, null, 2)}\n`);
 		console.log(JSON.stringify(report.check));
-		for (const row of calibrated) {
-			console.log(
-				`${row.ruleId.padEnd(30)} seuil=${String(row.threshold).padStart(3)} ` +
-					`precision=${row.precision.toFixed(4)} rappel=${row.recall.toFixed(4)} alertes=${row.alerts}`,
-			);
+		console.log(JSON.stringify(report.projection));
+		console.log(objectif.ligne);
+		for (const row of rules) {
+			const mesure = row.statut === "mesure"
+				? `seuil=${row.threshold} precision=${row.precision?.toFixed(4)} rappel=${row.recall?.toFixed(4)}`
+				: `seuil=non mesure precision=non mesure rappel=non mesure`;
+			console.log(`${row.ruleId.padEnd(30)} ${row.statut.padEnd(21)} ${mesure} alertes=${row.alerts}`);
 		}
-	} catch (error) {
-		await client.query("ROLLBACK").catch(() => {});
-		throw error;
 	} finally {
 		await client.end();
 	}
