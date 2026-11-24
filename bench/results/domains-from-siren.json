@@ -1,0 +1,181 @@
+{
+  "selected": 343,
+  "verified": 20,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9038,
+    "withVerifiedProvenance": 8992,
+    "coveragePercent": 0.5378
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 9058,
+    "withVerifiedProvenance": 9012,
+    "coveragePercent": 0.539
+  },
+  "domains": [
+    {
+      "orgId": 495437,
+      "siren": "845142348",
+      "name": "GOODIAG",
+      "domain": "diagamter.com",
+      "page": "https://www.diagamter.com/franchises/diagnostic-immobilier-agen",
+      "registry": "osm-siret-http-200"
+    },
+    {
+      "orgId": 599391,
+      "siren": "919254383",
+      "name": "ETIMMO",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/etiembre.immo/",
+      "registry": "osm-siret-http-200"
+    },
+    {
+      "orgId": 589781,
+      "siren": "913576039",
+      "name": "ABC GEST",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/abc.gest/",
+      "registry": "osm-siret-http-200"
+    },
+    {
+      "orgId": 310154,
+      "siren": "509458493",
+      "name": "PLANETE ASSURANCES",
+      "domain": "agence.mma.fr",
+      "page": "https://agence.mma.fr/cozes/",
+      "registry": "osm-siret-http-200"
+    },
+    {
+      "orgId": 201691,
+      "siren": "432690196",
+      "name": "ROBERT",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/agencedelaplagevaux/",
+      "registry": "osm-siret-http-200"
+    },
+    {
+      "orgId": 603249,
+      "siren": "920860855",
+      "name": "BIEN CHEZ VOUS",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/saintongeimmo.medis/",
+      "registry": "osm-siret-http-200"
+    },
+    {
+      "orgId": 1599196,
+      "siren": "485289805",
+      "name": "BLONDIN ANTOINE",
+      "domain": "agence.axa.fr",
+      "page": "https://agence.axa.fr/distributeur/0003888904",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 618113,
+      "siren": "927564880",
+      "name": "SAS IMMO ROCHECHOUART",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/agduchateau/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 85903,
+      "siren": "323959205",
+      "name": "TOIT FRANCAIS TRANSACTIONS",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/cabinetlogeais/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 478701,
+      "siren": "838695112",
+      "name": "SLBJ IMMO",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/oceaniimmobilier/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 385670,
+      "siren": "792570020",
+      "name": "LES AGENCES DU MARTROU",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/soubise-sta/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 103784,
+      "siren": "347830333",
+      "name": "SOC EUROP TRANSACT IMMOBILIERES",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/orpioleron/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 346741,
+      "siren": "532590106",
+      "name": "PFEI",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/agence.delaplage/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 201118,
+      "siren": "432420727",
+      "name": "VAL D'AUNIS IMMOBILIER",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/agencedeshalles/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 189647,
+      "siren": "424015501",
+      "name": "VISION 2000",
+      "domain": "opticien.optic2000.com",
+      "page": "https://opticien.optic2000.com/nouvelle-aquitaine/gironde/merignac/c01013-opticien-merignac-optic-2000-34",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 1710728,
+      "siren": "809766397",
+      "name": "LAURENSOU SEBASTIEN",
+      "domain": "agence.axa.fr",
+      "page": "https://agence.axa.fr/distributeur/0004004404",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 353842,
+      "siren": "538041492",
+      "name": "JSI",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/jsichartrons/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 252965,
+      "siren": "480420983",
+      "name": "AGENCE BP IMMO",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/bpimmosaintes/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 639138,
+      "siren": "938244472",
+      "name": "GOA IMMOBILIER",
+      "domain": "orpi.com",
+      "page": "https://www.orpi.com/orpigambettaouest/",
+      "registry": "osm-http-200"
+    },
+    {
+      "orgId": 1601879,
+      "siren": "489279950",
+      "name": "GOBEAUX VINCENT",
+      "domain": "agence.axa.fr",
+      "page": "https://agence.axa.fr/distributeur/0003911604",
+      "registry": "osm-http-200"
+    }
+  ]
+}
