@@ -1,7 +1,7 @@
 # radar-veille.timer — déclenche la veille quotidienne chaque matin à 06:30.
 [Unit]
 Description=Radar Cyber — veille quotidienne de 06:30
-Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+Documentation=file:@REPO@/docs/operations.md
 
 [Timer]
 OnCalendar=*-*-* 06:30:00

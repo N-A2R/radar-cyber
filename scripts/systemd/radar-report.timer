@@ -1,7 +1,7 @@
 # radar-report.timer — déclenche radar-report.service chaque lundi 07:00.
 [Unit]
 Description=Radar Cyber — rapport hebdomadaire du lundi matin
-Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+Documentation=file:@REPO@/docs/operations.md
 
 [Timer]
 OnCalendar=Mon *-*-* 07:00:00

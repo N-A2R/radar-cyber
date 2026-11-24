@@ -85,27 +85,25 @@ run "sudo apt-get update -y"
 run "sudo apt-get install -y --no-install-recommends ca-certificates curl git jq openssh-client"
 
 # --- 1. Node.js (LTS) ------------------------------------------------------
+# Aucun `curl … | bash` : un script distant non épinglé serait exécuté avec
+# sudo. L'installation se fait manuellement depuis une source vérifiée, puis
+# ce script reprend (idempotent).
 if command -v node >/dev/null 2>&1; then
   log "Node déjà présent: $(node --version)"
 else
-  log "Installation de Node.js (NodeSource LTS) si absent"
-  run "curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -"
-  run "sudo apt-get install -y nodejs"
+  log "ERREUR: node absent. Installez Node.js LTS depuis une source vérifiée, puis relancez."
+  exit 1
 fi
 
 # --- 2. Hermes CLI ---------------------------------------------------------
-# Le CLI Hermes est la cible constatée sur la box actuelle (~/.local/bin/hermes,
-# agent installé sous ~/.hermes/hermes-agent). On ne force pas omp : on installe
-# hermes si absent, de façon idempotente, et on signale omp seulement s'il existe.
+# Idem : le script officiel peut changer sans préavis. On refuse de l'exécuter
+# directement ; l'opérateur installe le CLI puis relance ce déploiement.
 if [ -x "$HERMES_BIN" ]; then
   log "Hermes CLI déjà présent: $HERMES_BIN"
   run "$HERMES_BIN --version || true"
 else
-  log "Hermes CLI absent : installation via le script officiel (idempotent) à valider par l'opérateur"
-  # Le bootstrap exact peut évoluer ; on tente le chemin documenté/public le plus courant.
-  # En cas d'échec, l'opérateur doit installer hermes manuellement puis relancer.
-  run "curl -fsSL https://hermes.nousresearch.com/install.sh | bash" || \
-    log "ATTENTION: installation hermes échouée ou non disponible hors-ligne ; installer manuellement puis relancer."
+  log "ERREUR: Hermes CLI absent ($HERMES_BIN). Installez-le manuellement depuis une source vérifiée, puis relancez."
+  exit 1
 fi
 
 if command -v omp >/dev/null 2>&1; then

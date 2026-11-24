@@ -20,7 +20,7 @@ import {
 	inNouvelleAquitaine, measure, normalizeDomain, NOUVELLE_AQUITAINE_DEPTS,
 } from "./domain-coverage.mts";
 import {
-	domainRoot, fetchPage, pageVerdict, withConcurrency, type Verdict,
+	domainRoot, fetchPage, pageVerdict, withConcurrency, type Organisation, type Verdict,
 } from "./expand-domains.mts";
 
 export const SOURCE = "exposition-service:http200";
@@ -55,7 +55,7 @@ export interface ExpositionRow {
 
 export interface ExpositionSelection {
 	row: ExpositionRow;
-	organisation: { id: number; name: string; city: string | null; dept: string | null; siren: string | null };
+	organisation: Organisation;
 	domain: string;
 }
 
@@ -78,7 +78,7 @@ export function selectExpositionCandidates(
 		selected.push({
 			row,
 			organisation: {
-				id: row.orgId, name: row.name, city: row.city, dept: row.dept, siren: row.siren,
+				id: row.orgId, name: row.name, city: row.city, dept: row.dept, siren: row.siren, domain: row.evidenceDomain,
 			},
 			domain,
 		});

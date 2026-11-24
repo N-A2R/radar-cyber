@@ -123,7 +123,7 @@ export function pageVerdict(
 		return { ...base, motif: "parking-page" };
 	}
 	const tokens = distinctiveTokens(organisation.name, organisation.city);
-	const nameToken = tokens.find((token) => !distinctiveTokens(organisation.city, null).includes(token));
+	const nameToken = tokens.find((token) => !distinctiveTokens(organisation.city ?? "", null).includes(token));
 	const found = nameToken && new RegExp(`\\b${nameToken}\\b`).test(text)
 		? nameToken
 		: tokens.find((token) => new RegExp(`\\b${token}\\b`).test(text));

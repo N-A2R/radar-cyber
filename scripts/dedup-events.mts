@@ -25,6 +25,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import type { PoolClient } from "pg";
 import { closePools, query, withTransaction } from "../apps/api/src/db.js";
+import { archiverEvenements } from "../apps/api/src/dedup/archive.js";
 
 /**
  * Même expression que `db/migrate-045-dedup-empreinte.sql`, recopiée ici
@@ -170,6 +171,7 @@ async function nettoyer(groupes: Groupe[]): Promise<{ supprimes: number; alertes
       await preparerGroupe(client, groupe);
       alertesRedirigees += (avant.rows[0]?.total ?? 0) - groupe.conserves.length;
       if (groupe.supprimes.length === 0) continue;
+      await archiverEvenements(client, groupe.supprimes);
       const resultat = await client.query(
         "DELETE FROM event WHERE id = ANY($1)", [groupe.supprimes],
       );

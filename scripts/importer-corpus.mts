@@ -545,7 +545,7 @@ export async function sonderUrl(url: string, timeoutMs = TIMEOUT_DEFAUT_MS): Pro
 				const { done, value } = await reader.read();
 				if (done) break;
 				octets += value.byteLength;
-				if (value.some((octet) => octet !== 0x09 && octet !== 0x0a && octet !== 0x0d && octet !== 0x20)) {
+				if (value.some((octet: number) => octet !== 0x09 && octet !== 0x0a && octet !== 0x0d && octet !== 0x20)) {
 					nonBlanc = true;
 					break;
 				}

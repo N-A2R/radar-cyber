@@ -24,17 +24,38 @@ if [[ ! -r "$PASS_FILE" ]]; then
   exit 1
 fi
 
+# Le mot de passe ne doit apparaître NI dans une URL (journaux, `ps`) NI sur
+# la ligne de commande. `.pgpass` est le seul support prévu par PostgreSQL.
+PGPASS="$(mktemp "${TMPDIR:-/tmp}/radar-backup-pgpass.XXXXXX")"
+chmod 600 "$PGPASS"
+PASS="$(tr -d '\n' < "$PASS_FILE")"
+PASS="${PASS//\\/\\\\}"
+PASS="${PASS//:/\\:}"
+printf '127.0.0.1:%s:radar:radar:%s\n' "$TUNNEL_PORT" "$PASS" > "$PGPASS"
+unset PASS
+
 log "Ouverture du tunnel vers $BOX_HOST:$TUNNEL_PORT"
 ssh -o ExitOnForwardFailure=yes -o BatchMode=yes -N \
     -L "127.0.0.1:${TUNNEL_PORT}:127.0.0.1:5433" "$BOX_HOST" &
 TUNNEL_PID=$!
-trap 'kill "$TUNNEL_PID" 2>/dev/null || true' EXIT
 
+nettoyer() {
+  rm -f "$PGPASS"
+  kill "$TUNNEL_PID" 2>/dev/null || true
+}
+trap nettoyer EXIT
+
+pret=0
 for _ in $(seq 1 20); do
-  if (exec 3<>"/dev/tcp/127.0.0.1/${TUNNEL_PORT}") 2>/dev/null; then break; fi
+  if (exec 3<>"/dev/tcp/127.0.0.1/${TUNNEL_PORT}") 2>/dev/null; then pret=1; break; fi
   sleep 1
 done
+if [[ "$pret" -ne 1 ]]; then
+  log "ERREUR: tunnel SSH ouvert mais PostgreSQL injoignable sur $TUNNEL_PORT."
+  exit 1
+fi
 
-export DATABASE_URL="postgres://radar:$(cat "$PASS_FILE")@127.0.0.1:${TUNNEL_PORT}/radar"
-log "Dump via le tunnel"
+export PGPASSFILE="$PGPASS"
+export DATABASE_URL="postgres://radar@127.0.0.1:${TUNNEL_PORT}/radar"
+log "Dump via le tunnel (identifiants lus depuis PGPASSFILE)"
 "$HERE/backup-db.sh"

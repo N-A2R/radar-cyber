@@ -1,64 +1,44 @@
-# CI proposée — à copier dans `.github/workflows/ci.yml`
+# CI — référence opérationnelle
 
-## Pourquoi ce fichier n'est pas appliqué
+Le seul workflow est `.github/workflows/ci.yml`. **Aucun fichier « proposé » ne
+doit être copié par-dessus** : l'ancien `ci.proposed.yml` ciblait `master`,
+utilisait des actions flottantes `@v4` et supprimait le gate de provenance.
+Il a été supprimé.
 
-Le jeton GitHub de cette session n'a pas la permission `workflows` :
+## Ce que la CI vérifie
 
-```
-! [remote rejected] refusing to allow a GitHub App to create or update workflow
-  `.github/workflows/ci.yml` without `workflows` permission
-```
+**Job `verify`** (PostgreSQL 17, 30 min) : contrat hors base, typechecks API /
+web / tests / SDK, tests de migration et d'outillage, suite API, suites web
+(Vitest, PWA hors-ligne, rendu, DOM, Storybook, Playwright), SDK TypeScript et
+Python, test Python du socle, measure + check de provenance sur artifact frais,
+build web.
 
-Impossible de pousser une modification de workflow. Le contenu validé est donc
-livré ici, à appliquer par un mainteneur :
+**Job `socle`** (45 min) : rejoue `pnpm setup` depuis une base vide, vérifie
+`pnpm setup:check`, rejoue pour l'idempotence (`+0` sources, orgs inchangés),
+puis crée une **base copiée** (`CREATE DATABASE … TEMPLATE socle`) sur laquelle
+le runner doit annoncer « Aucune migration en attente » et où les contrôles de
+dérive tournent avec `RADAR_DB_INTEGRATION=1`.
+
+**Job `supply-chain`** : `pnpm audit --prod --audit-level=high`, validation de
+`docker-compose.yml` (profil `tor` inclus) et `docker build --check` des images
+API, web et tor.
+
+## Pourquoi le job socle existe
+
+Le job `verify` prépare sa base avec `db/init.sql` puis `pnpm migrate`, comme
+les tests et Docker. Le socle vérifie en plus le chemin humain complet :
+bootstrap, sources, référentiel, règles de détection, puis rejeu. C'est ce
+contrôle qui a révélé l'amorçage qui marquait 17 migrations « appliquées »
+sans les exécuter.
+
+## Reproduction locale
 
 ```bash
-cp scripts/ci/ci.proposed.yml .github/workflows/ci.yml
-git commit -am "ci: rejouer le socle depuis une base vide"
+pnpm install --frozen-lockfile
+pnpm db:up                 # PostgreSQL local (ou DATABASE_URL existant)
+DATABASE_URL=postgres://… pnpm setup
+pnpm setup:check
+pnpm typecheck:tests && pnpm typecheck:sdk
+pnpm test:migrations
+RADAR_DB_INTEGRATION=1 DATABASE_URL=postgres://… pnpm test:migrations
 ```
-
-En attendant, **`pnpm verify` couvre les mêmes contrôles en local** (contrat hors
-base, diagnostic du socle, typechecks, tests API, tests front, build,
-healthcheck).
-
-## Ce que la CI proposée ajoute
-
-**Job `verify`** — deux ajouts :
-
-- **contrat hors base en premier** : `contract-admit` + `contract-families`,
-  21 tests sans PostgreSQL. Placé tôt pour qu'un échec de contrat soit
-  immédiatement lisible ;
-- **tests de rendu et jsdom**, qui n'étaient pas exécutés en CI.
-
-**Job `socle`** — rejoue l'installation par le chemin qu'emprunte un humain :
-
-| Étape | Contrôle |
-|---|---|
-| `pnpm setup` | Bootstrap sur base vide |
-| `pnpm setup:check` | Code de sortie 0 = toutes les étapes en place |
-| `pnpm setup` (rejeu) | `+0` source et compte d'organisations inchangé |
-| `load-referentiel-na --plan-only` | Plan sans écriture ni connexion |
-
-## Pourquoi un job séparé était nécessaire
-
-Le job `verify` applique le schéma via `psql`, **en contournant
-`scripts/migrate.mts`**. C'est précisément pourquoi il n'a jamais vu l'amorçage
-qui marquait 17 migrations « appliquées » sur une base neuve sans les jouer, ni
-les scripts racine incapables de résoudre `pg` depuis la racine du monorepo.
-
-Un socle ne se vérifie qu'en le rejouant depuis le vide, puis une seconde fois
-pour l'idempotence. Les tests unitaires ne suffisent pas : ils créent leur base
-par un autre chemin.
-
-## Vérification locale de la CI proposée
-
-Le job a été simulé avant livraison, sur une base `socle` créée vide comme le
-fait le service PostgreSQL du workflow :
-
-- `pnpm setup` → **8/8 étapes en place** ;
-- `pnpm setup:check` → exit 0 ;
-- rejeu → `✓ sources 265 en base (+0)` et `4462 orgs` inchangés, les deux
-  assertions `grep`/`test` passent ;
-- `--plan-only` → aucune connexion à la base.
-
-Le YAML a été parsé pour valider sa structure (jobs `verify` et `socle`).

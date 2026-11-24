@@ -19,13 +19,13 @@ import {
 	DAY_MS,
 	HOUR_MS,
 	MIN_CADENCE_DAYS,
-	SILENCE_ALERT_HOURS,
 	SILENT_SOURCE_RULE,
 	detectSilentSource,
 	summarizeSilenceDelays,
 } from "../apps/api/src/detect/silent-source.js";
 import {
 	MIN_CONFIRMED_PAUSE_HOURS as MIN_PAUSE_HOURS,
+	REPLAY_THRESHOLD_HOURS,
 	REPLAY_WINDOW_DAYS as WINDOW_DAYS,
 	type ProductionRow,
 	replaySilentSourceEpisodes,
@@ -93,6 +93,7 @@ function renderMarkdown(result: {
 	runs: number;
 	sources: number;
 	episodes: number;
+	thresholdHours: number;
 	summary: ReturnType<typeof summarizeSilenceDelays>;
 	fingerprint: string;
 }): string {
@@ -113,7 +114,7 @@ function renderMarkdown(result: {
 		"",
 		"## Ce qui est compté",
 		"",
-		`Une source est éligible si elle est active, a produit sur au moins ${MIN_CADENCE_DAYS} jours UTC distincts durant les ${CADENCE_WINDOW_DAYS} jours précédant son dernier item, puis n'a plus rien produit depuis ${SILENCE_ALERT_HOURS} h. Le détecteur est évalué toutes les heures, comme en production. Un épisode n'est retenu que si la pause réelle a duré au moins ${MIN_PAUSE_HOURS} h : on mesure donc bien une source devenue muette, pas un simple trou de quelques heures.`,
+		`Une source est éligible si elle est active, a produit sur au moins ${MIN_CADENCE_DAYS} jours UTC distincts durant les ${CADENCE_WINDOW_DAYS} jours précédant son dernier item, puis n'a plus rien produit depuis ${result.thresholdHours} h (seuil calibré lu dans rule_calibration). Le détecteur est évalué toutes les heures, comme en production. Un épisode n'est retenu que si la pause réelle a duré au moins ${MIN_PAUSE_HOURS} h : on mesure donc bien une source devenue muette, pas un simple trou de quelques heures.`,
 		"",
 		"## Résultat",
 		"",
@@ -155,7 +156,12 @@ async function main(): Promise<void> {
 	const anchor = Math.floor(Date.parse(String(lastRun)) / HOUR_MS) * HOUR_MS;
 	const windowStart = anchor - WINDOW_DAYS * DAY_MS;
 	const loaded = await load(anchor);
-	const detections = replaySilentSourceEpisodes(loaded.production, windowStart, anchor);
+	const seuil = await query<{ threshold: number }>(
+		"SELECT threshold FROM rule_calibration WHERE rule_id=$1", [SILENT_SOURCE_RULE],
+	);
+	const mesure = Number(seuil.rows[0]?.threshold);
+	const thresholdHours = Number.isFinite(mesure) && mesure > 0 ? mesure : REPLAY_THRESHOLD_HOURS;
+	const detections = replaySilentSourceEpisodes(loaded.production, windowStart, anchor, thresholdHours);
 	const sources = new Set(detections.map((d) => d.sourceId)).size;
 	const result = {
 		generatedFrom: iso(anchor),
@@ -166,6 +172,7 @@ async function main(): Promise<void> {
 		sources,
 		episodes: detections.length,
 		productionRows: loaded.production.length,
+		thresholdHours,
 		summary: summarizeSilenceDelays(detections.map((d) => d.delayHours)),
 	};
 	const signed = {
@@ -176,6 +183,7 @@ async function main(): Promise<void> {
 			runs: result.runs,
 			productionRows: result.productionRows,
 			episodes: result.episodes,
+			thresholdHours: result.thresholdHours,
 		}),
 	};
 	if (check) {

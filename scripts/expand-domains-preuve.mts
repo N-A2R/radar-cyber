@@ -55,7 +55,7 @@ export async function repairProof(
 		return null;
 	}
 	const verdict = pageVerdict(page.html, page.status, page.finalUrl, {
-		id: row.orgId, name: row.name, city: null, dept: null, siren: null,
+		id: row.orgId, name: row.name, city: null, dept: null, siren: null, domain: row.domain,
 	}, normalizeDomain(row.domain)!);
 	if (!verdict.ok) return null;
 	return {

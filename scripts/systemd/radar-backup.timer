@@ -1,0 +1,15 @@
+# radar-backup.timer — sauvegarde quotidienne à 03:17.
+[Unit]
+Description=Radar Cyber — sauvegarde quotidienne de la base
+Documentation=file:@REPO@/docs/exploitation.md
+
+[Timer]
+OnCalendar=*-*-* 03:17:00
+# Rattrapage si la machine était éteinte au déclenchement.
+Persistent=true
+RandomizedDelaySec=300
+AccuracySec=1min
+Unit=radar-backup.service
+
+[Install]
+WantedBy=timers.target

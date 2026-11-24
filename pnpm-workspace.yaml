@@ -2,9 +2,15 @@ packages:
   - "apps/*"
   - "packages/*"
 allowBuilds:
-  '@astryxdesign/core': true
+  # postinstall d'embedded-postgres : réhydrate les liens symboliques natifs.
   '@embedded-postgres/linux-x64': true
+  # esbuild vérifie/relie son binaire natif (Vite, tsx, Vitest).
   esbuild: true
+  # postinstall non interactif d'Astryx : affiche uniquement le rappel `astryx init`.
+  '@astryxdesign/core': true
+# Aucune version publiée depuis moins de 3 jours n'est éligible (72 h).
+# Exceptions nominatives : versions déjà validées et épinglées dans le lockfile.
+minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - "@rolldown/binding-android-arm-eabi@1.2.18"
   - "@rolldown/binding-android-arm64@1.2.18"

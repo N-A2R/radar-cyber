@@ -28,6 +28,7 @@ import {
 	type DuplicateGroup,
 	type EventForIdentity,
 } from "../apps/api/src/dedup/event-duplicates.js";
+import { archiverEvenements } from "../apps/api/src/dedup/archive.js";
 
 type EventRow = {
 	id: number;
@@ -211,6 +212,7 @@ async function mergeGroup(
 			`dedup:${DEDUP_RULE_VERSION}`,
 		],
 	);
+	await archiverEvenements(client, ids);
 	await client.query("DELETE FROM event WHERE id = ANY($1::bigint[])", [ids]);
 
 	const left = await client.query<{ n: number }>(

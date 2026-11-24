@@ -7,9 +7,10 @@
  * et produit des « événements » intitulés « 08 France 17 » ou
  * « © 2003-2026 Emsisoft ». Ils faussent toute mesure de couverture.
  *
- * Rien n'est détruit sans trace : les faits partent dans `event_archive` avant
- * suppression, et la purge elle-même est consignée au journal (append-only,
- * non contournable).
+ * Rien n'est détruit sans trace : le RÉSUMÉ part dans `event_archive` ET la
+ * copie intégrale dans `archive_event` avant suppression (depuis migrate-231,
+ * un trigger refuse tout DELETE qui n'aurait pas écrit les deux). La purge est
+ * consignée au journal (append-only, non contournable).
  *
  *   tsx scripts/purge-non-claims.mts              # constat (défaut)
  *   tsx scripts/purge-non-claims.mts --apply      # archive, supprime, consigne
@@ -57,8 +58,29 @@ const result = await withTransaction(async (client) => {
 		 ON CONFLICT (dedup_key) DO NOTHING`,
 		[SOURCES],
 	);
+	// Le résumé seul ne suffit pas : depuis migrate-231, un DELETE sans copie
+	// intégrale est refusé par le trigger. On écrit donc les DEUX archives
+	// avant la suppression, dans la même transaction.
+	const complete = await client.query(
+		`INSERT INTO archive_event
+		   (id, dedup_key, family, assertion_type, title, summary,
+		    observed_at, collected_at, valid_at, at, severity, confidence,
+		    source_id, source_url, evidence, geo_type, lat, lon, org_id, asset_id, created_at)
+		 SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
+		        e.observed_at, e.collected_at, e.valid_at, e.at, e.severity, e.confidence,
+		        e.source_id, e.source_url, e.evidence, e.geo_type, e.lat, e.lon,
+		        e.org_id, e.asset_id, e.created_at
+		   FROM event e
+		  WHERE e.source_id = ANY($1)
+		 ON CONFLICT (dedup_key) DO NOTHING`,
+		[SOURCES],
+	);
 	const deleted = await client.query("DELETE FROM event WHERE source_id = ANY($1)", [SOURCES]);
-	return { archived: archived.rowCount ?? 0, deleted: deleted.rowCount ?? 0 };
+	return {
+		archived: archived.rowCount ?? 0,
+		complete: complete.rowCount ?? 0,
+		deleted: deleted.rowCount ?? 0,
+	};
 });
 
 // `consigner` n'échoue jamais par exception : il renvoie { ok:false, error }.
@@ -70,11 +92,11 @@ const journal = await consigner({
 	subject: "non-claims",
 	summary: `${result.deleted} événement(s) non-claim(s) purgé(s) — ${SOURCES.join(", ")}`,
 	actor: "humain:operateur",
-	payload: { sources: SOURCES, archived: result.archived, deleted: result.deleted },
+	payload: { sources: SOURCES, archived: result.archived, complete: result.complete, deleted: result.deleted },
 });
 
 const after = await query<{ n: string }>("SELECT count(*)::text AS n FROM event WHERE source_id = ANY($1)", [SOURCES]);
-console.log(`\narchivés : ${result.archived} · supprimés : ${result.deleted} · restants : ${after.rows[0]?.n ?? "?"}`);
+console.log(`\nrésumés : ${result.archived} · copies intégrales : ${result.complete} · supprimés : ${result.deleted} · restants : ${after.rows[0]?.n ?? "?"}`);
 if (journal.ok) {
 	console.log("Purge consignée au journal (kind=event.purge).");
 } else {

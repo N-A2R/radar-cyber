@@ -1,7 +1,7 @@
 # Radar Cyber NA — déploiement conteneurisé.
 #
 # Services : db (PostgreSQL 18), migrate (one-shot), api (Fastify :8080),
-#            web (Vite preview :4173), tor (profil optionnel, SOCKS5 9050).
+#            web (serveur statique Node :4173), tor (profil optionnel, SOCKS5 9050).
 # Variables : voir .env.example (copier en .env ou exporter).
 #
 # Usage :
@@ -23,16 +23,62 @@ x-api-env: &api-env
   <<: *database-url
   HOST: "0.0.0.0"
   PORT: "8080"
-  INCEPTION_API_KEY: ${INCEPTION_API_KEY:-}
+  NODE_ENV: "production"
+  RADAR_AUDIT_PEPPER: ${RADAR_AUDIT_PEPPER:?RADAR_AUDIT_PEPPER requis}
+  RADAR_CORS_ORIGINS: ${RADAR_CORS_ORIGINS:-}
+  RADAR_TRUST_PROXY: ${RADAR_TRUST_PROXY:-0}
+  RADAR_COOKIE_SECURE: ${RADAR_COOKIE_SECURE:-}
+  RADAR_AUDIT_RETENTION_DAYS: ${RADAR_AUDIT_RETENTION_DAYS:-90}
+  RADAR_RATE_LIMIT_MAX: ${RADAR_RATE_LIMIT_MAX:-300}
+  RADAR_RATE_LIMIT_WINDOW_MS: ${RADAR_RATE_LIMIT_WINDOW_MS:-60000}
+  RADAR_PUBLIC_READ_RPM: ${RADAR_PUBLIC_READ_RPM:-120}
+  RADAR_SESSION_READ_RPM: ${RADAR_SESSION_READ_RPM:-600}
+  RADAR_TSA_URL: ${RADAR_TSA_URL:-}
+  RADAR_TSA_CA_PEM: ${RADAR_TSA_CA_PEM:-}
+  RADAR_TSA_PRESTATAIRE_ANSSI: ${RADAR_TSA_PRESTATAIRE_ANSSI:-}
   RADAR_TOR_SOCKS: ${RADAR_TOR_SOCKS:-socks5h://tor:9050}
+  RADAR_COLLECT: ${RADAR_COLLECT:-1}
+  RADAR_WEB_BASE_URL: ${RADAR_WEB_BASE_URL:-}
+  INCEPTION_API_KEY: ${INCEPTION_API_KEY:-}
   RADAR_RETENTION_DAYS: ${RADAR_RETENTION_DAYS:-90}
   RADAR_RETENTION_INDICATOR_DAYS: ${RADAR_RETENTION_INDICATOR_DAYS:-365}
+  RADAR_ALERT_WEBHOOK_URL: ${RADAR_ALERT_WEBHOOK_URL:-}
+  RADAR_ALERT_WEBHOOK_SECRET: ${RADAR_ALERT_WEBHOOK_SECRET:-}
+  RADAR_ALERT_TELEGRAM_BOT_TOKEN: ${RADAR_ALERT_TELEGRAM_BOT_TOKEN:-}
+  RADAR_ALERT_TELEGRAM_CHAT_ID: ${RADAR_ALERT_TELEGRAM_CHAT_ID:-}
+  RADAR_ALERT_EMAIL_HOST: ${RADAR_ALERT_EMAIL_HOST:-}
+  RADAR_ALERT_EMAIL_PORT: ${RADAR_ALERT_EMAIL_PORT:-587}
+  RADAR_ALERT_EMAIL_USER: ${RADAR_ALERT_EMAIL_USER:-}
+  RADAR_ALERT_EMAIL_PASSWORD: ${RADAR_ALERT_EMAIL_PASSWORD:-}
+  RADAR_ALERT_EMAIL_FROM: ${RADAR_ALERT_EMAIL_FROM:-}
+  RADAR_ALERT_EMAIL_TO: ${RADAR_ALERT_EMAIL_TO:-}
+  RADAR_ALERT_EMAIL_SECURE: ${RADAR_ALERT_EMAIL_SECURE:-false}
+  RADAR_ALERT_DELIVERY_TICK_MS: ${RADAR_ALERT_DELIVERY_TICK_MS:-120000}
+  RADAR_ALERT_FATIGUE_TICK_MS: ${RADAR_ALERT_FATIGUE_TICK_MS:-60000}
   TZ: ${TZ:-Europe/Paris}
 
 services:
   db:
-    image: postgres:18-alpine
+    image: postgres:18-alpine@sha256:0115267ab5a509022df9319c77be365cef335adb71556c75f60f5360ee247e71
     restart: unless-stopped
+    # Le répertoire de données reste un volume ; le reste du rootfs est lu seul.
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+      - /var/run/postgresql:size=1m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    # Minimum de capacités nécessaires à l'entrypoint officiel (chown du volume, gosu).
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    pids_limit: 200
+    mem_limit: 2g
     environment:
       <<: *db-credentials
       TZ: ${TZ:-Europe/Paris}
@@ -43,8 +89,9 @@ services:
       - -c
       - shared_buffers=256MB
     volumes:
-      # Données PostgreSQL persistantes.
-      - pgdata:/var/lib/postgresql/data
+      # PostgreSQL 18 attend un montage unique sur /var/lib/postgresql :
+      # le répertoire de version est créé à l'intérieur du volume.
+      - pgdata:/var/lib/postgresql
       # Répertoire des dumps (pg_dump / restauration).
       - dumps:/dumps
       # Schéma de base MVP ; les migrations complètent au démarrage.
@@ -64,6 +111,15 @@ services:
       dockerfile: apps/api/Dockerfile
     image: radar-cyber-api:local
     restart: "no"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    pids_limit: 100
+    mem_limit: 1g
     working_dir: /app
     depends_on:
       db:
@@ -101,16 +157,28 @@ services:
       dockerfile: apps/api/Dockerfile
     image: radar-cyber-api:local
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    pids_limit: 300
+    mem_limit: 2g
     init: true
     depends_on:
       db:
         condition: service_healthy
       migrate:
         condition: service_completed_successfully
+    env_file:
+      - path: .env
+        required: false
     environment:
       <<: *api-env
     ports:
-      - "${RADAR_API_PORT:-8080}:8080"
+      - "127.0.0.1:${RADAR_API_PORT:-8080}:8080"
     volumes:
       - dumps:/dumps
     healthcheck:
@@ -126,6 +194,15 @@ services:
       dockerfile: apps/web/Dockerfile
     image: radar-cyber-web:local
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    pids_limit: 100
+    mem_limit: 512m
     init: true
     depends_on:
       api:
@@ -135,7 +212,7 @@ services:
       API_PROXY_TARGET: http://api:8080
       TZ: ${TZ:-Europe/Paris}
     ports:
-      - "${RADAR_WEB_PORT:-4173}:4173"
+      - "127.0.0.1:${RADAR_WEB_PORT:-4173}:4173"
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:4173/ || exit 1"]
       interval: 15s
@@ -148,26 +225,26 @@ services:
   # sans ce service (--profile tor), les collectes .onion échouent immédiatement
   # (aucun repli clearnet), ce qui est le comportement attendu.
   tor:
-    image: alpine:3.21
+    build:
+      context: .
+      dockerfile: docker/tor/Dockerfile
+    image: radar-cyber-tor:local
     profiles: ["tor"]
     restart: unless-stopped
-    command:
-      - sh
-      - -ec
-      - |
-        apk add --no-cache tor netcat-openbsd >/dev/null
-        printf 'SocksPort 0.0.0.0:9050\nDataDirectory /var/lib/tor\nClientOnly 1\n' > /etc/tor/torrc
-        exec tor -f /etc/tor/torrc
-    volumes:
-      - tordata:/var/lib/tor
-    healthcheck:
-      test: ["CMD-SHELL", "nc -z 127.0.0.1 9050"]
-      interval: 30s
-      timeout: 5s
-      retries: 10
-      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    # État Tor éphémère et non persistant : le procès tourne en uid 10001,
+    # aucun apk ni écriture root à l'exécution. Aucun port publié sur l'hôte :
+    # SocksPort n'écoute que sur le réseau Compose.
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+      - /var/lib/tor:size=32m,mode=0700,uid=10001,gid=10001
+    pids_limit: 100
+    mem_limit: 256m
 
 volumes:
   pgdata:
   dumps:
-  tordata:

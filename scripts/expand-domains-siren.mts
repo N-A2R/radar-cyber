@@ -52,7 +52,7 @@ export function selectSirenCandidates(
 		selected.push({
 			row,
 			organisation: {
-				id: row.orgId, name: row.name, city: row.city, dept: row.dept, siren: row.siren,
+				id: row.orgId, name: row.name, city: row.city, dept: row.dept, siren: row.siren, domain: row.evidenceDomain,
 			},
 			domain,
 		});

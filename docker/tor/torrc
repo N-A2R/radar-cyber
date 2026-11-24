@@ -1,0 +1,8 @@
+# Client Tor du conteneur : aucun service .onion hébergé.
+# 0.0.0.0 est l'interface du conteneur, donc uniquement le réseau Compose :
+# aucun port n'est publié sur l'hôte dans docker-compose.yml.
+SocksPort 0.0.0.0:9050
+DataDirectory /var/lib/tor
+ClientOnly 1
+SafeLogging 1
+Log notice stderr
