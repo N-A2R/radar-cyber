@@ -57,12 +57,18 @@ test("only enabled Nouvelle-Aquitaine sources enter the live lane", async () => 
 });
 
 test("the trigger records publication-to-record latency at insert time", async () => {
-  const publishedAt = new Date(Date.now() - 2500);
+  // Horodatages explicites puisés dans l'horloge SQL : le trigger mesure la
+  // latence entre ces deux instants, sans jamais consulter Date.now() côté test.
+  const { rows: clocks } = await query<{ published_at: Date; recorded_at: Date }>(
+    `SELECT now() - interval '2500 milliseconds' AS published_at, now() AS recorded_at`,
+  );
+  const publishedAt = clocks[0]!.published_at;
+  const recordedAt = clocks[0]!.recorded_at;
   for (const id of [IDS.naRegion, IDS.ordinary]) {
     await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, date_source, date_confidence, source_url, evidence)
-       VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, 'feed', 'high', 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)`,
-      [`live-test:${TAG}:${id}`, `Cyber exercise ${TAG}`, id, publishedAt.toISOString()],
+      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, observed_at, created_at, date_source, date_confidence, source_url, evidence)
+       VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, $5, 'feed', 'high', 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)`,
+      [`live-test:${TAG}:${id}`, `Cyber exercise ${TAG}`, id, publishedAt, recordedAt],
     );
   }
   const { rows } = await query<{ source_id: string; latency_ms: number; published_at: string; recorded_at: string }>(
@@ -72,10 +78,10 @@ test("the trigger records publication-to-record latency at insert time", async (
   assert.equal(rows.length, 1, "a source outside the live lane must not create latency rows");
   const row = rows[0];
   assert.equal(row?.source_id, IDS.naRegion);
-  assert.ok((row?.latency_ms ?? 0) >= 2000, `latency must reflect the publication time: ${row?.latency_ms} ms`);
-  assert.ok((row?.latency_ms ?? 0) < 60_000, "latency must be measured, not a stale clock");
+  assert.equal(row?.latency_ms, 2500, "latency must match the seeded publication and record times");
   assert.equal(new Date(row?.published_at ?? "").getTime(), publishedAt.getTime());
-  assert.ok(new Date(row?.recorded_at ?? "").getTime() > publishedAt.getTime());
+  assert.equal(new Date(row?.recorded_at ?? "").getTime(), recordedAt.getTime());
+  assert.ok(recordedAt.getTime() > publishedAt.getTime());
 });
 
 after(async () => {

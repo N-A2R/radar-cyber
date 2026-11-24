@@ -13,7 +13,7 @@ import type { SousDomaineInventaire, Suspect, Tentative } from "../src/ctlogs/in
 const TAG = `ct${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const DOMAINE = `${TAG}.exemple.fr`;
 const SOUS_DOMAINE = `www.${DOMAINE}`;
-const COLLECTE_LE = new Date().toISOString();
+const COLLECTE_LE = "2026-11-25T12:00:00.000Z";
 
 const sousDomaine: SousDomaineInventaire = {
 	sous_domaine: SOUS_DOMAINE,
@@ -61,6 +61,7 @@ test("le rapport publié distingue le taux d'échec global et par fournisseur", 
 });
 
 test("l'inventaire inscrit source et première vue, puis reste idempotent", async () => {
+	const avantObservation = await query<{ maintenant: Date }>("SELECT now() AS maintenant");
 	const premier = await enregistrerInventaire({ sousDomaines: [sousDomaine], suspects: [suspect], rapport });
 	assert.equal(premier.sousDomainesInscrits, 1);
 	assert.equal(premier.suspectsInscrits, 1);
@@ -68,6 +69,7 @@ test("l'inventaire inscrit source et première vue, puis reste idempotent", asyn
 	const second = await enregistrerInventaire({ sousDomaines: [sousDomaine], suspects: [suspect], rapport });
 	assert.equal(second.sousDomainesInscrits, 0);
 	assert.equal(second.suspectsInscrits, 0);
+	const apresObservation = await query<{ maintenant: Date }>("SELECT now() AS maintenant");
 
 	const lignes = await query<{
 		sous_domaine: string; domaine: string; source: string;
@@ -77,11 +79,13 @@ test("l'inventaire inscrit source et première vue, puis reste idempotent", asyn
 	assert.equal(lignes.rows[0]?.sous_domaine, SOUS_DOMAINE);
 	assert.equal(lignes.rows[0]?.source, "crt.sh");
 	assert.equal(lignes.rows[0]?.certificat_id, `${TAG}-cert`);
-	// `premiere_vue` marque notre observation (maintenant), pas l'émission du
-	// certificat : cette dernière reste dans `certificat_vu_le`.
+	// `premiere_vue` marque l'instant SQL de notre observation, pas l'émission
+	// du certificat : cette dernière reste dans `certificat_vu_le`.
+	const observation = lignes.rows[0]!.premiere_vue.getTime();
 	assert.ok(
-		Date.now() - lignes.rows[0]!.premiere_vue.getTime() < 60_000,
-		"premiere_vue doit être l'instant de l'observation",
+		observation >= avantObservation.rows[0]!.maintenant.getTime()
+			&& observation <= apresObservation.rows[0]!.maintenant.getTime(),
+		"premiere_vue doit être l'instant SQL de l'observation",
 	);
 	assert.equal(lignes.rows[0]?.certificat_vu_le.toISOString(), sousDomaine.premiere_vue);
 
