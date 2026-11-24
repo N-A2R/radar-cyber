@@ -92,7 +92,7 @@ test("fusion : APT-C-36 et APT-C-12 restent deux grappes distinctes", () => {
 test("migration corrective : purge ciblée, idempotente et sourcée", () => {
 	// migrate-211 reste intact ; la correction des bases déjà migrées est
 	// rejouable via migrate-252. On vérifie que la trace MISP est conservée.
-	const sql = readFileSync(new URL("../../db/migrate-252-actor-alias-key.sql", import.meta.url), "utf8");
+	const sql = readFileSync(new URL("../../../db/migrate-252-actor-alias-key.sql", import.meta.url), "utf8");
 	assert.match(sql, /DELETE FROM actor_alias/);
 	assert.match(sql, /ON CONFLICT ON CONSTRAINT actor_alias_alias_source_unique DO NOTHING/);
 	for (const uuid of [
