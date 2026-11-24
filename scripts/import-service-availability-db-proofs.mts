@@ -1,7 +1,8 @@
 /**
  * Import the real HTTP verifications already stored in `source_verification`
- * into the availability observations file. Read-only on the database, bounded
- * to the fixed Nouvelle-Aquitaine perimeter and to an explicit UTC date range.
+ * and `exposition_service` into the availability observations file. Read-only
+ * on the database, bounded to an explicit UTC date range and to the fixed
+ * Nouvelle-Aquitaine perimeter.
  *
  *   DATABASE_URL=postgres://… apps/api/node_modules/.bin/tsx \
  *     scripts/import-service-availability-db-proofs.mts \
@@ -13,7 +14,9 @@ import { closePools, query } from "../apps/api/src/db.js";
 import {
 	normalizeProofUrl,
 	observationsFromDbProofs,
+	observationsFromExpositionProofs,
 	type DbProofRow,
+	type ExpositionProofRow,
 } from "../apps/api/src/serviceAvailability/dbProofs.js";
 import { mergeDaily, parseObservations, serializeObservations } from "../apps/api/src/serviceAvailability/observations.js";
 import { readCorpusPerimeter } from "../apps/api/src/serviceAvailability/perimeter.js";
@@ -37,7 +40,7 @@ async function main(): Promise<void> {
 	const existing = existsSync(out) ? parseObservations(readFileSync(out, "utf8")) : [];
 	const before = new Map(existing.map((row) => [`${row.serviceId}\u0000${row.day}`, row.ok]));
 
-	const result = await query<DbProofRow>(
+	const dbProofs = await query<DbProofRow>(
 		`SELECT url, code_http, verifie_at, ms FROM public.source_verification
 		 WHERE verifie_at >= $1::timestamptz AND verifie_at < $2::timestamptz
 		   AND code_http >= 200 AND code_http < 400
@@ -45,18 +48,32 @@ async function main(): Promise<void> {
 		 ORDER BY verifie_at`,
 		[`${from}T00:00:00.000Z`, `${to}T00:00:00.000Z`, perimeter.map((service) => normalizeProofUrl(service.url))]
 	);
-	const imported = observationsFromDbProofs(result.rows, perimeter);
+	const expositionProofs = await query<ExpositionProofRow>(
+		`SELECT source_url AS url, (evidence->>'status')::int AS status, consulted_at
+		 FROM public.exposition_service
+		 WHERE consulted_at >= $1::timestamptz AND consulted_at < $2::timestamptz
+		   AND source_url IS NOT NULL
+		   AND evidence->>'status' ~ '^[0-9]+$'
+		   AND (evidence->>'status')::int >= 200 AND (evidence->>'status')::int < 400
+		 ORDER BY consulted_at`,
+		[`${from}T00:00:00.000Z`, `${to}T00:00:00.000Z`]
+	);
+	const dbMapped = observationsFromDbProofs(dbProofs.rows, perimeter);
+	const expositionMapped = observationsFromExpositionProofs(expositionProofs.rows, perimeter);
+	const imported = [...dbMapped, ...expositionMapped];
+	const deduped = mergeDaily(imported);
 	const merged = mergeDaily([...existing, ...imported]);
 	let added = 0;
 	let upgraded = 0;
-	for (const row of imported) {
+	for (const row of deduped) {
 		const prior = before.get(`${row.serviceId}\u0000${row.day}`);
 		if (prior === undefined) added += 1;
 		else if (!prior && row.ok) upgraded += 1;
 	}
 	writeFileSync(out, serializeObservations(merged), "utf8");
 	console.log(
-		`db_rows=${result.rows.length} mapped=${imported.length} ` +
+		`db_rows=${dbProofs.rows.length} db_mapped=${dbMapped.length} ` +
+		`exposition_rows=${expositionProofs.rows.length} exposition_mapped=${expositionMapped.length} ` +
 		`new_service_days=${added} upgraded=${upgraded} total_stored=${merged.length}`
 	);
 }

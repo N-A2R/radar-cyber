@@ -13,10 +13,10 @@
   "servicesObserved": 500,
   "servicesFullyObserved": 0,
   "servicesNeverAvailable": 0,
-  "observedServiceDays": 1924,
-  "availableServiceDays": 1363,
-  "availabilityPct": 70.84,
-  "coveragePct": 54.97,
+  "observedServiceDays": 1999,
+  "availableServiceDays": 1817,
+  "availabilityPct": 90.9,
+  "coveragePct": 57.11,
   "perDay": [
     {
       "day": "2026-11-18",
@@ -44,9 +44,9 @@
     },
     {
       "day": "2026-11-22",
-      "observed": 424,
-      "available": 34,
-      "availabilityPct": 8.02
+      "observed": 499,
+      "available": 488,
+      "availabilityPct": 97.8
     },
     {
       "day": "2026-11-23",
