@@ -48,8 +48,11 @@ export function formatCount(value: number): string {
 }
 
 /** Un pourcentage mesuré : jamais "0 %" quand le dénominateur est inconnu. */
-export function formatPercent(value: number | null): string {
-  if (value === null) return "non mesurable";
+export function formatPercent(value: number | null | undefined): string {
+  // `undefined` arrive quand le champ est absent de la réponse (API en erreur,
+  // endpoint Jeu d'or sans la mesure) : c'est aussi « non mesurable », pas un
+  // crash de la carte.
+  if (value == null) return "non mesurable";
   const digits = value > 0 && value < 1 ? 2 : 1;
   return `${value.toFixed(digits).replace(".", ",")}\u00a0%`;
 }
