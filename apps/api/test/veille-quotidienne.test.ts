@@ -38,6 +38,7 @@ function evenement(id: string, numero: number, runId: number): NormalizedEvent {
 			: "Des documents médicaux ont été exfiltrés d'un hôpital de Charente-Maritime.",
 		observedAt: new Date().toISOString(),
 		sourceUrl: `https://${TAG}.fr/${numero}`,
+		confidence: "A1",
 		severity: 3,
 		sourceId: id,
 		evidence: { group: groupe, run_id: "1" },
