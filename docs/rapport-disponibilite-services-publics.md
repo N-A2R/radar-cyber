@@ -413,6 +413,41 @@ fenêtre complète ancrable le 24 novembre ; la première reste ancrée au
 27 novembre, après trois collectes réelles (25, 26 et 27 novembre). Aucune date
 ni aucun statut n'a été inventé pour combler l'écart.
 
+## Contrôle d'épuisement des preuves (24 novembre, 02 h 45 UTC)
+
+Nouvelle passe depuis la branche de la PR #799, sans retour à `main` : aucun
+service-jour réel supplémentaire, l'écart reste de 1 500 service-jours.
+
+```
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/import-service-availability-db-proofs.mts \
+  --from=2026-11-01 --to=2026-12-01
+# db_rows=32 db_mapped=32 exposition_rows=10746 exposition_mapped=786 new_service_days=0 upgraded=0 total_stored=2000
+sha256sum bench/results/service-availability-observations.jsonl
+# a52b7348214aab89abe06b9d61018d7a5e442132c148e1362dd1c852f8d14abf, identique avant et après l'import
+pnpm services:verify -- --anchor=2026-11-24
+# OBJECTIF : partiel — 4 / 7 jours (2000 / 3500 service-jours), manque 1500 service-jours
+apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24
+# windows=10 max_observed_service_days=2000/3500 feasible_windows=0 from=2026-11-24 earliest_attainable_anchor=2026-11-27
+```
+
+- **Base** : 158 tables du schéma public inventoriées. Les tables portant un
+  statut HTTP (`source_verification`, `exposition_service`, `warc_proof`,
+  `exposition_risque`, `leak_site`, `leak_site_freshness`, `access_log`,
+  `exposition_validation_tentative`) ont été interrogées en UTC : 0 ligne datée
+  des 18, 19 et 20 novembre. Les 786 preuves `exposition_service` ramenées au
+  périmètre sont déjà toutes versées ; un réimport sur un mois entier ajoute
+  0 observation et laisse le fichier octet pour octet identique.
+- **Arbre et Git** : 94 copies versionnées du jeu d'observations et 876 refs
+  examinées : 0 ligne pour les trois jours manquants. Le corpus ne porte que
+  `verifie_le=2026-11-21` (1 442 preuves).
+- **Sources grises** : Wayback CDX renvoie `[]` et Common Crawl `504` sur une
+  URL exacte du périmètre aux trois dates manquantes ; aucune capture exploitable.
+
+Aucune date ni aucun statut n'a été inventé. La première fenêtre sept jours
+entièrement observable reste ancrée au 27 novembre, après trois collectes
+réelles (25, 26 et 27 novembre).
+
 ## Reproduire
 
 ```bash
