@@ -274,7 +274,7 @@ test("a fictitious replay keeps every success, exposes a failure and is idempote
 	const summary = measureAvailability(rows, services, "2026-11-22");
 	assert.equal(summary.observedServiceDays, 3);
 	assert.equal(summary.availableServiceDays, 2);
-	assert.deepEqual(probeGaps(summary), []);
+	assert.deepEqual(probeGaps(summary), dayKeys("2026-11-21").slice(1).map((day) => ({ day, missing: 3 })));
 });
 
 test("availability is the share of observed service-days that succeeded", () => {
@@ -331,10 +331,13 @@ test("probe gaps expose unobserved service-days without turning them into outage
 		observation("a", "2026-11-22", true),
 		observation("b", "2026-11-22", false),
 	], services, "2026-11-22");
-	assert.deepEqual(probeGaps(summary), [{ day: "2026-11-22", missing: 1 }]);
+	assert.deepEqual(probeGaps(summary), [
+		...dayKeys("2026-11-21").slice(1).map((day) => ({ day, missing: 3 })),
+		{ day: "2026-11-22", missing: 1 },
+	]);
 	assert.equal(summary.observedServiceDays, 2);
 	assert.equal(summary.availabilityPct, 50);
-	assert.equal(summary.coveragePct, 66.67);
+	assert.equal(summary.coveragePct, 9.52);
 });
 
 test("a partial 500-service day reports its exact missing probes", () => {
@@ -343,7 +346,10 @@ test("a partial 500-service day reports its exact missing probes", () => {
 	const summary = measureAvailability(rows, services, "2026-11-22");
 	assert.equal(summary.observedServiceDays, 420);
 	assert.equal(summary.availableServiceDays, 420);
-	assert.deepEqual(probeGaps(summary), [{ day: "2026-11-22", missing: 80 }]);
+	assert.deepEqual(probeGaps(summary), [
+		...dayKeys("2026-11-21").slice(1).map((day) => ({ day, missing: 500 })),
+		{ day: "2026-11-22", missing: 80 },
+	]);
 });
 
 test("candidate anchors span each observed day and the six following days", () => {
