@@ -144,6 +144,7 @@
     "domaines:etendre-corpus-sectoriel": "apps/api/node_modules/.bin/tsx scripts/expand-domains-corpus-sectoriel.mts",
     "domaines:etendre-siren-officiel": "apps/api/node_modules/.bin/tsx scripts/expand-domains-siren-officiel.mts",
     "domaines:etendre-registre": "apps/api/node_modules/.bin/tsx scripts/expand-domains-registre.mts",
+    "domaines:etendre-uai": "apps/api/node_modules/.bin/tsx scripts/expand-domains-uai.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "sources:verifier": "apps/api/node_modules/.bin/tsx scripts/verifier-sources-http.mts",

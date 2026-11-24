@@ -922,3 +922,49 @@ Le recoupement des tables porteuses d'URL (t25/t27, rejoué en t28) ne révèle 
 
 OBJECTIF : partiel — 9 362 / 1 671 941 organisations (0,5599 %), manque 1 662 579 organisations vérifiées (99,4401 %) pour atteindre 100 %
 
+## Rattrapage — tranche t29 (2026-11-24)
+
+La PR #797 existait mais son objectif chiffré (100 %) n'était pas atteint : la tranche t29 poursuit depuis `origin/ext/rattrapage-rapport-domaines-na` (t28 : 9 362 / 1 671 941). Le travail des tranches précédentes est conservé tel quel.
+
+Nouvelle route grise : les sites d'établissement indexés par **UAI** (identifiant public d'enseignement, propriété Wikidata P3202) dans l'export versionné `bench/results/wikidata-id-sites-2026-11-22.tsv`. `scripts/expand-domains-uai.mts` ne retient que les lignes `uai`, exige un `entity_code` strictement égal à l'UAI publiée, une organisation de Nouvelle-Aquitaine sans domaine, une racine non encore attribuée et l'exclusion des racines de plateforme (académies, Pronote, hébergeurs). La preuve HTTP reste stricte et revérifiée en direct (statut 200, racine stable après redirection, contenu réel, jeton distinctif du nom dans le corps et le titre de la page). Sur 11 249 lignes UAI exploitables, 102 organisations NA sans domaine portaient exactement l'UAI publiée, 44 racines restaient éligibles et **1 site a passé la preuve** : `lyceedesgraves.fr` (UAI `0332846P`, Lycée des Graves), tracé `wikidata:P3202:uai:http200`. Détail : `bench/results/domains-from-uai.json`. Une seconde passe, après exclusion des racines de plateforme, ne trouve plus aucun candidat vérifiable : ce réservoir est épuisé.
+
+Commandes reproductibles :
+
+```sh
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:etendre-uai -- --limit=1000 --concurrency=16 --apply
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm domaines:mesurer
+```
+
+Sortie observée, puis mesure rejouée indépendamment :
+
+```
+selected=32 verified=1 applied=true
+verified_domain_coverage=9362 -> 9363
+coverage_percent=0.5599 -> 0.56
+
+organisations_total=1673270
+organisations_nouvelle_aquitaine=1671941
+organisations_avec_domaine=9409
+organisations_avec_domaine_verifie_et_provenance=9363
+couverture_pourcent=0.56
+```
+
+Décomposition reproductible de l'écart restant (1 662 578 organisations), sur la même base :
+
+```sh
+PGPASSWORD=radar psql -h 127.0.0.1 -p 5433 -U radar -d radar -c "
+SELECT count(*) FILTER (WHERE coalesce(o.domain,'')='' AND NOT EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_sans_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')='' AND EXISTS (
+         SELECT 1 FROM exposition_service e WHERE e.org_id=o.id AND e.evidence->>'status'='200')) AS sans_domaine_avec_200,
+       count(*) FILTER (WHERE coalesce(o.domain,'')<>'') AS avec_domaine
+FROM org o WHERE o.dept = ANY(ARRAY['16','17','18','19','23','24','33','40','47','64','79','86','87']);"
+-- 1661361 | 1171 | 9409
+```
+
+Il reste 1 661 361 organisations de Nouvelle-Aquitaine sans domaine **et sans aucune URL HTTP 200** dans le corpus consolidé des sources publiques/gratuites, et 1 171 avec une URL qui échoue à la preuve stricte. Les autres réservoirs SQL encore non exploités (événements, archives d'événements, réclamations de fuite, preuves WARC) ne concernent que 58, 51, 34 et 33 organisations et pointent vers des articles ou des places de marché, sans racine de site propre ; le corpus de recherche locale (85 lignes) ne s'apparie à aucune organisation sans domaine. Combler 1 662 578 organisations exigerait d'inventer des sites ou d'abaisser le standard de preuve. Nouvelle-Aquitaine uniquement, aucune donnée personnelle, aucun service payant.
+
+13 tests comportement, un par comportement (`apps/api/test/expand-domains-uai.test.ts`), tous verts ; typecheck `tsc --noEmit` de `apps/api` OK ; `apps/api/src/server.ts` : 0 ligne modifiée ; manifeste `package.json` validé après ajout de la commande (`pnpm install --frozen-lockfile --offline`).
+
+OBJECTIF : partiel — 9 363 / 1 671 941 organisations (0,5600 %), manque 1 662 578 organisations vérifiées (99,4400 %) pour atteindre 100 %
+
