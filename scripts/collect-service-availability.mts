@@ -10,7 +10,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { readCorpusPerimeter } from "../apps/api/src/serviceAvailability/perimeter.js";
 import { mergeDaily, parseObservations, serializeObservations } from "../apps/api/src/serviceAvailability/observations.js";
-import { probeAll, type DailyObservation } from "../apps/api/src/serviceAvailability/probe.js";
+import { probeCampaign, type DailyObservation } from "../apps/api/src/serviceAvailability/probe.js";
 
 const CORPUS = "bench/corpus/institutions-complet.jsonl";
 function option(name: string, fallback: string): string {
@@ -51,15 +51,35 @@ async function main(): Promise<void> {
 	const seeded = process.argv.includes("--seed-corpus")
 		? seedFromCorpus(corpusPath, new Set(perimeter.map((service) => service.id)))
 		: [];
-	const probed = await probeAll(perimeter, {
+	const campaign = await probeCampaign(perimeter, {
 		timeoutMs: Number(option("timeout-ms", "6000")),
 		deadlineMs: Number(option("deadline-ms", "45000")),
 		concurrency: Number(option("concurrency", "50")),
+		retries: Number(option("retries", "1")),
 	});
-	const observations = mergeDaily([...existing, ...seeded, ...probed]);
+	const observations = mergeDaily([...existing, ...seeded, ...campaign.observations]);
 	writeFileSync(out, serializeObservations(observations), "utf8");
+	const probed = mergeDaily(campaign.observations);
 	const available = probed.filter((row) => row.ok).length;
-	console.log(`perimeter=${perimeter.length} probed=${probed.length} available=${available} total_stored=${observations.length}`);
+	const failed = probed.length - available;
+	const missing = campaign.missingServiceIds;
+	const reportDay = probed[0]?.day ?? new Date().toISOString().slice(0, 10);
+	const reportPath = resolve(option("report", `bench/results/service-availability-probes-${reportDay}.json`));
+	writeFileSync(reportPath, `${JSON.stringify({
+		anchor,
+		day: reportDay,
+		perimeterSize: perimeter.length,
+		probed: probed.length,
+		available,
+		failed,
+		missingServiceIds: missing,
+	}, null, 2)}\n`, "utf8");
+	console.log(
+		`perimeter=${perimeter.length} probed=${probed.length} available=${available} ` +
+		`failed=${failed} missing=${missing.length} total_stored=${observations.length}`
+	);
+	if (missing.length > 0) console.log(`missing_service_ids=${missing.join(",")}`);
+	console.log(`report=${reportPath}`);
 }
 
 await main();

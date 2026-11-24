@@ -33,3 +33,12 @@ export function evaluateCoverage(summary: AvailabilitySummary): CoverageStatus {
 		missingServiceDays: targetServiceDays - observedServiceDays,
 	};
 }
+
+export type ProbeGap = { day: string; missing: number };
+
+/** Service-days with no probe in a measured window; never counted as outages. */
+export function probeGaps(summary: AvailabilitySummary): ProbeGap[] {
+	return summary.perDay
+		.map(({ day, observed }) => ({ day, missing: Math.max(0, summary.perimeterSize - observed) }))
+		.filter((gap) => gap.missing > 0);
+}

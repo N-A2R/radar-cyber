@@ -11,9 +11,9 @@ import {
 	type PublicService,
 } from "../src/serviceAvailability/perimeter.js";
 import { dayKeys, mergeDaily, parseObservations, serializeObservations } from "../src/serviceAvailability/observations.js";
-import { probeAll, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
+import { probeAll, probeCampaign, probeService, type DailyObservation } from "../src/serviceAvailability/probe.js";
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
-import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
+import { evaluateCoverage, probeGaps } from "../src/serviceAvailability/objective.js";
 import { attainableBy, auditWindows, candidateAnchors, earliestAttainableAnchor, maxObservedInRange } from "../src/serviceAvailability/audit.js";
 import {
 	normalizeProofUrl,
@@ -123,6 +123,97 @@ test("the campaign stops when its global deadline has passed", async () => {
 	assert.equal(calls, 0);
 });
 
+test("a transient timeout is retried and the successful probe is kept", async () => {
+	const attempts = new Map<string, number>();
+	const flaky = (async (url: string) => {
+		attempts.set(url, (attempts.get(url) ?? 0) + 1);
+		if (url.endsWith("/a") && attempts.get(url) === 1) {
+			const error = new Error("timed out");
+			error.name = "TimeoutError";
+			throw error;
+		}
+		return { status: 200, body: { cancel: async () => undefined } };
+	}) as unknown as typeof fetch;
+	const campaign = await probeCampaign([service("a"), service("b")], {
+		fetchImpl: flaky,
+		retries: 1,
+		deadlineMs: 60_000,
+		concurrency: 2,
+		now: () => new Date("2026-11-22T09:00:00.000Z"),
+	});
+	assert.deepEqual([...attempts.values()], [2, 1]);
+	const rows = mergeDaily(campaign.observations);
+	assert.equal(rows.length, 2);
+	assert.ok(rows.every((row) => row.ok));
+	assert.deepEqual(campaign.missingServiceIds, []);
+});
+
+test("retries are bounded and a persistent transport failure stays visible", async () => {
+	let calls = 0;
+	const timingOut = (async () => {
+		calls += 1;
+		const error = new Error("timed out");
+		error.name = "TimeoutError";
+		throw error;
+	}) as unknown as typeof fetch;
+	const campaign = await probeCampaign([service("a")], {
+		fetchImpl: timingOut,
+		retries: 2,
+		deadlineMs: 60_000,
+		now: () => new Date("2026-11-22T09:00:00.000Z"),
+	});
+	assert.equal(calls, 3);
+	const [row] = mergeDaily(campaign.observations);
+	assert.equal(row?.ok, false);
+	assert.equal(row?.failure, "timeout");
+	assert.deepEqual(campaign.missingServiceIds, []);
+});
+
+test("a real HTTP error is one observation and is never retried", async () => {
+	let calls = 0;
+	const errorResponse = (async () => {
+		calls += 1;
+		return { status: 503, body: { cancel: async () => undefined } };
+	}) as unknown as typeof fetch;
+	const campaign = await probeCampaign([service("a")], {
+		fetchImpl: errorResponse,
+		retries: 3,
+		deadlineMs: 60_000,
+		now: () => new Date("2026-11-22T09:00:00.000Z"),
+	});
+	assert.equal(calls, 1);
+	const [row] = campaign.observations;
+	assert.equal(row?.ok, false);
+	assert.equal(row?.status, 503);
+	assert.equal(row?.failure, null);
+});
+
+test("services left by the deadline are reported missing, never invented", async () => {
+	let clock = Date.parse("2026-11-22T09:00:00.000Z");
+	const advancingFetch = (async () => {
+		clock += 1_000;
+		return { status: 200, body: { cancel: async () => undefined } };
+	}) as unknown as typeof fetch;
+	const partial = await probeCampaign([service("a"), service("b")], {
+		fetchImpl: advancingFetch,
+		concurrency: 1,
+		deadlineMs: 1_000,
+		now: () => new Date(clock),
+	});
+	assert.equal(partial.observations.length, 1);
+	assert.deepEqual(partial.missingServiceIds, ["b"]);
+
+	let calls = 0;
+	const counting = (async () => {
+		calls += 1;
+		return { status: 200, body: { cancel: async () => undefined } };
+	}) as unknown as typeof fetch;
+	const expired = await probeCampaign([service("a"), service("b")], { deadlineMs: 0, fetchImpl: counting });
+	assert.deepEqual(expired.observations, []);
+	assert.deepEqual(expired.missingServiceIds, ["a", "b"]);
+	assert.equal(calls, 0);
+});
+
 test("the window contains seven consecutive UTC days ending on the anchor", () => {
 	assert.deepEqual(dayKeys("2026-11-22"), [
 		"2026-11-16", "2026-11-17", "2026-11-18", "2026-11-19",
@@ -145,6 +236,45 @@ test("observation replay is idempotent and order independent", () => {
 	const text = serializeObservations([...rows, ...rows]);
 	assert.deepEqual(parseObservations(text), parseObservations(serializeObservations([...rows].reverse())));
 	assert.equal(parseObservations(text).length, 2);
+});
+
+test("a fictitious replay keeps every success, exposes a failure and is idempotent", async () => {
+	const services = [service("a"), service("b"), service("c")];
+	const attempts = new Map<string, number>();
+	const fetchImpl = (async (url: string) => {
+		const id = url.slice(url.lastIndexOf("/") + 1);
+		attempts.set(id, (attempts.get(id) ?? 0) + 1);
+		if (id === "a" && attempts.get(id) === 1) {
+			const error = new Error("timed out");
+			error.name = "TimeoutError";
+			throw error;
+		}
+		return { status: id === "a" ? 200 : 503, body: { cancel: async () => undefined } };
+	}) as unknown as typeof fetch;
+	const campaign = await probeCampaign(services, {
+		fetchImpl,
+		retries: 1,
+		deadlineMs: 60_000,
+		concurrency: 3,
+		now: () => new Date("2026-11-22T10:00:00.000Z"),
+	});
+	const previous = [
+		observation("a", "2026-11-22", false, "2026-11-22T09:00:00.000Z"),
+		observation("b", "2026-11-22", true, "2026-11-22T12:00:00.000Z"),
+	];
+	const stored = serializeObservations([...previous, ...campaign.observations]);
+	const replayed = serializeObservations([...parseObservations(stored), ...campaign.observations]);
+	assert.equal(replayed, stored);
+	const rows = parseObservations(stored);
+	assert.deepEqual(rows.map((row) => [row.serviceId, row.ok]), [
+		["a", true], ["b", true], ["c", false],
+	]);
+	assert.equal(rows.find((row) => row.serviceId === "b")?.status, 200);
+	assert.equal(rows.find((row) => row.serviceId === "c")?.failure, null);
+	const summary = measureAvailability(rows, services, "2026-11-22");
+	assert.equal(summary.observedServiceDays, 3);
+	assert.equal(summary.availableServiceDays, 2);
+	assert.deepEqual(probeGaps(summary), []);
 });
 
 test("availability is the share of observed service-days that succeeded", () => {
@@ -193,6 +323,27 @@ test("coverage status counts unobserved days and service-days without extrapolat
 	assert.equal(status.missingDays.length, 4);
 	assert.equal(status.observedServiceDays, 3);
 	assert.equal(status.missingServiceDays, 4);
+});
+
+test("probe gaps expose unobserved service-days without turning them into outages", () => {
+	const services = [service("a"), service("b"), service("c")];
+	const summary = measureAvailability([
+		observation("a", "2026-11-22", true),
+		observation("b", "2026-11-22", false),
+	], services, "2026-11-22");
+	assert.deepEqual(probeGaps(summary), [{ day: "2026-11-22", missing: 1 }]);
+	assert.equal(summary.observedServiceDays, 2);
+	assert.equal(summary.availabilityPct, 50);
+	assert.equal(summary.coveragePct, 66.67);
+});
+
+test("a partial 500-service day reports its exact missing probes", () => {
+	const services = Array.from({ length: 500 }, (_, index) => service(`svc-${index}`));
+	const rows = services.slice(0, 420).map((item) => observation(item.id, "2026-11-22", true));
+	const summary = measureAvailability(rows, services, "2026-11-22");
+	assert.equal(summary.observedServiceDays, 420);
+	assert.equal(summary.availableServiceDays, 420);
+	assert.deepEqual(probeGaps(summary), [{ day: "2026-11-22", missing: 80 }]);
 });
 
 test("candidate anchors span each observed day and the six following days", () => {

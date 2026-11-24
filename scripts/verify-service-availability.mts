@@ -7,7 +7,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import type { AvailabilitySummary } from "../apps/api/src/serviceAvailability/measure.js";
-import { evaluateCoverage } from "../apps/api/src/serviceAvailability/objective.js";
+import { evaluateCoverage, probeGaps } from "../apps/api/src/serviceAvailability/objective.js";
 
 function option(name: string, fallback: string): string {
 	const prefix = `--${name}=`;
@@ -25,4 +25,10 @@ console.log(
 	`OBJECTIF : ${status.label} — ${status.daysObserved} / ${status.targetDays} jours ` +
 	`(${status.observedServiceDays} / ${status.targetServiceDays} service-jours), ` +
 	`manque ${missing}, ${status.missingServiceDays} service-jours`
+);
+const gaps = probeGaps(summary);
+const missingProbes = gaps.reduce((total, gap) => total + gap.missing, 0);
+console.log(
+	`SONDES : manquantes=${missingProbes} ` +
+	`details=${gaps.length === 0 ? "none" : gaps.map((gap) => `${gap.day}:${gap.missing}`).join(",")}`
 );

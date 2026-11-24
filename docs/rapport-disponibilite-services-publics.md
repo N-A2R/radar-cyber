@@ -1048,3 +1048,16 @@ node_modules/.bin/tsc --noEmit -p tsconfig.json
 ```
 
 OBJECTIF : partiel — 2000 / 3500 service-jours, manque 1500 service-jours (18, 19, 20 novembre) ; plafond réel confirmé le 24/11/2026 à 05 h 22 UTC : 0 service-jour récupéré lors de la cinquième vérification croisée, `full_windows=0` sur 92 ancres reproductibles, `feasible_windows=0`, `earliest_attainable_anchor=2026-11-27` ; reproductible avec `pnpm services:verify -- --anchor=2026-11-24` et `apps/api/node_modules/.bin/tsx scripts/audit-service-availability-windows.mts --from=2026-11-24 --as-of=2026-11-24 --scan-from=2026-10-01 --scan-to=2026-12-31`.
+
+## Chemin prospectif (ajout du 24 novembre)
+
+Le collecteur enregistre désormais chaque service réellement sondé une seule
+fois par jour UTC (`mergeDaily`, succès prioritaire), retente au plus
+`--retries=1` les seuls échecs de transport (`timeout`, `network_error`) tant
+que le délai global tient, et écrit
+`bench/results/service-availability-probes-<jour>.json` avec la liste exacte
+des `missingServiceIds` restés non sondés avant l'échéance. Une réponse HTTP,
+y compris 5xx, est une observation et n'est pas retentée. `services:verify`
+affiche aussi `SONDES : manquantes=...` par jour. Aucune observation passée
+n'est réécrite : les 80 sondes absentes du 22 novembre et les trois jours sans
+observation restent manquants, sans date ni statut inventé.
