@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T23:52:44.215Z",
+  "generatedAt": "2026-11-24T00:13:05.362Z",
   "asOf": "2026-11-22",
   "lookbackDays": 365,
   "windows": 6,
@@ -9,7 +9,8 @@
     "departement_365",
     "grp_dept_365",
     "grp_secteur_dept_365",
-    "nouveaux_grp_dept_365"
+    "nouveaux_grp_dept_365",
+    "famille_marque"
   ],
   "perSignal": [
     {
@@ -53,8 +54,18 @@
       "hits": 0,
       "victims": 16,
       "hitOrgIds": []
+    },
+    {
+      "name": "famille_marque",
+      "predictions": 60,
+      "hits": 1,
+      "victims": 16,
+      "hitOrgIds": [
+        2230758
+      ]
     }
   ],
-  "maxHits": 0,
-  "caveat": "Every ranking uses only claims published strictly before the cutoff and no group label of the future claim. Organisation ids, scope codes and dates only."
+  "brandAttachments": 75,
+  "maxHits": 1,
+  "caveat": "Every ranking uses only claims published strictly before the cutoff and no group label of the future claim. Brand-family signals use claim victim names (organisation names) only; organisation ids, scope codes and dates only otherwise."
 }
