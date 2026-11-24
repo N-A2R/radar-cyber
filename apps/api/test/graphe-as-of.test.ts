@@ -123,7 +123,13 @@ test("organizations outside Nouvelle-Aquitaine stay invisible", async () => {
   );
   assert.equal(result.relations.length, 0);
   const all = await get(`/api/graph/as-of?at=${encodeURIComponent(END)}&limit=1000`);
-  assert.ok(!JSON.stringify(all.relations).includes(`org:${outsideOrgId}`));
+  assert.ok(all.relations.length > 0, "the unfiltered graph must contain relations");
+  assert.equal(all.summary.returnedRelations, all.relations.length);
+  const outsideNode = `org:${outsideOrgId}`;
+  const leaked = all.relations.filter(
+    (relation) => relation.source === outsideNode || relation.target === outsideNode,
+  );
+  assert.equal(leaked.length, 0, `${outsideNode} appears in the unfiltered graph`);
 });
 
 test("victim names and event titles never leave the route", async () => {
