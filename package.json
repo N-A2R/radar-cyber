@@ -155,6 +155,8 @@
     "measure:hosting-outage": "apps/api/node_modules/.bin/tsx scripts/measure-hosting-outage.mts",
     "verifie:objectif-enrich-job": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-enrich-job.mts",
     "verifie:lien-fuite": "apps/api/node_modules/.bin/tsx scripts/verifie-lien-fuite.mts",
+    "attributions:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-claim-attributions.mts",
+    "verifie:attributions": "apps/api/node_modules/.bin/tsx scripts/verifie-attributions-claims.mts",
     "validation:active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts --apply",
     "verifie:validation-active": "apps/api/node_modules/.bin/tsx scripts/validation-active-exposition.mts",
     "verifie:stealer-domain-stat": "apps/api/node_modules/.bin/tsx scripts/verifie-stealer-domain-stat.mts",
