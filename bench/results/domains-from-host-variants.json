@@ -1,0 +1,498 @@
+{
+  "selected": 390,
+  "verified": 53,
+  "applied": true,
+  "before": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8837,
+    "withVerifiedProvenance": 8779,
+    "coveragePercent": 0.5251
+  },
+  "after": {
+    "organisations": 1673270,
+    "nouvelleAquitaine": 1671941,
+    "withDomain": 8890,
+    "withVerifiedProvenance": 8832,
+    "coveragePercent": 0.5282
+  },
+  "domains": [
+    {
+      "orgId": 2035,
+      "siren": "213301849",
+      "name": "Commune de Générac",
+      "domain": "generac33.fr",
+      "page": "https://www.generac33.fr/",
+      "registry": "administration-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1080,
+      "siren": "211927009",
+      "name": "Commune de Troche",
+      "domain": "troche.fr",
+      "page": "http://www.troche.fr/",
+      "registry": "administration-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 16936,
+      "siren": null,
+      "name": "Lycée privé Notre-Dame",
+      "domain": "notredamebordeaux.com",
+      "page": "https://notredamebordeaux.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15580,
+      "siren": null,
+      "name": "Collège d'Arsonval",
+      "domain": "cite-scolaire-arsonval.fr",
+      "page": "https://cite-scolaire-arsonval.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19285,
+      "siren": null,
+      "name": "Collège privé La Salle - Saint-Joseph",
+      "domain": "lasalle-jurancon.fr",
+      "page": "https://lasalle-jurancon.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18670,
+      "siren": null,
+      "name": "Lycée privé Notre-Dame de la Compassion",
+      "domain": "lycee-lacompassion.fr",
+      "page": "https://lycee-lacompassion.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16953,
+      "siren": null,
+      "name": "Lycée professionnel privé Sainte-Famille Saintonge",
+      "domain": "lyceesaintefamille.com",
+      "page": "https://lyceesaintefamille.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20525,
+      "siren": null,
+      "name": "Lycée polyvalent privé Isaac de l'Étoile - Feuillants",
+      "domain": "isaac-etoile.fr",
+      "page": "https://isaac-etoile.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20852,
+      "siren": null,
+      "name": "Lycée privé Beaupeyrat",
+      "domain": "beaupeyrat.fr",
+      "page": "https://beaupeyrat.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18602,
+      "siren": null,
+      "name": "Lycée Marguerite Filhol",
+      "domain": "citescolairedefumel.fr",
+      "page": "https://citescolairedefumel.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16769,
+      "siren": null,
+      "name": "Collège privé Assomption Sainte-Clotilde",
+      "domain": "assomption-bordeaux.com",
+      "page": "https://assomption-bordeaux.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20465,
+      "siren": null,
+      "name": "Collège privé de filles Union chrétienne de Saint-Chaumond",
+      "domain": "union-chretienne-poitiers.fr",
+      "page": "https://union-chretienne-poitiers.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18918,
+      "siren": null,
+      "name": "Lycée privé Stella Maris",
+      "domain": "stellamarisanglet.fr",
+      "page": "https://stellamarisanglet.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19040,
+      "siren": null,
+      "name": "Lycée privé Largenté",
+      "domain": "largente.eu",
+      "page": "https://largente.eu/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16931,
+      "siren": null,
+      "name": "Lycée privé Albert Le Grand",
+      "domain": "albert-le-grand.com",
+      "page": "https://albert-le-grand.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19273,
+      "siren": null,
+      "name": "Lycée professionnel privé le Beau Rameau",
+      "domain": "beau-rameau.org",
+      "page": "https://beau-rameau.org/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18350,
+      "siren": null,
+      "name": "Lycée professionnel privé Jean Cassaigne",
+      "domain": "gs-cassaigne.fr",
+      "page": "https://gs-cassaigne.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15581,
+      "siren": null,
+      "name": "Collège privé Bossuet - ensemble scolaire Edmond Michelet",
+      "domain": "edmichelet-brive.fr",
+      "page": "https://edmichelet-brive.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16951,
+      "siren": null,
+      "name": "Lycée professionnel privé Saint-Genès La Salle",
+      "domain": "saint-genes.com",
+      "page": "https://saint-genes.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 18089,
+      "siren": null,
+      "name": "Lycée professionnel privé Saint-Joseph",
+      "domain": "saintjeanboscogabarret.fr",
+      "page": "https://www.saintjeanboscogabarret.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14657,
+      "siren": null,
+      "name": "Lycée privé Beaulieu",
+      "domain": "saintjoseph-cognac.fr",
+      "page": "https://saintjoseph-cognac.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15857,
+      "siren": null,
+      "name": "Lycée Eugène Jamot",
+      "domain": "cite-scolaire-aubusson.fr",
+      "page": "https://cite-scolaire-aubusson.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16079,
+      "siren": null,
+      "name": "Collège privé Sainte-Marthe Saint-Front",
+      "domain": "smsf-bergerac.com",
+      "page": "https://smsf-bergerac.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19409,
+      "siren": null,
+      "name": "Collège Pierre Bourdieu",
+      "domain": "citescolairemourenx.fr",
+      "page": "http://citescolairemourenx.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20462,
+      "siren": null,
+      "name": "Collège privé - ensemble scolaire Saint-Jacques de Compostelle",
+      "domain": "stjacquesdecompostelle.com",
+      "page": "https://www.stjacquesdecompostelle.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16777,
+      "siren": null,
+      "name": "Collège privé Sainte-Marie Grand Lebrun",
+      "domain": "grandlebrun.com",
+      "page": "https://grandlebrun.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15253,
+      "siren": null,
+      "name": "Collège privé Fénelon Notre-Dame",
+      "domain": "fenelon-notredame.com",
+      "page": "https://fenelon-notredame.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19603,
+      "siren": null,
+      "name": "Collège privé Saint-Thomas d'Aquin",
+      "domain": "stthomasdaquin.fr",
+      "page": "https://stthomasdaquin.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16770,
+      "siren": null,
+      "name": "Collège privé Le Mirail",
+      "domain": "le-mirail.fr",
+      "page": "https://le-mirail.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 15197,
+      "siren": null,
+      "name": "Collège privé Saint-Louis",
+      "domain": "lasallesaintlouis.fr",
+      "page": "https://lasallesaintlouis.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 17126,
+      "siren": null,
+      "name": "Collège privé Saint-Clément",
+      "domain": "saintclement.com",
+      "page": "https://saintclement.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17514,
+      "siren": null,
+      "name": "Collège privé Saint-Jean",
+      "domain": "stjean-pauillac.fr",
+      "page": "https://stjean-pauillac.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 17749,
+      "siren": null,
+      "name": "Collège privé Jeanne d'Arc",
+      "domain": "etablissement-jeannedarc.fr",
+      "page": "https://etablissement-jeannedarc.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 19438,
+      "siren": null,
+      "name": "Collège privé Saint-Joseph",
+      "domain": "saint-joseph-oloron.fr",
+      "page": "https://saint-joseph-oloron.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 14507,
+      "siren": null,
+      "name": "Collège privé Saint-Paul",
+      "domain": "saint-paul-angouleme.fr",
+      "page": "https://saint-paul-angouleme.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 16938,
+      "siren": null,
+      "name": "Lycée privé Saint-Joseph de Tivoli",
+      "domain": "tivoli-33.org",
+      "page": "https://tivoli-33.org/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19431,
+      "siren": null,
+      "name": "Lycée privé Saint-Joseph",
+      "domain": "stjoseph-nay.com",
+      "page": "https://stjoseph-nay.com/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 19558,
+      "siren": null,
+      "name": "Lycée privé Saint-Dominique",
+      "domain": "saintdominique.fr",
+      "page": "https://saintdominique.fr/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 20164,
+      "siren": null,
+      "name": "Lycée privé Saint-Charles",
+      "domain": "st-charles-thouars.net",
+      "page": "https://st-charles-thouars.net/",
+      "registry": "education-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1041,
+      "siren": "211922901",
+      "name": "Commune de Saint-Pantaléon-de-Larche",
+      "domain": "st-pantaleon-larche.correze.net",
+      "page": "http://www.st-pantaleon-larche.correze.net/",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 197723,
+      "siren": "430258491",
+      "name": "SARL L'IMMOBILIER ROCHELAIS",
+      "domain": "immobilier-rochelais.fr",
+      "page": "http://www.immobilier-rochelais.fr/",
+      "registry": "osm-siret-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 7580,
+      "siren": null,
+      "name": "CENTRE HOSPITALIER SARLAT",
+      "domain": "ch-sarlat.fr",
+      "page": "https://www.ch-sarlat.fr/",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 12773,
+      "siren": null,
+      "name": "LABORATOIRE MEDILAB GROUP",
+      "domain": "medilab-group.eu",
+      "page": "https://medilab-group.eu/medilab-group/nos-laboratoires",
+      "registry": "registry-id-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 1959497,
+      "siren": null,
+      "name": "MSD OUEST LIMOUSIN AIXE SUR VIENNE (AIXE-SUR-VIENNE)",
+      "domain": "haute-vienne.fr",
+      "page": "https://haute-vienne.fr/accueil",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1959045,
+      "siren": null,
+      "name": "DIRECTION SOLIDARITE CHARENTE (ANGOULEME)",
+      "domain": "lacharente.fr",
+      "page": "https://lacharente.fr/en-charente/les-actions-du-departement",
+      "registry": "registry-id-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 906,
+      "siren": "211908603",
+      "name": "Commune de Goulles",
+      "domain": "goulles.correze.net",
+      "page": "http://www.goulles.correze.net/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 919,
+      "siren": "211910005",
+      "name": "Commune de Lagraulière",
+      "domain": "lagrauliere.correze.net",
+      "page": "http://www.lagrauliere.correze.net/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 1009,
+      "siren": "211919303",
+      "name": "Commune de Saint-Cirgues-la-Loutre",
+      "domain": "saint-cirgues.correze.net",
+      "page": "http://www.saint-cirgues.correze.net/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 582,
+      "siren": "211702345",
+      "name": "Commune de Migré",
+      "domain": "migre.fr",
+      "page": "http://www.migre.fr/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 896,
+      "siren": "211907605",
+      "name": "Commune de Espartignac",
+      "domain": "espartignac.correze.net",
+      "page": "https://www.espartignac.correze.net/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 890,
+      "siren": "211907001",
+      "name": "Commune de Darnets",
+      "domain": "darnets.correze.net",
+      "page": "http://www.darnets.correze.net/",
+      "registry": "wikidata-http-200",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 547476,
+      "siren": "893756957",
+      "name": "AASGARD PERIGUEUX",
+      "domain": "aasgard.fr",
+      "page": "https://aasgard.fr/",
+      "registry": "osm-http-200",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 375814,
+      "siren": "782316921",
+      "name": "OGEC ST FRANCOIS",
+      "domain": "larps-mauleon.fr",
+      "page": "https://larps-mauleon.fr/fr",
+      "registry": "wikidata-id-http-200",
+      "confidence": 0.85
+    }
+  ]
+}
