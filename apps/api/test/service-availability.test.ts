@@ -15,7 +15,11 @@ import { probeAll, probeService, type DailyObservation } from "../src/serviceAva
 import { measureAvailability } from "../src/serviceAvailability/measure.js";
 import { evaluateCoverage } from "../src/serviceAvailability/objective.js";
 import { auditWindows, candidateAnchors, earliestAttainableAnchor } from "../src/serviceAvailability/audit.js";
-import { normalizeProofUrl, observationsFromDbProofs } from "../src/serviceAvailability/dbProofs.js";
+import {
+	normalizeProofUrl,
+	observationsFromDbProofs,
+	observationsFromExpositionProofs,
+} from "../src/serviceAvailability/dbProofs.js";
 
 function service(id: string, department = "033"): PublicService {
 	return { id, url: `https://example.fr/${id}`, department, kind: "collège" };
@@ -262,4 +266,22 @@ test("database proofs outside the perimeter or without a valid UTC date are skip
 	];
 	assert.deepEqual(observationsFromDbProofs(rows, [target]), []);
 	assert.equal(normalizeProofUrl(" HTTPS://EXAMPLE.FR/path/ "), "https://example.fr/path");
+});
+
+test("an exposition HTTP proof becomes a dated observation for every service sharing its URL", () => {
+	const shared = service("na-edu-010");
+	const alias = { ...service("na-edu-011"), url: "https://WWW.EXAMPLE.FR/na-edu-010/" };
+	const rows = [
+		{ url: "http://example.fr/na-edu-010/", status: 200, consulted_at: "2026-11-22T02:56:10.309Z" },
+	];
+	assert.deepEqual(observationsFromExpositionProofs(rows, [shared, alias]), [
+		{
+			serviceId: "na-edu-010", day: "2026-11-22", ok: true, status: 200,
+			latencyMs: 0, observedAt: "2026-11-22T02:56:10.309Z", failure: null,
+		},
+		{
+			serviceId: "na-edu-011", day: "2026-11-22", ok: true, status: 200,
+			latencyMs: 0, observedAt: "2026-11-22T02:56:10.309Z", failure: null,
+		},
+	]);
 });
