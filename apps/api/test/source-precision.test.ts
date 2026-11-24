@@ -62,12 +62,12 @@ async function semer(id: string, admis: number, ancien = false): Promise<void> {
   );
   await query(
     `INSERT INTO event (
-       dedup_key, family, assertion_type, title, observed_at, at, collected_at,
+       dedup_key, family, assertion_type, title, observed_at, valid_at, at, collected_at,
        severity, source_id, source_url, evidence
      )
      SELECT format('precision-test:%s:%s', $1::text, n),
             'cti', 'confirmed_incident', 'Fait synthétique de test',
-            ${quand}, ${quand}, ${quand}, 3, $1::text,
+            ${quand}, ${quand}, ${quand}, ${quand}, 3, $1::text,
             format('https://example.invalid/precision/%s/%s', $1::text, n),
             jsonb_build_object(
               'run_id',
