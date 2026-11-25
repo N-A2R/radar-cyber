@@ -16,6 +16,10 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'radar_retention') THEN
     CREATE ROLE radar_retention NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT;
   END IF;
+EXCEPTION
+  -- Deux bases de test migrées en parallèle peuvent créer ce rôle global
+  -- entre le IF et le CREATE ROLE : le doublon est le résultat attendu.
+  WHEN duplicate_object THEN NULL;
 END
 $$;
 
