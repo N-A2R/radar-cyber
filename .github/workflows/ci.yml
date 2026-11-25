@@ -162,6 +162,7 @@ jobs:
       DATABASE_URL: postgres://radar:radar@localhost:5432/radar
       GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
       FULL_CI: ${{ contains(github.event.pull_request.labels.*.name, 'full-ci') && '1' || '0' }}
+      RADAR_SHARD_WEIGHTS_OUT: /tmp/api-durations/shard-${{ matrix.shard }}.json
 
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -183,12 +184,64 @@ jobs:
         shell: bash
         working-directory: apps/api
         run: |
+          mkdir -p /tmp/api-durations
           if [ ! -s /tmp/api-shard.txt ]; then
             echo "aucun test affecté — shard ${{ matrix.shard }} ignoré"
             exit 0
           fi
           mapfile -t files < /tmp/api-shard.txt
-          ./node_modules/.bin/tsx test/run.ts "${files[@]}"
+          ./node_modules/.bin/tsx test/run.ts \
+            --test-reporter=spec \
+            --test-reporter=./test/duration-reporter.mjs \
+            --test-reporter-destination=stdout \
+            --test-reporter-destination=/tmp/api-durations/reporter-${{ matrix.shard }}.txt \
+            "${files[@]}"
+
+      - name: Durées du shard ${{ matrix.shard }} (artifact)
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: api-durations-${{ matrix.shard }}
+          path: /tmp/api-durations/shard-${{ matrix.shard }}.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # Les durées sont un appoint du planning, jamais un verdict : ce job est
+  # non bloquant et absent de `verify`, même si un shard a échoué.
+  duration-weights:
+    needs: api-tests
+    if: always() && needs.api-tests.result != 'skipped' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: api-durations-*
+          path: /tmp/api-durations
+
+      - name: Fusion des durées
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(/tmp/api-durations/api-durations-*/shard-*.json)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "aucune durée collectée — aucun plan publié"
+            exit 0
+          fi
+          node apps/api/test/merge-durations.mjs /tmp/shard-weights.json "${files[@]}"
+
+      - name: Plan de durées (artifact)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: api-shard-weights
+          path: /tmp/shard-weights.json
+          if-no-files-found: ignore
+          retention-days: 30
 
   web-unit:
     needs: changes
