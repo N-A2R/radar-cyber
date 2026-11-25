@@ -185,10 +185,11 @@ describe("ancrage quotidien du journal de vérité", () => {
 			dossier,
 		});
 		const critere = await query<{ count: string }>(
-			`SELECT count(*) FROM journal_anchor WHERE jour=current_date-1 AND (racine_sha256 IS NULL OR token_rfc3161 IS NULL OR journal_debut_id IS NULL OR journal_fin_id IS NULL);`,
+			`SELECT count(*) FROM journal_anchor WHERE jour=$1::date AND (racine_sha256 IS NULL OR token_rfc3161 IS NULL OR journal_debut_id IS NULL OR journal_fin_id IS NULL);`,
+			[hier],
 		);
 		assert.equal(Number(critere.rows[0]?.count), 0);
-		const present = await query<{ count: string }>("SELECT count(*) FROM journal_anchor WHERE jour=current_date-1");
+		const present = await query<{ count: string }>("SELECT count(*) FROM journal_anchor WHERE jour=$1::date", [hier]);
 		assert.equal(Number(present.rows[0]?.count), 1, "le zéro du critère ne doit pas être vacuous");
 	});
 

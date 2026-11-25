@@ -45,6 +45,14 @@ function cellules(ligne: string): string[] {
   return valeurs;
 }
 
+/** Jour UTC de la base, sans dépendre de l'horloge du client de test. */
+async function jourUtc(): Promise<string> {
+  const { rows } = await db.query<{ jour: string }>(
+    "SELECT (now() AT TIME ZONE 'UTC')::date::text AS jour",
+  );
+  return rows[0]!.jour;
+}
+
 before(async () => {
   const url = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
   const nom = new URL(url).pathname.replace(/^\//, "");
@@ -92,8 +100,15 @@ after(async () => {
 });
 
 test("export public : en-têtes datés, CRLF, une ligne par source active", async () => {
-  const aujourdHui = new Date().toISOString().slice(0, 10);
+  const jourAvant = await jourUtc();
   const res = await app.inject({ method: "GET", url: "/api/registre-traitements/export.csv" });
+  const jourApres = await jourUtc();
+  assert.equal(typeof res.headers.date, "string", "la réponse porte sa date HTTP");
+  const aujourdHui = new Date(String(res.headers.date)).toISOString().slice(0, 10);
+  assert.ok(
+    aujourdHui === jourAvant || aujourdHui === jourApres,
+    `date d'export ${aujourdHui} hors des jours UTC observés ${jourAvant}/${jourApres}`,
+  );
   assert.equal(res.statusCode, 200, res.body);
   assert.equal(res.headers["content-type"], "text/csv; charset=utf-8");
   assert.equal(res.headers["content-disposition"],

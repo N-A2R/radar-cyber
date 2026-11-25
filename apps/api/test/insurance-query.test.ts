@@ -9,7 +9,21 @@ import { NA_DEPARTMENTS, inputFromRow, loadInsuranceCorpus, loadInsuranceGroups,
 import { sirenUnique } from "./helpers/siren.js";
 import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
-const REFERENCE = new Date().toISOString().slice(0, 10);
+let reference: string | undefined;
+
+/** Jour de référence ancré sur l'horloge SQL, jamais sur Date.now() au chargement du module. */
+async function referenceDate(): Promise<string> {
+  if (reference) return reference;
+  const { rows } = await ingestQuery<{ reference_date: string }>(
+    `SELECT to_char(date_trunc('day',
+                              greatest(coalesce(max(at), now()), now()) AT TIME ZONE 'UTC'),
+                    'YYYY-MM-DD') AS reference_date
+     FROM event`,
+  );
+  reference = rows[0]!.reference_date;
+  return reference;
+}
+
 const SIREN = sirenUnique("insurance-query");
 
 // Le corpus de référence contient désormais les opérateurs critiques REC
@@ -23,7 +37,7 @@ async function regionalBaseline(): Promise<number> {
   return Number(rows[0]?.count ?? 0);
 }
 
-async function prepare(): Promise<{ naId: number; otherId: number }> {
+async function prepare(reference: string): Promise<{ naId: number; otherId: number }> {
   await ingestQuery(
     `INSERT INTO org (name, slug, kind, sector, dept, siren, naf, lat, lon, entity_source)
      VALUES ('NA scored one', 'insurance-na-one', 'entreprise', 'sante', '33', '${SIREN}', '86.90A', 44.8, -0.6, 'sirene'),
@@ -54,31 +68,34 @@ async function prepare(): Promise<{ naId: number; otherId: number }> {
             ('insurance-claim-outside', 'ransomware', 'third_party_claim', 'Synthetic fixture outside', $1::date, $1::date, 4, $3::int, 'grey-forum',
              'https://example.invalid/insurance/claim-outside', '{"run_id":"1"}'::jsonb)
      ON CONFLICT (dedup_key) DO NOTHING`,
-    [REFERENCE, naId, otherId],
+    [reference, naId, otherId],
   );
   return { naId, otherId };
 }
 
 test("the reference date comes from the local corpus", async () => {
   const socle = await regionalBaseline();
-  await prepare();
+  const reference = await referenceDate();
+  await prepare(reference);
   const corpus = await loadInsuranceCorpus();
-  assert.equal(corpus.referenceDate, REFERENCE);
+  assert.equal(corpus.referenceDate, reference);
   assert.equal(corpus.naOrganizations, socle + 3);
 });
 
 test("the population contains only the twelve Nouvelle-Aquitaine departments", async () => {
   const socle = await regionalBaseline();
-  await prepare();
-  const groups = await loadInsuranceGroups(REFERENCE);
+  const reference = await referenceDate();
+  await prepare(reference);
+  const groups = await loadInsuranceGroups(reference);
   assert.equal(groups.reduce((sum, row) => sum + row.organizationCount, 0), socle + 3);
   assert.ok(groups.some((row) => row.sector === "sante"));
   assert.ok(groups.some((row) => row.sector === "commerce"));
 });
 
 test("grey and public source identifiers are both kept for audit", async () => {
-  const { naId } = await prepare();
-  const row = await loadOrganizationInputs(naId, REFERENCE);
+  const reference = await referenceDate();
+  const { naId } = await prepare(reference);
+  const row = await loadOrganizationInputs(naId, reference);
   assert.deepEqual(row?.sourceIds.sort(), ["grey-forum", "public-cti"]);
   assert.equal(row?.incidentCount, 1);
   assert.equal(row?.ambientCount, 1);
@@ -86,8 +103,9 @@ test("grey and public source identifiers are both kept for audit", async () => {
 
 test("the peer baseline uses the whole region, not only the selected organization", async () => {
   const socle = await regionalBaseline();
-  await prepare();
-  const groups = await loadInsuranceGroups(REFERENCE);
+  const reference = await referenceDate();
+  await prepare(reference);
+  const groups = await loadInsuranceGroups(reference);
   const grouped = groups.find((row) => row.incidentCount === 1 && row.ambientCount === 1);
   assert.ok(grouped);
   assert.ok(Math.abs(grouped.overallClaimRate - 1 / (socle + 3)) < 1e-9);
@@ -95,17 +113,19 @@ test("the peer baseline uses the whole region, not only the selected organizatio
 });
 
 test("the single-organization endpoint reuses the same regional baseline", async () => {
-  const { naId } = await prepare();
-  const one = await loadOrganizationInputs(naId, REFERENCE);
-  const all = await loadInsuranceGroups(REFERENCE);
+  const reference = await referenceDate();
+  const { naId } = await prepare(reference);
+  const one = await loadOrganizationInputs(naId, reference);
+  const all = await loadInsuranceGroups(reference);
   const grouped = all.find((row) => row.incidentCount === 1 && row.ambientCount === 1);
   assert.ok(one && grouped);
   assert.deepEqual(inputFromRow(one), inputFromRow(grouped));
 });
 
 test("an organization outside Nouvelle-Aquitaine has no score", async () => {
-  const { otherId } = await prepare();
-  assert.equal(await loadOrganizationInputs(otherId, REFERENCE), null);
+  const reference = await referenceDate();
+  const { otherId } = await prepare(reference);
+  assert.equal(await loadOrganizationInputs(otherId, reference), null);
 });
 
 after(async () => {

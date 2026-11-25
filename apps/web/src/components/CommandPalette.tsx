@@ -91,6 +91,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
     onClose();
   }
 
+  // Le dialogue fermé reste monté : son champ ne doit jamais voler le focus.
   return (
     <AstryxCommandPalette
       isOpen={open}
@@ -101,7 +102,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
       maxHeight="min(560px, calc(100vh - 64px))"
       emptySearchText="Aucun résultat."
       emptyBootstrapText="Saisissez au moins 3 caractères."
-      input={<CommandPaletteInput placeholder="Organisation, événement ou indicateur…" label="Recherche globale" />}
+      input={<CommandPaletteInput hasAutoFocus={open} placeholder="Organisation, événement ou indicateur…" label="Recherche globale" />}
       footer={<CommandPaletteFooter>↑ ↓ parcourir · Entrée ouvrir · Échap fermer</CommandPaletteFooter>}
       renderItem={(item) => {
         const hit = item.auxiliaryData;
