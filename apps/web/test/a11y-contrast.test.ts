@@ -25,7 +25,10 @@ const directoryCss = readFileSync(resolve("src/components/directory.css"), "utf8
 const tokens = new Map<string, string>();
 for (const sheet of [themeCss, bridgeCss]) {
   for (const [, name, value] of sheet.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
-    tokens.set(name, value.trim());
+    // Les thèmes redéfinissent certains jetons dans des portées inverses :
+    // garder la première définition (base) évite de tester une couleur de
+    // texte clair sur un fond clair par accident de portée.
+    if (!tokens.has(name)) tokens.set(name, value.trim());
   }
 }
 
@@ -88,6 +91,18 @@ describe("contraste des jetons du pont", () => {
     for (const sheet of [reviewCss, quarantineCss, affectedCss, directoryCss]) {
       expect(sheet).not.toMatch(/(?:color|background)\s*:\s*#[0-9a-f]{3,8}\b/i);
       expect(sheet).not.toMatch(/(?:color|background)\s*:\s*rgba?\(/i);
+    }
+  });
+  it("garde le CTA « Se connecter » lisible dans les deux thèmes", () => {
+    const login = readFileSync(resolve("src/components/LoginScreen.tsx"), "utf8");
+    const loginCss = readFileSync(resolve("src/components/login.css"), "utf8");
+    // Le variant primary du thème stone pose un texte clair sur un fond clair
+    // en mode sombre ; secondary couple --color-neutral et --color-text-primary.
+    expect(login).toMatch(/variant="secondary"/);
+    expect(login).not.toMatch(/variant="primary"/);
+    expect(loginCss).toMatch(/\.login__submit[\s\S]*border: 1px solid var\(--accent\)/);
+    for (const background of ["--color-background-surface", "--color-background-body"]) {
+      expect(ratio("--color-text-primary", background), `CTA sur ${background}`).toBeGreaterThanOrEqual(4.5);
     }
   });
 });

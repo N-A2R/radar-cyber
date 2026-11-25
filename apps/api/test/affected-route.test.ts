@@ -94,14 +94,18 @@ test("a grey-source claim is visible and labelled unconfirmed", async () => {
   assert.match(claim.evidence.label, /Grey$/);
 });
 
-test("victim free text and URL tokens are never returned", async () => {
+test("level 4 returns the verbatim event payload", async () => {
   const res = await app.inject({ method: "GET", url: `/api/affected?q=${naId}` });
-  const raw = res.body;
-  assert.ok(!raw.includes("Jean Dupont"));
-  assert.ok(!raw.includes("0601020304"));
-  assert.ok(!raw.includes("victime@example.fr"));
-  assert.ok(!raw.includes("token=secret"));
-  assert.ok(raw.includes("/claim"));
+  assert.equal(res.statusCode, 200);
+  const claim = res.json<{ statements: Array<{ id: string; raw?: { title: string | null; summary: string | null; sourceUrl: string | null; evidence: unknown } }> }>()
+    .statements.find((s) => s.id.startsWith("event:"));
+  assert.ok(claim?.raw);
+  assert.equal(claim.raw.title, SECRET);
+  assert.equal(claim.raw.summary, SECRET);
+  assert.equal(claim.raw.sourceUrl, PROOF_URL);
+  assert.match(JSON.stringify(claim.raw.evidence), /raw_body/);
+  // Le libellé structuré reste dérivé du type d'assertion, jamais du titre.
+  assert.ok(!res.json<{ statements: Array<{ value: string }> }>().statements.some((s) => s.value === SECRET));
 });
 
 test("the organization can also be found by name", async () => {

@@ -135,6 +135,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/alerts/stats", niveau: "public" },
   { methode: "GET", route: "/api/alerts/rss.xml", niveau: "public", motif: "public privacy-safe RSS feed" },
   { methode: "GET", route: "/api/quarantine", niveau: "lecteur", motif: "faits de quarantaine : métadonnées de victimes, lecture authentifiée" },
+  { methode: "GET", route: "/api/quarantine/:id/raw", niveau: "analyste", motif: "corps brut de quarantaine : niveau 4, lecture authentifiée" },
   { methode: "GET", route: "/api/quarantine/stats", niveau: "lecteur", motif: "statistiques de quarantaine : lecture authentifiée" },
   { methode: "GET", route: "/api/quarantine/queue", niveau: "analyste" },
   { methode: "GET", route: "/api/review-assistant/suggest", niveau: "analyste", motif: "suggestion de revue : aucune donnée de victime" },
@@ -289,6 +290,8 @@ async function tracerDecision(req: FastifyRequest, etat: EtatAcces, statut: numb
     // Une adresse e-mail n'a rien à faire dans un journal append-only (CMP-01).
     acteur: etat.utilisateur ? `compte:${empreinteAudit(etat.utilisateur.email).slice(0, 12)}` : "anonyme",
     ipHash: empreinteAudit(req.ip),
+    ip: req.ip,
+    userAgent: typeof userAgent === "string" ? userAgent : null,
     userAgentHash: typeof userAgent === "string" ? empreinteAudit(userAgent) : null,
     correlationId: etat.correlationId,
     dureeMs: Date.now() - etat.debut,

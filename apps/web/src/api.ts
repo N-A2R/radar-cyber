@@ -1137,6 +1137,16 @@ export type DirectoryResponse = {
   tookMs: number;
 };
 
+/** Corps brut d'un fait de quarantaine, exposé sans filtrage (niveau 4). */
+export type QuarantineRaw = {
+  id: number;
+  rawBody: string | null;
+  extracted: unknown;
+  source: string;
+  sourceUrl: string | null;
+  tlp: string | null;
+};
+
 /** Un fait de quarantaine, priorisé, avec la trace de son score. */
 export type ReviewRow = {
   id: number;
@@ -1214,7 +1224,7 @@ export type CustodyChain = {
   }[];
 };
 
-/** "Am I affected?" — evidence-first, non-personal statements about one organization. */
+/** "Am I affected?" — level-4 report for one organization (raw data included). */
 export type AffectedReport = {
   organization: { id: number; name: string; department: string | null; region: "Nouvelle-Aquitaine" };
   scope: "nouvelle-aquitaine";
@@ -1230,6 +1240,13 @@ export type AffectedReport = {
       reference: string;
       url: string | null;
       status: "official-record" | "reported" | "unverified-claim";
+    };
+    /** Verbatim source payload, present on observation statements. */
+    raw?: {
+      title: string | null;
+      summary: string | null;
+      sourceUrl: string | null;
+      evidence: Record<string, unknown> | null;
     };
   }>;
   summary: { statements: number; withEvidence: number; sources: number };
@@ -1386,6 +1403,8 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
+  /** Verbatim quarantine payload, fetched on demand by the review screen. */
+  quarantineRaw: (id: number, signal?: AbortSignal) => get<QuarantineRaw>(`/quarantine/${encodeURIComponent(String(id))}/raw`, signal),
   /**
    * Crée une organisation depuis un indice de revendication (route réelle du
    * serveur). Utilisé par « Créer l'organisation » avant la décision de file.

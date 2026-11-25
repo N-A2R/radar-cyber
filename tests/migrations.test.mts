@@ -376,6 +376,16 @@ test("248 : trace d'écriture de chaque événement, sans donnée de victime", (
   }
 });
 
+test("249 : IP et user-agent en clair pour les nouveaux accès, hash préservé", () => {
+  const sql = read("db/migrate-249-access-log-raw.sql");
+  assert.match(sql, /ADD COLUMN IF NOT EXISTS ip text/);
+  assert.match(sql, /ADD COLUMN IF NOT EXISTS user_agent text/);
+  assert.match(sql, /historique hashé/);
+  assert.match(sql, /90 jours/);
+  assert.doesNotMatch(sql, /DROP COLUMN[^\n]*ip_hash/i);
+  assert.doesNotMatch(sql, /DROP COLUMN[^\n]*user_agent_hash/i);
+});
+
 test("206 : la chaîne de preuve de event reste complète après l'historique", () => {
   const sql = read("db/migrate-206-event-proof-chain.sql");
   assert.match(sql, /ADD CONSTRAINT event_source_url_required/);

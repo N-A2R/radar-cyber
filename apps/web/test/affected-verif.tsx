@@ -49,6 +49,12 @@ const report = {
         url: "https://example.org/notice/7",
         status: "unverified-claim",
       },
+      raw: {
+        title: SECRET,
+        summary: "Résumé brut avec victime@example.fr",
+        sourceUrl: "https://example.org/notice/7?token=secret",
+        evidence: { raw_body: SECRET },
+      },
     },
   ],
   summary: { statements: 2, withEvidence: 2, sources: 2 },
@@ -64,7 +70,7 @@ check("le champ de recherche est étiqueté Organisation", html.includes(">Organ
 check("il y a un bouton Vérifier", html.includes(">Vérifier</button>"));
 check("la requête soumise remplit le champ", html.includes('value="Example Works"'));
 check("le périmètre régional est annoncé", html.includes("Nouvelle-Aquitaine uniquement"));
-check("la note de confidentialité est annoncée", html.includes("Aucune donnée personnelle de victime"));
+check("aucun badge de confidentialité RGPD", !html.includes("Aucune donnée personnelle"));
 check("les compteurs du résumé sont affichés", html.includes("2 constats / 2 avec preuve / 2 sources"));
 check("une ligne est rendue par constat", (html.match(/class="affected__statement"/g) ?? []).length === 2);
 check("la catégorie est affichée", html.includes('data-category="claim"'));
@@ -80,8 +86,8 @@ for (const statement of report.statements) {
 check("une allégation non vérifiée est nommée en français", html.includes("Allégation non vérifiée"));
 check("un registre officiel est nommé en français", html.includes("Registre officiel"));
 check("une URL de source est cliquable quand elle existe", html.includes('href="https://example.org/notice/7"'));
-check("aucune donnée personnelle brute ne fuit", !html.includes(SECRET));
-check("aucune coordonnée ne fuit", !html.includes("victim@example.fr"));
+check("les données brutes sont affichées telles quelles", html.includes(SECRET) && html.includes("Données brutes"));
+check("l'URL source brute conserve son jeton", html.includes("https://example.org/notice/7?token=secret"));
 
 const noUrl = renderToStaticMarkup(<AffectedView report={{
   ...report,
@@ -115,8 +121,8 @@ check(
     && html.indexOf("déjà rattachées à un incident") < html.indexOf('id="affected-query"'),
 );
 check(
-  "ce que la vérification ne fait pas est annoncé",
-  html.includes("aucune donnée personnelle de victime") && html.includes("ne juge"),
+  "le périmètre et le contenu du rapport sont annoncés",
+  html.includes("données brutes de la source") && html.includes("sans juger de responsabilité"),
 );
 check("un lien vers la fiche est offert", html.includes('href="#/affected?org=42"'));
 check("les incidents sont séparés de l'identité", html.includes("Incidents rattachés") && html.includes("Identité enregistrée"));

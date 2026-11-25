@@ -2,8 +2,8 @@
  * Bounded reads feeding the "Am I affected?" assistant.
  *
  * Every lookup is indexed and returns at most one organization; observations
- * are limited to the 50 most recent rows. No free text (event title, summary,
- * leak body) is selected — the pure model can only see structured fields.
+ * are limited to the 50 most recent rows. Level 4 reads include the verbatim
+ * event title, summary and evidence payload for the raw display.
  */
 import { query } from "../db.js";
 import type { Observation, Organization } from "./model.js";
@@ -32,6 +32,8 @@ type ObservationRow = {
   observed_at: Date | string | null;
   source_id: string;
   source_url: string | null;
+  title: string | null;
+  summary: string | null;
   evidence: Record<string, unknown> | null;
   regional: boolean | null;
 };
@@ -67,6 +69,8 @@ function mapObservation(row: ObservationRow): Observation {
     observedAt: row.observed_at instanceof Date ? row.observed_at.toISOString() : row.observed_at,
     sourceId: row.source_id,
     sourceUrl: row.source_url,
+    title: row.title,
+    summary: row.summary,
     evidence: row.evidence,
     regional: row.regional === true,
   };
@@ -95,11 +99,11 @@ export async function findOrganization(lookup: OrganizationLookup): Promise<Orga
   return row ? mapOrganization(row) : null;
 }
 
-/** Structured observations attached to the organization, newest first. */
+/** Structured and raw observations attached to the organization, newest first. */
 export async function listObservations(orgId: number): Promise<Observation[]> {
   const result = await query<ObservationRow>(
     `SELECT e.id::text AS id, e.family, e.assertion_type, e.observed_at,
-            e.source_id, e.source_url, e.evidence, e.regional
+            e.source_id, e.source_url, e.title, e.summary, e.evidence, e.regional
        FROM event e
       WHERE e.org_id = $1
       ORDER BY e.observed_at DESC NULLS LAST, e.id DESC

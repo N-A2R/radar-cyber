@@ -520,6 +520,37 @@
 
 .affected__source a:hover { text-decoration-thickness: 2px; }
 
+.affected__raw {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.affected__raw-title {
+  margin: 0 0 var(--space-1);
+  color: var(--muted);
+  font: var(--weight-medium) var(--text-xs) / var(--leading-body) var(--font-sans);
+}
+
+.affected__raw-value {
+  display: block;
+  margin: 0 0 var(--space-1);
+  color: var(--text);
+  font: var(--weight-regular) var(--text-xs) / var(--leading-body) var(--font-sans);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.affected__raw-evidence {
+  margin: var(--space-1) 0 0;
+  color: var(--text);
+  font: var(--weight-regular) var(--text-micro) / var(--leading-body) var(--font-mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 /* ── Petits écrans ───────────────────────────────────────────── */
 @media (max-width: 700px) {
   .affected { padding: var(--space-4); }

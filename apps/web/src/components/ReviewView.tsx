@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { api, ApiError, type ReviewAction, type ReviewQueueResponse, type ReviewRow as ApiReviewRow } from "../api";
+import { api, ApiError, type QuarantineRaw, type ReviewAction, type ReviewQueueResponse, type ReviewRow as ApiReviewRow } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
 import { Dialog } from "@astryxdesign/core/Dialog";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
@@ -121,6 +121,22 @@ export default function ReviewView({
   const [openRow, setOpenRow] = useState<number | null>(null);
   const [active, setActive] = useState(0);
   const [help, setHelp] = useState(false);
+  const [rawById, setRawById] = useState<Record<number, QuarantineRaw>>({});
+  const [rawLoading, setRawLoading] = useState<number | null>(null);
+  const [rawError, setRawError] = useState<string | null>(null);
+  const showRaw = useCallback(async (id: number) => {
+    if (rawById[id] !== undefined || rawLoading === id) return;
+    setRawLoading(id);
+    setRawError(null);
+    try {
+      const raw = await api.quarantineRaw(id);
+      setRawById((prev) => ({ ...prev, [id]: raw }));
+    } catch (err) {
+      setRawError((err as Error).message);
+    } finally {
+      setRawLoading(null);
+    }
+  }, [rawById, rawLoading]);
   const [decision, setDecision] = useState<RevueDecision>("accepter");
   const [reason, setReason] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
@@ -656,6 +672,22 @@ export default function ReviewView({
                   <span className="revue__candidate-score">{candidate.score.toFixed(2)} · {candidate.via}</span>
                 </button>
               ))}
+            </div>
+            <div className="revue__raw" data-raw="level-4">
+              <button
+                type="button"
+                disabled={!server || rawLoading === row.id}
+                onClick={() => { void showRaw(row.id); }}
+                aria-label={`Afficher le brut du fait ${row.id}`}
+              >
+                {rawLoading === row.id ? "Chargement du brut…" : "Afficher le brut"}
+              </button>
+              {rawById[row.id] ? (
+                <>
+                  <pre className="revue__raw-body">{rawById[row.id]!.rawBody ?? "(aucun corps brut)"}</pre>
+                  <pre className="revue__raw-extracted">{JSON.stringify(rawById[row.id]!.extracted, null, 2)}</pre>
+                </>
+              ) : null}
             </div>
 
             <div className="revue__actions">

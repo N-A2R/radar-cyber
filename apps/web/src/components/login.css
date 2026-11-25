@@ -173,7 +173,11 @@
 
 .login__submit {
   margin-top: var(--space-1);
+  border: 1px solid var(--accent);
+  font-weight: var(--weight-medium);
 }
+
+.login__submit:hover:not(:disabled) { background-color: var(--accent-wash); }
 
 .login__status {
   min-height: 1.2em;
