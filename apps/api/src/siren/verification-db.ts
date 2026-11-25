@@ -97,9 +97,18 @@ export async function declierEvenements(orgIds: readonly number[], motif: string
   if (orgIds.length === 0) return 0;
   const { rowCount } = await query(
     `WITH cibles AS (
-       SELECT id FROM event WHERE org_id = ANY($1::int[]) AND org_id IS NOT NULL
+       SELECT id, org_id, dedup_key FROM event
+        WHERE org_id = ANY($1::int[]) AND org_id IS NOT NULL
      ), decroches AS (
-       UPDATE event e SET org_id = NULL FROM cibles c WHERE e.id = c.id RETURNING e.id
+       UPDATE event e SET org_id = NULL FROM cibles c WHERE e.id = c.id
+       RETURNING e.id, e.dedup_key, c.org_id
+     ), journalises AS (
+       INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
+       SELECT 'event.rattachement', dedup_key,
+              'certification SIREN : attribution non vérifiée retirée',
+              jsonb_build_object('orgId', NULL, 'orgRetiree', org_id, 'reason', $2::text),
+              'humain:certification-siren', now()
+         FROM decroches
      )
      INSERT INTO identite_legale_decrochage (event_id, motif)
      SELECT id, $2::text FROM decroches
