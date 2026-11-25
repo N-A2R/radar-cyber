@@ -25,7 +25,10 @@ const directoryCss = readFileSync(resolve("src/components/directory.css"), "utf8
 const tokens = new Map<string, string>();
 for (const sheet of [themeCss, bridgeCss]) {
   for (const [, name, value] of sheet.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
-    tokens.set(name, value.trim());
+    // Les thèmes redéfinissent certains jetons dans des portées inverses :
+    // garder la première définition (base) évite de tester une couleur de
+    // texte clair sur un fond clair par accident de portée.
+    if (!tokens.has(name)) tokens.set(name, value.trim());
   }
 }
 
