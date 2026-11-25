@@ -35,7 +35,7 @@ test("cisa_kev : dateAdded est observ_at, la sévérité reste numérique à l'i
 				vendorProject: "Example",
 				product: "Example Product",
 			}],
-		}),
+		} as never),
 		fetchText: async () => { throw new Error("réseau interdit dans ce test"); },
 		cursor: {},
 		log: () => {},
