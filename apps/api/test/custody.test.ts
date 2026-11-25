@@ -75,7 +75,7 @@ before(async () => {
       await query(
         `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
                             collected_at, source_id, source_url, regional, regional_motif, evidence)
-         VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,COALESCE($6, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1"}'::jsonb)`,
+         VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,COALESCE($6, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
         [subject, SECRET, OBSERVED, OBSERVED, SOURCE, PROOF_URL],
       );
       await query(
@@ -194,7 +194,7 @@ test("a raw regional insert journals its admission at write time with proof only
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
                         collected_at, source_id, source_url, regional, regional_motif, evidence)
-     VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,COALESCE($6, 'https://example.invalid/event'),true,'nouvelle-aquitaine','{"run_id":"1"}'::jsonb)`,
+     VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,COALESCE($6, 'https://example.invalid/event'),true,'nouvelle-aquitaine','{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
     [subject, SECRET, OBSERVED, OBSERVED, SOURCE, PROOF_URL],
   );
   const { rows } = await query<{ actor: string; payload: Record<string, unknown>; summary: string }>(
@@ -213,7 +213,7 @@ test("a non-regional insert journals a rejection trace but no admission fact", a
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
                         source_id, source_url, regional, regional_motif, evidence)
-     VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1"}'::jsonb)`,
+     VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
     [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
   );
   const admission = await query<{ id: number }>(
@@ -242,7 +242,7 @@ test("reclassifying an event into Nouvelle-Aquitaine journals its admission with
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
                         source_id, source_url, regional, regional_motif, evidence)
-     VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1"}'::jsonb)`,
+     VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
     [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
   );
   const before = await query<{ id: number }>(
@@ -271,7 +271,7 @@ test("an update that stays outside Nouvelle-Aquitaine writes no admission fact",
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
                         source_id, source_url, regional, regional_motif, evidence)
-     VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1"}'::jsonb)`,
+     VALUES ($1,'cti','ambient_signal',$2,$3,$4,COALESCE($5, 'https://example.invalid/event'),false,'hors-region','{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
     [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
   );
   await query("UPDATE event SET family = 'official_statement' WHERE dedup_key = $1", [subject]);

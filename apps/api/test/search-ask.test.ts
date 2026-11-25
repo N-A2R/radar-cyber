@@ -38,7 +38,7 @@ before(async () => {
   ] as const) {
     const inserted = await query<{ id: number }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, source_url, evidence)
-       VALUES ($1, 'ransomware', 'confirmed_incident', $2, '2026-05-05T00:00:00Z', $3, $4, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)
+       VALUES ($1, 'ransomware', 'confirmed_incident', $2, '2026-05-05T00:00:00Z', $3, $4, 'https://example.invalid/event', '{"run_id":"1","tlp":"CLEAR"}'::jsonb)
        RETURNING id`,
       [key, title, SOURCE, orgId],
     );
