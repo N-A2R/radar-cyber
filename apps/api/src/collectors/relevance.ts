@@ -1,7 +1,7 @@
 // pertinence cyber pour les flux de presse généraliste
 // Le moteur de score et la configuration vivent dans pertinence.ts ; ce module
 // garde `isRelevant` comme porte historique et le rattachement d'organisations.
-import { evaluatePertinence } from "./pertinence.js";
+import { evaluatePertinence, prepareOrgSearchName } from "./pertinence.js";
 export { CYBER_KEYWORDS } from "./pertinence.js";
 import type { RelevanceConfig } from "./pertinence.js";
 import { ingestQuery } from "../db.js";
@@ -57,6 +57,9 @@ export interface RelevanceOrg {
   slug?: string | null;
   domain?: string | null;
   assets?: string[];
+  /** Pré-normalisation faite par `loadRelevanceOrgIndex`, réutilisée par le moteur. */
+  normName?: string;
+  normDomains?: readonly string[];
 }
 
 
@@ -229,12 +232,20 @@ function normalizeOrgName(name: string): string {
 
 
 export function loadRelevanceOrgIndex(orgs: { name: string; slug?: string | null; domain?: string | null; assets?: string[] }[] = []): RelevanceOrg[] {
-  return orgs.map((o) => ({
-    name: o.name,
-    slug: o.slug ?? null,
-    domain: o.domain ?? null,
-    assets: o.assets ?? [],
-  }));
+  return orgs.map((o) => {
+    const domains = [o.domain, ...(o.assets ?? [])]
+      .filter(Boolean)
+      .map((domain) => String(domain).toLowerCase().trim())
+      .filter(Boolean);
+    return {
+      name: o.name,
+      slug: o.slug ?? null,
+      domain: o.domain ?? null,
+      assets: o.assets ?? [],
+      normName: prepareOrgSearchName(String(o.name ?? "")),
+      normDomains: domains,
+    };
+  });
 }
 
 /**
@@ -251,7 +262,7 @@ export function isRelevant(
   // garde alors que son domaine/actif, comme le faisait l'ancienne porte.
   const orgs = (opts.orgs ?? []).map((org) => {
     const name = normalizeOrgName(String(org.name ?? ""));
-    return name.length >= 4 && nomPropre(name) ? org : { ...org, name: "" };
+    return name.length >= 4 && nomPropre(name) ? org : { ...org, name: "", normName: "" };
   });
   const verdict = evaluatePertinence(item, {
     orgs,
@@ -394,17 +405,17 @@ export function admitByEpss(text: string, ctx: CoverageContext): { cve: string; 
   return null;
 }
 
-const deptPatternCache = new Map<string, RegExp>();
+/** Motif par identité de tableau : les listes de départements sont stables par run. */
+const deptPatternCache = new WeakMap<readonly string[], RegExp>();
 
 /** Motif « mot entier » unicode sur des libellés déjà normalisés. */
 function deptPattern(names: readonly string[]): RegExp {
-  const key = names.join("|");
-  const cached = deptPatternCache.get(key);
+  const cached = deptPatternCache.get(names);
   if (cached) return cached;
   const sorted = [...new Set(names)].filter(Boolean).sort((a, b) => b.length - a.length);
   const escaped = sorted.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   const re = new RegExp(`(?<![\\p{L}\\p{N}])(${escaped.join("|")})(?![\\p{L}\\p{N}])`, "giu");
-  deptPatternCache.set(key, re);
+  deptPatternCache.set(names, re);
   return re;
 }
 

@@ -145,3 +145,21 @@ test("organisation, EPSS et département montent le score sans lever", () => {
 	assert.equal(couverte.rule, "epss");
 	assert.ok(couverte.score > base.score);
 });
+
+test("les caches bornés ne changent pas les verdicts au-delà de 512 entrées", () => {
+	// Organisations : un nouvel index par item, donc éviction FIFO de l'index
+	// précédent. Le rattachement doit rester juste après 512 index.
+	for (let i = 0; i < 520; i++) {
+		const nom = `Etablissement ${i} Aquitaine`;
+		const verdict = evaluatePertinence(
+			{ title: `Incident chez ${nom}` },
+			{ orgs: [{ name: nom }] },
+		);
+		assert.equal(verdict.reason, "org", `index ${i}`);
+	}
+	// Termes : 600 clés distinctes forcent l'éviction du cache de regex.
+	const keywords = Array.from({ length: 600 }, (_, i) => `motcle${i}specialite`);
+	const config: RelevanceConfig = { keywords, exclusions: [], minScore: 2, warnings: [] };
+	const dernier = evaluatePertinence({ title: `Annonce : ${keywords[599]}` }, { config });
+	assert.ok(dernier.matches.some((m) => m.term === keywords[599]));
+});
