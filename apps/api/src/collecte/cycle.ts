@@ -14,13 +14,7 @@ import { scoreEventPertinence } from "../collectors/pertinence.js";
 import { fetchResilient } from "../collectors/http.js";
 import { runGenericSources } from "../collectors/generic.js";
 import { runScheduledDiscovery } from "../discovery/discover.js";
-import {
-	collectors,
-	executerCollecteur,
-	executerPlan,
-	planifierCycle,
-	ratisserSourcesJamaisCollectees,
-} from "../collectors/index.js";
+import { collectors, executerCollecteur, executerPlan, planifierCycle } from "../collectors/index.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { porteeRegionale } from "../match/territorial.js";
 import { ingestQuery } from "../db.js";
@@ -37,7 +31,7 @@ export type OptionsCycle = {
 	collecteurs?: readonly Collector[];
 	onlyId?: string;
 	force?: boolean;
-	/** Faux : ni découverte de sitemaps, ni ingestion générique, ni ratissage réseau. */
+	/** Faux : ni découverte de sitemaps, ni ingestion générique. */
 	etapesSupplementaires?: boolean;
 };
 
@@ -249,12 +243,6 @@ export async function runCollectors(options: OptionsCycle = {}): Promise<void> {
 		}
 	}, { log });
 
-	if (options.etapesSupplementaires !== false && !options.onlyId) {
-		await ratisserSourcesJamaisCollectees(
-			async (ids) => runGenericSources(log, { sourceIds: ids, force: true }),
-			{ log: (m) => log(m) },
-		);
-	}
 	log(
 		`cycle collecteurs : ${resultat.reussis} source(s) traitée(s), ${resultat.echecs} échec(s), ` +
 		`memoire ${resultat.memoire.avantMo}→${resultat.memoire.apresMo} Mo`,

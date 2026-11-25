@@ -17,7 +17,7 @@ import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
-import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
+import { collectors, executerCollecteur, executerPlan, planifierCycle } from "./collectors/index.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
 import { startLiveStream } from "./collecte/live.js";
 import { closeRun, openRun, withRunId } from "./collecte/runs.js";
@@ -286,17 +286,9 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 		}
 	}, { log: (m) => app.log.info(m) });
 
-	let restants: string[] = [];
-	if (!options?.onlyId) {
-		restants = await ratisserSourcesJamaisCollectees(
-			async (ids) => runGenericSources((m) => app.log.info(m), { sourceIds: ids, force: true }),
-			{ log: (m) => app.log.warn(m) },
-		);
-	}
 	app.log.info(
 		`cycle collecteurs : ${resultat.reussis} source(s) traitée(s), ${resultat.echecs} échec(s), ` +
-		`memoire ${resultat.memoire.avantMo}→${resultat.memoire.apresMo} Mo, ` +
-		`${restants.length} source(s) jamais collectée(s)`,
+		`memoire ${resultat.memoire.avantMo}→${resultat.memoire.apresMo} Mo`,
 	);
 }
 

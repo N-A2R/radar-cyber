@@ -170,3 +170,46 @@ test("C1 : pas de corrélation fabriquée hors fenêtre ni sans recoupement", as
     await query("DELETE FROM org WHERE slug=$1", [`org-corr-${sourceId}`]);
   }
 });
+
+test("un worker générique rejeté ne libère pas le cycle avant la fin des autres", async () => {
+	const prefix = `test-repair-allsettled-${Date.now()}`;
+	const idA = `${prefix}-a`;
+	const idB = `${prefix}-b`;
+	for (const id of [idA, idB]) {
+		await query(
+			`INSERT INTO source (id, name, family, url, kind, format, relevance)
+			 VALUES ($1, $2, 'ransomware', 'https://collector.test/allsettled', 'narrative', 'rss', 'strict')`,
+			[id, `Source test ${id}`],
+		);
+	}
+	// Le premier worker meurt avant l'ouverture d'un run (accès à l'intervalle),
+	// le second rend la main une fois le rejet du premier propagé : sans
+	// allSettled, la fonction rejette avant que la source B soit marquée saine.
+	const intervalles = new Proxy({} as Record<string, number>, {
+		get: (_cible, cle: string) => {
+			if (cle === idA) throw new Error("intervalle illisible");
+			return 0;
+		},
+	});
+	const gate = Promise.withResolvers<void>();
+	const logs: string[] = [];
+	try {
+		await runGenericSources((m) => { logs.push(m); }, {
+			sourceIds: [idA, idB],
+			intervalles,
+			fetchTexte: async () => {
+				gate.resolve();
+				await gate.promise; // cède une microtâche : le rejet de A part en premier
+				return "";
+			},
+		});
+		const sante = await query<{ last_ok_at: string | null }>(
+			"SELECT last_ok_at FROM source WHERE id=$1", [idB],
+		);
+		assert.ok(sante.rows[0]?.last_ok_at, "la source lente est traitée malgré le worker en échec");
+		assert.ok(logs.some((m) => m.includes("worker en échec")), "le rejet est journalisé");
+	} finally {
+		await query("DELETE FROM collector_run WHERE source_id = ANY($1::text[])", [[idA, idB]]);
+		await query("DELETE FROM source WHERE id = ANY($1::text[])", [[idA, idB]]);
+	}
+});

@@ -1308,7 +1308,12 @@ export async function runGenericSources(
       await processSource(source, orgIndex, coverage, pertinenceConfig, opts?.force === true, opts?.intervalles, opts?.fetchTexte);
     }
   });
-  await Promise.all(workers);
+  // Un worker rejeté ne doit pas libérer la garde pendant que les autres
+  // continuent de traiter la file : on attend la clôture de tous les workers.
+  const outcomes = await Promise.allSettled(workers);
+  for (const outcome of outcomes) {
+    if (outcome.status === "rejected") log(`ingestion générique : worker en échec — ${String(outcome.reason)}`);
+  }
 }
 
 /**
