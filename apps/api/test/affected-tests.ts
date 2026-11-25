@@ -41,6 +41,7 @@ const CRITICAL = [
 	"apps/api/src/security/",
 	"apps/api/test/helpers/",
 	"apps/api/test/run.ts",
+	"apps/api/test/parallel/",
 	"apps/api/test/shard-files.ts",
 	"apps/api/test/affected-tests.ts",
 ];

@@ -81,7 +81,8 @@ test("un historique corrompu est signalé au lieu d'être lu comme une série vi
 
 test("le second rapport affiche des deltas nuls sur toutes les lignes", () => {
 	const precedent = snapshotVide("2026-11-21", DEPTS);
-	ajouterSource(precedent, "16", "cti", 1, Date.now(), Date.now());
+	const maintenant = Date.now();
+	ajouterSource(precedent, "16", "cti", 1, maintenant, maintenant);
 	ajouterIncident(precedent, "16", "fuite");
 	recomposerTotal(precedent);
 	const courant = structuredClone(precedent);
@@ -94,7 +95,8 @@ test("le second rapport affiche des deltas nuls sur toutes les lignes", () => {
 
 test("la conclusion tient en une phrase et porte les cinq chiffres", () => {
 	const courant = snapshotVide("2026-11-22", DEPTS);
-	ajouterSource(courant, "16", "cti", 1, Date.now(), Date.now());
+	const maintenant = Date.now();
+	ajouterSource(courant, "16", "cti", 1, maintenant, maintenant);
 	ajouterOrganisation(courant, "16", "sans-famille");
 	ajouterIncident(courant, "17", "fuite");
 	recomposerTotal(courant);
