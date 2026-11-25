@@ -158,6 +158,7 @@ test("la vérification horodatée retire l'organisation du critère, le retrait 
   assert.equal(ecrite.rows[0]?.nom, "NOM OFFICIEL");
   assert.notEqual(ecrite.rows[0]?.verifie, null);
 
+  const dedupKey = `${TAG}-${orgIds.length - 1}-event`;
   const evenements = await declierEvenements([orgRetiree], "nom de domaine");
   assert.equal(evenements, 1);
   assert.equal(await compterOrganisationsNonVerifiees(), apresVerification - 1);
@@ -166,10 +167,32 @@ test("la vérification horodatée retire l'organisation du critère, le retrait 
        FROM event e
        LEFT JOIN identite_legale_decrochage d ON d.event_id = e.id
       WHERE e.dedup_key = $1`,
-    [`${TAG}-${orgIds.length - 1}-event`],
+    [dedupKey],
   );
   assert.equal(trace.rows[0]?.org_id, null);
   assert.equal(trace.rows[0]?.motif, "nom de domaine");
+  const fait = await query<{
+    kind: string;
+    subject: string;
+    org_id: string | null;
+    org_retiree: number | null;
+    reason: string | null;
+  }>(
+    `SELECT kind, subject, payload->>'orgId' AS org_id,
+            (payload->>'orgRetiree')::int AS org_retiree,
+            payload->>'reason' AS reason
+       FROM journal
+      WHERE subject = $1 AND kind = 'event.rattachement'
+      ORDER BY recorded_at DESC, id DESC LIMIT 1`,
+    [dedupKey],
+  );
+  assert.deepEqual(fait.rows[0], {
+    kind: "event.rattachement",
+    subject: dedupKey,
+    org_id: null,
+    org_retiree: orgRetiree,
+    reason: "nom de domaine",
+  });
 });
 
 after(async () => {
