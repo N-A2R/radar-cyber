@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  merge_group:
+  schedule:
+    - cron: "17 3 * * *"
 
 permissions:
   contents: read
@@ -79,23 +82,33 @@ jobs:
 
     env:
       DATABASE_URL: postgres://radar:radar@localhost:5432/radar
+      GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      FULL_CI: ${{ contains(github.event.pull_request.labels.*.name, 'full-ci') && '1' || '0' }}
 
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
       - uses: ./.github/actions/ci-setup
 
       - name: Fichiers du shard ${{ matrix.shard }}
         run: |
-          ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
+          ./apps/api/node_modules/.bin/tsx apps/api/test/affected-tests.ts \
             --shards="$API_SHARDS" --index=${{ matrix.shard }} > /tmp/api-shard.txt
-          # Sans garde, `run.ts` sans argument lancerait toute la suite.
-          test -s /tmp/api-shard.txt || { echo "shard ${{ matrix.shard }} vide" >&2; exit 1; }
-          echo "$(wc -l < /tmp/api-shard.txt) fichier(s) — shard ${{ matrix.shard }}/$API_SHARDS"
+          if [ -s /tmp/api-shard.txt ]; then
+            echo "$(wc -l < /tmp/api-shard.txt) fichier(s) affecté(s) — shard ${{ matrix.shard }}/$API_SHARDS"
+          else
+            echo "aucun test affecté — shard ${{ matrix.shard }} ignoré"
+          fi
 
       - name: Tests API (shard ${{ matrix.shard }})
         shell: bash
         working-directory: apps/api
         run: |
+          if [ ! -s /tmp/api-shard.txt ]; then
+            echo "aucun test affecté — shard ${{ matrix.shard }} ignoré"
+            exit 0
+          fi
           mapfile -t files < /tmp/api-shard.txt
           ./node_modules/.bin/tsx test/run.ts "${files[@]}"
 

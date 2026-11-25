@@ -11,7 +11,7 @@
  *   tsx test/shard-files.ts --shards=8 --list --check
  */
 import { readdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const TEST_DIR = fileURLToPath(new URL("./", import.meta.url));
 export const DEFAULT_SHARDS = 6;
@@ -97,7 +97,9 @@ async function main(): Promise<number> {
 	return 0;
 }
 
-main().then(
-	(code) => { process.exitCode = code; },
-	(err: unknown) => { console.error(err); process.exitCode = 1; }
-);
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+	main().then(
+		(code) => { process.exitCode = code; },
+		(err: unknown) => { console.error(err); process.exitCode = 1; },
+	);
+}
