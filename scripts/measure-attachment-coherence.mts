@@ -197,12 +197,25 @@ let removed = 0;
 if (APPLY && findings.length > 0) {
 	await withTransaction(async (client) => {
 		for (const finding of findings) {
-			const updated = await client.query(
-				`UPDATE event SET org_id = NULL WHERE id = $1 AND org_id = $2`,
+			const updated = await client.query<{ dedup_key: string; org_id: number }>(
+				`UPDATE event SET org_id = NULL WHERE id = $1 AND org_id = $2
+				 RETURNING dedup_key, $2::int AS org_id`,
 				[finding.eventId, finding.orgId],
 			);
-			if (updated.rowCount !== 1) continue;
+			const changed = updated.rows[0];
+			if (!changed) continue;
 			removed++;
+			// Le fait canonique porte l'ancien rattachement et un `orgId` nul :
+			// verification et rejeu ne lisent que `event.rattachement`.
+			await client.query(
+				`INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
+				 VALUES ('event.rattachement', $1, $2, $3::jsonb, 'coherence-detector', now())`,
+				[
+					changed.dedup_key,
+					`incoherent attachment removed (${finding.reason})`,
+					JSON.stringify({ orgId: null, orgRetiree: changed.org_id, reason: finding.reason }),
+				],
+			);
 			await client.query(
 				`INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
 				 VALUES ('attachment.coherence', $1, $2, $3::jsonb, 'coherence-detector', now())`,

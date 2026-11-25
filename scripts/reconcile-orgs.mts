@@ -57,8 +57,23 @@ async function main(): Promise<void> {
 
 	if (toReset.length > 0) {
 		const ids = toReset.map((row) => Number(row.id));
+		// Une seule instruction : si le fait rejouable ne peut pas être écrit,
+		// le retrait de `org_id` est annulé avec lui.
 		const updated = await pool.query(
-			"UPDATE event SET org_id = NULL WHERE id = ANY($1::bigint[])",
+			`WITH cibles AS (
+			   SELECT id, org_id, dedup_key FROM event
+			    WHERE id = ANY($1::bigint[]) AND org_id IS NOT NULL
+			 ), decroches AS (
+			   UPDATE event e SET org_id = NULL FROM cibles c
+			    WHERE e.id = c.id
+			    RETURNING e.dedup_key, c.org_id
+			 )
+			 INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
+			 SELECT 'event.rattachement', dedup_key,
+			        'réconciliation : rattachement plus justifié par le texte',
+			        jsonb_build_object('orgId', NULL, 'orgRetiree', org_id, 'reason', 'texte insuffisant'),
+			        'humain:reconciliation', now()
+			   FROM decroches`,
 			[ids],
 		);
 		console.log(`rattachements retirés : ${updated.rowCount}`);
