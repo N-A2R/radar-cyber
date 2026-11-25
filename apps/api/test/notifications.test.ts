@@ -53,7 +53,7 @@ async function makeFixture(options: {
     `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, tlp, regional,
                         source_url, evidence)
      VALUES ($1,'cti','confirmed_incident',$2,4,'ransomlook',$3,$4,true,
-             'https://example.invalid/notification', '{"run_id":"1"}'::jsonb) RETURNING id`,
+             'https://example.invalid/notification', JSONB_BUILD_OBJECT('run_id','1','tlp',$4::text)::jsonb) RETURNING id`,
     [eventKey, options.title ?? `Incident ${key}`, orgId, options.tlp ?? "CLEAR"],
   );
   const eventId = Number(event.rows[0]?.id);

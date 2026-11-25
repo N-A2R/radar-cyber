@@ -369,8 +369,8 @@ function messageErreur(reason: unknown): string {
 	return String(reason);
 }
 
-/** RADAR_COLLECT=0 : API seule, sans boucle de collecte (dev, UI, déploiement séparé). */
-const COLLECT = process.env.RADAR_COLLECT !== "0";
+/** RADAR_COLLECT=0/false/no : API seule, sans boucle de collecte (dev, UI, déploiement séparé). */
+const COLLECT = !["0", "false", "no", ""].includes(process.env.RADAR_COLLECT ?? "");
 
 if (COLLECT) {
 	// Un premier passage au démarrage, puis un tick régulier par tâche.
@@ -600,6 +600,18 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
 		void app.close().finally(() => closePools().finally(() => process.exit(0)));
 	});
 }
+
+/** Arrêt propre sur erreur non interceptée : ferme les pools avant de quitter. */
+process.on("uncaughtException", (error: Error) => {
+	app.log.error({ err: error }, "uncaughtException : arrêt d'urgence");
+	void closePools().finally(() => process.exit(1));
+});
+
+process.on("unhandledRejection", (reason: unknown) => {
+	const err = reason instanceof Error ? reason : new Error(String(reason));
+	app.log.error({ err }, "unhandledRejection : arrêt d'urgence");
+	void closePools().finally(() => process.exit(1));
+});
 
 // Écoute locale par défaut : l'API n'a pas à être visible depuis le réseau
 // (vite proxifie /api en localhost). Pour l'exposer sciemment — tailnet, LAN —

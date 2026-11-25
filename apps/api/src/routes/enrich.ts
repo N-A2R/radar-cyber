@@ -16,7 +16,17 @@ import {
 } from "../enrich/jobs.js";
 import { depuisEvidence, estIndisponible, libelleMotif } from "../journal/rattachement.js";
 import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
-import { evenementPublicSql, indicateurPublicSql } from "../security/tlp.js";
+import {
+  evenementPublicSql,
+  indicateurPublicSql,
+  INDICATEUR_PUBLIC_FRAGMENT,
+  EVENEMENT_PUBLIC_FRAGMENT,
+} from "../security/tlp.js";
+
+// Requêtes statiques précompilées : pas de concaténation de chaîne à l'exécution.
+const SQL_INDICATEUR_PUBLIC = `SELECT * FROM indicator i WHERE i.id=$1 AND ${INDICATEUR_PUBLIC_FRAGMENT}`;
+const SQL_EVENEMENT_PUBLIC = `SELECT * FROM event e WHERE e.id=$1 AND ${EVENEMENT_PUBLIC_FRAGMENT}`;
+const SQL_INDICATEURS_PUBLIC = `SELECT * FROM indicator i WHERE i.id=ANY($1::bigint[]) AND ${INDICATEUR_PUBLIC_FRAGMENT}`;
 const ENRICH_ANONYMOUS_RPM = Number(process.env.RADAR_ENRICH_ANON_RPM ?? 10);
 const ENRICH_SESSION_RPM = Number(process.env.RADAR_ENRICH_SESSION_RPM ?? 60);
 async function cacheGet(key: string): Promise<unknown | null> {
@@ -54,7 +64,7 @@ function jobSummary(job: EnrichJob | null) {
 export default async function (app: FastifyInstance) {
   app.get<{ Params: { id: string } }>("/enrich/indicator/:id", async (req) => {
     const id = Number(req.params.id);
-    const ir = await query("SELECT * FROM indicator i WHERE i.id=$1 AND " + indicateurPublicSql("i"), [id]);
+    const ir = await query(SQL_INDICATEUR_PUBLIC, [id]);
     const ind = ir.rows[0];
     if (!ind) throw notFound();
     const key = `ind:${id}`;
@@ -110,7 +120,7 @@ export default async function (app: FastifyInstance) {
   );
   app.get<{ Params: { id: string } }>("/enrich/events/:id", async (req) => {
     const id = Number(req.params.id);
-    const er = await query("SELECT * FROM event e WHERE e.id=$1 AND " + evenementPublicSql("e"), [id]);
+    const er = await query(SQL_EVENEMENT_PUBLIC, [id]);
     const ev = er.rows[0];
     if (!ev) throw notFound();
     // Le pourquoi du rattachement, tel qu'il a été décidé à l'ingestion. Il vit
@@ -128,10 +138,10 @@ export default async function (app: FastifyInstance) {
           indecis: estIndisponible(explication),
         }
       : null;
-    const inds = await query(
-      "SELECT * FROM indicator i WHERE i.id=ANY($1::bigint[]) AND " + indicateurPublicSql("i"),
-      [ev.evidence?.indicator_ids ?? []],
-    ).catch(() => ({ rows: [] }));
+    const indicatorIds = Array.isArray(ev.evidence?.indicator_ids)
+      ? ev.evidence.indicator_ids.filter((id: unknown): id is number => typeof id === "number")
+      : [];
+    const inds = await query(SQL_INDICATEURS_PUBLIC, [indicatorIds]).catch(() => ({ rows: [] }));
     const org = ev.org_id ? (await query("SELECT * FROM org WHERE id=$1", [ev.org_id])).rows[0] : null;
     // Fraîcheur et confiance : mêmes calculs que GET /events, pour que
     // l'inspecteur dise « depuis quand » et « à quel point on y croit »

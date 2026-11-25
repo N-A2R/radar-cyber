@@ -38,8 +38,8 @@ async function insertOrg(): Promise<number> {
 
 async function insertAlert(orgId: number, ruleId: string, createdAt?: Date): Promise<number> {
   const r = await query<{ id: number }>(
-    `INSERT INTO alert (rule_id, title, severity, org_id, created_at)
-     VALUES ($1,$2,3,$3,COALESCE($4, now())) RETURNING id`,
+    `INSERT INTO alert (rule_id, title, severity, org_id, created_at, evidence)
+     VALUES ($1,$2,3,$3,COALESCE($4, now()),'{"tlp":"CLEAR"}'::jsonb) RETURNING id`,
     [ruleId, `${TAG} — alerte`, orgId, createdAt ?? null],
   );
   const id = r.rows[0]!.id;

@@ -22,14 +22,20 @@
  */
 
 /** Colonnes acceptées comme « diffusion libre » : CLEAR et ses alias. */
-const PUBLIC_COLUMN = "('CLEAR', 'TLP:CLEAR', 'WHITE', 'TLP:WHITE')";
+export const PUBLIC_COLUMN = "('CLEAR', 'TLP:CLEAR', 'WHITE', 'TLP:WHITE')";
+
+/** Fragment SQL de prédicat public pour un indicateur. */
+export const INDICATEUR_PUBLIC_FRAGMENT = `upper(btrim(coalesce(tlp, ''))) IN ${PUBLIC_COLUMN}`;
+
+/** Fragment SQL de prédicat public pour un événement. */
+export const EVENEMENT_PUBLIC_FRAGMENT = `upper(btrim(coalesce(tlp, ''))) IN ${PUBLIC_COLUMN} AND coalesce(evidence->>'tlp', '') = 'CLEAR'`;
 
 const colonne = (alias: string): string =>
-  `upper(btrim(coalesce(${alias}.tlp, 'CLEAR')))`;
+  `upper(btrim(coalesce(${alias}.tlp, '')))`;
 
 /** Prédicat SQL pour un événement, avec alias de table explicite. */
 export function evenementPublicSql(alias = "e"): string {
-  return `(${colonne(alias)} IN ${PUBLIC_COLUMN} AND coalesce(${alias}.evidence->>'tlp', 'CLEAR') = 'CLEAR')`;
+  return `(${colonne(alias)} IN ${PUBLIC_COLUMN} AND coalesce(${alias}.evidence->>'tlp', '') = 'CLEAR')`;
 }
 
 /** Prédicat SQL pour un indicateur, avec alias de table explicite. */
@@ -52,23 +58,23 @@ const PUBLIC_TLP: Record<string, true> = {
  * chaîne illisible ne doit jamais être traitée comme publique.
  */
 function declarationTlp(evidence: unknown): string {
-  if (evidence === null || evidence === undefined) return "CLEAR";
+  if (evidence === null || evidence === undefined) return "";
   let objet: unknown = evidence;
   if (typeof evidence === "string") {
     try { objet = JSON.parse(evidence); } catch { return ""; }
   }
   if (!objet || typeof objet !== "object" || Array.isArray(objet)) return "";
-  return String((objet as Record<string, unknown>).tlp ?? "CLEAR");
+  return String((objet as Record<string, unknown>).tlp ?? "");
 }
 
 export function evenementPublic(row: {
   tlp?: unknown;
   evidence?: unknown;
 }): boolean {
-  const colonne = String(row.tlp ?? "CLEAR").trim().toUpperCase();
+  const colonne = String(row.tlp ?? "").trim().toUpperCase();
   return PUBLIC_TLP[colonne] === true && declarationTlp(row.evidence) === "CLEAR";
 }
 
 export function indicateurPublic(row: { tlp?: unknown }): boolean {
-  return PUBLIC_TLP[String(row.tlp ?? "CLEAR").trim().toUpperCase()] === true;
+  return PUBLIC_TLP[String(row.tlp ?? "").trim().toUpperCase()] === true;
 }

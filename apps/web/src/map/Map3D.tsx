@@ -523,7 +523,7 @@ function familyChip(family: unknown): HTMLElement {
   return chip
 }
 
-function eventPopupContent(p: Record<string, any>): HTMLElement {
+function eventPopupContent(p: FeatureProperties): HTMLElement {
   const root = el('div', 'radar-popup-body')
   const head = el('div', 'radar-popup-head')
   head.appendChild(familyChip(p.family))
@@ -549,7 +549,7 @@ function eventPopupContent(p: Record<string, any>): HTMLElement {
   return root
 }
 
-function cellPopupContent(p: Record<string, any>): HTMLElement {
+function cellPopupContent(p: FeatureProperties): HTMLElement {
   const root = el('div', 'radar-popup-body')
   const head = el('div', 'radar-popup-head')
   head.appendChild(familyChip(p.family))
@@ -575,7 +575,26 @@ function cellPopupContent(p: Record<string, any>): HTMLElement {
   return root
 }
 
-function orgPopupContent(p: Record<string, any>): HTMLElement {
+interface FeatureProperties {
+  kind?: string;
+  id?: string | number;
+  family?: string;
+  severity?: number;
+  title?: string;
+  sourceId?: string;
+  observedAt?: string | null;
+  summary?: string | null;
+  sourceUrl?: string | null;
+  count?: number;
+  families?: Array<[string, number]>;
+  name?: string;
+  city?: string | null;
+}
+
+// Les fonctions de popup acceptent FeatureProperties (champs optionnels,
+// accessibles en toute sécurité avec ?? et typeof).
+
+function orgPopupContent(p: FeatureProperties): HTMLElement {
   const root = el('div', 'radar-popup-body')
   root.appendChild(el('div', 'radar-popup-title', String(p.name ?? 'Organisation')))
   const meta = el('div', 'radar-popup-meta')
@@ -1231,7 +1250,7 @@ export default function Map3D(props: Map3DProps) {
       carte.on('click', 'events', (e) => {
         const feature = e.features?.[0]
         if (!feature) return
-        const properties = (feature.properties ?? {}) as Record<string, any>
+        const properties = (feature.properties ?? {}) as FeatureProperties
         if (properties.kind === 'cell') {
           showPopup(e.lngLat, cellPopupContent(properties))
           return
@@ -1242,7 +1261,7 @@ export default function Map3D(props: Map3DProps) {
       carte.on('click', 'orgs', (e) => {
         const feature = e.features?.[0]
         if (!feature) return
-        const properties = (feature.properties ?? {}) as Record<string, any>
+        const properties = (feature.properties ?? {}) as FeatureProperties
         if (properties.id == null) return
         showPopup(e.lngLat, orgPopupContent(properties))
         onSelectRef.current?.(`org:${properties.id}`)

@@ -48,7 +48,7 @@ before(async () => {
       `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, lat, lon, severity,
                           source_url, evidence)
        VALUES ($1,'cti','observation',$2,$3,$4,$5,$6,3,
-               'https://example.invalid/map-timeline', '{"run_id":"1"}'::jsonb)`,
+               'https://example.invalid/map-timeline', '{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
       [`${TAG}-${key}`, `Event ${key} ${TAG}`, when, TAG, lat, lon],
     );
   }

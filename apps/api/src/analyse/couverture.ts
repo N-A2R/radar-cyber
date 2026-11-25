@@ -8,10 +8,10 @@
  *
  * Les trois motifs d'absence sont distincts et ne doivent pas être confondus :
  *
- * - `pas_collecté` : aucun événement ne cite l'organisation à la date ;
- * - `pas_rattaché` : un événement cyber existe, mais il n'est pas lié à
+ * - `pas_collecte` : aucun événement ne cite l'organisation à la date ;
+ * - `pas_rattache` : un événement cyber existe, mais il n'est pas lié à
  *   l'organisation attendue ;
- * - `pas_jugé_cyber` : un événement existe, mais le classificateur ne le
+ * - `pas_juge_cyber` : un événement existe, mais le classificateur ne le
  *   reconnaît pas comme cyber.
  *
  * `rattaché_en_retard` n'est pas un motif d'absence : l'incident a été vu, mais
@@ -24,13 +24,13 @@ import { normaliserTexte } from "./couverture-base.js";
 export type StatutCouverture =
 	| "vu"
 	| "rattaché_en_retard"
-	| "pas_collecté"
-	| "pas_rattaché"
-	| "pas_jugé_cyber";
+	| "pas_collecte"
+	| "pas_rattache"
+	| "pas_juge_cyber";
 
 export type MotifAbsence = Extract<
 	StatutCouverture,
-	"pas_collecté" | "pas_rattaché" | "pas_jugé_cyber"
+	"pas_collecte" | "pas_rattache" | "pas_juge_cyber"
 >;
 
 export type IncidentMesure = {
@@ -211,9 +211,9 @@ export function analyserIncident(incident: IncidentMesure, donnees: DonneesIncid
 	if (candidats.length === 0) {
 		return {
 			...base(incident),
-			statut: "pas_collecté",
+			statut: "pas_collecte",
 			vu: false,
-			motif: "pas_collecté",
+			motif: "pas_collecte",
 			dateDetection: null,
 			dateRattachement: null,
 			delaiJours: null,
@@ -230,9 +230,9 @@ export function analyserIncident(incident: IncidentMesure, donnees: DonneesIncid
 	if (cyber.length === 0) {
 		return {
 			...base(incident),
-			statut: "pas_jugé_cyber",
+			statut: "pas_juge_cyber",
 			vu: false,
-			motif: "pas_jugé_cyber",
+			motif: "pas_juge_cyber",
 			dateDetection: candidats[0]?.dateDetection ?? null,
 			dateRattachement: null,
 			delaiJours: null,
@@ -250,9 +250,9 @@ export function analyserIncident(incident: IncidentMesure, donnees: DonneesIncid
 		const premier = cyber[0]!;
 		return {
 			...base(incident),
-			statut: "pas_rattaché",
+			statut: "pas_rattache",
 			vu: false,
-			motif: "pas_rattaché",
+			motif: "pas_rattache",
 			dateDetection: premier.dateDetection,
 			dateRattachement: null,
 			delaiJours: null,
@@ -298,9 +298,9 @@ export function synthetiser(resultats: readonly ResultatIncident[]) {
 	const statuts: Record<StatutCouverture, number> = {
 		vu: 0,
 		rattaché_en_retard: 0,
-		pas_collecté: 0,
-		pas_rattaché: 0,
-		pas_jugé_cyber: 0,
+		pas_collecte: 0,
+		pas_rattache: 0,
+		pas_juge_cyber: 0,
 	};
 	for (const resultat of resultats) statuts[resultat.statut]++;
 	return {
@@ -310,9 +310,9 @@ export function synthetiser(resultats: readonly ResultatIncident[]) {
 		taux: resultats.length === 0 ? 0 : Math.round((vus.length / resultats.length) * 1000) / 10,
 		statuts,
 		motifs: {
-			pas_collecté: statuts.pas_collecté,
-			pas_rattaché: statuts.pas_rattaché,
-			pas_jugé_cyber: statuts.pas_jugé_cyber,
+		pas_collecte: statuts.pas_collecte,
+		pas_rattache: statuts.pas_rattache,
+		pas_juge_cyber: statuts.pas_juge_cyber,
 		},
 		delaiMedianJours: mediane(vus.map((r) => r.delaiJours).filter((d): d is number => d !== null)),
 	};

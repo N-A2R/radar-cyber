@@ -30,7 +30,7 @@ async function makeFixture(): Promise<{ alertId: number; cleanup: () => Promise<
     // Depuis la migration 206, tout événement cite un collector_run : le seed
     // de la base de test en déclare un (id 1) pour cet usage.
     `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, tlp, regional, source_url, evidence)
-     VALUES ($1,'cti','confirmed_incident',$2,4,'ransomlook',$3,'CLEAR',true,'https://exemple.invalid/alerte','{"run_id":"1"}'::jsonb) RETURNING id`,
+     VALUES ($1,'cti','confirmed_incident',$2,4,'ransomlook',$3,'CLEAR',true,'https://exemple.invalid/alerte','{"run_id":"1","tlp":"CLEAR"}'::jsonb) RETURNING id`,
     [`${key}-event`, `Incident ${key}`, orgId],
   );
   const eventId = Number(event.rows[0]?.id);

@@ -137,9 +137,9 @@ test("HEAD est une lecture publique sur les deux préfixes", async () => {
 });
 
 test("CLEAR reste visible et les faits AMBER et RED sont absents des flux publics", async () => {
-  assert.equal(evenementPublic({ tlp: "CLEAR" }), true);
-  assert.equal(evenementPublic({ tlp: "AMBER" }), false);
-  assert.equal(evenementPublic({ tlp: "RED" }), false);
+  assert.equal(evenementPublic({ tlp: "CLEAR", evidence: { tlp: "CLEAR" } }), true);
+  assert.equal(evenementPublic({ tlp: "CLEAR" }), false, "sans déclaration TLP explicite, rien n'est public");
+  assert.equal(evenementPublic({ tlp: "AMBER", evidence: JSON.stringify({ tlp: "CLEAR" }) }), false);
   assert.equal(evenementPublic({ tlp: "RED", evidence: JSON.stringify({ tlp: "RED" }) }), false);
   assert.match(evenementPublicSql("e"), /evidence->>'tlp'/);
   type IdentiteFlux = { id?: number; cle?: string; titre?: string };

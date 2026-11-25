@@ -61,7 +61,7 @@ before(async () => {
                           severity, source_id, org_id, tlp, evidence, source_url)
        VALUES ($1,'ransomware',$2,$3,$4,$5,4,$6,$7,$8,$9,$10)`,
       [`${TAG}-${key}`, assertion, `Victim Jean Dupont ${key} 06 12 34 56 78`, "Résumé privé avec adresse", when,
-        sourceId, orgId, tlp, JSON.stringify({ secret: "ne doit jamais sortir", run_id: "1" }),
+        sourceId, orgId, tlp, JSON.stringify({ secret: "ne doit jamais sortir", run_id: "1", tlp }),
         `https://exemple.invalid/${key}`],
     );
   }
