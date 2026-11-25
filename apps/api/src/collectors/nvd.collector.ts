@@ -31,7 +31,13 @@ const DAY_MS = 86_400_000;
 /** L'API NVD refuse une fenêtre de plus de 120 jours. */
 const MAX_QUERY_DAYS = 120;
 /** L'API NVD refuse startIndex + resultsPerPage > 2000 : une fenêtre est scindée au-delà. */
-const MAX_RESULTS = 2000;
+const NVD_MAX_RESULTS = 2000;
+/**
+ * Taille de page envoyée à NVD. Le client HTTP borne chaque corps à 2 Mo :
+ * une page de 2000 CVE dépassait cette limite. La pagination conserve le
+ * garde-fou global plutôt que d'ouvrir une limite dédiée pour NVD.
+ */
+const PAGE_SIZE = 200;
 const DEFAULT_SINCE_DAYS = 30;
 
 interface Window {
@@ -208,19 +214,23 @@ export const collector: Collector = {
       while (true) {
         if (!firstPage) await sleep(6000);
         firstPage = false;
-        const data = await ctx.fetchJson<NvdResponse>(pageUrl(w, startIndex, MAX_RESULTS));
+        if (startIndex + PAGE_SIZE > NVD_MAX_RESULTS) {
+          ctx.log(`nvd : plafond de ${NVD_MAX_RESULTS} résultats atteint sur cette fenêtre`);
+          break;
+        }
+        const data = await ctx.fetchJson<NvdResponse>(pageUrl(w, startIndex, PAGE_SIZE));
         const vulns = Array.isArray(data?.vulnerabilities) ? data.vulnerabilities : [];
         total = typeof data?.totalResults === "number" ? data.totalResults : total;
 
         // NVD plafonne startIndex + resultsPerPage à 2000 : on scinde la fenêtre.
-        if (total > MAX_RESULTS && w.end.getTime() - w.start.getTime() > 3_600_000) {
+        if (total > NVD_MAX_RESULTS && w.end.getTime() - w.start.getTime() > 3_600_000) {
           const mid = new Date(Math.floor((w.start.getTime() + w.end.getTime()) / 2));
           await collectWindow({ start: w.start, end: mid });
           await collectWindow({ start: mid, end: w.end });
           return;
         }
-        if (total > MAX_RESULTS) {
-          ctx.log(`nvd : ${total} résultats sur une fenêtre d'une heure, seuls ${MAX_RESULTS} sont récupérables`);
+        if (total > NVD_MAX_RESULTS) {
+          ctx.log(`nvd : ${total} résultats sur une fenêtre d'une heure, seuls ${NVD_MAX_RESULTS} sont récupérables`);
         }
 
         for (const v of vulns) emit(v.cve, w);
