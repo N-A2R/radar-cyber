@@ -96,8 +96,47 @@ jobs:
         shell: bash
         working-directory: apps/api
         run: |
+          # Même flux d'événements que TAP/spec, agrégé par fichier : sert à
+          # pondérer un futur sharding sans modifier la matrix ni les gates.
+          cat > /tmp/test-timings-reporter.mjs <<'REPORTER'
+          const sums = new Map();
+          export default async function* timings(source) {
+            for await (const event of source) {
+              if (event.type !== "test:pass" && event.type !== "test:fail") continue;
+              const file = event.data.file ?? event.data.entryFile;
+              if (!file) continue;
+              const key = file.replace(process.cwd() + "/", "");
+              const row = sums.get(key) ?? { file: key, ms: 0, tests: 0 };
+              row.ms += event.data.details?.duration_ms ?? 0;
+              row.tests += 1;
+              sums.set(key, row);
+            }
+            yield JSON.stringify(
+              [...sums.values()].sort((a, b) => b.ms - a.ms), null, 2
+            ) + "\n";
+          }
+          REPORTER
           mapfile -t files < /tmp/api-shard.txt
-          ./node_modules/.bin/tsx test/run.ts "${files[@]}"
+          ./node_modules/.bin/tsx test/run.ts "${files[@]}" \
+            --test-reporter=spec \
+            --test-reporter=/tmp/test-timings-reporter.mjs \
+            --test-reporter-destination=1 \
+            --test-reporter-destination=/tmp/api-timings-${{ matrix.shard }}.json
+
+      - name: Fichiers API les plus lents (shard ${{ matrix.shard }})
+        if: always()
+        shell: bash
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const file = process.argv[1];
+            if (!fs.existsSync(file)) process.exit(0);
+            const rows = JSON.parse(fs.readFileSync(file, "utf8"));
+            console.log(`Top fichiers API — shard ${process.argv[2]}/${process.env.API_SHARDS}`);
+            for (const r of rows.slice(0, 10)) {
+              console.log(`${String(Math.round(r.ms)).padStart(7)} ms  ${String(r.tests).padStart(3)} test(s)  ${r.file}`);
+            }
+          ' /tmp/api-timings-${{ matrix.shard }}.json "${{ matrix.shard }}"
 
   web-unit:
     runs-on: ubuntu-latest
@@ -109,11 +148,38 @@ jobs:
 
       - name: Tests web (Vitest, jsdom, rendu)
         run: |
-          pnpm -F @radar/web run test:unit
-          pnpm -F @radar/web run test:offline-pwa
+          pnpm -F @radar/web exec vitest run \
+            --reporter=default --reporter=json --outputFile=/tmp/web-unit-timings.json
+          pnpm -F @radar/web exec vitest run test/offline-pwa-cache.test.ts test/radar-sw.test.ts \
+            --reporter=default --reporter=json --outputFile=/tmp/web-offline-timings.json
           pnpm -F @radar/web run test:render
           pnpm -F @radar/web run test:dom
           pnpm -F @radar/web run storybook:coverage
+
+      - name: Fichiers spec web les plus lents
+        if: always()
+        shell: bash
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const rows = [];
+            for (const file of process.argv.slice(1)) {
+              if (!fs.existsSync(file)) continue;
+              const data = JSON.parse(fs.readFileSync(file, "utf8"));
+              for (const r of data.testResults ?? []) {
+                rows.push({
+                  file: r.name.replace(process.cwd() + "/", ""),
+                  ms: Math.max(0, Math.round(r.endTime - r.startTime)),
+                  tests: r.assertionResults?.length ?? 0,
+                });
+              }
+            }
+            rows.sort((a, b) => b.ms - a.ms);
+            console.log("Top fichiers spec web les plus lents");
+            for (const r of rows.slice(0, 10)) {
+              console.log(`${String(r.ms).padStart(7)} ms  ${String(r.tests).padStart(3)} test(s)  ${r.file}`);
+            }
+          ' /tmp/web-unit-timings.json /tmp/web-offline-timings.json
 
   playwright:
     runs-on: ubuntu-latest
