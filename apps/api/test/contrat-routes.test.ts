@@ -109,7 +109,7 @@ const organisation = z.strictObject({
 
 const faitQuarantaine = z.strictObject({
   id: z.number(), source: json, sourceUrl: json, groupe: json, orgHint: json,
-  claimedAt: json, extracted: json, review: z.array(json), tlp: z.string(),
+  claimedAt: json, extracted: json, rawBody: json, review: z.array(json), tlp: z.string(),
   status: z.string(), promoted: z.boolean(), promotedAt: json,
   promotedBy: json, receivedAt: json, purgeAfter: json, contentHash: json,
   org: json, orgConfidence: nombreNullable,
