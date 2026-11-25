@@ -17,7 +17,7 @@ concurrency:
 # Nombre de shards API : identique à la matrix `api-tests` et au plan vérifié
 # par `shard-files.ts --list --check`.
 env:
-  API_SHARDS: "8"
+  API_SHARDS: "12"
 
 jobs:
   # Contrats, typechecks et migrations : aucune base nécessaire.
@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
     services:
       postgres:
@@ -73,9 +73,9 @@ jobs:
           - 5432:5432
         options: >-
           --health-cmd "pg_isready -U radar -d radar"
-          --health-interval 5s
+          --health-interval 1s
           --health-timeout 3s
-          --health-retries 10
+          --health-retries 30
 
     env:
       DATABASE_URL: postgres://radar:radar@localhost:5432/radar
@@ -167,9 +167,9 @@ jobs:
           - 5432:5432
         options: >-
           --health-cmd "pg_isready -U radar -d radar"
-          --health-interval 5s
+          --health-interval 1s
           --health-timeout 3s
-          --health-retries 10
+          --health-retries 30
 
     env:
       DATABASE_URL: postgres://radar:radar@localhost:5432/radar
@@ -224,9 +224,9 @@ jobs:
           - 5432:5432
         options: >-
           --health-cmd "pg_isready -U radar -d socle"
-          --health-interval 5s
+          --health-interval 1s
           --health-timeout 3s
-          --health-retries 10
+          --health-retries 30
 
     env:
       DATABASE_URL: postgres://radar:radar@localhost:5432/socle
