@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  # La relève nocturne rejoue EXACTEMENT ces mêmes jobs sur main : pas de
+  # second workflow miroir, donc pas de dérive des portes ni des check names
+  # attendus par la protection de branche. `schedule` ne s'exécute que sur la
+  # branche par défaut et réutilise les caches définis ci-dessous.
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read

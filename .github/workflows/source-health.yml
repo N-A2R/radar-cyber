@@ -1,0 +1,70 @@
+name: Nightly — sources muettes / health
+
+# Contrôle nocturne séparé de la CI de branche : `.github/workflows/ci.yml`
+# porte déjà la suite complète (déclenchée aussi la nuit). Ici on ne vérifie
+# que la classification des sources muettes et, si une instance est déclarée,
+# la santé de cette instance. Aucune écriture en production, aucun déploiement.
+on:
+  schedule:
+    - cron: "42 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: source-health-nightly
+  cancel-in-progress: false
+
+jobs:
+  source-health:
+    name: sources muettes / health
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
+        env:
+          POSTGRES_USER: radar
+          POSTGRES_PASSWORD: radar
+          POSTGRES_DB: radar
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U radar -d radar"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://radar:radar@localhost:5432/radar
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Schéma, migrations et fixture déterministe
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
+          pnpm migrate
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/fixtures/source-health-ci.sql
+
+      - name: Rapport de rendement et verdict des catégories
+        run: |
+          apps/api/node_modules/.bin/tsx scripts/source-health.mts --json > /tmp/source-health.json
+          apps/api/node_modules/.bin/tsx scripts/check-source-health.mts fixture /tmp/source-health.json
+
+      # Variable de dépôt optionnelle : URL publique de l'instance à surveiller.
+      # Sans elle, le contrôle de classification ci-dessus s'exécute quand même.
+      - name: Santé de l'instance publiée (si URL configurée)
+        if: ${{ vars.RADAR_PUBLIC_API_URL != '' }}
+        env:
+          RADAR_PUBLIC_API_URL: ${{ vars.RADAR_PUBLIC_API_URL }}
+        run: |
+          case "$RADAR_PUBLIC_API_URL" in
+            https://*) ;;
+            *) echo "RADAR_PUBLIC_API_URL doit être une URL https" >&2; exit 1 ;;
+          esac
+          curl -fsS --max-time 20 "${RADAR_PUBLIC_API_URL%/}/api/health/detail" -o /tmp/health-detail.json
+          apps/api/node_modules/.bin/tsx scripts/check-source-health.mts live /tmp/health-detail.json
