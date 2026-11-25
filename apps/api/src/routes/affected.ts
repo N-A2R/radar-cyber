@@ -3,8 +3,8 @@
  *
  * Public, read-only and structured: the response lists what is recorded about
  * one organization, with the register or observation that supports each
- * statement. Event titles, summaries and leftover personal data are never
- * selected, so an answer cannot disclose a victim's identity.
+ * statement. Level 4 also exposes the verbatim title, summary, source URL and
+ * evidence payload of each observation under `statement.raw`.
  */
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";

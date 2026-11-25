@@ -9,6 +9,7 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { hashSessionToken } from "../src/auth.js";
+import { HISTORIQUE_HASHE, lireAcces } from "../src/security/access-log.js";
 import { closePools, query } from "../src/db.js";
 import { installErrorHandler } from "../src/errors.js";
 import { installAccessControl } from "../src/security/rbac.js";
@@ -96,14 +97,30 @@ test("jeton invalide ou expiré : 401, pas de contournement par rôle", async ()
 test("route API non déclarée : 404 et refus audité", async () => {
   const res = await app.inject({ method: "GET", url: "/api/route-oubliée", headers: { "x-request-id": "rbac-inconnue" } });
   assert.equal(res.statusCode, 404);
-  const { rows } = await query<{ decision: string; motif: string; statut: number; ip_hash: string }>(
-    "SELECT decision, motif, statut, ip_hash FROM access_log WHERE correlation_id=$1",
+  const { rows } = await query<{ decision: string; motif: string; statut: number; ip_hash: string; ip: string | null }>(
+    "SELECT decision, motif, statut, ip_hash, ip FROM access_log WHERE correlation_id=$1",
     ["rbac-inconnue"],
   );
   assert.equal(rows[0]?.decision, "refuse");
   assert.equal(rows[0]?.statut, 404);
   assert.match(rows[0]?.motif ?? "", /non déclarée/);
-  assert.match(rows[0]?.ip_hash ?? "", /^[0-9a-f]{32}$/, "l'IP n'est pas stockée en clair");
+  assert.match(rows[0]?.ip_hash ?? "", /^[0-9a-f]{32}$/, "l'empreinte reste pour corrélation");
+  assert.equal(typeof rows[0]?.ip, "string", "l'IP est aussi écrite en clair pour les nouveaux accès");
+});
+
+test("les lignes historiques hashées gardent un libellé explicite à la relecture", async () => {
+  const correlationId = `hist-${TAG}`;
+  await query(
+    `INSERT INTO access_log
+       (methode, route, statut, decision, motif, niveau_requis, role, user_id,
+        acteur, ip_hash, user_agent_hash, correlation_id, duree_ms)
+     VALUES ('GET','/api/health',200,'autorise',NULL,'public',NULL,NULL,'anonyme',$1,NULL,$2,0)`,
+    ["abcdef0123456789abcdef0123456789", correlationId],
+  );
+  const { items } = await lireAcces({ correlationId });
+  assert.equal(items[0]?.ip, HISTORIQUE_HASHE);
+  assert.equal(items[0]?.userAgent, HISTORIQUE_HASHE);
+  assert.equal(items[0]?.ip_hash, "abcdef0123456789abcdef0123456789");
 });
 
 test("chaque refus est aussi un fait du journal de vérité", async () => {

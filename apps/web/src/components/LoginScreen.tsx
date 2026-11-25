@@ -313,7 +313,7 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
             <Button
               type="submit"
               label={busy ? "Connexion…" : "Se connecter"}
-              variant="primary"
+              variant="secondary"
               className="login__submit"
               isLoading={busy}
             />

@@ -1,11 +1,10 @@
 /**
  * "Am I affected?" assistant — evidence-first view of one organization.
  *
- * The report is deliberately structured: it never copies event titles,
- * summaries, leak-site bodies or any free text that could carry a victim's
- * personal data. Each statement points back to a registry record or a stored
- * observation, and grey sources (leak sites, ransomware trackers, paste
- * sites) stay visible but are labelled as unconfirmed reports.
+ * Private deployment (data level 4): each observation statement carries the
+ * recorded raw source payload. Titles, summaries and evidence JSON are copied
+ * verbatim; no redaction is applied to them. Structured labels and values stay
+ * derived from known fields so the rest of the screen remains readable.
  *
  * Pure module: no database, no network, no clock. Deterministic for a given
  * organization and set of observations, so the measurement can replay it.
@@ -41,6 +40,8 @@ export type Observation = {
   observedAt: string | null;
   sourceId: string;
   sourceUrl: string | null;
+  title: string | null;
+  summary: string | null;
   evidence: Record<string, unknown> | null;
   regional: boolean;
 };
@@ -70,6 +71,13 @@ export type Statement = {
   value: string;
   observedAt: string | null;
   evidence: Evidence;
+  /** Level 4: verbatim source payload, present on observation statements. */
+  raw?: {
+    title: string | null;
+    summary: string | null;
+    sourceUrl: string | null;
+    evidence: Record<string, unknown> | null;
+  };
 };
 
 export type AffectedReport = {
@@ -98,7 +106,6 @@ export class OutsideRegionError extends Error {
 }
 
 const LIMITATIONS: readonly string[] = [
-  "Free text, victim names and contact details are never displayed.",
   "Claims from leak sites and ransomware trackers are reports, not confirmed incidents.",
   "No statement means no recorded evidence, not proof that nothing happened.",
 ];
@@ -265,7 +272,7 @@ function observationStatement(event: Observation): Statement | null {
     id: `event:${event.id}`,
     category: grey ? "claim" : localPress ? "activity" : "incident",
     label,
-    // Structured label only: title, summary and evidence payload stay out.
+    // Structured label only: title and summary stay in `raw`, unmodified.
     value: label,
     observedAt: safeText(event.observedAt),
     evidence: {
@@ -274,6 +281,12 @@ function observationStatement(event: Observation): Statement | null {
       reference: `event:${event.id}`,
       url: proofUrl(event.sourceUrl),
       status: grey ? "unverified-claim" : "reported",
+    },
+    raw: {
+      title: event.title,
+      summary: event.summary,
+      sourceUrl: event.sourceUrl,
+      evidence: event.evidence,
     },
   };
 }

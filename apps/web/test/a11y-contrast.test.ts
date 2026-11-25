@@ -90,4 +90,16 @@ describe("contraste des jetons du pont", () => {
       expect(sheet).not.toMatch(/(?:color|background)\s*:\s*rgba?\(/i);
     }
   });
+  it("garde le CTA « Se connecter » lisible dans les deux thèmes", () => {
+    const login = readFileSync(resolve("src/components/LoginScreen.tsx"), "utf8");
+    const loginCss = readFileSync(resolve("src/components/login.css"), "utf8");
+    // Le variant primary du thème stone pose un texte clair sur un fond clair
+    // en mode sombre ; secondary couple --color-neutral et --color-text-primary.
+    expect(login).toMatch(/variant="secondary"/);
+    expect(login).not.toMatch(/variant="primary"/);
+    expect(loginCss).toMatch(/\.login__submit[\s\S]*border: 1px solid var\(--accent\)/);
+    for (const background of ["--color-background-surface", "--color-background-body"]) {
+      expect(ratio("--color-text-primary", background), `CTA sur ${background}`).toBeGreaterThanOrEqual(4.5);
+    }
+  });
 });

@@ -56,6 +56,18 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 	const [reason, setReason] = useState("");
 	const [busy, setBusy] = useState(false);
 	const [toast, setToast] = useState<{ text: string; undoable: boolean; ids: number[] } | null>(null);
+	const [brut, setBrut] = useState<{ id: number; body: string | null; extrait: unknown } | null>(null);
+	const [brutErreur, setBrutErreur] = useState<string | null>(null);
+	const afficherBrut = useCallback(async (id: number) => {
+		if (brut?.id === id) return;
+		setBrutErreur(null);
+		try {
+			const donnees = await api.quarantineRaw(id);
+			setBrut({ id, body: donnees.rawBody, extrait: donnees.extracted });
+		} catch (e) {
+			setBrutErreur((e as Error).message);
+		}
+	}, [brut]);
 	const listRef = useRef<HTMLDivElement>(null);
 	const reasonRef = useRef<HTMLInputElement>(null);
 
@@ -376,8 +388,18 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 
 							<p className="review__source">
 								<a href={current.sourceUrl} target="_blank" rel="noreferrer noopener">provenance</a>
-								{" · le corps brut n'est jamais exposé"}
+								{" · "}
+								<button type="button" onClick={() => { void afficherBrut(current.id); }}>
+									{brut?.id === current.id ? "Brut chargé" : "Afficher le brut"}
+								</button>
 							</p>
+							{brutErreur ? <p className="review__error" role="alert">{brutErreur}</p> : null}
+							{brut?.id === current.id ? (
+								<div className="review__raw" data-raw="level-4">
+									<pre>{brut.body ?? "(aucun corps brut)"}</pre>
+									<pre>{JSON.stringify(brut.extrait, null, 2)}</pre>
+								</div>
+							) : null}
 						</>
 					)}
 				</aside>

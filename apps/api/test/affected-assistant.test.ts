@@ -44,6 +44,8 @@ function observation(overrides: Partial<Observation> = {}): Observation {
     observedAt: "2026-11-20T10:00:00.000Z",
     sourceId: "ransomlook",
     sourceUrl: "https://example.invalid/claim/7?token=secret#fragment",
+    title: "Titre brut",
+    summary: "Résumé brut",
     evidence: { group: "actor", org_hint: "riveraine.example" },
     regional: true,
     ...overrides,
@@ -76,20 +78,22 @@ test("organizations outside Nouvelle-Aquitaine are refused", () => {
   assert.throws(() => buildAffectedReport(org({ dept: null })), OutsideRegionError);
 });
 
-test("event free text and victim personal data never enter the report", () => {
+test("level 4 exposes the verbatim payload while structured labels stay clean", () => {
   const secret = "Victim Jean Dupont 0601020304 victim@example.fr";
-  const withFreeText = {
-    ...observation({ evidence: { raw_body: secret, note: secret } }),
+  const withFreeText = observation({
     title: secret,
     summary: secret,
-  } as Observation;
+    evidence: { raw_body: secret, note: secret },
+  });
   const report = buildAffectedReport(org(), [withFreeText]);
-  const serialized = JSON.stringify(report);
-  assert.ok(!serialized.includes("Victim Jean Dupont"));
-  assert.ok(!serialized.includes("0601020304"));
-  assert.ok(!serialized.includes("victim@example.fr"));
-  assert.ok(!serialized.includes("raw_body"));
-  assert.equal(report.statements.find((s) => s.id === "event:7")?.value, "Ransomware extortion claim");
+  const claim = report.statements.find((s) => s.id === "event:7");
+  assert.ok(claim?.raw);
+  assert.equal(claim.raw.title, secret);
+  assert.equal(claim.raw.summary, secret);
+  assert.deepEqual(claim.raw.evidence, { raw_body: secret, note: secret });
+  assert.equal(claim.raw.sourceUrl, "https://example.invalid/claim/7?token=secret#fragment");
+  // Seuls les champs structurés restent filtrés ; le brut est volontairement intact.
+  assert.equal(claim.value, "Ransomware extortion claim");
 });
 
 test("proof URLs keep origin and path but drop query and fragment", () => {
@@ -104,5 +108,5 @@ test("proof URLs keep origin and path but drop query and fragment", () => {
 test("absence of a statement is never presented as proof of safety", () => {
   const report = buildAffectedReport(org());
   assert.ok(report.limitations.some((line) => line.includes("not proof that nothing happened")));
-  assert.ok(report.limitations.some((line) => line.includes("never displayed")));
+  assert.ok(report.limitations.every((line) => !line.includes("never displayed")));
 });

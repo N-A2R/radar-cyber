@@ -1,9 +1,9 @@
 /**
  * Journal des accès API : qui a appelé quoi, avec quel résultat et quelle
- * décision de contrôle. Les données directement identifiantes (adresse IP,
- * user-agent) n'y sont jamais écrites en clair : on n'en garde qu'une
- * empreinte SHA-256 poivrée, ce qui suffit à corréler deux accès sans
- * reconstituer un profil de navigation.
+ * décision de contrôle. Déploiement privé (niveau 4) : les nouvelles lignes
+ * portent l'adresse IP et le user-agent en clair. Les colonnes `*_hash`
+ * restent écrites pour la corrélation et les lignes antérieures à la
+ * migration 249 restent lisibles avec le libellé « historique hashé ».
  *
  * L'écriture ne doit jamais faire échouer une requête : en cas d'indisponibilité
  * de la base, l'incident est consigné dans les logs du serveur et la réponse
@@ -37,6 +37,8 @@ export function correlationId(req: FastifyRequest): string {
 }
 
 export type DecisionAcces = "autorise" | "refuse";
+/** Valeur affichée quand la ligne appartient à l'historique pseudonymisé. */
+export const HISTORIQUE_HASHE = "historique hashé";
 
 export type AccesEnregistre = {
   methode: string;
@@ -48,6 +50,8 @@ export type AccesEnregistre = {
   role: string | null;
   userId: number | null;
   acteur: string;
+  ip: string;
+  userAgent: string | null;
   ipHash: string;
   userAgentHash: string | null;
   correlationId: string;
@@ -60,12 +64,13 @@ export async function enregistrerAcces(entree: AccesEnregistre): Promise<boolean
     await query(
       `INSERT INTO access_log
          (methode, route, statut, decision, motif, niveau_requis, role, user_id,
-          acteur, ip_hash, user_agent_hash, correlation_id, duree_ms)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+          acteur, ip, user_agent, ip_hash, user_agent_hash, correlation_id, duree_ms)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
       [
         entree.methode, entree.route, entree.statut, entree.decision, entree.motif,
-        entree.niveauRequis, entree.role, entree.userId, entree.acteur, entree.ipHash,
-        entree.userAgentHash, entree.correlationId, Math.max(0, Math.round(entree.dureeMs)),
+        entree.niveauRequis, entree.role, entree.userId, entree.acteur, entree.ip,
+        entree.userAgent, entree.ipHash, entree.userAgentHash, entree.correlationId,
+        Math.max(0, Math.round(entree.dureeMs)),
       ],
     );
     return true;
@@ -86,11 +91,18 @@ export type AccessLogRow = {
   niveau_requis: string;
   role: string | null;
   acteur: string;
+  ip_hash: string;
+  user_agent_hash: string | null;
+  ip: string | null;
+  user_agent: string | null;
   correlation_id: string;
   duree_ms: number;
 };
 
-/** Relecture administrateur, filtrable et bornée — aucun secret n'est exposé. */
+/** Lecture : le brut pour les lignes récentes, le libellé d'historique sinon. */
+export type AccessLogEntry = Omit<AccessLogRow, "ip" | "user_agent"> & { ip: string; userAgent: string };
+
+/** Relecture administrateur, filtrable et bornée : brut récent, historique hashé sinon. */
 export async function lireAcces(options: {
   depuis?: string;
   jusqua?: string;
@@ -100,7 +112,7 @@ export async function lireAcces(options: {
   correlationId?: string;
   limite?: number;
   offset?: number;
-} = {}): Promise<{ items: AccessLogRow[]; total: number; limite: number; offset: number }> {
+} = {}): Promise<{ items: AccessLogEntry[]; total: number; limite: number; offset: number }> {
   const conditions: string[] = [];
   const valeurs: unknown[] = [];
   const ajouter = (sql: string, valeur: unknown) => {
@@ -120,7 +132,8 @@ export async function lireAcces(options: {
   const [lignes, total] = await Promise.all([
     query<AccessLogRow>(
       `SELECT id, recorded_at::text AS recorded_at, methode, route, statut, decision, motif,
-              niveau_requis, role, acteur, correlation_id, duree_ms
+              niveau_requis, role, acteur, ip_hash, user_agent_hash, ip, user_agent,
+              correlation_id, duree_ms
          FROM access_log ${ou}
         ORDER BY recorded_at DESC, id DESC
         LIMIT $${valeurs.length + 1} OFFSET $${valeurs.length + 2}`,
@@ -128,5 +141,10 @@ export async function lireAcces(options: {
     ),
     query<{ n: number }>(`SELECT count(*)::int AS n FROM access_log ${ou}`, valeurs),
   ]);
-  return { items: lignes.rows ?? [], total: total.rows[0]?.n ?? 0, limite, offset };
+  const items: AccessLogEntry[] = (lignes.rows ?? []).map(({ ip, user_agent, ...row }) => ({
+    ...row,
+    ip: ip ?? HISTORIQUE_HASHE,
+    userAgent: user_agent ?? HISTORIQUE_HASHE,
+  }));
+  return { items, total: total.rows[0]?.n ?? 0, limite, offset };
 }

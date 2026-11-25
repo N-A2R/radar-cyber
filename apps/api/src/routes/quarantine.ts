@@ -46,8 +46,8 @@ const ReviewBody = z.strictObject({
 export default async function (app: FastifyInstance) {
   /**
    * Faits de quarantaine, organisation rapprochée quand l'indice correspond.
-   * `raw_body` reste hors API : les données ransomware.live ne sont pas
-   * republiées (voir docs/quarantine.md). L'événement public porte le résumé.
+   * Niveau 4 (déploiement privé) : `rawBody` expose le corps brut tel que
+   * collecté, y compris pour les faits TLP:RED.
    */
   app.get("/quarantine", { preHandler: requireRole("lecteur") }, async (req: FastifyRequest, reply) => {
     const q = req.query as Record<string, string | undefined>;
@@ -65,7 +65,7 @@ export default async function (app: FastifyInstance) {
     const limitIdx = params.length;
 
     const r = await query<Record<string, unknown>>(
-      `SELECT q.id, q.source, q.source_url, q.groupe, q.org_hint, q.claimed_at, q.extracted, q.tlp,
+      `SELECT q.id, q.raw_body, q.source, q.source_url, q.groupe, q.org_hint, q.claimed_at, q.extracted, q.tlp,
               q.status, q.promoted, q.promoted_at, q.promoted_by, q.received_at, q.purge_after, q.content_hash
        FROM quarantine_raw q
        ${where.length ? "WHERE " + where.join(" AND ") : ""}
@@ -77,11 +77,8 @@ export default async function (app: FastifyInstance) {
     const orgById = new Map(index.map((e) => [e.id, e]));
     const out: Record<string, unknown>[] = [];
     for (const row of r.rows) {
-      // La route exige désormais un jeton : le destinataire autorisé peut voir
-      // les faits TLP:RED. Leur contenu extrait reste masqué, seule la
-      // métadonnée (source, groupe, date, rattachement) est exposée.
-      const isRed = row.tlp === "RED";
-      // Le rattachement se calcule sur `org_hint`, jamais sur le contenu extrait.
+      // Niveau 4 : le destinataire autorisé lit les faits TLP:RED et leur
+      // contenu extrait ; le rattachement reste calculé sur `org_hint`.
       const m = matchOrgInIndex(String(row.org_hint ?? ""), index);
       out.push({
         // `bigint` arrive en chaîne de pg ; le contrat /api/quarantine expose
@@ -91,10 +88,11 @@ export default async function (app: FastifyInstance) {
         sourceUrl: row.source_url,
         groupe: row.groupe,
         orgHint: row.org_hint,
+        extracted: stripReview(row.extracted),
         claimedAt: row.claimed_at,
         // `_review` est notre journal de décisions, pas du contenu extrait :
         // il sort par son propre champ, jamais dans la charge utile source.
-        extracted: isRed ? null : stripReview(row.extracted),
+        rawBody: row.raw_body,
         review: Array.isArray((row.extracted as Record<string, unknown> | null)?.["_review"])
           ? (row.extracted as Record<string, unknown>)["_review"]
           : [],
@@ -112,6 +110,38 @@ export default async function (app: FastifyInstance) {
     }
     return out;
   });
+
+  /** Corps brut d'un fait de quarantaine, tel qu'encodé par le collecteur. */
+  app.get<{ Params: { id: string } }>(
+    "/quarantine/:id/raw",
+    { preHandler: requireRole("analyste") },
+    async (req) => {
+      const id = Number(req.params.id);
+      if (!Number.isSafeInteger(id) || id <= 0) throw badRequest("identifiant de quarantaine invalide");
+      const result = await query<{
+        id: string;
+        raw_body: string | null;
+        extracted: Record<string, unknown> | null;
+        source: string;
+        source_url: string | null;
+        tlp: string | null;
+      }>(
+        `SELECT id, raw_body, extracted, source, source_url, tlp
+           FROM quarantine_raw WHERE id = $1`,
+        [id],
+      );
+      const row = result.rows[0];
+      if (!row) throw notFound(`quarantine fact ${id} not found`);
+      return {
+        id: Number(row.id),
+        rawBody: row.raw_body,
+        extracted: stripReview(row.extracted),
+        source: row.source,
+        sourceUrl: row.source_url,
+        tlp: row.tlp,
+      };
+    },
+  );
 
   /** Comptes par statut, promotion et source. */
   app.get("/quarantine/stats", { preHandler: requireRole("lecteur") }, async (req: FastifyRequest, reply) => {

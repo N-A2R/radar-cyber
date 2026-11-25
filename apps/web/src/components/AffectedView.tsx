@@ -1,11 +1,10 @@
 /**
  * « Suis-je concerné ? » — vue d'une organisation centrée sur les preuves.
  *
- * Tout ce qui est rendu ici vient du `AffectedReport` structuré : catégorie,
- * libellé, valeur, horodatage et métadonnées de preuve d'un constat. Le texte
- * libre (limitations, titres d'événements, coordonnées) n'est délibérément
- * jamais imprimé, afin qu'aucune donnée personnelle de victime n'atteigne cet
- * écran.
+ * Déploiement privé (niveau 4) : chaque constat issu d'un événement affiche
+ * aussi son contenu brut tel qu'enregistré (titre, résumé, URL source et
+ * charge de preuve). Les libellés structurés restent lisibles en tête ; le
+ * brut n'est ni filtré ni réécrit.
  *
  * L'écran explique son geste avant le champ : ce que la vérification
  * interroge, ce qu'elle ne fait pas, et ce qu'un résultat contient. Les
@@ -112,6 +111,21 @@ function StatementRow({ statement }: { statement: Statement }) {
           </>
         ) : null}
       </dl>
+      {statement.raw ? (
+        <div className="affected__raw" data-raw="level-4">
+          <p className="affected__raw-title">Données brutes</p>
+          {statement.raw.title ? (
+            <p className="affected__raw-value" data-field="title">{statement.raw.title}</p>
+          ) : null}
+          {statement.raw.summary ? (
+            <p className="affected__raw-value" data-field="summary">{statement.raw.summary}</p>
+          ) : null}
+          {statement.raw.sourceUrl ? (
+            <code className="affected__raw-value" data-field="sourceUrl">{statement.raw.sourceUrl}</code>
+          ) : null}
+          <pre className="affected__raw-evidence">{JSON.stringify(statement.raw.evidence, null, 2)}</pre>
+        </div>
+      ) : null}
     </li>
   );
 }
@@ -206,14 +220,12 @@ export default function AffectedView({
           <h2 id="affected-title">Suis-je concerné ?</h2>
           <p className="affected__badges">
             <Badge label="Nouvelle-Aquitaine uniquement" className="affected__badge" />
-            <Badge label="Aucune donnée personnelle de victime n'est affichée." className="affected__badge" />
           </p>
         </div>
         <p className="affected__lead">
           La vérification interroge les organisations déjà rattachées à un incident en
-          Nouvelle-Aquitaine. Elle ne lit aucune donnée personnelle de victime et ne juge
-          aucune responsabilité : elle affiche les constats enregistrés, chacun avec sa
-          preuve.
+          Nouvelle-Aquitaine. Elle affiche les constats enregistrés, leur preuve et les
+          données brutes de la source, sans juger de responsabilité.
         </p>
       </header>
 
