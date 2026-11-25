@@ -164,7 +164,9 @@ before(async () => {
 
   // Troisième écriture : le dormant redevient actif. Si un chiffre était
   // figé ou calculé une seule fois, ce test le verrait.
-  await ajouterRun(IDS.dormante, 240, 4, 20, reference.instant);
+  const referenceStart = Date.parse(`${reference.jour}T00:00:01.000Z`);
+  const revealStart = new Date(Math.max(reference.instant.getTime() - 240_000, referenceStart) - 4_000);
+  await ajouterRun(IDS.dormante, 0, 4, 20, revealStart);
   await ajouterEvenement(IDS.dormante, "reveil", 0, reference.instant);
   apresRecolte = await lire();
 });
