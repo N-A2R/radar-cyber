@@ -91,6 +91,9 @@ export const CYBER_KEYWORDS: string[] = [
 
 const MAX_TERMS = 64;
 const MAX_TERM_LENGTH = 80;
+/** Bornes des caches partagés entre items (FIFO). */
+const MAX_CACHED_TERMS = 512;
+const MAX_CACHED_ORG_INDEXES = 512;
 
 /** Normalisation partagée avec `relevance.ts` : casse et accents tombent. */
 function normalise(value: string): string {
@@ -105,25 +108,121 @@ function termKey(value: string): string {
 	return normalise(value).replace(/\s+/g, " ");
 }
 
-const patternCache = new Map<string, RegExp>();
+interface PreparedTerm {
+	readonly key: string;
+	/** null : codes du type `CVE-`, recherchés comme sous-chaîne. */
+	readonly pattern: RegExp | null;
+}
 
-/** Mot entier pour un terme alphanumérique, sous-chaîne pour un code (CVE-…). */
-function containsTerm(hay: string, term: string): boolean {
-	const needle = termKey(term);
-	if (!needle) return false;
-	// `CVE-` sert de préfixe : exiger une frontière après le tiret le rendrait
-	// inopérant sur les identifiants réels (CVE-2026-115758).
-	if (!/^[a-z0-9].*[a-z0-9]$/.test(needle)) return hay.includes(needle);
-	let re = patternCache.get(needle);
-	if (!re) {
-		const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+const termCache = new Map<string, PreparedTerm>();
+
+/** Compile une clé déjà normalisée ; le motif est partagé entre tous les items. */
+function compileTermKey(key: string): PreparedTerm {
+	const cached = termCache.get(key);
+	if (cached) return cached;
+	let pattern: RegExp | null = null;
+	if (key && /^[a-z0-9].*[a-z0-9]$/.test(key)) {
+		const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
 		// Les dépêches françaises écrivent « cyberattaques », « failles »…
 		// Le pluriel simple est toléré, pas la conjugaison ni les dérivés.
-		const pluriel = needle.length >= 4 && /[a-z]$/.test(needle) && !/s$/.test(needle) ? "s?" : "";
-		re = new RegExp(`(?<![\\p{L}\\p{N}])${escaped}${pluriel}(?![\\p{L}\\p{N}])`, "iu");
-		if (patternCache.size < 512) patternCache.set(needle, re);
+		const pluriel = key.length >= 4 && /[a-z]$/.test(key) && !/s$/.test(key) ? "s?" : "";
+		pattern = new RegExp(`(?<![\\p{L}\\p{N}])${escaped}${pluriel}(?![\\p{L}\\p{N}])`, "iu");
 	}
-	return re.test(hay);
+	const prepared: PreparedTerm = { key, pattern };
+	if (termCache.size >= MAX_CACHED_TERMS) {
+		const oldest = termCache.keys().next().value;
+		if (oldest !== undefined) termCache.delete(oldest);
+	}
+	termCache.set(key, prepared);
+	return prepared;
+}
+
+/** Précompile un terme (clé + regex) une seule fois, puis le met en cache. */
+export function prepareTerm(term: string): PreparedTerm {
+	return compileTermKey(termKey(term));
+}
+
+function containsPrepared(hay: string, prepared: PreparedTerm): boolean {
+	if (!prepared.key) return false;
+	return prepared.pattern ? prepared.pattern.test(hay) : hay.includes(prepared.key);
+}
+
+
+/** Normalisation du nom d'une organisation pour la recherche par nom entier. */
+export function prepareOrgSearchName(name: string): string {
+	return normalise(String(name ?? ""))
+		.replace(/\b(sarl|sas|sa|eurl|sci|scp|association|groupe|group)\b/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
+interface PreparedOrg {
+	name: string;
+	nameTerm: PreparedTerm | null;
+	domains: readonly string[];
+}
+
+/** Index d'organisations pré-normalisé, avec ses domaines déjà en minuscules. */
+const NO_ORGS: readonly RelevanceOrg[] = [];
+const orgIndexCache = new WeakMap<readonly RelevanceOrg[], readonly PreparedOrg[]>();
+let orgIndexOrder: (readonly RelevanceOrg[])[] = [];
+
+function preparedOrgs(orgs: readonly RelevanceOrg[]): readonly PreparedOrg[] {
+	const cached = orgIndexCache.get(orgs);
+	if (cached) return cached;
+	const prepared: PreparedOrg[] = orgs.map((org) => {
+		const normName = org?.normName ?? prepareOrgSearchName(String(org?.name ?? ""));
+		const domains = org?.normDomains ?? [org?.domain, ...(org?.assets ?? [])]
+			.filter(Boolean)
+			.map((domain) => String(domain).toLowerCase().trim())
+			.filter(Boolean);
+		return {
+			name: org?.name,
+			nameTerm: normName.length >= 4 ? prepareTerm(normName) : null,
+			domains,
+		};
+	});
+	orgIndexCache.set(orgs, prepared);
+	orgIndexOrder.push(orgs);
+	if (orgIndexOrder.length > MAX_CACHED_ORG_INDEXES) {
+		const oldest = orgIndexOrder.shift();
+		if (oldest) orgIndexCache.delete(oldest);
+	}
+	return prepared;
+}
+
+interface PreparedKeyword {
+	term: string;
+	weight: number;
+	prepared: PreparedTerm;
+}
+
+interface PreparedConfig {
+	keywords: readonly PreparedKeyword[];
+	exclusions: readonly { term: string; prepared: PreparedTerm }[];
+}
+
+const configCache = new WeakMap<RelevanceConfig, PreparedConfig>();
+
+/** Le lexique d'une configuration est compilé une fois pour tous les items. */
+function preparedConfig(config: RelevanceConfig): PreparedConfig {
+	const cached = configCache.get(config);
+	if (cached) return cached;
+	const keywords: PreparedKeyword[] = [];
+	const seen = new Set<string>();
+	for (const term of config.keywords ?? []) {
+		const prepared = prepareTerm(String(term ?? ""));
+		if (!prepared.key || seen.has(prepared.key)) continue;
+		seen.add(prepared.key);
+		keywords.push({ term, weight: weightOf(term), prepared });
+	}
+	const exclusions = (config.exclusions ?? []).map((term) => ({
+		term,
+		prepared: prepareTerm(String(term ?? "")),
+	}));
+	const compiled = { keywords, exclusions };
+	configCache.set(config, compiled);
+	return compiled;
 }
 
 function parseTerms(raw: string | undefined, label: string, warnings: string[]): string[] {
@@ -224,40 +323,32 @@ export function evaluatePertinence(item: PertinenceInput, opts: EvaluateOptions 
 	const haySummary = normalise(summary);
 	const hayUrl = normalise(url);
 	const matches: PertinenceMatch[] = [];
-	const seenTerms = new Set<string>();
+	const compiled = preparedConfig(config);
 
-	for (const term of config.keywords) {
-		const key = termKey(term);
-		if (seenTerms.has(key)) continue;
-		const weight = weightOf(term);
-		if (containsTerm(hayTitle, term)) {
+	for (const { term, weight, prepared } of compiled.keywords) {
+		if (containsPrepared(hayTitle, prepared)) {
 			matches.push({ term, field: "title", weight });
-			seenTerms.add(key);
-		} else if (containsTerm(haySummary, term)) {
+		} else if (containsPrepared(haySummary, prepared)) {
 			matches.push({ term, field: "summary", weight: Math.max(1, weight - 1) });
-			seenTerms.add(key);
-		} else if (weight >= 2 && containsTerm(hayUrl, term)) {
+		} else if (weight >= 2 && containsPrepared(hayUrl, prepared)) {
 			// L'URL porte surtout le nom du média : indice faible, plafonné à 1.
 			matches.push({ term, field: "url", weight: 1 });
-			seenTerms.add(key);
 		}
 	}
 
-	// Entités du référentiel : nom complet ou domaine/asset, jamais l'URL du flux.
+	// Entités du référentiel : noms et domaines déjà normalisés dans l'index.
 	const ignored = (opts.ignoreDomains ?? []).map((d) => String(d).toLowerCase().trim()).filter(Boolean);
 	const isSelfDomain = (dom: string): boolean =>
 		ignored.some((host) => host === dom || host.endsWith(`.${dom}`) || dom.endsWith(`.${host}`));
 	const hayText = normalise(textOf(item));
 	let orgMatch: string | null = null;
-	for (const org of opts.orgs ?? []) {
-		const name = normalise(String(org?.name ?? "")).replace(/\b(sarl|sas|sa|eurl|sci|scp|association|groupe|group)\b/g, " ").replace(/\s+/g, " ").trim();
-		if (name.length >= 4 && containsTerm(hayText, name)) {
+	for (const org of preparedOrgs(opts.orgs ?? NO_ORGS)) {
+		if (org.nameTerm && containsPrepared(hayText, org.nameTerm)) {
 			orgMatch = org.name;
 			matches.push({ term: org.name, field: "title", weight: 3 });
 			break;
 		}
-		const domains = [org.domain, ...(org.assets ?? [])].filter(Boolean).map(String);
-		const found = domains.find((d) => d.toLowerCase().trim() && !isSelfDomain(d.toLowerCase().trim()) && hayText.includes(d.toLowerCase().trim()));
+		const found = org.domains.find((dom) => !isSelfDomain(dom) && hayText.includes(dom));
 		if (found) {
 			orgMatch = found;
 			matches.push({ term: found, field: "title", weight: 2 });
@@ -300,8 +391,8 @@ export function evaluatePertinence(item: PertinenceInput, opts: EvaluateOptions 
 	// organisation nommée reste admissible (ex. « virus » dans « virus informatique »).
 	let exclusion: string | null = null;
 	if (score < 4) {
-		for (const term of config.exclusions) {
-			if (containsTerm(hayTitle, term) || containsTerm(haySummary, term)) {
+		for (const { term, prepared } of compiled.exclusions) {
+			if (containsPrepared(hayTitle, prepared) || containsPrepared(haySummary, prepared)) {
 				exclusion = term;
 				score = 0;
 				reason = "excluded";
