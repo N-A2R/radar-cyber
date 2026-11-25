@@ -19,8 +19,9 @@ import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle } from "./collectors/index.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
+import { ingererEvenementCollecteur } from "./collecte/ingestion-collecteur.js";
 import { startLiveStream } from "./collecte/live.js";
-import { closeRun, openRun, withRunId } from "./collecte/runs.js";
+import { closeRun, openRun } from "./collecte/runs.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { ancrerJournalDuJour } from "./journal/anchor.js";
 import { porteeRegionale } from "./match/territorial.js";
@@ -241,14 +242,16 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 					continue;
 				}
 				const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
-				const r = await ingestQuery(
-					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, valid_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif, pertinence_score, pertinence_rule)
-					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$19,$20)
-					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
-					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
-					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? `urn:source:${c.id}`, JSON.stringify(withRunId(event.evidence ?? {}, runId)), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language, pertinence.score, pertinence.rule]
-				);
-				if ((r.rowCount ?? 0) > 0) {
+				const ecrit = await ingererEvenementCollecteur(event, {
+					runId,
+					langue: langue.language,
+					regional: portee.regional,
+					regionalMotif: portee.motif,
+					pertinenceScore: pertinence.score,
+					pertinenceRule: pertinence.rule,
+					sourceUrlParDefaut: `urn:source:${c.id}`,
+				});
+				if (ecrit > 0) {
 					itemsNew++;
 					faits.push({
 						kind: "event.admitted",
