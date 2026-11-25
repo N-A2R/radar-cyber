@@ -215,6 +215,10 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
   const index = buildOrgIndex(orgs, assets)
   const orgById = new Map(orgs.map((o) => [o.id, o]))
 
+  // Le gazetteer est construit avant de matérialiser les événements orphelins :
+  // ses buffers de transit sont ainsi libérés avant l'allocation des events.
+  const aliasCharges = await preparerGazetteer()
+
   const events = (await query<EventRow>(
     "SELECT id::text AS id, title, summary, source_url FROM event WHERE org_id IS NULL",
   )).rows
@@ -223,11 +227,6 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
   const orgIds: number[] = []
   const lats: (number | null)[] = []
   const lons: (number | null)[] = []
-  // Le gazetteer doit être chargé avant la boucle : sans lui, aucune
-  // résolution par nom n'est possible et l'absence de rattachement serait
-  // comptée comme un échec du moteur alors que c'est une panne d'index.
-  const aliasCharges = await preparerGazetteer()
-
   for (const ev of events) {
     const texte = `${ev.title ?? ""} ${ev.summary ?? ""}`
     // 1) le domaine est une clé exacte ; 2) le nom passe par le moteur

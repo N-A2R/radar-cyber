@@ -1300,7 +1300,7 @@ export async function runGenericSources(
   log(`couverture : ${coverage.epssByCve.size} score(s) EPSS, seuil ${coverage.epssThreshold}, ${coverage.deptNames.length} lieu(x)`);
   log(`filtre : ${activeIndex.domains.size} domaine(s), ${activeIndex.ips.size} IP, ${activeIndex.cves.size} CVE(s)`);
 
-  const CONCURRENCY = 8;
+  const CONCURRENCY = 3;
   let index = 0;
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
