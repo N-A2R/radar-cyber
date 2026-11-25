@@ -15,6 +15,7 @@ import {
 	domainRoot,
 	evaluateCoherence,
 	extractVictimRoots,
+	isProtectedByBenchVerdict,
 	type CoherenceEvent,
 	type CoherenceInput,
 	type CoherenceReason,
@@ -31,6 +32,7 @@ type AttachmentRow = {
 	summary: string | null;
 	source_id: string | null;
 	source_url: string | null;
+	dedup_key: string | null;
 	evidence: Record<string, any> | null;
 	org_id: number;
 	org_name: string;
@@ -47,7 +49,7 @@ type Finding = {
 };
 
 const { rows: attachmentRows } = await query<AttachmentRow>(
-	`SELECT e.id, e.title, e.summary, e.source_id, e.source_url, e.evidence,
+	`SELECT e.id, e.title, e.summary, e.source_id, e.source_url, e.evidence, e.dedup_key,
 	        o.id AS org_id, o.name AS org_name, o.domain AS org_domain,
 	        o.website AS org_website, o.dept AS org_dept
 	   FROM event e JOIN org o ON o.id = e.org_id
@@ -59,6 +61,7 @@ const attachments = attachmentRows.map((row) => ({
 	org_id: Number(row.org_id),
 }));
 const orgIds = [...new Set(attachments.map((row) => row.org_id))];
+const dedupKeyByEventId = new Map(attachments.map((row) => [row.id, row.dedup_key]));
 
 const { rows: aliasRows } = await query<{ org_id: number; alias: string }>(
 	`SELECT org_id, coalesce(nom_normalise, alias) AS alias FROM org_alias
@@ -170,20 +173,37 @@ const verdicts = JSON.parse(readFileSync("bench/precision/rattachements-verdicts
 	ordre: number; verdict: string;
 }>;
 const sample = JSON.parse(readFileSync("bench/precision/rattachements-echantillon.json", "utf8")) as {
-	entrees: Array<{ ordre: number; eventId: string }>;
+	entrees: Array<{ ordre: number; eventId: string; dedupKey?: string }>;
 };
 const verdictByOrder = new Map(verdicts.map((item) => [item.ordre, item.verdict]));
-const eventIdByOrder = new Map(sample.entrees.map((item) => [item.ordre, Number(item.eventId)]));
-const flaggedIds = new Set(findings.map((finding) => finding.eventId));
-const validation = { truePositives: 0, falsePositives: 0, keptTrue: 0, keptFalse: 0, checked: 0 };
-for (const [order, eventId] of eventIdByOrder) {
-	const verdict = verdictByOrder.get(order);
+const benchVerdicts = sample.entrees.flatMap((entry) => {
+	const verdict = verdictByOrder.get(entry.ordre);
+	return verdict ? [{ eventId: entry.eventId, dedupKey: entry.dedupKey ?? null, verdict }] : [];
+});
+const removableFindings = findings.filter((finding) => !isProtectedByBenchVerdict({
+	eventId: finding.eventId,
+	dedupKey: dedupKeyByEventId.get(finding.eventId),
+}, benchVerdicts));
+const { rows: removedRows } = await query<{ event_id: string | null }>(
+	`SELECT DISTINCT payload->>'eventId' AS event_id FROM journal WHERE kind = 'attachment.coherence'`,
+);
+const removedEventIds = new Set(removedRows.flatMap((row) => {
+	if (typeof row.event_id !== "string" || !/^\d+$/.test(row.event_id)) return [];
+	const eventId = Number(row.event_id);
+	return Number.isSafeInteger(eventId) ? [eventId] : [];
+}));
+for (const entry of sample.entrees) {
+	const verdict = verdictByOrder.get(entry.ordre);
+	const eventId = Number(entry.eventId);
 	if (!verdict || !Number.isFinite(eventId)) continue;
 	const stillAttached = attachments.some((row) => row.id === eventId);
-	if (!stillAttached) continue;
+	const priorProtectedRemoval = !stillAttached
+		&& removedEventIds.has(eventId)
+		&& isProtectedByBenchVerdict({ eventId, dedupKey: entry.dedupKey }, benchVerdicts);
+	if (!stillAttached && !priorProtectedRemoval) continue;
 	validation.checked++;
 	const isFalse = verdict === "hors_sujet";
-	if (flaggedIds.has(eventId)) {
+	if (flaggedIds.has(eventId) || priorProtectedRemoval) {
 		if (isFalse) validation.truePositives++;
 		else validation.falsePositives++;
 	} else if (isFalse) validation.keptFalse++;
@@ -194,9 +214,9 @@ const { rows: priorRows } = await query<{ n: string }>(
 	`SELECT count(*)::text AS n FROM journal WHERE kind = 'attachment.coherence'`,
 );
 let removed = 0;
-if (APPLY && findings.length > 0) {
+if (APPLY && removableFindings.length > 0) {
 	await withTransaction(async (client) => {
-		for (const finding of findings) {
+		for (const finding of removableFindings) {
 			const updated = await client.query(
 				`UPDATE event SET org_id = NULL WHERE id = $1 AND org_id = $2`,
 				[finding.eventId, finding.orgId],
@@ -284,7 +304,7 @@ Les liens retirés ne sont pas effacés : \`event.org_id\` passe à \`null\` et 
 
 ## Validation sur l'échantillon vérifié à la main
 
-Sur les ${validation.checked} liens de l'échantillon de 100 encore présents en base : ${validation.truePositives} hors-sujet détectés, ${validation.falsePositives} liens exacts ou partiels à tort signalés, ${validation.keptFalse} hors-sujet non détectés, ${validation.keptTrue} liens justes conservés.
+Sur les ${validation.checked} liens de l'échantillon de 100 encore présents en base ou protégés par un verdict manuel après retrait : ${validation.truePositives} hors-sujet détectés, ${validation.falsePositives} liens exacts ou partiels à tort signalés, ${validation.keptFalse} hors-sujet non détectés, ${validation.keptTrue} liens justes conservés.
 
 ## Rejouer
 
