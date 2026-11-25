@@ -77,10 +77,10 @@ before(async () => {
   // doit pas être compté comme incident (mais bien comme événement ingéré).
   await query(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, collected_at, severity, source_id, source_url, org_id, evidence)
-     VALUES ($1,'presse','confirmed_incident','Incident récent avec preuve', now() - interval '1 hour', now() - interval '1 hour', 3, $5, 'https://example.invalid/preuve', $8, '{"run_id":"1"}'::jsonb),
-            ($2,'cti','third_party_claim','Revendication récente sans preuve', now() - interval '2 hours', now() - interval '2 hours', 3, $6, 'https://example.invalid/${TAG}/ambig', NULL, '{"run_id":"1"}'::jsonb),
-            ($3,'presse','confirmed_incident','Incident ancien', now() - interval '3 days', now() - interval '3 days', 3, $5, 'https://example.invalid/event', $8, '{"run_id":"1"}'::jsonb),
-            ($4,'vuln','technical_indicator','Indicateur technique récent', now() - interval '30 minutes', now() - interval '30 minutes', 2, $7, 'https://example.invalid/event', NULL, '{"run_id":"1"}'::jsonb)`,
+     VALUES ($1,'presse','confirmed_incident','Incident récent avec preuve', now() - interval '1 hour', now() - interval '1 hour', 3, $5, 'https://example.invalid/preuve', $8, '{"run_id":"1","tlp":"CLEAR"}'::jsonb),
+            ($2,'cti','third_party_claim','Revendication récente sans preuve', now() - interval '2 hours', now() - interval '2 hours', 3, $6, 'https://example.invalid/${TAG}/ambig', NULL, '{"run_id":"1","tlp":"CLEAR"}'::jsonb),
+            ($3,'presse','confirmed_incident','Incident ancien', now() - interval '3 days', now() - interval '3 days', 3, $5, 'https://example.invalid/event', $8, '{"run_id":"1","tlp":"CLEAR"}'::jsonb),
+            ($4,'vuln','technical_indicator','Indicateur technique récent', now() - interval '30 minutes', now() - interval '30 minutes', 2, $7, 'https://example.invalid/event', NULL, '{"run_id":"1","tlp":"CLEAR"}'::jsonb)`,
     [
       DEDUP.recentConfirme, DEDUP.recentRevendique, DEDUP.ancien, DEDUP.indicateur,
       IDS.localisee, IDS.ambigue, "ransomlook", orgId,

@@ -90,7 +90,7 @@ async function insertEvent(e: NewEvent): Promise<number> {
 	const r = await query<{ id: number }>(
 		`INSERT INTO event (dedup_key, family, assertion_type, title, summary, severity, confidence,
 		                    source_id, org_id, regional, observed_at, evidence, source_url)
-		 VALUES ($1,$2,$3,$4,$5,4,$6,$7,$8,$9,COALESCE($10, now()),'{"run_id":"1"}'::jsonb,
+		 VALUES ($1,$2,$3,$4,$5,4,$6,$7,$8,$9,COALESCE($10, now()),'{"run_id":"1","tlp":"CLEAR"}'::jsonb,
 		         'https://example.invalid/event') RETURNING id`,
 		[
 			next(),
@@ -136,8 +136,8 @@ async function insertAlert(opts: {
 	createdAt?: Date;
 }): Promise<number> {
 	const r = await query<{ id: number }>(
-		`INSERT INTO alert (rule_id, title, severity, status, org_id, event_id, scope, created_at)
-		 VALUES ($1,$2,4,$3,$4,$5,$6,COALESCE($7, now())) RETURNING id`,
+		`INSERT INTO alert (rule_id, title, severity, status, org_id, event_id, scope, created_at, evidence)
+		 VALUES ($1,$2,4,$3,$4,$5,$6,COALESCE($7, now()),'{"tlp":"CLEAR"}'::jsonb) RETURNING id`,
 		[
 			opts.ruleId,
 			`Alerte ${opts.ruleId}`,
@@ -607,6 +607,22 @@ test("D11 : une alerte acquittée pendant le lot ne diffuse pas les canaux suiva
 		assert.equal(row.rows[0]!.telegram_delivered_at, null);
 	} finally {
 		globalThis.fetch = originalFetch;
+		await cleanup(ids);
+	}
+});
+
+// D11 — carve-out : une alerte sans événement reste éligible à la diffusion.
+test("D11 : une alerte sans fait mais déclarée TLP:CLEAR reste dans le lot", async () => {
+	const ids = newIds();
+	try {
+		const org = await insertOrg();
+		ids.orgs.push(org);
+		const alert = await insertAlert({ ruleId: `repair-sans-fait-${TAG}`, orgId: org });
+		ids.alerts.push(alert);
+
+		const pending = await fetchPendingAlerts(100_000);
+		assert.ok(pending.some((a) => a.id === alert), "l'alerte sans événement n'a pas disparu du lot");
+	} finally {
 		await cleanup(ids);
 	}
 });

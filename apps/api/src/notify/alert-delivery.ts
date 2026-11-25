@@ -136,7 +136,10 @@ WHERE a.delivered_at IS NULL
   AND a.attempts < $1
   AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
   AND a.scope <> ALL($3::text[])
-  AND ${evenementPublicSql("e")}
+  -- Une alerte sans fait n'a pas d'événement à filtrer : sa propre déclaration
+  -- TLP fait foi (CLEAR par défaut), comme sur la route /api/alerts.
+  AND ((a.event_id IS NULL AND coalesce(a.evidence->>'tlp', 'CLEAR') = 'CLEAR')
+       OR ${evenementPublicSql("e")})
 ORDER BY a.created_at ASC, a.id ASC
 LIMIT $2`;
 
