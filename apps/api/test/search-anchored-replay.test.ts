@@ -35,7 +35,7 @@ before(async () => {
     orgIds.push(Number(org.rows[0].id));
     const event = await query<{ id: number }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, source_url, evidence)
-       VALUES ($1, 'cert', 'confirmed_incident', $2, '2026-05-05T00:00:00Z', $3, $4, $5, '{"run_id":"1"}'::jsonb)
+       VALUES ($1, 'cert', 'confirmed_incident', $2, '2026-05-05T00:00:00Z', $3, $4, $5, '{"run_id":"1","tlp":"CLEAR"}'::jsonb)
        RETURNING id`,
       [`${TAG}-${label}`, `Avis de sécurité ${TAG} ${label}`, SOURCE, orgIds[index], `https://example.invalid/${TAG}/${label}`],
     );
