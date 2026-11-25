@@ -1,5 +1,5 @@
 import { forbidden, unauthorized } from "../errors.js";
-import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyError, FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { query } from "../db.js";
 import { hashSessionToken } from "../auth.js";
 
@@ -18,8 +18,42 @@ export const SESSION_COOKIE_PATH = "/api";
 export const SESSION_TTL_SECONDS = 7 * 24 * 3600;
 
 /**
+ * Une URL écrite dans un journal ne doit jamais porter le jeton SSE : c'est un
+ * secret de session, même quand il voyage dans un paramètre de requête.
+ * On neutralise toutes les occurrences de `token=` (query ou fragment, casse
+ * et clé encodée comprises) sans effacer les autres paramètres utiles au
+ * diagnostic (curseurs SSE par exemple).
+ */
+export function urlSansJetonSse(url: string): string {
+  return url.replace(/([?&#])(?:token|%74oken)=[^&#]*/gi, (_morceau, separateur: string) => `${separateur}token=<redacted>`);
+}
+
+/** Sérialiseur de la requête dans le journal d'accès, partagé avec `server.ts`. */
+export function serialiseurRequeteAcces(req: {
+  method?: string; url?: string; hostname?: string; ip?: string; remotePort?: number;
+}) {
+  return {
+    method: req.method,
+    url: urlSansJetonSse(String(req.url ?? "")),
+    hostname: req.hostname,
+    remoteAddress: req.ip,
+    remotePort: req.remotePort,
+  };
+}
+
+/** Un message d'erreur peut lui aussi contenir l'URL : on le nettoie aussi. */
+export function serialiseurErreurAcces(err: FastifyError) {
+  return {
+    ...err,
+    type: err.name ?? "Error",
+    message: urlSansJetonSse(String(err.message ?? "")),
+    stack: err.stack ? urlSansJetonSse(err.stack) : "",
+  };
+}
+
+/**
  * Jeton de session porté par la requête, sans jamais accepter le paramètre
- * `?token=` ici : ce dernier reste limité au flux SSE et est journalisé à part.
+ * `?token=` ici : ce dernier reste limité au flux SSE et n'est jamais journalisé.
  * Le bearer l'emporte sur le cookie, qui l'emporte sur la clé d'API.
  */
 export function sessionToken(req: FastifyRequest): string | null {

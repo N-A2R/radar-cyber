@@ -17,9 +17,21 @@ export interface RateLimitOptions {
   windowMs: number;
 }
 
-/** Une clé par utilisateur authentifié, sinon par adresse IP. */
-function clientKey(req: FastifyRequest): string {
-  return req.user ? `user:${req.user.id}` : `ip:${req.ip}`;
+/**
+ * Adresse retenue pour le quota. Fastify ne remplit `req.ips` que lorsque
+ * `trustProxy` est configuré : dans ce cas `req.ip` est déjà l'adresse client
+ * validée par la chaîne X-Forwarded-For de confiance. Sans configuration, on ne
+ * lit jamais l'en-tête fourni par le client — sinon chacun changerait de clé
+ * à volonté pour épuiser ou contourner son quota.
+ */
+export function adresseClient(req: FastifyRequest): string {
+  const ips = (req as FastifyRequest & { ips?: readonly string[] }).ips;
+  return (ips?.length ? ips[ips.length - 1] : req.ip) ?? req.socket?.remoteAddress ?? "inconnue";
+}
+
+/** Une clé par utilisateur authentifié, sinon par IP de confiance. */
+export function clientKey(req: FastifyRequest): string {
+  return req.user ? `user:${req.user.id}` : `ip:${adresseClient(req)}`;
 }
 
 export function rateLimit({ max, windowMs }: RateLimitOptions) {

@@ -44,6 +44,8 @@ import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import { instruireDemandesDroitReponse } from "./domain/rectification-delais.js";
 import exportMispRoute from "./routes/export-misp.js";
+import { serialiseurErreurAcces, serialiseurRequeteAcces } from "./middleware/auth.js";
+import { clientKey } from "./middleware/rate-limit.js";
 
 
 const port = Number(process.env.PORT ?? 8080);
@@ -70,13 +72,8 @@ const trustProxy = process.env.RADAR_TRUST_PROXY?.trim() || undefined;
 const app = Fastify({
   logger: {
     serializers: {
-      req: (req: { method?: string; url?: string; hostname?: string; ip?: string; remotePort?: number }) => ({
-        method: req.method,
-        url: String(req.url ?? "").replace(/([?&]token=)[^&]*/gi, "$1<redacted>"),
-        hostname: req.hostname,
-        remoteAddress: req.ip,
-        remotePort: req.remotePort,
-      }),
+      req: serialiseurRequeteAcces,
+      err: serialiseurErreurAcces,
     },
   },
   bodyLimit: 1024 * 1024,
@@ -105,7 +102,7 @@ await app.register(rateLimit, {
   global: true,
   max: Number(process.env.RADAR_RATE_LIMIT_MAX ?? 300),
   timeWindow: Number(process.env.RADAR_RATE_LIMIT_WINDOW_MS ?? 60_000),
-  keyGenerator: (req) => (req.user ? `user:${req.user.id}` : `ip:${req.ip}`),
+  keyGenerator: clientKey,
   // Le quota protège l'API, pas la livraison du front : une page ouverte
   // demande une quarantaine de fichiers, et plusieurs onglets ou une IP
   // partagée épuiseraient le quota avant même le premier appel d'API.
