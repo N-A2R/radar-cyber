@@ -8,7 +8,7 @@ import {
 	echantillonner,
 	tauxFausses,
 	type VerdictManuel,
-} from "../../../scripts/mesure-anomalies-series.mjs";
+} from "../../../../scripts/mesure-anomalies-series.mjs";
 
 test("échantillon déterministe, réparti sur toute la liste", () => {
 	const elements = Array.from({ length: 20 }, (_, i) => i);

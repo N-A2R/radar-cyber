@@ -12,7 +12,7 @@ import {
 	estClassable,
 	genererInstants,
 	parserFenetre,
-} from "../../../scripts/mesure-fausses-alertes.mts";
+} from "../../../../scripts/mesure-fausses-alertes.mts";
 
 describe("parserFenetre", () => {
 	it("borne la fenêtre annuelle du chantier 10 sur T00:00:00Z / T23:59:59Z", () => {

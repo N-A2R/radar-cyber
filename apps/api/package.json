@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx test/run.ts",
     "test:coverage": "tsx test/run.ts --experimental-test-coverage",
+    "test:objectifs": "tsx test/run.ts test/objectifs/*.test.ts",
     "verify:anchored": "tsx scripts/verify-anchored-answers.mts"
   },
   "dependencies": {

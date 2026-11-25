@@ -23,8 +23,72 @@ env:
   API_SHARDS: "8"
 
 jobs:
+  # Filtre les jobs selon les chemins touchés. Les événements non-PR
+  # (main, merge queue, nightly) lancent tout : aucun chemin ne doit
+  # échapper à la vérification complète.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      api: ${{ steps.filter.outputs.api }}
+      web: ${{ steps.filter.outputs.web }}
+      infra: ${{ steps.filter.outputs.infra }}
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - id: filter
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "api=true" >> "$GITHUB_OUTPUT"
+            echo "web=true" >> "$GITHUB_OUTPUT"
+            echo "infra=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git diff --name-only "$BASE_SHA...$GITHUB_SHA" > /tmp/changed.txt
+          api=false
+          web=false
+          infra=false
+          while IFS= read -r file; do
+            case "$file" in
+              *.md|docs/*)
+                : ;;
+              .github/workflows/*|.github/actions/*)
+                api=true; web=true; infra=true ;;
+              apps/*/Dockerfile*|.dockerignore|Caddyfile)
+                infra=true ;;
+              apps/api/*|db/*|scripts/*|bench/*)
+                api=true; infra=true ;;
+              apps/*/package.json)
+                web=true; infra=true ;;
+              apps/web/*)
+                web=true ;;
+              sdks/*|tests/*)
+                api=true; web=true ;;
+              packages/*|pnpm-lock.yaml|pnpm-workspace.yaml|package.json|tsconfig*.json)
+                api=true; web=true; infra=true ;;
+              docker*|Dockerfile*)
+                infra=true ;;
+              *)
+                # Chemin inconnu : on ne prend jamais le risque de tout sauter.
+                api=true; web=true; infra=true ;;
+            esac
+          done < /tmp/changed.txt
+
+          echo "api=$api" >> "$GITHUB_OUTPUT"
+          echo "web=$web" >> "$GITHUB_OUTPUT"
+          echo "infra=$infra" >> "$GITHUB_OUTPUT"
+          echo "api=$api web=$web infra=$infra"
+
   # Contrats, typechecks et migrations : aucune base nécessaire.
   contracts:
+    needs: changes
+    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true' || needs.changes.outputs.infra == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -48,6 +112,10 @@ jobs:
       - name: Tests migrations et outillage
         run: pnpm test:migrations
 
+      - name: Tests objectifs (nightly)
+        if: github.event_name == 'schedule'
+        run: pnpm test:objectifs
+
       - name: Plan des shards API (sans base)
         run: |
           ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
@@ -58,6 +126,8 @@ jobs:
   # fail-fast: false laisse tous les verdicts s'exprimer ; un shard en échec
   # fait échouer la matrix, puis le job agrégateur `verify`.
   api-tests:
+    needs: changes
+    if: needs.changes.outputs.api == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -113,6 +183,8 @@ jobs:
           ./node_modules/.bin/tsx test/run.ts "${files[@]}"
 
   web-unit:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -129,6 +201,8 @@ jobs:
           pnpm -F @radar/web run storybook:coverage
 
   playwright:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -150,6 +224,8 @@ jobs:
           pnpm -F @radar/web run test:e2e
 
   sdks-python:
+    needs: changes
+    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -164,6 +240,8 @@ jobs:
         run: pnpm test:python
 
   provenance:
+    needs: changes
+    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.infra == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -207,6 +285,8 @@ jobs:
           pnpm provenance:check:ci
 
   build:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -223,6 +303,8 @@ jobs:
   # résolution de `pg`. Un socle ne se vérifie qu'en le rejouant depuis le vide,
   # puis une seconde fois pour l'idempotence et sur une base COPIÉE.
   socle:
+    needs: changes
+    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.infra == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -290,6 +372,8 @@ jobs:
   # Portes de configuration : elles échouent avant tout test si la chaîne
   # d'approvisionnement régresse (audit de production, images, compose).
   supply-chain:
+    needs: changes
+    if: needs.changes.outputs.infra == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -322,14 +406,16 @@ jobs:
           docker build --check -f apps/web/Dockerfile .
           docker build --check -f docker/tor/Dockerfile .
 
-  # Nom conservé pour la protection de branche : agrège TOUTES les étapes,
-  # y compris `socle` et `supply-chain` qui restent bloquantes. `always()`
-  # garantit un verdict même lorsqu'une étape a échoué ou été annulée.
+  # Nom conservé pour la protection de branche : agrège TOUTES les étapes.
+  # Un job filtré par `changes` est `skipped` et reste acceptable ; seul
+  # `changes` lui-même doit être vert. `always()` garantit un verdict même
+  # lorsqu'une étape a échoué ou été annulée.
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     if: always()
     needs:
+      - changes
       - contracts
       - api-tests
       - web-unit
@@ -348,7 +434,9 @@ jobs:
           node -e '
             const results = JSON.parse(process.env.RESULTS);
             const failing = Object.entries(results)
-              .filter(([, value]) => value.result !== "success")
+              .filter(([name, value]) => name === "changes"
+                ? value.result !== "success"
+                : value.result !== "success" && value.result !== "skipped")
               .map(([name, value]) => `${name}:${value.result}`);
             if (failing.length) {
               console.error(`Étapes non vertes : ${failing.join(", ")}`);

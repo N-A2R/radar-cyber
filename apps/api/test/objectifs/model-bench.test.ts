@@ -6,7 +6,7 @@
  */
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
-import { closePools } from "../src/db.js";
+import { closePools } from "../../src/db.js";
 import {
   compareWithBaseline,
   corpusFingerprint,
@@ -14,10 +14,10 @@ import {
   validateCases,
   type BinaryModel,
   type EvalCase,
-} from "../src/eval/binary-bench.js";
-import { buildCases, hasNaAnchor, parseCorpus, type EventMetadata } from "../src/eval/corpus.js";
-import { falseEventGateModel, relevanceGateModel } from "../src/eval/models.js";
-import { loadRelevanceConfig } from "../src/collectors/pertinence.js";
+} from "../../src/eval/binary-bench.js";
+import { buildCases, hasNaAnchor, parseCorpus, type EventMetadata } from "../../src/eval/corpus.js";
+import { falseEventGateModel, relevanceGateModel } from "../../src/eval/models.js";
+import { loadRelevanceConfig } from "../../src/collectors/pertinence.js";
 
 after(async () => {
   await closePools();

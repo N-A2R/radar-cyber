@@ -8,7 +8,7 @@ import {
 	fitReliability,
 	probabilityFromScore,
 	type CalibrationSample,
-} from "../src/analyse/calibration.js";
+} from "../../src/analyse/calibration.js";
 
 test("brier score is zero for perfect predictions", () => {
 	assert.equal(brierScore([{ score: 100, label: 1 }, { score: 0, label: 0 }]), 0);

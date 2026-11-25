@@ -5,12 +5,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { DEPT_LABELS } from "../src/collectors/relevance.js";
+import { DEPT_LABELS } from "../../src/collectors/relevance.js";
 import {
 	LIBELLES_INDICATEURS,
 	OBJECTIF_CORPUS_PROGRESSION,
-} from "../src/analyse/rapport-corpus.js";
-import { mesurerRapportProgression } from "../src/analyse/mesure-corpus-progression.js";
+} from "../../src/analyse/rapport-corpus.js";
+import { mesurerRapportProgression } from "../../src/analyse/mesure-corpus-progression.js";
 
 const CODES_NA = Object.keys(DEPT_LABELS);
 const COLONNES = Object.values(LIBELLES_INDICATEURS);
@@ -44,7 +44,7 @@ function rapportFixture(codes: readonly string[], options: Options = {}): string
 }
 
 test("le rapport publié couvre les douze départements de Nouvelle-Aquitaine", () => {
-	const rapport = readFileSync(new URL("../../../docs/corpus-progression.md", import.meta.url), "utf8");
+	const rapport = readFileSync(new URL("../../../../docs/corpus-progression.md", import.meta.url), "utf8");
 	const mesure = mesurerRapportProgression(rapport, CODES_NA);
 	assert.deepEqual(mesure.departementsNA, CODES_NA);
 	assert.equal(mesure.date, "2026-11-21");
