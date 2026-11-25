@@ -2,11 +2,13 @@
  * Découpage déterministe des fichiers `test/*.test.ts` pour la CI en matrix.
  *
  * Les mêmes règles sont utilisées par chaque shard et par la vérification :
- * liste triée, découpage en tranches contiguës, aucun fichier dupliqué ou perdu.
+ * liste triée, répartition tournante, aucun fichier dupliqué ou perdu.
+ * La rotation évite de regrouper dans un même shard une suite alphabétique
+ * de tests lourds ; chaque shard reçoit un échantillon réparti sur tout l'alphabet.
  * Aucune base, aucun test : cette commande sert aussi de plan auditable.
  *
- *   tsx test/shard-files.ts --shards=6 --index=1     # fichiers du shard 1
- *   tsx test/shard-files.ts --shards=6 --list --check
+ *   tsx test/shard-files.ts --shards=8 --index=1     # fichiers du shard 1
+ *   tsx test/shard-files.ts --shards=8 --list --check
  */
 import { readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -19,11 +21,9 @@ export async function discoverTestFiles(): Promise<string[]> {
 	return entries.filter((f) => f.endsWith(".test.ts")).sort().map((f) => `test/${f}`);
 }
 
-/** Tranches contiguës de la liste triée : somme des tailles = nombre de fichiers. */
+/** Répartition tournante : aucun doublon, aucun oubli, tailles à ±1. */
 export function shardFiles(files: readonly string[], shards: number, index: number): string[] {
-	const start = Math.floor(((index - 1) * files.length) / shards);
-	const end = Math.floor((index * files.length) / shards);
-	return files.slice(start, end);
+	return files.filter((_, position) => position % shards === index - 1);
 }
 
 function positiveInt(value: string | undefined, label: string): number {
