@@ -198,7 +198,7 @@ jobs:
             "${files[@]}"
 
       - name: Durées du shard ${{ matrix.shard }} (artifact)
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: api-durations-${{ matrix.shard }}
@@ -210,7 +210,7 @@ jobs:
   # non bloquant et absent de `verify`, même si un shard a échoué.
   duration-weights:
     needs: api-tests
-    if: always() && needs.api-tests.result != 'skipped'
+    if: always() && needs.api-tests.result != 'skipped' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     continue-on-error: true
