@@ -33,6 +33,7 @@ jobs:
       api: ${{ steps.filter.outputs.api }}
       web: ${{ steps.filter.outputs.web }}
       infra: ${{ steps.filter.outputs.infra }}
+      schema: ${{ steps.filter.outputs.schema }}
 
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -47,6 +48,7 @@ jobs:
             echo "api=true" >> "$GITHUB_OUTPUT"
             echo "web=true" >> "$GITHUB_OUTPUT"
             echo "infra=true" >> "$GITHUB_OUTPUT"
+            echo "schema=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -54,36 +56,42 @@ jobs:
           api=false
           web=false
           infra=false
+          schema=false
           while IFS= read -r file; do
             case "$file" in
               *.md|docs/*)
                 : ;;
               .github/workflows/*|.github/actions/*)
-                api=true; web=true; infra=true ;;
+                api=true; web=true; infra=true; schema=true ;;
               apps/*/Dockerfile*|.dockerignore|Caddyfile)
-                infra=true ;;
-              apps/api/*|db/*|scripts/*|bench/*)
-                api=true; infra=true ;;
+                infra=true; schema=true ;;
+              apps/api/package.json)
+                api=true; infra=true; schema=true ;;
+              apps/api/*|bench/*)
+                api=true ;;
+              db/*|scripts/*)
+                api=true; schema=true ;;
               apps/*/package.json)
-                web=true; infra=true ;;
+                web=true; infra=true; schema=true ;;
               apps/web/*)
                 web=true ;;
               sdks/*|tests/*)
                 api=true; web=true ;;
               packages/*|pnpm-lock.yaml|pnpm-workspace.yaml|package.json|tsconfig*.json)
-                api=true; web=true; infra=true ;;
+                api=true; web=true; infra=true; schema=true ;;
               docker*|Dockerfile*)
-                infra=true ;;
+                infra=true; schema=true ;;
               *)
                 # Chemin inconnu : on ne prend jamais le risque de tout sauter.
-                api=true; web=true; infra=true ;;
+                api=true; web=true; infra=true; schema=true ;;
             esac
           done < /tmp/changed.txt
 
           echo "api=$api" >> "$GITHUB_OUTPUT"
           echo "web=$web" >> "$GITHUB_OUTPUT"
           echo "infra=$infra" >> "$GITHUB_OUTPUT"
-          echo "api=$api web=$web infra=$infra"
+          echo "schema=$schema" >> "$GITHUB_OUTPUT"
+          echo "api=$api web=$web infra=$infra schema=$schema"
 
   # Contrats, typechecks et migrations : aucune base nécessaire.
   contracts:
@@ -241,7 +249,7 @@ jobs:
 
   provenance:
     needs: changes
-    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.infra == 'true'
+    if: needs.changes.outputs.schema == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -304,7 +312,7 @@ jobs:
   # puis une seconde fois pour l'idempotence et sur une base COPIÉE.
   socle:
     needs: changes
-    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.infra == 'true'
+    if: needs.changes.outputs.schema == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
