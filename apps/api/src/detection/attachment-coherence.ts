@@ -79,6 +79,26 @@ export type CoherenceVerdict = {
 	victimRoots: string[];
 };
 
+export type BenchVerdict = {
+	eventId?: number | string | null;
+	dedupKey?: string | null;
+	verdict: string;
+};
+
+/** Manual exact or partial verdicts protect an attachment from automatic removal. */
+export function isProtectedByBenchVerdict(
+	finding: { eventId: number; dedupKey?: string | null },
+	verdicts: readonly BenchVerdict[],
+): boolean {
+	const eventId = String(finding.eventId);
+	return verdicts.some((item) => {
+		if (item.verdict !== "exacte" && item.verdict !== "partielle") return false;
+		const sameEvent = item.eventId != null && String(item.eventId) === eventId;
+		const sameDedupKey = item.dedupKey != null && item.dedupKey === finding.dedupKey;
+		return sameEvent || sameDedupKey;
+	});
+}
+
 export function normalize(text: string): string {
 	return text
 		.normalize("NFKD")

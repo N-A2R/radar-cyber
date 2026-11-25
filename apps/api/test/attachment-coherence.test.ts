@@ -5,6 +5,7 @@ import {
 	evaluateCoherence,
 	extractVictimRoots,
 	isDistinctiveName,
+	isProtectedByBenchVerdict,
 	type CoherenceEvent,
 	type CoherenceInput,
 } from "../src/detection/attachment-coherence.js";
@@ -182,4 +183,21 @@ test("keeps a title subject also repeated in the article body", () => {
 	);
 	assert.equal(verdict.coherent, true);
 	assert.equal(verdict.reason, "distinctive-name");
+});
+
+test("protects event 829 through exact or partial bench verdicts", () => {
+	const dedupKey = "feed:leak:hibp:latest-breaches:dldtn2DtWKlI0CFhpJIUmTLg";
+	const finding = { eventId: 829, dedupKey };
+	assert.equal(
+		isProtectedByBenchVerdict(finding, [{ eventId: "829", verdict: "exacte" }]),
+		true,
+	);
+	assert.equal(
+		isProtectedByBenchVerdict(finding, [{ eventId: 999, dedupKey, verdict: "partielle" }]),
+		true,
+	);
+	assert.equal(
+		isProtectedByBenchVerdict(finding, [{ dedupKey, verdict: "hors_sujet" }]),
+		false,
+	);
 });
