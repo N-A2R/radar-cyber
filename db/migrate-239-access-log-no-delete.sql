@@ -27,7 +27,7 @@ BEGIN
 EXCEPTION
   -- Deux bases de test migrées en parallèle peuvent créer ce rôle global
   -- entre le IF et le CREATE ROLE : le doublon est le résultat attendu.
-  WHEN duplicate_object THEN NULL;
+  WHEN duplicate_object OR unique_violation THEN NULL;
 END
 $$;
 
