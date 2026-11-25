@@ -5,8 +5,8 @@ import { evaluatePertinence } from "./pertinence.js";
 export { CYBER_KEYWORDS } from "./pertinence.js";
 import type { RelevanceConfig } from "./pertinence.js";
 import { ingestQuery } from "../db.js";
-import { getGazetteer } from "./org-gazetteer.js";
-import { buildGazetteer, designateUneOrganisation, resoudre } from "../match/gazetteer.js";
+import { gazetteerCourant, getGazetteer } from "./org-gazetteer.js";
+import { buildGazetteer, designateUneOrganisation, resoudre, type Gazetteer } from "../match/gazetteer.js";
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "../match/generique.js";
 import type { OrgRef } from "@radar/shared";
 import type { ExplicationRattachement } from "../journal/rattachement.js";
@@ -196,17 +196,14 @@ export function expliquerRattachement(text: string): ExplicationRattachement {
 	};
 }
 
-let dernierGazetteer: { at: number; gaz: ReturnType<typeof buildGazetteer> } | null = null;
-
-/** Mémoïse localement le gazetteer déjà résolu par le chargement asynchrone. */
-export function gazetteerCharge(): ReturnType<typeof buildGazetteer> | null {
-	return dernierGazetteer?.gaz ?? null;
+/** Le gazetteer déjà résolu par le chargement asynchrone. */
+export function gazetteerCharge(): Gazetteer | null {
+	return gazetteerCourant();
 }
 
 /** À appeler avant un run d'ingestion : charge l'index une fois, sans requête par item. */
 export async function preparerGazetteer(): Promise<number> {
 	const gaz = await getGazetteer();
-	dernierGazetteer = { at: Date.now(), gaz };
 	return gaz.byAliasKey.size;
 }
 

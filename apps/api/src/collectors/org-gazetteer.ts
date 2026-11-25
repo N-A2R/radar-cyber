@@ -20,7 +20,7 @@ import { buildGazetteer, normaliser, type Gazetteer, type GazetteerRow } from ".
 
 let cache: { at: number; gaz: Gazetteer } | null = null;
 let pending: Promise<Gazetteer> | null = null;
-const TTL_MS = 10 * 60 * 1000;
+const TTL_MS = 60 * 60 * 1000;
 const LOT = 20_000;
 const TAILLE_BLOC = 1024 * 1024;
 
@@ -254,6 +254,9 @@ async function charger(): Promise<Gazetteer> {
 export async function getGazetteer(): Promise<Gazetteer> {
 	if (cache && Date.now() - cache.at < TTL_MS) return cache.gaz;
 	if (pending) return pending;
+	// Un index expiré ne doit pas rester référencé pendant la construction du
+	// suivant : à 1,7 M d'alias, les deux pics de mémoire ne doivent pas coexister.
+	cache = null;
 	pending = charger()
 		.then((gaz) => {
 			cache = { at: Date.now(), gaz };
@@ -267,6 +270,10 @@ export async function getGazetteer(): Promise<Gazetteer> {
 			pending = null;
 		});
 	return pending;
+}
+
+export function gazetteerCourant(): Gazetteer | null {
+	return cache?.gaz ?? null;
 }
 
 export function resetGazetteer(): void {

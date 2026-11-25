@@ -106,8 +106,16 @@ export async function lireSanteSource(sourceId: string): Promise<SanteSource | n
 	};
 }
 
+async function sourceExiste(sourceId: string): Promise<boolean> {
+	const { rows } = await query<{ existe: boolean }>(
+		"SELECT EXISTS (SELECT 1 FROM source WHERE id = $1) AS existe",
+		[sourceId],
+	);
+	return rows[0]?.existe === true;
+}
+
 export type RaisonCollecte =
-	| "jamais-collectee" | "forced" | "due" | "backoff" | "intervalle" | "morte" | "desactivee" | "en-attente-branchement";
+	| "jamais-collectee" | "forced" | "due" | "backoff" | "intervalle" | "morte" | "desactivee" | "en-attente-branchement" | "source-absente";
 
 export type DecisionCollecte = {
 	sourceId: string;
@@ -188,6 +196,18 @@ export async function planifierCycle(options: {
 	for (let i = 0; i < candidats.length; i++) {
 		const collecteur = candidats[i] as Collector;
 		const sante = etats[i] ?? null;
+		if (sante === null) {
+			let existe = true;
+			try {
+				existe = await sourceExiste(collecteur.id);
+			} catch (e) {
+				options.log?.(`cycle : existence de ${collecteur.id} illisible — ${String(e)}`);
+			}
+			if (!existe) {
+				sautees.push({ sourceId: collecteur.id, collecter: false, raison: "source-absente", sante: null });
+				continue;
+			}
+		}
 		const decision = doitCollecter(sante, options.intervalles?.[collecteur.id] ?? collecteur.intervalSec, { force: options.force }, maintenant);
 		if (!decision.collecter) {
 			sautees.push(decision);

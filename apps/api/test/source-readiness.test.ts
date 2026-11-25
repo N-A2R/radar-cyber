@@ -61,6 +61,7 @@ const IDS = {
   apiDesactivee: `${TAG}-api-desactivee`,
   apiErreur: `${TAG}-api-erreur`,
   statsAttente: `${TAG}-stats-attente`,
+  sourceAbsente: `${TAG}-source-absente`,
 } as const;
 const TOUS: readonly string[] = Object.values(IDS);
 const MAINTENANT = Date.UTC(2026, 10, 24, 12, 0, 0);
@@ -167,6 +168,19 @@ test("collecteurs dédiés : onlyId + force ne relancent pas une source non bran
     statut: "active", enabled: true, pret_a_collecter: false, echecs_consecutifs: 0,
     last_ok_at: null, last_error_at: null, last_error: null, dernier_statut: null,
   }), "en-attente-branchement");
+});
+
+test("collecteur sans ligne source : exclu du planning, aucun collector_run", async () => {
+  const id = IDS.sourceAbsente;
+  const plan = await planifierCycle({
+    collecteurs: [fauxCollecteur(id)], force: true, maintenant: MAINTENANT,
+  });
+  assert.deepEqual(plan.aExecuter, []);
+  assert.deepEqual(plan.sautees.map((e) => [e.sourceId, e.raison]), [[id, "source-absente"]]);
+  const runs = await query<{ n: number }>(
+    "SELECT count(*)::int AS n FROM collector_run WHERE source_id = $1", [id],
+  );
+  assert.equal(runs.rows[0]?.n, 0, "un collecteur sans source ne doit pas tenter d'écrire un run");
 });
 
 test("succès collecteur : un run réussi bascule pret_a_collecter à true", async () => {
