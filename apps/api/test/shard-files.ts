@@ -2,28 +2,70 @@
  * Découpage déterministe des fichiers `test/*.test.ts` pour la CI en matrix.
  *
  * Les mêmes règles sont utilisées par chaque shard et par la vérification :
- * liste triée, répartition tournante, aucun fichier dupliqué ou perdu.
- * La rotation évite de regrouper dans un même shard une suite alphabétique
- * de tests lourds ; chaque shard reçoit un échantillon réparti sur tout l'alphabet.
- * Aucune base, aucun test : cette commande sert aussi de plan auditable.
+ * les fichiers sont placés du plus lourd au plus léger sur le shard le moins
+ * chargé, puis triés dans chaque shard. Le poids est une estimation
+ * (démarrage du process + taille du fichier) tant que les durées réelles ne
+ * sont pas collectées. Aucun doublon, aucun oubli, plan auditable.
  *
  *   tsx test/shard-files.ts --shards=8 --index=1     # fichiers du shard 1
  *   tsx test/shard-files.ts --shards=8 --list --check
  */
 import { readdir } from "node:fs/promises";
+import { readFileSync } from "node:fs";
+import { basename, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const TEST_DIR = fileURLToPath(new URL("./", import.meta.url));
 export const DEFAULT_SHARDS = 6;
+
+/** Coût fixe d'un fichier : lancement du process tsx/Node. */
+const FILE_STARTUP_WEIGHT = 500;
+const weights = new Map<string, number>();
 
 export async function discoverTestFiles(): Promise<string[]> {
 	const entries = await readdir(TEST_DIR);
 	return entries.filter((f) => f.endsWith(".test.ts")).sort().map((f) => `test/${f}`);
 }
 
-/** Répartition tournante : aucun doublon, aucun oubli, tailles à ±1. */
+/**
+ * Poids estimé : le démarrage du process domine, la taille du fichier
+ * approxime le travail restant. Remplaçable par des durées mesurées plus tard.
+ */
+export function estimatedWeight(file: string): number {
+	const cached = weights.get(file);
+	if (cached !== undefined) return cached;
+	let weight = FILE_STARTUP_WEIGHT;
+	try {
+		const source = readFileSync(join(TEST_DIR, basename(file)), "utf8");
+		weight += source.split("\n").length;
+	} catch {
+		// Fichier absent : il sera quand même placé, le plan --check le verra.
+	}
+	weights.set(file, weight);
+	return weight;
+}
+
+/**
+ * Répartition LPT (longest processing time) : chaque fichier va au shard
+ * dont la charge estimée est la plus faible. Déterministe : poids décroissant,
+ * puis nom, puis index de shard.
+ */
 export function shardFiles(files: readonly string[], shards: number, index: number): string[] {
-	return files.filter((_, position) => position % shards === index - 1);
+	if (shards < 1 || index < 1 || index > shards) return [];
+	const groups = Array.from({ length: shards }, () => ({ load: 0, files: [] as string[] }));
+	const ordered = [...files].sort((a, b) => {
+		const byWeight = estimatedWeight(b) - estimatedWeight(a);
+		return byWeight !== 0 ? byWeight : a.localeCompare(b);
+	});
+	for (const file of ordered) {
+		let target = 0;
+		for (let i = 1; i < groups.length; i += 1) {
+			if (groups[i]!.load < groups[target]!.load) target = i;
+		}
+		groups[target]!.load += estimatedWeight(file);
+		groups[target]!.files.push(file);
+	}
+	return groups[index - 1]!.files.sort();
 }
 
 function positiveInt(value: string | undefined, label: string): number {
