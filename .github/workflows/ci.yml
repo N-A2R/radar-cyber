@@ -190,6 +190,13 @@ jobs:
             exit 0
           fi
           mapfile -t files < /tmp/api-shard.txt
+          # Sur une PR qui touche un chemin critique, le shard est plein :
+          # deux workers avec une base chacun sont ~1,4× plus rapides.
+          # main/nightly restent séquentiels pour produire les durées réelles.
+          if [ "${#files[@]}" -ge 40 ] && [ "${{ github.event_name }}" = "pull_request" ]; then
+            ./node_modules/.bin/tsx test/parallel/run.ts "${files[@]}"
+            exit
+          fi
           ./node_modules/.bin/tsx test/run.ts \
             --test-reporter=spec \
             --test-reporter=./test/duration-reporter.mjs \
