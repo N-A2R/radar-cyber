@@ -3,9 +3,10 @@
  *
  * Les mêmes règles sont utilisées par chaque shard et par la vérification :
  * les fichiers sont placés du plus lourd au plus léger sur le shard le moins
- * chargé, puis triés dans chaque shard. Le poids est une estimation
- * (démarrage du process + taille du fichier) tant que les durées réelles ne
- * sont pas collectées. Aucun doublon, aucun oubli, plan auditable.
+ * chargé, puis triés dans chaque shard. Le poids vient de `shard-weights.json`
+ * (durées mesurées en ms) quand ce fichier existe ; sinon il reste une
+ * estimation (démarrage du process + taille du fichier). Aucun doublon, aucun
+ * oubli, plan auditable.
  *
  *   tsx test/shard-files.ts --shards=8 --index=1     # fichiers du shard 1
  *   tsx test/shard-files.ts --shards=8 --list --check
@@ -20,7 +21,9 @@ export const DEFAULT_SHARDS = 6;
 
 /** Coût fixe d'un fichier : lancement du process tsx/Node. */
 const FILE_STARTUP_WEIGHT = 500;
+const WEIGHTS_FILE = fileURLToPath(new URL("./shard-weights.json", import.meta.url));
 const weights = new Map<string, number>();
+let measuredWeights: Map<string, number> | undefined;
 
 export async function discoverTestFiles(): Promise<string[]> {
 	const entries = await readdir(TEST_DIR);
@@ -28,10 +31,36 @@ export async function discoverTestFiles(): Promise<string[]> {
 }
 
 /**
- * Poids estimé : le démarrage du process domine, la taille du fichier
- * approxime le travail restant. Remplaçable par des durées mesurées plus tard.
+ * Durées mesurées (ms) produites par le collecteur CI. Un fichier absent,
+ * illisible ou invalide ne bloque pas le planning : les entrées exploitables
+ * sont utilisées, les autres retombent sur `estimatedWeight`.
+ */
+function loadMeasuredWeights(): ReadonlyMap<string, number> {
+	if (measuredWeights) return measuredWeights;
+	measuredWeights = new Map();
+	try {
+		const parsed: unknown = JSON.parse(readFileSync(WEIGHTS_FILE, "utf8"));
+		if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return measuredWeights;
+		for (const [file, value] of Object.entries(parsed)) {
+			if (!/^test\/[^/]+\.test\.ts$/.test(file)) continue;
+			if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) continue;
+			measuredWeights.set(file, value);
+		}
+	} catch (erreur) {
+		if ((erreur as NodeJS.ErrnoException).code !== "ENOENT") {
+			console.error(`shard-weights.json illisible, estimation par taille : ${String(erreur)}`);
+		}
+	}
+	return measuredWeights;
+}
+
+/**
+ * Poids retenu : durée mesurée si disponible, sinon démarrage du process
+ * plus nombre de lignes du fichier.
  */
 export function estimatedWeight(file: string): number {
+	const measured = loadMeasuredWeights().get(file);
+	if (measured !== undefined) return measured;
 	const cached = weights.get(file);
 	if (cached !== undefined) return cached;
 	let weight = FILE_STARTUP_WEIGHT;
