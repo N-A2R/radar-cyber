@@ -14,23 +14,23 @@ import {
 	construireIncidents,
 	type IncidentDepartemental,
 	type IncidentReference,
-} from "../src/analyse/benchmark-premier-regard.js";
+} from "../../src/analyse/benchmark-premier-regard.js";
 import {
 	CRITERES,
 	ErreurBenchmarkOutils,
 	positionRadar,
 	verifierJeuOutils,
 	type JeuOutils,
-} from "../src/analyse/benchmark-outils.js";
+} from "../../src/analyse/benchmark-outils.js";
 import {
 	genererRapport,
 	genererTableauIncidents,
 	LIMITE_MOTS_RAPPORT,
-} from "../src/analyse/rapport-benchmark.js";
+} from "../../src/analyse/rapport-benchmark.js";
 
 function lireJeu(): JeuOutils {
 	return JSON.parse(
-		readFileSync(new URL("../../../bench/results/benchmark-outils.json", import.meta.url), "utf8"),
+		readFileSync(new URL("../../../../bench/results/benchmark-outils.json", import.meta.url), "utf8"),
 	) as JeuOutils;
 }
 
@@ -132,13 +132,13 @@ test("la sélection élimine les doublons avant d'appliquer la limite", () => {
 
 test("le corpus réel donne 100 incidents, radar toujours dernier et jamais premier face à un média", () => {
 	const reference = JSON.parse(
-		readFileSync(new URL("../../../bench/fixtures/corpus-reference-na.json", import.meta.url), "utf8"),
+		readFileSync(new URL("../../../../bench/fixtures/corpus-reference-na.json", import.meta.url), "utf8"),
 	) as Parameters<typeof construireIncidents>[0];
-	const noms = readdirSync(new URL("../../../bench/corpus/", import.meta.url))
+	const noms = readdirSync(new URL("../../../../bench/corpus/", import.meta.url))
 		.filter((nom) => /^incidents-.*\.jsonl$/.test(nom))
 		.sort();
 	const departementaux = noms.flatMap((nom) =>
-		readFileSync(new URL(`../../../bench/corpus/${nom}`, import.meta.url), "utf8")
+		readFileSync(new URL(`../../../../bench/corpus/${nom}`, import.meta.url), "utf8")
 			.split("\n")
 			.filter((ligne) => ligne.trim())
 			.map((ligne) => JSON.parse(ligne) as IncidentDepartemental),
@@ -194,13 +194,13 @@ test("le rapport tient sous 150 mots et publie les chiffres attendus", () => {
 test("le tableau nominatif porte 100 lignes et n'invente pas de date CERT-FR", () => {
 	const jeu = lireJeu();
 	const reference = JSON.parse(
-		readFileSync(new URL("../../../bench/fixtures/corpus-reference-na.json", import.meta.url), "utf8"),
+		readFileSync(new URL("../../../../bench/fixtures/corpus-reference-na.json", import.meta.url), "utf8"),
 	) as Parameters<typeof construireIncidents>[0];
-	const noms = readdirSync(new URL("../../../bench/corpus/", import.meta.url))
+	const noms = readdirSync(new URL("../../../../bench/corpus/", import.meta.url))
 		.filter((nom) => /^incidents-.*\.jsonl$/.test(nom))
 		.sort();
 	const departementaux = noms.flatMap((nom) =>
-		readFileSync(new URL(`../../../bench/corpus/${nom}`, import.meta.url), "utf8")
+		readFileSync(new URL(`../../../../bench/corpus/${nom}`, import.meta.url), "utf8")
 			.split("\n")
 			.filter((ligne) => ligne.trim())
 			.map((ligne) => JSON.parse(ligne) as IncidentDepartemental),

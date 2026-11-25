@@ -12,6 +12,7 @@
     "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
     "verifie:stix-projection": "apps/api/node_modules/.bin/tsx scripts/verifie-stix-projection.mts",
     "test": "pnpm -F @radar/api test",
+    "test:objectifs": "pnpm -F @radar/api test:objectifs",
     "provenance:measure": "apps/api/node_modules/.bin/tsx scripts/provenance.mts measure --json=/tmp/radar-provenance-ci.json",
     "provenance:check": "apps/api/node_modules/.bin/tsx scripts/provenance.mts check --json=/tmp/radar-provenance-ci.json --max-age-minutes=1440",
     "provenance:measure:ci": "apps/api/node_modules/.bin/tsx scripts/provenance.mts measure --context=ci-fixture --json=/tmp/radar-provenance-ci.json",

@@ -6,16 +6,16 @@ import {
 	ligneObjectifPremiereRevendication,
 	verifierDeclarationObjectif,
 	verifierObjectifPremiereRevendication,
-} from "../src/analyse/objectif-premiere-revendication.js";
+} from "../../src/analyse/objectif-premiere-revendication.js";
 
 /** Un comportement par test : la déclaration doit suivre la mesure publiée. */
 
 const mesure = JSON.parse(
-	readFileSync(new URL("../../../bench/results/premiere-revendication.json", import.meta.url), "utf8"),
+	readFileSync(new URL("../../../../bench/results/premiere-revendication.json", import.meta.url), "utf8"),
 ) as { objective: { measuredHours: number; achieved: boolean } };
 
 const rapport = readFileSync(
-	new URL("../../../docs/rapport-premiere-revendication.md", import.meta.url),
+	new URL("../../../../docs/rapport-premiere-revendication.md", import.meta.url),
 	"utf8",
 );
 

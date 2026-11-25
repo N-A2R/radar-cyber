@@ -6,15 +6,15 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import type { BilanBenchmark } from "../src/analyse/benchmark-premier-regard.js";
+import type { BilanBenchmark } from "../../src/analyse/benchmark-premier-regard.js";
 import {
 	OBJECTIF_BENCHMARK,
 	compterIncidentsDates,
 	ligneObjectif,
 	verifierDeclarationObjectif,
 	verifierObjectifBenchmark,
-} from "../src/analyse/objectif-benchmark.js";
-import { genererTableauIncidents } from "../src/analyse/rapport-benchmark.js";
+} from "../../src/analyse/objectif-benchmark.js";
+import { genererTableauIncidents } from "../../src/analyse/rapport-benchmark.js";
 
 const incidents = (total: number, dates: object = { radar: "2026-11-21" }) =>
 	Array.from({ length: total }, (_, index) => ({ id: `na-${index}`, dates }));

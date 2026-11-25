@@ -4,8 +4,8 @@
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { checkObjective, checkReportDeclaration, OBJECTIF_COMMUNIQUES } from "../src/communiques/objectif.js";
-import type { WeeklyMeasurement } from "../src/communiques/store.js";
+import { checkObjective, checkReportDeclaration, OBJECTIF_COMMUNIQUES } from "../../src/communiques/objectif.js";
+import type { WeeklyMeasurement } from "../../src/communiques/store.js";
 
 function measurement(count: number | null): Pick<WeeklyMeasurement, "weeks"> {
   return {

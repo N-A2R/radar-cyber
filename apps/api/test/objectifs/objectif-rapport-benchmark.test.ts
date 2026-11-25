@@ -4,15 +4,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { calculerBenchmark } from "../src/analyse/benchmark-premier-regard.js";
-import type { JeuOutils } from "../src/analyse/benchmark-outils.js";
+import { calculerBenchmark } from "../../src/analyse/benchmark-premier-regard.js";
+import type { JeuOutils } from "../../src/analyse/benchmark-outils.js";
 import {
 	genererRapport,
 	LIMITE_MOTS_RAPPORT,
 	mesurerObjectifRapport,
 	verifierDeclarationObjectifRapport,
 	type IncidentDate,
-} from "../src/analyse/rapport-benchmark.js";
+} from "../../src/analyse/rapport-benchmark.js";
 
 const LIGNE_ATTEINTE = "OBJECTIF : atteint — 100 / 100 incidents de Nouvelle-Aquitaine datés";
 
@@ -32,7 +32,7 @@ test("une date radar impossible, absente ou nulle n'est pas comptée comme daté
 
 test("la mesure publiée porte 100 incidents datés sur 100", () => {
 	const mesure = JSON.parse(
-		readFileSync(new URL("../../../bench/results/benchmark-premier-regard.json", import.meta.url), "utf8"),
+		readFileSync(new URL("../../../../bench/results/benchmark-premier-regard.json", import.meta.url), "utf8"),
 	) as { incidents: IncidentDate[] };
 	const objectif = mesurerObjectifRapport(mesure.incidents);
 	assert.equal(objectif.cible, 100);
@@ -77,7 +77,7 @@ test("une déclaration absente, périmée ou dupliquée est refusée", () => {
 
 test("le générateur émet la ligne OBJECTIF dans le rapport court sous 150 mots", () => {
 	const jeu = JSON.parse(
-		readFileSync(new URL("../../../bench/results/benchmark-outils.json", import.meta.url), "utf8"),
+		readFileSync(new URL("../../../../bench/results/benchmark-outils.json", import.meta.url), "utf8"),
 	) as JeuOutils;
 	const bilan = calculerBenchmark([
 		{ id: "a", entite: "A", codeDepartement: "33", dates: { radar: "2026-11-12" } },
@@ -92,9 +92,9 @@ test("le générateur émet la ligne OBJECTIF dans le rapport court sous 150 mot
 
 test("le rapport publié porte la déclaration de la mesure publiée", () => {
 	const mesure = JSON.parse(
-		readFileSync(new URL("../../../bench/results/benchmark-premier-regard.json", import.meta.url), "utf8"),
+		readFileSync(new URL("../../../../bench/results/benchmark-premier-regard.json", import.meta.url), "utf8"),
 	) as { incidents: IncidentDate[] };
-	const rapport = readFileSync(new URL("../../../docs/benchmark.md", import.meta.url), "utf8");
+	const rapport = readFileSync(new URL("../../../../docs/benchmark.md", import.meta.url), "utf8");
 	assert.equal(
 		verifierDeclarationObjectifRapport(rapport, mesurerObjectifRapport(mesure.incidents).ligne),
 		true,
