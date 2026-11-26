@@ -5,8 +5,8 @@ name: CI
 #   PR          : changes → contracts (typechecks) + api-smoke (tests affectés,
 #                 2 workers) → verify. C'est la porte de merge : rapide, ciblée.
 #   merge queue : TOUT (la matrix 8 shards, web, e2e, socle, supply-chain).
-#                 Un lot ne merge que vert. Activer la queue dans les réglages
-#                 de protection de branche (voir docs/ci-triage-tests.md).
+#                 Disponible uniquement sur un dépôt d'organisation ; ici,
+#                 main et la nightly couvrent la suite complète.
 #   main (push) : TOUT, séquentiel sur les shards, pour collecter les durées
 #                 réelles qui pondèrent le shard plan.
 #   nightly     : TOUT + tests d'objectifs.
