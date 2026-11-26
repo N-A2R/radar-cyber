@@ -1,10 +1,13 @@
 /**
- * Prototype : deux workers de tests en parallèle pour un même shard.
+ * Plusieurs workers de tests en parallèle pour un même shard.
  *
  * Chaque worker est le lanceur existant `test/run.ts` : il crée sa propre base
  * `radar_test_<pid>_<timestamp>`, y applique le schéma, exécute `tsx --test`
- * sur sa moitié des fichiers, puis détruit sa base. Les assertions ne sont pas
+ * sur sa part des fichiers, puis détruit sa base. Les assertions ne sont pas
  * modifiées ; seul le découpage du shard change.
+ *
+ * Deux workers par défaut. `RADAR_TEST_WORKERS` permet d'augmenter le parallélisme
+ * quand le runner dispose de plusieurs cœurs.
  *
  *   tsx test/parallel/run.ts test/a.test.ts test/b.test.ts ...
  */
@@ -25,7 +28,15 @@ if (files.length === 0) {
 
 // Alternance déterministe : chaque fichier du shard va à un seul worker, sans
 // duplication ; l'ordre décroissant des poids du shard est préservé.
-const groups = [files.filter((_, i) => i % 2 === 0), files.filter((_, i) => i % 2 === 1)];
+const requestedWorkers = Number(process.env.RADAR_TEST_WORKERS ?? 2);
+if (!Number.isInteger(requestedWorkers) || requestedWorkers < 1 || requestedWorkers > 16) {
+	console.error("RADAR_TEST_WORKERS doit être un entier entre 1 et 16");
+	process.exit(2);
+}
+const workerCount = Math.min(requestedWorkers, files.length);
+const groups = Array.from({ length: workerCount }, (_, worker) =>
+	files.filter((_, index) => index % workerCount === worker),
+);
 
 const workers: ChildProcess[] = [];
 
@@ -61,8 +72,8 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
 }
 
 try {
-	const codes = await Promise.all([worker(0), worker(1)]);
-	console.log(`workers parallèles : #1=${codes[0]} #2=${codes[1]}`);
+	const codes = await Promise.all(groups.map((_, index) => worker(index)));
+	console.log(`workers parallèles : ${codes.map((code, index) => `#${index + 1}=${code}`).join(" ")}`);
 	process.exit(codes.every((code) => code === 0) ? 0 : 1);
 } catch (err) {
 	console.error(err);

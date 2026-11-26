@@ -128,10 +128,16 @@ jobs:
 
       - name: Typechecks (API, web, tests, SDK)
         run: |
-          pnpm -F @radar/api typecheck
-          pnpm -F @radar/web typecheck
-          pnpm typecheck:tests
-          pnpm typecheck:sdk
+          pids=()
+          pnpm -F @radar/api typecheck & pids+=("$!")
+          pnpm -F @radar/web typecheck & pids+=("$!")
+          pnpm typecheck:tests & pids+=("$!")
+          pnpm typecheck:sdk & pids+=("$!")
+          status=0
+          for pid in "${pids[@]}"; do
+            wait "$pid" || status=1
+          done
+          exit "$status"
 
       - name: Tests migrations et outillage
         run: pnpm test:migrations
@@ -146,7 +152,7 @@ jobs:
             --shards="$API_SHARDS" --list --check
 
   # Porte de merge d'une PR : uniquement les tests affectés par le diff,
-  # en deux workers (une base jetable chacun). La sélection fail-safe de
+  # en quatre workers (une base jetable chacun). La sélection fail-safe de
   # `affected-tests.ts` force la suite complète sur les chemins critiques
   # (schéma, serveur, auth, helpers, workflows) et le label `full-ci`.
   # La matrix 8 shards, elle, reste aux événements non-PR.
@@ -174,6 +180,7 @@ jobs:
       DATABASE_URL: postgres://radar:radar@localhost:5432/radar
       GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
       FULL_CI: ${{ contains(github.event.pull_request.labels.*.name, 'full-ci') && '1' || '0' }}
+      RADAR_TEST_WORKERS: 4
 
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
