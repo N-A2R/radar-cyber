@@ -108,20 +108,22 @@ valeur.
 | Événement | Ce qui tourne | Durée attendue |
 |---|---|---|
 | **PR** | `changes` → `contracts` (typechecks, contrats) + `api-smoke` (tests affectés, 2 workers, 2 bases) → `verify` | ~1 min ; ~30 s pour une PR sans test affecté |
-| **Merge queue** | tout : matrix 8 shards, web, e2e, SDK, provenance, socle, supply-chain | ~2–3 min par lot (à activer, voir ci-dessous) |
+| **PR CI-only** | mêmes étages, mais `api-smoke` lance un canari de six tests (pool, routes, ingestion, rapports) | ~30–45 s |
+| **Merge queue** | tout : matrix 8 shards, web, e2e, SDK, provenance, socle, supply-chain | ~2–3 min par lot |
 | **`main` (push)** | tout, shards séquentiels, collecte des durées | ~3–4 min |
 | **Nightly** | tout + tests d'objectifs | idem |
 
-Le label `full-ci` sur une PR élargit `api-smoke` aux 408 fichiers (via la
-sélection existante de `affected-tests.ts`). Les chemins critiques (schéma,
-serveur, auth, helpers, workflows) forcent déjà la suite complète.
+Le label `full-ci` sur une PR force les 408 fichiers dans `api-smoke`. Les
+chemins critiques (schéma, serveur, auth, helpers) forcent aussi la suite
+complète. Seuls les diffs limités à `.github/workflows/` et `.github/actions/`
+utilisent le canari ; la merge queue reste la porte de validation complète.
 
-### Activer la merge queue
+### Merge queue configurée
 
-La CI est prête (`on: merge_group` déjà branché). Il reste un réglage
-dépôt : *Settings → Branches → Protect matching branches → Require merge
-queue* (check requis : `verify`, profondeur 2–4). Chaque PR ne paie alors que
-le smoke ; la suite complète est payée une fois par lot au moment de merger.
+La règle GitHub `main-protection` exige le check `verify` et impose la merge
+queue. Paramètres : `ALLGREEN`, 2 constructions simultanées, 4 PR maximum par
+lot, squash, attente de groupe nulle. Chaque PR paie donc le smoke ; la suite
+complète est payée une fois par lot au moment de merger.
 
 ### Marches suivantes possibles
 
@@ -129,8 +131,8 @@ le smoke ; la suite complète est payée une fois par lot au moment de merger.
    chaud, installation ~5 s au lieu de ~25 s — la PR descend vers ~30–40 s.
    À valider après une semaine de canari du shard 1.
 2. **Descendre `contracts` dans la queue** : le typecheck sortirait du chemin
-   critique de la PR (il reste bloquant au merge). À ne faire qu'une fois la
-   merge queue activée.
+   critique de la PR (il reste bloquant au merge). La merge queue est active ;
+   ce changement reste à mesurer avant d'être appliqué.
 3. `PGlite` pour le smoke : supprimerait le service PostgreSQL des jobs de
    test (~10 s par job), à l'étude — les tests passent par de vraies
    migrations `psql` et des features Postgres réelles.

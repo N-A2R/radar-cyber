@@ -146,9 +146,10 @@ jobs:
             --shards="$API_SHARDS" --list --check
 
   # Porte de merge d'une PR : uniquement les tests affectés par le diff,
-  # en deux workers (une base jetable chacun). La sélection fail-safe de
-  # `affected-tests.ts` force la suite complète sur les chemins critiques
-  # (schéma, serveur, auth, helpers, workflows) et le label `full-ci`.
+  # en deux workers (une base jetable chacun). Un diff limité aux workflows et
+  # actions GitHub utilise un canari de six tests ; la merge queue, main et la
+  # nightly reprennent la suite complète. Le label `full-ci` la force aussi.
+  # Les autres chemins critiques (schéma, serveur, auth, helpers) restent full.
   # La matrix 8 shards, elle, reste aux événements non-PR.
   api-smoke:
     needs: changes
