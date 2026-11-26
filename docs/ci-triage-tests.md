@@ -116,26 +116,29 @@ valeur.
 Le label `full-ci` sur une PR force les 408 fichiers dans `api-smoke`. Les
 chemins critiques (schéma, serveur, auth, helpers) forcent aussi la suite
 complète. Seuls les diffs limités à `.github/workflows/` et `.github/actions/`
-utilisent le canari. Sur une organisation, la merge queue serait la porte de
-validation complète ; ici, la suite complète tourne sur `main` et en nightly.
+utilisent le canari. La merge queue est la porte de validation complète ;
+`main` et la nightly rejouent aussi la suite complète.
 
-### Merge queue : non disponible sur ce dépôt personnel
+### Merge queue configurée
 
-GitHub réserve la merge queue aux dépôts publics d'organisation et aux dépôts
-privés d'organisation sous Enterprise Cloud. Ce dépôt appartient à un compte
-personnel : la règle `merge_queue` est refusée par l'API. Le workflow gère
-déjà `merge_group`, mais il ne peut pas être déclenché ici. Sans migration du
-dépôt vers une organisation, la suite complète reste exécutée après le merge
-sur `main` et en nightly.
+Le dépôt appartient désormais à l’organisation **N-A2R**. La règle
+`main-protection` exige le check `verify` et active la merge queue :
+`ALLGREEN`, 2 constructions simultanées, 4 PR maximum par lot, squash et
+attente de groupe nulle. Chaque PR paie le smoke ; la suite complète est
+payée une fois par lot au moment de merger.
+
+Le runner `instabox-medium` n’a pas été rattaché au dépôt après transfert.
+Le shard 1 utilise donc `ubuntu-latest`, comme les sept autres, pour éviter
+qu’une merge queue reste bloquée sur un runner absent.
 
 ### Marches suivantes possibles
 
-1. **Router `api-smoke` et `contracts` sur `instabox-medium`** : store pnpm
-   chaud, installation ~5 s au lieu de ~25 s — la PR descend vers ~30–40 s.
-   À valider après une semaine de canari du shard 1.
+1. **Réenregistrer `instabox-medium` sur N-A2R** : le runner n’a pas suivi le
+   transfert. Une fois réattaché, on pourra router `api-smoke`, `contracts`
+   et un shard sur ce runner pour réduire l’installation.
 2. **Descendre `contracts` dans la queue** : le typecheck sortirait du chemin
-   critique de la PR. À ne faire qu'après migration vers une organisation et
-   activation effective de la merge queue.
+   critique de la PR. La merge queue est active ; ce changement reste à
+   mesurer avant d’être appliqué.
 3. `PGlite` pour le smoke : supprimerait le service PostgreSQL des jobs de
    test (~10 s par job), à l'étude — les tests passent par de vraies
    migrations `psql` et des features Postgres réelles.

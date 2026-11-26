@@ -5,8 +5,8 @@ name: CI
 #   PR          : changes → contracts (typechecks) + api-smoke (tests affectés,
 #                 2 workers) → verify. C'est la porte de merge : rapide, ciblée.
 #   merge queue : TOUT (la matrix 8 shards, web, e2e, socle, supply-chain).
-#                 Disponible uniquement sur un dépôt d'organisation ; ici,
-#                 main et la nightly couvrent la suite complète.
+#                 Un lot ne merge que vert. Règle active sur N-A2R avec
+#                 le check requis `verify`.
 #   main (push) : TOUT, séquentiel sur les shards, pour collecter les durées
 #                 réelles qui pondèrent le shard plan.
 #   nightly     : TOUT + tests d'objectifs.
@@ -213,7 +213,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { shard: 1, runner: instabox-medium }
+          - { shard: 1, runner: ubuntu-latest }
           - { shard: 2, runner: ubuntu-latest }
           - { shard: 3, runner: ubuntu-latest }
           - { shard: 4, runner: ubuntu-latest }
