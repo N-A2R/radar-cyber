@@ -116,14 +116,17 @@ valeur.
 Le label `full-ci` sur une PR force les 408 fichiers dans `api-smoke`. Les
 chemins critiques (schéma, serveur, auth, helpers) forcent aussi la suite
 complète. Seuls les diffs limités à `.github/workflows/` et `.github/actions/`
-utilisent le canari ; la merge queue reste la porte de validation complète.
+utilisent le canari. Sur une organisation, la merge queue serait la porte de
+validation complète ; ici, la suite complète tourne sur `main` et en nightly.
 
-### Merge queue configurée
+### Merge queue : non disponible sur ce dépôt personnel
 
-La règle GitHub `main-protection` exige le check `verify` et impose la merge
-queue. Paramètres : `ALLGREEN`, 2 constructions simultanées, 4 PR maximum par
-lot, squash, attente de groupe nulle. Chaque PR paie donc le smoke ; la suite
-complète est payée une fois par lot au moment de merger.
+GitHub réserve la merge queue aux dépôts publics d'organisation et aux dépôts
+privés d'organisation sous Enterprise Cloud. Ce dépôt appartient à un compte
+personnel : la règle `merge_queue` est refusée par l'API. Le workflow gère
+déjà `merge_group`, mais il ne peut pas être déclenché ici. Sans migration du
+dépôt vers une organisation, la suite complète reste exécutée après le merge
+sur `main` et en nightly.
 
 ### Marches suivantes possibles
 
@@ -131,8 +134,8 @@ complète est payée une fois par lot au moment de merger.
    chaud, installation ~5 s au lieu de ~25 s — la PR descend vers ~30–40 s.
    À valider après une semaine de canari du shard 1.
 2. **Descendre `contracts` dans la queue** : le typecheck sortirait du chemin
-   critique de la PR (il reste bloquant au merge). La merge queue est active ;
-   ce changement reste à mesurer avant d'être appliqué.
+   critique de la PR. À ne faire qu'après migration vers une organisation et
+   activation effective de la merge queue.
 3. `PGlite` pour le smoke : supprimerait le service PostgreSQL des jobs de
    test (~10 s par job), à l'étude — les tests passent par de vraies
    migrations `psql` et des features Postgres réelles.
