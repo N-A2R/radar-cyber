@@ -1,0 +1,28 @@
+name: Instabox probe
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/instabox-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: instabox-medium
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Capacités du runner
+        run: |
+          set -euo pipefail
+          uname -a
+          nproc
+          free -h
+          df -h /
+          node -v
+          npm -v
+          docker --version
+          docker info >/dev/null
