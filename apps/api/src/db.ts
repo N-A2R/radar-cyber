@@ -9,6 +9,15 @@ if (!connectionString) {
 }
 
 /**
+ * En test, chaque fichier est un process jetable. Sans `allowExitOnIdle`, le
+ * minuteur d'inactivité (`idleTimeoutMillis`, 30 s) et le socket du client
+ * inactif retiennent l'event loop 30 s après le dernier test : ~50 fichiers
+ * touchaient la base, soit ~25 min de CI perdues à attendre ce minuteur.
+ * En production, le serveur a ses propres handles : l'option ne change rien.
+ */
+const TEST_ALLOW_EXIT_ON_IDLE = process.env.NODE_ENV === "test";
+
+/**
  * Deux pools séparés, volontairement.
  *
  * La collecte (296 flux, concurrence 8) peut tenir des connexions longtemps.
@@ -21,6 +30,7 @@ export const pool = new Pool({
 	max: Number(process.env.RADAR_PG_API_MAX ?? 8),
 	statement_timeout: Number(process.env.RADAR_PG_API_TIMEOUT_MS ?? 15000),
 	idleTimeoutMillis: 30000,
+	allowExitOnIdle: TEST_ALLOW_EXIT_ON_IDLE,
 	application_name: "radar-api",
 });
 
@@ -30,6 +40,7 @@ export const ingestPool = new Pool({
 	// Insertions par lots (indicator : 5,6 M de lignes) : marge plus large.
 	statement_timeout: Number(process.env.RADAR_PG_INGEST_TIMEOUT_MS ?? 180000),
 	idleTimeoutMillis: 30000,
+	allowExitOnIdle: TEST_ALLOW_EXIT_ON_IDLE,
 	application_name: "radar-ingest",
 });
 
