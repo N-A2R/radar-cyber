@@ -23,7 +23,7 @@ Les boxes du plan gratuit s'endorment : `instabox-keepalive@{compute-2,compute-3
 
 ## CI
 
-`.github/workflows/ci.yml` (push `main` et PR) : `contracts`, `api-tests` (8 shards, PostgreSQL 17 jetable), `web-unit`, `playwright`, `sdks-python`, `provenance`, `build`, `socle` (bootstrap depuis zéro, idempotence, base copiée), `supply-chain` (`pnpm audit --prod`, validation Compose/Dockerfiles). Le job agrégateur `verify` échoue si une porte n'est pas verte. Équivalent local : `bash scripts/verify-all.sh`.
+`.github/workflows/ci.yml` (PR, merge queue et nightly ; aucun run sur `push main`) : `contracts`, `api-tests` (8 shards, PostgreSQL 17 jetable), `web-unit`, `playwright`, `sdks-python`, `provenance`, `build`, `socle` (bootstrap depuis zéro, idempotence, base copiée), `supply-chain` (`pnpm audit --prod`, validation Compose/Dockerfiles). Le job agrégateur `verify` échoue si une porte n'est pas verte. Équivalent local : `bash scripts/verify-all.sh`.
 
 ## Incidents connus
 

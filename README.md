@@ -55,6 +55,13 @@ pnpm dev:api                                                # terminal 2 — API
 pnpm dev:web                                                # terminal 3 — http://localhost:5173
 ```
 
+`DATABASE_URL` est obligatoire pour `pnpm setup`, `pnpm migrate` et l'API :
+`pnpm db:up` démarre le PostgreSQL embarqué sur 5432 par défaut (`PGPORT`
+configurable) ; la chaîne à exporter est alors
+`postgres://radar:radar@localhost:5432/radar`. Compose expose son PostgreSQL
+sur 5433 côté hôte. En production, `DATABASE_URL` pointe vers le rôle
+applicatif ; les migrations utilisent `RADAR_MIGRATE_DATABASE_URL`.
+
 Ports : API 8080 (`RADAR_API_PORT`), web 5173 en développement/systemd et
 4173 en Compose (`RADAR_WEB_PORT`), PostgreSQL 5433 sur l'hôte / 5432 dans le
 conteneur, Tor SOCKS5 9050 (réseau interne Compose uniquement).
@@ -107,7 +114,7 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 | GET | `/api/stats` | compteurs, répartitions |
 | GET | `/api/stats/departements` | organisations, événements 7 j et sources actives par département |
 | GET | `/api/resale/listings` | annonces de revente détectées en Nouvelle-Aquitaine (compteurs agrégés, sans donnée de victime) |
-| GET | `/api/couverture` | mesure du corpus canonique (20 incidents vérifiés) : taux, motifs, départements, types, évolution mensuelle, date et empreinte |
+| GET | `/api/couverture` | mesure du corpus canonique (50 incidents vérifiés) : taux, motifs, départements, types, évolution mensuelle, date et empreinte |
 | GET | `/api/today/departements` | départements du fil 24 h (organisations, événements) |
 | GET | `/api/orgs` | organisations + nombre d'événements |
 | GET | `/api/orgs/:slug` | détail + 50 derniers événements |
@@ -163,10 +170,11 @@ BASE_URL=http://localhost:8080 \
 ### CI par étapes parallèles
 
 `.github/workflows/ci.yml` se déclenche sur les PR, la merge queue et une
-nightly quotidienne à **04:17 Europe/Paris** (`17 3 * * *`, 03:17 UTC) : aucun
-run n'est déclenché par un `push` sur `main`. La PR passe par `changes` et
-`api-smoke`, la merge queue joue la suite complète et la nightly ajoute
-`objectives` (`pnpm test:objectifs`). En parallèle : contrats/typechecks/migrations
+nightly quotidienne à `17 3 * * *` (03:17 UTC, soit **04:17 en hiver et 05:17
+en été** à Europe/Paris) : aucun run n'est déclenché par un `push` sur `main`.
+La PR passe par `changes` et `api-smoke`, la merge queue joue la suite complète
+et la nightly ajoute `objectives` (`pnpm test:objectifs`). En parallèle :
+contrats/typechecks/migrations
 (`contracts`), API (`api-tests`, matrix de 8 shards), web unitaire/render/dom
 (`web-unit`), Playwright (`playwright`), SDK/Python (`sdks-python`), provenance
 (`provenance`) et build (`build`). Le job `verify` reste l'agrégateur attendu par

@@ -10,7 +10,7 @@ arrière. Tout est idempotent : le rejeu ne duplique ni source, ni organisation.
 Depuis une machine neuve avec `curl` et `sudo` (le script clone le dépôt lui-même) :
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/j0ltdevv/radar-cyber/main/scripts/deploy/install.sh \
+curl -fsSL https://raw.githubusercontent.com/N-A2R/radar-cyber/main/scripts/deploy/install.sh \
   | sudo bash -s -- --admin-password 'MOT-DE-PASSE-ADMIN' \
        --restore /srv/sauvegardes/radar-2026-11-20.dump
 ```
@@ -19,7 +19,7 @@ Sans sauvegarde, on part d'une base vide (0 événement, catalogue de sources et
 référentiel peuplés) — c'est un état supporté, pas une erreur :
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/j0ltdevv/radar-cyber/main/scripts/deploy/install.sh \
+curl -fsSL https://raw.githubusercontent.com/N-A2R/radar-cyber/main/scripts/deploy/install.sh \
   | sudo bash -s -- --admin-password 'MOT-DE-PASSE-ADMIN'
 ```
 
@@ -36,7 +36,7 @@ Les mots de passe sont générés (hexadécimal 48 caractères) s'ils ne sont pa
 fournis. Ils ne sont jamais écrits dans `state.json`.
 
 > URL et branche du clone : `RADAR_REPO_URL` (défaut
-> `https://github.com/j0ltdevv/radar-cyber.git`) et `RADAR_REF` (défaut `main`).
+> `https://github.com/N-A2R/radar-cyber.git`) et `RADAR_REF` (défaut `main`).
 > Pour déployer une branche non fusionnée : `RADAR_REF=ma-branche ... bash -s -- ...`.
 
 ## Options
@@ -72,7 +72,7 @@ Chaque étape est chronométrée et consignée dans
 | Snapshot | `pg_dump -Fc` de la base courante avant toute migration/restauration |
 | Restauration | `pg_restore` (custom/tar) ou `psql` (SQL), puis contrôle des tables `event`, `org`, `source` |
 | Build | `pnpm install --frozen-lockfile`, typecheck API, build web, release immuable + symlink `current` |
-| Socle | `scripts/bootstrap.mts` : schéma, **53 migrations**, catalogues de sources, règles, référentiel NA, journal, compte admin |
+| Socle | `scripts/bootstrap.mts` : schéma, **370 migrations versionnées** (`db/migrate-*.sql`, comptage 2026-11-27), catalogues de sources, règles, référentiel NA, journal, compte admin |
 | systemd | unités système `radar-api`/`radar-web`, `EnvironmentFile` 0640, `enable` + `restart` |
 | Santé | `scripts/healthcheck.sh` : `/api/health`, `/api/stats`, shell web + asset JS, 40 tentatives / 80 s |
 
@@ -151,7 +151,7 @@ reste réservé au développement Vite.
 Ordre d'exécution, depuis le checkout à déployer :
 
 ```bash
-REPO=/home/jolt/radar-cyber
+REPO="$PWD"   # checkout à déployer
 cd "$REPO"
 git status --short
 git pull --ff-only

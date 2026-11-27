@@ -112,7 +112,7 @@ valeur.
 | **PR CI-only** | mêmes étages, mais `api-smoke` lance un canari de six tests (pool, routes, ingestion, rapports) | ~1 min 15 (mesuré sur #841) |
 | **Merge queue** | suite complète : matrix 8 shards, web, e2e, SDK, provenance, socle, supply-chain, collecte des durées | ~2–3 min par lot |
 | **`main` (push)** | aucun run : le commit vérifié par la merge queue est celui qui atterrit sur `main` | — |
-| **Nightly (03:17 UTC, 04:17 Europe/Paris)** | suite complète, 8 shards, + job `objectives` (`pnpm test:objectifs` sur sa propre base) | ~3–4 min |
+| **Nightly (03:17 UTC ; 04:17 Europe/Paris en hiver, 05:17 en été)** | suite complète, 8 shards, + job `objectives` (`pnpm test:objectifs` sur sa propre base) | ~3–4 min |
 
 Le label `full-ci` sur une PR force les 408 fichiers dans `api-smoke`. Les
 chemins critiques (schéma, serveur, auth, helpers) forcent aussi la suite
