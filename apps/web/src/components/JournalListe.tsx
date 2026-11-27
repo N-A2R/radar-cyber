@@ -8,6 +8,7 @@ import type { JournalDecision } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./journal.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Drawer } from "@astryxdesign/core/Drawer";
 import { Table } from "@astryxdesign/core/Table";
 
@@ -141,10 +142,10 @@ function EntryDetails({ row }: { row: JournalDecision }) {
           : (
             <dl className="journal__detail-values">
               {preuves.map(([key, value]) => (
-                <div key={key}>
+                <Card variant="transparent" padding={0} key={key}>
                   <dt title={key}>{keyLabel(key)}</dt>
                   <dd><pre>{formatValue(value)}</pre></dd>
-                </div>
+                </Card>
               ))}
             </dl>
           )}
@@ -157,10 +158,10 @@ function EntryDetails({ row }: { row: JournalDecision }) {
           : (
             <dl className="journal__detail-values">
               {contexte.map(([key, value]) => (
-                <div key={key}>
+                <Card variant="transparent" padding={0} key={key}>
                   <dt title={key}>{keyLabel(key)}</dt>
                   <dd><pre>{formatValue(value)}</pre></dd>
-                </div>
+                </Card>
               ))}
             </dl>
           )}
@@ -208,12 +209,12 @@ export default function JournalList({
   return (
     <section className="journal" aria-label="Journal d'audit">
       <header className="journal__head">
-        <div>
+        <Card variant="transparent" padding={0}>
           <h1>Journal</h1>
           <p className="journal__count">
             Registre auditable des décisions — revues, publications et corrections, plus récentes d'abord
           </p>
-        </div>
+        </Card>
         <button
           type="button"
           className="journal__export"
@@ -224,8 +225,8 @@ export default function JournalList({
         </button>
       </header>
 
-      <div className="journal__filters" role="group" aria-label="Filtrer le journal">
-        <div className="journal__field journal__field--search">
+      <Card variant="transparent" padding={0} className="journal__filters" role="group" aria-label="Filtrer le journal">
+        <Card variant="transparent" padding={0} className="journal__field journal__field--search">
           <label htmlFor="journal-q">Rechercher</label>
           <input
             id="journal-q"
@@ -234,8 +235,8 @@ export default function JournalList({
             value={filters.q ?? ""}
             onChange={(event) => onFilterChange({ q: event.target.value })}
           />
-        </div>
-        <div className="journal__field">
+        </Card>
+        <Card variant="transparent" padding={0} className="journal__field">
           <label htmlFor="journal-actor">Acteur</label>
           <input
             id="journal-actor"
@@ -244,8 +245,8 @@ export default function JournalList({
             value={filters.actor ?? ""}
             onChange={(event) => onFilterChange({ actor: event.target.value })}
           />
-        </div>
-        <div className="journal__field">
+        </Card>
+        <Card variant="transparent" padding={0} className="journal__field">
           <label htmlFor="journal-kind">Type</label>
           <select
             id="journal-kind"
@@ -257,8 +258,8 @@ export default function JournalList({
             <option value="publication">Publications</option>
             <option value="correction">Corrections</option>
           </select>
-        </div>
-        <div className="journal__field">
+        </Card>
+        <Card variant="transparent" padding={0} className="journal__field">
           <label htmlFor="journal-from">Du</label>
           <input
             id="journal-from"
@@ -266,8 +267,8 @@ export default function JournalList({
             value={filters.from ?? ""}
             onChange={(event) => onFilterChange({ from: event.target.value })}
           />
-        </div>
-        <div className="journal__field">
+        </Card>
+        <Card variant="transparent" padding={0} className="journal__field">
           <label htmlFor="journal-to">Au</label>
           <input
             id="journal-to"
@@ -275,17 +276,17 @@ export default function JournalList({
             value={filters.to ?? ""}
             onChange={(event) => onFilterChange({ to: event.target.value })}
           />
-        </div>
+        </Card>
         <button type="button" className="journal__reset" onClick={onReset}>Réinitialiser</button>
-      </div>
+      </Card>
 
       {error ? (
-        <div className="journal__error" role="alert">
+        <Card variant="transparent" padding={0} className="journal__error" role="alert">
           <span>API : {error}</span>
           {onRetry ? (
             <button type="button" className="journal__retry" onClick={onRetry}>Réessayer</button>
           ) : null}
-        </div>
+        </Card>
       ) : null}
       {exportError ? <p className="journal__error" role="alert">{exportError}</p> : null}
       {loading ? <LoadingSkeleton label="Chargement du journal…" /> : null}
@@ -301,7 +302,9 @@ export default function JournalList({
         />
       ) : null}
 
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         className="journal__scroll"
         role="region"
         aria-label="Entrées du journal"
@@ -373,7 +376,7 @@ export default function JournalList({
             ))}
           </tbody>
         </Table>
-      </div>
+      </Card>
 
       <footer className="journal__foot">
         <button type="button" onClick={onPrevious} disabled={loading || page <= 1}>
