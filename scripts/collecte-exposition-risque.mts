@@ -43,6 +43,7 @@ import { classer, type NiveauRisque } from "../apps/api/src/exposition/risque.js
 const DEPTS_NA = ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"] as const;
 const CATEGORIES_CIBLES = new Set(["base_de_donnees", "vpn", "rdp"]);
 const MAX_PORTS_HOTE = 50; // au-delà : hébergement mutualisé, pas un service de l'organisation
+const INTERVALLE_FLUSH_CACHE_MS = 5_000; // borné dans le temps, pas toutes les N réponses
 const EPSS_API = "https://api.first.org/data/v1/epss";
 const KEV_FEED = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json";
 
@@ -420,6 +421,23 @@ async function main(): Promise<void> {
 	let cacheUtilise = 0;
 	let cacheEcrit = 0;
 	let objectifAtteint = false;
+	let dernierFlushCache = Date.now();
+	let ecritureCache: Promise<void> = Promise.resolve();
+	const viderCache = (): Promise<void> => {
+		// Sérialise les écritures et garde la chaîne utilisable après un échec,
+		// afin que le flush final puisse retenter.
+		const ecriture = ecritureCache.then(async () => {
+			await writeFile(cachePath, JSON.stringify(cache));
+			dernierFlushCache = Date.now();
+		});
+		ecritureCache = ecriture.catch(() => {});
+		return ecriture;
+	};
+	const viderCacheSiAncien = async (): Promise<void> => {
+		if (Date.now() - dernierFlushCache < INTERVALLE_FLUSH_CACHE_MS) return;
+		dernierFlushCache = Date.now(); // réserve la fenêtre suivante avant d'attendre l'écriture
+		await viderCache().catch(() => {}); // un échec périodique est retenté par le flush final
+	};
 	console.log(`[risque] ${liste.length} organisations, ${produits.size} produits à risque, lecteur=${lecteur || "direct"}`);
 
 	const [supplementaires, ipsInventaire, depuisFichier] = await Promise.all([
@@ -476,7 +494,7 @@ async function main(): Promise<void> {
 			if (payload) {
 				cache[ip] = payload;
 				cacheEcrit++;
-				if (cacheEcrit % 100 === 0) await writeFile(cachePath, JSON.stringify(cache));
+				await viderCacheSiAncien();
 			}
 		}
 		if (payload && Array.isArray(payload.ports) && payload.ports.length) {
@@ -498,8 +516,7 @@ async function main(): Promise<void> {
 			}
 		}
 		await sleep(delaiMs);
-	});
-	await writeFile(cachePath, JSON.stringify(cache));
+	}).finally(() => viderCache());
 
 	console.log(`[risque] ${reponses.size} hôtes avec ports`);
 
