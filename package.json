@@ -54,6 +54,7 @@
     "verifie:nis2-rapports": "apps/api/node_modules/.bin/tsx scripts/genere-rapports-nis2.mts --check",
     "verifie:alerte-nis2-24h": "apps/api/node_modules/.bin/tsx scripts/verifie-alerte-nis2-24h.mts",
     "verifie:nis2-classement": "apps/api/node_modules/.bin/tsx scripts/verifie-nis2-classement.mts",
+    "hooks:install": "git config core.hooksPath .githooks",
     "typecheck": "pnpm -r typecheck",
     "typecheck:tests": "apps/api/node_modules/.bin/tsc --noEmit -p apps/api/tsconfig.test.json && apps/api/node_modules/.bin/tsc --noEmit -p apps/web/tsconfig.test.json",
     "typecheck:sdk": "apps/api/node_modules/.bin/tsc --noEmit -p sdks/typescript/tsconfig.json",

@@ -127,12 +127,23 @@ jobs:
             apps/api/test/contract-admit.test.ts \
             apps/api/test/contract-families.test.ts
 
-      - name: Typechecks (API, web, tests, SDK)
+      - name: Typecheck API et tests API
+        if: needs.changes.outputs.api == 'true'
         run: |
           pnpm -F @radar/api typecheck
+          apps/api/node_modules/.bin/tsc --noEmit -p apps/api/tsconfig.test.json
+
+      # Le web et le SDK ne sont typés que si leurs sources ont pu bouger :
+      # une PR qui ne touche que apps/api n'a rien à vérifier côté web.
+      - name: Typecheck web et tests web
+        if: needs.changes.outputs.web == 'true'
+        run: |
           pnpm -F @radar/web typecheck
-          pnpm typecheck:tests
-          pnpm typecheck:sdk
+          apps/api/node_modules/.bin/tsc --noEmit -p apps/web/tsconfig.test.json
+
+      - name: Typecheck SDK TypeScript
+        if: needs.changes.outputs.api == 'true'
+        run: pnpm typecheck:sdk
 
       - name: Tests migrations et outillage
         run: pnpm test:migrations
@@ -591,3 +602,78 @@ jobs:
               console.log("Toutes les étapes requises sont vertes.");
             }
           '
+
+  # La nightly échoue en silence : le run #2043 est resté rouge quatre heures
+  # sans que personne ne le voie. Une issue ouverte avec les étapes en échec
+  # (et refermée dès que tout repasse) donne un point d'entrée à traiter,
+  # humain ou agent.
+  nightly-report:
+    if: always() && github.event_name == 'schedule'
+    needs:
+      - changes
+      - contracts
+      - api-tests
+      - web-unit
+      - playwright
+      - sdks-python
+      - provenance
+      - build
+      - socle
+      - supply-chain
+      - verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Résumé des étapes
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          node -e '
+            const r = JSON.parse(process.env.RESULTS);
+            const bad = Object.entries(r).filter(([n, v]) =>
+              n === "changes" ? v.result !== "success"
+                              : v.result !== "success" && v.result !== "skipped");
+            const lines = ["Run : " + process.env.RUN_URL, ""];
+            if (bad.length === 0) {
+              lines.push("Toutes les étapes sont vertes.");
+            } else {
+              lines.push("| Étape | Résultat |", "|---|---|");
+              for (const [n, v] of bad) lines.push("| " + n + " | " + v.result + " |");
+              lines.push("", "Ouvrir le run pour les logs : chaque fichier de test en échec y est nommé.");
+            }
+            require("fs").writeFileSync("/tmp/nightly.md", lines.join("\n") + "\n");
+            require("fs").writeFileSync("/tmp/nightly.status", bad.length ? "rouge" : "vert");
+          '
+
+      - name: Ouvrir, mettre à jour ou refermer l'issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          STATUS="$(cat /tmp/nightly.status)"
+          NUM="$(gh issue list --repo "$REPO" --state open \
+            --search '"Nightly CI en échec" in:title' \
+            --json number --jq '.[0].number // empty')"
+          if [ "$STATUS" = "vert" ]; then
+            if [ -n "$NUM" ]; then
+              gh issue close "$NUM" --repo "$REPO" \
+                --comment "Nightly de nouveau vert : l'issue se referme seule."
+            else
+              echo "Nightly vert, aucune issue ouverte."
+            fi
+            exit 0
+          fi
+          if [ -n "$NUM" ]; then
+            gh issue comment "$NUM" --repo "$REPO" --body-file /tmp/nightly.md
+            echo "Issue #$NUM mise à jour."
+          else
+            gh issue create --repo "$REPO" \
+              --title "Nightly CI en échec" \
+              --body-file /tmp/nightly.md
+          fi
