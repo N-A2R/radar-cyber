@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { ingestQuery } from "../db.js";
 import { closeRun, openRun, withRunId } from "../collecte/runs.js";
-import { consigner } from "../journal/index.js";
+import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { porteeRegionale } from "../match/territorial.js";
 import { rateLimit } from "../middleware/rate-limit.js";
 import { requireAuth } from "../middleware/auth.js";
@@ -44,14 +44,81 @@ type IngestEvent = z.infer<typeof eventSchema>;
  */
 const DEFAULT_SOURCE_ID = "hermes_radar_cyber";
 
-const ingestBodySchema = z.object({
+/**
+ * Un corps fait 1 Mo au plus : sans borne, il tenait des milliers de petits
+ * événements et autant d'INSERT séquentiels. Une poussée légitime tient dans
+ * un lot de 500 ; au-delà, le client reçoit un 400 explicite au lieu de
+ * saturer le pool d'ingestion.
+ */
+export const MAX_INGEST_EVENTS = 500;
+
+export const ingestBodySchema = z.object({
   generated_at: z.string().optional(),
   profile: z.string().optional(),
   items_in: z.number().optional(),
-  events: z.array(eventSchema),
+  events: z.array(eventSchema).max(MAX_INGEST_EVENTS),
 });
 
 type IngestBody = z.infer<typeof ingestBodySchema>;
+
+/**
+ * Un seul INSERT pour tout le lot admis. `unnest` garde l'ordre des tableaux
+ * et `WITH ORDINALITY` permet de restituer insertion/refus dans l'ordre du
+ * corps, exactement comme la boucle d'avant — sans un aller-retour base par
+ * événement.
+ */
+const SQL_INGERER_LOT = `
+WITH src AS (
+  SELECT ord,
+         dedup_key, family, assertion_type, title, summary,
+         observed_at::timestamptz AS observed_at, severity::smallint AS severity,
+         confidence, source_id, source_url, evidence::text::jsonb AS evidence,
+         geo_type, regional::boolean AS regional, regional_motif, langue,
+         pertinence_score::smallint AS pertinence_score, pertinence_rule
+    FROM unnest(
+      $1::text[], $2::text[], $3::text[], $4::text[], $5::text[], $6::timestamptz[],
+      $7::smallint[], $8::text[], $9::text[], $10::text[], $11::text[], $12::text[],
+      $13::boolean[], $14::text[], $15::text[], $16::smallint[], $17::text[]
+    ) WITH ORDINALITY AS t(
+      dedup_key, family, assertion_type, title, summary, observed_at, severity,
+      confidence, source_id, source_url, evidence, geo_type, regional,
+      regional_motif, langue, pertinence_score, pertinence_rule, ord
+    )
+), ins AS (
+  INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at,
+                     severity, confidence, source_id, source_url, evidence, geo_type,
+                     regional, regional_motif, pertinence_score, pertinence_rule)
+  SELECT dedup_key, family, assertion_type, title, summary, langue, observed_at,
+         severity, confidence, source_id, source_url, evidence, geo_type,
+         regional, regional_motif, pertinence_score, pertinence_rule
+    FROM src
+   ORDER BY ord
+  ON CONFLICT (dedup_key) DO NOTHING
+  RETURNING dedup_key AS cle
+)
+SELECT cle FROM ins
+`;
+
+type LigneAdmise = {
+  dedupKey: string;
+  family: string;
+  assertionType: string;
+  title: string;
+  summary: string | null;
+  observedAt: string | null;
+  severity: number;
+  confidence: string;
+  sourceId: string;
+  sourceUrl: string;
+  evidence: string;
+  geoType: string;
+  regional: boolean;
+  regionalMotif: string | null;
+  langue: string;
+  pertinenceScore: number;
+  pertinenceRule: string | null;
+  run: { id: number; itemsIn: number; itemsNew: number };
+};
 
 export default async function (app: FastifyInstance) {
   // Fenêtre glissante partagée par les écritures d'ingestion de ce serveur.
@@ -68,6 +135,7 @@ export default async function (app: FastifyInstance) {
     // une famille inconnue doit pouvoir se corriger, pas deviner.
     const contract = new AdmissionTally();
     const rejected: Array<{ dedupKey: string | null; reasons: string[] }> = [];
+    const faits: JournalEntry[] = [];
     // Une provenance inconnue doit être un refus lisible, pas une violation de
     // clé étrangère en 500. Le contrat ne touche pas la base : ce contrôle
     // d'existence reste ici, où la connexion vit.
@@ -91,82 +159,110 @@ export default async function (app: FastifyInstance) {
       }
     };
     try {
-    for (const e of events) {
-      const langue = languageVerdict(e.title, e.summary);
-      const pertinence = scoreEventPertinence({ title: e.title, summary: e.summary, sourceUrl: e.source_url });
-      if (!langue.keep) {
-        skipped++;
-        rejected.push({ dedupKey: e.dedup_key ?? null, reasons: [`langue_${langue.language}`] });
-        continue;
-      }
-      const admitted = admitEvent({
-        dedupKey: e.dedup_key,
-        family: e.family ?? "cti",
-        assertionType: e.assertion_type ?? "ambient_signal",
-        title: e.title,
-        summary: e.summary,
-        observedAt: e.observed_at ?? undefined,
-        severity: e.severity ?? 2,
-        confidence: e.confidence ?? "C3",
-        sourceId: e.source_id ?? DEFAULT_SOURCE_ID,
-        sourceUrl: e.source_url ?? undefined,
-        orgHint: e.org_name ?? undefined,
-        evidence: { hermes: true, profile: body.profile ?? null, org_name: e.org_name ?? null, evidence: e.evidence ?? {} },
-        geoType: "unknown",
-      });
-      contract.record(admitted);
-      if (admitted.ok && !known.has(admitted.event.sourceId)) {
-        skipped++;
-        rejected.push({ dedupKey: e.dedup_key ?? null, reasons: ["source-inconnue"] });
-        continue;
-      }
-      if (!admitted.ok) {
-        skipped++;
-        rejected.push({ dedupKey: e.dedup_key ?? null, reasons: admitted.rejections });
-        continue;
-      }
-      const event = admitted.event;
-      const run = await runFor(event.sourceId);
-      run.itemsIn += 1;
-      const r = await ingestQuery<{ inserted: boolean }>(
-        `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at,
-           severity, confidence, source_id, source_url, evidence, geo_type,
-           regional, regional_motif, pertinence_score, pertinence_rule)
-         VALUES ($1,$2,$3,$4,$5,$15,$6,$7,$8,$9,$10,$11,$12,$13,$14,$16,$17)
-         ON CONFLICT (dedup_key) DO NOTHING
-         RETURNING (xmax = 0) AS inserted`,
-        [
-          event.dedupKey,
-          event.family,
-          event.assertionType,
-          event.title,
-          event.summary ?? null,
-          event.observedAt ?? null,
-          event.severity,
-          event.confidence ?? "C3",
-          event.sourceId,
-          event.sourceUrl ?? `urn:source:${event.sourceId}`,
-          JSON.stringify(withRunId(event.evidence ?? {}, run.id)),
-          event.geoType,
-          ...(() => {
-            const p = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
-            return [p.regional, p.motif];
-          })(), langue.language, pertinence.score, pertinence.rule,
-        ]
-      );
-      if (r.rows[0]?.inserted) {
-        inserted++;
-        run.itemsNew += 1;
-        await consigner({
-          kind: "event.admitted",
-          subject: event.dedupKey,
-          summary: `${event.sourceId} : événement admis via POST /api/ingest`,
-          actor: "collecteur:ingest_http",
-          payload: { family: event.family, assertionType: event.assertionType },
-          validAt: event.observedAt ?? null,
+      const lignes: LigneAdmise[] = [];
+      for (const e of events as IngestEvent[]) {
+        const langue = languageVerdict(e.title, e.summary);
+        const pertinence = scoreEventPertinence({ title: e.title, summary: e.summary, sourceUrl: e.source_url });
+        if (!langue.keep) {
+          skipped++;
+          rejected.push({ dedupKey: e.dedup_key ?? null, reasons: [`langue_${langue.language}`] });
+          continue;
+        }
+        const admitted = admitEvent({
+          dedupKey: e.dedup_key,
+          family: e.family ?? "cti",
+          assertionType: e.assertion_type ?? "ambient_signal",
+          title: e.title,
+          summary: e.summary,
+          observedAt: e.observed_at ?? undefined,
+          severity: e.severity ?? 2,
+          confidence: e.confidence ?? "C3",
+          sourceId: e.source_id ?? DEFAULT_SOURCE_ID,
+          sourceUrl: e.source_url ?? undefined,
+          orgHint: e.org_name ?? undefined,
+          evidence: { hermes: true, profile: body.profile ?? null, org_name: e.org_name ?? null, evidence: e.evidence ?? {} },
+          geoType: "unknown",
         });
-      } else skipped++;
-    }
+        contract.record(admitted);
+        if (admitted.ok && !known.has(admitted.event.sourceId)) {
+          skipped++;
+          rejected.push({ dedupKey: e.dedup_key ?? null, reasons: ["source-inconnue"] });
+          continue;
+        }
+        if (!admitted.ok) {
+          skipped++;
+          rejected.push({ dedupKey: e.dedup_key ?? null, reasons: admitted.rejections });
+          continue;
+        }
+        const event = admitted.event;
+        const run = await runFor(event.sourceId);
+        run.itemsIn += 1;
+        const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
+        lignes.push({
+          dedupKey: event.dedupKey,
+          family: event.family,
+          assertionType: event.assertionType,
+          title: event.title,
+          summary: event.summary ?? null,
+          observedAt: event.observedAt ?? null,
+          severity: event.severity,
+          confidence: event.confidence ?? "C3",
+          sourceId: event.sourceId,
+          sourceUrl: event.sourceUrl ?? `urn:source:${event.sourceId}`,
+          evidence: JSON.stringify(withRunId(event.evidence ?? {}, run.id)),
+          geoType: event.geoType,
+          regional: portee.regional,
+          regionalMotif: portee.motif,
+          langue: langue.language,
+          pertinenceScore: pertinence.score,
+          pertinenceRule: pertinence.rule,
+          run,
+        });
+      }
+
+      if (lignes.length > 0) {
+        const r = await ingestQuery<{ cle: string }>(SQL_INGERER_LOT, [
+          lignes.map((l) => l.dedupKey),
+          lignes.map((l) => l.family),
+          lignes.map((l) => l.assertionType),
+          lignes.map((l) => l.title),
+          lignes.map((l) => l.summary),
+          lignes.map((l) => l.observedAt),
+          lignes.map((l) => l.severity),
+          lignes.map((l) => l.confidence),
+          lignes.map((l) => l.sourceId),
+          lignes.map((l) => l.sourceUrl),
+          lignes.map((l) => l.evidence),
+          lignes.map((l) => l.geoType),
+          lignes.map((l) => l.regional),
+          lignes.map((l) => l.regionalMotif),
+          lignes.map((l) => l.langue),
+          lignes.map((l) => l.pertinenceScore),
+          lignes.map((l) => l.pertinenceRule),
+        ]);
+        // `RETURNING` ne rend qu'une ligne par clé réellement insérée. On
+        // consomme ce set dans l'ordre du corps pour garder le même couple
+        // (inserted, skipped) qu'avec les INSERT individuels.
+        const aInserer = new Set(r.rows.map((row) => row.cle));
+        for (const ligne of lignes) {
+          if (!aInserer.has(ligne.dedupKey)) {
+            skipped++;
+            continue;
+          }
+          aInserer.delete(ligne.dedupKey);
+          inserted++;
+          ligne.run.itemsNew += 1;
+          faits.push({
+            kind: "event.admitted",
+            subject: ligne.dedupKey,
+            summary: `${ligne.sourceId} : événement admis via POST /api/ingest`,
+            actor: "collecteur:ingest_http",
+            payload: { family: ligne.family, assertionType: ligne.assertionType },
+            validAt: ligne.observedAt,
+          });
+        }
+      }
+      if (faits.length > 0) await consignerLot(faits);
     } catch (error) {
       await closeAll("error", error instanceof Error ? error.message : String(error));
       throw error;

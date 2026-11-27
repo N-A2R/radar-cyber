@@ -19,6 +19,10 @@ import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { porteeRegionale } from "../match/territorial.js";
 import { ingestQuery } from "../db.js";
 import {
+	SQL_INGERER_EVENEMENT_COLLECTEUR as SQL_INGERER_EVENEMENT,
+	type ResultatIngestionCollecteur as ResultatIngestion,
+} from "./ingestion-collecteur.js";
+import {
 	enregistrerCycleCollecte,
 	type AlerteSupervision,
 	type CycleCollecte,
@@ -42,66 +46,6 @@ const messageErreur = (reason: unknown): string => {
 	if (typeof reason === "string") return reason;
 	return String(reason);
 };
-
-/**
- * Insertion et rafraîchissement en une seule instruction atomique.
- *
- * `ON CONFLICT DO UPDATE` renvoie `rowCount=1` même quand rien n'a changé :
- * `DO NOTHING RETURNING` distingue la vraie insertion du conflit. Le
- * rafraîchissement ne touche que les colonnes que la source peut corriger,
- * jamais les décisions enrichies en aval (org_id, tlp, regional, evidence…).
- */
-const SQL_INGERER_EVENEMENT = `
-WITH src AS (
-  SELECT $1::text AS dedup_key, $2::text AS family, $3::text AS assertion_type,
-         $4::text AS title, $5::text AS summary, $6::timestamptz AS observed_at,
-         $7::timestamptz AS valid_at, $8::smallint AS severity, $9::text AS confidence,
-         $10::text AS source_id, $11::text AS source_url, $12::jsonb AS evidence,
-         $13::text AS geo_type, $14::double precision AS lat, $15::double precision AS lon,
-         $16::boolean AS regional, $17::text AS regional_motif, $18::text AS langue,
-         $19::smallint AS pertinence_score, $20::text AS pertinence_rule
-), ins AS (
-  INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, valid_at,
-                     severity, confidence, source_id, source_url, evidence, geo_type, lat, lon,
-                     regional, regional_motif, langue, pertinence_score, pertinence_rule)
-  SELECT dedup_key, family, assertion_type, title, summary, observed_at, valid_at,
-         severity, confidence, source_id, source_url, evidence, geo_type, lat, lon,
-         regional, regional_motif, langue, pertinence_score, pertinence_rule
-  FROM src
-  ON CONFLICT (dedup_key) DO NOTHING
-  RETURNING id
-), avant AS (
-  SELECT ARRAY_REMOVE(ARRAY[
-    CASE WHEN e.title IS DISTINCT FROM s.title THEN 'title' END,
-    CASE WHEN e.summary IS DISTINCT FROM s.summary THEN 'summary' END,
-    CASE WHEN e.severity IS DISTINCT FROM s.severity THEN 'severity' END,
-    CASE WHEN e.confidence IS DISTINCT FROM s.confidence THEN 'confidence' END,
-    CASE WHEN e.source_url IS DISTINCT FROM s.source_url THEN 'source_url' END,
-    CASE WHEN e.geo_type IS DISTINCT FROM s.geo_type THEN 'geo_type' END,
-    CASE WHEN e.lat IS DISTINCT FROM s.lat THEN 'lat' END,
-    CASE WHEN e.lon IS DISTINCT FROM s.lon THEN 'lon' END,
-    CASE WHEN e.langue IS DISTINCT FROM s.langue THEN 'langue' END,
-    CASE WHEN e.pertinence_score IS DISTINCT FROM s.pertinence_score THEN 'pertinence_score' END,
-    CASE WHEN e.pertinence_rule IS DISTINCT FROM s.pertinence_rule THEN 'pertinence_rule' END
-  ], NULL::text)::text[] AS champs
-  FROM event e JOIN src s ON s.dedup_key = e.dedup_key
-  WHERE NOT EXISTS (SELECT 1 FROM ins)
-), maj AS (
-  UPDATE event e SET
-    title = s.title, summary = s.summary, severity = s.severity, confidence = s.confidence,
-    source_url = s.source_url, geo_type = s.geo_type, lat = s.lat, lon = s.lon,
-    langue = s.langue, pertinence_score = s.pertinence_score, pertinence_rule = s.pertinence_rule
-  FROM src s
-  WHERE e.dedup_key = s.dedup_key
-    AND EXISTS (SELECT 1 FROM avant WHERE cardinality(avant.champs) > 0)
-  RETURNING e.id
-)
-SELECT (SELECT id FROM ins) AS inserted_id,
-       (SELECT champs FROM avant) AS champs,
-       (SELECT id FROM maj) AS updated_id;
-`;
-
-type ResultatIngestion = { inserted_id: number | null; champs: string[] | null; updated_id: number | null };
 
 export function contexteCollecteur(
 	cursor: Record<string, unknown>,

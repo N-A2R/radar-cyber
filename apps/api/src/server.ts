@@ -19,7 +19,7 @@ import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle } from "./collectors/index.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
-import { ingererEvenementCollecteur } from "./collecte/ingestion-collecteur.js";
+import { ecrireEvenementCollecteur } from "./collecte/ingestion-collecteur.js";
 import { startLiveStream } from "./collecte/live.js";
 import { closeRun, openRun } from "./collecte/runs.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
@@ -239,7 +239,7 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 					continue;
 				}
 				const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
-				const ecrit = await ingererEvenementCollecteur(event, {
+				const ecrit = await ecrireEvenementCollecteur(event, {
 					runId,
 					langue: langue.language,
 					regional: portee.regional,
@@ -248,7 +248,8 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 					pertinenceRule: pertinence.rule,
 					sourceUrlParDefaut: `urn:source:${c.id}`,
 				});
-				if (ecrit > 0) {
+				const champs = ecrit.champs ?? [];
+				if (ecrit.inserted_id !== null) {
 					itemsNew++;
 					faits.push({
 						kind: "event.admitted",
@@ -256,6 +257,15 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 						summary: `${c.id} : événement admis (${event.family})`,
 						actor: `collecteur:${c.id}`,
 						payload: { family: event.family, assertionType: event.assertionType },
+						validAt: event.observedAt ?? null,
+					});
+				} else if (champs.length > 0) {
+					faits.push({
+						kind: "event.updated",
+						subject: event.dedupKey,
+						summary: `${c.id} : champs corrigés (${champs.join(", ")})`,
+						actor: `collecteur:${c.id}`,
+						payload: { champs, family: event.family },
 						validAt: event.observedAt ?? null,
 					});
 				}
