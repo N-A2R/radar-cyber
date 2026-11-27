@@ -6,13 +6,14 @@
  *  - Nouvelle-Aquitaine only (regional department on the victim organization,
  *    or the regional flag computed by the territorial resolver);
  *  - review-only scopes are never published;
- *  - TLP:RED events are never published;
+ *  - only TLP:CLEAR events are published (TLP:GREEN, AMBER and RED stay out);
  *  - the free-text alert and event titles are deliberately not selected:
  *    notification payloads are built from structured fields only.
  */
 import { ALERT_SCOPES_REVUE } from "../alert-scope.js";
 import { DEPT_LABELS } from "../collectors/relevance.js";
 import { query } from "../db.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 /** Twelve departments of Nouvelle-Aquitaine, from the canonical label table. */
 export const NA_DEPARTMENTS: readonly string[] = Object.keys(DEPT_LABELS);
@@ -46,7 +47,8 @@ SELECT a.id, a.severity, a.status, a.created_at, a.attempts,
   LEFT JOIN org o ON o.id = a.org_id
   LEFT JOIN source s ON s.id = e.source_id
  WHERE a.scope <> ALL($2::text[])
-   AND (e.tlp IS NULL OR e.tlp <> 'RED')
+   AND ((a.event_id IS NULL AND coalesce(a.evidence->>'tlp', 'CLEAR') = 'CLEAR')
+        OR ${evenementPublicSql("e")})
    AND ((o.id IS NOT NULL AND o.dept = ANY($3::text[])) OR (o.id IS NULL AND e.regional = true))
 `;
 

@@ -6,9 +6,10 @@
  * Orgc, Attribute et Tag) et l'enveloppe `{"response": [...]}` de l'API de
  * recherche MISP.
  *
- * Politique de diffusion : seuls les faits TLP:CLEAR et TLP:GREEN sortent.
- * TLP:AMBER, TLP:RED et tout tag inconnu sont écartés — ni dans le JSON, ni
- * dans un attribut. Le compte des faits écartés est journalisé dans
+ * Politique de diffusion : seul le fait TLP:CLEAR sort, avec le même
+ * prédicat que l'API publique (`security/tlp.ts`). TLP:GREEN, TLP:AMBER,
+ * TLP:RED et tout tag inconnu sont écartés — ni dans le JSON, ni dans un
+ * attribut. Le compte des faits écartés est journalisé dans
  * `export_run` avec le SHA-256 du corps exact, pour qu'un partenaire puisse
  * prouver ce qu'il a reçu.
  *
@@ -19,6 +20,7 @@
  */
 import { createHash } from "node:crypto";
 import { query } from "../db.js";
+import { evenementPublic, evenementPublicSql } from "../security/tlp.js";
 import {
 	normalizeTrustTags,
 	UnknownTrustTagError,
@@ -87,13 +89,8 @@ export type MispExportResult = {
 export const DEFAULT_MISP_LIMIT = 1000;
 export const MAX_MISP_LIMIT = 5000;
 
-/**
- * Faits dont la diffusion autorise la sortie. Les deux déclarations — colonne
- * et evidence — doivent être diffusable : un AMBER d'un côté ne peut pas être
- * masqué par un CLEAR de l'autre. Tout le reste est exclu.
- */
-const DIFFUSABLE_SQL = `coalesce(public.tlp_canonical(e.tlp), 'CLEAR') IN ('CLEAR', 'WHITE', 'GREEN')
-  AND coalesce(public.tlp_canonical(e.evidence->>'tlp'), 'CLEAR') IN ('CLEAR', 'WHITE', 'GREEN')`;
+/** Faits dont la diffusion autorise la sortie : le périmètre public partagé. */
+const DIFFUSABLE_SQL = evenementPublicSql("e");
 const OCCURRED_SQL = `coalesce(e.observed_at, e.valid_at, e.at, e.created_at, to_timestamp(0))`;
 const FILTER_SQL = `($1::timestamptz IS NULL OR ${OCCURRED_SQL} >= $1)
   AND ($2::text IS NULL OR e.source_id = $2)
@@ -166,11 +163,6 @@ function niveauAnalyse(assertionType: string): string {
 	return "0";
 }
 
-function distributionEvenement(tlp: Tlp): string {
-	// GREEN reste réservé à la communauté ; CLEAR va à toutes les communautés.
-	return tlp === "GREEN" ? "2" : "3";
-}
-
 export type MispEvent = Record<string, unknown>;
 
 /**
@@ -178,6 +170,10 @@ export type MispEvent = Record<string, unknown>;
  * La fonction est pure : le test peut la vérifier sans base.
  */
 export function buildMispEvent(row: MispEventRow): MispEvent | null {
+	// Double garde-fou : le SQL filtre à la lecture, cette fonction est aussi
+	// appelée seule (imports, rejeux) et ne doit jamais fabriquer un Event
+	// GREEN/AMBER/RED, même avec une colonne ou une evidence contradictoire.
+	if (!evenementPublic({ tlp: row.tlp, evidence: row.evidence })) return null;
 	const evidence = row.evidence && typeof row.evidence === "object" && !Array.isArray(row.evidence)
 		? row.evidence
 		: {};
@@ -197,7 +193,7 @@ export function buildMispEvent(row: MispEventRow): MispEvent | null {
 		if (error instanceof UnknownTrustTagError) return null;
 		throw error;
 	}
-	if (tlp !== "WHITE" && tlp !== "GREEN") return null;
+	if (tlp !== "WHITE") return null;
 
 	const date = dateEvenement(row);
 	const timestamp = horodatage(date);
@@ -207,10 +203,8 @@ export function buildMispEvent(row: MispEventRow): MispEvent | null {
 	const valeur = texteMisp(row.title, 255, `Signal régional #${row.id}`);
 	const info = texteMisp(`[RADAR] ${valeur}`, 255, `Signal régional #${row.id}`);
 	const portee = row.regional === true ? "regional" : "non-regional";
-	const nomTlp = tlp === "GREEN" ? "tlp:green" : "tlp:clear";
-
 	const tags = [
-		`${nomTlp}`,
+		"tlp:clear",
 		`radar:family=${row.family}`,
 		`radar:assertion=${row.assertion_type}`,
 		`radar:scope=${portee}`,
@@ -231,7 +225,7 @@ export function buildMispEvent(row: MispEventRow): MispEvent | null {
 		published: true,
 		threat_level_id: niveauMenace(row.severity),
 		analysis: niveauAnalyse(row.assertion_type),
-		distribution: distributionEvenement(tlp),
+		distribution: "3", // TLP:CLEAR est diffusable à toutes les communautés.
 		sharing_group_id: "0",
 		org_id: ORG.id,
 		orgc_id: ORG.id,
