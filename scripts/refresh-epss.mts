@@ -18,7 +18,7 @@
  * (`ON CONFLICT (cve) DO UPDATE`) : un COPY direct dans `epss` échouerait sur
  * les doublons et ne sait pas faire de mise à jour.
  *
- * Défaut : --dry-run (aucune écriture). --apply pour écrire dans epss.
+ * Défaut : --dry-run (aucune écriture dans epss). --apply pour écrire dans epss.
  *
  * Usage :
  *   pnpm -F @radar/api exec tsx ../../scripts/refresh-epss.mts            # simulation
@@ -38,7 +38,7 @@ const MIN_REQUEST_INTERVAL_MS = 1_100;
 const MAX_RETRIES = 5;
 const RETRY_BASE_MS = 2_000;
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
-/** Taille des lots insérés dans la table temporaire. */
+/** Taille maximale du tampon de dédoublonnage et des lots insérés dans la table temporaire. */
 const STAGE_BATCH = 5_000;
 
 interface Options {
@@ -153,65 +153,83 @@ async function stageBatch(client: import("pg").PoolClient, rows: ScoreRow[]): Pr
 	);
 }
 
+/** Table de session, dédiée à ce run : aucun verrou ni écriture durable avant l'upsert final. */
+async function prepareStage(client: import("pg").PoolClient): Promise<void> {
+	await client.query("DROP TABLE IF EXISTS pg_temp.epss_stage");
+	await client.query(
+		`CREATE TEMP TABLE epss_stage (
+		   cve text PRIMARY KEY,
+		   score double precision NOT NULL,
+		   percentile double precision
+		 )`
+	);
+}
+
 async function main(): Promise<void> {
 	const opts = parseArgs(process.argv.slice(2));
 	const date = resolveDate(opts.date);
 	const pace = makePacer(opts.pageDelayMs);
-
-	// Map pour dédoublonner : l'API peut chevaucher des pages entre deux tirages.
-	const scores = new Map<string, ScoreRow>();
-	let offset = 0;
-	let total: number | null = null;
-	let pages = 0;
-	const startedAt = Date.now();
-
-	while (total === null || offset < total) {
-		const page = await fetchPage(offset, opts.limit, date, pace);
-		if (page.total !== undefined && Number.isFinite(Number(page.total))) total = Number(page.total);
-		const rows = asRows(page);
-		if (rows.length === 0) {
-			console.warn(`  page vide à offset ${offset} (total ${total ?? "?"}) : arrêt`);
-			break;
-		}
-		for (const row of rows) {
-			const cve = String(row.cve ?? "").trim().toUpperCase();
-			const score = Number(row.epss);
-			if (!cve || !Number.isFinite(score)) continue;
-			const percentile = row.percentile === undefined || row.percentile === null ? null : Number(row.percentile);
-			scores.set(cve, { cve, score, percentile: percentile !== null && Number.isFinite(percentile) ? percentile : null });
-		}
-		offset += rows.length;
-		pages++;
-		if (total !== null) console.log(`  page ${pages} : offset ${offset}/${total}`);
-		// Garde-fou : une API incohérente ne doit pas boucler à l'infini.
-		if (pages > 100) throw new Error("dépassement du plafond de pagination (API incohérente)");
-	}
-
-	const rowsOut = [...scores.values()];
-	const high = rowsOut.filter((row) => row.score >= EPSS_ADMISSION_THRESHOLD).length;
-	const elapsed = ((Date.now() - startedAt) / 1000).toFixed(0);
-	console.log(`EPSS ${date} — ${pages} page(s), téléchargées=${offset}, retenues=${rowsOut.length} (total API ${total ?? "?"}) en ${elapsed} s`);
-	console.log(`  score >= ${EPSS_ADMISSION_THRESHOLD} : ${high}`);
-
-	if (!opts.apply) {
-		console.log("  mode dry-run : aucune écriture (utiliser --apply)");
-		return;
-	}
-
 	const client = await ingestPool.connect();
+
 	try {
+		await prepareStage(client);
+		// L'API fournit l'ordre de pagination ; le ON CONFLICT de la table de session
+		// conserve la dernière valeur de chaque CVE dans cet ordre, sans tout garder en RAM.
+		const pending = new Map<string, ScoreRow>();
+		const flush = async (): Promise<void> => {
+			if (pending.size === 0) return;
+			await stageBatch(client, [...pending.values()]);
+			pending.clear();
+		};
+
+		let offset = 0;
+		let total: number | null = null;
+		let pages = 0;
+		const startedAt = Date.now();
+
+		while (total === null || offset < total) {
+			const page = await fetchPage(offset, opts.limit, date, pace);
+			if (page.total !== undefined && Number.isFinite(Number(page.total))) total = Number(page.total);
+			const rows = asRows(page);
+			if (rows.length === 0) {
+				console.warn(`  page vide à offset ${offset} (total ${total ?? "?"}) : arrêt`);
+				break;
+			}
+			for (const row of rows) {
+				const cve = String(row.cve ?? "").trim().toUpperCase();
+				const score = Number(row.epss);
+				if (!cve || !Number.isFinite(score)) continue;
+				const percentile = row.percentile === undefined || row.percentile === null ? null : Number(row.percentile);
+				pending.set(cve, { cve, score, percentile: percentile !== null && Number.isFinite(percentile) ? percentile : null });
+				if (pending.size >= STAGE_BATCH) await flush();
+			}
+			offset += rows.length;
+			pages++;
+			if (total !== null) console.log(`  page ${pages} : offset ${offset}/${total}`);
+			// Garde-fou : une API incohérente ne doit pas boucler à l'infini.
+			if (pages > 100) throw new Error("dépassement du plafond de pagination (API incohérente)");
+		}
+		await flush();
+
+		const stats = await client.query<{ retained: string; high: string }>(
+			`SELECT count(*)::text AS retained,
+			        count(*) FILTER (WHERE score >= $1)::text AS high
+			   FROM epss_stage`,
+			[EPSS_ADMISSION_THRESHOLD]
+		);
+		const retained = Number(stats.rows[0].retained);
+		const high = Number(stats.rows[0].high);
+		const elapsed = ((Date.now() - startedAt) / 1000).toFixed(0);
+		console.log(`EPSS ${date} — ${pages} page(s), téléchargées=${offset}, retenues=${retained} (total API ${total ?? "?"}) en ${elapsed} s`);
+		console.log(`  score >= ${EPSS_ADMISSION_THRESHOLD} : ${high}`);
+
+		if (!opts.apply) {
+			console.log("  mode dry-run : aucune écriture (utiliser --apply)");
+			return;
+		}
+
 		const before = await client.query<{ count: string }>("SELECT count(*)::text AS count FROM epss");
 		await client.query("BEGIN");
-		await client.query(
-			`CREATE TEMP TABLE epss_stage (
-			   cve text PRIMARY KEY,
-			   score double precision NOT NULL,
-			   percentile double precision
-			 ) ON COMMIT DROP`
-		);
-		for (let i = 0; i < rowsOut.length; i += STAGE_BATCH) {
-			await stageBatch(client, rowsOut.slice(i, i + STAGE_BATCH));
-		}
 		await client.query(
 			`INSERT INTO epss (cve, score, percentile, updated_at)
 			 SELECT cve, score, percentile, now() FROM epss_stage
@@ -223,11 +241,12 @@ async function main(): Promise<void> {
 		await client.query("COMMIT");
 		const after = await client.query<{ count: string }>("SELECT count(*)::text AS count FROM epss");
 		const inserted = Number(after.rows[0].count) - Number(before.rows[0].count);
-		console.log(`  epss : ${rowsOut.length} score(s) upsertés (${inserted} nouveaux, ${rowsOut.length - inserted} mis à jour, total ${after.rows[0].count})`);
+		console.log(`  epss : ${retained} score(s) upsertés (${inserted} nouveaux, ${retained - inserted} mis à jour, total ${after.rows[0].count})`);
 	} catch (error) {
 		await client.query("ROLLBACK").catch(() => undefined);
 		throw error;
 	} finally {
+		await client.query("DROP TABLE IF EXISTS pg_temp.epss_stage").catch(() => undefined);
 		client.release();
 	}
 }
