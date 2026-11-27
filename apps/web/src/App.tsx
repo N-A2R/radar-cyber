@@ -397,20 +397,20 @@ export default function App() {
         const row = JSON.parse((raw as MessageEvent).data) as Record<string, unknown>;
         const event: Event = {
           id: String(row.id),
-          dedupKey: String(row.dedup_key),
+          dedupKey: String(row.dedupKey ?? row.dedup_key ?? ""),
           family: String(row.family),
-          assertionType: String(row.assertion_type),
+          assertionType: String(row.assertionType ?? row.assertion_type ?? ""),
           title: String(row.title),
           summary: (row.summary as string | null) ?? null,
-          observedAt: (row.observed_at as string | null) ?? null,
+          observedAt: (row.observedAt ?? row.observed_at ?? null) as string | null,
           severity: Number(row.severity),
           confidence: (row.confidence as string | null) ?? null,
-          sourceId: String(row.source_id),
-          sourceUrl: (row.source_url as string | null) ?? null,
-          geoType: String(row.geo_type),
+          sourceId: String(row.sourceId ?? row.source_id ?? ""),
+          sourceUrl: (row.sourceUrl ?? row.source_url ?? null) as string | null,
+          geoType: String(row.geoType ?? row.geo_type ?? ""),
           lat: (row.lat as number | null) ?? null,
           lon: (row.lon as number | null) ?? null,
-          orgId: (row.org_id as number | null) ?? null,
+          orgId: (row.orgId ?? row.org_id ?? null) as number | null,
           // La portée vient du serveur : une seule définition, remplie à
           // l'écriture par `porteeRegionale`. Le front ne la réinvente plus.
           regional: row.regional === true,

@@ -23,8 +23,9 @@ const MAX_ALERTES = 100;
 
 /** Champs du contrat SSE : ni `SELECT *`, ni colonne interne superflue. */
 const EVENEMENTS_SSE_SQL = `
-SELECT e.id, e.family, e.assertion_type, e.title, e.severity, e.observed_at,
-       e.source_id, e.source_url, e.tlp, e.org_id
+SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
+       e.severity, e.confidence, e.observed_at, e.source_id, e.source_url,
+       e.geo_type, e.lat, e.lon, e.org_id, e.regional, e.tlp
   FROM event e
  WHERE e.id > $1 AND ${evenementPublicSql("e")}
  ORDER BY e.id LIMIT $2`;
@@ -45,19 +46,29 @@ function curseur(brut: unknown, nom: string): number {
   return valeur;
 }
 
-function evenementSse(row: Record<string, unknown>): string {
+export function evenementSse(row: Record<string, unknown>): string {
   const id = Number(row.id);
+  // Mêmes clés que GET /api/events : le front consomme les deux chemins avec
+  // le même type Event. Ne pas renvoyer `regional` rendait le filtre par défaut
+  // muet sur le flux temps réel.
   const donnees = {
     id,
+    dedupKey: row.dedup_key,
     family: row.family,
     assertionType: row.assertion_type,
     title: row.title,
+    summary: row.summary ?? null,
     severity: row.severity,
+    confidence: row.confidence ?? null,
     observedAt: row.observed_at,
     sourceId: row.source_id,
     sourceUrl: row.source_url,
+    geoType: row.geo_type,
+    lat: row.lat ?? null,
+    lon: row.lon ?? null,
+    orgId: row.org_id ?? null,
+    regional: row.regional === true,
     tlp: row.tlp,
-    orgId: row.org_id,
   };
   return `id: ${id}\nevent: new\ndata: ${JSON.stringify(donnees)}\n\n`;
 }
