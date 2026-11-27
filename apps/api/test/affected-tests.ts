@@ -1,14 +1,20 @@
 /**
  * Sélectionne les tests API réellement affectés par une pull request.
  *
- * Sur `main`, `merge_group`, un run manuel ou un label `full-ci`, tous les
- * tests sont rendus. Sur une PR ordinaire, on part des fichiers modifiés et on
- * remonte le graphe d'imports locaux des tests : un test est retenu s'il
- * importe, directement ou transitivement, un fichier modifié.
+ * Sur `main`, `merge_group` ou un run manuel, tous les tests des shards sont
+ * rendus. Le label `full-ci` sur une PR force en plus `test/objectifs/`.
+ * Sur une PR ordinaire, on part des fichiers modifiés et on remonte le graphe
+ * d'imports locaux des tests : un test est retenu s'il importe, directement ou
+ * transitivement, un fichier modifié.
+ *
+ * `test/objectifs/*` est bien découvert, mais exclu des shards, du canari et de
+ * la sélection PR ordinaire : la nightly les exécute dans le job `objectives`
+ * dédié. Les jouer sur chaque PR doublerait cette porte et ralentirait la
+ * merge queue. Seul le label `full-ci` les ajoute explicitement.
  *
  * Les changements limités à `.github/workflows/` et `.github/actions/` utilisent
- * un canari de six tests : la merge queue, `main` et la nightly reprennent la
- * suite complète. Le label `full-ci` force toujours la suite complète sur PR.
+ * un canari de six tests : la merge queue et la nightly reprennent la suite
+ * complète des shards, sans le job nightly dédié.
  *
  * Les autres chemins critiques forcent la suite complète : une erreur dans le
  * schéma, le serveur, l'authentification ou les helpers de test ne doit jamais
@@ -21,7 +27,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { discoverTestFiles, shardFiles } from "./shard-files.js";
+import { discoverTestFiles, isObjectifTest, shardFiles } from "./shard-files.js";
 
 const TEST_DIR = fileURLToPath(new URL("./", import.meta.url));
 const API_ROOT = resolve(TEST_DIR, "..");
@@ -98,16 +104,19 @@ async function main(): Promise<void> {
 	const shards = Number(option("--shards") ?? process.env.API_SHARDS ?? 0);
 	const index = Number(option("--index") ?? 0);
 	const full = process.env.FULL_CI === "1" || process.env.FULL_CI === "true";
+	const fullLabelOnPr = full && process.env.GITHUB_EVENT_NAME === "pull_request";
 	const all = await discoverTestFiles();
+	const ciTests = all.filter((file) => !isObjectifTest(file));
 
 	const emit = (files: readonly string[]) => {
 		const selected = shards > 0 && index > 0 ? shardFiles(files, shards, index) : files;
 		if (selected.length > 0) console.log(selected.join("\n"));
 	};
 
-	// main, merge queue, manuel, label full-ci, ou base absente : tout.
+	// main, merge queue, manuel ou base absente : suite des shards.
+	// `full-ci` est le seul chemin de PR qui ajoute les tests d'objectifs.
 	if (full || !base || process.env.GITHUB_EVENT_NAME !== "pull_request") {
-		emit(all);
+		emit(fullLabelOnPr ? all : ciTests);
 		return;
 	}
 
@@ -120,7 +129,7 @@ async function main(): Promise<void> {
 		).split("\n").filter(Boolean);
 	} catch (error) {
 		console.error(`affected-tests : diff indisponible, suite complète — ${String(error)}`);
-		emit(all);
+		emit(ciTests);
 		return;
 	}
 
@@ -128,10 +137,10 @@ async function main(): Promise<void> {
 		CI_ONLY.some((prefix) => file === prefix || file.startsWith(prefix)),
 	);
 	if (ciOnly) {
-		const canary = CANARY.filter((file) => all.includes(file));
+		const canary = CANARY.filter((file) => ciTests.includes(file));
 		if (canary.length !== CANARY.length) {
 			console.error("affected-tests : canari incomplet, suite complète");
-			emit(all);
+			emit(ciTests);
 			return;
 		}
 		console.error(`affected-tests : CI-only, ${canary.length} test(s) canari`);
@@ -140,7 +149,7 @@ async function main(): Promise<void> {
 	}
 
 	if (changed.some((file) => CRITICAL.some((prefix) => file === prefix || file.startsWith(prefix)))) {
-		emit(all);
+		emit(ciTests);
 		return;
 	}
 
@@ -174,7 +183,7 @@ async function main(): Promise<void> {
 		return pending;
 	};
 
-	for (const file of all) {
+	for (const file of ciTests) {
 		const testFile = resolve(API_ROOT, file);
 		if (changedApi.has(testFile)) {
 			selected.add(file);
