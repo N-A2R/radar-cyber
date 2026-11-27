@@ -983,7 +983,11 @@ async function ingestNarrative(
     // titre+source. Le jour d'un flux sans date vient de `fetchedAt` : il ne
     // doit donc jamais entrer dans l'empreinte, sinon le même article change
     // de clé à chaque collecte. Il reste dans `observed_at`/`date_source`.
-    const identite = explicitOr(item, parser.idField, ["guid", "id", "uuid", "link", "url", "reference", "href", "permalink", "source_url"]) || link;
+    // L'identité doit être reconstruisable depuis `event.source_url` après la
+    // migration 251 : seules les URL sont conservées. Un guid sans lien
+    // retombait sur `titre:hash` en base mais `id:hash` à la prochaine
+    // collecte, ce qui réinsérait l'article sous une nouvelle empreinte.
+    const identite = pickAny(item, ["link", "url", "reference", "href", "permalink", "source_url"]) || link;
     const fingerprint = fingerprintOf(title, source.id, { identity: identite, at: parsed.at, dateSource: parsed.source });
     const dedupKey = `feed:${hashKey(fingerprint)}`;
     // Porte cyber : le texte décide. Une dépêche régionale publiée par une
