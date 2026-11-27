@@ -21,7 +21,7 @@ INSTALLER_VERSION="1.0.0"
 # --- Valeurs par défaut ----------------------------------------------------
 MODE="install"
 SOURCE=""
-REPO_URL="${RADAR_REPO_URL:-https://github.com/j0ltdevv/radar-cyber.git}"
+REPO_URL="${RADAR_REPO_URL:-https://github.com/N-A2R/radar-cyber.git}"
 REF="${RADAR_REF:-main}"
 DB_NAME="${RADAR_DB_NAME:-radar}"
 DB_USER="${RADAR_DB_USER:-radar}"
