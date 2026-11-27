@@ -37,7 +37,7 @@ export function ArchiveProofCard({ proof = null }: ArchiveProofProps) {
         <p className="sws-warc__empty" role="status">Aucune preuve d’archive jointe à cette vue.</p>
       ) : (
         <dl className="sws-warc__fields">
-          <div>
+          <Card variant="transparent" padding={0}>
             <dt>Cible</dt>
             <dd>
               {/^https?:\/\//i.test(proof.targetUri) ? (
@@ -48,32 +48,32 @@ export function ArchiveProofCard({ proof = null }: ArchiveProofProps) {
                 <span>{proof.targetUri}</span>
               )}
             </dd>
-          </div>
-          <div>
+          </Card>
+          <Card variant="transparent" padding={0}>
             <dt>Enregistrement</dt>
             <dd><code>{proof.recordId}</code></dd>
-          </div>
-          <div>
+          </Card>
+          <Card variant="transparent" padding={0}>
             <dt>Date de capture</dt>
             <dd><time dateTime={proof.date}>{formatDate(proof.date)}</time></dd>
-          </div>
+          </Card>
           {proof.digest ? (
-            <div>
+            <Card variant="transparent" padding={0}>
               <dt>Empreinte du bloc</dt>
               <dd><code>{proof.digest}</code></dd>
-            </div>
+            </Card>
           ) : null}
           {proof.identifiedPayloadType ? (
-            <div>
+            <Card variant="transparent" padding={0}>
               <dt>Type de contenu</dt>
               <dd>{proof.identifiedPayloadType}</dd>
-            </div>
+            </Card>
           ) : null}
           {proof.blockLength !== null && proof.blockLength !== undefined ? (
-            <div>
+            <Card variant="transparent" padding={0}>
               <dt>Taille du bloc</dt>
               <dd>{formatNumber(proof.blockLength)} octets</dd>
-            </div>
+            </Card>
           ) : null}
         </dl>
       )}
@@ -98,19 +98,19 @@ export default function WarcProofCard() {
   return (
     <Card variant="transparent" className="corpus__panel-card">
     <section className="corpus__panel" aria-labelledby="warc-proof-title" data-testid="warc-proof-card">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="warc-proof-title">Facts with an archivable proof</h2>
         <span className="corpus__panel-meta">{stats?.scope ?? "Nouvelle-Aquitaine"}</span>
-      </div>
+      </Card>
       {error ? (
         <p className="corpus__empty" role="alert">Could not load WARC proof statistics.</p>
       ) : stats === null ? (
         <p className="corpus__empty" role="status">Loading WARC proof statistics…</p>
       ) : (
         <>
-          <div className="corpus__gauge-value">
+          <Card variant="transparent" padding={0} className="corpus__gauge-value">
             {formatPercent(stats.coveragePercent)}
-          </div>
+          </Card>
           <p className="corpus__gauge-caption">
             <strong>{formatCount(stats.factsWithArchivableProof)}</strong> of {formatCount(stats.target)} eligible
             facts carry a verified WARC response record.
