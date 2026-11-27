@@ -13,6 +13,7 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./today.css";
 import LieesCard from "./LieesCard";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Table } from "@astryxdesign/core/Table";
 
 /** Date lisible et sans ambiguïté : UTC affichée, jamais une heure locale devinée. */
@@ -150,21 +151,21 @@ export default function TodayView({
     <section className="today" aria-labelledby="today-titre">
       <LieesCard />
       <header className="today__head">
-        <div>
+        <Card variant="transparent" padding={0}>
           <p className="today__kicker">veille du jour</p>
           <h1 className="today__titre" id="today-titre">Aujourd'hui</h1>
           <Badge label="24 h" className="today__badge" />
           <p className="today__sous-titre">Les 24 dernières heures, telles que collectées.</p>
-        </div>
-        <div className="today__compteurs" aria-label="Compteurs en direct">
-          <div className="today__compteur">
+        </Card>
+        <Card variant="transparent" padding={0} className="today__compteurs" aria-label="Compteurs en direct">
+          <Card variant="transparent" padding={0} className="today__compteur">
             <span className="today__valeur">{compteurs ? compteurs.evenements24h : "—"}</span>
             <span className="today__libelle">événements · 24 h</span>
-          </div>
-        </div>
+          </Card>
+        </Card>
       </header>
 
-      <div className="today__filtres" role="group" aria-label="Filtres de la période">
+      <Card variant="transparent" padding={0} className="today__filtres" role="group" aria-label="Filtres de la période">
         <label className="today__filtre">
           <span>famille</span>
           <select
@@ -190,11 +191,11 @@ export default function TodayView({
         {compteurs?.derniereCollecte ? (
           <p className="today__collecte">dernière collecte : {dateLisible(compteurs.derniereCollecte)}</p>
         ) : null}
-      </div>
+      </Card>
 
       {data ? (
         <section className="today__timeline" aria-labelledby="today-timeline-titre">
-          <div className="today__timeline-head">
+          <Card variant="transparent" padding={0} className="today__timeline-head">
             <h2 id="today-timeline-titre">activité · 24 h</h2>
             {labelTranche ? (
               <p className="today__timeline-filtre" role="status">
@@ -207,12 +208,12 @@ export default function TodayView({
             ) : (
               <p>{totalTranche} événement{totalTranche > 1 ? "s" : ""} · tranches de 2 h · UTC</p>
             )}
-          </div>
-          <div className="today__timeline-graphe" role="list" aria-label="Répartition horaire des événements sur 24 heures">
+          </Card>
+          <Card variant="transparent" padding={0} className="today__timeline-graphe" role="list" aria-label="Répartition horaire des événements sur 24 heures">
             {tranches.map((t) => {
               const actif = t.debut === trancheActive;
               return (
-                <div className="today__timeline-tranche" role="listitem" key={t.debut}>
+                <Card variant="transparent" padding={0} className="today__timeline-tranche" role="listitem" key={t.debut}>
                   <button
                     type="button"
                     className="today__timeline-bouton"
@@ -222,18 +223,20 @@ export default function TodayView({
                     onClick={() => setTrancheChoisie(actif ? null : t.debut)}
                   >
                     <span className="today__timeline-valeur">{t.evenements}</span>
-                    <div className="today__timeline-piste" aria-hidden="true">
-                      <div
+                    <Card variant="transparent" padding={0} className="today__timeline-piste" aria-hidden="true">
+                      <Card
+                        variant="transparent"
+                        padding={0}
                         className="today__timeline-barre"
                         style={{ height: maxTranche > 0 ? `${(t.evenements / maxTranche) * 100}%` : "0%" }}
                       />
-                    </div>
+                    </Card>
                     <time className="today__timeline-heure" dateTime={new Date(t.debut).toISOString()}>{t.label}</time>
                   </button>
-                </div>
+                </Card>
               );
             })}
-          </div>
+          </Card>
         </section>
       ) : null}
 
@@ -253,7 +256,7 @@ export default function TodayView({
       ) : null}
 
       {evenementsAffiches.length > 0 ? (
-        <div className="today__table-wrap">
+        <Card variant="transparent" padding={0} className="today__table-wrap">
           <Table className="today__table" density="compact" dividers="rows">
             <thead>
               <tr>
@@ -314,7 +317,7 @@ export default function TodayView({
               })}
             </tbody>
           </Table>
-        </div>
+        </Card>
       ) : null}
     </section>
   );
