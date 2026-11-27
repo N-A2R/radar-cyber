@@ -723,7 +723,7 @@ export default function Map3D(props: Map3DProps) {
 
     /** One WebGL2 layer, one draw call per frame, a single rAF loop. */
     const attachLive = (target: maplibregl.Map) => {
-      if (disposed || !liveWanted || map !== target || liveLayer) return
+      if (MOCK_MODE || disposed || !liveWanted || map !== target || liveLayer) return
       try {
         const layer = new LiveAttackLayer()
         target.addLayer(layer as unknown as maplibregl.CustomLayerInterface)
@@ -768,6 +768,7 @@ export default function Map3D(props: Map3DProps) {
       })
     }
     const startLive = () => {
+      if (MOCK_MODE) return
       liveWanted = true
       const target = map
       if (disposed || !target || liveLayer) return
@@ -1349,7 +1350,7 @@ export default function Map3D(props: Map3DProps) {
   // Démarrage et arrêt complets du flux live, indépendamment de la création
   // de la carte (le TileJSON peut arriver après un changement de prop).
   useEffect(() => {
-    if (props.live) liveControlRef.current?.start()
+    if (props.live && !MOCK_MODE) liveControlRef.current?.start()
     else liveControlRef.current?.stop()
     return () => { liveControlRef.current?.stop() }
   }, [props.live])
@@ -1382,7 +1383,7 @@ export default function Map3D(props: Map3DProps) {
         <span>{CITY_LABELS.map(([name]) => name).join(' · ')}</span>
       </div>
     ) : null}
-    {props.live ? <div className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</div> : null}
+    {props.live && !MOCK_MODE ? <div className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</div> : null}
     <Badge label="Nouvelle-Aquitaine" className="map3d__badge" style={{ position: 'absolute', bottom: 8, left: 8, zIndex: 2, pointerEvents: 'none' }} />
   </div>
 }

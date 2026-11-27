@@ -121,6 +121,9 @@ const VALID_PANELS: readonly MapWorkspacePanel[] = [
   "carte", "couverture", "regional", "affected", "graph", "directory", "attributions",
 ];
 
+/** La démonstration ne doit ouvrir aucun flux temps réel. */
+const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
+
 
 /** Map3D emits `org:<id>`; GraphView emits `org:`/`event:` prefixed ids. */
 function selectNode(id: string | null, onOpenOrg: (id: number) => void, onOpenEvent: (id: string) => void) {
@@ -259,7 +262,7 @@ export default function MapWorkspace({
               events={mapEvents}
               families={family ? [family] : undefined}
               flows={flows}
-              live
+              live={!MOCK_MODE}
               basemap={basemap}
               onSelect={handleSelectMapOrg}
               onSelectEvent={onOpenEvent}

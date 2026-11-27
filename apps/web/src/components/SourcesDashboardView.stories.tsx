@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Theme } from "@astryxdesign/core/theme";
 import { stoneTheme } from "@astryxdesign/theme-stone/built";
 import SourcesDashboardView from "./SourcesDashboardView";
+import { RegistryIndicators } from "./SourcesDashboardView";
 import type { SourcesDashboard } from "../api";
 
 const data: SourcesDashboard = {
@@ -36,3 +37,4 @@ type Story = StoryObj<typeof meta>;
 
 export const Mesuree: Story = {};
 export const Vide: Story = { args: { data: null } };
+export const IndicateursRegistre: Story = { render: () => <RegistryIndicators sources={[]} /> };

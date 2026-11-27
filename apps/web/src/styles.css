@@ -228,18 +228,6 @@ h1, h2 { text-wrap: balance; }
   min-height: 0;
 }
 
-.mock-banner {
-  display: none;
-  flex: 0 0 auto;
-  padding: var(--space-1) var(--space-4);
-  background: var(--accent);
-  color: var(--accent-ink);
-  font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
-  text-align: center;
-  letter-spacing: var(--tracking-normal);
-}
-.mock-banner[data-active="true"] { display: block; }
-
 .mono {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -310,8 +298,7 @@ table.data td.mono { font-size: 12px; color: var(--muted); }
 table.data a { color: var(--accent); text-decoration: none; }
 table.data a:hover { text-decoration: underline; }
 
-.badge,
-.ds-badge {
+.badge {
   display: inline-flex;
   align-items: center;
   padding: var(--space-1) var(--space-2);
@@ -322,14 +309,14 @@ table.data a:hover { text-decoration: underline; }
   font: var(--weight-medium) var(--text-label)/var(--leading-tight) var(--font-label);
   white-space: nowrap;
 }
-:where(.badge, .ds-badge)[data-tone="confirmed"] { color: var(--accent); border-color: var(--accent); }
-:where(.badge, .ds-badge)[data-tone="claim"] { color: var(--sev-4); border-color: var(--sev-4); }
-:where(.badge, .ds-badge)[data-tone="indicator"] { color: var(--muted); border-color: var(--line-strong); }
-:where(.badge, .ds-badge)[data-tone="ambient"] { color: var(--faint); background: transparent; }
-:where(.badge, .ds-badge)[data-tone="info"] { color: var(--sev-2); border-color: var(--sev-2); }
-:where(.badge, .ds-badge)[data-tone="success"] { color: var(--data-green); border-color: var(--data-green); }
-:where(.badge, .ds-badge)[data-tone="warning"] { color: var(--sev-3); border-color: var(--sev-3); }
-:where(.badge, .ds-badge)[data-tone="danger"] { color: var(--sev-5); border-color: var(--sev-5); }
+:where(.badge)[data-tone="confirmed"] { color: var(--accent); border-color: var(--accent); }
+:where(.badge)[data-tone="claim"] { color: var(--sev-4); border-color: var(--sev-4); }
+:where(.badge)[data-tone="indicator"] { color: var(--muted); border-color: var(--line-strong); }
+:where(.badge)[data-tone="ambient"] { color: var(--faint); background: transparent; }
+:where(.badge)[data-tone="info"] { color: var(--sev-2); border-color: var(--sev-2); }
+:where(.badge)[data-tone="success"] { color: var(--data-green); border-color: var(--data-green); }
+:where(.badge)[data-tone="warning"] { color: var(--sev-3); border-color: var(--sev-3); }
+:where(.badge)[data-tone="danger"] { color: var(--sev-5); border-color: var(--sev-5); }
 
 /* ── États ───────────────────────────────────────────────────── */
 .loading,
@@ -387,13 +374,6 @@ table.data a:hover { text-decoration: underline; }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
 .maplibregl-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-
-/* ── Bandeau de démonstration + densité ──────────────────────── */
-@media (max-width: 900px) {
-  .workspace { grid-template-columns: 300px minmax(0, 1fr); }
-  .panel.inspector { display: none; }
-  .kpi-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -1113,12 +1093,6 @@ body {
 
 
 /* --- Légende de la carte : une couleur doit pouvoir se décoder sans survol. */
-.map-view {
-  position: relative;
-  height: 100%;
-  min-height: 0;
-}
-
 .map-legend {
   position: absolute;
   left: var(--space-3);
