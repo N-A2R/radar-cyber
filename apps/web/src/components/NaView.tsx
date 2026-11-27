@@ -16,6 +16,7 @@ import type { NaViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./na.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 /** Départements du GeoJSON, dans son ordre (props : code, nom). */
 const FEATURES = departementsGeojson.features as {
   properties: { code: string; nom: string };
@@ -229,9 +230,9 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
         )}
       </header>
 
-      <div className="na-corps">
+      <Card variant="transparent" padding={0} className="na-corps">
 
-        <div className="na-panneau">
+        <Card variant="transparent" padding={0} className="na-panneau">
           <h3>{dept ? `${nomDept} (${dept})` : `Les ${libelleDepartements.toLowerCase()}`}</h3>
           <ul className="na-liste">
             {[...compteParDept.entries()].map(([code, c]) => {
@@ -267,14 +268,14 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
           {dept !== null && (
             <>
               {evtsDept === 0 && (
-                <div data-testid="na-vide-dept">
+                <Card variant="transparent" padding={0} data-testid="na-vide-dept">
                   <EmptyState
                     className="na-vide"
                     message={`Aucun événement sur ce département. ${compteParDept.get(dept)?.orgs.toLocaleString("fr-FR")} organisations au référentiel, aucune organisation touchée à ce jour — le trou est affiché, pas caché.`}
                     actionLabel={onRetry ? "Recharger la région" : "Voir toute la région"}
                     onAction={onRetry ?? (() => onSelectDept(null))}
                   />
-                </div>
+                </Card>
               )}
               {fil && fil.dept === dept && fil.events.length > 0 && (
                 <>
@@ -340,8 +341,8 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
               )}
             </>
           )}
-        </div>
-        <div className="na-carte-bloc">
+        </Card>
+        <Card variant="transparent" padding={0} className="na-carte-bloc">
           <svg
             className="na-carte"
             viewBox={`0 0 ${SVG_W.toFixed(0)} ${SVG_H.toFixed(0)}`}
@@ -407,8 +408,8 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
               ))}
             </ul>
           </figure>
-        </div>
-      </div>
+        </Card>
+      </Card>
     </section>
   );
 }

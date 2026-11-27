@@ -113,15 +113,15 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
 
   if (loading && nodes.length === 0) {
     return (
-      <div className="gm-root">
+      <Card variant="transparent" padding={0} className="gm-root">
         <LoadingSkeleton label="chargement du graphe…" />
-      </div>
+      </Card>
     );
   }
 
   if (columns.length === 0 || rows.length === 0) {
     return (
-      <div className="gm-root">
+      <Card variant="transparent" padding={0} className="gm-root">
         {summary}
         {onRetry ? (
           <EmptyState
@@ -132,14 +132,14 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
         ) : (
           <p className="gm-empty">Aucune corrélation famille × département sur la période.</p>
         )}
-      </div>
+      </Card>
     );
   }
 
   return (
     <Card variant="transparent" padding={0} className="gm-root">
       {summary}
-      <div className="gm-legend" aria-label="Lecture de la matrice">
+      <Card variant="transparent" padding={0} className="gm-legend" aria-label="Lecture de la matrice">
         <span className="gm-legend-title">Lecture</span>
         <span className="gm-legend-text">intensité = organisations par case</span>
         <span className="gm-legend-scale" aria-hidden="true">
@@ -153,8 +153,8 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
         </span>
         <span className="gm-legend-text">0 → {max}</span>
         <span className="gm-legend-text">totaux dans les en-têtes de ligne et de colonne</span>
-      </div>
-      <div className="gm-scroll">
+      </Card>
+      <Card variant="transparent" padding={0} className="gm-scroll">
         <Table className="gm-table" aria-label="Organisations par famille et département" density="compact" dividers="rows">
           <thead>
             <tr>
@@ -197,7 +197,7 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
             ))}
           </tbody>
         </Table>
-      </div>
+      </Card>
     </Card>
   );
 }

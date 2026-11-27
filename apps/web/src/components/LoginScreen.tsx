@@ -220,21 +220,21 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
 
             {faits ? (
               <dl className="login__facts" role="group" aria-label="Le radar en chiffres">
-                <div className="login__fact">
+                <Card variant="transparent" padding={0} className="login__fact">
                   <dt>sources suivies</dt>
                   <dd>{NOMBRE.format(faits.sources)}</dd>
-                </div>
-                <div className="login__fact">
+                </Card>
+                <Card variant="transparent" padding={0} className="login__fact">
                   <dt>incidents sur 7 jours</dt>
                   <dd>{NOMBRE.format(faits.incidents7j)}</dd>
-                </div>
-                <div className="login__fact">
+                </Card>
+                <Card variant="transparent" padding={0} className="login__fact">
                   <dt>départements couverts</dt>
                   <dd>
                     {NOMBRE.format(faits.departements)}
                     <span className="login__fact-of">/12</span>
                   </dd>
-                </div>
+                </Card>
               </dl>
             ) : null}
 
@@ -257,7 +257,9 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
               isGroupLabel
               isLabelHidden
             >
-              <div
+              <Card
+                variant="transparent"
+                padding={0}
                 className="login__fields"
                 role="group"
                 aria-labelledby="login-credentials-label"
@@ -301,7 +303,7 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
                   isRequired
                   status={fieldErrors.password ? { type: "error", message: fieldErrors.password } : undefined}
                 />
-              </div>
+              </Card>
             </Field>
 
             {error ? (

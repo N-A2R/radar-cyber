@@ -95,26 +95,26 @@ export default function ActorAttributionsView({ data, loading, error, onRetry }:
 
       <Card className="attrib__resume" padding={3}>
         <dl className="attrib__stats">
-          <div className="attrib__stat">
+          <Card variant="transparent" padding={0} className="attrib__stat">
             <dt>Attributions</dt>
             <dd>{numberFormat.format(data.total)}</dd>
-          </div>
-          <div className="attrib__stat">
+          </Card>
+          <Card variant="transparent" padding={0} className="attrib__stat">
             <dt>Confiance élevée</dt>
             <dd>{numberFormat.format(data.byLevel.high)}</dd>
-          </div>
-          <div className="attrib__stat">
+          </Card>
+          <Card variant="transparent" padding={0} className="attrib__stat">
             <dt>Confiance moyenne</dt>
             <dd>{numberFormat.format(data.byLevel.medium)}</dd>
-          </div>
-          <div className="attrib__stat">
+          </Card>
+          <Card variant="transparent" padding={0} className="attrib__stat">
             <dt>Confiance faible</dt>
             <dd>{numberFormat.format(data.byLevel.low)}</dd>
-          </div>
-          <div className="attrib__stat">
+          </Card>
+          <Card variant="transparent" padding={0} className="attrib__stat">
             <dt>Score moyen</dt>
             <dd>{formatScore(data.averageConfidence, data.total)}</dd>
-          </div>
+          </Card>
         </dl>
       </Card>
 
