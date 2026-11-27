@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# Gate local avant push : typecheck API puis tests réellement affectés par le
+# diff. Objectif : ne pas ouvrir une PR rouge, parce qu'une PR rouge coûte un
+# aller-retour de CI et bloque la file de merge.
+#
+# Installation (opt-in) : pnpm hooks:install
+# Forcer un push malgré un échec : git push --no-verify
+set -uo pipefail
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+cd "$ROOT" || exit 0
+
+# Branche de référence : celle qu'on peut réellement comparer. Un clone
+# frais n'a pas toujours origin/main (fetch partiel, remote absent).
+BASE="${RADAR_BASE_BRANCH:-}"
+if [ -z "$BASE" ]; then
+	for candidate in origin/main main master origin/HEAD; do
+		if git rev-parse --verify --quiet "$candidate" >/dev/null; then
+			BASE="$candidate"
+			break
+		fi
+	done
+fi
+git rev-parse --verify --quiet "${BASE:-__aucune__}" >/dev/null || {
+	echo "pre-push : aucune branche de référence (origin/main, main), gate ignoré."
+	exit 0
+}
+
+CHANGED="$(git diff --name-only "$BASE"...HEAD 2>/dev/null)" || {
+	echo "pre-push : diff impossible depuis '$BASE', gate ignoré."
+	exit 0
+}
+[ -n "$CHANGED" ] || exit 0
+
+printf '%s\n' "$CHANGED" | grep -qE '^(apps/api|db|scripts|packages|sdks)/' || {
+	echo "pre-push : aucun changement API, gate ignoré."
+	exit 0
+}
+
+command -v pnpm >/dev/null 2>&1 || {
+	echo "pre-push : pnpm absent, gate ignoré."
+	exit 0
+}
+
+echo "pre-push : typecheck API…"
+if ! pnpm -s -F @radar/api typecheck; then
+	echo "✖ typecheck API en échec — push annulé (--no-verify pour forcer)." >&2
+	exit 1
+fi
+
+if [ -z "${DATABASE_URL:-}" ]; then
+	echo "pre-push : DATABASE_URL absente → tests affectés ignorés (pnpm db:up)."
+	exit 0
+fi
+
+FILES="$(GITHUB_EVENT_NAME=pull_request "$ROOT/apps/api/node_modules/.bin/tsx" \
+	"$ROOT/apps/api/test/affected-tests.ts" --base "$BASE" 2>/dev/null)"
+if [ -z "$FILES" ]; then
+	echo "pre-push : aucun test affecté."
+	exit 0
+fi
+
+echo "pre-push : tests affectés ($(printf '%s\n' "$FILES" | wc -l) fichiers)…"
+cd "$ROOT/apps/api" || exit 0
+# shellcheck disable=SC2086
+if ! ./node_modules/.bin/tsx test/parallel/run.ts $FILES; then
+	echo "✖ tests affectés en échec — push annulé (--no-verify pour forcer)." >&2
+	exit 1
+fi
+echo "✔ gate local vert."
