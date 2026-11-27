@@ -18,6 +18,7 @@ import CollecteMetricsView from "./CollecteMetricsView";
 import { FAMILY_LABEL, countSourcesRouges, formatNumber } from "./SourcesView";
 import "./sources-dashboard.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Table } from "@astryxdesign/core/Table";
 
 const countFormat = new Intl.NumberFormat("fr-FR");
@@ -61,17 +62,17 @@ const ETATS = [
 function etatsPanel(data: SourcesDashboard) {
   return (
     <section className="sdb__panel" aria-labelledby="sdb-states-title">
-      <div className="sdb__panel-head">
+      <Card variant="transparent" padding={0} className="sdb__panel-head">
         <h2 id="sdb-states-title">Sources par état</h2>
         <span className="sdb__meta">{formatCount(data.totalSources)} sources déclarées</span>
-      </div>
+      </Card>
       <dl className="sdb__states">
         {ETATS.map((etat) => (
-          <div className="sdb__state" data-etat={etat.key} key={etat.key}>
+          <Card variant="transparent" padding={0} className="sdb__state" data-etat={etat.key} key={etat.key}>
             <dt>{etat.label}</dt>
             <dd>{formatCount(data.etats[etat.key])}</dd>
             <p>{etat.note}</p>
-          </div>
+          </Card>
         ))}
       </dl>
       <p className="sdb__note">
@@ -84,12 +85,12 @@ function etatsPanel(data: SourcesDashboard) {
 function classement(data: SourcesDashboard, titre: string, id: string, lignes: SourceRendement[]) {
   return (
     <section className="sdb__panel" aria-labelledby={id}>
-      <div className="sdb__panel-head">
+      <Card variant="transparent" padding={0} className="sdb__panel-head">
         <h2 id={id}>{titre}</h2>
         <span className="sdb__meta">
           {formatCount(lignes.length)} sur {data.limiteClassement} mesurées · {data.fenetreRendementJours} derniers jours
         </span>
-      </div>
+      </Card>
       {lignes.length === 0 ? (
         <p className="sdb__empty">Aucune source n'a produit un rendement mesurable sur cette fenêtre.</p>
       ) : (
@@ -130,10 +131,10 @@ function evolutionPanel(data: SourcesDashboard) {
   const max = Math.max(1, ...data.evolution.map((jour) => jour.evenements));
   return (
     <section className="sdb__panel sdb__evolution" aria-labelledby="sdb-evolution-title">
-      <div className="sdb__panel-head">
+      <Card variant="transparent" padding={0} className="sdb__panel-head">
         <h2 id="sdb-evolution-title">{data.fenetreJours} derniers jours</h2>
         <span className="sdb__meta">Jours UTC, aujourd'hui inclus</span>
-      </div>
+      </Card>
       {data.evolution.length === 0 ? (
         <p className="sdb__empty">Aucune mesure quotidienne disponible.</p>
       ) : (
@@ -178,11 +179,11 @@ function evolutionPanel(data: SourcesDashboard) {
 function collectePanel(data: SourcesDashboard) {
   return (
     <section className="sdb__panel" aria-labelledby="sdb-collecte-title">
-      <div className="sdb__panel-head">
+      <Card variant="transparent" padding={0} className="sdb__panel-head">
         <h2 id="sdb-collecte-title">Temps de collecte cumulé</h2>
         <span className="sdb__meta">exécutions terminées, {data.fenetreJours} derniers jours</span>
-      </div>
-      <div className="sdb__duration">{formatDuration(data.collecte.dureeTotaleMs)}</div>
+      </Card>
+      <Card variant="transparent" padding={0} className="sdb__duration">{formatDuration(data.collecte.dureeTotaleMs)}</Card>
       <p className="sdb__duration-caption">
         {formatCount(data.collecte.dureeTotaleMs)} ms cumulées sur {formatCount(data.collecte.runs)} exécutions terminées.
       </p>
@@ -247,10 +248,10 @@ export function RegistryIndicators({
   return (
     <section className="sws-dashboard" aria-labelledby={titleId}>
       <header className="sws-dashboard__head">
-        <div>
+        <Card variant="transparent" padding={0}>
           <h2 id={titleId}>Indicateurs du registre</h2>
           <p>Mesures calculées sur les sources chargées, sans valeur estimée.</p>
-        </div>
+        </Card>
         {onRetry ? (
           <button type="button" className="sws-retry" onClick={onRetry}>
             Recharger les indicateurs
@@ -263,10 +264,10 @@ export function RegistryIndicators({
       ) : null}
       <dl className="sws-dashboard__kpis">
         {chiffres.map((item) => (
-          <div className="sws-dashboard__kpi" key={item.label}>
+          <Card variant="transparent" padding={0} className="sws-dashboard__kpi" key={item.label}>
             <dt>{item.label}</dt>
             <dd>{item.value}<span>{item.note}</span></dd>
-          </div>
+          </Card>
         ))}
       </dl>
       <section className="sws-dashboard__families" aria-labelledby={familiesId}>
@@ -287,16 +288,16 @@ export function RegistryIndicators({
           </ul>
         )}
       </section>
-      <div className="sws-dashboard__cycles">
+      <Card variant="transparent" padding={0} className="sws-dashboard__cycles">
         <CollecteMetricsView metrics={metrics} loading={loading} error={error} />
-      </div>
+      </Card>
     </section>
   );
 }
 
 export default function SourcesDashboardView({ data, loading = false, error = null }: SourcesDashboardViewProps) {
   return (
-    <div className="sdb">
+    <Card variant="transparent" padding={0} className="sdb">
       <header className="sdb__header">
         <span className="micro">Sources / tableau de bord</span>
         <Badge label="mesuré" className="sdb__badge" />
@@ -312,29 +313,29 @@ export default function SourcesDashboardView({ data, loading = false, error = nu
       ) : (
         <>
           {error ? <p className="sdb__stale" role="status">Affichage du dernier instantané réussi.</p> : null}
-          <div className="sdb__kpis">
-            <div className="sdb__kpi">
+          <Card variant="transparent" padding={0} className="sdb__kpis">
+            <Card variant="transparent" padding={0} className="sdb__kpi">
               <span className="micro">Sources déclarées</span>
               <strong>{formatCount(data.totalSources)}</strong>
-            </div>
-            <div className="sdb__kpi">
+            </Card>
+            <Card variant="transparent" padding={0} className="sdb__kpi">
               <span className="micro">Temps de collecte cumulé</span>
               <strong>{formatDuration(data.collecte.dureeTotaleMs)}</strong>
-            </div>
-          </div>
+            </Card>
+          </Card>
           {etatsPanel(data)}
           {collectePanel(data)}
           {evolutionPanel(data)}
-          <div className="sdb__grid">
+          <Card variant="transparent" padding={0} className="sdb__grid">
             {classement(data, "10 meilleures sources par rendement", "sdb-best-title", data.meilleures)}
             {classement(data, "10 pires sources par rendement", "sdb-worst-title", data.pires)}
-          </div>
+          </Card>
           <footer className="sdb__footer">
             Source : <code>GET /api/sources/dashboard</code> · mesuré le {data.generatedAt} · états {data.fenetreJours} j ·
             rendement {data.fenetreRendementJours} j · seuil de lenteur au-delà de {formatCount(data.seuilLenteMs)} ms · lecture seule, aucune valeur estimée.
           </footer>
         </>
       )}
-    </div>
+    </Card>
   );
 }
