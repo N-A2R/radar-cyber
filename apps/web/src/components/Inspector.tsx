@@ -6,6 +6,7 @@ import CustodyPanel from "./CustodyPanel";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./inspector.css";
 import { Button } from "@astryxdesign/core/Button";
+import { Card } from "@astryxdesign/core/Card";
 import { Drawer, DrawerHeader } from "@astryxdesign/core/Drawer";
 
 
@@ -206,7 +207,7 @@ function EventDetail({ data, onClose }: { data: EventEnrichment; onClose: () => 
   }
 
   return (
-    <div className="inspector__content">
+    <Card variant="transparent" padding={0} className="inspector__content">
       <section className="inspector__section">
         <dl className="inspector__meta">
           <MetaRow label="Famille" value={event.family} />
@@ -280,65 +281,65 @@ function EventDetail({ data, onClose }: { data: EventEnrichment; onClose: () => 
       {enrichment && (
         <section className="inspector__section">
           <h3 className="inspector__section-title">Enrichissement</h3>
-          <div className="inspector__enrichment">
+          <Card variant="transparent" padding={0} className="inspector__enrichment">
             {domainFields.length > 0 && (
-              <div className="inspector__branch">
+              <Card variant="transparent" padding={0} className="inspector__branch">
                 <h4 className="inspector__branch-title">Domaine</h4>
                 <dl className="inspector__meta">
                   {domainFields.map((f) => (
                     <MetaRow key={f.label} label={f.label} value={f.value} />
                   ))}
                 </dl>
-              </div>
+              </Card>
             )}
 
             {dns && (isNonEmptyArray(dns.a) || isNonEmptyArray(dns.aaaa)) && (
-              <div className="inspector__branch">
+              <Card variant="transparent" padding={0} className="inspector__branch">
                 <h4 className="inspector__branch-title">DNS</h4>
                 <dl className="inspector__meta">
                   {isNonEmptyArray(dns.a) && <MetaRow label="A" value={dns.a.join(", ")} mono />}
                   {isNonEmptyArray(dns.aaaa) && <MetaRow label="AAAA" value={dns.aaaa.join(", ")} mono />}
                 </dl>
-              </div>
+              </Card>
             )}
 
             {isNonEmptyArray(certs) && (
-              <div className="inspector__branch">
+              <Card variant="transparent" padding={0} className="inspector__branch">
                 <h4 className="inspector__branch-title">Certificats</h4>
                 <ul className="inspector__certs">
                   {certs.map((cert, idx) => (
                     <li key={`${cert.name}-${idx}`} className="inspector__cert">
-                      {hasValue(cert.name) && <div className="inspector__mono">{cert.name}</div>}
+                      {hasValue(cert.name) && <Card variant="transparent" padding={0} className="inspector__mono">{cert.name}</Card>}
                       {hasValue(cert.issuer) && (
-                        <div className="inspector__muted">Émetteur : {cert.issuer}</div>
+                        <Card variant="transparent" padding={0} className="inspector__muted">Émetteur : {cert.issuer}</Card>
                       )}
                       {(hasValue(cert.notBefore) || hasValue(cert.notAfter)) && (
-                        <div className="inspector__muted">
+                        <Card variant="transparent" padding={0} className="inspector__muted">
                           {hasValue(cert.notBefore) ? cert.notBefore : ""}
                           {hasValue(cert.notBefore) && hasValue(cert.notAfter) ? " → " : ""}
                           {hasValue(cert.notAfter) ? cert.notAfter : ""}
-                        </div>
+                        </Card>
                       )}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Card>
             )}
 
             {isNonEmptyArray(reverse) && (
-              <div className="inspector__branch">
+              <Card variant="transparent" padding={0} className="inspector__branch">
                 <h4 className="inspector__branch-title">Résolution inverse</h4>
                 <ul className="inspector__list-mono">
                   {reverse.map((r, idx) => (
                     <li key={`${r}-${idx}`} className="inspector__mono">{r}</li>
                   ))}
                 </ul>
-              </div>
+              </Card>
             )}
-          </div>
+          </Card>
         </section>
       )}
-    </div>
+    </Card>
   );
 }
 
@@ -346,7 +347,7 @@ function OrgDetail({ org }: { org: Org }) {
   const coords =
     hasValue(org.lat) && hasValue(org.lon) ? `${org.lat}, ${org.lon}` : null;
   return (
-    <div className="inspector__content">
+    <Card variant="transparent" padding={0} className="inspector__content">
       <section className="inspector__section">
         <dl className="inspector__meta">
           <MetaRow label="Nom" value={org.name} />
@@ -359,7 +360,7 @@ function OrgDetail({ org }: { org: Org }) {
           <MetaRow label="Événements" value={String(org.eventCount)} />
         </dl>
       </section>
-    </div>
+    </Card>
   );
 }
 
@@ -373,9 +374,9 @@ function MetaRow({
   mono?: boolean;
 }) {
   return (
-    <div className="inspector__meta-row">
+    <Card variant="transparent" padding={0} className="inspector__meta-row">
       <dt className="inspector__meta-label">{label}</dt>
       <dd className={`inspector__meta-value${mono ? " inspector__mono" : ""}`}>{value}</dd>
-    </div>
+    </Card>
   );
 }
