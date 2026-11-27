@@ -83,40 +83,65 @@ function statusOf(err: unknown): number | undefined {
   return undefined;
 }
 
+type JournalSession = {
+  filters: JournalFilters;
+  applied: JournalFilters;
+  page: number;
+  result: JournalReviewResponse | null;
+  selected: JournalDecision | null;
+};
+
+/** L'état de lecture survit au démontage du workspace quand on quitte puis revient au Journal. */
+const journalSession: JournalSession = {
+  filters: {}, applied: {}, page: 1, result: null, selected: null,
+};
+
+function sameFilters(left: JournalFilters, right: JournalFilters): boolean {
+  return left.actor === right.actor && left.kind === right.kind && left.q === right.q
+    && left.from === right.from && left.to === right.to;
+}
+
 type Props = {
   onUnauthorized?: () => void;
 };
 
 export default function JournalView({ onUnauthorized }: Props) {
-  const [filters, setFilters] = useState<JournalFilters>({});
+  const [filters, setFilters] = useState<JournalFilters>(() => journalSession.filters);
   /** Copie temporisée réellement envoyée à l'API. */
-  const [applied, setApplied] = useState<JournalFilters>({});
-  const [page, setPage] = useState(1);
-  const [result, setResult] = useState<JournalReviewResponse | null>(null);
+  const [applied, setApplied] = useState<JournalFilters>(() => journalSession.applied);
+  const [page, setPage] = useState(() => journalSession.page);
+  const [result, setResult] = useState<JournalReviewResponse | null>(() => journalSession.result);
   useScreenExport("journal", (result?.rows ?? []).map((entry) => ({
     date: entry.horodatage, kind: entry.kind, actor: entry.acteur,
     target: entry.sujet, decision: entry.decision,
   })));
-  const [selected, setSelected] = useState<JournalDecision | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState<JournalDecision | null>(() => journalSession.selected);
+  const [loading, setLoading] = useState(journalSession.result === null);
   const [error, setError] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
   const [reloadSignal, setReloadSignal] = useState(0);
 
+  useEffect(() => {
+    journalSession.filters = filters;
+    journalSession.applied = applied;
+    journalSession.page = page;
+    journalSession.result = result;
+    journalSession.selected = selected;
+  }, [filters, applied, page, result, selected]);
+
   // Le debounce ne relance rien tant que les filtres n'ont pas changé ; quand
   // ils changent, on revient page 1 dans le même rendu pour éviter une requête
-  // intermédiaire sur l'ancienne page.
+  // intermédiaire sur l'ancienne page. Au retour de vue, filtres et page
+  // restaurés sont cohérents : on ne remet donc pas la page à 1.
   useEffect(() => {
+    if (sameFilters(filters, applied)) return;
     const timer = setTimeout(() => {
-      setApplied((previous) =>
-        previous.actor === filters.actor && previous.kind === filters.kind
-        && previous.q === filters.q && previous.from === filters.from
-        && previous.to === filters.to ? previous : filters);
+      setApplied(filters);
       setPage(1);
     }, SEARCH_DELAY_MS);
     return () => clearTimeout(timer);
-  }, [filters]);
+  }, [filters, applied]);
 
   // Une requête par page affichée. `offset` saute directement à la page
   // demandée : le serveur rend les lignes et le total correspondant aux filtres.
@@ -124,7 +149,6 @@ export default function JournalView({ onUnauthorized }: Props) {
     const controller = new AbortController();
     setLoading(true);
     setError(null);
-    setSelected(null);
 
     (async () => {
       try {
@@ -142,6 +166,7 @@ export default function JournalView({ onUnauthorized }: Props) {
         if (controller.signal.aborted) return;
         if (statusOf(err) === 401) onUnauthorized?.();
         setResult(null);
+        setSelected(null);
         setError(err instanceof Error ? err.message : "journal indisponible");
       } finally {
         if (!controller.signal.aborted) setLoading(false);
@@ -163,11 +188,13 @@ export default function JournalView({ onUnauthorized }: Props) {
 
   const changeFilter = useCallback((patch: JournalFilters) => {
     setFilters((previous) => ({ ...previous, ...patch }));
+    setSelected(null);
   }, []);
 
-  const reset = useCallback(() => setFilters({}), []);
-  const previousPage = useCallback(() => setPage((p) => Math.max(1, p - 1)), []);
-  const nextPage = useCallback(() => setPage((p) => Math.min(pageCount, p + 1)), [pageCount]);
+  const reset = useCallback(() => { setFilters({}); setSelected(null); }, []);
+  const previousPage = useCallback(() => { setPage((p) => Math.max(1, p - 1)); setSelected(null); }, []);
+  const nextPage = useCallback(() => { setPage((p) => Math.min(pageCount, p + 1)); setSelected(null); }, [pageCount]);
+  const retry = useCallback(() => { setSelected(null); setReloadSignal((n) => n + 1); }, []);
   const closeDetail = useCallback(() => setSelected(null), []);
 
   const exportCsv = useCallback(async () => {
@@ -215,7 +242,7 @@ export default function JournalView({ onUnauthorized }: Props) {
       onExport={exportCsv}
       exporting={exporting}
       exportError={exportError}
-      onRetry={() => setReloadSignal((n) => n + 1)}
+      onRetry={retry}
     />
     </Card>
   );

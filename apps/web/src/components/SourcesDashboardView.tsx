@@ -4,8 +4,18 @@
  * `GET /api/sources/dashboard`, calculé en base à l'appel. Aucune valeur par
  * défaut, aucun pourcentage inventé, aucune agrégation dans le navigateur.
  */
-import type { SourceRendement, SourcesDashboard } from "../api";
+import { useId, useMemo } from "react";
+import {
+  sourceStatus,
+  sourceYield,
+  type CollecteMetrics,
+  type Source,
+  type SourceRendement,
+  type SourcesDashboard,
+} from "../api";
 import type { SourcesDashboardViewProps } from "../contracts";
+import CollecteMetricsView from "./CollecteMetricsView";
+import { FAMILY_LABEL, countSourcesRouges, formatNumber } from "./SourcesView";
 import "./sources-dashboard.css";
 import { Badge } from "@astryxdesign/core/Badge";
 import { Table } from "@astryxdesign/core/Table";
@@ -179,6 +189,107 @@ function collectePanel(data: SourcesDashboard) {
       <p className="sdb__note">
         Il s'agit du temps cumulé des collecteurs, et non du temps écoulé : les exécutions simultanées se chevauchent et sont chacune comptées.
       </p>
+    </section>
+  );
+}
+
+export type RegistryIndicatorsProps = {
+  sources: Source[];
+  metrics?: CollecteMetrics | null;
+  loading?: boolean;
+  error?: string | null;
+  onRetry?: () => void;
+};
+
+/** Indicateurs dérivés du registre déjà chargé par le workspace Sources. */
+export function RegistryIndicators({
+  sources,
+  metrics = null,
+  loading = false,
+  error = null,
+  onRetry,
+}: RegistryIndicatorsProps) {
+  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const titleId = `sws-dashboard-${uid}`;
+  const familiesId = `sws-families-${uid}`;
+  const resume = useMemo(() => {
+    const families = new Map<string, number>();
+    let actives = 0;
+    let productives = 0;
+    let enErreur = 0;
+    let evenements = 0;
+    for (const source of sources) {
+      families.set(source.family, (families.get(source.family) ?? 0) + 1);
+      if (source.evenements30j > 0) actives += 1;
+      if (sourceYield(source) === "productive") productives += 1;
+      if (sourceStatus(source) === "error") enErreur += 1;
+      evenements += source.evenements30j;
+    }
+    return {
+      families: [...families.entries()].sort((a, b) => b[1] - a[1]),
+      actives,
+      productives,
+      enErreur,
+      evenements,
+      rouges: countSourcesRouges(sources),
+    };
+  }, [sources]);
+
+  const chiffres: { label: string; value: string; note: string }[] = [
+    { label: "flux déclarés", value: formatNumber(sources.length), note: "registre complet" },
+    { label: "en erreur", value: formatNumber(resume.enErreur), note: "dernier passage" },
+    { label: "sans production", value: formatNumber(resume.rouges), note: "plus de 7 jours" },
+    { label: "actives 30 j", value: formatNumber(resume.actives), note: "au moins un fait attribué" },
+    { label: "productives", value: formatNumber(resume.productives), note: "au moins un fait retenu" },
+    { label: "événements 30 j", value: formatNumber(resume.evenements), note: "attribués aux flux" },
+  ];
+
+  return (
+    <section className="sws-dashboard" aria-labelledby={titleId}>
+      <header className="sws-dashboard__head">
+        <div>
+          <h2 id={titleId}>Indicateurs du registre</h2>
+          <p>Mesures calculées sur les sources chargées, sans valeur estimée.</p>
+        </div>
+        {onRetry ? (
+          <button type="button" className="sws-retry" onClick={onRetry}>
+            Recharger les indicateurs
+          </button>
+        ) : null}
+      </header>
+      {error ? <p className="sws-dashboard__error" role="alert">{error}</p> : null}
+      {loading && sources.length === 0 ? (
+        <p className="sws-dashboard__state" role="status">lecture des sources…</p>
+      ) : null}
+      <dl className="sws-dashboard__kpis">
+        {chiffres.map((item) => (
+          <div className="sws-dashboard__kpi" key={item.label}>
+            <dt>{item.label}</dt>
+            <dd>{item.value}<span>{item.note}</span></dd>
+          </div>
+        ))}
+      </dl>
+      <section className="sws-dashboard__families" aria-labelledby={familiesId}>
+        <h3 id={familiesId}>Familles représentées</h3>
+        {resume.families.length === 0 ? (
+          <p className="sws-dashboard__state">aucune famille mesurée</p>
+        ) : (
+          <ul>
+            {resume.families.slice(0, 8).map(([family, count]) => (
+              <li key={family}>
+                <span className="sws-dashboard__family-name">{FAMILY_LABEL[family] ?? family}</span>
+                <span className="sws-dashboard__bar" aria-hidden="true">
+                  <span style={{ width: `${Math.round((count / sources.length) * 100)}%` }} />
+                </span>
+                <strong>{formatNumber(count)}</strong>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+      <div className="sws-dashboard__cycles">
+        <CollecteMetricsView metrics={metrics} loading={loading} error={error} />
+      </div>
     </section>
   );
 }

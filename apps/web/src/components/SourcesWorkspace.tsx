@@ -4,26 +4,20 @@
  * maîtres de leur données et de leurs filtres : ce conteneur ne fait que les
  * loger dans des panneaux accessibles et ne duplique aucun appel API.
  */
-import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import {
-  sourceStatus,
-  sourceYield,
-  type CollecteMetrics,
-  type CorpusStats,
-  type HealthCauses,
-  type HealthDetail,
-  type Source,
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import type {
+  CollecteMetrics,
+  CorpusStats,
+  HealthCauses,
+  HealthDetail,
+  Source,
 } from "../api";
-import CollecteMetricsView from "./CollecteMetricsView";
 import CorpusView from "./CorpusView";
 import HealthDetailView from "./HealthDetailView";
 import HealthView from "./HealthView";
-import SourcesView, {
-  FAMILY_LABEL,
-  countSourcesRouges,
-  formatDate,
-  formatNumber,
-} from "./SourcesView";
+import SourcesView from "./SourcesView";
+import { RegistryIndicators } from "./SourcesDashboardView";
+import { ArchiveProofCard, type WarcProof } from "./WarcProofCard";
 import "./sources-workspace.css";
 
 export type SourcesTabKey = "registre" | "indicateurs" | "sante" | "corpus";
@@ -37,186 +31,6 @@ const TABS: readonly { key: SourcesTabKey; label: string }[] = [
   { key: "sante", label: "Santé" },
   { key: "corpus", label: "Corpus" },
 ];
-
-/** Une preuve d'archive est affichée telle quelle : jamais recomposée ici. */
-export type WarcProof = {
-  recordId: string;
-  targetUri: string;
-  date: string;
-  digest?: string | null;
-  identifiedPayloadType?: string | null;
-  blockLength?: number | null;
-};
-
-type WarcProofCardProps = {
-  proof?: WarcProof | null;
-};
-
-/**
- * Carte de traçabilité d'un enregistrement WARC. Sans métadonnées fournies,
- * elle le dit explicitement plutôt que d'afficher une preuve inventée.
- */
-function WarcProofCard({ proof = null }: WarcProofCardProps) {
-  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
-  const titleId = `sws-warc-${uid}`;
-  return (
-    <section className="sws-warc" aria-labelledby={titleId}>
-      <header className="sws-warc__head">
-        <h2 id={titleId}>Preuve d’archive</h2>
-        <span className="sws-warc__format">WARC</span>
-      </header>
-      {proof === null ? (
-        <p className="sws-warc__empty" role="status">Aucune preuve d’archive jointe à cette vue.</p>
-      ) : (
-        <dl className="sws-warc__fields">
-          <div>
-            <dt>Cible</dt>
-            <dd>
-              {/^https?:\/\//i.test(proof.targetUri) ? (
-                <a href={proof.targetUri} target="_blank" rel="noopener noreferrer">
-                  {proof.targetUri}
-                </a>
-              ) : (
-                <span>{proof.targetUri}</span>
-              )}
-            </dd>
-          </div>
-          <div>
-            <dt>Enregistrement</dt>
-            <dd><code>{proof.recordId}</code></dd>
-          </div>
-          <div>
-            <dt>Date de capture</dt>
-            <dd><time dateTime={proof.date}>{formatDate(proof.date)}</time></dd>
-          </div>
-          {proof.digest ? (
-            <div>
-              <dt>Empreinte du bloc</dt>
-              <dd><code>{proof.digest}</code></dd>
-            </div>
-          ) : null}
-          {proof.identifiedPayloadType ? (
-            <div>
-              <dt>Type de contenu</dt>
-              <dd>{proof.identifiedPayloadType}</dd>
-            </div>
-          ) : null}
-          {proof.blockLength !== null && proof.blockLength !== undefined ? (
-            <div>
-              <dt>Taille du bloc</dt>
-              <dd>{formatNumber(proof.blockLength)} octets</dd>
-            </div>
-          ) : null}
-        </dl>
-      )}
-    </section>
-  );
-}
-
-type SourcesDashboardViewProps = {
-  sources: Source[];
-  metrics?: CollecteMetrics | null;
-  loading?: boolean;
-  error?: string | null;
-  onRetry?: () => void;
-};
-
-/**
- * Tableau de bord du registre : les compteurs sont dérivés des sources déjà
- * chargées par le shell, la supervision des cycles vient de sa propre réponse.
- * Aucun chiffre n'est fabriqué quand la mesure manque.
- */
-function SourcesDashboardView({
-  sources,
-  metrics = null,
-  loading = false,
-  error = null,
-  onRetry,
-}: SourcesDashboardViewProps) {
-  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
-  const titleId = `sws-dashboard-${uid}`;
-  const familiesId = `sws-families-${uid}`;
-  const resume = useMemo(() => {
-    const families = new Map<string, number>();
-    let actives = 0;
-    let productives = 0;
-    let enErreur = 0;
-    let evenements = 0;
-    for (const source of sources) {
-      families.set(source.family, (families.get(source.family) ?? 0) + 1);
-      if (source.evenements30j > 0) actives += 1;
-      if (sourceYield(source) === "productive") productives += 1;
-      if (sourceStatus(source) === "error") enErreur += 1;
-      evenements += source.evenements30j;
-    }
-    return {
-      families: [...families.entries()].sort((a, b) => b[1] - a[1]),
-      actives,
-      productives,
-      enErreur,
-      evenements,
-      rouges: countSourcesRouges(sources),
-    };
-  }, [sources]);
-
-  const chiffres: { label: string; value: string; note: string }[] = [
-    { label: "flux déclarés", value: formatNumber(sources.length), note: "registre complet" },
-    { label: "en erreur", value: formatNumber(resume.enErreur), note: "dernier passage" },
-    { label: "sans production", value: formatNumber(resume.rouges), note: "plus de 7 jours" },
-    { label: "actives 30 j", value: formatNumber(resume.actives), note: "au moins un fait attribué" },
-    { label: "productives", value: formatNumber(resume.productives), note: "au moins un fait retenu" },
-    { label: "événements 30 j", value: formatNumber(resume.evenements), note: "attribués aux flux" },
-  ];
-
-  return (
-    <section className="sws-dashboard" aria-labelledby={titleId}>
-      <header className="sws-dashboard__head">
-        <div>
-          <h2 id={titleId}>Indicateurs du registre</h2>
-          <p>Mesures calculées sur les sources chargées, sans valeur estimée.</p>
-        </div>
-        {onRetry ? (
-          <button type="button" className="sws-retry" onClick={onRetry}>
-            Recharger les indicateurs
-          </button>
-        ) : null}
-      </header>
-      {error ? <p className="sws-dashboard__error" role="alert">{error}</p> : null}
-      {loading && sources.length === 0 ? (
-        <p className="sws-dashboard__state" role="status">lecture des sources…</p>
-      ) : null}
-      <dl className="sws-dashboard__kpis">
-        {chiffres.map((item) => (
-          <div className="sws-dashboard__kpi" key={item.label}>
-            <dt>{item.label}</dt>
-            <dd>{item.value}<span>{item.note}</span></dd>
-          </div>
-        ))}
-      </dl>
-      <section className="sws-dashboard__families" aria-labelledby={familiesId}>
-        <h3 id={familiesId}>Familles représentées</h3>
-        {resume.families.length === 0 ? (
-          <p className="sws-dashboard__state">aucune famille mesurée</p>
-        ) : (
-          <ul>
-            {resume.families.slice(0, 8).map(([family, count]) => (
-              <li key={family}>
-                <span className="sws-dashboard__family-name">{FAMILY_LABEL[family] ?? family}</span>
-                <span className="sws-dashboard__bar" aria-hidden="true">
-                  <span style={{ width: `${Math.round((count / sources.length) * 100)}%` }} />
-                </span>
-                <strong>{formatNumber(count)}</strong>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-      <div className="sws-dashboard__cycles">
-        <CollecteMetricsView metrics={metrics} loading={loading} error={error} />
-      </div>
-    </section>
-  );
-}
 
 export type SourcesWorkspaceProps = {
   sources: Source[];
@@ -343,7 +157,7 @@ export default function SourcesWorkspace({
           hidden={active !== "indicateurs"}
         >
           {active === "indicateurs" ? (
-            <SourcesDashboardView
+            <RegistryIndicators
               sources={sources}
               metrics={metrics ?? collecteMetrics ?? null}
               loading={metricsLoading ?? loading}
@@ -386,7 +200,7 @@ export default function SourcesWorkspace({
           {active === "corpus" ? (
             <div className="sws__corpus">
               <CorpusView data={corpusData} loading={corpusLoading ?? loading} error={corpusError} />
-              <WarcProofCard proof={warcProof} />
+              <ArchiveProofCard proof={warcProof} />
             </div>
           ) : null}
         </div>
