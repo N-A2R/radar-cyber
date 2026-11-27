@@ -112,7 +112,7 @@ function StatementRow({ statement }: { statement: Statement }) {
         ) : null}
       </dl>
       {statement.raw ? (
-        <div className="affected__raw" data-raw="level-4">
+        <Card variant="transparent" padding={0} className="affected__raw" data-raw="level-4">
           <p className="affected__raw-title">Données brutes</p>
           {statement.raw.title ? (
             <p className="affected__raw-value" data-field="title">{statement.raw.title}</p>
@@ -124,7 +124,7 @@ function StatementRow({ statement }: { statement: Statement }) {
             <code className="affected__raw-value" data-field="sourceUrl">{statement.raw.sourceUrl}</code>
           ) : null}
           <pre className="affected__raw-evidence">{JSON.stringify(statement.raw.evidence, null, 2)}</pre>
-        </div>
+        </Card>
       ) : null}
     </li>
   );
@@ -216,12 +216,12 @@ export default function AffectedView({
   return (
     <section className="affected" data-view="affected" aria-labelledby="affected-title">
       <header className="affected__header">
-        <div className="affected__title-row">
+        <Card variant="transparent" padding={0} className="affected__title-row">
           <h2 id="affected-title">Suis-je concerné ?</h2>
           <p className="affected__badges">
             <Badge label="Nouvelle-Aquitaine uniquement" className="affected__badge" />
           </p>
-        </div>
+        </Card>
         <p className="affected__lead">
           La vérification interroge les organisations déjà rattachées à un incident en
           Nouvelle-Aquitaine. Elle affiche les constats enregistrés, leur preuve et les
@@ -231,7 +231,7 @@ export default function AffectedView({
 
       <form className="affected__form" onSubmit={handleSubmit} role="search">
         <label className="affected__query-label" htmlFor="affected-query">Organisation</label>
-        <div className="affected__query-row">
+        <Card variant="transparent" padding={0} className="affected__query-row">
           <input
             id="affected-query"
             className="affected__query"
@@ -245,7 +245,7 @@ export default function AffectedView({
           <button className="affected__check" type="submit" disabled={loading}>
             Vérifier
           </button>
-        </div>
+        </Card>
         <p className="affected__hint">
           Nom exact du registre, identifiant numérique ou domaine (ex. <span className="mono">exemple.fr</span>).
         </p>
@@ -288,19 +288,19 @@ export default function AffectedView({
 
       {/* Une seule région live : les états enfants portent role=status/alert,
           le conteneur ne doit pas réannoncer leur contenu. */}
-      <div className="affected__stage">
+      <Card variant="transparent" padding={0} className="affected__stage">
         {loading ? (
-          <div className="affected__loading" role="status">
+          <Card variant="transparent" padding={0} className="affected__loading" role="status">
             <span className="affected__spinner" aria-hidden="true" />
             <span>Chargement du rapport…</span>
             <span className="affected__skeleton" aria-hidden="true" />
             <span className="affected__skeleton affected__skeleton--short" aria-hidden="true" />
-          </div>
+          </Card>
         ) : null}
 
         {!loading && error ? (
           status === 404 ? (
-            <div className="affected__noresult" role="status">
+            <Card variant="transparent" padding={0} className="affected__noresult" role="status">
               <p className="affected__noresult-title">
                 Aucune organisation ne correspond à « {recalled} ».
               </p>
@@ -309,9 +309,9 @@ export default function AffectedView({
                 numérique ou un domaine. Vérifiez l'orthographe, les accents, ou essayez
                 l'un des exemples ci-dessus.
               </p>
-            </div>
+            </Card>
           ) : status === 403 ? (
-            <div className="affected__noresult" role="status">
+            <Card variant="transparent" padding={0} className="affected__noresult" role="status">
               <p className="affected__noresult-title">
                 « {recalled} » est hors Nouvelle-Aquitaine.
               </p>
@@ -319,27 +319,27 @@ export default function AffectedView({
                 Cet écran ne couvre que les organisations de la région. Aucun rapport
                 n'est produit pour une organisation hors périmètre.
               </p>
-            </div>
+            </Card>
           ) : (
             <p className="affected__error" role="alert">Erreur : {error}</p>
           )
         ) : null}
 
         {!loading && !error && !report ? (
-          <div className="affected__idle">
+          <Card variant="transparent" padding={0} className="affected__idle">
             <p className="affected__idle-title">Aucune vérification lancée.</p>
             <p className="affected__idle-text">
               Saisissez un nom d'organisation, un identifiant ou un domaine pour vérifier.
               Vous obtiendrez l'organisation, ses incidents rattachés, les familles
               concernées et un lien vers sa fiche.
             </p>
-          </div>
+          </Card>
         ) : null}
 
         {!loading && !error && report ? (
-          <div className="affected__result">
-            <div className="affected__result-head">
-              <div>
+          <Card variant="transparent" padding={0} className="affected__result">
+            <Card variant="transparent" padding={0} className="affected__result-head">
+              <Card variant="transparent" padding={0}>
                 <p className="affected__organization">{report.organization.name}</p>
                 <p className="affected__organization-meta">
                   {report.organization.department
@@ -347,11 +347,11 @@ export default function AffectedView({
                     : ""}
                   {report.organization.region}
                 </p>
-              </div>
+              </Card>
               <a className="affected__sheet-link" href={`#/affected?org=${report.organization.id}`}>
                 Ouvrir la fiche
               </a>
-            </div>
+            </Card>
             <p className="affected__summary">
               {summary?.statements ?? 0} constats / {summary?.withEvidence ?? 0} avec preuve / {summary?.sources ?? 0} sources
             </p>
@@ -399,9 +399,9 @@ export default function AffectedView({
                 ) : null}
               </>
             )}
-          </div>
+          </Card>
         ) : null}
-      </div>
+      </Card>
     </section>
   );
 }
