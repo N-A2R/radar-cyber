@@ -5,7 +5,19 @@
 #
 # Installation (opt-in) : pnpm hooks:install
 # Forcer un push malgré un échec : git push --no-verify
+# Opt-out explicite hors machine (CI, conteneur sans DB, dépannage) :
+#   RADAR_SKIP_PRE_PUSH=1 git push
+# Toute autre valeur est refusée : pas de contournement silencieux.
 set -uo pipefail
+
+if [ -n "${RADAR_SKIP_PRE_PUSH:-}" ]; then
+	if [ "$RADAR_SKIP_PRE_PUSH" != "1" ]; then
+		echo "✖ RADAR_SKIP_PRE_PUSH doit valoir exactement 1 (reçu : '$RADAR_SKIP_PRE_PUSH')." >&2
+		exit 1
+	fi
+	echo "pre-push : gate désactivé explicitement (RADAR_SKIP_PRE_PUSH=1)." >&2
+	exit 0
+fi
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
 cd "$ROOT" || exit 0
@@ -38,8 +50,8 @@ printf '%s\n' "$CHANGED" | grep -qE '^(apps/api|db|scripts|packages|sdks)/' || {
 }
 
 command -v pnpm >/dev/null 2>&1 || {
-	echo "pre-push : pnpm absent, gate ignoré."
-	exit 0
+	echo "✖ pnpm absent : installe pnpm (corepack enable), ou utilise RADAR_SKIP_PRE_PUSH=1 git push hors machine." >&2
+	exit 1
 }
 
 echo "pre-push : typecheck API…"
@@ -49,8 +61,8 @@ if ! pnpm -s -F @radar/api typecheck; then
 fi
 
 if [ -z "${DATABASE_URL:-}" ]; then
-	echo "pre-push : DATABASE_URL absente → tests affectés ignorés (pnpm db:up)."
-	exit 0
+	echo "✖ DATABASE_URL absente : démarre la DB (pnpm db:up) et exporte DATABASE_URL, ou utilise RADAR_SKIP_PRE_PUSH=1 git push hors machine." >&2
+	exit 1
 fi
 
 FILES="$(GITHUB_EVENT_NAME=pull_request "$ROOT/apps/api/node_modules/.bin/tsx" \
