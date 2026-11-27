@@ -606,6 +606,9 @@ do_rollback() {
     chown root:"$SERVICE_USER" "$ENV_FILE"
     ADMIN_EMAIL="$(sed -n 's/^RADAR_ADMIN_EMAIL=//p' "$ENV_FILE" | head -1)"
     ADMIN_PASSWORD="$(sed -n 's/^RADAR_ADMIN_PASSWORD=//p' "$ENV_FILE" | head -1)"
+    # Le pepper est un secret stable : le régénérer casserait la corrélation
+    # des hashs d'audit déjà persistés et empêcherait l'API de démarrer.
+    AUDIT_PEPPER="$(sed -n 's/^RADAR_AUDIT_PEPPER=//p' "$ENV_FILE" | head -1)"
   fi
   PUBLIC="$target_public"
   API_PORT="$target_api"
@@ -698,11 +701,15 @@ case "$MODE" in
     # La phrase secrète DB est relue depuis l'unité (jamais stockée en clair dans state.json).
     if [ -f "$ENV_FILE" ]; then
       DB_URL="$(sed -n 's/^DATABASE_URL=//p' "$ENV_FILE" | head -1)"
+      AUDIT_PEPPER="$(sed -n 's/^RADAR_AUDIT_PEPPER=//p' "$ENV_FILE" | head -1)"
     fi
     DB_PASSWORD="$(printf '%s' "$DB_URL" | sed -n 's|.*://[^:]*:\([^@]*\)@.*|\1|p')"
     rollback_mode
     ;;
   install)
+    if [ -f "$ENV_FILE" ]; then
+      AUDIT_PEPPER="$(sed -n 's/^RADAR_AUDIT_PEPPER=//p' "$ENV_FILE" | head -1)"
+    fi
     if [ "$DRY_RUN" -eq 0 ]; then
       [ -n "$ADMIN_PASSWORD" ] || ADMIN_PASSWORD="$(openssl rand -hex 24)"
       [ -n "$DB_PASSWORD" ] || DB_PASSWORD="$(openssl rand -hex 24)"
