@@ -1,6 +1,10 @@
 {
   "command": "pnpm measure:3d",
   "measuredAt": "2026-11-22T04:40:26.962Z",
+  "status": "historical_non_reproductible",
+  "current": false,
+  "targetReached": null,
+  "targetReachedHistorical": true,
   "source": "live database: 372 ongoing Nouvelle-Aquitaine attacks",
   "database": {
     "orgs": 1673151,
@@ -27,5 +31,5 @@
   ],
   "fps": 60.71,
   "targetFps": 60,
-  "targetReached": true
+  "supersededBy": "docs/rapport-carte-3d-temps-reel.md"
 }
