@@ -5,6 +5,7 @@ import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } fro
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./quarantine-review.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 
 /**
  * File de revue de la quarantaine — l'écran qui n'existait pas.
@@ -189,7 +190,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 	return (
 		<section className="review" onKeyDown={onKeyDown} tabIndex={0} role="region" aria-label="File de revue">
 			<header className="review__head">
-				<div>
+				<Card variant="transparent" padding={0}>
 					<h1>Revue</h1>
 					<Badge label="quarantaine" className="review__badge" />
 					<p className="review__tally">
@@ -199,8 +200,8 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 						<span aria-hidden="true"> · </span>{data?.counts.promoted ?? 0} promus
 						{data ? <span className="review__timing"> · {data.tookMs} ms</span> : null}
 					</p>
-				</div>
-				<div className="review__filters">
+				</Card>
+				<Card variant="transparent" padding={0} className="review__filters">
 					<label className="sr-only" htmlFor="review-q">Filtrer la file</label>
 					<input id="review-q" type="search" placeholder="Indice ou groupe…" value={query}
 						onChange={(e) => { setQuery(e.target.value); setPage(0); }} />
@@ -227,7 +228,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 							<option key={facet.value} value={facet.value}>{facet.value} ({facet.count})</option>
 						))}
 					</select>
-				</div>
+				</Card>
 			</header>
 
 			{data?.truncated ? (
@@ -245,7 +246,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 
 			{error ? <p className="review__error" role="alert">{error}</p> : null}
 
-			<div className="review__bar">
+			<Card variant="transparent" padding={0} className="review__bar">
 				<span className="review__selection">
 					{selected.size > 0 ? `${selected.size} coché(s)` : current ? "fait courant" : "aucun fait"}
 				</span>
@@ -259,7 +260,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 						<button type="button" onClick={() => { setRejecting(false); setReason(""); }}>Annuler</button>
 					</form>
 				) : (
-					<div className="review__actions">
+					<Card variant="transparent" padding={0} className="review__actions">
 						<button type="button" onClick={() => void act("promote", targetIds())} disabled={!canWrite || busy || targetIds().length === 0}>
 							Promouvoir <kbd>P</kbd>
 						</button>
@@ -272,14 +273,14 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 						<button type="button" onClick={() => void act("undo", targetIds())} disabled={!canWrite || busy || targetIds().length === 0}>
 							Annuler la décision <kbd>U</kbd>
 						</button>
-					</div>
+					</Card>
 				)}
-			</div>
+			</Card>
 
 			{!canWrite ? <p className="review__state">Lecture seule : connectez-vous pour décider.</p> : null}
 
-			<div className="review__body">
-				<div className="review__list" ref={listRef} role="listbox" aria-label="Faits à revoir">
+			<Card variant="transparent" padding={0} className="review__body">
+				<Card variant="transparent" padding={0} className="review__list" ref={listRef} role="listbox" aria-label="Faits à revoir">
 					{loading && rows.length === 0 ? (
 						<LoadingSkeleton label="Chargement de la file…" />
 					) : rows.length === 0 ? (
@@ -289,7 +290,9 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 							onAction={reinitialiser}
 						/>
 					) : rows.map((row, index) => (
-						<div
+						<Card
+							variant="transparent"
+							padding={0}
 							key={row.id}
 							role="option"
 							aria-selected={index === active}
@@ -318,9 +321,9 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 							{row.triage.referentialGap ? <span className="review__flag" data-kind="gap">référentiel</span> : null}
 							{row.triage.disagreement ? <span className="review__flag" data-kind="conflict">désaccord</span> : null}
 							{row.org ? <span className="review__flag" data-kind="org">{row.org.name}</span> : null}
-						</div>
+						</Card>
 					))}
-				</div>
+				</Card>
 
 				<aside className="review__detail" aria-label="Détail du fait">
 					{current === null ? (
@@ -395,33 +398,33 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 							</p>
 							{brutErreur ? <p className="review__error" role="alert">{brutErreur}</p> : null}
 							{brut?.id === current.id ? (
-								<div className="review__raw" data-raw="level-4">
+								<Card variant="transparent" padding={0} className="review__raw" data-raw="level-4">
 									<pre>{brut.body ?? "(aucun corps brut)"}</pre>
 									<pre>{JSON.stringify(brut.extrait, null, 2)}</pre>
-								</div>
+								</Card>
 							) : null}
 						</>
 					)}
 				</aside>
-			</div>
+			</Card>
 
 			<footer className="review__foot">
 				<span className="review__hint">J/K parcourir · X cocher · Maj+A tout cocher · P/R/M/U décider · Échap désélectionner</span>
-				<div className="review__pager">
+				<Card variant="transparent" padding={0} className="review__pager">
 					<button type="button" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}>Précédent</button>
 					<span className="review__mono">{page + 1} / {Math.max(1, Math.ceil((data?.total ?? 0) / 50))}</span>
 					<button type="button" onClick={() => setPage((p) => p + 1)} disabled={(page + 1) * 50 >= (data?.total ?? 0)}>Suivant</button>
-				</div>
+				</Card>
 			</footer>
 
 			{toast ? (
-				<div className="review__toast" role="status">
+				<Card variant="transparent" padding={0} className="review__toast" role="status">
 					{toast.text}
 					{toast.undoable ? (
 						<button type="button" onClick={() => { void act("undo", toast.ids); setToast(null); }}>Annuler</button>
 					) : null}
 					<button type="button" onClick={() => setToast(null)} aria-label="Fermer">×</button>
-				</div>
+				</Card>
 			) : null}
 		</section>
 	);
