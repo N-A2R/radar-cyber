@@ -341,9 +341,7 @@ export function OrgSheetBody({ data, onClose }: { data: OrgDetailData; onClose?:
         <Card variant="transparent" padding={0} className="orgsheet__chart" role="img" aria-label={`exposition mensuelle, maximum ${peak}`}>
           {exposure.map((p) => (
             <Card variant="transparent" padding={0} key={p.month} className="orgsheet__bar-slot">
-              <Card
-                variant="transparent"
-                padding={0}
+              <span
                 className={`orgsheet__bar${p.count === 0 ? " orgsheet__bar--empty" : ""}`}
                 style={{ height: `${Math.round((p.count / peak) * 100)}%` }}
                 title={`${p.month} : ${p.count}`}
