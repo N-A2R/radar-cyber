@@ -33,6 +33,7 @@ WEB_PORT="${RADAR_WEB_PORT:-5173}"
 PUBLIC=0
 ADMIN_EMAIL="${RADAR_ADMIN_EMAIL:-admin@radar.local}"
 ADMIN_PASSWORD="${RADAR_ADMIN_PASSWORD:-}"
+AUDIT_PEPPER="${RADAR_AUDIT_PEPPER:-}"
 RESTORE=""
 PASSPHRASE_FILE="${PASSPHRASE_FILE:-}"
 STRICT_DATA=0
@@ -298,6 +299,7 @@ API_PROXY_TARGET=http://127.0.0.1:$api
 RADAR_COLLECT=$collect
 RADAR_ADMIN_EMAIL=$ADMIN_EMAIL
 RADAR_ADMIN_PASSWORD=$ADMIN_PASSWORD
+RADAR_AUDIT_PEPPER=$AUDIT_PEPPER
 EOF
   chown root:"$SERVICE_USER" "$target"
   chmod 0640 "$target"
@@ -704,9 +706,11 @@ case "$MODE" in
     if [ "$DRY_RUN" -eq 0 ]; then
       [ -n "$ADMIN_PASSWORD" ] || ADMIN_PASSWORD="$(openssl rand -hex 24)"
       [ -n "$DB_PASSWORD" ] || DB_PASSWORD="$(openssl rand -hex 24)"
+      [ -n "$AUDIT_PEPPER" ] || AUDIT_PEPPER="$(openssl rand -hex 32)"
     else
       [ -n "$ADMIN_PASSWORD" ] || ADMIN_PASSWORD="<généré>"
       [ -n "$DB_PASSWORD" ] || DB_PASSWORD="<généré>"
+      [ -n "$AUDIT_PEPPER" ] || AUDIT_PEPPER="<généré>"
     fi
 
     step "Prérequis système (paquets, Node, pnpm)" ensure_packages
