@@ -1,8 +1,8 @@
-# Caddyfile — frontal optionnel (TLS/LAN) pour un déploiement derrière Caddy.
-# Le service `web` (serveur statique Node :4173, compose par défaut) proxifie déjà /api
-# vers l'API ; ce fichier est donc facultatif. Exemple d'usage :
+# Caddyfile — frontal optionnel (TLS/LAN) pour un Caddy sur l'hôte.
+# Les services `web` (serveur statique Node :4173) et l'API (:8080) écoutent
+# sur la boucle locale ; ce fichier est donc facultatif. Exemple d'usage :
 #   caddy run --config ./Caddyfile --envfile .env
-# ou comme service additionnel pointant sur le réseau compose (web:4173, api:8080).
+# Les upstreams sont surchargeables sans modifier ce fichier.
 
 {$SITE_ADDRESS:localhost} {
 	encode gzip
@@ -19,14 +19,14 @@
 	# API Fastify (JSON/SSE): pas de cache, écriture immédiate pour les flux.
 	@api path /api /api/*
 	handle @api {
-		reverse_proxy api:8080 {
+		reverse_proxy {$RADAR_API_UPSTREAM:127.0.0.1:8080} {
 			flush_interval -1
 		}
 	}
 
 	# Interface web + SPA fallback.
 	handle {
-		reverse_proxy web:4173
+		reverse_proxy {$RADAR_WEB_UPSTREAM:127.0.0.1:4173}
 	}
 }
 
