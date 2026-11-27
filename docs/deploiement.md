@@ -72,7 +72,7 @@ Chaque étape est chronométrée et consignée dans
 | Snapshot | `pg_dump -Fc` de la base courante avant toute migration/restauration |
 | Restauration | `pg_restore` (custom/tar) ou `psql` (SQL), puis contrôle des tables `event`, `org`, `source` |
 | Build | `pnpm install --frozen-lockfile`, typecheck API, build web, release immuable + symlink `current` |
-| Socle | `scripts/bootstrap.mts` : schéma, **370 migrations versionnées** (`db/migrate-*.sql`, comptage 2026-11-27), catalogues de sources, règles, référentiel NA, journal, compte admin |
+| Socle | `scripts/bootstrap.mts` : schéma, **toutes les migrations versionnées** (`db/migrate-*.sql`, ordre contrôlé par `db/migration-order.mts`), catalogues de sources, règles, référentiel NA, journal, compte admin |
 | systemd | unités système `radar-api`/`radar-web`, `EnvironmentFile` 0640, `enable` + `restart` |
 | Santé | `scripts/healthcheck.sh` : `/api/health`, `/api/stats`, shell web + asset JS, 40 tentatives / 80 s |
 
