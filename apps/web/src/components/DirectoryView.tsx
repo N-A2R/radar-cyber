@@ -7,6 +7,7 @@ import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { useScreenExport } from "./ExportMenu";
 import "./directory.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Table } from "@astryxdesign/core/Table";
 
 
@@ -298,7 +299,7 @@ export default function DirectoryView({
 	return (
 		<section className="directory">
 			<header className="directory__head">
-				<div>
+				<Card variant="transparent" padding={0}>
 					<h1>Annuaire</h1>
 					<p className="directory__tally">
 						<b>{total.toLocaleString("fr-FR")}</b> organisation{total > 1 ? "s" : ""}
@@ -307,8 +308,8 @@ export default function DirectoryView({
 							<span className="directory__timing"> · {remote.tookMs} ms côté serveur</span>
 						) : null}
 					</p>
-				</div>
-				<div className="directory__search">
+				</Card>
+				<Card variant="transparent" padding={0} className="directory__search">
 					<label className="sr-only" htmlFor="directory-q">Rechercher une organisation</label>
 					<input
 						id="directory-q"
@@ -325,11 +326,11 @@ export default function DirectoryView({
 							copier le lien
 						</button>
 					) : null}
-				</div>
+				</Card>
 			</header>
 
-			<div className="directory__facets">
-				<div className="directory__facet" role="group" aria-label="Filtrer par nature">
+			<Card variant="transparent" padding={0} className="directory__facets">
+				<Card variant="transparent" padding={0} className="directory__facet" role="group" aria-label="Filtrer par nature">
 					<button type="button" aria-pressed={kind === null} onClick={() => { setKind(null); resetPage(); }}>Toutes</button>
 					{(facets?.kind ?? []).map((facet) => (
 						<button key={facet.value} type="button" aria-pressed={kind === facet.value}
@@ -337,8 +338,8 @@ export default function DirectoryView({
 							{KIND_LABEL[facet.value] ?? facet.value} <i>{facet.count}</i>
 						</button>
 					))}
-				</div>
-				<div className="directory__facet directory__facet--right">
+				</Card>
+				<Card variant="transparent" padding={0} className="directory__facet directory__facet--right">
 					{(facets?.sector ?? []).length > 1 ? (
 						<>
 							<label className="sr-only" htmlFor="directory-sector">Échelon</label>
@@ -370,8 +371,8 @@ export default function DirectoryView({
 						title="Les organisations du référentiel qu'aucune source n'a jamais citées">
 						Jamais vues
 					</button>
-				</div>
-			</div>
+				</Card>
+			</Card>
 
 			{truncated ? (
 				<p className="directory__truncated" role="status">
@@ -390,7 +391,9 @@ export default function DirectoryView({
 					onAction={onRetry ?? reinitialiser}
 				/>
 			) : (
-				<div
+				<Card
+					variant="transparent"
+					padding={0}
 					className="directory__table"
 					ref={scrollRef}
 					tabIndex={0}
@@ -485,12 +488,12 @@ export default function DirectoryView({
 							{paddingBottom > 0 ? <tr style={{ height: paddingBottom }} aria-hidden="true"><td colSpan={COLUMNS.length} /></tr> : null}
 						</tbody>
 					</Table>
-				</div>
+				</Card>
 			)}
 
 			<footer className="directory__foot">
 				<span className="directory__hint">↑ ↓ parcourir · Entrée ouvrir la fiche · Échap effacer</span>
-				<div className="directory__pager">
+				<Card variant="transparent" padding={0} className="directory__pager">
 					<label className="sr-only" htmlFor="directory-size">Lignes par page</label>
 					<select id="directory-size" value={size} onChange={(e) => { setSize(Number(e.target.value)); resetPage(); }}>
 						{SIZES.map((value) => <option key={value} value={value}>{value} / page</option>)}
@@ -500,7 +503,7 @@ export default function DirectoryView({
 					<span className="directory__mono">{page + 1} / {pageCount}</span>
 					<button type="button" onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))} disabled={page >= pageCount - 1}>Suivant</button>
 					<button type="button" aria-label="Dernière page" onClick={() => setPage(pageCount - 1)} disabled={page >= pageCount - 1}>»</button>
-				</div>
+				</Card>
 			</footer>
 		</section>
 	);
