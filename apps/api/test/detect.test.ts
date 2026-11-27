@@ -14,6 +14,7 @@ import { loadRules, evaluateEvent, evaluateIndicator } from "../src/detect/engin
 import type { RuleMatch } from "../src/detect/engine.js";
 import alertsRoute from "../src/routes/alerts.js";
 import { hashSessionToken } from "../src/auth.js";
+import { evenementPublicSql } from "../src/security/tlp.js";
 import { supprimerEvenementsArchivees } from "./helpers/archive-delete.js";
 
 const TAG = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
@@ -124,6 +125,16 @@ async function createSession(role = "analyste"): Promise<{ token: string; userId
 
 async function countAlerts(where: string, params: unknown[]): Promise<number> {
   const r = await query<{ n: string }>(`SELECT COUNT(*)::text AS n FROM alert WHERE ${where}`, params);
+  return Number(r.rows[0].n);
+}
+
+/** Même prédicat que /api/alerts/stats : les alertes restreintes sont exclues. */
+async function countPublicAlerts(): Promise<number> {
+  const publique = `(a.event_id IS NULL AND coalesce(a.evidence->>'tlp', 'CLEAR') = 'CLEAR') OR ${evenementPublicSql("e")}`;
+  const r = await query<{ n: string }>(
+    `SELECT COUNT(*)::text AS n FROM alert a LEFT JOIN event e ON e.id = a.event_id WHERE ${publique}`,
+    [],
+  );
   return Number(r.rows[0].n);
 }
 
@@ -432,7 +443,7 @@ test("stats : comptes cohérents avec la table alert", async () => {
     assert.ok(rows.length > 0);
 
     const total = rows.reduce((sum, r) => sum + Number(r.count), 0);
-    assert.equal(total, await countAlerts("1=1", []));
+    assert.equal(total, await countPublicAlerts());
 
     for (const r of rows) {
       assert.ok(["open", "ack", "resolved"].includes(r.status), `statut inattendu ${r.status}`);
