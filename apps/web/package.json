@@ -7,6 +7,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run",
+    "test:no-div": "vitest run test/no-div.test.ts",
     "test:e2e": "playwright test",
     "test:offline-pwa": "vitest run test/offline-pwa-cache.test.ts test/radar-sw.test.ts",
     "test:typecheck": "tsc --noEmit -p tsconfig.test.json",
