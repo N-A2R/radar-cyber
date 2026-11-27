@@ -1,4 +1,4 @@
--- 250 — Backfill de l'empreinte des événements de flux après le passage à
+-- 251 — Backfill de l'empreinte des événements de flux après le passage à
 -- `id:<sha256>` / `titre:<sha256>` (commit b1c12fb6).
 --
 -- Le collecteur générique calculait depuis la migration 045 une empreinte
