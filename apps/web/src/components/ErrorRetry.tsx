@@ -3,6 +3,7 @@
  * bouton offre la seule action utile — rejouer la requête.
  */
 import { Button } from "@astryxdesign/core/Button";
+import { Card } from "@astryxdesign/core/Card";
 export function ErrorRetry({
   message,
   onRetry,
@@ -13,11 +14,11 @@ export function ErrorRetry({
   className?: string;
 }) {
   return (
-    <div className={`error-retry${className ? ` ${className}` : ""}`} role="alert">
+    <Card variant="transparent" padding={0} className={`error-retry${className ? ` ${className}` : ""}`} role="alert">
       <span className="error-retry__message">{message}</span>
       {onRetry ? (
         <Button label="Réessayer" className="error-retry__button" onClick={onRetry} />
       ) : null}
-    </div>
+    </Card>
   );
 }

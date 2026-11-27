@@ -56,7 +56,7 @@ export default function MapTimeline({
   return (
     <section className="map-timeline" aria-label="Map timeline">
       <Card variant="transparent" className="map-timeline__controls-card">
-      <div className="map-timeline__controls">
+      <Card variant="transparent" padding={0} className="map-timeline__controls">
         <button
           type="button"
           className="map-timeline__play"
@@ -85,9 +85,9 @@ export default function MapTimeline({
         >
           All dates
         </button>
-      </div>
       </Card>
-      <div className="map-timeline__bars" role="group" aria-label="Choose a month">
+      </Card>
+      <Card variant="transparent" padding={0} className="map-timeline__bars" role="group" aria-label="Choose a month">
         {buckets.map((bucket, index) => (
           <button
             key={bucket.key}
@@ -104,7 +104,7 @@ export default function MapTimeline({
             />
           </button>
         ))}
-      </div>
+      </Card>
       <input
         className="map-timeline__scrubber"
         type="range"

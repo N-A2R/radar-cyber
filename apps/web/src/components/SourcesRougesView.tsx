@@ -11,6 +11,7 @@ import {
 } from "./SourcesView";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import RelancerButton, { type RelanceOutcome } from "./RelancerButton";
+import { Card } from "@astryxdesign/core/Card";
 import "./sources-rouges.css";
 import { Badge } from "@astryxdesign/core/Badge";
 import { Table } from "@astryxdesign/core/Table";
@@ -83,7 +84,7 @@ export default function SourcesRougesView({
         </p>
       </header>
 
-      <div className="sources-rouges__scroll">
+      <Card variant="transparent" padding={0} className="sources-rouges__scroll">
         <Table className="data sources-rouges__table" density="compact" dividers="rows">
           <thead>
             <tr>
@@ -133,7 +134,7 @@ export default function SourcesRougesView({
             )}
           </tbody>
         </Table>
-      </div>
+      </Card>
     </section>
   );
 }
