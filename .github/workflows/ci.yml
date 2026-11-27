@@ -74,6 +74,10 @@ jobs:
           schema=false
           while IFS= read -r file; do
             case "$file" in
+              # Snapshot lu à l'exécution par rapports-golden.test.ts :
+              # ce .md est une fixture de test, pas de la documentation.
+              apps/api/test/fixtures/golden/*)
+                api=true ;;
               *.md|docs/*)
                 : ;;
               .github/workflows/*|.github/actions/*)
@@ -148,14 +152,42 @@ jobs:
       - name: Tests migrations et outillage
         run: pnpm test:migrations
 
-      - name: Tests objectifs (nightly)
-        if: github.event_name == 'schedule'
-        run: pnpm test:objectifs
-
       - name: Plan des shards API (sans base)
         run: |
           ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
             --shards="$API_SHARDS" --list --check
+
+  # Tests d'objectifs : nightly seulement. `test/run.ts` crée sa propre base
+  # jetable depuis le schéma ; il lui faut juste une URL d'administration.
+  objectives:
+    needs: changes
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
+        env:
+          POSTGRES_USER: radar
+          POSTGRES_PASSWORD: radar
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U radar -d radar"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://radar:radar@localhost:5432/radar
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests objectifs
+        run: pnpm test:objectifs
 
   # Porte de merge d'une PR : uniquement les tests affectés par le diff,
   # en deux workers (une base jetable chacun). Un diff limité aux workflows et
@@ -165,7 +197,7 @@ jobs:
   # La matrix 8 shards, elle, reste aux événements non-PR.
   api-smoke:
     needs: changes
-    if: needs.changes.outputs.api == 'true' && github.event_name == 'pull_request'
+    if: (needs.changes.outputs.api == 'true' || contains(github.event.pull_request.labels.*.name, 'full-ci')) && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -197,6 +229,17 @@ jobs:
       - name: Tests API affectés par la PR
         run: |
           ./apps/api/node_modules/.bin/tsx apps/api/test/affected-tests.ts > /tmp/api-smoke.txt
+          # Les snapshots golden sont lus à l'exécution, pas importés :
+          # la sélection par graphe ne les voit pas. On force leur test dédié.
+          if [ -n "$GITHUB_BASE_SHA" ]; then
+            golden_changed="$(git diff --name-only --diff-filter=ACMR \
+              "$GITHUB_BASE_SHA...HEAD" -- apps/api/test/fixtures/golden || true)"
+            if [ -n "$golden_changed" ]; then
+              printf '%s\n' test/rapports-golden.test.ts >> /tmp/api-smoke.txt
+              sort -u /tmp/api-smoke.txt > /tmp/api-smoke.sorted
+              mv /tmp/api-smoke.sorted /tmp/api-smoke.txt
+            fi
+          fi
           if [ ! -s /tmp/api-smoke.txt ]; then
             echo "aucun test affecté"
             exit 0
@@ -326,6 +369,21 @@ jobs:
             exit 0
           fi
           node apps/api/test/merge-durations.mjs /tmp/shard-weights.json "${files[@]}"
+
+      - name: État des poids versionnés (sans commit)
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "### Poids des shards"
+            if [ ! -s /tmp/shard-weights.json ]; then
+              echo "Aucune durée collectée : apps/api/test/shard-weights.json reste inchangé."
+            elif cmp -s /tmp/shard-weights.json apps/api/test/shard-weights.json; then
+              echo "apps/api/test/shard-weights.json est à jour."
+            else
+              echo "apps/api/test/shard-weights.json est périmé : remplacer le fichier versionné par l'artefact api-shard-weights (aucun commit automatique)."
+            fi
+          } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Plan de durées (artifact)
         if: always()
@@ -462,7 +520,8 @@ jobs:
     needs: changes
     if: needs.changes.outputs.schema == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # La merge queue doit rendre `verify` en moins de 30 min.
+    timeout-minutes: 25
 
     services:
       postgres:
@@ -563,9 +622,14 @@ jobs:
           docker build --check -f docker/tor/Dockerfile .
 
   # Nom conservé pour la protection de branche : agrège TOUTES les étapes.
-  # Un job filtré par `changes` ou réservé aux événements non-PR est `skipped`
-  # et reste acceptable ; seul `changes` lui-même doit être vert. `always()`
-  # garantit un verdict même lorsqu'une étape a échoué ou été annulée.
+  # Sur PR, seuls les jobs court-circuités par `changes` ou réservés aux
+  # événements non-PR peuvent être `skipped`. Sur merge_group et schedule,
+  # `changes` force tous les filtres à true ; seuls `api-smoke` (PR) et
+  # `objectives` (nightly) peuvent encore être skipped.
+  # `nightly-report` rejoint la porte sans cycle : il attend les mêmes jobs
+  # que `verify`, et `verify` n'est plus dans ses propres `needs`.
+  # `always()` garantit un verdict même lorsqu'une étape a échoué ou été
+  # annulée.
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -574,6 +638,7 @@ jobs:
       - changes
       - contracts
       - api-smoke
+      - objectives
       - api-tests
       - web-unit
       - playwright
@@ -582,31 +647,57 @@ jobs:
       - build
       - socle
       - supply-chain
+      - nightly-report
 
     steps:
       - name: Toutes les étapes requises doivent être vertes
         env:
           RESULTS: ${{ toJSON(needs) }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           node -e '
             const results = JSON.parse(process.env.RESULTS);
-            const failing = Object.entries(results)
-              .filter(([name, value]) => name === "changes"
-                ? value.result !== "success"
-                : value.result !== "success" && value.result !== "skipped")
-              .map(([name, value]) => `${name}:${value.result}`);
-            if (failing.length) {
-              console.error(`Étapes non vertes : ${failing.join(", ")}`);
+            const skippableByEvent = {
+              pull_request: [
+                "contracts",
+                "api-smoke",
+                "objectives",
+                "api-tests",
+                "web-unit",
+                "playwright",
+                "sdks-python",
+                "provenance",
+                "build",
+                "socle",
+                "supply-chain",
+                "nightly-report"
+              ],
+              merge_group: ["api-smoke", "objectives", "nightly-report"],
+              schedule: ["api-smoke"]
+            };
+            const skippable = skippableByEvent[process.env.EVENT_NAME];
+            if (!skippable) {
+              console.error(`Événement non pris en charge : ${process.env.EVENT_NAME}`);
               process.exitCode = 1;
             } else {
-              console.log("Toutes les étapes requises sont vertes.");
+              const failing = Object.entries(results)
+                .filter(([name, value]) => value.result !== "success"
+                  && (value.result !== "skipped" || !skippable.includes(name)))
+                .map(([name, value]) => `${name}:${value.result}`);
+              if (failing.length) {
+                console.error(`Étapes non vertes : ${failing.join(", ")}`);
+                process.exitCode = 1;
+              } else {
+                console.log("Toutes les étapes requises sont vertes.");
+              }
             }
           '
 
   # La nightly échoue en silence : le run #2043 est resté rouge quatre heures
   # sans que personne ne le voie. Une issue ouverte avec les étapes en échec
   # (et refermée dès que tout repasse) donne un point d'entrée à traiter,
-  # humain ou agent.
+  # humain ou agent. Le job est agrégé par `verify` sans dépendre de lui :
+  # un échec de publication est visible sur la check requise.
   nightly-report:
     if: always() && github.event_name == 'schedule'
     needs:
@@ -620,7 +711,6 @@ jobs:
       - build
       - socle
       - supply-chain
-      - verify
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -657,23 +747,38 @@ jobs:
         run: |
           set -euo pipefail
           STATUS="$(cat /tmp/nightly.status)"
-          NUM="$(gh issue list --repo "$REPO" --state open \
-            --search '"Nightly CI en échec" in:title' \
-            --json number --jq '.[0].number // empty')"
-          if [ "$STATUS" = "vert" ]; then
-            if [ -n "$NUM" ]; then
-              gh issue close "$NUM" --repo "$REPO" \
-                --comment "Nightly de nouveau vert : l'issue se referme seule."
-            else
-              echo "Nightly vert, aucune issue ouverte."
+
+          publish() {
+            local num
+            num="$(gh issue list --repo "$REPO" --state open \
+              --search '"Nightly CI en échec" in:title' \
+              --json number --jq '.[0].number // empty')" || return 1
+            if [ "$STATUS" = "vert" ]; then
+              if [ -n "$num" ]; then
+                gh issue close "$num" --repo "$REPO" \
+                  --comment "Nightly de nouveau vert : l'issue se referme seule." || return 1
+              else
+                echo "Nightly vert, aucune issue ouverte."
+              fi
+              return 0
             fi
-            exit 0
-          fi
-          if [ -n "$NUM" ]; then
-            gh issue comment "$NUM" --repo "$REPO" --body-file /tmp/nightly.md
-            echo "Issue #$NUM mise à jour."
-          else
-            gh issue create --repo "$REPO" \
-              --title "Nightly CI en échec" \
-              --body-file /tmp/nightly.md
-          fi
+            if [ -n "$num" ]; then
+              gh issue comment "$num" --repo "$REPO" --body-file /tmp/nightly.md || return 1
+              echo "Issue #$num mise à jour."
+            else
+              gh issue create --repo "$REPO" \
+                --title "Nightly CI en échec" \
+                --body-file /tmp/nightly.md || return 1
+            fi
+          }
+
+          for attempt in 1 2 3; do
+            if publish; then
+              echo "Rapport nightly publié (tentative ${attempt}/3)."
+              exit 0
+            fi
+            echo "Publication nightly : tentative ${attempt}/3 échouée." >&2
+            if [ "$attempt" -lt 3 ]; then sleep 10; fi
+          done
+          echo "Rapport nightly non publié après 3 tentatives." >&2
+          exit 1

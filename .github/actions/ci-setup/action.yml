@@ -1,5 +1,5 @@
 name: ci-setup
-description: Checkout, pnpm et Node figés, puis installation du workspace
+description: pnpm et Node figés, cache du store pnpm, puis installation du workspace (sans checkout, sans entrée ni sortie)
 
 runs:
   using: composite
