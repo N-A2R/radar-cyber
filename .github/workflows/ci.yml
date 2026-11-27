@@ -7,16 +7,16 @@ name: CI
 #   merge queue : TOUT (la matrix 8 shards, web, e2e, socle, supply-chain).
 #                 Un lot ne merge que vert. Règle active sur N-A2R avec
 #                 le check requis `verify`.
-#   main (push) : TOUT, séquentiel sur les shards, pour collecter les durées
-#                 réelles qui pondèrent le shard plan.
+#   main        : aucun run. Le commit vérifié par le merge group est celui qui
+#                 atterrit sur main ; relancer la suite après le merge ne
+#                 vérifiait rien de neuf et coûtait un run complet par merge.
+#                 Les durées réelles sont collectées par le merge group.
 #   nightly     : TOUT + tests d'objectifs.
 #
 # Le label `full-ci` sur une PR élargit la sélection aux 408 fichiers dans le
 # smoke (la matrix reste réservée aux événements non-PR).
 
 on:
-  push:
-    branches: [main]
   pull_request:
   merge_group:
   schedule:
@@ -26,7 +26,8 @@ permissions:
   contents: read
 
 # Une branche qui pousse plusieurs fois de suite annule ses runs périmés.
-# main n'est jamais annulé : chaque état de main doit être vérifié.
+# La nightly n'est jamais annulée : c'est elle qui porte les vérifications
+# lourdes, et son ref est refs/heads/main.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
@@ -38,7 +39,7 @@ env:
 
 jobs:
   # Filtre les jobs selon les chemins touchés. Les événements non-PR
-  # (main, merge queue, nightly) lancent tout : aucun chemin ne doit
+  # (merge queue, nightly) lancent tout : aucun chemin ne doit
   # échapper à la vérification complète.
   changes:
     runs-on: ubuntu-latest
@@ -147,7 +148,7 @@ jobs:
 
   # Porte de merge d'une PR : uniquement les tests affectés par le diff,
   # en deux workers (une base jetable chacun). Un diff limité aux workflows et
-  # actions GitHub utilise un canari de six tests ; la merge queue, main et la
+  # actions GitHub utilise un canari de six tests ; la merge queue et la
   # nightly reprennent la suite complète. Le label `full-ci` la force aussi.
   # Les autres chemins critiques (schéma, serveur, auth, helpers) restent full.
   # La matrix 8 shards, elle, reste aux événements non-PR.
@@ -198,7 +199,7 @@ jobs:
             ./node_modules/.bin/tsx test/parallel/run.ts "${files[@]}"
           fi
 
-  # Suite complète en 8 shards : main, merge queue et nightly uniquement.
+  # Suite complète en 8 shards : merge queue et nightly uniquement.
   # Chaque matrix job a son propre service PostgreSQL et `test/run.ts` y crée
   # une base jetable dédiée : une base par shard, aucun état partagé.
   # fail-fast: false laisse tous les verdicts s'exprimer ; un shard en échec
@@ -258,7 +259,7 @@ jobs:
             echo "aucun test affecté — shard ${{ matrix.shard }} ignoré"
           fi
 
-      # Séquentiel partout : main et nightly produisent les durées réelles qui
+      # Séquentiel partout : merge queue et nightly produisent les durées réelles qui
       # pondèrent le shard plan. Le parallélisme par shard est le rôle du
       # smoke sur PR.
       - name: Tests API (shard ${{ matrix.shard }})
@@ -324,7 +325,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
-  # --- Suite complète (merge queue, main, nightly) ---
+  # --- Suite complète (merge queue, nightly) ---
 
   web-unit:
     needs: changes
