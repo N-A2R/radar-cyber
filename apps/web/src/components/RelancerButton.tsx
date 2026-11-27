@@ -41,7 +41,7 @@ function messageErreur(error: unknown): string {
 export function RelanceResultat({ etat, onRelance }: { etat: RelanceEtat; onRelance?: () => void }) {
   if (etat.kind === "idle") return null;
   if (etat.kind === "en-cours") {
-    return <div className="relance-resultat" role="status"><LoadingSkeleton label="relance en cours…" /></div>;
+    return <Card variant="transparent" padding={0} className="relance-resultat" role="status"><LoadingSkeleton label="relance en cours…" /></Card>;
   }
   if (etat.kind === "lancee") return <span className="relance-resultat" data-resultat="lancee" role="status">collecte lancée</span>;
   if (etat.kind === "erreur") {
@@ -49,11 +49,11 @@ export function RelanceResultat({ etat, onRelance }: { etat: RelanceEtat; onRela
   }
   if (etat.kind === "vide") {
     return (
-      <div className="relance-resultat" data-resultat="vide" role="status">
+      <Card variant="transparent" padding={0} className="relance-resultat" data-resultat="vide" role="status">
         {onRelance
           ? <EmptyState message="0 nouvel événement" actionLabel="Relancer" onAction={onRelance} />
           : "0 nouvel événement"}
-      </div>
+      </Card>
     );
   }
   const n = etat.inserted;
@@ -86,7 +86,7 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
 
   return (
     <Card variant="transparent" className="relance-cellule-card">
-    <div className="relance-cellule">
+    <Card variant="transparent" padding={0} className="relance-cellule">
       <button
         type="button"
         className="relance-bouton"
@@ -97,7 +97,7 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
         Relancer
       </button>
       <RelanceResultat etat={etat} onRelance={() => void relancer()} />
-    </div>
+    </Card>
     </Card>
   );
 }

@@ -1,6 +1,7 @@
 import type { AlerteSupervision, CollecteMetrics, CycleCollecte } from "../api";
 import { formatDate, formatNumber, formatRelative } from "./SourcesView";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Table } from "@astryxdesign/core/Table";
 
 
@@ -59,11 +60,11 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
 
       <dl className="health-detail__metrics">
         {chiffres.map((m) => (
-          <div className="health-detail__metric" key={m.label}>
+          <Card variant="transparent" padding={0} className="health-detail__metric" key={m.label}>
             <dt>{m.label}</dt>
             <dd>{m.value}</dd>
             <span>{m.note}</span>
-          </div>
+          </Card>
         ))}
       </dl>
 
@@ -71,7 +72,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
       {metrics.alertes.length === 0 ? (
         <p className="health-detail__legend">aucune alerte sur les cycles affichés.</p>
       ) : (
-        <div className="health-detail__scroll">
+        <Card variant="transparent" padding={0} className="health-detail__scroll">
           <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
@@ -94,14 +95,14 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
               ))}
             </tbody>
           </Table>
-        </div>
+        </Card>
       )}
 
       <h3>derniers cycles</h3>
       {metrics.cycles.length === 0 ? (
         <p className="health-detail__legend">aucun cycle enregistré.</p>
       ) : (
-        <div className="health-detail__scroll">
+        <Card variant="transparent" padding={0} className="health-detail__scroll">
           <Table className="data" density="compact" dividers="rows">
             <thead>
               <tr>
@@ -135,7 +136,7 @@ export default function CollecteMetricsView({ metrics, loading = false, error = 
               })}
             </tbody>
           </Table>
-        </div>
+        </Card>
       )}
     </section>
   );

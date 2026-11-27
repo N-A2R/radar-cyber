@@ -6,6 +6,7 @@ import { FAMILY_LABEL } from "./SourcesView";
 import { useScreenExport } from "./ExportMenu";
 import "./alerts.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 
 
 /** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
@@ -277,7 +278,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
         </span>
       </header>
 
-      <div className="alerts__sections" role="group" aria-label="Type d'alerte">
+      <Card variant="transparent" padding={0} className="alerts__sections" role="group" aria-label="Type d'alerte">
         {ALERT_KINDS.map((item) => (
           <button
             key={item.id}
@@ -288,9 +289,9 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
             {item.label} {item.id === "all" ? null : <span className="alerts__count">({kindCounts[item.id]})</span>}
           </button>
         ))}
-      </div>
+      </Card>
 
-      <div className="alerts__filters" role="group" aria-label="Filtres d'alerte">
+      <Card variant="transparent" padding={0} className="alerts__filters" role="group" aria-label="Filtres d'alerte">
         {STATUSES.map((s) => (
           <button
             key={s.id}
@@ -313,7 +314,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
             S{n}
           </button>
         ))}
-      </div>
+      </Card>
 
       {error ? <p className="alerts__error" role="alert" aria-live="assertive">{error}</p> : null}
       {loading ? <LoadingSkeleton label="chargement des alertes" /> : null}
@@ -399,7 +400,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
             </span>
 
             {openId === alert.id ? (
-              <div className="alerts__detail" data-testid="alert-detail">
+              <Card variant="transparent" padding={0} className="alerts__detail" data-testid="alert-detail">
                 {detailError ? <p className="alerts__detail-line" role="alert">{detailError}</p> : null}
                 {!detail && !detailError ? <LoadingSkeleton label="chargement du détail" /> : null}
                 {detail ? (
@@ -497,7 +498,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                     ) : null}
                   </>
                 ) : null}
-              </div>
+              </Card>
             ) : null}
           </li>
         ))}
