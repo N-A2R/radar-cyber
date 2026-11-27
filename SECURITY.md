@@ -4,7 +4,7 @@ Merci de signaler toute vulnérabilité de manière responsable.
 
 ## Signaler un problème
 
-Utilisez le signalement privé GitHub: <https://github.com/j0ltdevv/radar-cyber/security/advisories/new>.
+Utilisez le signalement privé GitHub: <https://github.com/N-A2R/radar-cyber/security/advisories/new>.
 N'incluez **aucune donnée personnelle**, jeton, clé ou extrait de victime dans le rapport.
 
 ### Périmètre

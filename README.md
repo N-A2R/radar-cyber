@@ -162,12 +162,21 @@ BASE_URL=http://localhost:8080 \
 
 ### CI par étapes parallèles
 
-`.github/workflows/ci.yml` exécute en parallèle : contrats/typechecks/migrations (`contracts`), API (`api-tests`, matrix de 6 shards), web unitaire/render/dom (`web-unit`), Playwright (`playwright`), SDK/Python (`sdks-python`), provenance (`provenance`) et build (`build`). Le job `verify` reste l'agrégateur attendu par la protection de branche : il a `needs` sur ces sept étapes **et** sur `socle` et `supply-chain`, qui restent bloquantes.
+`.github/workflows/ci.yml` se déclenche sur les PR, la merge queue et une
+nightly quotidienne à **04:17 Europe/Paris** (`17 3 * * *`, 03:17 UTC) : aucun
+run n'est déclenché par un `push` sur `main`. La PR passe par `changes` et
+`api-smoke`, la merge queue joue la suite complète et la nightly ajoute
+`objectives` (`pnpm test:objectifs`). En parallèle : contrats/typechecks/migrations
+(`contracts`), API (`api-tests`, matrix de 8 shards), web unitaire/render/dom
+(`web-unit`), Playwright (`playwright`), SDK/Python (`sdks-python`), provenance
+(`provenance`) et build (`build`). Le job `verify` reste l'agrégateur attendu par
+la protection de branche : il a `needs` sur ces étapes, sur `objectives` **et**
+sur `socle` et `supply-chain`, qui restent bloquantes.
 
 Le découpage API est déterministe (liste triée, tranches contiguës) et auditable sans base :
 
 ```bash
-./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=6 --list --check
+./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=8 --list --check
 # observé : vérification OK : 442 fichiers, 442 assignés, 0 doublon (2026-11-24)
 ```
 
@@ -179,8 +188,8 @@ Chaque job de la matrix a son propre PostgreSQL ; `test/run.ts` y crée une base
 pnpm -F @radar/api typecheck && pnpm -F @radar/web typecheck && pnpm typecheck:tests && pnpm typecheck:sdk
 pnpm test:migrations
 
-# api-tests : i ∈ 1..6, DATABASE_URL pointant le PostgreSQL du job
-./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=6 --index=$i > /tmp/api-shard.txt
+# api-tests : i ∈ 1..8, DATABASE_URL pointant le PostgreSQL du job
+./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts --shards=8 --index=$i > /tmp/api-shard.txt
 (cd apps/api && mapfile -t files < /tmp/api-shard.txt && ./node_modules/.bin/tsx test/run.ts "${files[@]}")
 
 # web-unit
