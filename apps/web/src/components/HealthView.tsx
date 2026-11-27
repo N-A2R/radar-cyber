@@ -1,4 +1,5 @@
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Table } from "@astryxdesign/core/Table";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -197,7 +198,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
         )}
       </header>
 
-      <div className="health-view__toolbar">
+      <Card variant="transparent" padding={0} className="health-view__toolbar">
         <label>
           famille
           <select value={family} onChange={(e) => changerFamille(e.target.value)}>
@@ -236,22 +237,22 @@ export default function HealthView({ sources = [], loading: chargementParent = f
               : `${formatNumber(premier)}–${formatNumber(dernier)} sur ${formatNumber(data.matching ?? null)} affichés`}
           </span>
         )}
-      </div>
+      </Card>
 
-      <div className="health-view__body">
+      <Card variant="transparent" padding={0} className="health-view__body">
         {erreur !== null && data === null ? (
-          <div className="health-view__erreur">
+          <Card variant="transparent" padding={0} className="health-view__erreur">
             <EmptyState
               role="alert"
               message={`sources indisponibles : ${erreur}`}
               actionLabel="Réessayer"
               onAction={reessayer}
             />
-          </div>
+          </Card>
         ) : data === null ? (
-          <div className="health-view__attente">
+          <Card variant="transparent" padding={0} className="health-view__attente">
             <LoadingSkeleton label="lecture des sources…" />
-          </div>
+          </Card>
         ) : (
           <Table className="data" density="compact" dividers="rows">
             <thead>
@@ -291,15 +292,15 @@ export default function HealthView({ sources = [], loading: chargementParent = f
                     />
                   </td>
                   <td>
-                    <div>
+                    <Card variant="transparent" padding={0}>
                       {s.name}
                       {s.enabled ? "" : " · désactivée"}
-                    </div>
-                    <div className="mono">
+                    </Card>
+                    <Card variant="transparent" padding={0} className="mono">
                       <a href={s.url} target="_blank" rel="noreferrer">
                         {truncate(s.url, 70)}
                       </a>
-                    </div>
+                    </Card>
                   </td>
                   <td>{FAMILY_LABEL[s.family] ?? s.family}</td>
                   <td className="mono" title={s.lastOkAt ? formatDate(s.lastOkAt) : "jamais collecté"}>
@@ -335,7 +336,7 @@ export default function HealthView({ sources = [], loading: chargementParent = f
             </tbody>
           </Table>
         )}
-      </div>
+      </Card>
 
       {data === null ? null : (
         <footer className="health-view__pager">
