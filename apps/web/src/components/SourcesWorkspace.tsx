@@ -18,6 +18,7 @@ import HealthView from "./HealthView";
 import SourcesView from "./SourcesView";
 import { RegistryIndicators } from "./SourcesDashboardView";
 import { ArchiveProofCard, type WarcProof } from "./WarcProofCard";
+import { Card } from "@astryxdesign/core/Card";
 
 // Contrat historique : les tests et les shell existants importent `WarcProof`
 // depuis ce module, même si le type est maintenant défini dans WarcProofCard.
@@ -124,10 +125,10 @@ export default function SourcesWorkspace({
   });
 
   return (
-    <div className="sws">
+    <Card variant="transparent" padding={0} className="sws">
       <header className="sws__head">
         <h1 className="sws__title">Sources</h1>
-        <div className="sws__tabs" role="tablist" aria-label="Panneaux des sources">
+        <Card variant="transparent" padding={0} className="sws__tabs" role="tablist" aria-label="Panneaux des sources">
           {TABS.map((tab, index) => (
             <button
               {...tabProps(tab.key, index)}
@@ -137,11 +138,13 @@ export default function SourcesWorkspace({
               {tab.label}
             </button>
           ))}
-        </div>
+        </Card>
       </header>
 
-      <div className="sws__body">
-        <div
+      <Card variant="transparent" padding={0} className="sws__body">
+        <Card
+          variant="transparent"
+          padding={0}
           className="sws__panel"
           role="tabpanel"
           id={`sws-panel-${uid}-registre`}
@@ -151,9 +154,11 @@ export default function SourcesWorkspace({
           {active === "registre" ? (
             <SourcesView sources={sources} loading={loading} error={error} onRetry={onRetry} />
           ) : null}
-        </div>
+        </Card>
 
-        <div
+        <Card
+          variant="transparent"
+          padding={0}
           className="sws__panel"
           role="tabpanel"
           id={`sws-panel-${uid}-indicateurs`}
@@ -169,9 +174,11 @@ export default function SourcesWorkspace({
               onRetry={onRetry}
             />
           ) : null}
-        </div>
+        </Card>
 
-        <div
+        <Card
+          variant="transparent"
+          padding={0}
           className="sws__panel"
           role="tabpanel"
           id={`sws-panel-${uid}-sante`}
@@ -179,8 +186,8 @@ export default function SourcesWorkspace({
           hidden={active !== "sante"}
         >
           {active === "sante" ? (
-            <div className="sws__health">
-              <div className="sws__health-summary">
+            <Card variant="transparent" padding={0} className="sws__health">
+              <Card variant="transparent" padding={0} className="sws__health-summary">
                 <HealthDetailView
                   detail={healthDetail}
                   causes={healthCauses}
@@ -188,13 +195,15 @@ export default function SourcesWorkspace({
                   error={healthError ?? error}
                   onRetry={onRetry}
                 />
-              </div>
+              </Card>
               <HealthView sources={sources} loading={loading} onRetry={onRetry} />
-            </div>
+            </Card>
           ) : null}
-        </div>
+        </Card>
 
-        <div
+        <Card
+          variant="transparent"
+          padding={0}
           className="sws__panel"
           role="tabpanel"
           id={`sws-panel-${uid}-corpus`}
@@ -202,13 +211,13 @@ export default function SourcesWorkspace({
           hidden={active !== "corpus"}
         >
           {active === "corpus" ? (
-            <div className="sws__corpus">
+            <Card variant="transparent" padding={0} className="sws__corpus">
               <CorpusView data={corpusData} loading={corpusLoading ?? loading} error={corpusError} />
               <ArchiveProofCard proof={warcProof} />
-            </div>
+            </Card>
           ) : null}
-        </div>
-      </div>
-    </div>
+        </Card>
+      </Card>
+    </Card>
   );
 }
