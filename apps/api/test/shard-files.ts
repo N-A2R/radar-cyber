@@ -12,11 +12,13 @@
  * chargé, puis triés dans chaque shard. Le poids vient de `shard-weights.json`
  * (durées mesurées en ms) quand ce fichier existe ; sinon il reste une
  * estimation (démarrage du process + taille du fichier). Aucun doublon, aucun
- * oubli, plan auditable.
+ * oubli, plan auditable. `--check` vérifie aussi `--shards` contre `API_SHARDS`
+ * et la matrix `api-tests` du workflow : il ne valide pas le plan contre lui-même.
  *
  *   tsx test/shard-files.ts --shards=8 --index=1              # fichiers du shard 1
  *   tsx test/shard-files.ts --shards=8 --list --check         # plan de la matrix
  *   tsx test/shard-files.ts --shards=8 --list --check --objectifs
+ *   tsx test/shard-files.ts --shards=8 --check --workflow=/tmp/ci.yml
  */
 import { readdir } from "node:fs/promises";
 import { readFileSync } from "node:fs";
@@ -24,6 +26,7 @@ import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const TEST_DIR = fileURLToPath(new URL("./", import.meta.url));
+const WORKFLOW_FILE = fileURLToPath(new URL("../../../.github/workflows/ci.yml", import.meta.url));
 export const DEFAULT_SHARDS = 6;
 const TEST_PREFIX = "test/";
 const OBJECTIFS_DIR = "test/objectifs/";
@@ -141,9 +144,35 @@ const USAGE = `Usage : tsx test/shard-files.ts --shards=N (--index=I | --list --
   --shards=N    nombre de shards (défaut : ${DEFAULT_SHARDS})
   --index=I     affiche les fichiers du shard I, un par ligne
   --list        affiche le plan complet
-  --check       vérifie le plan (aucun doublon, aucune perte, aucun shard vide)
+  --check       vérifie le plan et la matrix du workflow (shards 1..N)
   --objectifs   inclut test/objectifs/*.test.ts (job nightly, label full-ci)
+  --workflow=F  workflow vérifié par --check (défaut : .github/workflows/ci.yml)
 `;
+
+/** Vérifie le plan contre le workflow, pas seulement contre sa propre sortie. */
+function checkWorkflowShards(shards: number, workflow: string): void {
+	let source: string;
+	try {
+		source = readFileSync(workflow, "utf8");
+	} catch (error) {
+		throw new Error(`workflow illisible (${workflow}) : ${String(error)}`);
+	}
+	const declared = source.match(/^\s*API_SHARDS:\s*["']?(\d+)["']?\s*$/m)?.[1];
+	if (!declared) throw new Error(`${workflow} : API_SHARDS absent`);
+	if (Number(declared) !== shards) {
+		throw new Error(`API_SHARDS=${declared} != --shards=${shards}`);
+	}
+	const listed: number[] = [];
+	for (const match of source.matchAll(/^\s*-\s*\{\s*shard:\s*(\d+)\s*,/gm)) {
+		if (match[1]) listed.push(Number(match[1]));
+	}
+	if (listed.length === 0) throw new Error(`${workflow} : matrix api-tests absente`);
+	const unique = [...new Set(listed)].sort((a, b) => a - b);
+	const expected = Array.from({ length: shards }, (_, i) => i + 1);
+	if (unique.length !== listed.length || unique.join(",") !== expected.join(",")) {
+		throw new Error(`matrix api-tests ${listed.join(",")} != 1..${shards}`);
+	}
+}
 
 async function main(): Promise<number> {
 	let shards = DEFAULT_SHARDS;
@@ -151,12 +180,19 @@ async function main(): Promise<number> {
 	let list = false;
 	let check = false;
 	let includeObjectifs = false;
+	let workflow = WORKFLOW_FILE;
 	const argv = process.argv.slice(2);
 	for (let i = 0; i < argv.length; i++) {
 		const arg = argv[i]!;
 		if (arg === "--list") { list = true; continue; }
 		if (arg === "--check") { check = true; continue; }
 		if (arg === "--objectifs") { includeObjectifs = true; continue; }
+		if (arg === "--workflow" || arg.startsWith("--workflow=")) {
+			const value = arg === "--workflow" ? argv[++i] : arg.slice("--workflow=".length);
+			if (!value) throw new Error("--workflow attend un chemin");
+			workflow = value;
+			continue;
+		}
 		if (arg === "--help" || arg === "-h") { console.log(USAGE); return 0; }
 		if (arg === "--shards" || arg.startsWith("--shards=")) {
 			shards = positiveInt(arg === "--shards" ? argv[++i] : arg.slice("--shards=".length), "--shards");
@@ -172,6 +208,7 @@ async function main(): Promise<number> {
 	const files = includeObjectifs ? await discoverTestFiles() : await discoverShardTestFiles();
 	if (files.length === 0) throw new Error("aucun fichier test/*.test.ts découvert (récursif)");
 	if (index > shards) throw new Error(`--index=${index} hors limites (1..${shards})`);
+	if (check) checkWorkflowShards(shards, workflow);
 
 	if (list || check) {
 		if (check && files.length < shards) {

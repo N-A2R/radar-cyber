@@ -18,6 +18,7 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   merge_group:
   schedule:
     - cron: "17 3 * * *"
@@ -229,17 +230,6 @@ jobs:
       - name: Tests API affectés par la PR
         run: |
           ./apps/api/node_modules/.bin/tsx apps/api/test/affected-tests.ts > /tmp/api-smoke.txt
-          # Les snapshots golden sont lus à l'exécution, pas importés :
-          # la sélection par graphe ne les voit pas. On force leur test dédié.
-          if [ -n "$GITHUB_BASE_SHA" ]; then
-            golden_changed="$(git diff --name-only --diff-filter=ACMR \
-              "$GITHUB_BASE_SHA...HEAD" -- apps/api/test/fixtures/golden || true)"
-            if [ -n "$golden_changed" ]; then
-              printf '%s\n' test/rapports-golden.test.ts >> /tmp/api-smoke.txt
-              sort -u /tmp/api-smoke.txt > /tmp/api-smoke.sorted
-              mv /tmp/api-smoke.sorted /tmp/api-smoke.txt
-            fi
-          fi
           if [ ! -s /tmp/api-smoke.txt ]; then
             echo "aucun test affecté"
             exit 0
@@ -627,7 +617,7 @@ jobs:
   # `changes` force tous les filtres à true ; seuls `api-smoke` (PR) et
   # `objectives` (nightly) peuvent encore être skipped.
   # `nightly-report` rejoint la porte sans cycle : il attend les mêmes jobs
-  # que `verify`, et `verify` n'est plus dans ses propres `needs`.
+  # que `verify`, hors `api-smoke`, et `verify` n'est plus dans ses `needs`.
   # `always()` garantit un verdict même lorsqu'une étape a échoué ou été
   # annulée.
   verify:
@@ -703,6 +693,7 @@ jobs:
     needs:
       - changes
       - contracts
+      - objectives
       - api-tests
       - web-unit
       - playwright

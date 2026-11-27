@@ -7,6 +7,10 @@
  * d'imports locaux des tests : un test est retenu s'il importe, directement ou
  * transitivement, un fichier modifié.
  *
+ * Les fixtures lues par `new URL(...)` (snapshots golden notamment) font aussi
+ * partie du graphe : un fichier modifié ou supprimé retient son test, sans
+ * contournement dans le workflow.
+ *
  * `test/objectifs/*` est bien découvert, mais exclu des shards, du canari et de
  * la sélection PR ordinaire : la nightly les exécute dans le job `objectives`
  * dédié. Les jouer sur chaque PR doublerait cette porte et ralentirait la
@@ -25,7 +29,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
+import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { discoverTestFiles, isObjectifTest, shardFiles } from "./shard-files.js";
 
@@ -99,6 +103,38 @@ function resolveImport(fromFile: string, specifier: string): string | null {
 	return null;
 }
 
+/** Références relatives passées à `new URL("...")` ; on ignore les URLs web et les chemins calculés. */
+function staticUrlSpecifiers(source: string): string[] {
+	const found: string[] = [];
+	const re = /\bnew\s+URL\(\s*(?:"([^"]+)"|'([^']+)'|`([^`]+)`)\s*(?:,|\))/g;
+	for (const match of source.matchAll(re)) {
+		const specifier = match[1] ?? match[2] ?? match[3];
+		if (!specifier || !specifier.startsWith(".") || specifier.includes("${")) continue;
+		found.push(specifier);
+	}
+	return found;
+}
+
+function isFixturePath(path: string): boolean {
+	const rel = relative(REPO_ROOT, path);
+	if (rel.startsWith("..") || rel.startsWith(sep)) return false;
+	return rel.split(sep).some((part) => part === "fixtures" || part === "golden");
+}
+
+/**
+ * Dépendances de données non importées : le slash final marque un dossier dont
+ * les fichiers sont lus par nom dynamique (`SNAPSHOT_DIR${code}.md`, etc.).
+ */
+function fixtureRefs(fromFile: string, source: string): string[] {
+	const found: string[] = [];
+	for (const specifier of staticUrlSpecifiers(source)) {
+		const target = resolve(dirname(fromFile), specifier);
+		if (!isFixturePath(target)) continue;
+		found.push(specifier.endsWith("/") ? `${target}${sep}` : target);
+	}
+	return found;
+}
+
 async function main(): Promise<void> {
 	const base = option("--base") ?? process.env.GITHUB_BASE_SHA ?? "";
 	const shards = Number(option("--shards") ?? process.env.API_SHARDS ?? 0);
@@ -124,7 +160,7 @@ async function main(): Promise<void> {
 	try {
 		changed = execFileSync(
 			"git",
-			["diff", "--name-only", "--diff-filter=ACMR", `${base}...HEAD`],
+			["diff", "--name-only", "--diff-filter=ACDMR", `${base}...HEAD`],
 			{ cwd: REPO_ROOT, encoding: "utf8" },
 		).split("\n").filter(Boolean);
 	} catch (error) {
@@ -153,13 +189,13 @@ async function main(): Promise<void> {
 		return;
 	}
 
-	const changedApi = new Set(
-		changed
-			.filter((file) => file.startsWith("apps/api/"))
-			.map((file) => resolve(REPO_ROOT, file)),
-	);
+	const changedPaths = new Set(changed.map((file) => resolve(REPO_ROOT, file)));
 	const selected = new Set<string>();
 	const closures = new Map<string, Promise<Set<string>>>();
+	const dependsOn = (dependencies: ReadonlySet<string>, changedFile: string): boolean =>
+		dependencies.has(changedFile)
+		|| [...dependencies].some((dependency) =>
+			dependency.endsWith(sep) && changedFile.startsWith(dependency));
 
 	const closure = (file: string, stack = new Set<string>()): Promise<Set<string>> => {
 		// Un cycle ne doit jamais attendre sa propre promesse : sinon `main`
@@ -177,6 +213,7 @@ async function main(): Promise<void> {
 				result.add(imported);
 				for (const dependency of await closure(imported, stack)) result.add(dependency);
 			}
+			for (const fixture of fixtureRefs(file, source)) result.add(fixture);
 			return result;
 		})();
 		closures.set(file, pending);
@@ -185,12 +222,12 @@ async function main(): Promise<void> {
 
 	for (const file of ciTests) {
 		const testFile = resolve(API_ROOT, file);
-		if (changedApi.has(testFile)) {
+		if (changedPaths.has(testFile)) {
 			selected.add(file);
 			continue;
 		}
 		const dependencies = await closure(testFile);
-		if ([...changedApi].some((changedFile) => dependencies.has(changedFile))) {
+		if ([...changedPaths].some((changedFile) => dependsOn(dependencies, changedFile))) {
 			selected.add(file);
 		}
 	}
