@@ -54,7 +54,7 @@ function MicroCourbe({ points }: { points: HistoriquePoint[] }) {
   const dernier = coordonnees[coordonnees.length - 1];
 
   return (
-    <div className="liees__historique">
+    <Card variant="transparent" padding={0} className="liees__historique">
       <p className="liees__historique-label">reliées · 30 derniers jours</p>
       <svg className="liees__courbe" viewBox={`0 0 ${largeur} ${hauteur}`}
         role="img" aria-label={`${points.length} relevé(s) des 30 derniers jours`}>
@@ -68,7 +68,7 @@ function MicroCourbe({ points }: { points: HistoriquePoint[] }) {
           <circle className="liees__courbe-point" cx={dernier.x} cy={dernier.y} r={2.5} />
         ) : null}
       </svg>
-    </div>
+    </Card>
   );
 }
 
@@ -100,18 +100,18 @@ export function LieesContenu({ data, loading, error, historique = [], onRetry }:
           <p className="liees__grand-label">reliées sur 7 jours</p>
 
           <dl className="liees__chiffres">
-            <div className="liees__chiffre">
+            <Card variant="transparent" padding={0} className="liees__chiffre">
               <dt>depuis toujours</dt>
               <dd>{nombre(data.total)}</dd>
-            </div>
-            <div className="liees__chiffre">
+            </Card>
+            <Card variant="transparent" padding={0} className="liees__chiffre">
               <dt>en attente</dt>
               <dd>{nombre(data.enAttente)}</dd>
-            </div>
-            <div className="liees__chiffre">
+            </Card>
+            <Card variant="transparent" padding={0} className="liees__chiffre">
               <dt>examinées</dt>
               <dd>{nombre(data.examinees)}</dd>
-            </div>
+            </Card>
           </dl>
 
           <h3 className="liees__sous-titre">top 5 départements</h3>
