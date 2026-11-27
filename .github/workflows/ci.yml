@@ -1,5 +1,19 @@
 name: CI
 
+# CI à étages — qui tourne quand :
+#
+#   PR          : changes → contracts (typechecks) + api-smoke (tests affectés,
+#                 2 workers) → verify. C'est la porte de merge : rapide, ciblée.
+#   merge queue : TOUT (la matrix 8 shards, web, e2e, socle, supply-chain).
+#                 Un lot ne merge que vert. Règle active sur N-A2R avec
+#                 le check requis `verify`.
+#   main (push) : TOUT, séquentiel sur les shards, pour collecter les durées
+#                 réelles qui pondèrent le shard plan.
+#   nightly     : TOUT + tests d'objectifs.
+#
+# Le label `full-ci` sur une PR élargit la sélection aux 408 fichiers dans le
+# smoke (la matrix reste réservée aux événements non-PR).
+
 on:
   push:
     branches: [main]
@@ -94,6 +108,8 @@ jobs:
           echo "api=$api web=$web infra=$infra schema=$schema"
 
   # Contrats, typechecks et migrations : aucune base nécessaire.
+  # Sur PR, c'est la moitié de la porte de merge (l'autre est api-smoke) ;
+  # sur les autres événements, il précède la suite complète.
   contracts:
     needs: changes
     if: needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true' || needs.changes.outputs.infra == 'true'
@@ -129,13 +145,67 @@ jobs:
           ./apps/api/node_modules/.bin/tsx apps/api/test/shard-files.ts \
             --shards="$API_SHARDS" --list --check
 
+  # Porte de merge d'une PR : uniquement les tests affectés par le diff,
+  # en deux workers (une base jetable chacun). Un diff limité aux workflows et
+  # actions GitHub utilise un canari de six tests ; la merge queue, main et la
+  # nightly reprennent la suite complète. Le label `full-ci` la force aussi.
+  # Les autres chemins critiques (schéma, serveur, auth, helpers) restent full.
+  # La matrix 8 shards, elle, reste aux événements non-PR.
+  api-smoke:
+    needs: changes
+    if: needs.changes.outputs.api == 'true' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:f9cf3e1f0066f0eb0c48707d864f0ac5941e9ff454a072077d97a4d278d07d73
+        env:
+          POSTGRES_USER: radar
+          POSTGRES_PASSWORD: radar
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U radar -d radar"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://radar:radar@localhost:5432/radar
+      GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      FULL_CI: ${{ contains(github.event.pull_request.labels.*.name, 'full-ci') && '1' || '0' }}
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/ci-setup
+
+      - name: Tests API affectés par la PR
+        run: |
+          ./apps/api/node_modules/.bin/tsx apps/api/test/affected-tests.ts > /tmp/api-smoke.txt
+          if [ ! -s /tmp/api-smoke.txt ]; then
+            echo "aucun test affecté"
+            exit 0
+          fi
+          echo "$(wc -l < /tmp/api-smoke.txt) fichier(s) affecté(s)"
+          cd apps/api
+          mapfile -t files < /tmp/api-smoke.txt
+          if [ "${#files[@]}" -le 4 ]; then
+            ./node_modules/.bin/tsx test/run.ts "${files[@]}"
+          else
+            ./node_modules/.bin/tsx test/parallel/run.ts "${files[@]}"
+          fi
+
+  # Suite complète en 8 shards : main, merge queue et nightly uniquement.
   # Chaque matrix job a son propre service PostgreSQL et `test/run.ts` y crée
   # une base jetable dédiée : une base par shard, aucun état partagé.
   # fail-fast: false laisse tous les verdicts s'exprimer ; un shard en échec
   # fait échouer la matrix, puis le job agrégateur `verify`.
   api-tests:
     needs: changes
-    if: needs.changes.outputs.api == 'true'
+    if: needs.changes.outputs.api == 'true' && github.event_name != 'pull_request'
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 25
 
@@ -143,7 +213,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { shard: 1, runner: instabox-medium }
+          - { shard: 1, runner: ubuntu-latest }
           - { shard: 2, runner: ubuntu-latest }
           - { shard: 3, runner: ubuntu-latest }
           - { shard: 4, runner: ubuntu-latest }
@@ -188,6 +258,9 @@ jobs:
             echo "aucun test affecté — shard ${{ matrix.shard }} ignoré"
           fi
 
+      # Séquentiel partout : main et nightly produisent les durées réelles qui
+      # pondèrent le shard plan. Le parallélisme par shard est le rôle du
+      # smoke sur PR.
       - name: Tests API (shard ${{ matrix.shard }})
         shell: bash
         working-directory: apps/api
@@ -198,13 +271,6 @@ jobs:
             exit 0
           fi
           mapfile -t files < /tmp/api-shard.txt
-          # Sur une PR qui touche un chemin critique, le shard est plein :
-          # deux workers avec une base chacun sont ~1,4× plus rapides.
-          # main/nightly restent séquentiels pour produire les durées réelles.
-          if [ "${#files[@]}" -ge 40 ] && [ "${{ github.event_name }}" = "pull_request" ]; then
-            ./node_modules/.bin/tsx test/parallel/run.ts "${files[@]}"
-            exit
-          fi
           ./node_modules/.bin/tsx test/run.ts \
             --test-reporter=spec \
             --test-reporter=./test/duration-reporter.mjs \
@@ -258,9 +324,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
+  # --- Suite complète (merge queue, main, nightly) ---
+
   web-unit:
     needs: changes
-    if: needs.changes.outputs.web == 'true'
+    if: needs.changes.outputs.web == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -278,7 +346,7 @@ jobs:
 
   playwright:
     needs: changes
-    if: needs.changes.outputs.web == 'true'
+    if: needs.changes.outputs.web == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -301,7 +369,7 @@ jobs:
 
   sdks-python:
     needs: changes
-    if: needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true'
+    if: (needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true') && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -317,7 +385,7 @@ jobs:
 
   provenance:
     needs: changes
-    if: needs.changes.outputs.schema == 'true'
+    if: needs.changes.outputs.schema == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -362,7 +430,7 @@ jobs:
 
   build:
     needs: changes
-    if: needs.changes.outputs.web == 'true'
+    if: needs.changes.outputs.web == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -380,7 +448,7 @@ jobs:
   # puis une seconde fois pour l'idempotence et sur une base COPIÉE.
   socle:
     needs: changes
-    if: needs.changes.outputs.schema == 'true'
+    if: needs.changes.outputs.schema == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -449,7 +517,7 @@ jobs:
   # d'approvisionnement régresse (audit de production, images, compose).
   supply-chain:
     needs: changes
-    if: needs.changes.outputs.infra == 'true'
+    if: needs.changes.outputs.infra == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -483,9 +551,9 @@ jobs:
           docker build --check -f docker/tor/Dockerfile .
 
   # Nom conservé pour la protection de branche : agrège TOUTES les étapes.
-  # Un job filtré par `changes` est `skipped` et reste acceptable ; seul
-  # `changes` lui-même doit être vert. `always()` garantit un verdict même
-  # lorsqu'une étape a échoué ou été annulée.
+  # Un job filtré par `changes` ou réservé aux événements non-PR est `skipped`
+  # et reste acceptable ; seul `changes` lui-même doit être vert. `always()`
+  # garantit un verdict même lorsqu'une étape a échoué ou été annulée.
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -493,6 +561,7 @@ jobs:
     needs:
       - changes
       - contracts
+      - api-smoke
       - api-tests
       - web-unit
       - playwright

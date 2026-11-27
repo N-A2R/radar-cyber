@@ -6,9 +6,13 @@
  * remonte le graphe d'imports locaux des tests : un test est retenu s'il
  * importe, directement ou transitivement, un fichier modifié.
  *
- * Les chemins critiques forcent la suite complète : une erreur dans le schéma,
- * le serveur, l'authentification ou les helpers de test ne doit jamais être
- * masquée par une sélection trop fine.
+ * Les changements limités à `.github/workflows/` et `.github/actions/` utilisent
+ * un canari de six tests : la merge queue, `main` et la nightly reprennent la
+ * suite complète. Le label `full-ci` force toujours la suite complète sur PR.
+ *
+ * Les autres chemins critiques forcent la suite complète : une erreur dans le
+ * schéma, le serveur, l'authentification ou les helpers de test ne doit jamais
+ * être masquée par une sélection trop fine.
  *
  * Sortie : un fichier `test/....test.ts` par ligne. Aucun log sur stdout.
  */
@@ -25,6 +29,19 @@ const REPO_ROOT = resolve(API_ROOT, "../..");
 
 /** Tests toujours exécutés quand aucun test n'est rattaché au diff. */
 const ALWAYS = ["test/contract-admit.test.ts", "test/securite-headers.test.ts"];
+
+/** Changements de CI seuls : validation rapide avant la merge queue. */
+const CI_ONLY = [".github/workflows/", ".github/actions/"];
+
+/** Couvre le pool PostgreSQL, les routes, l'ingestion et les rapports. */
+const CANARY = [
+	"test/rate-limit.test.ts",
+	"test/forums.test.ts",
+	"test/fuites.test.ts",
+	"test/dns-historique.test.ts",
+	"test/org-report.test.ts",
+	"test/api-composition-securite.test.ts",
+];
 
 /** Un changement ici peut affecter n'importe quel test. */
 const CRITICAL = [
@@ -104,6 +121,21 @@ async function main(): Promise<void> {
 	} catch (error) {
 		console.error(`affected-tests : diff indisponible, suite complète — ${String(error)}`);
 		emit(all);
+		return;
+	}
+
+	const ciOnly = changed.length > 0 && changed.every((file) =>
+		CI_ONLY.some((prefix) => file === prefix || file.startsWith(prefix)),
+	);
+	if (ciOnly) {
+		const canary = CANARY.filter((file) => all.includes(file));
+		if (canary.length !== CANARY.length) {
+			console.error("affected-tests : canari incomplet, suite complète");
+			emit(all);
+			return;
+		}
+		console.error(`affected-tests : CI-only, ${canary.length} test(s) canari`);
+		emit(canary);
 		return;
 	}
 
