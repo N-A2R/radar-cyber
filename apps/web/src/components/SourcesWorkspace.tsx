@@ -18,6 +18,10 @@ import HealthView from "./HealthView";
 import SourcesView from "./SourcesView";
 import { RegistryIndicators } from "./SourcesDashboardView";
 import { ArchiveProofCard, type WarcProof } from "./WarcProofCard";
+
+// Contrat historique : les tests et les shell existants importent `WarcProof`
+// depuis ce module, même si le type est maintenant défini dans WarcProofCard.
+export type { WarcProof } from "./WarcProofCard";
 import "./sources-workspace.css";
 
 export type SourcesTabKey = "registre" | "indicateurs" | "sante" | "corpus";
