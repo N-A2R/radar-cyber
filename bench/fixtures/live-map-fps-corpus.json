@@ -1,0 +1,30 @@
+{
+  "schema": "live-map-fps-corpus/v1",
+  "frozenAt": "2026-11-22T04:40:26.962Z",
+  "provenance": "Deterministic synthetic workload matching the historical 372-attack size; not a live database snapshot.",
+  "generator": "lcg-1664525-1013904223-v1",
+  "seed": 20261122,
+  "count": 372,
+  "bbox": { "minLat": 43.0, "maxLat": 46.9, "minLon": -1.9, "maxLon": 2.0 },
+  "families": ["ransomware", "leaks", "malware", "phishing", "cti", "cert"],
+  "assertionTypes": ["third_party_claim", "confirmed_incident", "ambient_signal"],
+  "severity": { "min": 1, "max": 5 },
+  "observedAtStart": "2026-11-06T00:00:00.000Z",
+  "observedAtStepMinutes": 60,
+  "depts": ["16", "17", "23", "24", "33", "40", "47", "64", "79", "86", "87"],
+  "sourceIds": [
+    "fixture-grey-01",
+    "fixture-grey-02",
+    "fixture-grey-03",
+    "fixture-grey-04",
+    "fixture-grey-05",
+    "fixture-grey-06",
+    "fixture-grey-07",
+    "fixture-grey-08",
+    "fixture-grey-09",
+    "fixture-grey-10",
+    "fixture-grey-11",
+    "fixture-grey-12"
+  ],
+  "orgId": { "start": 1000000, "step": 137, "nullEvery": 7 }
+}
