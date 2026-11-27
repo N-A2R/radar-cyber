@@ -79,7 +79,7 @@ check("comparaison avec la période précédente",
 check("période de mesure datée et traçable",
   html.includes("depuis le dernier rapport de 24 h") && html.includes("2026-11-21T18:00:00.000Z"));
 
-check("barres empilées : deux départements", (html.match(/class="corpus__bar-row"/g) ?? []).length === 2);
+check("barres empilées : deux départements", (html.match(/class="[^"]*\bcorpus__bar-row\b[^"]*"/g) ?? []).length === 2);
 check("segments : trois familles sur la Gironde",
   (html.match(/data-family="presse"/g) ?? []).length >= 2
   && html.includes('aria-label="Gironde : 4 sources. Presse : 2, Renseignement sur les menaces : 1, Rançongiciel : 1"'));

@@ -70,23 +70,23 @@ function signedCount(value: number): string {
 function departmentBars(data: CorpusStats) {
   return (
     <section className="corpus__panel" aria-labelledby="corpus-sources-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-sources-title">Sources par département</h2>
         <span className="corpus__panel-meta">
           {formatCount(data.totals.sources)} sources · {formatCount(data.totals.sourcesLocalised)} localisées
         </span>
-      </div>
+      </Card>
       {data.byDepartment.length === 0 ? (
         <p className="corpus__empty">Aucune source enregistrée pour l'instant.</p>
       ) : (
-        <div className="corpus__bars">
+        <Card variant="transparent" padding={0} className="corpus__bars">
           {data.byDepartment.map((dept: CorpusDepartment) => {
             const slices = data.families
               .filter((family) => (dept.families[family] ?? 0) > 0)
               .map((family) => ({ family, count: dept.families[family] ?? 0 }));
             const detail = slices.map((slice) => `${familyLabel(slice.family)} : ${slice.count}`).join(", ");
             return (
-              <div className="corpus__bar-row" key={dept.department || "unlocalised"}>
+              <Card variant="transparent" padding={0} className="corpus__bar-row" key={dept.department || "unlocalised"}>
                 <span className="corpus__bar-label" title={dept.department || undefined}>
                   {dept.label}
                   {dept.department ? <span className="corpus__dept-code">{dept.department}</span> : null}
@@ -107,23 +107,23 @@ function departmentBars(data: CorpusStats) {
                   ))}
                 </span>
                 <span className="corpus__bar-total">{formatCount(dept.total)}</span>
-              </div>
+              </Card>
             );
           })}
-          <div className="corpus__legend" aria-label="Familles de sources">
+          <Card variant="transparent" padding={0} className="corpus__legend" aria-label="Familles de sources">
             {data.families.map((family) => (
               <span className="corpus__legend-item" key={family}>
                 <i className="corpus__swatch" data-family={family} aria-hidden="true" />
                 {familyLabel(family)}
               </span>
             ))}
-          </div>
+          </Card>
           <p className="corpus__note">
             Une source n'est comptée dans un département que lorsque son identifiant, son nom, son URL ou sa
             description désigne un département sans ambiguïté. Les sources nationales ou ambiguës apparaissent
             comme « Non localisées » — jamais comme zéro, jamais attribuées au hasard.
           </p>
-        </div>
+        </Card>
       )}
     </section>
   );
@@ -134,12 +134,14 @@ function domainGauge(data: CorpusStats) {
   const percent = coverage.percent ?? 0;
   return (
     <section className="corpus__panel" aria-labelledby="corpus-domains-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-domains-title">Organisations avec un domaine</h2>
         <span className="corpus__panel-meta">annuaire de référence</span>
-      </div>
-      <div className="corpus__gauge-value">{formatPercent(coverage.percent)}</div>
-      <div
+      </Card>
+      <Card variant="transparent" padding={0} className="corpus__gauge-value">{formatPercent(coverage.percent)}</Card>
+      <Card
+        variant="transparent"
+        padding={0}
         className="corpus__gauge"
         role="progressbar"
         aria-label="Part des organisations avec un domaine vérifié"
@@ -149,7 +151,7 @@ function domainGauge(data: CorpusStats) {
         aria-valuetext={`${formatCount(coverage.withDomain)} sur ${formatCount(coverage.organisations)} organisations`}
       >
         <span className="corpus__gauge-fill" style={{ width: `${Math.max(0, Math.min(100, percent))}%` }} />
-      </div>
+      </Card>
       <p className="corpus__gauge-caption">
         <strong>{formatCount(coverage.withDomain)}</strong> organisations sur {formatCount(coverage.organisations)}{" "}
         portent un domaine non vide.
@@ -168,13 +170,13 @@ function growthCard(data: CorpusStats) {
   const falling = growth.change < 0;
   return (
     <section className="corpus__panel corpus__growth" aria-labelledby="corpus-growth-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-growth-title">Le corpus progresse-t-il ?</h2>
         <span className="corpus__panel-meta">depuis le dernier rapport de {growth.windowHours} h</span>
-      </div>
-      <div className="corpus__growth-value" data-trend={rising ? "up" : falling ? "down" : "flat"}>
+      </Card>
+      <Card variant="transparent" padding={0} className="corpus__growth-value" data-trend={rising ? "up" : falling ? "down" : "flat"}>
         {signedCount(growth.newEvents)}
-      </div>
+      </Card>
       <p className="corpus__growth-caption">événements ingérés lors des {growth.windowHours} dernières heures</p>
       <p className="corpus__growth-compare">
         Par rapport à {formatCount(growth.previousEvents)} sur « {growth.comparedTo} » :{" "}
@@ -220,12 +222,12 @@ function incidentRow(incident: CorpusIncident) {
 function recentIncidents(data: CorpusStats) {
   return (
     <section className="corpus__panel corpus__incidents" aria-labelledby="corpus-incidents-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-incidents-title">20 derniers incidents du corpus</h2>
         <span className="corpus__panel-meta">
           {formatCount(data.totals.incidents)} incidents dans le corpus
         </span>
-      </div>
+      </Card>
       {data.recentIncidents.length === 0 ? (
         <p className="corpus__empty">Aucun incident dans le corpus pour l'instant.</p>
       ) : (
@@ -245,10 +247,10 @@ function recentIncidents(data: CorpusStats) {
 function pressOnlyPanel(summary: PressOnlySummary) {
   return (
     <section className="corpus__panel corpus__press-only" aria-labelledby="corpus-press-only-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-press-only-title">Press-only incidents</h2>
         <span className="corpus__panel-meta">{summary.scope}</span>
-      </div>
+      </Card>
       <p className="press-only__count">{formatCount(summary.count)}</p>
       <p className="corpus__growth-caption">
         of {formatCount(summary.corpusTotal)} corpus incidents reported by the press alone
@@ -279,10 +281,10 @@ function pressOnlyPanel(summary: PressOnlySummary) {
 function unconfirmedClaimsPanel(summary: UnconfirmedClaimsSummary) {
   return (
     <section className="corpus__panel corpus__press-only" aria-labelledby="corpus-unconfirmed-claims-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-unconfirmed-claims-title">Unconfirmed claims</h2>
         <span className="corpus__panel-meta">{summary.scope}</span>
-      </div>
+      </Card>
       <p className="press-only__count">{formatCount(summary.count)}</p>
       <p className="corpus__growth-caption">
         of {formatCount(summary.corpusTotal)} corpus incidents are attacker claims
@@ -313,10 +315,10 @@ function unconfirmedClaimsPanel(summary: UnconfirmedClaimsSummary) {
 function confirmedIncidentsPanel(summary: ConfirmedIncidentsSummary) {
   return (
     <section className="corpus__panel corpus__press-only" aria-labelledby="corpus-confirmed-incidents-title">
-      <div className="corpus__panel-head">
+      <Card variant="transparent" padding={0} className="corpus__panel-head">
         <h2 id="corpus-confirmed-incidents-title">Confirmed incidents</h2>
         <span className="corpus__panel-meta">{summary.scope}</span>
-      </div>
+      </Card>
       <p className="press-only__count">{formatCount(summary.count)}</p>
       <p className="corpus__growth-caption">
         of {formatCount(summary.corpusTotal)} corpus incidents confirmed by a victim or authority
@@ -378,29 +380,29 @@ export default function CorpusView({
       ) : (
         <>
           {error ? <p className="corpus__stale">Affichage du dernier instantané réussi.</p> : null}
-          <div className="corpus__kpis">
-            <div className="corpus__kpi">
+          <Card variant="transparent" padding={0} className="corpus__kpis">
+            <Card variant="transparent" padding={0} className="corpus__kpi">
               <span className="micro">Incidents dans le corpus</span>
               <strong>{formatCount(data.totals.incidents)}</strong>
-            </div>
-            <div className="corpus__kpi">
+            </Card>
+            <Card variant="transparent" padding={0} className="corpus__kpi">
               <span className="micro">Sources</span>
               <strong>{formatCount(data.totals.sources)}</strong>
-            </div>
-            <div className="corpus__kpi">
+            </Card>
+            <Card variant="transparent" padding={0} className="corpus__kpi">
               <span className="micro">Organisations</span>
               <strong>{formatCount(data.totals.organisations)}</strong>
-            </div>
-            <div className="corpus__kpi">
+            </Card>
+            <Card variant="transparent" padding={0} className="corpus__kpi">
               <span className="micro">Couverture des domaines</span>
               <strong>{formatPercent(data.domainCoverage.percent)}</strong>
-            </div>
-          </div>
+            </Card>
+          </Card>
           {growthCard(data)}
-          <div className="corpus__grid">
+          <Card variant="transparent" padding={0} className="corpus__grid">
             {departmentBars(data)}
             {domainGauge(data)}
-          </div>
+          </Card>
           {recentIncidents(data)}
           {pressOnlyError ? (
             <p className="corpus__error" role="alert">
