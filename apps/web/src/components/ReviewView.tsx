@@ -7,6 +7,7 @@ import { useScreenExport } from "./ExportMenu";
 import "./review.css";
 import { Badge } from "@astryxdesign/core/Badge";
 import { Button } from "@astryxdesign/core/Button";
+import { Card } from "@astryxdesign/core/Card";
 import { type ReviewUrlState, type RevueBucket } from "../url-state";
 export type { RevueBucket } from "../url-state";
 
@@ -456,7 +457,7 @@ export default function ReviewView({
       onKeyDown={onKeyDown}
     >
       <header className="revue__head">
-        <div>
+        <Card variant="transparent" padding={0}>
           <h1>File de revue</h1>
           <Badge label="file" className="revue__badge" />
           <p className="revue__count" role="status">
@@ -466,8 +467,8 @@ export default function ReviewView({
                 ? "File indisponible"
                 : `${total} ${total === 1 ? "revendication restante" : "revendications restantes"} à examiner`}
           </p>
-        </div>
-        <div className="revue__tools">
+        </Card>
+        <Card variant="transparent" padding={0} className="revue__tools">
           <button
             type="button"
             className="revue__refresh"
@@ -478,7 +479,7 @@ export default function ReviewView({
             ↻ Actualiser
           </button>
           <button type="button" onClick={() => setHelp(true)}>? Raccourcis</button>
-        </div>
+        </Card>
         <form
           className="revue__search"
           onSubmit={(event) => {
@@ -502,7 +503,7 @@ export default function ReviewView({
         </form>
       </header>
 
-      <div className="revue__buckets" role="group" aria-label="Filtrer par priorité">
+      <Card variant="transparent" padding={0} className="revue__buckets" role="group" aria-label="Filtrer par priorité">
         {BUCKETS.map((item) => (
           <button
             key={item.value}
@@ -513,9 +514,9 @@ export default function ReviewView({
             {item.label}
           </button>
         ))}
-      </div>
+      </Card>
 
-      <div className="revue__families" role="group" aria-label="Filtrer par famille">
+      <Card variant="transparent" padding={0} className="revue__families" role="group" aria-label="Filtrer par famille">
         <span className="revue__filter-label">Famille</span>
         <button type="button" aria-pressed={family === ""} onClick={() => changeFamily("")}>Toutes</button>
         {families.map((name) => (
@@ -531,7 +532,7 @@ export default function ReviewView({
           </button>
         ))}
         {families.length === 0 ? <span className="revue__none">aucune famille sur cette page</span> : null}
-      </div>
+      </Card>
 
       {!loading && !error ? (
         <p className="revue__results" role="status">
@@ -542,7 +543,7 @@ export default function ReviewView({
 
       {!loading && notice ? <p className="revue__notice" role="status">{notice}</p> : null}
       {!loading && error ? (
-        <div className="revue__error" role="alert">
+        <Card variant="transparent" padding={0} className="revue__error" role="alert">
           <p>{error}</p>
           {server ? (
             <button type="button" className="revue__retry" onClick={retry}>
@@ -552,7 +553,7 @@ export default function ReviewView({
           {server && rows.length > 0 ? (
             <p className="revue__stale">Dernier résultat connu conservé ci-dessous.</p>
           ) : null}
-        </div>
+        </Card>
       ) : null}
       {loading ? <LoadingSkeleton label="Chargement de la file de revue…" /> : null}
       {!loading && visibleRows.length === 0 && !error && server ? (
@@ -570,8 +571,8 @@ export default function ReviewView({
       {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour enregistrer des décisions.</p> : null}
 
       {!loading && visibleRows.length > 0 && server ? (
-        <div className="revue__bulk" aria-label="Décisions en masse">
-          <div className="revue__bulk-head">
+        <Card variant="transparent" padding={0} className="revue__bulk" aria-label="Décisions en masse">
+          <Card variant="transparent" padding={0} className="revue__bulk-head">
             <label className="revue__select">
               <input
                 ref={selectAllRef}
@@ -586,7 +587,7 @@ export default function ReviewView({
             <span className="revue__bulk-count" role="status">
               {selectedRows.length} sélectionnée{selectedRows.length > 1 ? "s" : ""} sur {visibleRows.length}
             </span>
-          </div>
+          </Card>
 
           {selectedRows.length > 0 ? (
             <ul className="revue__bulk-targets">
@@ -611,7 +612,7 @@ export default function ReviewView({
             placeholder="Motif appliqué à chaque ligne sélectionnée"
             onChange={(event) => { setBulkReason(event.target.value); setBulkError(null); }}
           />
-          <div className="revue__bulk-actions">
+          <Card variant="transparent" padding={0} className="revue__bulk-actions">
             <button
               type="button"
               disabled={!canWrite || submitting || selectedRows.length === 0 || !bulkReason.trim()}
@@ -626,19 +627,19 @@ export default function ReviewView({
             >
               Rejeter la sélection
             </button>
-          </div>
+          </Card>
           {progress ? (
             <p className="revue__progress" role="status">Décisions {progress.done}/{progress.total} envoyées…</p>
           ) : null}
           {bulkError ? <p className="revue__error" role="alert">{bulkError}</p> : null}
-        </div>
+        </Card>
       ) : null}
 
       {!loading && visibleRows.length > 0 ? (
       <ul className="revue__list">
         {visibleRows.map((row, index) => (
           <li className="revue__row" key={row.id} data-bucket={row.triage.bucket} data-active={index === active ? "true" : undefined}>
-            <div className="revue__main">
+            <Card variant="transparent" padding={0} className="revue__main">
               <label className="revue__select">
                 <input
                   type="checkbox"
@@ -655,9 +656,9 @@ export default function ReviewView({
                 {(row.claimedAt ?? row.receivedAt)?.slice(0, 10) ?? "date inconnue"}
               </time>
               <span className="revue__bucket">{row.triage.bucket}</span>
-            </div>
+            </Card>
 
-            <div className="revue__candidates">
+            <Card variant="transparent" padding={0} className="revue__candidates">
               <span className="revue__label">Candidats</span>
               {row.candidates.length === 0 ? <span className="revue__none">aucun candidat</span> : null}
               {row.candidates.map((candidate) => (
@@ -672,8 +673,8 @@ export default function ReviewView({
                   <span className="revue__candidate-score">{candidate.score.toFixed(2)} · {candidate.via}</span>
                 </button>
               ))}
-            </div>
-            <div className="revue__raw" data-raw="level-4">
+            </Card>
+            <Card variant="transparent" padding={0} className="revue__raw" data-raw="level-4">
               <button
                 type="button"
                 disabled={!server || rawLoading === row.id}
@@ -688,9 +689,9 @@ export default function ReviewView({
                   <pre className="revue__raw-extracted">{JSON.stringify(rawById[row.id]!.extracted, null, 2)}</pre>
                 </>
               ) : null}
-            </div>
+            </Card>
 
-            <div className="revue__actions">
+            <Card variant="transparent" padding={0} className="revue__actions">
               <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "accepter")}>
                 Accepter
               </button>
@@ -700,7 +701,7 @@ export default function ReviewView({
               <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "creer")}>
                 Créer l'organisation
               </button>
-            </div>
+            </Card>
 
             {openRow === row.id ? (
               <form className="revue__decision" onSubmit={decide}>
@@ -723,7 +724,7 @@ export default function ReviewView({
                   onChange={(event) => setReason(event.target.value)}
                 />
                 {actionError ? <p className="revue__error" role="alert">{actionError}</p> : null}
-                <div className="revue__decision-actions">
+                <Card variant="transparent" padding={0} className="revue__decision-actions">
                   <button
                     type="submit"
                     disabled={submitting || !reason.trim()}
@@ -731,7 +732,7 @@ export default function ReviewView({
                     Confirmer
                   </button>
                   <button type="button" onClick={closeAction}>Annuler</button>
-                </div>
+                </Card>
               </form>
             ) : null}
           </li>
@@ -757,7 +758,7 @@ export default function ReviewView({
         width={560}
         aria-labelledby="revue-help-title"
       >
-        <div className="revue__help">
+        <Card variant="transparent" padding={0} className="revue__help">
           <h2 id="revue-help-title">Raccourcis clavier</h2>
           <dl>
             <dt>J / ↓</dt><dd>Aller à la ligne suivante</dd>
@@ -772,7 +773,7 @@ export default function ReviewView({
           </dl>
           <p className="revue__help-note">Les raccourcis sont ignorés pendant la saisie dans un champ.</p>
           <Button label="Fermer" onClick={() => setHelp(false)} />
-        </div>
+        </Card>
       </Dialog>
     </section>
   );
