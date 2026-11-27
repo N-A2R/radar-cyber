@@ -14,7 +14,9 @@ interface PoCRepo {
 const MAX_FILES = 60;
 
 export const collector: Collector = {
-  id: "poc_github",
+  // `poc` est l'identifiant réservé au collecteur dédié par le moteur générique.
+  // L'ancien `poc_github` reste en base pour les événements historiques.
+  id: "poc",
   family: "vuln",
   intervalSec: 86400,
   async run(ctx) {
@@ -66,7 +68,7 @@ export const collector: Collector = {
         observedAt: iso,
         severity: 4,
         confidence: "B2",
-        sourceId: "poc_github",
+        sourceId: "poc",
         sourceUrl: first.html_url ?? `https://github.com/nomi-sec/PoC-in-GitHub/blob/master/${f.path}`,
         evidence: { pocCount: repos.length, repo: first.html_url ?? null },
         geoType: "unknown",

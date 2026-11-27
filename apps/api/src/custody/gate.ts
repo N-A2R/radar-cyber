@@ -41,7 +41,7 @@ export const REAL_STATE: Readonly<ProvenanceState> = Object.freeze({
  */
 export const CI_FIXTURE_STATE: Readonly<ProvenanceState> = Object.freeze({
   organisations: 30,
-  sources: 2_757,
+  sources: 2_759,
   events: 340,
 });
 

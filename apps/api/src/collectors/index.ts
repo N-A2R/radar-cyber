@@ -17,8 +17,15 @@ import { query, withTransaction } from "../db.js";
 // collecteurs dédiés, appelés depuis server.ts.
 export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc, fuites, certfrMisp];
 
-/** Sources dont le flux est lu par un collecteur dédié, jamais par le moteur générique. */
-export const COLLECTEURS_DEDIES_IDS: readonly string[] = collectors.map((c) => c.id);
+/**
+ * Sources dont le flux est lu par un collecteur dédié, jamais par le moteur
+ * générique. `poc_github` est l'ancien identifiant, conservé pour les événements
+ * historiques et désactivé : il ne doit être ni ratissé ni relancé.
+ */
+export const COLLECTEURS_DEDIES_IDS: readonly string[] = [...new Set([
+	...collectors.map((c) => c.id),
+	"poc_github",
+])];
 
 /** Nombre d'échecs consécutifs au-delà duquel une source est déclarée morte. */
 export const SEUIL_ECHECS_MORTE = 5;

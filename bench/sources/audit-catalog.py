@@ -22,8 +22,13 @@ import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
+INSERT_SOURCE = re.compile(
+    r"INSERT\s+INTO\s+(?:public\.)?source\s*\(([^)]*)\)\s*VALUES",
+    re.S | re.I,
+)
 
 
 def shared_families() -> list[str]:
@@ -81,19 +86,81 @@ def split_tuples(values: str) -> list[list[str]]:
     return rows
 
 
-def parse_catalogues() -> list[dict]:
-    pattern = re.compile(
-        r"INSERT\s+INTO\s+source\s*\(([^)]*)\)\s*VALUES(.*?);",
-        re.S | re.I,
+def fin_instruction(texte: str, debut: int) -> int:
+    """Index du `;` terminal, en ignorant ceux qui sont dans une chaîne SQL.
+
+    Les URL de catalogues contiennent des entités HTML (`&amp;`) : un simple
+    `VALUES(.*?);` s'arrêtait au premier `;`, tronquait l'INSERT et sous-comptait
+    les sources .onion et les sources déclarées ensuite.
+    """
+    profondeur = 0
+    en_chaine = False
+    i = debut
+    while i < len(texte):
+        ch = texte[i]
+        if en_chaine:
+            if ch == "'":
+                if i + 1 < len(texte) and texte[i + 1] == "'":
+                    i += 2
+                    continue
+                en_chaine = False
+        elif ch == "'":
+            en_chaine = True
+        elif ch == "(":
+            profondeur += 1
+        elif ch == ")":
+            profondeur = max(0, profondeur - 1)
+        elif ch == ";" and profondeur == 0:
+            return i
+        i += 1
+    return len(texte)
+
+
+def est_onion(url: str) -> bool:
+    """Hôte `.onion`, quelle que soit la casse, y compris derrière un chemin."""
+    try:
+        hote = (urlsplit(url).hostname or "").lower()
+    except ValueError:
+        hote = ""
+    return hote.endswith(".onion") or ".onion" in url.lower()
+
+
+def mesures_readme() -> dict:
+    """Chiffres de base live publiés par le README, lus et non recopiés."""
+    texte = (ROOT / "README.md").read_text(errors="replace")
+
+    def entier(motif: str) -> int | None:
+        trouve = re.search(motif, texte)
+        if not trouve:
+            return None
+        return int(re.sub(r"\s", "", trouve.group(1)))
+
+    date = re.search(r"##\s+État mesuré\s+\((\d{4}-\d{2}-\d{2})\)", texte)
+    onion = re.search(
+        r"Sources `\.onion` déclarées / activées / productives\s*\|\s*([\d\s/]+)\s*\|",
+        texte,
     )
+    return {
+        "date": date.group(1) if date else None,
+        "sources_declarees": entier(r"\|\s*Sources déclarées\s*\|\s*([\d\s]+)\s*\|"),
+        "sources_activees": entier(r"\|\s*Sources activées\s*\(`enabled`\)\s*\|\s*([\d\s]+)\s*\|"),
+        "onion_declarees_actives_productives": (
+            [int(v) for v in re.sub(r"\s", "", onion.group(1)).split("/")]
+            if onion else None
+        ),
+    }
+
+
+def parse_catalogues() -> list[dict]:
     out: list[dict] = []
     for path in sorted((ROOT / "db").glob("*.sql")):
         text = path.read_text(errors="replace")
         # les lignes commentées ne comptent pas comme catalogue
         text = "\n".join(line for line in text.splitlines() if not line.lstrip().startswith("--"))
-        for match in pattern.finditer(text):
+        for match in INSERT_SOURCE.finditer(text):
             columns = [c.strip() for c in match.group(1).split(",")]
-            for fields in split_tuples(match.group(2)):
+            fin = fin_instruction(text, match.end())
+            for fields in split_tuples(text[match.end():fin]):
                 if len(fields) != len(columns):
                     continue
                 row = dict(zip(columns, fields))
@@ -110,6 +177,7 @@ def main() -> None:
 
     families = shared_families()
     rows = parse_catalogues()
+    readme = mesures_readme()
     # une source peut être réinsérée par un script de réparation : on garde la
     # dernière déclaration, mais on compte les réécritures.
     by_id: dict[str, dict] = {}
@@ -128,7 +196,9 @@ def main() -> None:
         urls[r.get("url", "")].append(r.get("id", ""))
     duplicate_urls = {u: ids for u, ids in urls.items() if len(ids) > 1}
 
-    onion = [r for r in sources if ".onion" in r.get("url", "")]
+    onion = [r for r in sources if est_onion(r.get("url", ""))]
+    actifs = [r for r in sources if r.get("enabled", "true").lower() == "true"]
+    onion_actifs = [r for r in onion if r.get("enabled", "true").lower() == "true"]
     plaintext = [r for r in sources if r.get("url", "").startswith("http://")]
     disabled = [r for r in sources if r.get("enabled", "true").lower() == "false"]
     formats = Counter(r.get("format", "?") for r in sources)
@@ -138,6 +208,7 @@ def main() -> None:
     report = {
         "declarations_sql": len(rows),
         "sources_uniques": len(sources),
+        "sources_actives": len(actifs),
         "familles_connues": families,
         "familles_invalides": invalid,
         "repartition_familles": dict(family_counts.most_common()),
@@ -146,8 +217,10 @@ def main() -> None:
         "urls_en_doublon": duplicate_urls,
         "identifiants_redeclares": redeclared,
         "onion": len(onion),
+        "onion_actives": len(onion_actifs),
         "http_non_chiffre": len(plaintext),
         "desactivees": len(disabled),
+        "readme_mesures_base_live": readme,
     }
 
     lines = [
@@ -160,13 +233,16 @@ def main() -> None:
         "sandbox ne permet pas de sonder les flux ; les mesures de rendement restent à "
         "faire avec `scripts/source-health.mts` en environnement ouvert.",
         "",
-        "**Écart avec le README.** Le README annonce 594 sources en base ; seules "
-        f"**{len(sources)} sont déclarées dans le dépôt**. Le complément venait d'imports "
-        "de fichiers externes absents du repo : `db/import-feeds.ts` attend "
-        "`/tmp/osint-repos/.../threat-intelligence-feeds.csv` et `db/import-json-sources.ts` "
-        "attend `/tmp/estorides-sources.json`. Un déploiement neuf ne reproduit donc pas "
-        "le catalogue mesuré : les sources manquantes ne sont reconstituables qu'en "
-        "retrouvant ces fichiers.",
+        f"**Périmètre du README.** Le README publie une mesure de base live "
+        f"({readme['date'] or 'date non lue'}) : "
+        f"{readme['sources_declarees'] if readme['sources_declarees'] is not None else '?'} "
+        "sources déclarées, "
+        f"{readme['sources_activees'] if readme['sources_activees'] is not None else '?'} "
+        "activées. Ce rapport recalcule ses compteurs depuis `db/*.sql` au moment de "
+        "l'exécution : il ne recopie aucun chiffre. Les deux périmètres diffèrent : "
+        "la base live a également reçu des imports externes absents du repo "
+        "(`/tmp/osint-repos/.../threat-intelligence-feeds.csv`, "
+        "`/tmp/estorides-sources.json`), qu'un déploiement neuf ne peut reconstituer.",
         "",
         "## Familles inconnues du contrat",
         "",
@@ -228,7 +304,9 @@ def main() -> None:
         "",
         f"- Formats : {', '.join(f'`{k}` {v}' for k, v in formats.most_common())}",
         f"- Natures : {', '.join(f'`{k}` {v}' for k, v in kinds.most_common())}",
-        f"- Flux `.onion` (nécessitent Tor) : **{len(onion)}**",
+        f"- Sources actives (`enabled`) : **{len(actifs)}**",
+        f"- Flux `.onion` (nécessitent Tor) : **{len(onion)}** "
+        f"(dont **{len(onion_actifs)}** activées dans le catalogue)",
         f"- URL non chiffrées `http://` : **{len(plaintext)}**",
         f"- Sources désactivées : **{len(disabled)}**",
         f"- Identifiants réécrits par plusieurs scripts : **{len(redeclared)}**",

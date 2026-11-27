@@ -23,9 +23,11 @@ BEGIN
   SELECT count(*) INTO orgs FROM org;
   SELECT count(*) INTO sources FROM source;
   SELECT count(*) INTO events FROM event;
-  IF (orgs, sources, events) NOT IN ((30, 2757, 339), (30, 2757, 340)) THEN
+  -- 2757 est le contexte historique ; la migration 250 ajoute deux sources
+  -- (`poc`, `fuites`) sans toucher aux organisations ni aux événements.
+  IF (orgs, sources, events) NOT IN ((30, 2759, 339), (30, 2759, 340)) THEN
     RAISE EXCEPTION
-      'contexte fixture inattendu: % organisations, % sources, % événements (attendu 30/2757/339 ou 30/2757/340)',
+      'contexte fixture inattendu: % organisations, % sources, % événements (attendu 30/2759/339 ou 30/2759/340)',
       orgs, sources, events;
   END IF;
 END $$;
