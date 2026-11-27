@@ -28,6 +28,7 @@
 // bibliothèque hors du chunk initial.
 import '../maplibre-worker'
 import { useEffect, useRef, useState } from 'react'
+import { Card } from '@astryxdesign/core/Card'
 import * as maplibregl from 'maplibre-gl'
 import type { ExpressionSpecification } from 'maplibre-gl'
 import { FAMILY_HEX, familyHexFallback, resolveTokenColor, clearTokenCache, type FlowArc } from './arcs.js'
@@ -1370,9 +1371,11 @@ export default function Map3D(props: Map3DProps) {
     renderRef.current?.()
   }, [props.orgs, props.events, props.families, props.flows])
 
-  return <div ref={ref} style={{ width: '100%', height: '100%', position: 'relative' }}>
+  return <Card variant="transparent" padding={0} ref={ref} style={{ width: '100%', height: '100%', position: 'relative' }}>
     {mapUnavailable ? (
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         className="radar-map-unavailable"
         role="status"
         aria-live="polite"
@@ -1381,9 +1384,9 @@ export default function Map3D(props: Map3DProps) {
         <strong>Carte interactive indisponible</strong>
         <span>Cet appareil ne prend pas en charge WebGL2. Les données restent consultables dans les autres panneaux.</span>
         <span>{CITY_LABELS.map(([name]) => name).join(' · ')}</span>
-      </div>
+      </Card>
     ) : null}
-    {props.live && !MOCK_MODE ? <div className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</div> : null}
+    {props.live && !MOCK_MODE ? <Card variant="transparent" padding={0} className="live-map-badge" role="status">LIVE · {liveStatus?.count ?? 0} attacks · {liveStatus?.fps ?? 0} fps</Card> : null}
     <Badge label="Nouvelle-Aquitaine" className="map3d__badge" style={{ position: 'absolute', bottom: 8, left: 8, zIndex: 2, pointerEvents: 'none' }} />
-  </div>
+  </Card>
 }

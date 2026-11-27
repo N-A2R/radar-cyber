@@ -3,6 +3,7 @@ import { api, registreTraitementsExportFilename, motifLabel, sourceStatus, sourc
 import { downloadBlob } from "../export";
 import type { SourcesViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { Card } from "@astryxdesign/core/Card";
 import "./sources.css";
 import RelancerButton from "./RelancerButton";
 import { Button } from "@astryxdesign/core/Button";
@@ -356,7 +357,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
         )}
       </header>
 
-      <div className="sources-view__toolbar">
+      <Card variant="transparent" padding={0} className="sources-view__toolbar">
         <Button
           label={exportEnCours ? "Export en cours…" : "Registre des traitements (CSV)"}
           onClick={() => void exporterRegistre()}
@@ -380,14 +381,14 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
             ? "aucune ligne"
             : `${formatNumber(firstIndex + 1)}–${formatNumber(lastIndex)} sur ${formatNumber(rows.length)}`}
         </span>
-      </div>
+      </Card>
 
       {exportErreur ? (
         <p role="alert" className="sources-view__summary" data-tone="error">
           {exportErreur}
         </p>
       ) : null}
-      <div className="sources-view__scroll">
+      <Card variant="transparent" padding={0} className="sources-view__scroll">
         <Table className="sources-table" density="compact" dividers="rows">
           <caption className="sources-view__caption">
             Registre des sources surveillées
@@ -551,7 +552,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
             )}
           </tbody>
         </Table>
-      </div>
+      </Card>
 
       {pageCount > 1 && (
         <nav className="sources-view__pager" aria-label="Pagination du registre des sources">

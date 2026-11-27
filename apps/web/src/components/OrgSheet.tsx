@@ -3,6 +3,7 @@ import { api, type ApiError, type OrgDetail as OrgDetailData, type OrgLien } fro
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
 import { DroitReponseBloc } from "./DroitReponseSection";
+import { Card } from "@astryxdesign/core/Card";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./orgsheet.css";
 import { Badge } from "@astryxdesign/core/Badge";
@@ -172,7 +173,7 @@ export function OrgSheetBody({ data, onClose }: { data: OrgDetailData; onClose?:
   const peak = Math.max(1, ...exposure.map((p) => p.count));
 
   return (
-    <div className="orgsheet__body">
+    <Card variant="transparent" padding={0} className="orgsheet__body">
       <p className="orgsheet__identity">{identity.length > 0 ? identity.join(" · ") : "identité incomplète"}</p>
 
       <section className="orgsheet__section">
@@ -337,19 +338,19 @@ export function OrgSheetBody({ data, onClose }: { data: OrgDetailData; onClose?:
 
       <section className="orgsheet__section">
         <h3 className="orgsheet__section-title">exposition sur 12 mois</h3>
-        <div className="orgsheet__chart" role="img" aria-label={`exposition mensuelle, maximum ${peak}`}>
+        <Card variant="transparent" padding={0} className="orgsheet__chart" role="img" aria-label={`exposition mensuelle, maximum ${peak}`}>
           {exposure.map((p) => (
-            <div key={p.month} className="orgsheet__bar-slot">
-              <div
+            <Card variant="transparent" padding={0} key={p.month} className="orgsheet__bar-slot">
+              <span
                 className={`orgsheet__bar${p.count === 0 ? " orgsheet__bar--empty" : ""}`}
                 style={{ height: `${Math.round((p.count / peak) * 100)}%` }}
                 title={`${p.month} : ${p.count}`}
               />
               <span className="orgsheet__bar-label">{p.month.slice(5)}</span>
-            </div>
+            </Card>
           ))}
-        </div>
+        </Card>
       </section>
-    </div>
+    </Card>
   );
 }

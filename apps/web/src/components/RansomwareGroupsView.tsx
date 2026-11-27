@@ -4,6 +4,7 @@
  */
 import type { RansomwareGroupsResponse } from "../api";
 import { Table } from "@astryxdesign/core/Table";
+import { Card } from "@astryxdesign/core/Card";
 
 type Props = {
   data: RansomwareGroupsResponse | null;
@@ -34,7 +35,7 @@ export default function RansomwareGroupsView({ data, loading, error }: Props) {
         </p>
       </header>
 
-      <div className="corpus__panels">
+      <Card variant="transparent" padding={0} className="corpus__panels">
         <article className="corpus__panel">
           <h2>Tracked groups</h2>
           <p className="corpus__hero">{numberFormat.format(data.trackedGroups)}</p>
@@ -43,7 +44,7 @@ export default function RansomwareGroupsView({ data, loading, error }: Props) {
           <h2>Groups with NA victims</h2>
           <p className="corpus__hero">{numberFormat.format(data.groupsWithNaVictims)}</p>
         </article>
-      </div>
+      </Card>
 
       <section className="corpus__panel" aria-labelledby="ransomware-groups-list">
         <h2 id="ransomware-groups-list">Groups and victims</h2>
@@ -71,12 +72,12 @@ export default function RansomwareGroupsView({ data, loading, error }: Props) {
                 }>;
                 if (victims.length === 0) return "—";
                 return victims.map((victim) => (
-                  <div key={`${victim.orgId}-${victim.matchType}`}>
+                  <Card variant="transparent" padding={0} key={`${victim.orgId}-${victim.matchType}`}>
                     {victim.orgName} (dept {victim.department ?? "?"}, {victim.matchType}, {formatDate(victim.claimedAt)})
                     {victim.sourceUrl ? (
                       <> · <a href={victim.sourceUrl} target="_blank" rel="noreferrer noopener">source</a></>
                     ) : null}
-                  </div>
+                  </Card>
                 ));
               },
             },

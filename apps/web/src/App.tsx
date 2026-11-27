@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { TopNav, TopNavItem } from "@astryxdesign/core/TopNav";
 import { Banner } from "@astryxdesign/core/Banner";
 import { Button } from "@astryxdesign/core/Button";
@@ -37,12 +38,12 @@ import { buildBuckets, eventsInBucket, withEmptyBuckets } from "./map/timeline.j
 // squelette occupe la même zone jusqu'à l'arrivée du chunk.
 function ViewSkeleton() {
   return (
-    <div className="view-skeleton" role="status" aria-live="polite">
+    <Card variant="transparent" padding={0} className="view-skeleton" role="status" aria-live="polite">
       <span className="view-skeleton__label">chargement…</span>
       <span className="view-skeleton__line" />
       <span className="view-skeleton__line" />
       <span className="view-skeleton__line" />
-    </div>
+    </Card>
   );
 }
 
@@ -960,7 +961,7 @@ export default function App() {
 
   return (
     <ExportProvider>
-    <div className="shell" data-view={view}>
+    <Card variant="transparent" padding={0} className="shell" data-view={view}>
       <Button
         type="button"
         className="skip-link"
@@ -972,10 +973,10 @@ export default function App() {
       ) : null}
 
       <header className="rail">
-        <div className="wordmark">
+        <Card variant="transparent" padding={0} className="wordmark">
           <b>Radar Cyber</b>
           <span>Nouvelle-Aquitaine</span>
-        </div>
+        </Card>
 
         <TopNav
           className="rail__nav"
@@ -1036,11 +1037,11 @@ export default function App() {
 
       {error ? <p className="shell__error" role="alert" aria-live="assertive">API : {error}</p> : null}
       {logoutState === "failed" ? (
-        <div className="shell__error" role="alert" aria-live="assertive">
+        <Card variant="transparent" padding={0} className="shell__error" role="alert" aria-live="assertive">
           <span>Session distante encore active : la révocation a échoué, vous restez connecté.</span>
           <Button label="Réessayer" variant="ghost" size="sm" onClick={() => void onLogout()} />
           <Button label="Se déconnecter quand même" variant="ghost" size="sm" onClick={() => finishLogout(true)} />
-        </div>
+        </Card>
       ) : null}
       {/* Offline first: the cache age replaces the live claim; an API error
           with no offline event still reports stale snapshot data. */}
@@ -1055,7 +1056,9 @@ export default function App() {
         </p>
       ) : null}
 
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         className="shell__body"
         data-feed={feedState}
         data-inspector={inspectorOpen ? "open" : "closed"}
@@ -1071,7 +1074,7 @@ export default function App() {
             >
               ‹
             </button>
-            <div className="family-filter" role="group" aria-label="Périmètre du fil">
+            <Card variant="transparent" padding={0} className="family-filter" role="group" aria-label="Périmètre du fil">
               <span className="family-filter__label">Périmètre</span>
               <button
                 type="button"
@@ -1098,7 +1101,7 @@ export default function App() {
               >
                 <span>Vulnérabilités</span>
               </button>
-            </div>
+            </Card>
             <Suspense fallback={<ViewSkeleton />}>
               <EventList
                 events={ordered}
@@ -1236,7 +1239,7 @@ export default function App() {
             </Suspense>
           </section>
         ) : null}
-      </div>
+      </Card>
 
       <Suspense fallback={null}>
       <CommandPalette
@@ -1247,7 +1250,7 @@ export default function App() {
         mock={MOCK_MODE ? { orgs, events } : null}
       />
       </Suspense>
-    </div>
+    </Card>
     </ExportProvider>
   );
 }

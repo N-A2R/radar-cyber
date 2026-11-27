@@ -188,12 +188,12 @@ export function DroitReponseSection({
             />
           </label>
 
-          <div className="droit-reponse__actions">
+          <Card variant="transparent" padding={0} className="droit-reponse__actions">
             <button type="submit" disabled={etat === "envoi"}>
               {etat === "envoi" ? "envoi en cours…" : "envoyer la demande"}
             </button>
             <button type="button" onClick={onFermer} disabled={etat === "envoi"}>annuler</button>
-          </div>
+          </Card>
           <p className="orgsheet__note">
             Vos coordonnées servent uniquement à instruire la demande. Aucune publication n'est automatique :
             un administrateur décide, et sa décision est tracée.

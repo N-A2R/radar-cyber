@@ -3,6 +3,7 @@ import "./skeleton.css";
 import { Button } from "@astryxdesign/core/Button";
 import { EmptyState as AstryxEmptyState } from "@astryxdesign/core/EmptyState";
 import { Skeleton as AstryxSkeleton } from "@astryxdesign/core/Skeleton";
+import { Card } from "@astryxdesign/core/Card";
 
 type SkeletonProps = {
   label?: string;
@@ -11,12 +12,12 @@ type SkeletonProps = {
 
 export function LoadingSkeleton({ label = "Chargement…", className }: SkeletonProps) {
   return (
-    <div className={className ? `skeleton ${className}` : "skeleton"} role="status" aria-live="polite">
+    <Card variant="transparent" padding={0} className={className ? `skeleton ${className}` : "skeleton"} role="status" aria-live="polite">
       {[0, 1, 2].map((i) => (
         <AstryxSkeleton key={i} className="skeleton__line" aria-hidden="true" />
       ))}
       <span className="skeleton__label">{label}</span>
-    </div>
+    </Card>
   );
 }
 

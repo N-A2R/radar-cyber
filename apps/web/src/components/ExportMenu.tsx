@@ -9,6 +9,7 @@ import {
   type DataRow, type ExportFormat,
 } from "../export";
 import { DropdownMenu } from "@astryxdesign/core/DropdownMenu";
+import { Card } from "@astryxdesign/core/Card";
 
 type Snapshot = { view: string; title: string; rows: DataRow[] };
 const PublishContext = createContext<((snapshot: Snapshot) => void) | null>(null);
@@ -63,7 +64,7 @@ export default function ExportMenu() {
   };
 
   return (
-    <div className="export" role="group" aria-label="Exporter l'écran courant">
+    <Card variant="transparent" padding={0} className="export" role="group" aria-label="Exporter l'écran courant">
       <DropdownMenu
         button={{ label: "Exporter", className: "export__format" }}
         items={[
@@ -72,6 +73,6 @@ export default function ExportMenu() {
         ]}
       />
       {status ? <span className="export__status" role="status">{status}</span> : null}
-    </div>
+    </Card>
   );
 }

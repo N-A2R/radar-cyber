@@ -1,4 +1,5 @@
 import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
+import { Card } from "@astryxdesign/core/Card";
 import type { FeedProps } from "../contracts";
 import "./feed.css";
 
@@ -9,7 +10,7 @@ const FAMILY_PREFIX = "family:";
 
 export default function FamilyFilter({ byFamily, family, onFamily }: FamilyFilterProps) {
   return (
-    <div className="family-filter">
+    <Card variant="transparent" padding={0} className="family-filter">
       <SegmentedControl
         label="Filtrer par famille"
         size="sm"
@@ -27,6 +28,6 @@ export default function FamilyFilter({ byFamily, family, onFamily }: FamilyFilte
           />
         ))}
       </SegmentedControl>
-    </div>
+    </Card>
   );
 }
