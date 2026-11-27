@@ -10,6 +10,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
+import { Card } from "@astryxdesign/core/Card";
 import Map3D from "../map/Map3D";
 import MapTimeline from "../map/MapTimeline";
 import MapLegend from "./MapLegend";
@@ -217,7 +218,7 @@ export default function MapWorkspace({
         </SegmentedControl>
 
         {tab === "carte" ? (
-          <div className="map-workspace__tools">
+          <Card variant="transparent" padding={0} className="map-workspace__tools">
             <select
               className="map-workspace__family"
               aria-label="Filtrer la carte par famille"
@@ -238,15 +239,15 @@ export default function MapWorkspace({
             >
               <span aria-hidden="true">⌕</span> Suis-je concerné ?
             </button>
-            <div className="map-workspace__basemap" role="group" aria-label="Fond de carte">
+            <Card variant="transparent" padding={0} className="map-workspace__basemap" role="group" aria-label="Fond de carte">
               <button type="button" aria-pressed={basemap === "plan"} onClick={() => onBasemapChange("plan")}>
                 plan
               </button>
               <button type="button" aria-pressed={basemap === "sat"} onClick={() => onBasemapChange("sat")}>
                 satellite
               </button>
-            </div>
-          </div>
+            </Card>
+          </Card>
         ) : null}
 
         <span className="map-workspace__status" role="status" aria-live="polite">
@@ -255,8 +256,8 @@ export default function MapWorkspace({
       </header>
 
       {tab === "carte" ? (
-        <div className="map-workspace__carte">
-          <div className="map-workspace__stage">
+        <Card variant="transparent" padding={0} className="map-workspace__carte">
+          <Card variant="transparent" padding={0} className="map-workspace__stage">
             <Map3D
               orgs={orgs}
               events={mapEvents}
@@ -276,7 +277,7 @@ export default function MapWorkspace({
               onSelect={onMapBucketChange}
             />
             <MapLegend families={legendFamilies} />
-          </div>
+          </Card>
 
           <aside className="map-workspace__side" id="map-workspace-side">
             <SegmentedControl
@@ -315,12 +316,12 @@ export default function MapWorkspace({
               />
             )}
           </aside>
-        </div>
+        </Card>
       ) : null}
 
       {tab === "graphe" ? (
-        <div className="map-workspace__graphe">
-          <div className="map-workspace__subbar">
+        <Card variant="transparent" padding={0} className="map-workspace__graphe">
+          <Card variant="transparent" padding={0} className="map-workspace__subbar">
             <SegmentedControl
               label="Vue du graphe"
               size="sm"
@@ -330,7 +331,7 @@ export default function MapWorkspace({
               <SegmentedControlItem value="graph" label="Réseau" />
               <SegmentedControlItem value="attributions" label="Attributions" />
             </SegmentedControl>
-          </div>
+          </Card>
           {panel === "attributions" ? (
             <ActorAttributionsView
               data={attributions.data}
@@ -351,11 +352,11 @@ export default function MapWorkspace({
               temporal={graph.temporal}
             />
           )}
-        </div>
+        </Card>
       ) : null}
 
       {tab === "organisations" ? (
-        <div className="map-workspace__directory">
+        <Card variant="transparent" padding={0} className="map-workspace__directory">
           <DirectoryView
             orgs={orgs}
             loading={loading}
@@ -367,7 +368,7 @@ export default function MapWorkspace({
             onCopyLink={directory.onCopyLink}
             onRetry={onRetry}
           />
-        </div>
+        </Card>
       ) : null}
     </section>
   );
