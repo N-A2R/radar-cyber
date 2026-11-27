@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "re
 import type { ReviewUrlState } from "../url-state";
 import AlertsView from "./AlertsView";
 import ReviewView from "./ReviewView";
+import { Card } from "@astryxdesign/core/Card";
 import "./action-workspace.css";
 
 /** Onglets de l'espace Action. Les libellés restent ceux des écrans d'origine. */
@@ -95,7 +96,7 @@ export function ActionWorkspace({
 
   return (
     <section className="action-workspace" aria-label="Action">
-      <div className="action-workspace__tabs" role="tablist" aria-label="Action" onKeyDown={onTabKeyDown}>
+      <Card variant="transparent" padding={0} className="action-workspace__tabs" role="tablist" aria-label="Action" onKeyDown={onTabKeyDown}>
         {TABS.map((item, index) => (
           <button
             key={item.id}
@@ -112,9 +113,11 @@ export function ActionWorkspace({
             {item.label}
           </button>
         ))}
-      </div>
+      </Card>
 
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         id="action-panel-alerts"
         className="action-workspace__panel"
         role="tabpanel"
@@ -130,9 +133,11 @@ export function ActionWorkspace({
             refreshSignal={refreshSignal}
           />
         ) : null}
-      </div>
+      </Card>
 
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         id="action-panel-review"
         className="action-workspace__panel"
         role="tabpanel"
@@ -150,7 +155,7 @@ export function ActionWorkspace({
             onUrlStateChange={onUrlStateChange}
           />
         ) : null}
-      </div>
+      </Card>
     </section>
   );
 }

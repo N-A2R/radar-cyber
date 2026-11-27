@@ -4,6 +4,7 @@ import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./Source
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./health-detail.css";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 import { Table } from "@astryxdesign/core/Table";
 
 
@@ -75,11 +76,11 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
 
       <dl className="health-detail__metrics">
         {metrics.map((m) => (
-          <div className="health-detail__metric" key={m.label}>
+          <Card variant="transparent" padding={0} className="health-detail__metric" key={m.label}>
             <dt>{m.label}</dt>
             <dd>{m.value}</dd>
             <span>{m.note}</span>
-          </div>
+          </Card>
         ))}
       </dl>
 
@@ -96,7 +97,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
               {" — "}{causes.stockage.champPropose.definition}
             </p>
           ) : null}
-          <div className="health-detail__scroll">
+          <Card variant="transparent" padding={0} className="health-detail__scroll">
             <Table className="data" density="compact" dividers="rows">
               <thead>
                 <tr>
@@ -130,7 +131,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
                 ))}
               </tbody>
             </Table>
-          </div>
+          </Card>
           <p className="health-detail__legend">
             Une source peut figurer dans plusieurs causes : ces catégories ne sont pas exclusives.
             {" "}Règles de déduction : {causes.causes.map((c) => `${c.libelle} = ${c.regle}`).join(" · ")}.
@@ -139,7 +140,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
       ) : null}
 
       <h3>dernier fait par famille</h3>
-      <div className="health-detail__scroll">
+      <Card variant="transparent" padding={0} className="health-detail__scroll">
         <Table className="data" density="compact" dividers="rows">
           <thead>
             <tr>
@@ -171,7 +172,7 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
             )}
           </tbody>
         </Table>
-      </div>
+      </Card>
 
     </section>
   );

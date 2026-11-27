@@ -10,6 +10,7 @@
 import { useCallback, useId, useRef, useState, type KeyboardEvent } from "react";
 import DossierView from "./DossierView";
 import JournalView from "./JournalView";
+import { Card } from "@astryxdesign/core/Card";
 import "./journal-workspace.css";
 
 export type JournalWorkspaceTab = "journal" | "dossier";
@@ -59,7 +60,9 @@ export default function JournalWorkspace({ onUnauthorized, tab, onTabChange }: P
 
   return (
     <section className="journal-workspace" aria-label="Journal et dossier">
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         className="journal-workspace__tabs"
         role="tablist"
         aria-label="Sections du journal"
@@ -81,9 +84,11 @@ export default function JournalWorkspace({ onUnauthorized, tab, onTabChange }: P
             {label}
           </button>
         ))}
-      </div>
+      </Card>
 
-      <div
+      <Card
+        variant="transparent"
+        padding={0}
         className="journal-workspace__panel"
         role="tabpanel"
         id={`${baseId}-panel-journal`}
@@ -92,8 +97,10 @@ export default function JournalWorkspace({ onUnauthorized, tab, onTabChange }: P
         tabIndex={0}
       >
         <JournalView onUnauthorized={onUnauthorized} />
-      </div>
-      <div
+      </Card>
+      <Card
+        variant="transparent"
+        padding={0}
         className="journal-workspace__panel"
         role="tabpanel"
         id={`${baseId}-panel-dossier`}
@@ -102,7 +109,7 @@ export default function JournalWorkspace({ onUnauthorized, tab, onTabChange }: P
         tabIndex={0}
       >
         <DossierView />
-      </div>
+      </Card>
     </section>
   );
 }

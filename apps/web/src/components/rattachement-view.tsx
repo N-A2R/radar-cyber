@@ -11,6 +11,7 @@
 import type { RattachementExplication } from "../api";
 import { EmptyState } from "./Skeleton";
 import { Badge } from "@astryxdesign/core/Badge";
+import { Card } from "@astryxdesign/core/Card";
 /** Phrase et détails d'un rattachement. `null` = événement d'avant la trace. */
 export function renduRattachement(
   explication: RattachementExplication | null,
@@ -41,21 +42,21 @@ export function renduRattachement(
       </p>
       <dl className="inspector__meta">
         {explication.alias !== null && (
-          <div className="inspector__meta-row">
+          <Card variant="transparent" padding={0} className="inspector__meta-row">
             <dt className="inspector__meta-label">Alias retenu</dt>
             <dd className="inspector__meta-value inspector__mono">{explication.alias}</dd>
-          </div>
+          </Card>
         )}
         {rattache && (
-          <div className="inspector__meta-row">
+          <Card variant="transparent" padding={0} className="inspector__meta-row">
             <dt className="inspector__meta-label">Confiance</dt>
             <dd className="inspector__meta-value">{`${Math.round(explication.confiance * 100)} %`}</dd>
-          </div>
+          </Card>
         )}
-        <div className="inspector__meta-row">
+        <Card variant="transparent" padding={0} className="inspector__meta-row">
           <dt className="inspector__meta-label">Moteur</dt>
           <dd className="inspector__meta-value inspector__mono">{explication.moteur}</dd>
-        </div>
+        </Card>
       </dl>
       {explication.indecis && (
         <p className="inspector__muted" role="status" aria-live="polite">
