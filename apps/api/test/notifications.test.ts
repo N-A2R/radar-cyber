@@ -309,15 +309,19 @@ test("RSS contains only Nouvelle-Aquitaine alerts and no personal data", async (
   assert.ok(!xml.includes("durand@example.fr"), "no personal email in the feed");
 });
 
-test("TLP:RED and review-scope alerts never enter a notification channel", async (t: TestContext) => {
+test("TLP:RED/AMBER/GREEN and review-scope alerts never enter a notification channel", async (t: TestContext) => {
   const red = await makeFixture({ tlp: "RED", title: "Incident confidentiel" });
+  const amber = await makeFixture({ tlp: "AMBER", title: "Incident AMBER" });
+  const green = await makeFixture({ tlp: "GREEN", title: "Incident GREEN" });
   t.after(red.cleanup);
+  t.after(amber.cleanup);
+  t.after(green.cleanup);
   const review = await makeFixture({ scope: "rupture-revue", title: "Rupture en revue" });
   t.after(review.cleanup);
 
   const pending = await fetchNotificationAlerts({ pendingOnly: true, limit: 1000 });
   const feed = await fetchNotificationAlerts({ pendingOnly: false, limit: 1000 });
-  for (const fixture of [red, review]) {
+  for (const fixture of [red, amber, green, review]) {
     assert.ok(!pending.some((alert) => alert.id === fixture.alertId), "excluded from the delivery queue");
     assert.ok(!feed.some((alert) => alert.id === fixture.alertId), "excluded from the public feed");
   }
@@ -325,7 +329,11 @@ test("TLP:RED and review-scope alerts never enter a notification channel", async
 
 test("the RSS route is public, returns XML and cannot leak free text", async (t: TestContext) => {
   const fixture = await makeFixture({ title: "Victime M. Dupont" });
+  const amber = await makeFixture({ tlp: "AMBER", title: "Incident AMBER" });
+  const green = await makeFixture({ tlp: "GREEN", title: "Incident GREEN" });
   t.after(fixture.cleanup);
+  t.after(amber.cleanup);
+  t.after(green.cleanup);
   const app = Fastify({ logger: false });
   installErrorHandler(app);
   installAccessControl(app);
@@ -340,6 +348,8 @@ test("the RSS route is public, returns XML and cannot leak free text", async (t:
   assert.match(response.headers["content-type"] ?? "", /application\/rss\+xml/);
   assert.match(response.body, /<rss version="2.0">/);
   assert.ok(!response.body.includes("Dupont"));
+  assert.ok(!response.body.includes(`radar-alert-${amber.alertId}`), "AMBER absent from RSS");
+  assert.ok(!response.body.includes(`radar-alert-${green.alertId}`), "GREEN absent from RSS");
 });
 
 test("shared message builder emits English structured labels only", () => {

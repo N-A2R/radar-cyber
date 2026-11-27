@@ -142,7 +142,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/onion-index", niveau: "public" },
   { methode: "GET", route: "/api/custody", niveau: "public", motif: "chaîne de custody : métadonnées de source et journal, sans donnée personnelle" },
   { methode: "GET", route: "/api/affected", niveau: "public", motif: "assistant : faits structurés avec preuves, sans donnée personnelle" },
-  { methode: "GET", route: "/api/export/misp", niveau: "public", motif: "flux MISP des faits TLP:CLEAR/GREEN, sans donnée personnelle" },
+  { methode: "GET", route: "/api/export/misp", niveau: "public", motif: "flux MISP des faits TLP:CLEAR, sans donnée personnelle" },
   { methode: "GET", route: "/api/na/provider-spof", niveau: "public" },
   { methode: "GET", route: "/api/na/providers", niveau: "public" },
   { methode: "GET", route: "/api/na/prestataires-qualifies", niveau: "public", motif: "fiches ANSSI : référence de décision, dates et extrait daté publiés, source nationale" },
