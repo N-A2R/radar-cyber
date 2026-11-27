@@ -67,11 +67,11 @@ function LigneMotif({ motif }: { motif: CouvertureResponse["parMotif"][number] }
   const libelle = libelleMotif(motif.motif);
   return (
     <li className="coverage__breakdown-row">
-      <div className="coverage__breakdown-label">
+      <Card variant="transparent" padding={0} className="coverage__breakdown-label">
         {/* Le code de mesure reste accessible, mais il ne double plus le libellé
             à l'écran : « Vu vu » ne dit rien de plus que « Vu ». */}
         <span title={motif.motif}>{libelle}</span>
-      </div>
+      </Card>
       <Barre largeur={motif.part} libelle={`${libelle}: ${motif.part} %`} />
       <span className="coverage__breakdown-value">
         <b>{motif.incidents}</b> <span>/ {motif.part} %</span>
@@ -123,12 +123,12 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
     <Card variant="transparent" padding={0}>
     <section className="coverage" aria-labelledby="coverage-title">
       <header className="coverage__header">
-        <div>
+        <Card variant="transparent" padding={0}>
           <h2 id="coverage-title">Couverture</h2>
           <p className="coverage__subtitle">
             Incidents cyber publics en Nouvelle-Aquitaine vus par le radar
           </p>
-        </div>
+        </Card>
         {data ? (
           <p className="coverage__window">
             Fenêtre de mesure <time dateTime={data.fenetre.debut}>{data.fenetre.debut}</time>
@@ -151,19 +151,19 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
       ) : (
         <>
           {data.stale ? (
-            <div className="coverage__warning" role="alert">
+            <Card variant="transparent" padding={0} className="coverage__warning" role="alert">
               <strong>Non publiable — corpus périmé.</strong>{" "}
               L'empreinte du corpus servi ne correspond pas à celle de la référence
               enregistrée. Ne pas citer ce chiffre avant le rafraîchissement du corpus.
-            </div>
+            </Card>
           ) : null}
 
-          <div className="coverage__hero">
+          <Card variant="transparent" padding={0} className="coverage__hero">
             <p className="coverage__hero-number" aria-label={`${data.global.taux} pour cent couverts`}>
               {data.global.total > 0 ? data.global.taux : "—"}
               <span aria-hidden="true">%</span>
             </p>
-            <div className="coverage__hero-context">
+            <Card variant="transparent" padding={0} className="coverage__hero-context">
               <p className="coverage__hero-count">
                 <b>{data.global.vus}</b> sur <b>{data.global.total}</b> incidents vus
               </p>
@@ -171,8 +171,8 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
                 Part des incidents publiés collectés, reconnus comme cyber et rattachés
                 à la bonne organisation.
               </p>
-            </div>
-          </div>
+            </Card>
+          </Card>
 
           {data.global.total === 0 ? (
             <p className="coverage__empty" role="status">
@@ -199,7 +199,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
           <section className="coverage__section" aria-labelledby="coverage-depts">
             <h3 id="coverage-depts">Par département</h3>
             <p className="coverage__hint">Cliquez sur un en-tête de colonne pour trier. Tous les départements sont affichés.</p>
-            <div className="coverage__scroll">
+            <Card variant="transparent" padding={0} className="coverage__scroll">
               <Table className="coverage__table" density="compact" dividers="rows">
                 <thead>
                   <tr>
@@ -224,7 +224,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
                   )}
                 </tbody>
               </Table>
-            </div>
+            </Card>
           </section>
 
           <section className="coverage__section" aria-labelledby="coverage-secteurs">
@@ -236,7 +236,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
               <ul className="coverage__breakdown">
                 {types.map((ligne) => (
                   <li className="coverage__breakdown-row" key={ligne.type}>
-                    <div className="coverage__breakdown-label"><span>{ligne.type}</span></div>
+                    <Card variant="transparent" padding={0} className="coverage__breakdown-label"><span>{ligne.type}</span></Card>
                     <Barre
                       largeur={ligne.taux}
                       libelle={`${ligne.type} : ${ligne.taux} % de couverture, ${ligne.vus} sur ${ligne.total} incidents`}
@@ -255,18 +255,18 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
           <footer className="coverage__provenance">
             <h3>Provenance</h3>
             <dl>
-              <div>
+              <Card variant="transparent" padding={0}>
                 <dt>Calculé le</dt>
                 <dd><time dateTime={data.dateCalcul}>{data.dateCalcul}</time></dd>
-              </div>
-              <div>
+              </Card>
+              <Card variant="transparent" padding={0}>
                 <dt>SHA-256 du corpus</dt>
                 <dd><code className="coverage__hash">{data.hashCorpus}</code></dd>
-              </div>
-              <div>
+              </Card>
+              <Card variant="transparent" padding={0}>
                 <dt>État du corpus</dt>
                 <dd>{data.stale ? "Périmé — non publiable" : "Correspond à la référence enregistrée"}</dd>
-              </div>
+              </Card>
             </dl>
           </footer>
         </>
