@@ -11,6 +11,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSPr
 import GraphMatrix from '../components/GraphMatrix';
 import { LoadingSkeleton } from '../components/Skeleton';
 import { Badge } from '@astryxdesign/core/Badge';
+import { Card } from '@astryxdesign/core/Card';
 import { tokenVar } from '@astryxdesign/core/theme';
 import {
   buildGraph,
@@ -572,11 +573,11 @@ export default function GraphView(props: GraphViewProps) {
   }
 
   return (
-    <div className="gv-root" style={{ backgroundColor: bg, fontFamily: 'var(--font-body)' }}>
+    <Card variant="transparent" padding={0} className="gv-root" style={{ backgroundColor: bg, fontFamily: 'var(--font-body)' }}>
       {props.loading && data.nodes.length === 0 ? (
         <LoadingSkeleton label="chargement du graphe…" />
       ) : null}
-      <div className="gv-mode-bar" role="tablist" aria-label="Affichage du graphe">
+      <Card variant="transparent" padding={0} className="gv-mode-bar" role="tablist" aria-label="Affichage du graphe">
         <button
           type="button" role="tab" id="gv-network-tab" aria-controls="gv-panel" aria-selected={mode === 'network'} tabIndex={mode === 'network' ? 0 : -1}
           className={mode === 'network' ? 'is-active' : undefined}
@@ -593,9 +594,9 @@ export default function GraphView(props: GraphViewProps) {
         >
           Matrice
         </button>
-      </div>
+      </Card>
 
-      <div className="gv-filters">
+      <Card variant="transparent" padding={0} className="gv-filters">
         <button type="button" className="gv-collapse" onClick={() => persistFiltersOpen(!filtersOpen)} aria-expanded={filtersOpen}>
           Filtres {filtersOpen ? '▾' : '▸'}
         </button>
@@ -613,7 +614,7 @@ export default function GraphView(props: GraphViewProps) {
               aria-label="Rechercher des nœuds du graphe"
             />
             <p style={BOX_LABEL}>Familles</p>
-            <div style={CHIP_WRAP}>
+            <Card variant="transparent" padding={0} style={CHIP_WRAP}>
               {families.map((family) => {
                 const active = familyFilter.has(family.name);
                 return (
@@ -624,9 +625,9 @@ export default function GraphView(props: GraphViewProps) {
                 );
               })}
               {families.length === 0 && <span style={MUTED}>Aucune famille enregistrée</span>}
-            </div>
+            </Card>
             <p style={BOX_LABEL}>Types de nœuds</p>
-            <div style={CHIP_WRAP}>
+            <Card variant="transparent" padding={0} style={CHIP_WRAP}>
               {kinds.map((kind) => {
                 const active = kindFilter.has(kind.kind);
                 return (
@@ -637,9 +638,9 @@ export default function GraphView(props: GraphViewProps) {
                   </button>
                 );
               })}
-            </div>
+            </Card>
             <p style={BOX_LABEL}>Période</p>
-            <div style={CHIP_WRAP}>
+            <Card variant="transparent" padding={0} style={CHIP_WRAP}>
               {PERIODS.map((period) => (
                 <button
                   key={period.label}
@@ -651,21 +652,21 @@ export default function GraphView(props: GraphViewProps) {
                   {period.label}
                 </button>
               ))}
-            </div>
+            </Card>
             {temporal ? (
               <>
                 <p style={BOX_LABEL}>Modèle temporel</p>
-                <div style={CHIP_WRAP}>
+                <Card variant="transparent" padding={0} style={CHIP_WRAP}>
                   <button type="button" aria-pressed={!timeAware} onClick={() => setTimeAware(false)} style={chipStyle(!timeAware, accent)}>
                     Structurel
                   </button>
                   <button type="button" aria-pressed={timeAware} onClick={() => setTimeAware(true)} style={chipStyle(timeAware, accent)}>
                     Temporel
                   </button>
-                </div>
+                </Card>
               </>
             ) : null}
-            <div className="gv-footer">
+            <Card variant="transparent" padding={0} className="gv-footer">
               <button
                 type="button"
                 onClick={resetFilters}
@@ -677,13 +678,13 @@ export default function GraphView(props: GraphViewProps) {
               <span style={MUTED}>
                 {visible.nodes.length} nœuds · {visible.links.length} liens
               </span>
-            </div>
+            </Card>
           </>
         )}
-      </div>
+      </Card>
 
       {enriched.nodes.length <= 5 ? (
-        <div className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby="gv-network-tab">
+        <Card variant="transparent" padding={0} className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby="gv-network-tab">
           <p className="gv-empty-title">Le graphe ne dessine que les liens enregistrés</p>
           <p className="gv-empty-text">
             {enriched.nodes.length === 0
@@ -694,20 +695,22 @@ export default function GraphView(props: GraphViewProps) {
             Un article de presse citant une entreprise sans correspondance dans le référentiel reste dans le fil
             mais ne crée aucun nœud. Le graphe grandit avec la qualité du rattachement, pas avec le volume collecté.
           </p>
-        </div>
+        </Card>
       ) : visible.nodes.length === 0 ? (
-        <div className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby={mode === 'matrix' ? 'gv-matrix-tab' : 'gv-network-tab'}>
+        <Card variant="transparent" padding={0} className="gv-empty" id="gv-panel" role="tabpanel" aria-labelledby={mode === 'matrix' ? 'gv-matrix-tab' : 'gv-network-tab'}>
           <p className="gv-empty-title">Aucun nœud ne correspond à ces filtres</p>
           <p className="gv-empty-text">Essayez une autre famille, période ou recherche.</p>
           <button type="button" onClick={resetFilters} className="gv-reset">Réinitialiser les filtres</button>
-        </div>
+        </Card>
       ) : mode === 'matrix' ? (
-        <div className="gv-matrix" id="gv-panel" role="tabpanel" aria-labelledby="gv-matrix-tab">
+        <Card variant="transparent" padding={0} className="gv-matrix" id="gv-panel" role="tabpanel" aria-labelledby="gv-matrix-tab">
           <GraphMatrix nodes={matrixNodes} links={visible.links} />
-        </div>
+        </Card>
       ) : (
         <>
-          <div
+          <Card
+            variant="transparent"
+            padding={0}
             ref={setContainerEl}
             className="gv-canvas"
             id="gv-panel"
@@ -757,16 +760,16 @@ export default function GraphView(props: GraphViewProps) {
                 ? `Nœud ${keyboardIndex + 1} sur ${keyboardOrder.length} : ${keyboardNode.label}, ${degreeMap.get(keyboardNode.id) ?? 0} lien(s). Entrée pour sélectionner.`
                 : ''}
             </p>
-          </div>
+          </Card>
 
-          <div className="gv-zoom" role="group" aria-label="Commandes de zoom">
+          <Card variant="transparent" padding={0} className="gv-zoom" role="group" aria-label="Commandes de zoom">
             <button type="button" onClick={() => zoomBy(1.4)} aria-label="Zoom avant" title="Zoom avant">+</button>
             <button type="button" onClick={() => zoomBy(1 / 1.4)} aria-label="Zoom arrière" title="Zoom arrière">−</button>
             <button type="button" onClick={zoomToFit} aria-label="Ajuster le graphe à la vue" title="Ajuster le graphe à la vue">Ajuster</button>
-          </div>
+          </Card>
 
-          <div className="gv-legend" aria-label="Légende du graphe">
-            <div className="gv-legend-row">
+          <Card variant="transparent" padding={0} className="gv-legend" aria-label="Légende du graphe">
+            <Card variant="transparent" padding={0} className="gv-legend-row">
               <span className="gv-legend-key">Taille = liens</span>
               {[1, 4, 16].map((degree) => (
                 <span key={degree} className="gv-legend-item">
@@ -778,16 +781,16 @@ export default function GraphView(props: GraphViewProps) {
                 </span>
               ))}
               <span className="gv-legend-note">surface proportionnelle au degré réel</span>
-            </div>
-            <div className="gv-legend-row">
+            </Card>
+            <Card variant="transparent" padding={0} className="gv-legend-row">
               <span className="gv-legend-key">Couleur = type</span>
               {kinds.map((kind) => (
                 <span key={kind.kind} className="gv-legend-item">
                   <span style={dotStyle(kind.color)} />{kind.label}
                 </span>
               ))}
-            </div>
-            <div className="gv-legend-row">
+            </Card>
+            <Card variant="transparent" padding={0} className="gv-legend-row">
               <span className="gv-legend-key">Liens</span>
               <span className="gv-legend-note">épaisseur constante · aucun poids dans la donnée</span>
               {Object.entries(LINK_TYPES).map(([type, label]) => (
@@ -795,8 +798,8 @@ export default function GraphView(props: GraphViewProps) {
                   <span className="gv-link-sample" />{label}
                 </span>
               ))}
-            </div>
-          </div>
+            </Card>
+          </Card>
         </>
       )}
 
@@ -804,10 +807,10 @@ export default function GraphView(props: GraphViewProps) {
         <aside className="gv-detail" aria-label="Détails du nœud">
           <header className="gv-detail-head">
             <span style={dotStyle(nodeColor(selection.node))} />
-            <div className="gv-detail-title">
+            <Card variant="transparent" padding={0} className="gv-detail-title">
               <strong>{selection.node.label}</strong>
               <small>{KIND_LABEL[selection.node.kind] ?? selection.node.kind} · degré {degreeMap.get(selection.node.id) ?? 0}</small>
-            </div>
+            </Card>
             <button type="button" onClick={clearSelection} className="gv-close" aria-label="Fermer les détails">×</button>
           </header>
           <dl className="kv">
@@ -836,6 +839,6 @@ export default function GraphView(props: GraphViewProps) {
           )}
         </aside>
       )}
-    </div>
+    </Card>
   );
 }
