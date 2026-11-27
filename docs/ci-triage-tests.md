@@ -6,7 +6,8 @@ réelles collectées par le `duration-reporter` (artefact `api-shard-weights`),
 montre que **89,4 % de ce temps n'était pas du test : c'était un minuteur
 PostgreSQL qui survivait aux tests**. Corrigé, le même corpus tourne en
 **~3 minutes séquentielles**, et la CI passe en étages : rapide sur la PR,
-complète dans la merge queue, sur `main` et en nightly.
+complète dans la merge queue et en nightly. `push` sur `main` ne déclenche plus
+aucun run.
 
 ## Le stall : 30 secondes par fichier qui touche la base
 
@@ -109,21 +110,22 @@ valeur.
 |---|---|---|
 | **PR** | `changes` → `contracts` (typechecks, contrats) + `api-smoke` (tests affectés, 2 workers, 2 bases) → `verify` | ~1 min ; ~30 s pour une PR sans test affecté |
 | **PR CI-only** | mêmes étages, mais `api-smoke` lance un canari de six tests (pool, routes, ingestion, rapports) | ~1 min 15 (mesuré sur #841) |
-| **Merge queue** | tout : matrix 8 shards, web, e2e, SDK, provenance, socle, supply-chain | ~2–3 min par lot |
-| **`main` (push)** | tout, shards séquentiels, collecte des durées | ~3–4 min |
-| **Nightly** | tout + tests d'objectifs | idem |
+| **Merge queue** | suite complète : matrix 8 shards, web, e2e, SDK, provenance, socle, supply-chain, collecte des durées | ~2–3 min par lot |
+| **`main` (push)** | aucun run : le commit vérifié par la merge queue est celui qui atterrit sur `main` | — |
+| **Nightly (03:17 UTC, 04:17 Europe/Paris)** | suite complète, 8 shards, + job `objectives` (`pnpm test:objectifs` sur sa propre base) | ~3–4 min |
 
 Le label `full-ci` sur une PR force les 408 fichiers dans `api-smoke`. Les
 chemins critiques (schéma, serveur, auth, helpers) forcent aussi la suite
 complète. Seuls les diffs limités à `.github/workflows/` et `.github/actions/`
 utilisent le canari. La merge queue est la porte de validation complète ;
-`main` et la nightly rejouent aussi la suite complète.
+la nightly la rejoue avec les tests d'objectifs ; les durées réelles sont
+collectées lors de ces deux événements.
 
 ### Merge queue configurée
 
 Le dépôt appartient désormais à l’organisation **N-A2R**. La règle
 `main-protection` exige le check `verify` et active la merge queue :
-`ALLGREEN`, 2 constructions simultanées, 4 PR maximum par lot, squash et
+mode **SQUASH**, 2 constructions simultanées, 4 PR maximum par lot et
 attente de groupe nulle. Chaque PR paie le smoke ; la suite complète est
 payée une fois par lot au moment de merger.
 
